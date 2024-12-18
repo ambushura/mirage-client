@@ -1,0 +1,172 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: none;
+  letter-spacing: -0.5px;
+  font-family: sans-serif;
+}
+a, a:link, a:visited  {
+  text-decoration: none;
+}
+a:hover  {
+  text-decoration: none;
+}
+aside, nav, footer, header, section, main {
+  display: block;
+}
+ul, ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+label {
+  cursor: pointer;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: white;
+}
+html, body {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Каркас */
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#box {
+  width: inherit;
+  height: inherit;
+  overflow: inherit;
+  display: flex;
+  flex-direction: column;
+}
+#header {
+  width: inherit;
+  height: 150px;
+  position: relative;
+  z-index: 1000;
+}
+.gradient-block-top, .gradient-block-bottom {
+  width: 100%;
+  height: 24px;
+  position: absolute;
+  z-index: 999;
+}
+.gradient-block-top {
+  background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  top: 200px;
+}
+.gradient-block-bottom {
+  background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  bottom: 50px;
+}
+#top-menu {
+  height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+#content {
+  overflow: hidden;
+}
+#content-wrap {
+  overflow: scroll;
+}
+#footer {
+  height: 50px;
+  position: relative;
+  z-index: 1000;
+}
+
+
+/* Шапка сайта */
+#header-desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+/* Слайдер */
+#header-slider {
+  position: relative;
+  margin: auto;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+.slide-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+/* Меню сайта */
+#header-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Контент */
+#content-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-right: -17px;
+  padding-right: 17px;
+  margin-bottom: -17px;
+  padding-bottom: 17px;
+}
+
+/* Календарь */
+.MuiDayCalendar-weekDayLabel {
+  background-color: #e3000b;
+  border-radius: 12px;
+  color: white!important;
+  font-weight: 900!important;
+}
+.MuiPickersArrowSwitcher-root {
+  margin-right: 10px;
+}

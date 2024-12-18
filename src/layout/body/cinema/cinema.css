@@ -1,0 +1,336 @@
+#top-menu-schedule {
+    display: flex;
+    justify-content: center;
+}
+.top-menu-content-types {
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+}
+.top-menu-content-types>button {
+    margin-right: 5px;
+}
+/* Плиточное расписание */
+#schedule {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden;
+}
+.film {
+    margin: 0 0 0 16px;
+    height: 340px;
+    width: 174px;
+    position: relative;
+}
+.film-poster {
+    position: relative;
+    height: 268px;
+    width: 100%;
+}
+.film-poster-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 268px;
+    width: 100%;
+    border-radius: 12px;
+}
+.film-rate-age {
+    position: absolute;
+    background-color: white;
+    bottom: 12px;
+    left: 12px;
+    width: 35px;
+    height: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2E3239;
+}
+.film-description {
+    position: absolute;
+    bottom: 0;
+    height: calc(340px - 268px);
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.film-description-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 12px 0 0 12px;
+}
+.film-description-genre {
+    color: #8B919B;
+    font-size: 12px;
+    margin-left: 12px;
+}
+
+/* Сеансы фильма */
+#seances {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 12px;
+}
+.seances-cover {
+    min-width: 164px;
+    min-height: 268px;
+}
+.seances-cover-img {
+    border-radius: 12px;
+    height: 268px;
+}
+.seances-body-poster {
+    display: flex;
+    flex-direction: row;
+}
+.seances-body-poster>div {
+    padding: 5px 10px;
+}
+.seances-body {
+    display: flex;
+    flex-direction: column;
+}
+.seances-body-filial {
+    margin-bottom: 50px;
+}
+.seances-body-filial-name {
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+.seances-body-description {
+    margin-bottom: 20px;
+}
+.seances-body-description-name {
+    font-size: 32px;
+    font-weight: 900;
+}
+.seances-body-description-genre {
+    margin: 5px 0 20px 0;
+    color: #8B919B;
+}
+.seances-body-seances {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.seances-body-seance {
+    width: 75px;
+    height: 100px;
+    margin: 0 10px 10px 0;
+    cursor: pointer;
+    color: white;
+}
+.seances-body-seance-description {
+    display: flex;
+    width: 75px;
+    height: 50px;
+    background-color: #383c45;
+    border-radius: 12px;
+    flex-direction: column;
+    justify-content: center
+}
+.seances-body-seance-description-time {
+    font-weight: 900;
+    text-align: center;
+    vertical-align: center;
+}
+.seances-body-seance-description-copy-type {
+    text-align: center;
+    vertical-align: center;
+    color: #8B919B;
+    font-size: 12px;
+}
+.seances-body-seance-price {
+    text-align: center;
+    vertical-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Сеанс */
+#seance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+#seance-title {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+    text-align: center;
+}
+#seance-title>div {
+    margin: 3px 0;
+}
+.seance-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 10px;
+}
+.seance-panel>div, .seance-panel>a {
+    margin-right: 10px;
+}
+.seance-title-film-name {
+    font-size: 40px;
+    font-weight: bold;
+}
+.seance-title-hall-name {
+    font-size: 18px;
+    color: #8B919B;
+    font-weight: bold;
+}
+.seance-title-panel {
+    display: flex;
+}
+.seance-title-preorder {
+    min-width: 300px;
+    color: white;
+    display: flex;
+}
+.seance-title-timeslot {
+    width: 159px;
+    height: 60px;
+    background-color: white;
+    border-radius: 12px;
+    color: black;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    margin-right: 5px;
+}
+.seance-title-timeslot-day {
+    color: #8B919B;
+    margin-right: 5px;
+}
+
+/* Схема зала */
+#hall {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.hall-row {
+    position: absolute;
+    display: flex;
+    height: 24px;
+    width: calc(24px * 3);
+    justify-content: center;
+    align-items: center;
+    color: #8B919B;
+    transform-origin: top left;
+}
+.hall-places {
+    position: absolute;
+    height: 100%;
+}
+.hall-screen {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    bottom: -60px;
+}
+
+/* Расписание городов по залам */
+#schedule-full {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+.schedule-full-hall {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.schedule-full-seances {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: auto;
+}
+.schedule-full-seance {
+    background-color: #1C1F23;
+    min-height: 150px;
+    min-width: 210px;
+    margin: 0 10px 10px 0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+.schedule-full-seance-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.schedule-full-seance-title-age {
+    width: 19px;
+    height: 20px;
+    color: #8B919B;
+    font-weight: bold;
+    margin: 12px;
+}
+.schedule-full-seance-time-copy-type {
+    margin: 12px;
+    width: 110px;
+    height: 20px;
+    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+}
+.schedule-full-seance-title-time {
+    background-color: white;
+    border-radius: 6px;
+    color: black;
+    width: 80px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.schedule-full-seance-title-time>span {
+    padding-left: 3px;
+    color: #8B919B;
+}
+.schedule-full-seance-title-copy-type {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: inherit;
+    background-color: #e3000b;
+    position: absolute;
+    border-radius: 6px;
+}
+.schedule-full-seance-title-copy-type>span {
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.schedule-full-seance-film-name {
+    margin: 0 12px;
+    font-weight: bold;
+}
