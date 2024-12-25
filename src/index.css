@@ -33,7 +33,7 @@ label {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+  background-color: #0E0F11;
   color: white;
 }
 html, body {
@@ -76,25 +76,27 @@ html, body {
   z-index: 999;
 }
 .gradient-block-top {
-  background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(to bottom, #0E0F11, rgba(0, 0, 0, 0));
   top: 200px;
 }
 .gradient-block-bottom {
-  background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(to top, #0E0F11, rgba(0, 0, 0, 0));
   bottom: 50px;
 }
 .gradient-block-left, .gradient-block-right {
-  width: 24px;
-  height: 100%;
+  width: 50px;
+  height: calc(100% - 200px);
   position: absolute;
   z-index: 999;
+  display: flex;
+  align-items: center;
 }
 .gradient-block-left {
-  background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(to right, #0E0F11, rgba(0, 0, 0, 0));
   left: 0;
 }
 .gradient-block-right {
-  background: linear-gradient(to left, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(to left, #0E0F11, rgba(0, 0, 0, 0));
   right: 0;
 }
 #top-menu {
@@ -108,13 +110,13 @@ html, body {
 #content {
   overflow: hidden;
 }
-#content-wrap {
-  overflow: scroll;
-}
 #footer {
   height: 50px;
   position: relative;
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -167,12 +169,14 @@ html, body {
 /* Контент */
 #content-wrap {
   position: relative;
-  width: 100%;
+  width: calc(100% - 80px);
+  padding-left: 40px;
   height: 100%;
-  margin-right: -17px;
-  padding-right: 17px;
+  margin-right: calc(-17px + 40px);
+  padding-right: calc(17px + 40px);
   margin-bottom: -17px;
   padding-bottom: 17px;
+  overflow: scroll;
 }
 
 /* Календарь */

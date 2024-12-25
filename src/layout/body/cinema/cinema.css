@@ -340,12 +340,24 @@
     margin-top: 5px;
     background-color: #2E3239;
     border-radius: 12px;
+}
+.schedule-full-tariff-body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: calc(100% - 10px);
     font-weight: bold;
     padding: 5px;
+}
+.schedule-full-tariff-footer {
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+.schedule-full-tariff-footer-circle {
+    width: 24px;
+    height: 12px;
 }
 .schedule-full-tariff-place {
     display: flex;

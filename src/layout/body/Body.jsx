@@ -4,6 +4,8 @@ import {useParams, useSearchParams} from "react-router-dom"
 import ScheduleMenu from "./cinema/schedule/ScheduleMenu"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import {setCitiesMenu, setCity, setCurrentPage, setFilial, setFilialsMenu, setTopMenu} from "../../redux/dataReducer"
 import {
     fetchFilms,
@@ -24,7 +26,7 @@ import {
 import dayjs from "dayjs"
 import Schedule from "../body/cinema/schedule/Schedule"
 import Page404 from "./Page404"
-import {Box, Fade} from "@mui/material"
+import {Box, Button, Fade} from "@mui/material"
 import Seance from "./cinema/seances/Seance"
 import {setCurrentPreOrder} from "../../redux/ordersReducer"
 import CheckOut from "./orders/CheckOut"
@@ -263,12 +265,26 @@ const Body = () => {
                         setSearchParams={setSearchParams}/>
                     <Box id="content" style={{height: `${app_height - 250}px`}}>
                         <div className="gradient-block-top"></div>
-                        <div className="gradient-block-left"></div>
+                        <div className="gradient-block-bottom"></div>
+                        <div className="gradient-block-left">
+                            <div><Button variant='contained' color="secondary" style={{
+                                height: '20vh',
+                                borderRadius: '0 12px 12px 0',
+                                minWidth: '50px',
+                                opacity: '80%'
+                            }}><ArrowBackIosIcon/></Button></div>
+                        </div>
+                        <div className="gradient-block-right">
+                            <div><Button variant='contained' color="secondary" style={{
+                                height: '20vh',
+                                borderRadius: '12px 0 0 12px',
+                                minWidth: '50px',
+                                opacity: '80%'
+                            }}><ArrowForwardIos/></Button></div>
+                        </div>
                         <Box id="content-wrap">
                             <Schedule/>
                         </Box>
-                        <div className="gradient-block-right"></div>
-                        <div className="gradient-block-bottom"></div>
                     </Box>
                     <Footer/>
                 </Box>
