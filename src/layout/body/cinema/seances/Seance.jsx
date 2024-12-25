@@ -6,9 +6,10 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import dayjs from "dayjs"
 import {v4} from 'uuid'
 import {deletePreOrder, fetchBooking, fetchPreOrder} from "../../../../async_actions/dataService"
-import {setCurrentOrder, setCurrentPreOrder} from "../../../../redux/ordersReducer"
+import {setCurrentPreOrder} from "../../../../redux/ordersReducer"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {NavLink, useNavigate} from "react-router-dom"
+import Page404 from "../../Page404"
 const Seance = () => {
 
     const dispatch = useDispatch()
@@ -22,8 +23,6 @@ const Seance = () => {
 
     // Данные о сеансе-зале
     const seance = useSelector(state => state.schedule.seance)
-    const beginning = dayjs(seance.beginning.replace('Z', ''))
-    const ending = dayjs(seance.ending.replace('Z', ''))
     const halls = useSelector(state => state.halls.halls)
     const [hall, set_hall] = useState(undefined)
 
@@ -37,7 +36,7 @@ const Seance = () => {
 
     // Находим зал из массива залов
     useEffect(() => {
-        if (hall === undefined) {
+        if (hall === undefined && seance !== undefined) {
             const current_hall = halls.find(hall => hall.uid === seance.uid_hall)
             if (current_hall !== undefined) {
                 set_hall(current_hall)
@@ -46,28 +45,25 @@ const Seance = () => {
     }, [hall, halls, seance])
 
     // Заказ и брони
-    const order = useSelector(state => state.orders.order)
     const pre_order = useSelector(state => state.orders.pre_order)
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const booking = useSelector(state => state.schedule.booking)
     const [count_book, set_count_book] = useState(0)
     useEffect(() => {
-        if (filial !== undefined && seance !== undefined && order.uid !== undefined) {
-            dispatch(fetchBooking(filial, seance.uid, order.uid))
-            dispatch(fetchPreOrder(filial, order.uid))
+        if (filial !== undefined && seance !== undefined && pre_order.uid !== undefined) {
+            dispatch(fetchBooking(filial, seance.uid, pre_order.uid))
+            dispatch(fetchPreOrder(filial, pre_order.uid))
             set_time_remaining(100)
         }
-    }, [dispatch, filial, seance, order.uid, count_book])
+    }, [dispatch, filial, seance, pre_order.uid, count_book])
 
     // При открытии страницы сеанса создаем новый заказ
     useEffect(() => {
-        if (order.uid === undefined) {
-            dispatch(setCurrentOrder({uid: v4(), price: 0, count: 0, books: []}))
+        if (pre_order.uid === undefined) {
             dispatch(setCurrentPreOrder({uid: v4(), price: 0, count: 0, books: []}))
         }
         return () => {
-            dispatch(setCurrentOrder({uid: v4(), price: 0, count: 0, books: []}))
             dispatch(setCurrentPreOrder({uid: v4(), price: 0, count: 0, books: []}))
         }
     }, [])
@@ -86,7 +82,7 @@ const Seance = () => {
     useEffect(() => {
         if (time_remaining <= 1) {
             navigate(`/films/${city.code}/${filial.eais}/`)
-            dispatch(deletePreOrder(filial, order.uid))
+            dispatch(deletePreOrder(filial, pre_order.uid))
         }
     }, [navigate, time_remaining])
 
@@ -100,58 +96,73 @@ const Seance = () => {
         }
     }
 
-    return (
-        <Box id='seance'>
-            {hall !== undefined ?
-                <>
-                    <Box id='seance-title' ref={refTitle}>
-                        <div className='seance-panel'>
-                            <NavLink to={`/films/${city.code}/${filial.eais}/?film=${seance.uid_film}`} onClick={() => {
-                                dispatch(deletePreOrder(filial, order.uid))
-                            }}><Button
-                                variant="contained" color="secondary"><KeyboardArrowLeftIcon/>Назад</Button></NavLink>
-                            <Box sx={{width: '100%'}}>
-                                <LinearProgress
-                                    sx={{
-                                        height: '100%',
-                                        borderRadius: '12px'
-                                    }} value={time_remaining} variant="determinate"/>
-                            </Box>
+    if (seance !== undefined && hall !== undefined) {
+        const beginning = dayjs(seance.beginning.replace('Z', ''))
+        const ending = dayjs(seance.ending.replace('Z', ''))
+        return (
+            <Box id='seance'>
+                <Box id='seance-title' ref={refTitle}>
+                    <div className='seance-panel'>
+                        <NavLink to={`/films/${city.code}/${filial.eais}/?film=${seance.uid_film}`} onClick={() => {
+                            dispatch(deletePreOrder(filial, pre_order.uid))
+                        }}><Button
+                            variant="contained" color="secondary"><KeyboardArrowLeftIcon/>Назад</Button></NavLink>
+                        <Box sx={{width: '100%'}}>
+                            <LinearProgress
+                                sx={{
+                                    height: '100%',
+                                    borderRadius: '12px'
+                                }} value={time_remaining} variant="determinate"/>
+                        </Box>
+                    </div>
+                    <div className='seance-title-film-name'>{seance.name_film}</div>
+                    <div className='seance-title-hall-name'>{hall.name}</div>
+                    <div className='seance-title-panel'>
+                        <div className='seance-title-timeslot'>
+                            <div>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')} - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</div>
+                            <div className='seance-title-timeslot-day'>{beginning.$D}.{beginning.$M}</div>
                         </div>
-                        <div className='seance-title-film-name'>{seance.name_film}</div>
-                        <div className='seance-title-hall-name'>{hall.name}</div>
-                        <div className='seance-title-panel'>
-                            <div className='seance-title-timeslot'>
-                                <div className='seance-title-timeslot-day'>{}</div>
-                                <div>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')} - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</div>
-                            </div>
-                            {pre_order.books.length > 0 ?
-                                <Button variant="contained" className='seance-title-preorder' style={{height: '60px'}}>
+                        {pre_order.books.length > 0 ?
+                            <NavLink to={`/checkout/${city.code}/${filial.eais}/?order=${pre_order.uid}`}>
+                                <Button variant="contained" className='seance-title-preorder'
+                                        style={{height: '60px'}}>
                                     <div style={{display: 'flex', flexDirection: 'column', marginRight: '20px'}}>
-                                        <div style={{fontSize: '12px', fontWeight: '400'}}>{ticket_count(pre_order.count)}</div>
-                                        <div style={{fontWeight: 'bold', fontSize: '18px'}}>{pre_order.price} P</div>
+                                        <div style={{
+                                            fontSize: '12px',
+                                            fontWeight: '400'
+                                        }}>{ticket_count(pre_order.count)}</div>
+                                        <div style={{fontWeight: 'bold', fontSize: '18px'}}>{pre_order.price} P
+                                        </div>
                                     </div>
-                                    <div style={{verticalAlign: 'center', textAlign: 'center', display: 'flex', fontWeight: 'bold'}}>
+                                    <div style={{
+                                        verticalAlign: 'center',
+                                        textAlign: 'center',
+                                        display: 'flex',
+                                        fontWeight: 'bold'
+                                    }}>
                                         <div>Продолжить</div>
                                         <KeyboardArrowRightIcon/>
                                     </div>
-                                </Button> : <></>}
-                        </div>
-                        <div>Здесь будет располагаться легенда с тарифами</div>
-                    </Box>
-                    <Hall
-                        filial={filial}
-                        order={order}
-                        hall={hall}
-                        seance={seance}
-                        height={hall_height}
-                        width={app_width}
-                        booking={booking}
-                        set_count_book={set_count_book}
-                    />
-                </>
-                : <></>}
-        </Box>
-    )
+                                </Button>
+                            </NavLink> : <></>}
+                    </div>
+                </Box>
+                <Hall
+                    filial={filial}
+                    pre_order={pre_order}
+                    hall={hall}
+                    seance={seance}
+                    height={hall_height}
+                    width={app_width}
+                    booking={booking}
+                    set_count_book={set_count_book}
+                />
+            </Box>
+        )
+    } else {
+        return (
+            <Page404/>
+        )
+    }
 }
 export default Seance

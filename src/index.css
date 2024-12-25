@@ -8,6 +8,7 @@
   font-family: sans-serif;
 }
 a, a:link, a:visited  {
+  color: white;
   text-decoration: none;
 }
 a:hover  {
@@ -81,6 +82,20 @@ html, body {
 .gradient-block-bottom {
   background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   bottom: 50px;
+}
+.gradient-block-left, .gradient-block-right {
+  width: 24px;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
+.gradient-block-left {
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  left: 0;
+}
+.gradient-block-right {
+  background: linear-gradient(to left, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+  right: 0;
 }
 #top-menu {
   height: 50px;

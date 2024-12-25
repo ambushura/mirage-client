@@ -1,7 +1,7 @@
 import axios from "axios"
 import {getBooking, setFilm, setFilms, setScheduleCity, setScheduleFilial, setSeance} from "../redux/scheduleReducer"
 import {getHall} from "../redux/hallsReducer"
-import {setCurrentOrder, setCurrentPreOrder} from "../redux/ordersReducer"
+import {setCurrentPreOrder} from "../redux/ordersReducer"
 import {v4} from "uuid"
 export const fetchFilms = (filials, date_shift_schedule_param) => {
     return async (dispatch) => {
@@ -146,7 +146,6 @@ export const deletePreOrder = (filial, uid_order) => {
         try {
             await axios.get(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`).then(
                 () => {
-                    dispatch(setCurrentOrder({uid: v4(), price: 0, count: 0, books: []}))
                     dispatch(setCurrentPreOrder({uid: v4(), price: 0, count: 0, books: []}))
                 }
             )

@@ -9,7 +9,7 @@ const SeanceCard = (props) => {
     const date_param = useSelector(state => state.schedule.date_param)
     const beginning = dayjs(seance.beginning.replace('Z',''))
     return (
-        <NavLink to={`/films/${city.code}/${filial.eais}/?date=${date_param}&seance=${seance.uid}`}>
+        <NavLink to={`/seance/${city.code}/${filial.eais}/?date=${date_param}&seance=${seance.uid}`}>
             <div className='seances-body-seance'>
                 <div className='seances-body-seance-description'>
                     <div

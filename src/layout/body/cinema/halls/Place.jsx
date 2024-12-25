@@ -49,13 +49,13 @@ const Place = (props) => {
     useEffect(() => {
         const scale_width = props.description.width / (place_width * heads)
         set_scale(parseFloat((scale_width - 0.2).toFixed(2)))
-    }, [heads, place_height, props.description.height, props.description.width])
+    }, [heads, props.description.height, props.description.width])
 
     return (
         <button
             onClick={
                 async () => {
-                    await dispatch(takeSeat(props.filial, props.seance.uid, props.order.uid, props.description.uid))
+                    await dispatch(takeSeat(props.filial, props.seance.uid, props.pre_order.uid, props.description.uid))
                     await props.set_count_book(prev_book_count => prev_book_count + 1)
                 }}
             style={{

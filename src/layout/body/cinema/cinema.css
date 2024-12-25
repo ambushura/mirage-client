@@ -79,7 +79,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding-top: 12px;
+    padding: 12px;
 }
 .seances-cover {
     min-width: 164px;
@@ -204,13 +204,13 @@
     display: flex;
 }
 .seance-title-timeslot {
-    width: 159px;
+    padding: 0 10px;
     height: 60px;
     background-color: white;
     border-radius: 12px;
     color: black;
     display: flex;
-    font-size: 14px;
+    font-size: 20px;
     justify-content: center;
     align-items: center;
     font-weight: 900;
@@ -218,7 +218,7 @@
 }
 .seance-title-timeslot-day {
     color: #8B919B;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 /* Схема зала */
@@ -253,7 +253,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow: hidden;
+    padding: 15px;
+    width: fit-content;
 }
 .schedule-full-hall {
     display: flex;
@@ -268,12 +270,12 @@
 }
 .schedule-full-seance {
     background-color: #1C1F23;
-    min-height: 150px;
-    min-width: 210px;
+    width: 210px;
     margin: 0 10px 10px 0;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 .schedule-full-seance-title {
     display: flex;
@@ -333,4 +335,26 @@
 .schedule-full-seance-film-name {
     margin: 0 12px;
     font-weight: bold;
+}
+.schedule-full-tariff {
+    margin-top: 5px;
+    background-color: #2E3239;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: calc(100% - 10px);
+    font-weight: bold;
+    padding: 5px;
+}
+.schedule-full-tariff-place {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: 5px;
+}
+.schedule-full-tariff-place>div {
+    margin-left: 5px;
+    height: 20px;
 }

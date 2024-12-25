@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import FilmCard from "../cards/FilmCard"
 import {Box, Fade} from "@mui/material"
 import {useSelector} from "react-redux"
 import "../cinema.css"
 import cover from "../../../../media/cover.jpg"
 import SeanceCard from "../cards/SeanceCard"
-import SeanceFull from "./SeanceFull"
+import ScheduleFull from "./ScheduleFull"
 const Schedule = () => {
 
     const city = useSelector(state => state.data.city)
@@ -15,10 +15,23 @@ const Schedule = () => {
     const schedule_city = useSelector(state => state.schedule.schedule_city)
     const schedule_filial = useSelector(state => state.schedule.schedule_filial)
 
+    const [visibility, set_visibility] = useState([false, false, false, false])
+    useEffect(() => {
+        if (films.length > 0 && film_seances === undefined && schedule_city.length === 0 && schedule_filial.length === 0) {
+            set_visibility([true, false, false, false])
+        } else if (films.length === 0 && film_seances !== undefined && schedule_city.length === 0 && schedule_filial.length === 0) {
+            set_visibility([false, true, false, false])
+        } else if (films.length === 0 && film_seances === undefined && schedule_city.length > 0 && schedule_filial.length === 0) {
+            set_visibility([false, false, true, false])
+        } else if (films.length === 0 && film_seances === undefined && schedule_city.length === 0 && schedule_filial.length > 0) {
+            set_visibility([false, false, false, true])
+        }
+    }, [film_seances, films.length, schedule_city.length, schedule_filial.length])
+
     return (
         <>
             <Fade
-                in={films.length > 0 && film_seances === undefined && schedule_city.length === 0 && schedule_filial.length === 0}
+                in={visibility[0]}
                 timeout={250}
                 key='1'>
                 <Box id='schedule' style={{height: films.length > 0 ? 'auto' : '0px'}}>
@@ -32,7 +45,7 @@ const Schedule = () => {
                 </Box>
             </Fade>
             <Fade
-                in={films.length === 0 && film_seances !== undefined && schedule_city.length === 0 && schedule_filial.length === 0}
+                in={visibility[1]}
                 timeout={250}
                 key='2'>
                 {film_seances !== undefined ?
@@ -87,34 +100,18 @@ const Schedule = () => {
                 }
             </Fade>
             <Fade
-                in={films.length === 0 && film_seances === undefined && schedule_city.length > 0 && schedule_filial.length === 0}
+                in={visibility[2]}
                 timeout={250} key='3'>
                 <Box>
 
                 </Box>
             </Fade>
             <Fade
-                in={films.length === 0 && film_seances === undefined && schedule_city.length === 0 && schedule_filial.length > 0}
+                in={visibility[3]}
                 timeout={250}
                 key='4'>
-                <Box id='schedule-full' style={{height: schedule_filial.length > 0 ? 'auto' : '0px'}}>
-                    {schedule_filial.map(hall => {
-                        return (
-                            <Box className='schedule-full-hall'>
-                                <Box className='schedule-full-hall-name'>{hall.name}</Box>
-                                <Box className='schedule-full-seances'>
-                                    {hall.seances.map(seance => {
-                                        return (
-                                            <SeanceFull
-                                                key={seance.uid}
-                                                seance={seance}>
-                                            </SeanceFull>
-                                        )
-                                    })}
-                                </Box>
-                            </Box>
-                        )
-                    })}
+                <Box id='schedule-full' style={{height: visibility[3] ? 'auto' : '0px'}}>
+                    <ScheduleFull/>
                 </Box>
             </Fade>
         </>

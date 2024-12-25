@@ -106,7 +106,7 @@ const Hall = (props) => {
                                         return (<Place
                                             set_count_book={props.set_count_book}
                                             filial={props.filial}
-                                            order={props.order}
+                                            pre_order={props.pre_order}
                                             seance={props.seance}
                                             key={place.uid + place.ver}
                                             description={{

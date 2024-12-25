@@ -1,11 +1,18 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import {useParams, useSearchParams} from "react-router-dom"
 import ScheduleMenu from "./cinema/schedule/ScheduleMenu"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import {setCitiesMenu, setCity, setCurrentPage, setFilial, setFilialsMenu, setTopMenu} from "../../redux/dataReducer"
-import {fetchFilms, fetchFilmSeances, fetchHall, fetchSchedule, fetchSeance} from "../../async_actions/dataService"
+import {
+    fetchFilms,
+    fetchFilmSeances,
+    fetchHall,
+    fetchPreOrder,
+    fetchSchedule,
+    fetchSeance
+} from "../../async_actions/dataService"
 import {
     setFilm,
     setFilms,
@@ -19,6 +26,8 @@ import Schedule from "../body/cinema/schedule/Schedule"
 import Page404 from "./Page404"
 import {Box, Fade} from "@mui/material"
 import Seance from "./cinema/seances/Seance"
+import {setCurrentPreOrder} from "../../redux/ordersReducer"
+import CheckOut from "./orders/CheckOut"
 const Body = () => {
 
     // Служебные функции
@@ -29,6 +38,7 @@ const Body = () => {
     const date = searchParams.get("date")
     const uid_film = searchParams.get("film")
     const uid_seance = searchParams.get("seance")
+    const uid_order = searchParams.get("order")
     // Параметры адресной строки для установки
     const schedule_date = useSelector(state => state.schedule.date_param)
     // Геолокация
@@ -40,10 +50,13 @@ const Body = () => {
     const current_page = useSelector(state => state.data.current_page)
     const top_menu = useSelector(state => state.data.top_menu)
     // Данные
-    const halls = useSelector(state => state.halls.halls)
-    const seance = useSelector(state => state.schedule.seance)
+    const films = useSelector(state => state.schedule.films)
+    const film = useSelector(state => state.schedule.film)
     const schedule_city = useSelector(state => state.schedule.schedule_city)
     const schedule_filial = useSelector(state => state.schedule.schedule_filial)
+    const halls = useSelector(state => state.halls.halls)
+    const seance = useSelector(state => state.schedule.seance)
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     // Текущая страница
     useEffect(() => {
@@ -127,6 +140,7 @@ const Body = () => {
         dispatch(setTopMenu(top_menu_array))
     }, [dispatch, city, filial])
 
+    // Дата смены по умолчанию
     useEffect(() => {
         if (['films', 'schedule'].find(el => el === current_page) !== undefined) {
             if (date === null) {
@@ -146,9 +160,11 @@ const Body = () => {
     }, [dispatch, current_page, date, schedule_date, setSearchParams])
 
     useEffect(() => {
-        if (current_page === 'films') {
-            if (date !== null) {
-                if (uid_seance === null) {
+        switch (current_page) {
+            case 'films':
+                dispatch(setFilms([]))
+                dispatch(setFilm(undefined))
+                if (date !== null) {
                     if (uid_film === null) {
                         if (city !== undefined && filial === undefined) {
                             dispatch(fetchFilms(city.filials, date))
@@ -162,38 +178,36 @@ const Body = () => {
                             dispatch(fetchFilmSeances(filial, date, uid_film))
                         }
                     }
-                } else {
+                }
+                break
+            case 'seance':
+                dispatch(setSeance(undefined))
+                if (uid_seance !== null) {
                     dispatch(fetchSeance(filial, uid_seance))
                 }
-            }
-        }
-        return () => {
-            if (current_page === 'films') {
-                dispatch(setFilms([]))
-                dispatch(setFilm(undefined))
-                dispatch(setSeance(undefined))
-            }
-        }
-    }, [dispatch, city, filial, current_page, date, uid_film, uid_seance])
-
-    useEffect(() => {
-        if (current_page === 'schedule') {
-            if (date !== null) {
-                if (city !== undefined && filial === undefined) {
-                    dispatch(fetchSchedule(city.filials, date))
-                } else if (city !== undefined && filial !== undefined) {
-                    dispatch(fetchSchedule(filial, date))
-                }
-            }
-        }
-        return () => {
-            if (current_page === 'schedule') {
+            case 'schedule':
                 dispatch(setScheduleCity([]))
                 dispatch(setScheduleFilial([]))
-            }
+                if (date !== null) {
+                    if (city !== undefined && filial === undefined) {
+                        dispatch(fetchSchedule(city.filials, date))
+                    } else if (city !== undefined && filial !== undefined) {
+                        dispatch(fetchSchedule(filial, date))
+                    }
+                }
+                break
+            case 'checkout':
+                setCurrentPreOrder(undefined)
+                if (uid_order !== null) {
+                    dispatch(fetchPreOrder(filial, uid_order))
+                }
+                break
+            default:
+                break
         }
-    }, [city, filial, current_page, date, dispatch])
+    }, [dispatch, city, filial, current_page, date, uid_film, uid_seance, uid_order])
 
+    // Подгрузка залов
     useEffect(() => {
         if (seance !== undefined) {
             if (halls.find(hall => hall.uid === seance.uid_hall) === undefined) {
@@ -202,42 +216,78 @@ const Body = () => {
         }
     }, [dispatch, filial, seance, halls])
 
-    return <div id="box">
-        <Fade in={cities.length !== 0 && seance === undefined}>
-            <Box style={{height: cities.length !== 0 && seance === undefined ? `${app_height}px` : '0px'}}>
-                <Header/>
-                {['films', 'schedule'].find(el => el === current_page) !== undefined ?
-                    <>
-                        <ScheduleMenu
-                            searchParams={searchParams}
-                            setSearchParams={setSearchParams}/>
-                        <Box id="content" style={{height: `${app_height - 250}px`}}>
-                            <div className="gradient-block-top"></div>
-                            <Box id="content-wrap">
-                                <Schedule/>
-                            </Box>
-                            <div className="gradient-block-bottom"></div>
-                        </Box>
-                    </> : <></>
-                }
-                <Footer/>
-            </Box>
-        </Fade>
-        <Fade in={cities.length !== 0 && seance !== undefined}>
-            {seance !== undefined ?
-                <Box style={{height: `${app_height}px`}}>
-                    <Seance/>
-                </Box>
-                : <div></div>
+    // [0] страница 404
+    // [1] расписание/фильмы
+    // [2] сеанс
+    // [3] чекаут
+    const [page, set_page] = useState([true, false, false, false])
+    useEffect(() => {
+        if (cities.length === 0) {
+            set_page([true, false, false, false])
+        } else {
+            switch (current_page) {
+                case ['films', 'schedule'].find(el => el === current_page):
+                    set_page([false, true, false, false])
+                    break
+                case 'seance':
+                    if (seance !== undefined && uid_seance !== null) {
+                        set_page([false, false, true, false])
+                    }
+                    break
+                case 'checkout':
+                    if (pre_order !== undefined) {
+                        set_page([false, false, false, true])
+                    }
+                    break
+                default:
+                    break
             }
-        </Fade>
-        <Fade in={cities.length === 0}>
-            {cities.length === 0 ?
-                <Box style={{height: cities.length === 0 ? `${app_height}px` : '0px'}}>
+        }
+    }, [cities, current_page, film, films, pre_order, schedule_city, schedule_filial, seance, uid_seance])
+
+    return <div id="box">
+        <Fade in={page[0]}>
+            {page[0] ?
+                <Box style={{height: page[0] ? `${app_height}px` : '0px'}}>
                     <Page404/>
                 </Box>
-                : <div></div>
+                : <Box></Box>
             }
+        </Fade>
+        <Fade in={page[1]}>
+            {page[1] ?
+                <Box style={{height: page[1] ? `${app_height}px` : '0px'}}>
+                    <Header/>
+                    <ScheduleMenu
+                        searchParams={searchParams}
+                        setSearchParams={setSearchParams}/>
+                    <Box id="content" style={{height: `${app_height - 250}px`}}>
+                        <div className="gradient-block-top"></div>
+                        <div className="gradient-block-left"></div>
+                        <Box id="content-wrap">
+                            <Schedule/>
+                        </Box>
+                        <div className="gradient-block-right"></div>
+                        <div className="gradient-block-bottom"></div>
+                    </Box>
+                    <Footer/>
+                </Box>
+                : <Box></Box>}
+        </Fade>
+        <Fade in={page[2]}>
+            {page[2] ?
+                <Box style={{height: page[2] ? `${app_height}px` : '0px'}}>
+                    <Seance/>
+                </Box>
+                : <Box></Box>
+            }
+        </Fade>
+        <Fade in={page[3]}>
+            {page[3] ?
+                <Box style={{height: page[3] ? `${app_height}px` : '0px'}}>
+                    <CheckOut/>
+                </Box>
+                : <Box></Box>}
         </Fade>
     </div>
 }

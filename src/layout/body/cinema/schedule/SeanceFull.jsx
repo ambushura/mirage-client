@@ -1,6 +1,18 @@
 import React from 'react'
 import {Box} from "@mui/material"
 import dayjs from "dayjs"
+import place_1 from "../../../../media/place_types/place_1.svg"
+import place_2 from "../../../../media/place_types/place_2.svg"
+import place_3 from "../../../../media/place_types/place_3.svg"
+import place_1_vip from "../../../../media/place_types/place_1_vip.svg"
+import place_stroller from "../../../../media/place_types/place_stroller.svg"
+const images = {
+    place_1: place_1,
+    place_2: place_2,
+    place_3: place_3,
+    place_1_vip: place_1_vip,
+    place_stroller:place_stroller
+}
 const SeanceFull = (props) => {
     const seance = props.seance
     const beginning = dayjs(seance.beginning.replace('Z', ''))
@@ -21,6 +33,15 @@ const SeanceFull = (props) => {
             <Box className='schedule-full-seance-film-name'>
                 {seance.film_name}
             </Box>
+            <Box className='schedule-full-tariff'>
+                {seance.tariff.map(price => {
+                    return (
+                        <Box className='schedule-full-tariff-place'>
+                            <img width='20px' height='20px' src={images[price.image_name]} alt='место'/>
+                            <div>{price.price_tariff} P</div>
+                        </Box>
+                    )
+                })}</Box>
         </Box>
     )
 }
