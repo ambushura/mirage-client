@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {NavLink} from "react-router-dom"
-import cover from "../../../../media/cover.jpg"
+import cover from "../../../../../../media/cover.jpg"
 import {useSelector} from "react-redux"
 const FilmCard = (props) => {
     const [film, set_film] = useState(undefined)

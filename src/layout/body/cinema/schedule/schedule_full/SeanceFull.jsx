@@ -1,12 +1,12 @@
 import React from 'react'
 import {Box} from "@mui/material"
 import dayjs from "dayjs"
-import place_1 from "../../../../media/place_types/place_1.svg"
-import place_2 from "../../../../media/place_types/place_2.svg"
-import place_3 from "../../../../media/place_types/place_3.svg"
-import place_1_vip from "../../../../media/place_types/place_1_vip.svg"
-import place_stroller from "../../../../media/place_types/place_stroller.svg"
-import circle from "../../../../media/circle.svg"
+import place_1 from "../../../../../media/place_types/place_1.svg"
+import place_2 from "../../../../../media/place_types/place_2.svg"
+import place_3 from "../../../../../media/place_types/place_3.svg"
+import place_1_vip from "../../../../../media/place_types/place_1_vip.svg"
+import place_stroller from "../../../../../media/place_types/place_stroller.svg"
+import circle from "../../../../../media/circle.svg"
 const images = {
     place_1: place_1,
     place_2: place_2,

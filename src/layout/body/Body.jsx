@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import {useParams, useSearchParams} from "react-router-dom"
 import ScheduleMenu from "./cinema/schedule/ScheduleMenu"
@@ -247,6 +247,19 @@ const Body = () => {
         }
     }, [cities, current_page, film, films, pre_order, schedule_city, schedule_filial, seance, uid_seance])
 
+    const contentRef = useRef(null)
+    const scrollToSection = (value) => {
+        contentRef.current.scrollBy(
+            value ? {
+                    left: -500,
+                    behavior: 'smooth'
+                }
+                : {
+                    left: 500,
+                    behavior: 'smooth'
+                })
+    }
+
     return <div id="box">
         <Fade in={page[0]}>
             {page[0] ?
@@ -267,22 +280,30 @@ const Body = () => {
                         <div className="gradient-block-top"></div>
                         <div className="gradient-block-bottom"></div>
                         <div className="gradient-block-left">
-                            <div><Button variant='contained' color="secondary" style={{
-                                height: '20vh',
-                                borderRadius: '0 12px 12px 0',
-                                minWidth: '50px',
-                                opacity: '80%'
-                            }}><ArrowBackIosIcon/></Button></div>
+                            <div>{current_page === 'schedule' && contentRef.current !== null && contentRef.current.scrollLeft === 0 ?
+                                <Button onClick={() => {
+                                    scrollToSection(true)
+                                }} variant='contained' color="secondary" style={{
+                                    backgroundColor: 'white',
+                                    height: '90px',
+                                    borderRadius: '0 40px 40px 0',
+                                    minWidth: '50px',
+                                    opacity: '50%'
+                                }}><ArrowBackIosIcon style={{color: 'black'}}/></Button> : <></>}</div>
                         </div>
                         <div className="gradient-block-right">
-                            <div><Button variant='contained' color="secondary" style={{
-                                height: '20vh',
-                                borderRadius: '12px 0 0 12px',
-                                minWidth: '50px',
-                                opacity: '80%'
-                            }}><ArrowForwardIos/></Button></div>
+                            <div>{current_page === 'schedule' && contentRef.current !== null && contentRef.current.scrollLeft === 0 ?
+                                <Button onClick={() => {
+                                    scrollToSection(false)
+                                }} variant='contained' color="secondary" style={{
+                                    backgroundColor: 'white',
+                                    height: '90px',
+                                    borderRadius: '40px 0 0 40px',
+                                    minWidth: '50px',
+                                    opacity: '50%'
+                                }}><ArrowForwardIos style={{color: 'black'}}/></Button> : <></>}</div>
                         </div>
-                        <Box id="content-wrap">
+                        <Box id="content-wrap" ref={contentRef}>
                             <Schedule/>
                         </Box>
                     </Box>
