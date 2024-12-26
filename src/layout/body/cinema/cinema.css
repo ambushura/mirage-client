@@ -10,6 +10,7 @@
 .top-menu-content-types>button {
     margin-right: 5px;
 }
+
 /* Плиточное расписание */
 #schedule {
     display: flex;
@@ -171,7 +172,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px 5px;
+    padding: 0 5px;
     text-align: center;
 }
 #seance-title>div {
@@ -181,7 +182,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding-left: 10px;
 }
 .seance-panel>div, .seance-panel>a {
     margin-right: 10px;

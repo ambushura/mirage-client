@@ -50,17 +50,17 @@ function App() {
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
-                    <div id="app" style={{ height: `${appHeight}px` }}>
+                    <div id="app" style={{height: `${appHeight}px`}}>
                         <Routes>
-                            <Route path="/" element={<Body />}>
-                                <Route path=":param_page" element={<Page404 />}>
-                                    <Route index element={<Page404 />} />
-                                    <Route path=":param_city" element={<Body />}>
-                                        <Route path=":param_filial" element={<Body />} />
+                            <Route path="/" element={<Body/>}>
+                                <Route path=":param_page" element={<Page404/>}>
+                                    <Route index element={<Page404/>}/>
+                                    <Route path=":param_city" element={<Body/>}>
+                                        <Route path=":param_filial" element={<Body/>}/>
                                     </Route>
                                 </Route>
                             </Route>
-                            <Route path="*" element={<Page404 />} />
+                            <Route path="*" element={<Page404/>}/>
                         </Routes>
                     </div>
                 </BrowserRouter>

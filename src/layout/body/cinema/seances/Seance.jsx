@@ -102,7 +102,7 @@ const Seance = () => {
         return (
             <Box id='seance'>
                 <Box id='seance-title' ref={refTitle}>
-                    <div className='seance-panel'>
+                    <Box className='seance-panel'>
                         <NavLink to={`/films/${city.code}/${filial.eais}/?film=${seance.uid_film}`} onClick={() => {
                             dispatch(deletePreOrder(filial, pre_order.uid))
                         }}><Button
@@ -114,7 +114,7 @@ const Seance = () => {
                                     borderRadius: '12px'
                                 }} value={time_remaining} variant="determinate"/>
                         </Box>
-                    </div>
+                    </Box>
                     <div className='seance-title-film-name'>{seance.name_film}</div>
                     <div className='seance-title-hall-name'>{hall.name}</div>
                     <div className='seance-title-panel'>

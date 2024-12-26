@@ -3,8 +3,8 @@ import {Box, Fade} from "@mui/material"
 import {useSelector} from "react-redux"
 import "../cinema.css"
 import ScheduleFull from "./schedule_full/ScheduleFull"
-import ScheduleFilms from "./schedule_films/ScheduleFilms";
-import Films from "./schedule_films/film/Films";
+import ScheduleFilms from "./schedule_films/ScheduleFilms"
+import Films from "./schedule_films/film/Films"
 const Schedule = () => {
 
     const films = useSelector(state => state.schedule.films)

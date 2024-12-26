@@ -7,6 +7,7 @@ import place_3 from "../../../../../media/place_types/place_3.svg"
 import place_1_vip from "../../../../../media/place_types/place_1_vip.svg"
 import place_stroller from "../../../../../media/place_types/place_stroller.svg"
 import circle from "../../../../../media/circle.svg"
+import {NavLink} from "react-router-dom"
 const images = {
     place_1: place_1,
     place_2: place_2,
@@ -15,11 +16,13 @@ const images = {
     place_stroller:place_stroller
 }
 const SeanceFull = (props) => {
+    const city = props.city
+    const filial = props.filial
     const seance = props.seance
     const beginning = dayjs(seance.beginning.replace('Z', ''))
     const ending = dayjs(seance.ending.replace('Z', ''))
     return (
-        <Box className='schedule-full-seance'>
+        <NavLink to={`/seance/${city.code}/${filial.eais}/?seance=${seance.uid}`} className='schedule-full-seance'>
             <Box className='schedule-full-seance-title'>
                 <Box className='schedule-full-seance-time-copy-type'>
                     <Box
@@ -46,10 +49,11 @@ const SeanceFull = (props) => {
                     })}
                 </Box>
                 <Box className='schedule-full-tariff-footer'>
-                    <div className='schedule-full-tariff-footer-circle' style={{backgroundImage: `url(${circle})`}}></div>
+                    <div className='schedule-full-tariff-footer-circle'
+                         style={{backgroundImage: `url(${circle})`}}></div>
                 </Box>
             </Box>
-        </Box>
+        </NavLink>
     )
 }
 export default SeanceFull

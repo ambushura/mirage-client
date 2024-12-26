@@ -1,0 +1,9 @@
+#checkout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+#checkout>div {
+   margin: 3px 0;
+}
