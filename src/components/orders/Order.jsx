@@ -7,6 +7,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import {useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
+import BookingItem from "./BookingItem.jsx"
 
 const Order = () => {
 
@@ -50,13 +51,15 @@ const Order = () => {
                         <Box className='schedule-full-seance-film-name'>
                             {seance.film_name}
                         </Box>
-                        {pre_order.booking.map((booking) => {
+                        <Box className='order-booking'>{pre_order.booking.map((booking) => {
                             return (
-                                <Box key={booking.uid}>
-                                    <Box>{booking.number}</Box>
-                                </Box>
+                                <BookingItem
+                                    key={booking.uid}
+                                    number={booking.number}
+                                    row={booking.row}/>
                             )
                         })}
+                        </Box>
                     </> : <></>
                 }
             </Box>

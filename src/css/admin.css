@@ -1,6 +1,7 @@
 #order {
     box-sizing: border-box;
-    min-width: 400px;
+    min-width: 500px;
+    max-width: 500px;
     padding: 0 10px;
 }
 #order-box {
@@ -15,4 +16,31 @@
 }
 #order-box>*:first-child {
     margin-bottom: 5px;
+}
+.order-booking {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.order-booking-item {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: center;
+    margin: 4px 4px 0 0;
+}
+.order-booking-item-description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3px;
+    background-color: #414650;
+    border-radius: 12px;
+    padding: 0 8px;
+}
+.order-booking-item-numbers {
+    font-weight: bold;
+    padding: 3px;
+}
+.order-booking-item-labels {
+    color: #8B919B;
 }

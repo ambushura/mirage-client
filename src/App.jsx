@@ -56,6 +56,8 @@ function App() {
                        element={<AppRoutes current_page='seance'/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/"
                        element={<AppRoutes current_page='mkitchen'/>}/>
+                <Route path="/menu/:param_city/:param_filial/"
+                       element={<AppRoutes current_page='menu'/>}/>
                 <Route path="/admin/:param_city/:param_filial/"
                        element={<AppRoutes current_page='admin'/>}/>
                 <Route path="*" element={<NotFound/>}/>

@@ -34,7 +34,8 @@ const PageFilm = () => {
                          sx={{height: height}}>
                         <div className="gradient-block-bottom"></div>
                         <Box id="content"
-                             sx={{height: height}}>
+                             sx={{height: height}}
+                             style={{overflowX: 'hidden'}}>
                             <Film uid_film={params.uid_film}/>
                         </Box>
                     </Box>
