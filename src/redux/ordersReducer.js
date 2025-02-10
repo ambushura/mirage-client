@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { date_dayjs, NEW_EMPTY_ORDER } from "../components/service/advanced.js"
+import { date_dayjs, NEW_EMPTY_ORDER } from "../service/advanced.js"
 const initialState = {
     date: JSON.stringify(date_dayjs(new Date())),
     view: "seances",

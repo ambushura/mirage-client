@@ -9,6 +9,7 @@ import PageFilms from "./page/pages/films/PageFilms.jsx"
 import {useSetDateShift} from "./hooks/useSetDateShift.js"
 import PageFilm from "./page/pages/film/PageFilm.jsx"
 import PageSeance from "./page/pages/seance/PageSeance.jsx"
+import PageAdmin from "./page/pages/admin/PageAdmin.jsx"
 
 const AppRoutes = (props) => {
 
@@ -57,6 +58,11 @@ const AppRoutes = (props) => {
             <Fade in={props.current_page === 'seance'} unmountOnExit>
                 <Box>
                     {props.current_page === 'seance' ? <PageSeance/> : <></>}
+                </Box>
+            </Fade>
+            <Fade in={props.current_page === 'admin'} unmountOnExit>
+                <Box>
+                    {props.current_page === 'admin' ? <PageAdmin/> : <></>}
                 </Box>
             </Fade>
         </>

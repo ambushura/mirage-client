@@ -17,7 +17,7 @@ const Auth = (props) => {
             <Keyboard input={password}
                       setInput={set_password}
                       apply={apply}
-                      type="num"/>
+                      type="auth"/>
         </Box>
     )
 }

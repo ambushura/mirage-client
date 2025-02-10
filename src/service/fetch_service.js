@@ -1,6 +1,6 @@
 import {NEW_EMPTY_ORDER} from "./advanced.js"
-import {setCurrentPreOrder} from "../../redux/ordersReducer.js"
-import {setBooking} from "../../redux/scheduleReducer.js"
+import {setCurrentPreOrder} from "../redux/ordersReducer.js"
+import {setBooking} from "../redux/scheduleReducer.js"
 export const fetchPreOrder = (filial, uid_order) => {
     return async (dispatch) => {
         try {

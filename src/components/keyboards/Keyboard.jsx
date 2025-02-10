@@ -20,6 +20,10 @@ const Keyboard = (props) => {
         num: {
             default: ["1 2 3", "4 5 6", "7 8 9", "0 10 100", "{bksp} {enter}"],
             shift: ["1 2 3", "4 5 6", "7 8 9", "0 10 100", "{bksp} {enter}"]
+        },
+        auth: {
+            default: ["1 2 3", "4 5 6", "7 8 9", "0 {enter}"],
+            shift: ["1 2 3", "4 5 6", "7 8 9", "0 {enter}"]
         }
     }
     return (
@@ -31,9 +35,9 @@ const Keyboard = (props) => {
                     {class: "mirageLangButton", buttons: "{lang}"},
                     {class: "mirageEnter", buttons: "{enter}"},
                 ]}
-                layout={props.type === 'num' ? layouts['num'] : layouts[language]}
+                layout={props.type === 'auth' ? layouts['auth'] : layouts[language]}
                 layoutName={layout}
-                theme={`hg-theme-default ${props.type === 'num' ? 'mirageNumTheme' : 'mirageTheme'}`}
+                theme={`hg-theme-default ${props.type === 'auth' ? 'mirageNumTheme' : 'mirageTheme'}`}
                 onKeyPress={button => {
                     if (button === "{lang}") handleLanguageSwitch()
                     if (button === "{shift}") setLayout(layout === "default" ? "shift" : "default")

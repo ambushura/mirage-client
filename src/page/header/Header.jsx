@@ -7,9 +7,10 @@ import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/auth/Auth.jsx"
 import { useState }  from "react"
 import { useRef } from "react"
-import {ANIMATION_SPEED, HEADER_HEIGHT, MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
+import {ANIMATION_SPEED, HEADER_HEIGHT, login, MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
-import List from "../../components/ui/List.jsx"
+import List from "../../ui/List.jsx"
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 
 const Header = () => {
 
@@ -69,8 +70,10 @@ const Header = () => {
                                 endIcon={<KeyboardArrowDownIcon/>}
                                 type='filials'
                             />
-                            <Button key='auth'
-                                    onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button>
+                            {authenticated === 0 ? <Button key='auth'
+                                                           onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
+                                <Button key='auth'
+                                        onClick={() => dispatch(login(0))}><ExitToAppIcon/></Button>}
                         </ButtonGroup>
                         <Modal open={auth_opened}
                                onClose={() => dispatch(setAuthOpened(false))}

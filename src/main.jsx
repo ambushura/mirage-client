@@ -8,7 +8,7 @@ import "dayjs/locale/ru"
 import App from './App.jsx'
 import store from "./redux/index.js"
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs"
-import {theme} from "./components/ui/ui.js"
+import {theme} from "./ui/ui.js"
 import {Provider} from "react-redux"
 import {LocalizationProvider} from "@mui/x-date-pickers"
 import {ThemeProvider} from "@mui/material"

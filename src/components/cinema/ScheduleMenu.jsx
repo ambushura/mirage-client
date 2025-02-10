@@ -8,7 +8,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {ANIMATION_SPEED, MOBILE_WIDTH} from "../../redux/interfaceReducer.js"
 import {useNavigate} from "react-router-dom"
-import {date_dayjs, to_str_DAY} from "../service/advanced.js"
+import {date_dayjs, to_str_DAY} from "../../service/advanced.js"
 
 const ScheduleMenu = () => {
 

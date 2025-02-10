@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {useState} from 'react'
 import {useDispatch} from "react-redux"
-import {takeSeat} from "../service/fetch_service.js"
+import {takeSeat} from "../../service/fetch_service.js"
 
 const Place = (props) => {
 

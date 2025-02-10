@@ -47,6 +47,19 @@ export const theme = createTheme({
                     backgroundColor: '#2E3239'
                 }
             }
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    textTransform: 'capitalize',
+                    "&.Mui-selected": {
+                        color: '#E3000B',
+                        fontWeight: 'bold',
+                    },
+                }
+            }
         }
     }
 })

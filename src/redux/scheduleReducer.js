@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { date_dayjs } from "../components/service/advanced.js"
+import { date_dayjs } from "../service/advanced.js"
 import dayjs from "dayjs"
 const current_date = date_dayjs(new Date())
 const initialState = {

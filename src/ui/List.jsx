@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import PlaceIcon from "@mui/icons-material/Place"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import {Button, ClickAwayListener, Grow, MenuList, Paper, Popper} from "@mui/material"
-import Filial from "../../page/header/Filial.jsx"
-import City from "../../page/header/City.jsx"
+import Filial from "../page/header/Filial.jsx"
+import City from "../page/header/City.jsx"
 const List = (props) => {
     useEffect(() => {
         if (props.prev_open.current === true && props.open === false) {

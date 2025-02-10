@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {Box, Button, LinearProgress} from "@mui/material"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import Ticket from "./Ticket.jsx"
-import {payment} from "../../../components/service/fetch_service.js"
+import {payment} from "../../../service/fetch_service.js"
 
 const CheckOut = (props) => {
 

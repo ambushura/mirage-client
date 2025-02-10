@@ -5,12 +5,14 @@ import {Box, Fade} from "@mui/material"
 import screen from "../../images/screen.svg"
 
 const Hall = (props) => {
+
     const [position, setPosition] = useState({x: 0, y: 0}) // позиция схемы зала текущая
     const [offset, setOffset] = useState({x: 0, y: 0}) // позиция схемы зала перемещенная
     const [isDragging, setIsDragging] = useState(false) // схема зала зажата/отпущена мышью
     const [hall_scale, set_hall_scale] = useState(1) // масштаб схемы зала
     const [hall_left, set_hall_left] = useState(0)
     const [hall_left_applied, set_hall_left_applied] = useState(false)
+
     useEffect(() => {
         if (props.height > 0 && props.width > 0) {
             const k_w = props.width / (props.hall.max_x - props.hall.min_x + 24 * 3 * 2)
