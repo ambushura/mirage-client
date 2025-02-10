@@ -21,7 +21,6 @@ const PageFilms = () => {
             <ScheduleMenu/>
             <Box sx={{
                 display: 'flex',
-                flexWrap: 'wrap',
                 height: height
             }}>
                 <Box id="content-wrap"
