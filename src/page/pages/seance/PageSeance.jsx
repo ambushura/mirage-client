@@ -32,10 +32,10 @@ const PageSeance = () => {
     const [hall, set_hall] = useState(undefined)
     const booking = useSelector(state => state.schedule.booking)
 
-    const [seance_data, , ] = useFetchSeance(city, filial, params.uid_seance)
-    const [hall_data, , ] = useFetchHall(city, filial, seance)
-    const [order_data, , ] = useFetchOrder(city, filial, pre_order)
-    const [booking_data, , ] = useFetchBooking(city, filial, seance, pre_order)
+    const [seance_data, ,] = useFetchSeance(city, filial, params.uid_seance)
+    const [hall_data, ,] = useFetchHall(city, filial, seance)
+    const [order_data, ,] = useFetchOrder(city, filial, pre_order)
+    const [booking_data, ,] = useFetchBooking(city, filial, seance, pre_order)
 
     const refTitle = useRef(null)
     const [checkout, set_check_out] = useState(false)
@@ -182,4 +182,5 @@ const PageSeance = () => {
         return <Loader/>
     }
 }
+
 export default PageSeance
