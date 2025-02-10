@@ -1,0 +1,18 @@
+#order {
+    box-sizing: border-box;
+    min-width: 400px;
+    padding: 0 10px;
+}
+#order-box {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0e0f11, #2e3137);
+}
+#order-box>*:first-child {
+    margin-bottom: 5px;
+}

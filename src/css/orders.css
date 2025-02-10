@@ -1,0 +1,153 @@
+#checkout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+}
+.order-panel {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100vw - 20px);
+    padding: 0 10px;
+}
+.order-progress {
+    height: 100%;
+    border-radius: 12px;
+}
+#checkout-order {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: center;
+    height: calc(100vh - 42px - 20px);
+}
+#checkout-total {
+    width: calc(300px - 10px - 10px);
+    padding: 10px;
+}
+#checkout-total-box {
+    box-sizing: border-box;
+    padding: 16px;
+    width: 100%;
+    border-radius: 12px;
+    min-height: 300px;
+    background-color: #1C1F23;
+}
+.checkout-order-title-box {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+.checkout-order-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 20px 0 20px 16px;
+}
+.checkout-order-tickets-box {
+    box-sizing: content-box;
+    width: 100%;
+    height: calc(100% - 37px - 20px - 20px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-right: -17px;
+    padding-right: 17px;
+}
+.checkout-order-tickets-box::-webkit-scrollbar {
+    display: none;
+}
+.checkout-order-tickets {
+    width: 584px;
+    display: flex;
+    flex-direction: column;
+}
+.checkout-order-ticket {
+    width: inherit;
+    height: 140px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    position: relative;
+}
+.checkout-order-ticket-right {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 140px;
+    background-color: #1DB1BA;
+    border-radius: 0 16px 16px 0;
+}
+.checkout-order-ticket-circle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 32px;
+    background-color: #0e0f11;
+    border-radius: 16px 0 0 16px;
+}
+.checkout-order-ticket-body {
+    position: absolute;
+    left: 0;
+    width: 544px;
+    height: 140px;
+    border-radius: 16px;
+    background-color: #1C1F23;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.checkout-order-ticket-body-cover {
+    width: 74px;
+    height: 108px;
+    border-radius: 12px;
+    margin: 16px;
+}
+.checkout-order-ticket-body-2 {
+    width: calc(544px - 74px - 16px - 16px - 100px);
+    padding-top: 16px;
+}
+.checkout-order-ticket-body-2>div {
+    padding-bottom: 5px;
+}
+.checkout-order-ticket-body-2-film-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+.checkout-order-ticket-body-2-filial {
+    font-size: 12px;
+    color: #8B919B;
+}
+.checkout-order-ticket-body-2-hall {
+    display: flex;
+    font-size: 12px;
+}
+.checkout-order-ticket-body-2-hall>div {
+    background-color: #414650;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.checkout-order-ticket-body-2-hall>div>span {
+    color: #8B919B;
+    margin-right: 4px;
+}
+.checkout-order-ticket-body-3 {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.checkout-order-ticket-body-3-price {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 16px;
+}
+.checkout-order-ticket-body-3-delete {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}

@@ -1,0 +1,247 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: none;
+  letter-spacing: -0.5px;
+  font-family: sans-serif;
+}
+a, a:link, a:visited  {
+  color: white;
+  text-decoration: none;
+}
+a:hover  {
+  text-decoration: none;
+}
+aside, nav, footer, header, section, main {
+  display: block;
+}
+ul, ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+label {
+  cursor: pointer;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0E0F11;
+  color: white;
+}
+html, body {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Каркас */
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#box {
+  width: inherit;
+  height: inherit;
+  overflow: inherit;
+  display: flex;
+  flex-direction: column;
+}
+#header {
+  width: inherit;
+  position: relative;
+}
+#content-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+#content {
+  overflow: scroll;
+}
+.gradient-block-top, .gradient-block-bottom {
+  width: 100%;
+  height: calc(24px * 3);
+  position: absolute;
+  z-index: 999;
+}
+.gradient-block-top {
+  background: linear-gradient(to bottom, #0E0F11, rgba(0, 0, 0, 0));
+  top: 0;
+}
+.gradient-block-bottom {
+  background: linear-gradient(to top, #0E0F11, rgba(0, 0, 0, 0));
+  bottom: 0;
+}
+.gradient-block-left, .gradient-block-right {
+  width: 50px;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+.gradient-block-left {
+  background: linear-gradient(to right, #0E0F11, rgba(0, 0, 0, 0));
+  left: 0;
+}
+.gradient-block-right {
+  background: linear-gradient(to left, #0E0F11, rgba(0, 0, 0, 0));
+  right: 0;
+}
+#top-menu {
+  min-height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#footer {
+  min-height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Шапка сайта */
+#header-desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+/* Слайдер */
+#header-slider {
+  position: relative;
+  margin: auto;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+.slide-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+/* Меню сайта */
+#header-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Календарь */
+.MuiDayCalendar-weekDayLabel {
+  background-color: #e3000b;
+  border-radius: 12px;
+  color: white!important;
+  font-weight: 900!important;
+}
+.MuiPickersArrowSwitcher-root {
+  margin-right: 10px;
+}
+
+
+
+/* Клавиатура экранная */
+.mirageTheme {
+  background-color: #0E0F11 !important;
+  width: 800px !important;
+  border-radius: 10px !important;
+}
+.mirageNumTheme {
+  background-color: #0E0F11 !important;
+  width: 300px !important;
+  border-radius: 10px !important;
+}
+.mirageLangButton {
+  max-width: 50px;
+}
+.hg-button, .hg-button:hover {
+  color: white !important;
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  border-bottom: none !important;
+  transition: background 0.3s !important;
+}
+.hg-button {
+  background-color: #383c45 !important;
+}
+.hg-button:hover {
+  background-color: #2f3238 !important;
+}
+.mirageEnter {
+  background-color: #e3000b !important;
+}
+.mirageEnter:hover {
+  background-color: #c7010a !important;
+}
+
+#auth {
+  border-radius: 20px;
+  background-color: #0E0F11;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#content::-webkit-scrollbar {
+  width: 50px;
+  background-color: #0E0F11;
+}
+#content::-webkit-scrollbar-thumb {
+  background: #8B919B ;
+  border-radius: 12px;
+  padding-right: 5px;
+}
+#content::-webkit-scrollbar-track {
+  background: #0E0F11;
+}
+#content::-webkit-scrollbar-corner {
+  background: #0E0F11;
+}

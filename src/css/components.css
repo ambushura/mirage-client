@@ -1,0 +1,113 @@
+.component-seance-title {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+}
+.component-seance-title>div {
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 4px 6px;
+    font-weight: bold;
+    margin-right: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.component-seance-title>div:nth-child(1) { z-index: 5; }
+.component-seance-title>div:nth-child(2) { z-index: 4; }
+.component-seance-title>div:nth-child(3) { z-index: 3; }
+.component-seance-title>div:nth-child(4) { z-index: 2; }
+.component-seance-title>div:nth-child(5) { z-index: 1; }
+.component-seance-title-time {
+    background-color: #fff;
+    color: black;
+    width: 70px;
+}
+.component-seance-title>div>div {
+    padding-left: 10px;
+}
+.component-seance-title-time>div>span {
+    background-color: #fff;
+    color: #8B919B;
+}
+.component-seance-title-day {
+    background-color: #fff;
+    color: black;
+    width: 40px;
+}
+.component-seance-title-copy-type {
+    background-color: #E3000B;
+    color: white;
+    width: 25px;
+}
+.component-seance-title-content-type-toKino, .component-seance-title-content-type-pushkarta {
+    width: 64px;
+}
+.component-seance-title-content-type-toKino {
+    background-color: #FFCF09;
+    color: black;
+}
+.component-seance-title-content-type-pushkarta {
+    color: white;
+}
+.component-seance-title-rate-age {
+    width: 40px;
+}
+/* x2 */
+.component-seance-title-x2 {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    margin-right: 20px;
+}
+.component-seance-title-x2>div {
+    font-size: calc(12px * 1.5);
+    border-radius: 12px;
+    height: 36px;
+    padding: 6px 12px;
+    font-weight: bold;
+    margin-right: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.component-seance-title-x2>div:nth-child(1) { z-index: 5; }
+.component-seance-title-x2>div:nth-child(2) { z-index: 4; }
+.component-seance-title-x2>div:nth-child(3) { z-index: 3; }
+.component-seance-title-x2>div:nth-child(4) { z-index: 2; }
+.component-seance-title-x2>div:nth-child(5) { z-index: 1; }
+.component-seance-title-time-x2 {
+    background-color: #fff;
+    color: black;
+    width: calc(70px * 1.5);
+}
+.component-seance-title-x2>div>div {
+    padding-left: calc(10px * 1.5);
+}
+.component-seance-title-time-x2>div>span {
+    background-color: #fff;
+    color: #8B919B;
+}
+.component-seance-title-day-x2 {
+    background-color: #fff;
+    color: black;
+    width: calc(40px * 1.5);
+}
+.component-seance-title-copy-type-x2 {
+    background-color: #E3000B;
+    color: white;
+    width: calc(25px * 1.5);
+}
+.component-seance-title-content-type-toKino-x2, .component-seance-title-content-type-pushkarta-x2 {
+    width: calc(64px * 1.5);
+}
+.component-seance-title-content-type-toKino-x2 {
+    background-color: #FFCF09;
+    color: black;
+}
+.component-seance-title-content-type-pushkarta-x2 {
+    color: white;
+}
+.component-seance-title-rate-age-x2 {
+    width: calc(40px * 1.5);
+}
