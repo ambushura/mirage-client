@@ -4,6 +4,7 @@ import './css/index.css'
 import './css/cinema.css'
 import './css/components.css'
 import './css/orders.css'
+import './css/horeca.css'
 import "dayjs/locale/ru"
 import App from './App.jsx'
 import store from "./redux/index.js"

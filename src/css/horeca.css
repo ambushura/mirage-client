@@ -1,0 +1,37 @@
+#horeca-menu {
+    padding: 5px;
+}
+.menu-breadcrumbs, .menu-folders, .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+.menu-breadcrumbs>div, .menu-folders>div, .menu-items>div {
+    margin: 0 5px 5px 0;
+    font-weight: bold;
+}
+.menu-breadcrumb, .menu-folder, .menu-item {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+.menu-breadcrumb>div, .menu-folder>div, .menu-item>div {
+    padding: 5px;
+    max-width: calc(100px - 10px);
+    overflow: hidden;
+    font-size: 80%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+.menu-breadcrumb {
+    background-color: #4553623D;
+}
+.menu-folder {
+    background-color: #2E3239;
+}
+.menu-item {
+    background-color: #414650;
+}

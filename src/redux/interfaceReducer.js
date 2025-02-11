@@ -4,6 +4,7 @@ export const ANIMATION_SPEED = 250
 export const HEADER_HEIGHT = [200, 70]
 export const TOP_MENU_HEIGHT = [50, 50]
 export const FOOTER_HEIGHT = [50, 50]
+export const PARAM_DATE_SHIFT = ['films', 'film', 'schedule']
 export const initialState = {
     authenticated: 0,
     app_width: undefined,

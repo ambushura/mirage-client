@@ -23,7 +23,7 @@ const AppRoutes = (props) => {
     // Установка города и филиала по умолчанию
     const {param_city, param_filial, param_date} = useParams()
     useSetCityAndFilial(param_city, param_filial)
-    // Установка даты смены расписания
+    // Установка даты смены
     useSetDateShift(param_date)
     // Установка текущей страницы
     useSetCurrentPage(props.current_page)

@@ -20,7 +20,12 @@ export function useFetching(url) {
                 if (isMounted) setLoading(false)
             }
         }
-        fetchData().then()
+        if (url !== undefined) {
+            fetchData().then()
+        } else {
+            setData(null)
+            setLoading(false)
+        }
         return () => {
             isMounted = false
         }
