@@ -1,7 +1,7 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import cover from "../../../images/cover.jpg"
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import DeleteIcon from '@mui/icons-material/Delete'
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 
 const Ticket = (props) => {
@@ -32,7 +32,7 @@ const Ticket = (props) => {
                         <Box className='checkout-order-ticket-body-2-hall'>
                             <Box>{pre_order.seance.name_hall}</Box>
                             <Box><span>Ряд</span>{ticket.row}</Box>
-                            <Box><span>Ряд</span>{ticket.number}</Box>
+                            <Box><span>Место</span>{ticket.number}</Box>
                         </Box>
                     </Box>
                     <Box className='checkout-order-ticket-body-3'>
@@ -41,7 +41,7 @@ const Ticket = (props) => {
                             () => {
 
                             }
-                        }><DeleteOutlineIcon sx={{color: '#8B919B'}}/></Box>
+                        }><DeleteIcon sx={{color: '#8B919B'}}/></Box>
                     </Box>
                 </Box>
             </Box>

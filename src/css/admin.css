@@ -1,7 +1,7 @@
 #order {
     box-sizing: border-box;
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 450px;
+    max-width: 450px;
     padding: 0 10px;
 }
 #order-box {
@@ -27,20 +27,23 @@
     justify-content: space-between;
     vertical-align: center;
     margin: 4px 4px 0 0;
+    width: 200px;
 }
 .order-booking-item-description {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 3px;
+    margin: 0 3px 0 0;
     background-color: #414650;
     border-radius: 12px;
     padding: 0 8px;
+    width: 80px;
 }
 .order-booking-item-numbers {
     font-weight: bold;
-    padding: 3px;
+    margin-right: 5px;
 }
 .order-booking-item-labels {
     color: #8B919B;
+    margin-right: 5px;
 }

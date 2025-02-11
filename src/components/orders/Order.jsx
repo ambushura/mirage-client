@@ -3,6 +3,7 @@ import {Box, Button, ButtonGroup} from "@mui/material"
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import SaveIcon from '@mui/icons-material/Save'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import DeleteIcon from '@mui/icons-material/Delete'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import {useSelector} from "react-redux"
@@ -32,14 +33,24 @@ const Order = () => {
                         </Box>
                         <Box>
                             <ButtonGroup>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}>Скидки</Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}>Комментарий</Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><CheckBoxIcon/></Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><CheckBoxOutlineBlankIcon/></Button>
+                                <ButtonGroup sx={{marginRight: '4px'}}>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}>Скидки</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><DeleteIcon/></Button>
+                                </ButtonGroup>
+                                <ButtonGroup sx={{marginRight: '4px'}}>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}>Комментарий</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><DeleteIcon/></Button>
+                                </ButtonGroup>
+                                <ButtonGroup>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><CheckBoxIcon/></Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><CheckBoxOutlineBlankIcon/></Button>
+                                </ButtonGroup>
                             </ButtonGroup>
                         </Box>
                         <Box sx={{padding: '5px 0'}}>
