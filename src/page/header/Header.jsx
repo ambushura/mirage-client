@@ -3,20 +3,21 @@ import {Box, Button, ButtonGroup, Fade, Modal} from "@mui/material"
 import PlaceIcon from "@mui/icons-material/Place"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/auth/Auth.jsx"
-import { useState }  from "react"
+import {useEffect, useState} from "react"
 import { useRef } from "react"
-import {ANIMATION_SPEED, HEADER_HEIGHT, login, MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
+import {ANIMATION_SPEED, HEADER_HEIGHT, MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import {logout} from "../../redux/authReducer.js"
 
 const Header = () => {
 
     const dispatch = useDispatch()
 
-    const authenticated = useSelector(state => state.interface.authenticated)
+    const permissions = useSelector(state => state.auth.permissions)
     const top_menu = useSelector(state => state.interface.top_menu)
     const cities = useSelector(state => state.data.cities)
     const city = useSelector(state => state.data.city)
@@ -34,11 +35,20 @@ const Header = () => {
     const app_width = useSelector(state => state.interface.app_width)
     const auth_opened = useSelector(state => state.interface.auth_opened)
 
+    const [authenticated, set_authenticated] = useState(0)
+    useEffect(() => {
+        if (permissions.includes("staff")) {
+            set_authenticated(1)
+        } else {
+            set_authenticated(0)
+        }
+    }, [permissions])
+
     return (
         <header id="header" style={{minHeight: `${HEADER_HEIGHT[authenticated]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
                 <Box id="header-desktop">
-                    {authenticated ? <></> : <TopSlider/>}
+                    {permissions.includes("staff") ? <></> : <TopSlider/>}
                     <div id="header-menu">
                         <ButtonGroup id="header-menu-list" variant="contained">
                             {top_menu[authenticated].map(el => {
@@ -70,19 +80,24 @@ const Header = () => {
                                 endIcon={<KeyboardArrowDownIcon/>}
                                 type='filials'
                             />
-                            {authenticated === 0 ? <Button key='auth'
-                                                           onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
-                                <Button key='auth'
-                                        onClick={() => dispatch(login(0))}><ExitToAppIcon/></Button>}
                         </ButtonGroup>
-                        <Modal open={auth_opened}
-                               onClose={() => dispatch(setAuthOpened(false))}
-                               aria-labelledby="Страница авторизации"
-                               aria-describedby="Введите пароль">
-                            <Box id="auth">
-                                <Auth setAuthOpened={setAuthOpened}/>
-                            </Box>
-                        </Modal>
+                        {filial !== undefined ?
+                            <>
+                                {permissions.includes("staff") ? <Button variant="contained" color="primary" key='auth'
+                                                                         onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
+                                    <Button variant="contained" color="primary" key='auth'
+                                            onClick={() => dispatch(logout())}
+                                    ><ExitToAppIcon/></Button>
+                                }
+                                <Modal open={auth_opened}
+                                       onClose={() => dispatch(setAuthOpened(false))}
+                                       aria-labelledby="Страница авторизации"
+                                       aria-describedby="Введите пароль">
+                                    <Box id="auth">
+                                        <Auth setAuthOpened={setAuthOpened}/>
+                                    </Box>
+                                </Modal>
+                            </> : <></>}
                     </div>
                 </Box>
             </Fade>

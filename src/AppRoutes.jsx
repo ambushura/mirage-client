@@ -74,4 +74,5 @@ const AppRoutes = (props) => {
         </>
     )
 }
+
 export default AppRoutes

@@ -19,7 +19,7 @@ const Film = (props) => {
 
     useEffect(() => {
         dispatch(setFilm(film_data))
-    }, [film_data])
+    }, [dispatch, film_data])
 
     const film = useSelector(state => state.schedule.film)
     const film_seances = useSelector(state => state.schedule.film_seances)

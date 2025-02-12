@@ -16,7 +16,7 @@ function App() {
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.schedule.param_date)
     const [full_screen, set_full_screen] = useState(false)
-    const authenticated = useSelector(state => state.interface.authenticated)
+    const permissions = useSelector(state => state.auth.permissions)
 
     // Загружаем города
     useSetCityAndFilial()
@@ -42,7 +42,7 @@ function App() {
 
     return (
         <Box style={{height: '100%', overflow: 'hidden'}}>
-            {!full_screen || authenticated === 1 ? <Header/> : <></>}
+            {!full_screen || permissions.includes("staff") ? <Header/> : <></>}
             <Routes>
                 <Route path="/" element={<Navigate
                     to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
@@ -62,7 +62,7 @@ function App() {
                        element={<AppRoutes current_page='admin'/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
-            {!full_screen || authenticated === 1 ? <Footer/> : <></>}
+            {!full_screen || permissions.includes("staff") ? <Footer/> : <></>}
         </Box>
     )
 }

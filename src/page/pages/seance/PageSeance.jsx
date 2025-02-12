@@ -28,7 +28,7 @@ const PageSeance = () => {
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const authenticated = useSelector(state => state.interface.authenticated)
+    const authenticated = useSelector(state => state.auth.authenticated)
 
     const seance = useSelector(state => state.schedule.seance)
     const pre_order = useSelector(state => state.orders.pre_order)

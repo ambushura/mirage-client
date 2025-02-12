@@ -6,14 +6,16 @@ import {FOOTER_HEIGHT, HEADER_HEIGHT, TOP_MENU_HEIGHT} from "../../../redux/inte
 import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Film from "./Film.jsx"
-import Order from "../../../components/orders/Order.jsx";
+import Order from "../../../components/orders/Order.jsx"
 
 const PageFilm = () => {
 
     const params = useParams()
 
+    const permissions = useSelector(state => state.auth.permissions)
+
     const app_height = useSelector(state => state.interface.app_height)
-    const authenticated = useSelector(state => state.interface.authenticated)
+    const authenticated = useSelector(state => state.auth.authenticated)
     const [height, setHeight] = useState('')
 
     useEffect(() => {
@@ -39,7 +41,7 @@ const PageFilm = () => {
                             <Film uid_film={params.uid_film}/>
                         </Box>
                     </Box>
-                    {authenticated === 1 ? <Order/> : <></>}
+                    {permissions.includes('staff') ? <Order/> : <></>}
                 </Box>
             </Box>
         </>

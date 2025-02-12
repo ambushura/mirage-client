@@ -12,7 +12,7 @@ const PageHoreca = () => {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const app_height = useSelector(state => state.interface.app_height)
-    const authenticated = useSelector(state => state.interface.authenticated)
+    const authenticated = useSelector(state => state.auth.authenticated)
     const [menu_data, ,] = useSetMenu(city, filial, uid_folder)
     const [breadcrumbs, set_breadcrumbs] = useState([])
     const [height, setHeight] = useState('')

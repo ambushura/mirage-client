@@ -5,8 +5,7 @@ export const HEADER_HEIGHT = [200, 70]
 export const TOP_MENU_HEIGHT = [50, 50]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ['films', 'film', 'schedule']
-export const initialState = {
-    authenticated: 0,
+const initialState = {
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,
@@ -29,9 +28,6 @@ const interfaceSlice = createSlice({
     name: "interface",
     initialState,
     reducers: {
-        login: (state, action) => {
-            state.authenticated = action.payload
-        },
         setAppWidth: (state, action) => {
             state.app_width = action.payload
         },
@@ -50,7 +46,6 @@ const interfaceSlice = createSlice({
     },
 })
 export const {
-    login,
     setAppWidth,
     setAppHeight,
     setAuthOpened,
