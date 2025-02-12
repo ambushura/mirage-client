@@ -13,14 +13,19 @@ const PageFilm = () => {
     const params = useParams()
 
     const permissions = useSelector(state => state.auth.permissions)
+    const [authenticated, set_authenticated] = useState(0)
 
     const app_height = useSelector(state => state.interface.app_height)
-    const authenticated = useSelector(state => state.auth.authenticated)
     const [height, setHeight] = useState('')
 
     useEffect(() => {
+        if (permissions.includes("staff")) {
+            set_authenticated(1)
+        } else {
+            set_authenticated(0)
+        }
         setHeight(`calc(${app_height}px - ${HEADER_HEIGHT[authenticated]}px - ${TOP_MENU_HEIGHT[authenticated]}px - ${FOOTER_HEIGHT[authenticated]}px)`)
-    }, [app_height, authenticated])
+    }, [app_height, authenticated, permissions])
 
     useSetCurrentPage('film')
 

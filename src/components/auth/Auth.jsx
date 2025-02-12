@@ -21,8 +21,6 @@ const Auth = (props) => {
             }
             const data = await response.json()
             dispatch(loginSuccess(data))
-            localStorage.setItem("token", data.token)
-            localStorage.setItem("permissions", JSON.stringify(data.permissions))
         } catch (error) {
             alert(error.message || "Ошибка сети")
         } finally {

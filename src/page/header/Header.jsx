@@ -83,7 +83,7 @@ const Header = () => {
                         </ButtonGroup>
                         {filial !== undefined ?
                             <>
-                                {permissions.includes("staff") ? <Button variant="contained" color="primary" key='auth'
+                                {!authenticated ? <Button variant="contained" color="primary" key='auth'
                                                                          onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
                                     <Button variant="contained" color="primary" key='auth'
                                             onClick={() => dispatch(logout())}
@@ -97,7 +97,8 @@ const Header = () => {
                                         <Auth setAuthOpened={setAuthOpened}/>
                                     </Box>
                                 </Modal>
-                            </> : <></>}
+                            </> : <></>
+                        }
                     </div>
                 </Box>
             </Fade>

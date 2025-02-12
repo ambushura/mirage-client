@@ -11,7 +11,7 @@ import {useFetchOrder} from "../../../hooks/useFetchOrder.js"
 import {useFetchBooking} from "../../../hooks/useFetchBooking.js"
 import {setBooking, setSeance} from "../../../redux/scheduleReducer.js"
 import {setCurrentPreOrder} from "../../../redux/ordersReducer.js"
-import {NEW_EMPTY_ORDER, ORDER_TIME_OUT, ticket_count} from "../../../service/advanced.js"
+import {ORDER_TIME_OUT, ticket_count} from "../../../service/advanced.js"
 import {deletePreOrder} from "../../../service/fetch_service.js"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 import Hall from "../../../components/halls/Hall.jsx"
@@ -28,8 +28,8 @@ const PageSeance = () => {
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const authenticated = useSelector(state => state.auth.authenticated)
-
+    const [authenticated, set_authenticated] = useState(0)
+    const permissions = useSelector(state => state.auth.permissions)
     const seance = useSelector(state => state.schedule.seance)
     const pre_order = useSelector(state => state.orders.pre_order)
     const [hall, set_hall] = useState(undefined)
@@ -108,6 +108,11 @@ const PageSeance = () => {
     }, [dispatch, filial, pre_order, time_remaining])
 
     useEffect(() => {
+        if (permissions.includes("staff")) {
+            set_authenticated(1)
+        } else {
+            set_authenticated(0)
+        }
         if (!authenticated) {
             if (refTitle.current !== null) {
                 const {offsetHeight} = refTitle.current
@@ -116,7 +121,7 @@ const PageSeance = () => {
         } else {
             set_hall_height(app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1])
         }
-    }, [app_height, hall])
+    }, [app_height, authenticated, hall, permissions])
 
     if (seance !== undefined && hall !== undefined) {
         return (

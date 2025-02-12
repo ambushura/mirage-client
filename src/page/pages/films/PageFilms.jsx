@@ -9,14 +9,19 @@ import Order from "../../../components/orders/Order.jsx"
 const PageFilms = () => {
 
     const app_height = useSelector(state => state.interface.app_height)
-    const authenticated = useSelector(state => state.auth.authenticated)
+    const [authenticated, set_authenticated] = useState(0)
     const [height, setHeight] = useState('')
 
     const permissions = useSelector(state => state.auth.permissions)
 
     useEffect(() => {
+        if (permissions.includes("staff")) {
+            set_authenticated(1)
+        } else {
+            set_authenticated(0)
+        }
         setHeight(`calc(${app_height}px - ${HEADER_HEIGHT[authenticated]}px - ${TOP_MENU_HEIGHT[authenticated]}px - ${FOOTER_HEIGHT[authenticated]}px)`)
-    }, [app_height, authenticated])
+    }, [app_height, authenticated, permissions])
 
     return (
         <>

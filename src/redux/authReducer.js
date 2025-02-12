@@ -12,11 +12,15 @@ const authReducer = createSlice({
             state.token = action.payload.token
             state.permissions = action.payload.permissions
             state.username = action.payload.username
+            localStorage.setItem("token", action.payload.token)
+            localStorage.setItem("permissions", JSON.stringify(action.payload.permissions))
         },
         logout: (state) => {
             state.token = null
             state.permissions = []
             state.username = null
+            localStorage.removeItem("token")
+            localStorage.removeItem("permissions")
         }
     }
 })
