@@ -251,12 +251,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: scroll;
 }
 .schedule-full-filial {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    overflow: hidden;
     padding: 0 15px;
     width: inherit;
 }

@@ -19,7 +19,7 @@ const SeanceCard = (props) => {
         place_2: place_2,
         place_3: place_3,
         place_1_vip: place_1_vip,
-        place_stroller:place_stroller
+        place_stroller: place_stroller
     }
 
     return (
@@ -31,14 +31,16 @@ const SeanceCard = (props) => {
                     day={false}
                     age={true}/>
             </Box>
-            <Box className='schedule-full-seance-film-name'>
-                {seance.film_name}
+            <Box sx={{paddingLeft: '5px'}}>
+                <Box className='schedule-full-seance-film-name'>
+                    {seance.film_name}
+                </Box>
             </Box>
             <Box className='schedule-full-tariff'>
                 <Box className='schedule-full-tariff-body'>
                     {seance.tariff.map(price => {
                         return (
-                            <Box key={price} className='schedule-full-tariff-place'>
+                            <Box key={price.uid_place_type} className='schedule-full-tariff-place'>
                                 <img width='20px' height='20px' src={`${images[price.image_name]}`} alt='место'/>
                                 <div>{price.price} P</div>
                             </Box>
