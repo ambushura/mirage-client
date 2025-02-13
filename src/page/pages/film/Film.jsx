@@ -21,6 +21,9 @@ const Film = (props) => {
 
     useEffect(() => {
         dispatch(setFilm(film_data))
+        return () => {
+            dispatch(setFilm({film: undefined, seances: []}))
+        }
     }, [dispatch, film_data])
 
     if (!fetch_loading && film !== undefined && seances.length > 0) {

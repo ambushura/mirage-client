@@ -18,6 +18,9 @@ const Films = () => {
 
     useEffect(() => {
         dispatch(setFilms(films_data))
+        return () => {
+            dispatch(setFilms([]))
+        }
     }, [dispatch, films_data])
 
     if (fetch_loading) {

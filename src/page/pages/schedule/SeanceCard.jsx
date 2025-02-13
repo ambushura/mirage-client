@@ -48,8 +48,7 @@ const SeanceCard = (props) => {
                     })}
                 </Box>
                 <Box className='schedule-full-tariff-footer'>
-                    <div className='schedule-full-tariff-footer-circle'
-                         style={{backgroundImage: `url(${circle})`}}></div>
+                    <img src={circle} alt="" className='schedule-full-tariff-footer-circle'/>
                 </Box>
             </Box>
         </NavLink>

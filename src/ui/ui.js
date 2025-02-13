@@ -64,6 +64,7 @@ export const theme = createTheme({
         MuiAlert: {
             styleOverrides: {
                 root: {
+                    borderRadius: '12px',
                     fontSize: '18px',
                 }
             }
