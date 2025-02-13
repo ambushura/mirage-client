@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import {useFetching} from "./useFetching.js"
 import {HOST} from "../redux/index.js"
 import {setCities, setCity, setFilial} from "../redux/dataReducer.js"
+import {logout} from "../redux/authReducer.js"
 
 export function useSetCityAndFilial(param_city, param_filial) {
 
@@ -10,6 +11,7 @@ export function useSetCityAndFilial(param_city, param_filial) {
     const [fetch_data] = useFetching(`http://${HOST}/api/get_cities`)
     const cities = useSelector(state => state.data.cities)
     const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
 
     useEffect(() => {
         if (fetch_data !== null) {
@@ -29,4 +31,10 @@ export function useSetCityAndFilial(param_city, param_filial) {
             })
         }
     }, [dispatch, cities, city, fetch_data, param_city, param_filial])
+
+    useEffect(() => {
+        if (filial === undefined) {
+            dispatch(logout())
+        }
+    }, [dispatch, filial])
 }
