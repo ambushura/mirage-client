@@ -10,25 +10,20 @@ import Loader from "../../../components/Loader.jsx"
 const Film = (props) => {
 
     const dispatch = useDispatch()
+    const param_date = useSelector(state => state.schedule.param_date)
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const param_date = useSelector(state => state.schedule.param_date)
 
     const [film_data, , fetch_loading] = useSetFilm(city, filial, param_date, props.uid_film)
+    const film = useSelector(state => state.schedule.film_seances.film)
+    const seances = useSelector(state => state.schedule.film_seances.seances)
 
     useEffect(() => {
         dispatch(setFilm(film_data))
     }, [dispatch, film_data])
 
-    const film = useSelector(state => state.schedule.film)
-    const film_seances = useSelector(state => state.schedule.film_seances)
-
-    if (fetch_loading || film === undefined) {
-        return (
-            <Loader/>
-        )
-    } else {
+    if (!fetch_loading && film !== undefined && seances.length > 0) {
         return (
             <Box className='seances-body-poster'>
                 <Box className='seances-cover'>
@@ -42,7 +37,7 @@ const Film = (props) => {
                         <Box className='seances-body-description-genre'>ужасы, триллеры</Box>
                         <Box>{film.description}</Box>
                     </Box>
-                    {film_seances.map(filial_seances => {
+                    {seances.map(filial_seances => {
                         return (
                             <Box className='seances-body-filial' key={filial_seances.filial.uid}>
                                 <Box
@@ -63,6 +58,10 @@ const Film = (props) => {
                 </Box>
                 <Box className='seances-rate'>IMDB 4.7</Box>
             </Box>
+        )
+    } else {
+        return (
+            <Loader/>
         )
     }
 }

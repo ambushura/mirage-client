@@ -24,7 +24,8 @@ const SeanceCard = (props) => {
                 <SeanceTitle
                     seance={seance}
                     content_type={true}
-                    day={false}/>
+                    day={false}
+                    age={true}/>
             </Box>
             <Box className='schedule-full-seance-film-name'>
                 {seance.film_name}

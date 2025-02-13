@@ -26,6 +26,7 @@ const Ticket = (props) => {
                             seance={pre_order.seance}
                             content_type={true}
                             day={true}
+                            age={true}
                         />
                         <Box className='checkout-order-ticket-body-2-film-name'>{pre_order.seance.name_film}</Box>
                         <Box className='checkout-order-ticket-body-2-filial'>{filial.name}</Box>

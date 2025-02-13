@@ -6,8 +6,7 @@ const initialState = {
     date: current_date.toISOString(),
     param_date: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
     films: [],
-    film: undefined,
-    film_seances: [],
+    film_seances: {film: undefined, seances: []},
     schedule_city: [],
     schedule_filial: [],
     seance: undefined,
@@ -24,8 +23,7 @@ export const scheduleSlice = createSlice({
             state.films = action.payload
         },
         setFilm: (state, action) => {
-            state.film = action.payload.film
-            state.film_seances = action.payload.film_seances
+            state.film_seances = {film: action.payload.film, seances: action.payload.seances}
         },
         setScheduleDateShift: (state, action) => {
             const current_date_new = dayjs(action.payload); // оставляем объект dayjs

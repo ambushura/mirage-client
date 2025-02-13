@@ -57,7 +57,9 @@ const Order = () => {
                             <SeanceTitle
                                 seance={seance}
                                 content_type={true}
-                                day={false}/>
+                                day={true}
+                                its_hall_map={true}
+                                age={true}/>
                         </Box>
                         <Box className='schedule-full-seance-film-name'>
                             {seance.film_name}

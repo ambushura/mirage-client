@@ -2,10 +2,12 @@ import {Box} from "@mui/material"
 import dayjs from "dayjs"
 
 const SeanceTitle = (props) => {
+
     const seance = props.seance
     const beginning = dayjs(seance.beginning)
     const ending = dayjs(seance.ending)
     const its_hall_map = props.its_hall_map ? '-x2' : ''
+
     return (
         <Box className={`component-seance-title${its_hall_map}`}>
             <Box className={`component-seance-title-time${its_hall_map}`}>
@@ -23,10 +25,11 @@ const SeanceTitle = (props) => {
                     {seance.content_type === 'toKino' ? <Box>То Кино!</Box> : <></>}
                     {seance.content_type === 'pushkarta' ? <Box>Пушкарта</Box> : <></>}
                 </Box> : <></>}
-            {!its_hall_map ? <Box className={`component-seance-title-rate-age${its_hall_map}`}>
+            {props.age ? <Box className={`component-seance-title-rate-age${its_hall_map}`}>
                 <Box>{`${seance.rate_age}+`}</Box>
             </Box> : <></>}
         </Box>
     )
 }
+
 export default SeanceTitle

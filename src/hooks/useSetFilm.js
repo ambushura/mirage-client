@@ -34,7 +34,7 @@ export function useSetFilm(city, filial, param_date, uid_film) {
                 film_seances_new.push({filial: filial_data.filial, seances: filial_data.data.seances})
             }
         })
-        set_data({film: film_new, film_seances: film_seances_new})
+        set_data({film: film_new, seances: film_seances_new})
     }, [fetch_data])
 
     return [data, fetch_errors, fetch_loading]

@@ -56,7 +56,7 @@ const Header = () => {
                                     style={{height: '100%'}}>{el.name}</Button></NavLink>
                             })}
                         </ButtonGroup>
-                        <ButtonGroup id="top-menu-left" variant="contained">
+                        {!authenticated ? <ButtonGroup id="top-menu-left" variant="contained">
                             <List
                                 open={cities_open}
                                 anchor={cities_ref}
@@ -80,25 +80,21 @@ const Header = () => {
                                 endIcon={<KeyboardArrowDownIcon/>}
                                 type='filials'
                             />
-                        </ButtonGroup>
-                        {filial !== undefined ?
-                            <>
-                                {!authenticated ? <Button variant="contained" color="primary" key='auth'
-                                                                         onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
-                                    <Button variant="contained" color="primary" key='auth'
-                                            onClick={() => dispatch(logout())}
-                                    ><ExitToAppIcon/></Button>
-                                }
-                                <Modal open={auth_opened}
-                                       onClose={() => dispatch(setAuthOpened(false))}
-                                       aria-labelledby="Страница авторизации"
-                                       aria-describedby="Введите пароль">
-                                    <Box id="auth">
-                                        <Auth setAuthOpened={setAuthOpened}/>
-                                    </Box>
-                                </Modal>
-                            </> : <></>
+                        </ButtonGroup> : <></>}
+                        {!authenticated ? <Button variant="contained" color="primary" key='auth'
+                                                  onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
+                            <Button variant="contained" color="primary" key='auth'
+                                    onClick={() => dispatch(logout())}
+                            ><ExitToAppIcon/></Button>
                         }
+                        <Modal open={auth_opened}
+                               onClose={() => dispatch(setAuthOpened(false))}
+                               aria-labelledby="Страница авторизации"
+                               aria-describedby="Введите пароль">
+                            <Box id="auth">
+                                <Auth setAuthOpened={setAuthOpened}/>
+                            </Box>
+                        </Modal>
                     </div>
                 </Box>
             </Fade>

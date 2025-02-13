@@ -15,7 +15,7 @@ const ScheduleMenu = () => {
     const navigate = useNavigate()
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const film = useSelector(state => state.schedule.film)
+    const film = useSelector(state => state.schedule.film_seances.film)
     const current_page = useSelector(state => state.interface.current_page)
     const date = useSelector(state => state.schedule.date)
     const param_date = useSelector(state => state.schedule.param_date)
@@ -147,4 +147,5 @@ const ScheduleMenu = () => {
         </Box>
     )
 }
+
 export default ScheduleMenu
