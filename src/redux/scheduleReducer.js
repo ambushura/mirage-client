@@ -7,8 +7,7 @@ const initialState = {
     param_date: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
     films: [],
     film_seances: {film: undefined, seances: []},
-    schedule_city: [],
-    schedule_filial: [],
+    schedule: [],
     seance: undefined,
     booking: [],
 }
@@ -16,8 +15,8 @@ export const scheduleSlice = createSlice({
     name: "schedule",
     initialState,
     reducers: {
-        setScheduleFilial: (state, action) => {
-            state.schedule_filial = action.payload
+        setSchedule: (state, action) => {
+            state.schedule = action.payload
         },
         setFilms: (state, action) => {
             state.films = action.payload
@@ -39,7 +38,7 @@ export const scheduleSlice = createSlice({
     },
 })
 export const {
-    setScheduleFilial,
+    setSchedule,
     setFilms,
     setFilm,
     setScheduleDateShift,

@@ -5,6 +5,7 @@ import dataSlice from "./dataReducer.js"
 import hallsSlice from "./hallsReducer.js"
 import interfaceSlice from "./interfaceReducer.js"
 import authSlice from "./authReducer.js";
+import notifierReducer from "./notifierReducer.js"
 export const store = configureStore({
     reducer: {
         schedule: scheduleSlice,
@@ -13,6 +14,7 @@ export const store = configureStore({
         data: dataSlice,
         interface: interfaceSlice,
         auth: authSlice,
+        notifier: notifierReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 })

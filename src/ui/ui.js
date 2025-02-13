@@ -60,6 +60,13 @@ export const theme = createTheme({
                     },
                 }
             }
+        },
+        MuiAlert: {
+            styleOverrides: {
+                root: {
+                    fontSize: '18px',
+                }
+            }
         }
     }
 })

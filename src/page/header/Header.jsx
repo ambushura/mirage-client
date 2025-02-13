@@ -81,12 +81,13 @@ const Header = () => {
                                 type='filials'
                             />
                         </ButtonGroup> : <></>}
-                        {!authenticated ? <Button variant="contained" color="primary" key='auth'
-                                                  onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
-                            <Button variant="contained" color="primary" key='auth'
-                                    onClick={() => dispatch(logout())}
-                            ><ExitToAppIcon/></Button>
-                        }
+                        {filial !== undefined ? <>
+                            {!authenticated ? <Button variant="contained" color="primary" key='auth'
+                                                      onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
+                                <Button variant="contained" color="primary" key='auth'
+                                        onClick={() => dispatch(logout())}
+                                ><ExitToAppIcon/></Button>
+                            }</> : <></>}
                         <Modal open={auth_opened}
                                onClose={() => dispatch(setAuthOpened(false))}
                                aria-labelledby="Страница авторизации"

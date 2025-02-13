@@ -249,11 +249,16 @@
 /* Расписание городов по залам */
 #schedule-full {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.schedule-full-filial {
+    display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     overflow: hidden;
     padding: 0 15px;
-    width: fit-content;
+    width: inherit;
 }
 .schedule-full-hall {
     display: flex;
@@ -380,4 +385,9 @@
 .schedule-full-tariff-place>div {
     margin-left: 5px;
     height: 20px;
+}
+.schedule-full-filial-name {
+    font-size: 18px;
+    padding: 15px;
+    font-weight: bold;
 }

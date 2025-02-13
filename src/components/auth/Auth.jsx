@@ -4,6 +4,8 @@ import "react-simple-keyboard/build/css/index.css"
 import Keyboard from "../keyboards/Keyboard.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {loginSuccess} from "../../redux/authReducer.js"
+import {addNotification} from "../../redux/notifierReducer.js"
+
 const Auth = (props) => {
     const dispatch = useDispatch()
     const [username] = useState("admin")
@@ -17,12 +19,16 @@ const Auth = (props) => {
                 body: JSON.stringify({username, password})
             })
             if (!response.ok) {
-                throw new Error("Ошибка входа")
+                throw new Error("Неправильный логин или пароль")
             }
             const data = await response.json()
             dispatch(loginSuccess(data))
         } catch (error) {
-            alert(error.message || "Ошибка сети")
+            dispatch(addNotification({
+                message: error.message,
+                severity: 'error',
+                autoHide: true
+            }))
         } finally {
             set_password("")
             dispatch(props.setAuthOpened(false))

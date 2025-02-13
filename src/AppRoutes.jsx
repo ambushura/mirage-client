@@ -11,6 +11,7 @@ import PageFilm from "./page/pages/film/PageFilm.jsx"
 import PageSeance from "./page/pages/seance/PageSeance.jsx"
 import PageAdmin from "./page/pages/admin/PageAdmin.jsx"
 import PageHoreca from "./page/pages/horeca/PageHoreca.jsx"
+import PageSchedule from "./page/pages/schedule/PageSchedule.jsx";
 
 const AppRoutes = (props) => {
 
@@ -46,6 +47,11 @@ const AppRoutes = (props) => {
 
     return (
         <>
+            <Fade in={props.current_page === 'schedule'} unmountOnExit>
+                <Box>
+                    {props.current_page === 'schedule' ? <PageSchedule/> : <></>}
+                </Box>
+            </Fade>
             <Fade in={props.current_page === 'films'} unmountOnExit>
                 <Box>
                     {props.current_page === 'films' ? <PageFilms/> : <></>}

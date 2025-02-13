@@ -14,17 +14,19 @@ import {Provider} from "react-redux"
 import {LocalizationProvider} from "@mui/x-date-pickers"
 import {ThemeProvider} from "@mui/material"
 import {BrowserRouter} from "react-router-dom"
+import Notifier from "./components/Notifier.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
-        <Provider store={store}>
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-                <ThemeProvider theme={theme}>
-                    <App/>
-                </ThemeProvider>
-            </LocalizationProvider>
-        </Provider>
+            <Provider store={store}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+                    <ThemeProvider theme={theme}>
+                        <App/>
+                        <Notifier/>
+                    </ThemeProvider>
+                </LocalizationProvider>
+            </Provider>
         </BrowserRouter>
     </StrictMode>
 )

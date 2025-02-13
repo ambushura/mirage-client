@@ -2,10 +2,12 @@ import dayjs from "dayjs"
 import {NavLink} from "react-router-dom"
 
 const SeanceCard = (props) => {
+
     const city = props.city
     const filial = props.filial
     const seance = props.seance
     const beginning = dayjs(seance.beginning.replace('Z', ''))
+
     return (
         <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}>
             <div className='seances-body-seance'>
