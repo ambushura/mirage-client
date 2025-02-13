@@ -7,6 +7,8 @@ import {setSchedule} from "../../../redux/scheduleReducer.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import {FOOTER_HEIGHT, HEADER_HEIGHT, TOP_MENU_HEIGHT} from "../../../redux/interfaceReducer.js"
 import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
+import Order from "../../../components/orders/Order.jsx"
+import Film from "../film/Film.jsx";
 
 const PageSchedule = () => {
 
@@ -45,36 +47,46 @@ const PageSchedule = () => {
                 display: 'flex',
                 height: height,
             }}>
-                <Box id="schedule-full" style={{height: height}}>
-                    {hall_seances_data.map(filial_hall_seances => {
-                        return (
-                            <Box key={filial_hall_seances.filial.uid}>
-                                <Box className="schedule-full-filial-name">{filial_hall_seances.filial.name}</Box>
-                                <Box className="schedule-full-filial">
-                                    {filial_hall_seances.hall_seances.map(hall => {
-                                        return (
-                                            <Box key={hall.uid} className='schedule-full-hall'>
-                                                <Box className='schedule-full-hall-name'>
-                                                    <Box>Зал {hall.name_full_hall}</Box>
-                                                </Box>
-                                                <Box className='schedule-full-seances'>
-                                                    {hall.seances.map(seance => {
-                                                        return (
-                                                            <SeanceCard
-                                                                key={seance.uid}
-                                                                city={city}
-                                                                filial={filial_hall_seances.filial}
-                                                                seance={seance}>
-                                                            </SeanceCard>
-                                                        )
-                                                    })}
-                                                </Box>
+                <Box id="content-wrap" style={{display: 'flex'}}>
+                    <Box id="content-wrap"
+                         sx={{height: height}}>
+                        <Box id="content"
+                             sx={{height: height}}>
+                            <Box id="schedule-full">
+                                {hall_seances_data.map(filial_hall_seances => {
+                                    return (
+                                        <Box key={filial_hall_seances.filial.uid}>
+                                            {hall_seances_data.length > 1 ? <Box
+                                                className="schedule-full-filial-name">{filial_hall_seances.filial.name}</Box> : <></>}
+                                            <Box className="schedule-full-filial">
+                                                {filial_hall_seances.hall_seances.map(hall => {
+                                                    return (
+                                                        <Box key={hall.uid} className='schedule-full-hall'>
+                                                            <Box className='schedule-full-hall-name'>
+                                                                <Box>Зал {hall.name_full_hall}</Box>
+                                                            </Box>
+                                                            <Box className='schedule-full-seances'>
+                                                                {hall.seances.map(seance => {
+                                                                    return (
+                                                                        <SeanceCard
+                                                                            key={seance.uid}
+                                                                            city={city}
+                                                                            filial={filial_hall_seances.filial}
+                                                                            seance={seance}>
+                                                                        </SeanceCard>
+                                                                    )
+                                                                })}
+                                                            </Box>
+                                                        </Box>
+                                                    )
+                                                })}
                                             </Box>
-                                        )
-                                    })}
-                                </Box>
-                            </Box>)
-                    })}
+                                        </Box>)
+                                })}
+                            </Box>
+                        </Box>
+                    </Box>
+                    {permissions.includes('staff') ? <Order/> : <></>}
                 </Box>
             </Box>
         </>
