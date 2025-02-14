@@ -4,8 +4,7 @@ import {useFetchingArray} from "./useFetchingArray.js"
 export function useSetSchedule(city, filial, param_date) {
 
     const [urls, set_urls] = useState([])
-    const [fetch_data, fetch_errors, fetch_loading] = useFetchingArray(urls)
-    const [data, set_data] = useState([])
+    const fetch_data = useFetchingArray(urls)
 
     useEffect(() => {
         let urls_new = []
@@ -25,15 +24,5 @@ export function useSetSchedule(city, filial, param_date) {
         set_urls(urls_new)
     }, [city, filial, param_date])
 
-    useEffect(() => {
-        const halls_seances = []
-        fetch_data.forEach(filial_data => {
-            if (filial_data.data !== null) {
-                halls_seances.push({filial: filial_data.filial, hall_seances: filial_data.data})
-            }
-        })
-        set_data(halls_seances)
-    }, [fetch_data])
-
-    return [data, fetch_errors, fetch_loading]
+    return fetch_data
 }

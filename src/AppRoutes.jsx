@@ -3,16 +3,14 @@ import {useEffect} from "react"
 import {setTopMenu} from "./redux/interfaceReducer.js"
 import {useSetCityAndFilial} from "./hooks/useSetCityAndFilial.js"
 import {useParams} from "react-router-dom"
-import {useSetCurrentPage} from "./hooks/useSetCurrentPage.js"
 import {Box, Fade} from "@mui/material"
 import PageFilms from "./page/pages/films/PageFilms.jsx"
 import {useSetDateShift} from "./hooks/useSetDateShift.js"
 import PageFilm from "./page/pages/film/PageFilm.jsx"
 import PageSeance from "./page/pages/seance/PageSeance.jsx"
 import PageAdmin from "./page/pages/admin/PageAdmin.jsx"
-import Menu from "./page/pages/horeca/Menu.jsx"
-import PageSchedule from "./page/pages/schedule/PageSchedule.jsx";
-import PageHoreca from "./page/pages/horeca/PageHoreca.jsx";
+import PageSchedule from "./page/pages/schedule/PageSchedule.jsx"
+import PageHoreca from "./page/pages/horeca/PageHoreca.jsx"
 
 const AppRoutes = (props) => {
 
@@ -27,8 +25,6 @@ const AppRoutes = (props) => {
     useSetCityAndFilial(param_city, param_filial)
     // Установка даты смены
     useSetDateShift(param_date)
-    // Установка текущей страницы
-    useSetCurrentPage(props.current_page)
 
     // Заполнение главного меню, исходя из города, филиала и авторизации
     useEffect(() => {

@@ -2,58 +2,67 @@ import {useSetSchedule} from "../../../hooks/useSetSchedule.js"
 import {Box} from "@mui/material"
 import SeanceCard from "./SeanceCard.jsx"
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 import {setSchedule} from "../../../redux/scheduleReducer.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
-import {FOOTER_HEIGHT, HEADER_HEIGHT, TOP_MENU_HEIGHT} from "../../../redux/interfaceReducer.js"
 import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 import Order from "../../../components/orders/Order.jsx"
+import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
+import Loader from "../../../components/Loader.jsx"
 
 const PageSchedule = () => {
 
+    // Служебные функции
     const dispatch = useDispatch()
+
+    // Данные из хранилища
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const param_date = useSelector(state => state.schedule.param_date)
-    const [hall_seances_data, ,] = useSetSchedule(city, filial, param_date)
-    const permissions = useSelector(state => state.auth.permissions)
-    const [authenticated, set_authenticated] = useState(0)
-    const app_height = useSelector(state => state.interface.app_height)
-    const [height, setHeight] = useState('')
+    const schedule = useSelector(state => state.schedule.schedule)
 
+    // Хуки
+    useSetCurrentPage('schedule')
+    const [content_height, show_pre_order] = useSetContentHeight()
+    const filial_halls_seances = useSetSchedule(city, filial, param_date)
+
+    // Монтаж/демонтаж
     useEffect(() => {
-        dispatch(setSchedule(hall_seances_data))
+        dispatch(setSchedule(filial_halls_seances))
         return () => {
             dispatch(setSchedule([]))
         }
-    }, [dispatch, hall_seances_data])
-
-    useEffect(() => {
-        if (permissions.includes("staff")) {
-            set_authenticated(1)
-        } else {
-            set_authenticated(0)
-        }
-        setHeight(`calc(${app_height}px - ${HEADER_HEIGHT[authenticated]}px - ${TOP_MENU_HEIGHT[authenticated]}px - ${FOOTER_HEIGHT[authenticated]}px)`)
-    }, [app_height, authenticated, permissions])
-
-    useSetCurrentPage('schedule')
+    }, [dispatch, filial_halls_seances])
 
     return (
         <>
             <ScheduleMenu/>
             <Box sx={{
                 display: 'flex',
-                height: height,
+                height: content_height,
             }}>
                 <Box id="content-wrap" style={{display: 'flex'}}>
                     <Box id="content-wrap"
-                         sx={{height: height}}>
+                         sx={{height: content_height}}>
                         <Box id="content"
-                             sx={{height: height}}>
+                             sx={{height: content_height}}>
                             <Box id="schedule-full">
-                                {hall_seances_data.map(filial_hall_seances => {
-                                    if (filial_hall_seances.hall_seances.length > 0) {
+                                {schedule.map(filial_hall_seances => {
+                                    if (filial_hall_seances.error !== null) {
+                                        return (
+                                            <Box key={filial_hall_seances.filial.uid}>
+                                                <Box className="schedule-full-filial-name">
+                                                    <span>{filial_hall_seances.filial.name}</span>
+                                                </Box>
+                                                <Box className="schedule-full-filial">
+                                                    Ошибка загрузки {filial_hall_seances.error}
+                                                </Box>
+                                            </Box>)
+                                    } else if (filial_hall_seances.loading) {
+                                        return (
+                                            <Loader key={filial_hall_seances.filial.uid}/>
+                                        )
+                                    } else {
                                         return (
                                             <Box key={filial_hall_seances.filial.uid}>
                                                 <Box
@@ -61,7 +70,7 @@ const PageSchedule = () => {
                                                     <span>{filial_hall_seances.filial.name}</span>
                                                 </Box>
                                                 <Box className="schedule-full-filial">
-                                                    {filial_hall_seances.hall_seances.map(hall => {
+                                                    {filial_hall_seances.data.map(hall => {
                                                         return (
                                                             <Box key={hall.uid} className='schedule-full-hall'>
                                                                 <Box className='schedule-full-hall-name'>
@@ -89,7 +98,7 @@ const PageSchedule = () => {
                             </Box>
                         </Box>
                     </Box>
-                    {permissions.includes('staff') ? <Order/> : <></>}
+                    {show_pre_order ? <Order/> : <></>}
                 </Box>
             </Box>
         </>

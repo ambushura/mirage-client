@@ -1,29 +1,25 @@
 import {Box} from "@mui/material"
-import {useEffect, useState} from "react"
-import {FOOTER_HEIGHT, HEADER_HEIGHT, TOP_MENU_HEIGHT} from "../../../redux/interfaceReducer.js"
-import {useSelector} from "react-redux"
+import Menu from "./Menu.jsx"
+import Order from "../../../components/orders/Order.jsx"
+import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
 
 const PageHoreca = () => {
 
-    const app_height = useSelector(state => state.interface.app_height)
-    const permissions = useSelector(state => state.auth.permissions)
-    const [height, set_height] = useState('')
-    const [authenticated, set_authenticated] = useState(0)
-
-    useEffect(() => {
-        if (permissions.includes("staff")) {
-            set_authenticated(1)
-        }
-    }, [permissions])
-
-    useEffect(() => {
-        set_height(`calc(${app_height}px - ${HEADER_HEIGHT[authenticated]}px - ${TOP_MENU_HEIGHT[authenticated]}px - ${FOOTER_HEIGHT[authenticated]}px)`)
-    }, [app_height, authenticated])
+    const [content_height, show_pre_order] = useSetContentHeight()
 
     return (
-        <Box id="horeca-menu" sx={{height: height}}>
-            <PageHoreca/>
-            <PageHoreca/>
+        <Box id="horeca-menu" sx={{
+            display: 'flex',
+            height: content_height
+        }}>
+            <Box id="content-wrap"
+                 sx={{height: content_height}}>
+                <div className="gradient-block-bottom"></div>
+                <Box id="content" style={{height: content_height, overflowX: 'hidden'}}>
+                    <Menu/>
+                </Box>
+            </Box>
+            {show_pre_order ? <Order/> : <></>}
         </Box>
     )
 }

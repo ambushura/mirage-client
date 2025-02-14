@@ -1,43 +1,41 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 export function useFetchingArray(urls) {
-    const [data, setData] = useState([])
-    const [errors, setErrors] = useState([])
-    const [loading, setLoading] = useState(true)
+
+    const [results, set_results] = useState([])
+
     useEffect(() => {
         let isMounted = true
-        const fetchAllData = async () => {
-            setLoading(true)
-            setData([])
-            setErrors([])
-            try {
-                const results = await Promise.all(
-                    urls.map(async (url, index) => {
-                        try {
-                            const response = await fetch(url.url)
-                            if (!response.ok) throw new Error(response.statusText)
-                            const data = await response.json()
-                            return {index, data: {data: data.data, filial: url.filial}, error: null}
-                        } catch (err) {
-                            return {index, data: {data: null, filial: url.filial}, error: err.message}
-                        }
-                    })
-                )
-                if (isMounted) {
-                    const sortedResults = results.sort((a, b) => a.index - b.index)
-                    setData(sortedResults.map((res) => res.data))
-                    setErrors(sortedResults.map((res) => res.error))
-                }
-            } catch (err) {
-                if (isMounted) setErrors([err.message])
-            } finally {
-                if (isMounted) setLoading(false)
+        const fetchData = async () => {
+            const initialResults = urls.map(url => ({
+                url: url.url,
+                data: null,
+                filial: url.filial,
+                loading: true,
+                error: null
+            }))
+            set_results(initialResults)
+            const fetchResults = await Promise.all(
+                urls.map(async (url) => {
+                    try {
+                        const response = await fetch(url.url)
+                        if (!response.ok) throw new Error(response.statusText)
+                        const json = await response.json()
+                        return {url: url.url, data: json.data, filial: url.filial, loading: false, error: null}
+                    } catch (err) {
+                        return {url: url.url, data: null, filial: url.filial, loading: false, error: err.message}
+                    }
+                })
+            )
+            if (isMounted) {
+                set_results(fetchResults)
             }
         }
-        fetchAllData()
+        fetchData()
         return () => {
             isMounted = false
         }
     }, [urls])
-    return [data, errors, loading]
+
+    return results
 }

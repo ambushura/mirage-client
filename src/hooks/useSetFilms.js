@@ -4,7 +4,7 @@ import {useFetchingArray} from "./useFetchingArray.js"
 export function useSetFilms(city, filial, param_date) {
 
     const [urls, set_urls] = useState([])
-    const [fetch_data, fetch_errors, fetch_loading] = useFetchingArray(urls)
+    const fetch_data = useFetchingArray(urls)
     const [data, set_data] = useState([])
 
     useEffect(() => {
@@ -27,19 +27,22 @@ export function useSetFilms(city, filial, param_date) {
 
     useEffect(() => {
         if (fetch_data.length !== 0) {
-            let films_new = []
+            let data_updated = []
             fetch_data.forEach(filial => {
                 if (filial.data !== null) {
                     filial.data.forEach(film_new => {
-                        if (films_new.find(film => film.uid === film_new.uid) === undefined) {
-                            films_new.push(film_new)
+                        if (data_updated.find(film => film.uid === film_new.uid) === undefined) {
+                            data_updated.push(film_new)
                         }
                     })
                 }
             })
-            set_data(films_new)
+            set_data(data_updated)
+        }
+        return () => {
+            set_data([])
         }
     }, [fetch_data])
 
-    return [data, fetch_errors, fetch_loading]
+    return data
 }
