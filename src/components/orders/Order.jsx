@@ -20,19 +20,20 @@ const Order = () => {
                 <Box id="order-box">
                     {pre_order.seance !== undefined ?
                         <>
-                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', with: 'calc(80px * 3)', height: '60px'}}>
                                 <ButtonGroup>
-                                    <Button variant="contained" color="primary" onClick={() => {
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="success" onClick={() => {
                                     }}><ReceiptIcon/></Button>
-                                    <Button variant="contained" color="primary" onClick={() => {
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="secondary" onClick={() => {
                                     }}><SaveIcon/></Button>
-                                    <Button variant="contained" color="primary" onClick={() => {
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="primary" onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                                 </ButtonGroup>
                                 <Box sx={{
+                                    width: '100%',
                                     display: 'flex',
-                                    alignContent: 'center',
                                     alignItems: 'center',
+                                    justifyContent: 'center',
                                     fontWeight: 'bold',
                                     fontSize: '80%',
                                     color: '#8B919B',

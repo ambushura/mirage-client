@@ -12,7 +12,7 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(145deg, #0e0f11, #2e3137);
+    background-color: #121315;
 }
 #order-box>*:first-child {
     margin-bottom: 5px;

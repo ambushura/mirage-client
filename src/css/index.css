@@ -106,7 +106,7 @@ html, body {
   right: 0;
 }
 #top-menu {
-  min-height: 50px;
+  min-height: 65px;
   position: relative;
   display: flex;
   align-items: center;

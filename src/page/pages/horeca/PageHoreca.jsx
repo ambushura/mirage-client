@@ -1,4 +1,4 @@
-import {Box} from "@mui/material"
+import {Box, Button, ButtonGroup} from "@mui/material"
 import Menu from "./Menu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
@@ -11,19 +11,27 @@ const PageHoreca = () => {
     const [content_height, show_pre_order] = useSetContentHeight()
 
     return (
-        <Box sx={{
-            display: 'flex',
-            height: content_height
-        }}>
-            <Box id="content-wrap"
-                 sx={{height: content_height}}>
-                <div className="gradient-block-bottom"></div>
-                <Box id="content" style={{height: content_height, overflowX: 'hidden'}}>
-                    <Menu/>
-                </Box>
+        <>
+            <Box id="top-menu">
+                <ButtonGroup>
+                    <Button variant='contained' color='secondary' onClick={() => {
+                    }}>Кнопка меню</Button>
+                </ButtonGroup>
             </Box>
-            {show_pre_order ? <Order/> : <></>}
-        </Box>
+            <Box sx={{
+                display: 'flex',
+                height: content_height
+            }}>
+                <Box id="content-wrap"
+                     sx={{height: content_height}}>
+                    <div className="gradient-block-bottom"></div>
+                    <Box id="content" style={{height: content_height, overflowX: 'hidden'}}>
+                        <Menu/>
+                    </Box>
+                </Box>
+                {show_pre_order ? <Order/> : <></>}
+            </Box>
+        </>
     )
 }
 

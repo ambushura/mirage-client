@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 export const MOBILE_WIDTH = 768
 export const ANIMATION_SPEED = 250
 export const HEADER_HEIGHT = [200, 70]
-export const TOP_MENU_HEIGHT = [50, 50]
+export const TOP_MENU_HEIGHT = [65, 65]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ['films', 'film', 'schedule']
 const initialState = {

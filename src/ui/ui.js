@@ -6,6 +6,9 @@ export const theme = createTheme({
         },
         secondary: {
             main: '#2E3239',
+        },
+        success: {
+            main: '#45B97C',
         }
     },
     components: {
@@ -15,14 +18,14 @@ export const theme = createTheme({
                     fontWeight: 'bold',
                     borderRadius: '12px',
                     textTransform: 'none',
-                    height: '42px'
+                    height: '60px',
                 }
             }
         },
         MuiButtonGroup: {
             styleOverrides: {
                 root: {
-                    height: '42px',
+                    height: '60px',
                     borderRadius: '12px'
                 }
             }

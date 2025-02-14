@@ -57,9 +57,9 @@ function App() {
                 <Route path="/mkitchen/:param_city/:param_filial/"
                        element={<AppRoutes current_page='mkitchen'/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
-                       element={<AppRoutes current_page='menu'/>}/>
+                       element={permissions.includes('staff') ? <AppRoutes current_page='menu'/> : <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
                 <Route path="/admin/:param_city/:param_filial/"
-                       element={<AppRoutes current_page='admin'/>}/>
+                       element={permissions.includes('staff') ? <AppRoutes current_page='admin'/> : <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             {!full_screen || permissions.includes("staff") ? <Footer/> : <></>}
