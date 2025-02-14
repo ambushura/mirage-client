@@ -11,15 +11,15 @@
 }
 .menu-breadcrumb, .menu-folder, .menu-item {
     display: flex;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 12px;
     box-sizing: border-box;
     padding: 5px;
 }
 .menu-breadcrumb>div, .menu-folder>div, .menu-item>div {
     padding: 5px;
-    max-width: calc(100px - 10px);
+    max-width: calc(120px - 10px);
     overflow: hidden;
     font-size: 80%;
     display: -webkit-box;
@@ -27,11 +27,14 @@
     -webkit-line-clamp: 1;
 }
 .menu-breadcrumb {
-    background-color: #4553623D;
+    color: black;
+    background-color: #1EC7D3;
 }
 .menu-folder {
-    background-color: #2E3239;
+    color: black;
+    background-color: #50DB92;
 }
 .menu-item {
-    background-color: #414650;
+    color: black;
+    background-color: #EFEFEF;
 }

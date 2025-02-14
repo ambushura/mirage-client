@@ -10,8 +10,9 @@ import {useSetDateShift} from "./hooks/useSetDateShift.js"
 import PageFilm from "./page/pages/film/PageFilm.jsx"
 import PageSeance from "./page/pages/seance/PageSeance.jsx"
 import PageAdmin from "./page/pages/admin/PageAdmin.jsx"
-import PageHoreca from "./page/pages/horeca/PageHoreca.jsx"
+import Menu from "./page/pages/horeca/Menu.jsx"
 import PageSchedule from "./page/pages/schedule/PageSchedule.jsx";
+import PageHoreca from "./page/pages/horeca/PageHoreca.jsx";
 
 const AppRoutes = (props) => {
 

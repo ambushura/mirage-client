@@ -233,7 +233,7 @@ html, body {
 #content::-webkit-scrollbar {
   width: 50px;
   height: 50px;
-  background-color: #0E0F11;
+  background-color: transparent;
 }
 #content::-webkit-scrollbar-thumb {
   background: #8B919B ;
@@ -241,8 +241,8 @@ html, body {
   padding-right: 5px;
 }
 #content::-webkit-scrollbar-track {
-  background: #0E0F11;
+  background: transparent;
 }
 #content::-webkit-scrollbar-corner {
-  background: #0E0F11;
+  background: transparent;
 }
