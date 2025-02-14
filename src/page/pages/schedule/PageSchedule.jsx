@@ -60,7 +60,14 @@ const PageSchedule = () => {
                                             </Box>)
                                     } else if (filial_hall_seances.loading) {
                                         return (
-                                            <Loader key={filial_hall_seances.filial.uid}/>
+                                            <Box key={filial_hall_seances.filial.uid}>
+                                                <Box className="schedule-full-filial-name">
+                                                    <span>{filial_hall_seances.filial.name}</span>
+                                                </Box>
+                                                <Box className="schedule-full-filial">
+                                                    <Loader key={filial_hall_seances.filial.uid}/>
+                                                </Box>
+                                            </Box>
                                         )
                                     } else {
                                         return (

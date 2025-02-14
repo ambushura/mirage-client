@@ -38,82 +38,85 @@ const PageFilm = () => {
         }
     }, [dispatch, fetch_data, fetch_film])
 
-    if (film !== undefined) {
-        return (
-            <>
-                <ScheduleMenu/>
-                <Box sx={{
-                    display: 'flex',
-                    height: content_height,
-                }}>
-                    <Box id="content-wrap" style={{display: 'flex'}}>
-                        <Box id="content-wrap"
-                             sx={{height: content_height}}>
-                            <div className="gradient-block-bottom"></div>
-                            <Box id="content"
-                                 sx={{height: content_height}}
-                                 style={{overflowX: 'hidden'}}>
-                                <Box className='seances-body-poster'>
+    return (
+        <>
+            <ScheduleMenu/>
+            <Box sx={{
+                display: 'flex',
+                height: content_height,
+            }}>
+                <Box id="content-wrap" style={{display: 'flex'}}>
+                    <Box id="content-wrap"
+                         sx={{height: content_height}}>
+                        <div className="gradient-block-bottom"></div>
+                        <Box id="content"
+                             sx={{height: content_height}}
+                             style={{overflowX: 'hidden'}}>
+                            <Box className='seances-body-poster'>
+                                {film !== undefined ?
                                     <Box className='seances-cover'>
                                         <img className='seances-cover-img'
                                              src={film.cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + film.cover_link}
                                              alt={film.name}/>
-                                    </Box>
-                                    <Box className='seances-body'>
-                                        <Box className='seances-body-description'>
-                                            <Box className='seances-body-description-name'>{film.name}</Box>
-                                            <Box className='seances-body-description-genre'>ужасы, триллеры</Box>
-                                            <Box>{film.description}</Box>
-                                        </Box>
-                                        {filials_seances.map(filial_seances => {
-                                            if (filial_seances.error !== null) {
-                                                return (
-                                                    <Box className='seances-body-filial'
-                                                         key={filial_seances.filial.uid}>
-                                                        <Box
-                                                            className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
-                                                        <Box className='seances-body-seances'>
-                                                            Ошибка загрузки {filial_seances.error}
-                                                        </Box>
+                                    </Box> : <></>}
+                                <Box className='seances-body'>
+                                    {film !== undefined ? <Box className='seances-body-description'>
+                                        <Box className='seances-body-description-name'>{film.name}</Box>
+                                        <Box className='seances-body-description-genre'>ужасы, триллеры</Box>
+                                        <Box>{film.description}</Box>
+                                    </Box> : <></>}
+                                    {filials_seances.map(filial_seances => {
+                                        if (filial_seances.error !== null) {
+                                            return (
+                                                <Box className='seances-body-filial'
+                                                     key={filial_seances.filial.uid}>
+                                                    <Box
+                                                        className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
+                                                    <Box className='seances-body-seances'>
+                                                        Ошибка загрузки {filial_seances.error}
                                                     </Box>
-                                                )
-                                            } else if (filial_seances.loading) {
-                                                return (<Loader key={filial_seances.filial.uid}/>)
-                                            } else {
-                                                return (
-                                                    <Box className='seances-body-filial'
-                                                         key={filial_seances.filial.uid}>
-                                                        <Box
-                                                            className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
-                                                        <Box className='seances-body-seances'>
-                                                            {filial_seances.data.seances.map(seance => {
-                                                                return (<SeanceCard
-                                                                    key={`${filial_seances.filial.uid}${seance.uid}`}
-                                                                    seance={seance}
-                                                                    city={city}
-                                                                    filial={filial_seances.filial}
-                                                                />)
-                                                            })}
-                                                        </Box>
+                                                </Box>
+                                            )
+                                        } else if (filial_seances.loading) {
+                                            return (
+                                                <Box className='seances-body-filial'
+                                                     key={filial_seances.filial.uid}>
+                                                    <Box
+                                                        className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
+                                                    <Box className='seances-body-seances'>
+                                                        <Loader key={filial_seances.filial.uid}/>
                                                     </Box>
-                                                )
-                                            }
-                                        })}
-                                    </Box>
-                                    <Box className='seances-rate'>IMDB 4.7</Box>
+                                                </Box>)
+                                        } else {
+                                            return (
+                                                <Box className='seances-body-filial'
+                                                     key={filial_seances.filial.uid}>
+                                                    <Box
+                                                        className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
+                                                    <Box className='seances-body-seances'>
+                                                        {filial_seances.data.seances.map(seance => {
+                                                            return (<SeanceCard
+                                                                key={`${filial_seances.filial.uid}${seance.uid}`}
+                                                                seance={seance}
+                                                                city={city}
+                                                                filial={filial_seances.filial}
+                                                            />)
+                                                        })}
+                                                    </Box>
+                                                </Box>
+                                            )
+                                        }
+                                    })}
                                 </Box>
+                                <Box className='seances-rate'>IMDB 4.7</Box>
                             </Box>
                         </Box>
-                        {show_pre_order ? <Order/> : <></>}
                     </Box>
+                    {show_pre_order ? <Order/> : <></>}
                 </Box>
-            </>
-        )
-    } else {
-        return (
-            <Loader/>
-        )
-    }
+            </Box>
+        </>
+    )
 }
 
 export default PageFilm

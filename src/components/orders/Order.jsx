@@ -13,71 +13,81 @@ import BookingItem from "./BookingItem.jsx"
 const Order = () => {
 
     const pre_order = useSelector(state => state.orders.pre_order)
-    const seance = useSelector(state => state.schedule.seance)
 
-    return (
-        <Box id="order">
-            <Box id="order-box">
-                {seance !== undefined ?
-                    <>
-                        <Box>
-                            <ButtonGroup>
-                                <Button variant="contained" color="primary" onClick={() => {
-                                }}><ReceiptIcon/></Button>
-                                <Button variant="contained" color="primary" onClick={() => {
-                                }}><SaveIcon/></Button>
-                                <Button variant="contained" color="primary" onClick={() => {
-                                }}><DeleteForeverIcon/></Button>
-                            </ButtonGroup>
-                            <Box>{pre_order.number}</Box>
-                        </Box>
-                        <Box>
-                            <ButtonGroup>
-                                <ButtonGroup sx={{marginRight: '4px'}}>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}>Скидки</Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><DeleteIcon/></Button>
-                                </ButtonGroup>
-                                <ButtonGroup sx={{marginRight: '4px'}}>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}>Комментарий</Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><DeleteIcon/></Button>
-                                </ButtonGroup>
+    if (pre_order.in_base) {
+        return (
+            <Box id="order">
+                <Box id="order-box">
+                    {pre_order.seance !== undefined ?
+                        <>
+                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <ButtonGroup>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><CheckBoxIcon/></Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><CheckBoxOutlineBlankIcon/></Button>
+                                    <Button variant="contained" color="primary" onClick={() => {
+                                    }}><ReceiptIcon/></Button>
+                                    <Button variant="contained" color="primary" onClick={() => {
+                                    }}><SaveIcon/></Button>
+                                    <Button variant="contained" color="primary" onClick={() => {
+                                    }}><DeleteForeverIcon/></Button>
                                 </ButtonGroup>
-                            </ButtonGroup>
-                        </Box>
-                        <Box sx={{padding: '5px 0'}}>
-                            <SeanceTitle
-                                seance={seance}
-                                content_type={true}
-                                day={true}
-                                its_hall_map={true}
-                                age={true}/>
-                        </Box>
-                        <Box className='schedule-full-seance-film-name'>
-                            {seance.film_name}
-                        </Box>
-                        <Box className='order-booking'>{pre_order.booking.map((booking) => {
-                            return (
-                                <BookingItem
-                                    key={booking.uid}
-                                    number={booking.number}
-                                    row={booking.row}/>
-                            )
-                        })}
-                        </Box>
-                    </> : <></>
-                }
+                                <Box sx={{
+                                    display: 'flex',
+                                    alignContent: 'center',
+                                    alignItems: 'center',
+                                    fontWeight: 'bold',
+                                    fontSize: '80%',
+                                    color: '#8B919B',
+                                }}><span>{pre_order.number}</span></Box>
+                            </Box>
+                            <Box>
+                                <ButtonGroup>
+                                    <ButtonGroup sx={{marginRight: '4px'}}>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        }}>Скидки</Button>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        }}><DeleteIcon/></Button>
+                                    </ButtonGroup>
+                                    <ButtonGroup sx={{marginRight: '4px'}}>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        }}>Комментарий</Button>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        }}><DeleteIcon/></Button>
+                                    </ButtonGroup>
+                                    <ButtonGroup>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        }}><CheckBoxIcon/></Button>
+                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        }}><CheckBoxOutlineBlankIcon/></Button>
+                                    </ButtonGroup>
+                                </ButtonGroup>
+                            </Box>
+                            <Box sx={{padding: '5px 0'}}>
+                                <SeanceTitle
+                                    seance={pre_order.seance}
+                                    content_type={true}
+                                    day={true}
+                                    its_hall_map={true}
+                                    age={true}/>
+                            </Box>
+                            <Box className='schedule-full-seance-film-name'>
+                                {pre_order.seance.film_name}
+                            </Box>
+                            <Box className='order-booking'>{pre_order.booking.map((booking) => {
+                                return (
+                                    <BookingItem
+                                        key={booking.uid}
+                                        number={booking.number}
+                                        row={booking.row}/>
+                                )
+                            })}
+                            </Box>
+                        </> : <></>
+                    }
+                </Box>
             </Box>
-        </Box>
-    )
+        )
+    } else {
+        return <></>
+    }
 }
 
 export default Order

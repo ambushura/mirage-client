@@ -92,20 +92,24 @@ const PageSeance = () => {
     }, [dispatch, city, filial, booking_data, count_book])
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
-        }, ORDER_TIME_OUT)
-        return () => {
-            clearInterval(timer)
+        if (!permissions.includes('staff')) {
+            const timer = setInterval(() => {
+                set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
+            }, ORDER_TIME_OUT)
+            return () => {
+                clearInterval(timer)
+            }
         }
-    }, [])
+    }, [permissions])
 
     useEffect(() => {
-        if (time_remaining <= 1) {
-            navigate(-1)
-            dispatch(deletePreOrder(filial, pre_order.uid))
+        if (!permissions.includes('staff')) {
+            if (time_remaining <= 1) {
+                navigate(-1)
+                dispatch(deletePreOrder(filial, pre_order.uid))
+            }
         }
-    }, [dispatch, filial, pre_order, time_remaining])
+    }, [dispatch, filial, navigate, permissions, pre_order, time_remaining])
 
     useEffect(() => {
         if (permissions.includes("staff")) {
@@ -131,8 +135,10 @@ const PageSeance = () => {
                         {authenticated === 0 ? <Box id='seance-title' ref={refTitle}>
                                 <Box className='order-panel'>
                                     <Button onClick={() => {
-                                        navigate(-1)
-                                        dispatch(deletePreOrder(filial, pre_order.uid))
+                                        if (!permissions.includes('staff')) {
+                                            navigate(-1)
+                                            dispatch(deletePreOrder(filial, pre_order.uid))
+                                        }
                                     }} variant="contained" color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
                                     <Box sx={{width: '100%', marginLeft: '10px'}}>
                                         <LinearProgress className='order-progress'
