@@ -13,16 +13,20 @@ const Auth = (props) => {
     const filial = useSelector(state => state.data.filial)
     const apply = async () => {
         try {
-            const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({username, password})
-            })
-            if (!response.ok) {
-                throw new Error("Неправильный логин или пароль")
+            if (filial === undefined) {
+                throw new Error("Для начала выберите филиал аутентификации")
+            } else {
+                const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({username, password})
+                })
+                if (!response.ok) {
+                    throw new Error("Неправильный логин или пароль")
+                }
+                const data = await response.json()
+                dispatch(loginSuccess(data))
             }
-            const data = await response.json()
-            dispatch(loginSuccess(data))
         } catch (error) {
             dispatch(addNotification({
                 message: error.message,

@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit"
 const initialState = {
     token: localStorage.getItem("token") || null,
     permissions: JSON.parse(localStorage.getItem("permissions")) || [],
-    username: null
+    username: localStorage.getItem("username") || null
 }
 const authReducer = createSlice({
     name: "auth",
@@ -14,6 +14,7 @@ const authReducer = createSlice({
             state.username = action.payload.username
             localStorage.setItem("token", action.payload.token)
             localStorage.setItem("permissions", JSON.stringify(action.payload.permissions))
+            localStorage.setItem("username", action.payload.username)
         },
         logout: (state) => {
             state.token = null
@@ -21,6 +22,7 @@ const authReducer = createSlice({
             state.username = null
             localStorage.removeItem("token")
             localStorage.removeItem("permissions")
+            localStorage.removeItem("username")
         }
     }
 })

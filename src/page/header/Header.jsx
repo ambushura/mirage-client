@@ -12,11 +12,13 @@ import {ANIMATION_SPEED, HEADER_HEIGHT, MOBILE_WIDTH, setAuthOpened} from "../..
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
+import dayjs from "dayjs"
 
 const Header = () => {
 
     const dispatch = useDispatch()
 
+    const [current_time, set_current_time] = useState(dayjs(new Date()))
     const permissions = useSelector(state => state.auth.permissions)
     const top_menu = useSelector(state => state.interface.top_menu)
     const cities = useSelector(state => state.data.cities)
@@ -36,6 +38,7 @@ const Header = () => {
     const auth_opened = useSelector(state => state.interface.auth_opened)
 
     const [authenticated, set_authenticated] = useState(0)
+    const username = useSelector(state => state.auth.username)
     useEffect(() => {
         if (permissions.includes("staff")) {
             set_authenticated(1)
@@ -44,12 +47,19 @@ const Header = () => {
         }
     }, [permissions])
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            set_current_time(dayjs(new Date()))
+        }, 1000)
+        return () => clearInterval(interval)
+    }, [])
+
     return (
         <header id="header" style={{minHeight: `${HEADER_HEIGHT[authenticated]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
                 <Box id="header-desktop">
                     {permissions.includes("staff") ? <></> : <TopSlider/>}
-                    <div id="header-menu">
+                    <Box id="header-menu">
                         <ButtonGroup id="header-menu-list" variant="contained">
                             {top_menu[authenticated].map(el => {
                                 return <NavLink key={el.id} className='link' to={el.path}><Button
@@ -81,6 +91,11 @@ const Header = () => {
                                 type='filials'
                             />
                         </ButtonGroup> : <></>}
+                        {authenticated ?
+                            <Box>
+                                <Box>{current_time.hour()}:{current_time.minute()}</Box>
+                                <Box variant="contained" color="primary" key='username'>{username}</Box>
+                            </Box> : <></>}
                         {!authenticated ? <Button variant="contained" color="primary" key='auth'
                                                   onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
                             <Button variant="contained" color="primary" key='auth'
@@ -95,7 +110,7 @@ const Header = () => {
                                 <Auth setAuthOpened={setAuthOpened}/>
                             </Box>
                         </Modal>
-                    </div>
+                    </Box>
                 </Box>
             </Fade>
             <Fade key='2' in={app_width <= MOBILE_WIDTH} timeout={ANIMATION_SPEED}>

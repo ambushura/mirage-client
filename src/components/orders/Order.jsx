@@ -22,7 +22,7 @@ const Order = () => {
                         <>
                             <Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', with: 'calc(80px * 3)', height: '60px'}}>
                                 <ButtonGroup>
-                                    <Button style={{minWidth: '80px'}} variant="contained" color="success" onClick={() => {
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="secondary" onClick={() => {
                                     }}><ReceiptIcon/></Button>
                                     <Button style={{minWidth: '80px'}} variant="contained" color="secondary" onClick={() => {
                                     }}><SaveIcon/></Button>
