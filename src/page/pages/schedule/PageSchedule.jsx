@@ -37,7 +37,7 @@ const PageSchedule = () => {
     // Массив ширины контента по филиалам
     const elementsRef = useRef(new Map())
     // Максимальная ширина для перекрытия фона при прокрутке
-    const [content_width, set_content_width] = useState(0)
+    const [content_width, set_content_width] = useState(200)
     useEffect(() => {
         const widths = Array.from(elementsRef.current.values()).map(el => el?.getBoundingClientRect().width || 0)
         set_content_width(Math.max(...widths))
@@ -68,10 +68,14 @@ const PageSchedule = () => {
                                                     top: 0,
                                                     zIndex: 100,
                                                     paddingLeft: '15px',
+                                                    minWidth: '210px',
                                                     width: `${content_width}px`
                                                 }}>
                                                     <Button variant='contained' color='primary'
-                                                            style={{marginBottom: '5px'}}>{filial_hall_seances.filial.name}</Button>
+                                                            sx={{
+                                                                marginBottom: '5px',
+                                                                minWidth: '210px'
+                                                            }}>{filial_hall_seances.filial.name}</Button>
                                                 </Box>
                                                 <Box className="schedule-full-filial">
                                                     <Loader key={filial_hall_seances.filial.uid}/>
@@ -88,10 +92,13 @@ const PageSchedule = () => {
                                                     top: 0,
                                                     zIndex: 100,
                                                     paddingLeft: '15px',
+                                                    minWidth: '210px',
                                                     width: `${content_width}px`
                                                 }}>
                                                     <Button variant='contained'
-                                                            color='primary'>{filial_hall_seances.filial.name}</Button>
+                                                            color='primary'
+                                                            sx={{minWidth: '210px'}}>{filial_hall_seances.filial.name}
+                                                    </Button>
                                                 </Box>
                                                 <Box className="schedule-full-filial"
                                                      ref={el => elementsRef.current.set(index, el)}>

@@ -67,16 +67,7 @@ const PageFilm = () => {
                                     </Box> : <></>}
                                     {filials_seances.map(filial_seances => {
                                         if (filial_seances.error !== null) {
-                                            return (
-                                                <Box className='seances-body-filial'
-                                                     key={filial_seances.filial.uid}>
-                                                    <Box
-                                                        className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
-                                                    <Box className='seances-body-seances'>
-                                                        Ошибка загрузки {filial_seances.error}
-                                                    </Box>
-                                                </Box>
-                                            )
+                                            return (<></>)
                                         } else if (filial_seances.loading) {
                                             return (
                                                 <Box className='seances-body-filial'
