@@ -257,7 +257,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     padding: 0 15px;
-    width: inherit;
+    width: fit-content;
 }
 .schedule-full-hall {
     display: flex;
@@ -267,17 +267,15 @@
 .schedule-full-hall-name {
     box-sizing: border-box;
     width: calc(100% - 10px);
-    height: 50px;
+    height: 65px;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 5px;
     margin-bottom: 5px;
     color: black;
+    background-color: #0E0F11;
 }
 .schedule-full-hall-name>div {
     font-size: 18px;
@@ -392,18 +390,10 @@
     height: 20px;
 }
 .schedule-full-filial-name {
-    box-sizing: border-box;
-    width: 100%;
-    height: 50px;
-    padding: 15px;
-    margin: 5px 0;
+    height: 65px;
+    background-color: #0e0f11;
 }
 .schedule-full-filial-name>span {
-    border-radius: 12px;
-    width: fit-content;
-    height: inherit;
-    padding: 15px;
-    color: white;
-    font-weight: bold;
-    background-color: #FF1A25;
+    width: 210px;
+    background-color: #0e0f11;
 }
