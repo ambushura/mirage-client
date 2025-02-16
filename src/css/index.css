@@ -67,6 +67,14 @@ html, body {
   width: inherit;
   position: relative;
 }
+#header-time-username {
+  display: flex;
+}
+#header-time-username>div {
+  margin-right: 10px;
+  font-size: 22px;
+  font-weight: bold;
+}
 #content-wrap {
   position: relative;
   width: 100%;

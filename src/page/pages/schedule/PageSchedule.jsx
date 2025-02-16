@@ -111,8 +111,11 @@ const PageSchedule = () => {
                                                                     zIndex: 99,
                                                                     marginBottom: '5px'
                                                                 }}>
-                                                                    <Button variant='contained' color='primary'
-                                                                            style={{width: '100%'}}>Зал {hall.name_full_hall}</Button>
+                                                                    <Button variant='contained'
+                                                                            style={{
+                                                                                width: '100%',
+                                                                                backgroundColor: '#2E3239'
+                                                                            }}>Зал {hall.name_full_hall}</Button>
                                                                 </Box>
                                                                 <Box className='schedule-full-seances' style={{
                                                                     position: 'sticky',

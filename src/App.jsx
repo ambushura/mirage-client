@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import {Box} from "@mui/material"
 import Header from "./page/header/Header.jsx"
@@ -8,6 +8,8 @@ import NotFound from "./page/pages/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
 import {setAppHeight, setAppWidth} from "./redux/interfaceReducer.js"
 import {useSetCityAndFilial} from "./hooks/useSetCityAndFilial.js"
+import useWebSocket from "react-use-websocket"
+import {v4} from "uuid"
 
 function App() {
 
@@ -17,6 +19,17 @@ function App() {
     const param_date = useSelector(state => state.schedule.param_date)
     const [full_screen, set_full_screen] = useState(false)
     const permissions = useSelector(state => state.auth.permissions)
+    const uid_app = useRef(v4())
+    const {sendMessage, lastMessage} = useWebSocket(`ws://10.101.3.88:8082/ws?id=${uid_app.current}`, {
+        shouldReconnect: () => true,
+    })
+
+    // Подключаем ws
+    useEffect(() => {
+        if (lastMessage) {
+            dispatch(sendMessage(lastMessage))
+        }
+    }, [lastMessage, dispatch])
 
     // Загружаем города
     useSetCityAndFilial()
@@ -57,9 +70,11 @@ function App() {
                 <Route path="/mkitchen/:param_city/:param_filial/"
                        element={<AppRoutes current_page='mkitchen'/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
-                       element={permissions.includes('staff') ? <AppRoutes current_page='menu'/> : <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
+                       element={permissions.includes('staff') ? <AppRoutes current_page='menu'/> :
+                           <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
                 <Route path="/admin/:param_city/:param_filial/"
-                       element={permissions.includes('staff') ? <AppRoutes current_page='admin'/> : <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
+                       element={permissions.includes('staff') ? <AppRoutes current_page='admin'/> :
+                           <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             {!full_screen || permissions.includes("staff") ? <Footer/> : <></>}

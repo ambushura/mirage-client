@@ -39,6 +39,7 @@ const Header = () => {
 
     const [authenticated, set_authenticated] = useState(0)
     const username = useSelector(state => state.auth.username)
+
     useEffect(() => {
         if (permissions.includes("staff")) {
             set_authenticated(1)
@@ -91,25 +92,24 @@ const Header = () => {
                                 type='filials'
                             />
                         </ButtonGroup> : <></>}
-                        {authenticated ?
-                            <Box>
-                                <Box>{current_time.hour()}:{current_time.minute()}</Box>
-                                <Box variant="contained" color="primary" key='username'>{username}</Box>
-                            </Box> : <></>}
-                        {!authenticated ? <Button variant="contained" color="primary" key='auth'
-                                                  onClick={() => dispatch(setAuthOpened(true))}><AccountCircleIcon/></Button> :
-                            <Button variant="contained" color="primary" key='auth'
-                                    onClick={() => dispatch(logout())}
-                            ><ExitToAppIcon/></Button>
-                        }
-                        <Modal open={auth_opened}
-                               onClose={() => dispatch(setAuthOpened(false))}
-                               aria-labelledby="Страница авторизации"
-                               aria-describedby="Введите пароль">
-                            <Box id="auth">
-                                <Auth setAuthOpened={setAuthOpened}/>
-                            </Box>
-                        </Modal>
+                        <Box sx={{display: 'flex', alignItems: 'center'}}>
+                            <ButtonGroup size="large" variant='contained' color='secondary' id="header-time-username">
+                                {authenticated ? <Button>{current_time.hour()}:{current_time.minute()}</Button> : <></>}
+                                {authenticated ? <Button>{username}</Button> : <></>}
+                                {authenticated ?
+                                    <Button  onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button> : <></>}
+                                {!authenticated ? <Button
+                                    onClick={() => dispatch(setAuthOpened(true))} startIcon={<AccountCircleIcon/>}>Вход</Button> : <></>}
+                            </ButtonGroup>
+                            <Modal open={auth_opened}
+                                   onClose={() => dispatch(setAuthOpened(false))}
+                                   aria-labelledby="Страница авторизации"
+                                   aria-describedby="Введите пароль">
+                                <Box id="auth">
+                                    <Auth setAuthOpened={setAuthOpened}/>
+                                </Box>
+                            </Modal>
+                        </Box>
                     </Box>
                 </Box>
             </Fade>
