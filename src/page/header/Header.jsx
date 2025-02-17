@@ -55,6 +55,19 @@ const Header = () => {
         return () => clearInterval(interval)
     }, [])
 
+    const user_panel = () => {
+        const up = []
+        if (authenticated) {
+            up.push(<Button>{current_time.hour()}:{current_time.minute()}</Button>)
+            up.push(<Button>{username}</Button>)
+            up.push(<Button onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
+        } else {
+            up.push(<Button
+                onClick={() => dispatch(setAuthOpened(true))} startIcon={<AccountCircleIcon/>}>Вход</Button>)
+        }
+        return up
+    }
+
     return (
         <header id="header" style={{minHeight: `${HEADER_HEIGHT[authenticated]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
@@ -94,12 +107,7 @@ const Header = () => {
                         </ButtonGroup> : <></>}
                         <Box sx={{display: 'flex', alignItems: 'center'}}>
                             <ButtonGroup size="large" variant='contained' color='secondary' id="header-time-username">
-                                {authenticated ? <Button>{current_time.hour()}:{current_time.minute()}</Button> : <></>}
-                                {authenticated ? <Button>{username}</Button> : <></>}
-                                {authenticated ?
-                                    <Button  onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button> : <></>}
-                                {!authenticated ? <Button
-                                    onClick={() => dispatch(setAuthOpened(true))} startIcon={<AccountCircleIcon/>}>Вход</Button> : <></>}
+                                {user_panel()}
                             </ButtonGroup>
                             <Modal open={auth_opened}
                                    onClose={() => dispatch(setAuthOpened(false))}

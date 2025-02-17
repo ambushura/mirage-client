@@ -146,7 +146,7 @@ const PageSeance = () => {
                                     </Box>
                                 </Box>
                                 <Box className='seance-title-film-name'>{seance.name_film}</Box>
-                                <Box className='seance-title-hall-name'>{hall.name}</Box>
+                                <Box className='seance-title-hall-name'>Зал {hall.name_full}</Box>
                                 <Box className='seance-title-panel'>
                                     <SeanceTitle seance={seance} content_type={true} day={true} its_hall_map={true} age={false}/>
                                     {pre_order.booking.length > 0 ?

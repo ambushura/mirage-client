@@ -14,8 +14,8 @@ const PageHoreca = () => {
         <>
             <Box id="top-menu">
                 <ButtonGroup>
-                    <Button variant='contained' color='secondary' onClick={() => {
-                    }}>Кнопка меню</Button>
+                    <Button variant='contained' color='secondary' onClick={() => {}}>Основное меню</Button>
+                    <Button variant='contained' color='secondary' onClick={() => {}}>Маркировка</Button>
                 </ButtonGroup>
             </Box>
             <Box sx={{

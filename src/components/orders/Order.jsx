@@ -20,14 +20,23 @@ const Order = () => {
                 <Box id="order-box">
                     {pre_order.seance !== undefined ?
                         <>
-                            <Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', with: 'calc(80px * 3)', height: '60px'}}>
+                            <Box style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                with: 'calc(80px * 3)',
+                                height: '60px'
+                            }}>
                                 <ButtonGroup>
-                                    <Button style={{minWidth: '80px'}} variant="contained" color="secondary" onClick={() => {
-                                    }}><ReceiptIcon/></Button>
-                                    <Button style={{minWidth: '80px'}} variant="contained" color="secondary" onClick={() => {
-                                    }}><SaveIcon/></Button>
-                                    <Button style={{minWidth: '80px'}} variant="contained" color="primary" onClick={() => {
-                                    }}><DeleteForeverIcon/></Button>
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
+                                            onClick={() => {
+                                            }}><ReceiptIcon/></Button>
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
+                                            onClick={() => {
+                                            }}><SaveIcon/></Button>
+                                    <Button style={{minWidth: '80px'}} variant="contained" color="primary"
+                                            onClick={() => {
+                                            }}><DeleteForeverIcon/></Button>
                                 </ButtonGroup>
                                 <Box sx={{
                                     width: '100%',
@@ -69,8 +78,11 @@ const Order = () => {
                                     its_hall_map={true}
                                     age={true}/>
                             </Box>
-                            <Box className='schedule-full-seance-film-name'>
+                            <Box className='seance-title-film-name'>
                                 {pre_order.seance.film_name}
+                            </Box>
+                            <Box className='seance-title-hall-name'>
+                                Зал {pre_order.seance.hall_full_name}
                             </Box>
                             <Box className='order-booking'>{pre_order.booking.map((booking) => {
                                 return (
