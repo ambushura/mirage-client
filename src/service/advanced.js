@@ -1,7 +1,4 @@
 import dayjs from "dayjs"
-import {v4} from "uuid"
-export const NEW_EMPTY_ORDER = () => { return {in_base: false, uid: v4(), number: undefined, price: 0, quantity: 0, booking: []} }
-export const ORDER_TIME_OUT = 1000
 export function to_str_DAY(date) {
     let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ']
     return days[date.getDay()]

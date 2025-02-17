@@ -3,6 +3,8 @@ import Menu from "./Menu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
 import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu'
+import QrCodeIcon from '@mui/icons-material/QrCode'
 
 const PageHoreca = () => {
 
@@ -14,8 +16,8 @@ const PageHoreca = () => {
         <>
             <Box id="top-menu">
                 <ButtonGroup>
-                    <Button variant='contained' color='secondary' onClick={() => {}}>Основное меню</Button>
-                    <Button variant='contained' color='secondary' onClick={() => {}}>Маркировка</Button>
+                    <Button variant='contained' color='secondary' startIcon={<RestaurantMenuIcon/>} onClick={() => {}}>Основное меню</Button>
+                    <Button variant='contained' color='secondary' startIcon={<QrCodeIcon/>} onClick={() => {}}>Маркировка</Button>
                 </ButtonGroup>
             </Box>
             <Box sx={{

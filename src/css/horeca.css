@@ -11,15 +11,15 @@
 }
 .menu-breadcrumb, .menu-folder, .menu-item {
     display: flex;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 80px;
     border-radius: 12px;
     box-sizing: border-box;
     padding: 5px;
 }
 .menu-breadcrumb>div, .menu-folder>div, .menu-item>div {
     padding: 5px;
-    max-width: calc(120px - 10px);
+    max-width: calc(140px - 10px);
     overflow: hidden;
     font-size: 80%;
     display: -webkit-box;
