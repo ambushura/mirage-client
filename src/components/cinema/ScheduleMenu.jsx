@@ -87,7 +87,7 @@ const ScheduleMenu = () => {
                                       onChange={(newValue) => {
                                           set_schedule_calendar_open(null)
                                           const current_param_data = newValue.year() + '-' + (newValue.month() + 1) + '-' + (newValue.date())
-                                          navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/`)
+                                          navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
                                       }}
                                       sx={{
                                           backgroundColor: '#0E0F11',
