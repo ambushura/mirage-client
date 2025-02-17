@@ -1,20 +1,25 @@
 #order {
     box-sizing: border-box;
-    min-width: 450px;
-    max-width: 450px;
+    min-width: 470px;
+    max-width: 470px;
     padding: 0 10px;
+    display: flex;
+    flex-direction: column;
 }
-#order-box {
+.order-box {
     box-sizing: border-box;
     padding: 10px;
     width: 100%;
-    height: 100%;
+    max-height: 50%;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     background-color: #121315;
+    margin-bottom: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
-#order-box>*:first-child {
+.order-box>*:first-child {
     margin-bottom: 5px;
 }
 .order-booking {

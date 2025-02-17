@@ -6,7 +6,6 @@ export function useSetContentHeight() {
 
     const app_height = useSelector(state => state.interface.app_height)
     const permissions = useSelector(state => state.auth.permissions)
-    //const pre_order = useSelector(state => state.orders.pre_order)
     const [authenticated, set_authenticated] = useState(0)
     const [height, setHeight] = useState('')
     const [show_pre_order, set_show_pre_order] = useState(false)
