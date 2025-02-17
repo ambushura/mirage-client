@@ -9,7 +9,7 @@ export function useSetMenu(city, filial, uid_folder) {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}/api/get_menu?uid_folder=${uid_folder}&&uid_filial=${filial.uid}`)
+            set_url(`http://${filial.ip}:${filial.port}/api/horeca_get_menu?uid_folder=${uid_folder}&&uid_filial=${filial.uid}`)
         } else {
             set_url(undefined)
         }

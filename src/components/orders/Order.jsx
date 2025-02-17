@@ -98,13 +98,7 @@ const Order = () => {
             }
             {horder.number === undefined ?
                 <Box className="order-box">
-                    <Box style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        with: 'calc(80px * 3)',
-                        height: '60px'
-                    }}>
+                    <Box className="order-box-panel-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
                                     onClick={() => {
@@ -116,7 +110,62 @@ const Order = () => {
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                         </ButtonGroup>
-                    </Box> </Box> : <></>
+                    </Box>
+                    <Box className="order-box-panel-2">
+                        <ButtonGroup sx={{marginBottom: '4px'}}>
+                            <ButtonGroup>
+                            <Button variant="contained" color="secondary" onClick={() => {
+                            }}>На кухню</Button>
+                            <Button variant="contained" color="secondary" onClick={() => {
+                            }}>Пречек</Button>
+                            <Button variant="contained" color="secondary" onClick={() => {
+                            }}>Разделить</Button>
+                            </ButtonGroup>
+                        </ButtonGroup>
+                        <ButtonGroup>
+                            <ButtonGroup sx={{marginRight: '4px'}}>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}>Комментарий</Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}><DeleteIcon/></Button>
+                            </ButtonGroup>
+                            <ButtonGroup sx={{marginRight: '4px'}}>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}>Стол</Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}><DeleteIcon/></Button>
+                            </ButtonGroup>
+                            <ButtonGroup>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}><CheckBoxIcon/></Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}><CheckBoxOutlineBlankIcon/></Button>
+                            </ButtonGroup>
+                        </ButtonGroup>
+                    </Box>
+                    <Box className="order-box-panel-3">
+                        <Box className="order-box-panel-3-title-mark">1. Маркированный товар</Box>
+                        <ul className="order-box-panel-3-list-mark">
+
+                        </ul>
+                        <Box className="order-box-panel-3-title-for-kitchen">2. Отправить на кухню</Box>
+                        <ul className="order-box-panel-3-list-for-kitchen">
+
+                        </ul>
+                        <Box className="order-box-panel-3-title-kitchen">3. На кухне</Box>
+                        <ul className="order-box-panel-3-list-kitchen">
+
+                        </ul>
+                        <Box className="order-box-panel-3-title-kitchen-ready">4. Приготовлено</Box>
+                        <ul className="order-box-panel-3-list-kitchen-ready">
+
+                        </ul>
+                        <Box className="order-box-panel-3-title-others">5. Остальное</Box>
+                        <ul className="order-box-panel-3-list-others">
+
+                        </ul>
+                    </Box>
+                </Box> : <></>
             }
         </Box>
     )

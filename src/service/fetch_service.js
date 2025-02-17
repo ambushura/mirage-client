@@ -46,3 +46,12 @@ export const payment = (filial, uid_order, name_workplace) => {
         }
     }
 }
+export const horeca_add = (filial, uid_order, uid_item) => {
+    return async () => {
+        try {
+            await fetch(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&uid_item=${uid_item}`)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}

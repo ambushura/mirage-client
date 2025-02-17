@@ -42,7 +42,7 @@ const PageAdmin = () => {
     return (
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs variant="scrollable" value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Заказы" {...a11yProps(0)}/>
                     <Tab label="Итоги" {...a11yProps(1)}/>
                     <Tab label="Залы" {...a11yProps(2)}/>

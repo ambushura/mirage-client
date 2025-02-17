@@ -52,3 +52,58 @@
     color: #8B919B;
     margin-right: 5px;
 }
+.order-box-panel-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: calc(80px * 3);
+    height: 60px;
+}
+.order-box-panel-2 {
+
+}
+.order-box-panel-3 {
+    display: flex;
+    flex-direction: column;
+}
+.order-box-panel-3-title-mark {
+
+}
+.order-box-panel-3-list-mark {
+
+}
+.order-box-panel-3-title-for-kitchen {
+
+}
+.order-box-panel-3-list-for-kitchen {
+
+}
+.order-box-panel-3-title-kitchen {
+
+}
+.order-box-panel-3-list-kitchen {
+
+}
+.order-box-panel-3-title-kitchen-ready {
+
+}
+.order-box-panel-3-list-kitchen-ready {
+
+}
+.order-box-panel-3-title-others {
+
+}
+.order-box-panel-3-list-others {
+
+}
+.order-box-panel-3-title-mark,
+.order-box-panel-3-title-for-kitchen,
+.order-box-panel-3-title-kitchen,
+.order-box-panel-3-title-others,
+.order-box-panel-3-title-kitchen-ready {
+    font-weight: bold;
+    font-size: 16px;
+    color: #8B919B;
+    text-align: left;
+    padding: 5px 0;
+}
