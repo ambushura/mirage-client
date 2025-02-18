@@ -10,6 +10,7 @@ import {useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./BookingItem.jsx"
 import {useSetContentHeight} from "../../hooks/useSetContentHeight.js"
+import HorecaItem from "./HorecaItem.jsx"
 
 const Order = () => {
 
@@ -114,12 +115,12 @@ const Order = () => {
                     <Box className="order-box-panel-2">
                         <ButtonGroup sx={{marginBottom: '4px'}}>
                             <ButtonGroup>
-                            <Button variant="contained" color="secondary" onClick={() => {
-                            }}>На кухню</Button>
-                            <Button variant="contained" color="secondary" onClick={() => {
-                            }}>Пречек</Button>
-                            <Button variant="contained" color="secondary" onClick={() => {
-                            }}>Разделить</Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}>На кухню</Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}>Пречек</Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                }}>Разделить</Button>
                             </ButtonGroup>
                         </ButtonGroup>
                         <ButtonGroup>
@@ -144,25 +145,29 @@ const Order = () => {
                         </ButtonGroup>
                     </Box>
                     <Box className="order-box-panel-3">
-                        <Box className="order-box-panel-3-title-mark">1. Маркированный товар</Box>
+                        <Box className="order-box-panel-3-title-mark">Маркируемый товар</Box>
                         <ul className="order-box-panel-3-list-mark">
-
+                            <HorecaItem/>
                         </ul>
-                        <Box className="order-box-panel-3-title-for-kitchen">2. Отправить на кухню</Box>
+                        <Box className="order-box-panel-3-title-mark">Акцизный товар</Box>
+                        <ul className="order-box-panel-3-list-mark">
+                            <HorecaItem/>
+                        </ul>
+                        <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
                         <ul className="order-box-panel-3-list-for-kitchen">
-
+                            <HorecaItem/>
                         </ul>
-                        <Box className="order-box-panel-3-title-kitchen">3. На кухне</Box>
+                        <Box className="order-box-panel-3-title-kitchen">На кухне</Box>
                         <ul className="order-box-panel-3-list-kitchen">
-
+                            <HorecaItem/>
                         </ul>
-                        <Box className="order-box-panel-3-title-kitchen-ready">4. Приготовлено</Box>
+                        <Box className="order-box-panel-3-title-kitchen-ready">Приготовлено</Box>
                         <ul className="order-box-panel-3-list-kitchen-ready">
-
+                            <HorecaItem/>
                         </ul>
-                        <Box className="order-box-panel-3-title-others">5. Остальное</Box>
+                        <Box className="order-box-panel-3-title-others">Остальное</Box>
                         <ul className="order-box-panel-3-list-others">
-
+                            <HorecaItem/>
                         </ul>
                     </Box>
                 </Box> : <></>
