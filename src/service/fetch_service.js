@@ -37,19 +37,19 @@ export const takeSeat = (filial, uid_seance, uid_order, uid_place) => {
         }
      }
 }
-export const payment = (filial, uid_order, name_workplace) => {
+export const payment = (filial, uid_order, wp) => {
     return async () => {
         try {
-            await fetch(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&name_workplace=${name_workplace}`)
+            await fetch(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`)
         } catch (e) {
             console.error(e)
         }
     }
 }
-export const horeca_add = (filial, uid_order, uid_item) => {
+export const horeca_add = (filial, uid_order, uid_menu, wp) => {
     return async () => {
         try {
-            await fetch(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&uid_item=${uid_item}`)
+            await fetch(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`)
         } catch (e) {
             console.error(e)
         }

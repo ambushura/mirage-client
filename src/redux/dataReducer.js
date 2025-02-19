@@ -3,6 +3,7 @@ const initialState = {
     cities: [],
     city: undefined,
     filial: undefined,
+    wp: undefined
 }
 export const dataSlice = createSlice({
     name: "data",
@@ -17,7 +18,10 @@ export const dataSlice = createSlice({
         setFilial: (state, action) => {
             state.filial = action.payload === null ? undefined : action.payload
         },
+        setWP: (state, action) => {
+            state.wp = action.payload === null ? undefined : action.payload
+        }
     },
 })
-export const {setCities, setCity, setFilial} = dataSlice.actions
+export const {setCities, setCity, setFilial, setWP} = dataSlice.actions
 export default dataSlice.reducer

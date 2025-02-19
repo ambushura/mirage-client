@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setTopMenu} from "./redux/interfaceReducer.js"
 import {useSetCityAndFilial} from "./hooks/useSetCityAndFilial.js"
-import {useParams} from "react-router-dom"
+import {useParams, useSearchParams} from "react-router-dom"
 import {Box, Fade} from "@mui/material"
 import PageFilms from "./page/pages/films/PageFilms.jsx"
 import {useSetDateShift} from "./hooks/useSetDateShift.js"
@@ -19,6 +19,7 @@ const AppRoutes = (props) => {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const top_menu = useSelector(state => state.interface.top_menu)
+    const wp = useSelector(state => state.data.wp)
 
     // Установка города и филиала по умолчанию
     const {param_city, param_filial, param_date} = useParams()
@@ -42,6 +43,12 @@ const AppRoutes = (props) => {
             dispatch(setTopMenu(top_menu_new))
         }
     }, [city, dispatch, filial, param_date])
+
+    useEffect(() => {
+        if (wp !== undefined) {
+            set_search_params({wp: wp})
+        }
+    }, [set_search_params, wp])
 
     return (
         <>

@@ -10,6 +10,7 @@ const CheckOut = (props) => {
 
     const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
+    const wp = useSelector(state => state.data.wp)
 
     return (
         <Box id='checkout'>
@@ -48,7 +49,7 @@ const CheckOut = (props) => {
                         </Box>
                     </Box>
                     <Button onClick={() => {
-                        dispatch(payment(filial, pre_order.uid, 'mpopcorn2'))
+                        dispatch(payment(filial, pre_order.uid, wp))
                     }} variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}>Оплатить</Button>
                 </Box>
             </Box>

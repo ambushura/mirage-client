@@ -4,12 +4,14 @@ import {horeca_add} from "../../../service/fetch_service.js"
 
 const Item = (props) => {
 
-    const filial = useSelector(state => state.data.filial)
-    const horder = useSelector(state => state.orders.horder)
     const dispatch = useDispatch()
 
+    const filial = useSelector(state => state.data.filial)
+    const horder = useSelector(state => state.orders.horder)
+    const wp = useSelector(state => state.data.wp)
+
     return (
-        <Box className="menu-item" onClick={() => dispatch(horeca_add(filial, horder.uid, props.item.uid))}>
+        <Box className="menu-item" onClick={() => dispatch(horeca_add(filial, horder.uid, props.item.uid, wp))}>
             <Box style={{height: '25px'}}>{props.item.name}</Box>
             <Box style={{height: '25px', display: 'flex', justifyContent: 'end', alignItems: 'flex-end'}}>
                 <span style={{

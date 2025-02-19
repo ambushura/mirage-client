@@ -53,6 +53,10 @@ function App() {
         return () => window.removeEventListener("resize", updateDimensions)
     }, [dispatch])
 
+    useEffect(() => {
+        //dispatch(setWP('mpopcorn2'))
+    })
+
     return (
         <Box style={{height: '100%', overflow: 'hidden'}}>
             {!full_screen || permissions.includes("staff") ? <Header/> : <></>}
