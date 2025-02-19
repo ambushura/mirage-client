@@ -15,6 +15,7 @@ import PageHoreca from "./page/pages/horeca/PageHoreca.jsx"
 const AppRoutes = (props) => {
 
     const dispatch = useDispatch()
+    const [, set_search_params] = useSearchParams()
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
@@ -46,9 +47,9 @@ const AppRoutes = (props) => {
 
     useEffect(() => {
         if (wp !== undefined) {
-            set_search_params({wp: wp})
+            set_search_params(wp)
         }
-    }, [set_search_params, wp])
+    })
 
     return (
         <>
