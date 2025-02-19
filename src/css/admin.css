@@ -10,7 +10,6 @@
     box-sizing: border-box;
     padding: 10px;
     width: 100%;
-    max-height: 50%;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -116,6 +115,7 @@
     background-color: #2f3238;
     border-radius: 12px;
     padding: 5px;
+    margin-bottom: 5px;
 }
 .order-box-horeca-item>div {
     margin-bottom: 4px;
@@ -287,11 +287,17 @@
     max-width: 390px;
 }
 .order-box-horeca-item-6-2 {
-    border-radius: 12px;
-    width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.order-box-horeca-item-6-2>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
     background-color: #1C1F23;
 }
 .order-box-horeca-item-6-1-modif {

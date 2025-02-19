@@ -1,4 +1,4 @@
-import {NEW_EMPTY_ORDER, setCurrentPreOrder} from "../redux/ordersReducer.js"
+import {addItemToHOrder, NEW_EMPTY_ORDER, setCurrentPreOrder} from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
 export const fetchPreOrder = (filial, uid_order) => {
     return async (dispatch) => {
@@ -47,9 +47,11 @@ export const payment = (filial, uid_order, wp) => {
     }
 }
 export const horeca_add = (filial, uid_order, uid_menu, wp) => {
-    return async () => {
+    return async (dispatch) => {
         try {
-            await fetch(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`)
+            const response = await fetch(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`)
+            const menu_json = await response.json()
+            dispatch(addItemToHOrder(menu_json.data))
         } catch (e) {
             console.error(e)
         }

@@ -47,9 +47,9 @@ const AppRoutes = (props) => {
 
     useEffect(() => {
         if (wp !== undefined) {
-            set_search_params(wp)
+            set_search_params({wp: wp})
         }
-    })
+    }, [set_search_params, wp])
 
     return (
         <>

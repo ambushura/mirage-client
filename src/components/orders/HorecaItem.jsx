@@ -8,14 +8,14 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
-const HorecaItem = () => {
+const HorecaItem = (props) => {
 
     return (
         <li className='order-box-horeca-item'>
             <Box className='order-box-horeca-item-1'>
                 <Box className='order-box-horeca-item-1-1'><DirectionsRunIcon/></Box>
                 <Box className='order-box-horeca-item-1-2'><LooksOneIcon/></Box>
-                <Box className='order-box-horeca-item-1-3'>Наименование товара</Box>
+                <Box className='order-box-horeca-item-1-3'>{props.item.name}</Box>
                 <Box className='order-box-horeca-item-1-4'><BorderColorIcon/></Box>
                 <Box className='order-box-horeca-item-1-5'><DeleteIcon/></Box>
             </Box>
@@ -52,7 +52,9 @@ const HorecaItem = () => {
                     <Box><span>Модификатор 5</span><span
                         className='order-box-horeca-item-6-1-modif'><DeleteIcon/></span></Box>
                 </Box>
-                <Box className='order-box-horeca-item-6-2'><AddCircleIcon/></Box>
+                <Box className='order-box-horeca-item-6-2'>
+                    <Box><AddCircleIcon/></Box>
+                </Box>
             </Box>
         </li>
     )

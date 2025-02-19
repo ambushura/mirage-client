@@ -8,9 +8,7 @@ export const NEW_EMPTY_HORDER = () => {return {
     number: undefined,
     price: 0,
     quantity: 0,
-    items_kitchen: [],
-    items_mark: [],
-    items_others: []
+    items: []
 }}
 export const ORDER_TIME_OUT = 1000
 const initialState = {
@@ -28,7 +26,14 @@ export const ordersSlice = createSlice({
         setCurrentPreOrder: (state, action) => {
             state.pre_order = action.payload
         },
+        addItemToHOrder: (state, action) => {
+            const horder = JSON.parse(JSON.stringify(state.horder))
+            if (action.payload.uid_order === horder.uid) {
+                horder.items.push(action.payload)
+                state.horder = horder
+            }
+        }
     },
 })
-export const {setDate, setCurrentPreOrder} = ordersSlice.actions
+export const {setDate, setCurrentPreOrder, addItemToHOrder} = ordersSlice.actions
 export default ordersSlice.reducer

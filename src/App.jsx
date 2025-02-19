@@ -10,6 +10,7 @@ import {setAppHeight, setAppWidth} from "./redux/interfaceReducer.js"
 import {useSetCityAndFilial} from "./hooks/useSetCityAndFilial.js"
 import useWebSocket from "react-use-websocket"
 import {v4} from "uuid"
+import {setWP} from "./redux/dataReducer.js"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
     const [full_screen, set_full_screen] = useState(false)
     const permissions = useSelector(state => state.auth.permissions)
     const uid_app = useRef(v4())
+    const wp = useSelector(state => state.data.wp)
     const {sendMessage, lastMessage} = useWebSocket(`ws://10.101.3.88:8082/ws?id=${uid_app.current}`, {
         shouldReconnect: () => true,
     })
@@ -29,7 +31,7 @@ function App() {
         if (lastMessage) {
             dispatch(sendMessage(lastMessage))
         }
-    }, [lastMessage, dispatch])
+    }, [lastMessage, dispatch, sendMessage])
 
     // Загружаем города
     useSetCityAndFilial()
@@ -54,8 +56,10 @@ function App() {
     }, [dispatch])
 
     useEffect(() => {
-        //dispatch(setWP('mpopcorn2'))
-    })
+        if (wp === undefined) {
+            dispatch(setWP('mpopcorn2'))
+        }
+    }, [dispatch, wp])
 
     return (
         <Box style={{height: '100%', overflow: 'hidden'}}>

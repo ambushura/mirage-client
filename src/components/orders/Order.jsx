@@ -11,17 +11,33 @@ import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./BookingItem.jsx"
 import {useSetContentHeight} from "../../hooks/useSetContentHeight.js"
 import HorecaItem from "./HorecaItem.jsx"
+import {useEffect, useState} from "react"
 
 const Order = () => {
 
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+    const [pre_order_show, set_pre_order_show] = useState(false)
+    const [horder_show, set_horder_show] = useState(false)
     const [content_height] = useSetContentHeight()
+
+    useEffect(() => {
+        if (pre_order.in_base && pre_order.seance !== undefined) {
+            set_pre_order_show(true)
+        } else {
+            set_pre_order_show(false)
+        }
+        if (horder.number === undefined && horder.items.length > 0) {
+            set_horder_show(true)
+        } else {
+            set_horder_show(false)
+        }
+    }, [horder, pre_order])
 
     return (
         <Box id="order" style={{height: content_height}}>
-            {pre_order.in_base && pre_order.seance !== undefined ?
-                <Box className="order-box">
+            {pre_order_show ?
+                <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                     <Box style={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -97,8 +113,8 @@ const Order = () => {
                     </Box>
                 </Box> : <></>
             }
-            {horder.number === undefined ?
-                <Box className="order-box">
+            {horder_show ?
+                <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                     <Box className="order-box-panel-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
@@ -147,27 +163,36 @@ const Order = () => {
                     <Box className="order-box-panel-3">
                         <Box className="order-box-panel-3-title-mark">Маркируемый товар</Box>
                         <ul className="order-box-panel-3-list-mark">
-                            <HorecaItem/>
+                            {horder.items.filter(el => el.mark.marked).map((item) => {
+                                return (
+                                    <HorecaItem key={item.uid} item={item}/>
+                                )
+                            })}
                         </ul>
                         <Box className="order-box-panel-3-title-mark">Акцизный товар</Box>
                         <ul className="order-box-panel-3-list-mark">
-                            <HorecaItem/>
+                            {horder.items.filter(el => el.egais.marked).map((item) => {
+                                return (
+                                    <HorecaItem key={item.uid} item={item}/>
+                                )
+                            })}
                         </ul>
                         <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
                         <ul className="order-box-panel-3-list-for-kitchen">
-                            <HorecaItem/>
+                            {horder.items.filter(el => el.kitchen > 0).map((item) => {
+                                return (
+                                    <HorecaItem key={item.uid} item={item}/>
+                                )
+                            })}
                         </ul>
                         <Box className="order-box-panel-3-title-kitchen">На кухне</Box>
                         <ul className="order-box-panel-3-list-kitchen">
-                            <HorecaItem/>
                         </ul>
                         <Box className="order-box-panel-3-title-kitchen-ready">Приготовлено</Box>
                         <ul className="order-box-panel-3-list-kitchen-ready">
-                            <HorecaItem/>
                         </ul>
                         <Box className="order-box-panel-3-title-others">Остальное</Box>
                         <ul className="order-box-panel-3-list-others">
-                            <HorecaItem/>
                         </ul>
                     </Box>
                 </Box> : <></>
