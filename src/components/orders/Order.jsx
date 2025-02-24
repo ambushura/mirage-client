@@ -3,6 +3,7 @@ import {Box, Button, ButtonGroup} from "@mui/material"
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import SaveIcon from '@mui/icons-material/Save'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import CachedIcon from '@mui/icons-material/Cached'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
@@ -27,7 +28,7 @@ const Order = () => {
         } else {
             set_pre_order_show(false)
         }
-        if (horder.number === undefined && horder.items.length > 0) {
+        if (horder.in_base && horder.items.length > 0) {
             set_horder_show(true)
         } else {
             set_horder_show(false)
@@ -52,19 +53,22 @@ const Order = () => {
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><SaveIcon/></Button>
+                            <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
+                                    onClick={() => {
+                                    }}><CachedIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="primary"
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                         </ButtonGroup>
                         <Box sx={{
-                            width: '100%',
+                            minWidth: '113px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontWeight: 'bold',
                             fontSize: '80%',
                             color: '#8B919B',
-                        }}><span>{pre_order.number}</span></Box>
+                        }}><span style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
                     </Box>
                     <Box>
                         <ButtonGroup>
@@ -123,10 +127,22 @@ const Order = () => {
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><SaveIcon/></Button>
+                            <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
+                                    onClick={() => {
+                                    }}><CachedIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="primary"
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                         </ButtonGroup>
+                        <Box sx={{
+                            minWidth: '113px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: 'bold',
+                            fontSize: '80%',
+                            color: '#8B919B',
+                        }}><span style={{textAlign: 'center'}}>{horder.number}</span></Box>
                     </Box>
                     <Box className="order-box-panel-2">
                         <ButtonGroup sx={{marginBottom: '4px'}}>
@@ -161,25 +177,9 @@ const Order = () => {
                         </ButtonGroup>
                     </Box>
                     <Box className="order-box-panel-3">
-                        <Box className="order-box-panel-3-title-mark">Маркируемый товар</Box>
-                        <ul className="order-box-panel-3-list-mark">
-                            {horder.items.filter(el => el.mark.marked).map((item) => {
-                                return (
-                                    <HorecaItem key={item.uid} item={item}/>
-                                )
-                            })}
-                        </ul>
-                        <Box className="order-box-panel-3-title-mark">Акцизный товар</Box>
-                        <ul className="order-box-panel-3-list-mark">
-                            {horder.items.filter(el => el.egais.marked).map((item) => {
-                                return (
-                                    <HorecaItem key={item.uid} item={item}/>
-                                )
-                            })}
-                        </ul>
                         <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
                         <ul className="order-box-panel-3-list-for-kitchen">
-                            {horder.items.filter(el => el.kitchen > 0).map((item) => {
+                            {horder.items.map((item) => {
                                 return (
                                     <HorecaItem key={item.uid} item={item}/>
                                 )

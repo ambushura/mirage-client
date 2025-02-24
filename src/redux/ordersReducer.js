@@ -1,10 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit"
 import {date_dayjs} from "../service/advanced.js"
 import {v4} from "uuid"
-export const NEW_EMPTY_ORDER = () => {return {in_base: false, uid: v4(), number: undefined, price: 0, quantity: 0, booking: []}}
+export const NEW_EMPTY_ORDER = () => {return {
+    in_base: false,
+    uid: v4(),
+    ver: v4(),
+    number: undefined,
+    price: 0,
+    quantity: 0,
+    booking: []}}
 export const NEW_EMPTY_HORDER = () => {return {
     in_base: false,
     uid: v4(),
+    ver: v4(),
     number: undefined,
     price: 0,
     quantity: 0,
@@ -26,14 +34,10 @@ export const ordersSlice = createSlice({
         setCurrentPreOrder: (state, action) => {
             state.pre_order = action.payload
         },
-        addItemToHOrder: (state, action) => {
-            const horder = JSON.parse(JSON.stringify(state.horder))
-            if (action.payload.uid_order === horder.uid) {
-                horder.items.push(action.payload)
-                state.horder = horder
-            }
+        setCurrentHorder: (state, action) => {
+            state.horder = action.payload
         }
     },
 })
-export const {setDate, setCurrentPreOrder, addItemToHOrder} = ordersSlice.actions
+export const {setDate, setCurrentPreOrder, setCurrentHorder} = ordersSlice.actions
 export default ordersSlice.reducer

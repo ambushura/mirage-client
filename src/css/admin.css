@@ -319,7 +319,7 @@
 .order-box-horeca-item-3-3:hover,
 .order-box-horeca-item-4-2:hover,
 .order-box-horeca-item-5-4:hover,
-.order-box-horeca-item-6-2:hover,
+.order-box-horeca-item-6-2>div:hover,
 .order-box-horeca-item-6-1-modif:hover {
     transition: background-color 0.3s;
     background-color: #000000;
