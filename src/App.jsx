@@ -1,69 +1,36 @@
-import {useEffect, useRef, useState} from 'react'
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import {Box} from "@mui/material"
 import Header from "./page/header/Header.jsx"
 import Footer from "./page/footer/Footer.jsx"
 import {Navigate, Route, Routes} from "react-router-dom"
 import NotFound from "./page/pages/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
-import {setAppHeight, setAppWidth} from "./redux/interfaceReducer.js"
 import {useSetCityAndFilial} from "./hooks/useSetCityAndFilial.js"
-import useWebSocket from "react-use-websocket"
-import {v4} from "uuid"
-import {setWP} from "./redux/dataReducer.js"
+import {useSetSizeWindow} from "./hooks/useSetSizeWindow.js"
+import {useSetTopMenu} from "./hooks/useSetTopMenu.js"
+import {useFullScreen} from "./hooks/useFullScreen.js"
+import {useSetWS} from "./hooks/useSetWS.js"
+import {useReset} from "./hooks/useReset.js"
 
 function App() {
 
-    const dispatch = useDispatch()
-    const cities = useSelector(state => state.data.cities)
-    const current_page = useSelector(state => state.interface.current_page)
-    const param_date = useSelector(state => state.schedule.param_date)
-    const [full_screen, set_full_screen] = useState(false)
-    const permissions = useSelector(state => state.auth.permissions)
-    const uid_app = useRef(v4())
-    const wp = useSelector(state => state.data.wp)
-    const {sendMessage, lastMessage} = useWebSocket(`ws://10.101.3.88:8082/ws?id=${uid_app.current}`, {
-        shouldReconnect: () => true,
-    })
-
-    // Подключаем ws
-    useEffect(() => {
-        if (lastMessage) {
-            dispatch(sendMessage(lastMessage))
-        }
-    }, [lastMessage, dispatch, sendMessage])
-
-    // Загружаем города
+    // Хуки
+    useSetWS()
     useSetCityAndFilial()
+    useSetSizeWindow()
+    useSetTopMenu()
+    useReset()
 
-    useEffect(() => {
-        if (current_page === 'seance') {
-            set_full_screen(true)
-        } else {
-            set_full_screen(false)
-        }
-    }, [current_page])
+    const full = useFullScreen()
 
-    // Отслеживаем изменение размеров окна браузера
-    useEffect(() => {
-        const updateDimensions = () => {
-            dispatch(setAppWidth(window.innerWidth))
-            dispatch(setAppHeight(window.innerHeight))
-        }
-        updateDimensions()
-        window.addEventListener("resize", updateDimensions)
-        return () => window.removeEventListener("resize", updateDimensions)
-    }, [dispatch])
-
-    useEffect(() => {
-        if (wp === undefined) {
-            dispatch(setWP('mpopcorn2'))
-        }
-    }, [dispatch, wp])
+    // Данные из хранилища
+    const cities = useSelector(state => state.data.cities)
+    const param_date = useSelector(state => state.interface.params.param_date)
+    const permissions = useSelector(state => state.auth.permissions)
 
     return (
         <Box style={{height: '100%', overflow: 'hidden'}}>
-            {!full_screen || permissions.includes("staff") ? <Header/> : <></>}
+            {!full || permissions.includes("staff") ? <Header/> : <></>}
             <Routes>
                 <Route path="/" element={<Navigate
                     to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
@@ -75,17 +42,17 @@ function App() {
                        element={<AppRoutes current_page='schedule'/>}/>
                 <Route path="/seance/:param_city/:param_filial/:uid_seance"
                        element={<AppRoutes current_page='seance'/>}/>
+                <Route path="/seance/:param_city/:param_filial/"
+                       element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/"
                        element={<AppRoutes current_page='mkitchen'/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
-                       element={permissions.includes('staff') ? <AppRoutes current_page='menu'/> :
-                           <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
+                       element={permissions.includes("staff") ? <AppRoutes current_page='menu'/> : <NotFound/>}/>
                 <Route path="/admin/:param_city/:param_filial/"
-                       element={permissions.includes('staff') ? <AppRoutes current_page='admin'/> :
-                           <Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : "/"}/>}/>
+                       element={permissions.includes("staff") ? <AppRoutes current_page='admin'/> : <NotFound/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
-            {!full_screen || permissions.includes("staff") ? <Footer/> : <></>}
+            {!full || permissions.includes("staff") ? <Footer/> : <></>}
         </Box>
     )
 }

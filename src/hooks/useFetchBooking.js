@@ -1,19 +1,24 @@
 import {useEffect, useState} from "react"
 import {useFetching} from "./useFetching.js"
+import {useSelector} from "react-redux"
 
-export function useFetchBooking(city, filial, seance, order) {
+export function useFetchBooking() {
 
     const [url, set_url] = useState(undefined)
     const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
     const [data, set_data] = useState([])
 
+    const filial = useSelector(state => state.data.filial)
+    const seance = useSelector(state => state.schedule.seance)
+    const pre_order = useSelector(state => state.orders.pre_order)
+
     useEffect(() => {
-        if (filial !== undefined && seance !== undefined && order !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${seance.uid}&uid_order=${order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+        if (filial !== undefined && seance !== undefined && pre_order !== undefined) {
+            set_url(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${seance.uid}&uid_order=${pre_order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
         } else {
             set_url(undefined)
         }
-    }, [city, filial, seance, order])
+    }, [filial, seance, pre_order])
 
     useEffect(() => {
         if (fetch_data !== null) {

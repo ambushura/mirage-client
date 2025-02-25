@@ -7,7 +7,7 @@ const Filial = (props) => {
 
     const current_page = useSelector(state => state.interface.current_page)
     const city = useSelector(state => state.data.city)
-    const param_date = useSelector(state => state.schedule.param_date)
+    const param_date = useSelector(state => state.interface.params.param_date)
     const film = useSelector(state => state.schedule.film_seances.film)
 
     return (

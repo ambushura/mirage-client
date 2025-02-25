@@ -2,9 +2,8 @@ import {useEffect, useRef, useState} from "react"
 import {Box, Button, Fade, LinearProgress} from "@mui/material"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
-import {useNavigate, useParams} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 import {useFetchSeance} from "../../../hooks/useFetchSeance.js"
 import {useFetchHall} from "../../../hooks/useFetchHall.js"
 import {useFetchOrder} from "../../../hooks/useFetchOrder.js"
@@ -22,7 +21,6 @@ import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
 
 const PageSeance = () => {
 
-    const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -35,10 +33,10 @@ const PageSeance = () => {
     const [hall, set_hall] = useState(undefined)
     const booking = useSelector(state => state.schedule.booking)
 
-    const [seance_data, ,] = useFetchSeance(city, filial, params.uid_seance)
-    const [hall_data, ,] = useFetchHall(city, filial, seance)
-    const [order_data, ,] = useFetchOrder(city, filial, pre_order)
-    const [booking_data, ,] = useFetchBooking(city, filial, seance, pre_order)
+    const [seance_data, ,] = useFetchSeance()
+    const [hall_data, ,] = useFetchHall()
+    const [order_data, ,] = useFetchOrder()
+    const [booking_data, ,] = useFetchBooking()
 
     const refTitle = useRef(null)
     const [checkout, set_check_out] = useState(false)
@@ -47,8 +45,6 @@ const PageSeance = () => {
     const [hall_height, set_hall_height] = useState(0)
     const [time_remaining, set_time_remaining] = useState(100)
     const [count_book, set_count_book] = useState(0)
-
-    useSetCurrentPage('seance')
 
     useEffect(() => {
         if (city !== undefined && filial !== undefined) {

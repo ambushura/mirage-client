@@ -6,7 +6,7 @@ const FilmCard = (props) => {
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const param_date = useSelector(state => state.schedule.param_date)
+    const param_date = useSelector(state => state.interface.params.param_date)
 
     return (
         <NavLink className='film'

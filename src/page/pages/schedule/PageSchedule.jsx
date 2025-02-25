@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useRef, useState} from "react"
 import {setSchedule} from "../../../redux/scheduleReducer.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
-import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
 import Loader from "../../../components/Loader.jsx"
@@ -17,14 +16,11 @@ const PageSchedule = () => {
 
     // Данные из хранилища
     const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
-    const param_date = useSelector(state => state.schedule.param_date)
     const schedule = useSelector(state => state.schedule.schedule)
 
     // Хуки
-    useSetCurrentPage('schedule')
     const [content_height, show_pre_order] = useSetContentHeight()
-    const filial_halls_seances = useSetSchedule(city, filial, param_date)
+    const filial_halls_seances = useSetSchedule()
 
     // Монтаж/демонтаж
     useEffect(() => {

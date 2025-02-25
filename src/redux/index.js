@@ -16,7 +16,7 @@ export const store = configureStore({
         interface: interfaceSlice,
         auth: authSlice,
         notifier: notifierReducer,
-        webSocket: wsReducer,
+        webSocket: wsReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 })

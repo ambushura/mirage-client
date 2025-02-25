@@ -4,12 +4,14 @@ import {useFetching} from "./useFetching.js"
 import {HOST} from "../redux/index.js"
 import {setCities, setCity, setFilial} from "../redux/dataReducer.js"
 
-export function useSetCityAndFilial(param_city, param_filial) {
+export function useSetCityAndFilial() {
 
     const dispatch = useDispatch()
     const [fetch_data] = useFetching(`http://${HOST}/api/get_cities`)
     const cities = useSelector(state => state.data.cities)
     const city = useSelector(state => state.data.city)
+    const param_city = useSelector(state => state.interface.params.param_city)
+    const param_filial = useSelector(state => state.interface.params.param_filial)
 
     useEffect(() => {
         if (fetch_data !== null) {

@@ -1,11 +1,16 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "./useFetchingArray.js"
+import {useSelector} from "react-redux"
 
-export function useSetFilms(city, filial, param_date) {
+export function useSetFilms() {
 
     const [urls, set_urls] = useState([])
     const fetch_data = useFetchingArray(urls)
     const [data, set_data] = useState([])
+
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date = useSelector(state => state.interface.params.param_date)
 
     useEffect(() => {
         let urls_new = []

@@ -58,12 +58,13 @@ const Header = () => {
     const user_panel = () => {
         const up = []
         if (authenticated) {
-            up.push(<Button>{current_time.hour()}:{current_time.minute()}</Button>)
-            up.push(<Button>{username}</Button>)
-            up.push(<Button onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
+            up.push(<Button key='3'>{current_time.hour()}:{current_time.minute()}</Button>)
+            up.push(<Button key='2'>{username}</Button>)
+            up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
         } else {
-            up.push(<Button
-                onClick={() => dispatch(setAuthOpened(true))} startIcon={<AccountCircleIcon/>}>Вход</Button>)
+            up.push(<Button key='4'
+                            onClick={() => dispatch(setAuthOpened(true))}
+                            startIcon={<AccountCircleIcon/>}>Вход</Button>)
         }
         return up
     }
@@ -80,7 +81,7 @@ const Header = () => {
                                     style={{height: '100%'}}>{el.name}</Button></NavLink>
                             })}
                         </ButtonGroup>
-                        {!authenticated ? <ButtonGroup id="top-menu-left" variant="contained">
+                        <ButtonGroup id="top-menu-left" variant="contained">
                             <List
                                 open={cities_open}
                                 anchor={cities_ref}
@@ -104,7 +105,7 @@ const Header = () => {
                                 endIcon={<KeyboardArrowDownIcon/>}
                                 type='filials'
                             />
-                        </ButtonGroup> : <></>}
+                        </ButtonGroup>
                         <Box sx={{display: 'flex', alignItems: 'center'}}>
                             <ButtonGroup size="large" variant='contained' color='secondary' id="header-time-username">
                                 {user_panel()}

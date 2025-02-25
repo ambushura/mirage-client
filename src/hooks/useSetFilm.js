@@ -1,11 +1,17 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "./useFetchingArray.js"
+import {useSelector} from "react-redux"
 
-export function useSetFilm(city, filial, param_date, uid_film) {
+export function useSetFilm() {
 
     const [urls, set_urls] = useState([])
     const fetch_data = useFetchingArray(urls)
     const [film, set_film] = useState(undefined)
+
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date = useSelector(state => state.interface.params.param_date)
+    const uid_film = useSelector(state => state.interface.params.uid_film)
 
     useEffect(() => {
         let urls_new = []
@@ -30,7 +36,7 @@ export function useSetFilm(city, filial, param_date, uid_film) {
         fetch_data.forEach(filial_data => {
             if (filial_data.data !== null) {
                 film_new = filial_data.data.film
-             }
+            }
         })
         set_film(film_new)
     }, [fetch_data])

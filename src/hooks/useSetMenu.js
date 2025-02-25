@@ -1,11 +1,14 @@
 import {useEffect, useState} from "react"
 import {useFetching} from "./useFetching.js"
+import {useSelector} from "react-redux"
 
-export function useSetMenu(city, filial, uid_folder) {
+export function useSetMenu(uid_folder) {
 
     const [url, set_url] = useState(undefined)
     const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
     const [data, set_data] = useState(undefined)
+
+    const filial = useSelector(state => state.data.filial)
 
     useEffect(() => {
         if (filial !== undefined) {
@@ -13,7 +16,7 @@ export function useSetMenu(city, filial, uid_folder) {
         } else {
             set_url(undefined)
         }
-    }, [city, filial, uid_folder])
+    }, [filial, uid_folder])
 
     useEffect(() => {
         if (fetch_data !== null) {

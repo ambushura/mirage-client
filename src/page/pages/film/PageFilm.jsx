@@ -1,6 +1,4 @@
 import {Box} from "@mui/material"
-import {useParams} from "react-router-dom"
-import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
@@ -16,18 +14,14 @@ const PageFilm = () => {
 
     // Служебные функции
     const dispatch = useDispatch()
-    const params = useParams()
 
     // Данные из хранилища
-    const param_date = useSelector(state => state.schedule.param_date)
     const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
     const film = useSelector(state => state.schedule.film_seances.film)
     const filials_seances = useSelector(state => state.schedule.film_seances.data)
 
     // Хуки
-    useSetCurrentPage('film')
-    const [fetch_film, fetch_data] = useSetFilm(city, filial, param_date, params.uid_film)
+    const [fetch_film, fetch_data] = useSetFilm()
     const [content_height, show_pre_order] = useSetContentHeight()
 
     // Монтаж/демонтаж

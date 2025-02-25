@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setFilms} from "../../../redux/scheduleReducer.js"
 import FilmCard from "./FilmCard.jsx"
-import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 
 const PageFilms = () => {
 
@@ -15,15 +14,11 @@ const PageFilms = () => {
     const dispatch = useDispatch()
 
     // Данные из хранилища
-    const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
-    const param_date = useSelector(state => state.schedule.param_date)
     const films = useSelector(state => state.schedule.films)
 
     // Хуки
-    useSetCurrentPage('films')
     const [content_height, show_pre_order] = useSetContentHeight()
-    const films_data = useSetFilms(city, filial, param_date)
+    const films_data = useSetFilms()
 
     // Монтаж/демонтаж
     useEffect(() => {

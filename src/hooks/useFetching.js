@@ -1,4 +1,6 @@
 import {useEffect, useState} from 'react'
+import axios from "axios"
+import {TIMEOUT} from "../service/fetch_service.js"
 
 export function useFetching(url) {
 
@@ -10,10 +12,8 @@ export function useFetching(url) {
         let isMounted = true
         const fetchData = async () => {
             try {
-                const response = await fetch(url)
-                if (!response.ok) throw new Error(response.statusText)
-                const data = await response.json()
-                if (isMounted) setData(data.data)
+                const response = await axios.get(url, {timeout: TIMEOUT})
+                if (isMounted) setData(response.data.data)
             } catch (err) {
                 if (isMounted) setError(err.message)
             } finally {

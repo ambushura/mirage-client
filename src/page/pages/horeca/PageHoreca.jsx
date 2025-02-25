@@ -2,12 +2,10 @@ import {Box} from "@mui/material"
 import Menu from "./Menu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
-import {useSetCurrentPage} from "../../../hooks/useSetCurrentPage.js"
 
 const PageHoreca = () => {
 
     // Хуки
-    useSetCurrentPage('films')
     const [content_height, show_pre_order] = useSetContentHeight()
 
     return (

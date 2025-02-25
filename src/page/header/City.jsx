@@ -6,7 +6,7 @@ import {PARAM_DATE_SHIFT} from "../../redux/interfaceReducer.js"
 const City = (props) => {
 
     const current_page = useSelector(state => state.interface.current_page)
-    const param_date = useSelector(state => state.schedule.param_date)
+    const param_date = useSelector(state => state.interface.params.param_date)
 
     return (
         <NavLink to={`/${current_page}/${props.city.code}/all/${PARAM_DATE_SHIFT.find(el => el === current_page) !== undefined ? param_date + '/' : ''}`}>

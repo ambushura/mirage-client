@@ -5,6 +5,10 @@ import './css/cinema.css'
 import './css/components.css'
 import './css/orders.css'
 import './css/horeca.css'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 import "dayjs/locale/ru"
 import App from './App.jsx'
 import store from "./redux/index.js"

@@ -1,6 +1,5 @@
 import {Box} from "@mui/material"
 import {useSetMenu} from "../../../hooks/useSetMenu.js"
-import {useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import Folder from "./Folder.jsx"
 import Item from "./Item.jsx"
@@ -8,9 +7,7 @@ import Item from "./Item.jsx"
 const Menu = () => {
 
     const [uid_folder, set_uid_folder] = useState('Меню')
-    const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
-    const [menu_data, ,] = useSetMenu(city, filial, uid_folder)
+    const [menu_data, ,] = useSetMenu(uid_folder)
     const [breadcrumbs, set_breadcrumbs] = useState([])
 
     useEffect(() => {

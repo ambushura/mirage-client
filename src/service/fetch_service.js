@@ -1,11 +1,14 @@
 import {NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
+import axios from "axios"
+
+export const TIMEOUT = 5000
+
 export const fetchPreOrder = (filial, uid_order) => {
     return async (dispatch) => {
         try {
-            const response = await fetch(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`)
-            const response_json = await response.json()
-            dispatch(setCurrentPreOrder(response_json.data))
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`, {timeout: TIMEOUT})
+            dispatch(setCurrentPreOrder(response.data.data))
         } catch (e) {
             console.error(e)
         }
@@ -14,7 +17,7 @@ export const fetchPreOrder = (filial, uid_order) => {
 export const deletePreOrder = (filial, uid_order) => {
     return async (dispatch) => {
         try {
-            await fetch(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`).then(
+            await axios.get(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`, {timeout: TIMEOUT}).then(
                 () => {
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 }
@@ -27,10 +30,9 @@ export const deletePreOrder = (filial, uid_order) => {
 export const takeSeat = (filial, uid_seance, uid_order, uid_place) => {
     return async (dispatch) => {
         try {
-            await fetch(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}`)
-            const booking_result = await fetch(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`)
-            const booking = await booking_result.json()
-            dispatch(setBooking(booking.data))
+            await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}`, {timeout: 5000})
+            const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {timeout: 5000})
+            dispatch(setBooking(booking.data.data))
             dispatch(fetchPreOrder(filial, uid_order))
         } catch (e) {
             console.error(e)
@@ -40,7 +42,7 @@ export const takeSeat = (filial, uid_seance, uid_order, uid_place) => {
 export const payment = (filial, uid_order, wp) => {
     return async () => {
         try {
-            await fetch(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`)
+            await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`, {timeout: 5000})
         } catch (e) {
             console.error(e)
         }
@@ -49,9 +51,8 @@ export const payment = (filial, uid_order, wp) => {
 export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     return async (dispatch) => {
         try {
-            const response = await fetch(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver_order=${ver_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`)
-            const menu_json = await response.json()
-            dispatch(setCurrentHorder(menu_json.data))
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver_order=${ver_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`, {timeout: TIMEOUT})
+            dispatch(setCurrentHorder(response.data.data))
         } catch (e) {
             console.error(e)
         }

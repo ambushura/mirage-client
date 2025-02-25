@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import axios from "axios"
+import {TIMEOUT} from "../service/fetch_service.js"
 
 export function useFetchingArray(urls) {
 
@@ -18,10 +20,8 @@ export function useFetchingArray(urls) {
             const fetchResults = await Promise.all(
                 urls.map(async (url) => {
                     try {
-                        const response = await fetch(url.url)
-                        if (!response.ok) throw new Error(response.statusText)
-                        const json = await response.json()
-                        return {url: url.url, data: json.data, filial: url.filial, loading: false, error: null}
+                        const response = await axios.get(url.url, {timeout: TIMEOUT})
+                        return {url: url.url, data: response.data.data, filial: url.filial, loading: false, error: null}
                     } catch (err) {
                         return {url: url.url, data: null, filial: url.filial, loading: false, error: err.message}
                     }

@@ -1,11 +1,15 @@
 import {useEffect, useState} from "react"
 import {useFetching} from "./useFetching.js"
+import {useSelector} from "react-redux"
 
-export function useFetchSeance(city, filial, uid_seance) {
+export function useFetchSeance() {
 
     const [url, set_url] = useState(undefined)
     const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
     const [data, set_data] = useState(undefined)
+
+    const filial = useSelector(state => state.data.filial)
+    const uid_seance = useSelector(state => state.interface.params.uid_seance)
 
     useEffect(() => {
         if (filial !== undefined) {
@@ -13,7 +17,7 @@ export function useFetchSeance(city, filial, uid_seance) {
         } else {
             set_url(undefined)
         }
-    }, [city, filial, uid_seance])
+    }, [filial, uid_seance])
 
     useEffect(() => {
         if (fetch_data !== null) {

@@ -8,33 +8,33 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {ANIMATION_SPEED, MOBILE_WIDTH} from "../../redux/interfaceReducer.js"
 import {useNavigate} from "react-router-dom"
-import {date_dayjs, to_str_DAY} from "../../service/advanced.js"
+import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
 
 const ScheduleMenu = () => {
 
+    // Служебные функции
     const navigate = useNavigate()
+
+    // Данные из хранилища
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const film = useSelector(state => state.schedule.film_seances.film)
+
     const current_page = useSelector(state => state.interface.current_page)
-    const date = useSelector(state => state.schedule.date)
-    const param_date = useSelector(state => state.schedule.param_date)
+    const param_date = useSelector(state => state.interface.params.param_date)
+
     const app_width = useSelector(state => state.interface.app_width)
-    const date_shift = useSelector(state => dayjs(state.schedule.date))
 
     // Календарь
     const [schedule_calendar_open, set_schedule_calendar_open] = useState(null)
     const open = Boolean(schedule_calendar_open)
     const id = open ? 'schedule_city-calendar' : undefined
+
     const handleClick = (event) => {
         set_schedule_calendar_open(event.currentTarget)
     }
     const handleClose = () => {
         set_schedule_calendar_open(null)
-    }
-
-    const cd = (current_date) => {
-        return current_date.year() + '-' + (current_date.month() + 1) + '-' + (current_date.date())
     }
 
     return (
@@ -47,22 +47,22 @@ const ScheduleMenu = () => {
                         }}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
                     <ButtonGroup>
                         <Button variant="contained" color="secondary" onClick={() => {
-                            const current_date = date_dayjs(new Date())
-                            const current_param_date = cd(current_date)
+                            const date = date_dayjs(new Date())
+                            const current_param_date = from_dayjs_to_str(date)
                             navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                         }}>сегодня</Button>
                         <Button variant="contained" color="secondary" size="large" onClick={() => {
-                            const current_date = dayjs(date).add(-1, 'day')
-                            const current_param_date = cd(current_date)
+                            const current_date = dayjs(param_date).add(-1, 'day')
+                            const current_param_date = from_dayjs_to_str(current_date)
                             navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                         }}><KeyboardArrowLeftIcon/></Button>
                         <Button aria-describedby={id} variant="contained" color="secondary" onClick={handleClick}
                                 endIcon={<KeyboardArrowDownIcon/>}>
-                            Фильмы {date_shift.$D} {to_str_DAY(date_shift.$d)}
+                            Фильмы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}
                         </Button>
                         <Button variant="contained" color="secondary" size="large" onClick={() => {
-                            const current_date = dayjs(date).add(1, 'day')
-                            const current_param_date = cd(current_date)
+                            const current_date = dayjs(param_date).add(1, 'day')
+                            const current_param_date = from_dayjs_to_str(current_date)
                             navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                         }}><KeyboardArrowRightIcon/></Button>
                     </ButtonGroup>
@@ -83,7 +83,7 @@ const ScheduleMenu = () => {
                                 }
                             }
                         }}>
-                        <DateCalendar value={date_shift}
+                        <DateCalendar value={dayjs(param_date)}
                                       onChange={(newValue) => {
                                           set_schedule_calendar_open(null)
                                           const current_param_data = newValue.year() + '-' + (newValue.month() + 1) + '-' + (newValue.date())
