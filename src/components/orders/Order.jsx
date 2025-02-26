@@ -118,7 +118,7 @@ const Order = () => {
                 </Box> : <></>
             }
             {horder_show ?
-                <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
+                <Box className="order-box" style={{height: pre_order_show ? '55%' : '100%'}}>
                     <Box className="order-box-panel-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"

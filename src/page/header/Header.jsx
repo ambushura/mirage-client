@@ -58,7 +58,8 @@ const Header = () => {
     const user_panel = () => {
         const up = []
         if (authenticated) {
-            up.push(<Button key='3'>{current_time.hour()}:{current_time.minute()}</Button>)
+            up.push(<Button
+                key='3'>{String(current_time.hour()).padStart(2, '0')}:{String(current_time.minute()).padStart(2, '0')}</Button>)
             up.push(<Button key='2'>{username}</Button>)
             up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
         } else {
