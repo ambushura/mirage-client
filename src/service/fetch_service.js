@@ -1,7 +1,7 @@
 import {NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
 import axios from "axios"
-import {addNotification} from "../redux/notifierReducer.js";
+import {addNotification} from "../redux/notifierReducer.js"
 
 export const TIMEOUT = 5000
 
@@ -31,19 +31,18 @@ export const deletePreOrder = (filial, uid_order) => {
 export const takeSeat = (filial, uid_seance, uid_order, uid_place) => {
     return async (dispatch) => {
         try {
-            await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}`, {timeout: 5000})
-            const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {timeout: 5000})
-            dispatch(setBooking(booking.data.data))
-            dispatch(fetchPreOrder(filial, uid_order))
-        } catch (e) {
-            console.error(e)
-        }
-     }
-}
-export const payment = (filial, uid_order, wp) => {
-    return async () => {
-        try {
-            await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`, {timeout: 5000})
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}`, {timeout: 5000})
+            if (response.data.code === 200) {
+                const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {timeout: 5000})
+                dispatch(setBooking(booking.data.data))
+                dispatch(fetchPreOrder(filial, uid_order))
+            } else {
+                dispatch(addNotification({
+                    message: response.data.data,
+                    severity: 'error',
+                    autoHide: true
+                }))
+            }
         } catch (e) {
             console.error(e)
         }
@@ -68,6 +67,15 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
                 severity: 'error',
                 autoHide: true
             }))
+        }
+    }
+}
+export const payment = (filial, uid_order, wp) => {
+    return async () => {
+        try {
+            await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`, {timeout: 5000})
+        } catch (e) {
+            console.error(e)
         }
     }
 }

@@ -20,7 +20,6 @@ function App() {
     useSetSizeWindow()
     useSetTopMenu()
     useReset()
-
     const full = useFullScreen()
 
     // Данные из хранилища

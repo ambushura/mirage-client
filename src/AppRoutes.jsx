@@ -32,7 +32,7 @@ const AppRoutes = (props) => {
             search_params_new.wp = 'mpopcorn2'
             set_search_params(search_params_new)
         }
-    },[search_params, set_search_params])
+    }, [search_params, set_search_params])
 
     return (
         <>
