@@ -179,7 +179,7 @@ const Order = () => {
                     <Box className="order-box-panel-3">
                         <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
                         <ul className="order-box-panel-3-list-for-kitchen">
-                            {horder.items.map((item) => {
+                            {horder.items.filter(el => el.kitchen.state === 1).map((item) => {
                                 return (
                                     <HorecaItem key={item.uid} item={item}/>
                                 )
@@ -187,12 +187,27 @@ const Order = () => {
                         </ul>
                         <Box className="order-box-panel-3-title-kitchen">На кухне</Box>
                         <ul className="order-box-panel-3-list-kitchen">
+                            {horder.items.filter(el => el.kitchen.state === 2).map((item) => {
+                                return (
+                                    <HorecaItem key={item.uid} item={item}/>
+                                )
+                            })}
                         </ul>
                         <Box className="order-box-panel-3-title-kitchen-ready">Приготовлено</Box>
                         <ul className="order-box-panel-3-list-kitchen-ready">
+                            {horder.items.filter(el => el.kitchen.state === 3).map((item) => {
+                                return (
+                                    <HorecaItem key={item.uid} item={item}/>
+                                )
+                            })}
                         </ul>
                         <Box className="order-box-panel-3-title-others">Остальное</Box>
                         <ul className="order-box-panel-3-list-others">
+                            {horder.items.filter(el => el.kitchen.state === 0).map((item) => {
+                                return (
+                                    <HorecaItem key={item.uid} item={item}/>
+                                )
+                            })}
                         </ul>
                     </Box>
                 </Box> : <></>

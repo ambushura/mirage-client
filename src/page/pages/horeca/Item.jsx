@@ -8,7 +8,7 @@ const Item = (props) => {
 
     const filial = useSelector(state => state.data.filial)
     const horder = useSelector(state => state.orders.horder)
-    const wp = useSelector(state => state.data.wp)
+    const wp = useSelector(state => state.interface.search_params.wp)
 
     return (
         <Box className="menu-item" onClick={() => dispatch(horeca_add(filial, horder.uid, horder.ver, props.item.uid, wp))}>

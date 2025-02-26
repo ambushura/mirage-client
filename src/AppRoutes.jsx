@@ -20,12 +20,19 @@ const AppRoutes = (props) => {
 
     // Параметры
     const params = useParams()
-    const [search_params] = useSearchParams()
+    const [search_params, set_search_params] = useSearchParams()
     useEffect(() => {
         dispatch(setCurrentPage(props.current_page))
         dispatch(setParams(params))
         dispatch(setSearchParams(JSON.stringify(Object.fromEntries(search_params.entries()))))
     }, [dispatch, props.current_page, params, search_params])
+    useEffect(() => {
+        if (search_params.get('wp') === null) {
+            const search_params_new = JSON.parse(JSON.stringify(search_params))
+            search_params_new.wp = 'mpopcorn2'
+            set_search_params(search_params_new)
+        }
+    },[search_params, set_search_params])
 
     return (
         <>

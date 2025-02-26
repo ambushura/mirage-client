@@ -251,8 +251,7 @@
 }
 .order-box-horeca-item-5-1,
 .order-box-horeca-item-5-2,
-.order-box-horeca-item-5-3,
-.order-box-horeca-item-5-4 {
+.order-box-horeca-item-5-3 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,17 +260,20 @@
 }
 .order-box-horeca-item-5-1 {
     width: 120px;
+    border-radius: 12px;
+    height: 40px;
+    background-color: #1C1F23;
+}
+.order-box-horeca-item-5-1:hover {
+    transition: background-color 0.3s;
+    background-color: #000000;
 }
 .order-box-horeca-item-5-2 {
     width: 70px;
 }
 .order-box-horeca-item-5-3 {
-    width: 200px;
+    width: 250px;
     font-weight: bold;
-}
-.order-box-horeca-item-5-4 {
-    width: 40px;
-    background-color: #1C1F23;
 }
 .order-box-horeca-item-6 {
     width: 100%;
@@ -323,7 +325,6 @@
 .order-box-horeca-item-2-3:hover,
 .order-box-horeca-item-3-3:hover,
 .order-box-horeca-item-4-2:hover,
-.order-box-horeca-item-5-4:hover,
 .order-box-horeca-item-6-2>div:hover,
 .order-box-horeca-item-6-1-modif:hover {
     transition: background-color 0.3s;

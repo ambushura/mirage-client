@@ -61,7 +61,7 @@ const interfaceSlice = createSlice({
             state.params.uid_seance = action.payload.uid_seance
         },
         setSearchParams: (state, action) => {
-            state.search_params = action.payload
+            state.search_params = JSON.parse(action.payload)
         },
     },
 })

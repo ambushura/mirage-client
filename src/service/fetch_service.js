@@ -1,6 +1,7 @@
 import {NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
 import axios from "axios"
+import {addNotification} from "../redux/notifierReducer.js";
 
 export const TIMEOUT = 5000
 
@@ -52,9 +53,21 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     return async (dispatch) => {
         try {
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver_order=${ver_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`, {timeout: TIMEOUT})
-            dispatch(setCurrentHorder(response.data.data))
+            if (response.data.code === 200) {
+                dispatch(setCurrentHorder(response.data.data))
+            } else {
+                dispatch(addNotification({
+                    message: response.data.data,
+                    severity: 'error',
+                    autoHide: true
+                }))
+            }
         } catch (e) {
-            console.error(e)
+            dispatch(addNotification({
+                message: e,
+                severity: 'error',
+                autoHide: true
+            }))
         }
     }
 }

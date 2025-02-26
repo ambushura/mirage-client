@@ -17,6 +17,7 @@
     box-sizing: border-box;
     padding: 5px;
     flex-direction: column;
+    cursor: pointer;
 }
 .menu-breadcrumb>div, .menu-folder>div, .menu-item>div {
     padding: 5px;
