@@ -131,10 +131,8 @@ const PageSeance = () => {
                         {authenticated === 0 ? <Box id='seance-title' ref={refTitle}>
                                 <Box className='order-panel'>
                                     <Button onClick={() => {
-                                        if (!permissions.includes('staff')) {
-                                            navigate(-1)
-                                            dispatch(deletePreOrder(filial, pre_order.uid))
-                                        }
+                                        navigate(-1)
+                                        dispatch(deletePreOrder(filial, pre_order.uid))
                                     }} variant="contained" color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
                                     <Box sx={{width: '100%', marginLeft: '10px'}}>
                                         <LinearProgress className='order-progress'
@@ -144,7 +142,8 @@ const PageSeance = () => {
                                 <Box className='seance-title-film-name'>{seance.name_film}</Box>
                                 <Box className='seance-title-hall-name'>Зал {hall.name_full}</Box>
                                 <Box className='seance-title-panel'>
-                                    <SeanceTitle seance={seance} content_type={true} day={true} its_hall_map={true} age={false}/>
+                                    <SeanceTitle seance={seance} content_type={true} day={true} its_hall_map={true}
+                                                 age={false}/>
                                     {pre_order.booking.length > 0 ?
                                         <Button sx={{height: '48px', marginLeft: '10px'}} variant="contained"
                                                 className='seance-title-preorder' onClick={() => {
@@ -202,4 +201,5 @@ const PageSeance = () => {
         return <Loader/>
     }
 }
+
 export default PageSeance

@@ -23,7 +23,7 @@ export function useSetCityAndFilial() {
                     dispatch(setCity(city))
                     if (param_filial !== "all") {
                         const filial = city.filials.find(filial => filial.eais === param_filial)
-                        dispatch(setFilial(filial || undefined))
+                        dispatch(setFilial(filial))
                     } else {
                         dispatch(setFilial(undefined))
                     }

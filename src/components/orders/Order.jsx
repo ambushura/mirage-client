@@ -16,6 +16,7 @@ import {useEffect, useState} from "react"
 
 const Order = () => {
 
+    const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const [pre_order_show, set_pre_order_show] = useState(false)
@@ -23,17 +24,17 @@ const Order = () => {
     const [content_height] = useSetContentHeight()
 
     useEffect(() => {
-        if (pre_order.in_base && pre_order.seance !== undefined) {
+        if (pre_order.in_base && pre_order.seance !== undefined && filial !== undefined) {
             set_pre_order_show(true)
         } else {
             set_pre_order_show(false)
         }
-        if (horder.in_base && horder.items.length > 0) {
+        if (horder.in_base && horder.items.length > 0 && filial !== undefined) {
             set_horder_show(true)
         } else {
             set_horder_show(false)
         }
-    }, [horder, pre_order])
+    }, [horder, pre_order, filial])
 
     return (
         <Box id="order" style={{height: content_height}}>
@@ -60,15 +61,7 @@ const Order = () => {
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                         </ButtonGroup>
-                        <Box sx={{
-                            minWidth: '113px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 'bold',
-                            fontSize: '80%',
-                            color: '#8B919B',
-                        }}><span style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
+                        <Box className="order-box-panel-1-number"><span style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
                     </Box>
                     <Box>
                         <ButtonGroup>
@@ -118,7 +111,7 @@ const Order = () => {
                 </Box> : <></>
             }
             {horder_show ?
-                <Box className="order-box" style={{height: pre_order_show ? '55%' : '100%'}}>
+                <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                     <Box className="order-box-panel-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
@@ -134,15 +127,8 @@ const Order = () => {
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                         </ButtonGroup>
-                        <Box sx={{
-                            minWidth: '113px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 'bold',
-                            fontSize: '80%',
-                            color: '#8B919B',
-                        }}><span style={{textAlign: 'center'}}>{horder.number}</span></Box>
+                        <Box className="order-box-panel-1-number"><span
+                            style={{textAlign: 'center'}}>{horder.number}</span></Box>
                     </Box>
                     <Box className="order-box-panel-2">
                         <ButtonGroup sx={{marginBottom: '4px'}}>
@@ -177,38 +163,54 @@ const Order = () => {
                         </ButtonGroup>
                     </Box>
                     <Box className="order-box-panel-3">
-                        <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
-                        <ul className="order-box-panel-3-list-for-kitchen">
-                            {horder.items.filter(el => el.kitchen.state === 1).map((item) => {
-                                return (
-                                    <HorecaItem key={item.uid} item={item}/>
-                                )
-                            })}
-                        </ul>
-                        <Box className="order-box-panel-3-title-kitchen">На кухне</Box>
-                        <ul className="order-box-panel-3-list-kitchen">
-                            {horder.items.filter(el => el.kitchen.state === 2).map((item) => {
-                                return (
-                                    <HorecaItem key={item.uid} item={item}/>
-                                )
-                            })}
-                        </ul>
-                        <Box className="order-box-panel-3-title-kitchen-ready">Приготовлено</Box>
-                        <ul className="order-box-panel-3-list-kitchen-ready">
-                            {horder.items.filter(el => el.kitchen.state === 3).map((item) => {
-                                return (
-                                    <HorecaItem key={item.uid} item={item}/>
-                                )
-                            })}
-                        </ul>
-                        <Box className="order-box-panel-3-title-others">Остальное</Box>
-                        <ul className="order-box-panel-3-list-others">
-                            {horder.items.filter(el => el.kitchen.state === 0).map((item) => {
-                                return (
-                                    <HorecaItem key={item.uid} item={item}/>
-                                )
-                            })}
-                        </ul>
+                        {horder.items.filter(el => el.kitchen.state === 1).length > 0 ?
+                            <>
+                                <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
+                                <ul className="order-box-panel-3-list-for-kitchen">
+                                    {horder.items.filter(el => el.kitchen.state === 1).map((item) => {
+                                        return (
+                                            <HorecaItem key={item.uid} item={item}/>
+                                        )
+                                    })}
+                                </ul>
+                            </> : <></>
+                        }
+                        {horder.items.filter(el => el.kitchen.state === 2).length > 0 ?
+                            <>
+                                <Box className="order-box-panel-3-title-kitchen">На кухне</Box>
+                                <ul className="order-box-panel-3-list-kitchen">
+                                    {horder.items.filter(el => el.kitchen.state === 2).map((item) => {
+                                        return (
+                                            <HorecaItem key={item.uid} item={item}/>
+                                        )
+                                    })}
+                                </ul>
+                            </> : <></>
+                        }
+                        {horder.items.filter(el => el.kitchen.state === 3).length > 0 ?
+                            <>
+                                <Box className="order-box-panel-3-title-kitchen-ready">Приготовлено</Box>
+                                <ul className="order-box-panel-3-list-kitchen-ready">
+                                    {horder.items.filter(el => el.kitchen.state === 3).map((item) => {
+                                        return (
+                                            <HorecaItem key={item.uid} item={item}/>
+                                        )
+                                    })}
+                                </ul>
+                            </> : <></>
+                        }
+                        {horder.items.filter(el => el.kitchen.state === 0).length > 0 ?
+                            <>
+                                <Box className="order-box-panel-3-title-others">Концессия</Box>
+                                <ul className="order-box-panel-3-list-others">
+                                    {horder.items.filter(el => el.kitchen.state === 0).map((item) => {
+                                        return (
+                                            <HorecaItem key={item.uid} item={item}/>
+                                        )
+                                    })}
+                                </ul>
+                            </> : <></>
+                        }
                     </Box>
                 </Box> : <></>
             }

@@ -3,6 +3,7 @@
     min-width: calc(470px + 50px);
     max-width: calc(470px + 50px);
     padding: 0 10px;
+    overflow: hidden;
 }
 .order-box {
     box-sizing: border-box;
@@ -14,9 +15,6 @@
     margin-bottom: 10px;
     overflow-x: hidden;
     overflow-y: auto;
-}
-.order-box>*:first-child {
-    margin-bottom: 5px;
 }
 .order-booking {
     display: flex;
@@ -49,20 +47,31 @@
     margin-right: 5px;
 }
 .order-box-panel-1 {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: calc(80px * 3);
     height: 60px;
     position: sticky;
     top: 0;
     z-index: 1;
     background-color: #121315;
 }
+.order-box-panel-1-number {
+    width: calc(490px - 317px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 80%;
+    font-weight: bold;
+    color: #8B919B;
+}
 .order-box-panel-2 {
+    width: 100%;
     padding: 5px 0;
     position: sticky;
-    top: 65px;
+    top: 60px;
     z-index: 2;
     background-color: #121315;
 }
@@ -123,20 +132,22 @@
     margin-bottom: 5px;
 }
 .order-box-horeca-item>div {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
-.order-box-horeca-item-1 {
+.order-box-horeca-item-1,
+.order-box-horeca-item-2,
+.order-box-horeca-item-3,
+.order-box-horeca-item-4,
+.order-box-horeca-item-5 {
     width: 100%;
-    height: 40px;
+    height: 50px;
     display: flex;
     flex-direction: row;
     cursor: pointer;
 }
 .order-box-horeca-item-1-1,
 .order-box-horeca-item-1-2,
-.order-box-horeca-item-1-3,
-.order-box-horeca-item-1-4,
-.order-box-horeca-item-1-5 {
+.order-box-horeca-item-1-3 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,35 +155,19 @@
     border-radius: 12px;
 }
 .order-box-horeca-item-1-1 {
-    width: 40px;
+    width: calc(490px - 50px - 50px);
+    font-weight: bold;
+    font-size: 80%;
+}
+.order-box-horeca-item-1-2 {
+    width: 50px;
     background-color: #1C1F23;
     border-radius: 12px 0 0 12px;
 }
-.order-box-horeca-item-1-2 {
-    width: 40px;
-    background-color: #1C1F23;
-    border-radius: 0 12px 12px 0;
-}
 .order-box-horeca-item-1-3 {
-    width: calc(430px - 40px - 40px - 40px - 40px);
-    font-weight: bold;
-}
-.order-box-horeca-item-1-4 {
-    width: 40px;
-    background-color: #1C1F23;
-    border-radius: 12px 0 0 8px;
-}
-.order-box-horeca-item-1-5 {
-    width: 40px;
+    width: 50px;
     background-color: #1C1F23;
     border-radius: 0 12px 12px 0;
-}
-.order-box-horeca-item-2 {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
 }
 .order-box-horeca-item-2-1,
 .order-box-horeca-item-2-2,
@@ -184,21 +179,14 @@
     border-radius: 12px;
 }
 .order-box-horeca-item-2-1 {
-    width: 40px;
+    width: 50px;
 }
 .order-box-horeca-item-2-2 {
-    width: calc(430px - 40px - 40px);
+    width: calc(490px - 50px - 50px);
 }
 .order-box-horeca-item-2-3 {
-    width: 40px;
+    width: 50px;
     background-color: #1C1F23;
-}
-.order-box-horeca-item-3 {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
 }
 .order-box-horeca-item-3-1,
 .order-box-horeca-item-3-2,
@@ -211,21 +199,14 @@
     border-radius: 12px;
 }
 .order-box-horeca-item-3-1 {
-    width: 40px;
+    width: 50px;
 }
 .order-box-horeca-item-3-2 {
-    width: calc(430px - 40px - 40px);
+    width: calc(490px - 50px - 50px);
 }
 .order-box-horeca-item-3-3 {
-    width: 40px;
+    width: 50px;
     background-color: #1C1F23;
-}
-.order-box-horeca-item-4 {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
 }
 .order-box-horeca-item-4-1,
 .order-box-horeca-item-4-2 {
@@ -234,24 +215,21 @@
     justify-content: center;
     height: 100%;
     border-radius: 12px;
+    overflow: hidden;
 }
 .order-box-horeca-item-4-1 {
-    width: 390px;
+    box-sizing: border-box;
+    width: calc(490px - 50px);
+    overflow: hidden;
 }
 .order-box-horeca-item-4-2 {
-    width: 40px;
+    width: 50px;
     background-color: #1C1F23;
 }
-.order-box-horeca-item-5 {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-}
 .order-box-horeca-item-5-1,
-.order-box-horeca-item-5-2,
-.order-box-horeca-item-5-3 {
+.order-box-horeca-item-5-3,
+.order-box-horeca-item-5-4,
+.order-box-horeca-item-5-5 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,21 +237,29 @@
     border-radius: 12px;
 }
 .order-box-horeca-item-5-1 {
-    width: 120px;
-    border-radius: 12px;
-    height: 40px;
+    width: 50px;
     background-color: #1C1F23;
-}
-.order-box-horeca-item-5-1:hover {
-    transition: background-color 0.3s;
-    background-color: #000000;
+    border-radius: 12px 0 0 12px;
 }
 .order-box-horeca-item-5-2 {
-    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50px;
+    background-color: #1C1F23;
 }
 .order-box-horeca-item-5-3 {
-    width: 250px;
+    width: 100px;
     font-weight: bold;
+    background-color: #1C1F23;
+    border-radius: 0 12px 12px 0;
+}
+.order-box-horeca-item-5-4 {
+    width: 50px;
+}
+.order-box-horeca-item-5-5 {
+    width: calc(490px - 50px - 50px - 100px - 50px);
 }
 .order-box-horeca-item-6 {
     width: 100%;
@@ -303,14 +289,14 @@
     justify-content: center;
     align-items: center;
     border-radius: 12px;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #1C1F23;
 }
 .order-box-horeca-item-6-1-modif {
     box-sizing: border-box;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 12px;
     background-color: #1C1F23;
     margin-left: 8px;
@@ -318,13 +304,16 @@
     justify-content: center;
     align-items: center;
 }
-.order-box-horeca-item-1-1:hover,
 .order-box-horeca-item-1-2:hover,
+.order-box-horeca-item-1-3:hover,
 .order-box-horeca-item-1-4:hover,
 .order-box-horeca-item-1-5:hover,
 .order-box-horeca-item-2-3:hover,
 .order-box-horeca-item-3-3:hover,
 .order-box-horeca-item-4-2:hover,
+.order-box-horeca-item-5-1:hover,
+.order-box-horeca-item-5-2:hover,
+.order-box-horeca-item-5-3:hover,
 .order-box-horeca-item-6-2>div:hover,
 .order-box-horeca-item-6-1-modif:hover {
     transition: background-color 0.3s;
