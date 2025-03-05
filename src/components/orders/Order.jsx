@@ -40,13 +40,7 @@ const Order = () => {
         <Box id="order" style={{height: content_height}}>
             {pre_order_show ?
                 <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
-                    <Box style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        with: 'calc(80px * 3)',
-                        height: '60px'
-                    }}>
+                    <Box className="order-box-panel-cinema-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
                                     onClick={() => {
@@ -63,7 +57,7 @@ const Order = () => {
                         </ButtonGroup>
                         <Box className="order-box-panel-1-number"><span style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
                     </Box>
-                    <Box>
+                    <Box className="order-box-panel-cinema-1">
                         <ButtonGroup>
                             <ButtonGroup sx={{marginRight: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {

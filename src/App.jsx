@@ -21,14 +21,14 @@ function App() {
     useSetTopMenu()
     useReset()
     const full = useFullScreen()
-
+    
     // Данные из хранилища
     const cities = useSelector(state => state.data.cities)
     const param_date = useSelector(state => state.interface.params.param_date)
     const permissions = useSelector(state => state.auth.permissions)
 
     return (
-        <Box style={{height: '100%', overflow: 'hidden'}}>
+        <Box id="app">
             {!full || permissions.includes("staff") ? <Header/> : <></>}
             <Routes>
                 <Route path="/" element={<Navigate

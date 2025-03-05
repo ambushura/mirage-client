@@ -275,7 +275,7 @@
     align-items: center;
     margin-bottom: 5px;
     color: black;
-    background-color: #0E0F11;
+    background-color: var(--bg-color);
 }
 .schedule-full-hall-name>div {
     font-size: 18px;
@@ -391,7 +391,7 @@
 }
 .schedule-full-filial-name {
     height: 65px;
-    background-color: #0e0f11;
+    background-color: var(--bg-color);
 }
 .schedule-full-filial-name>span {
     width: 210px;

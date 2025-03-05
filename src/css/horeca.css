@@ -38,5 +38,5 @@
 }
 .menu-item {
     color: black;
-    background-color: #EFEFEF;
+    background-color: var(--bg-menu-item);
 }

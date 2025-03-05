@@ -4,7 +4,6 @@ import place_2 from "../../../images/place_types/place_2.svg"
 import place_3 from "../../../images/place_types/place_3.svg"
 import place_1_vip from "../../../images/place_types/place_1_vip.svg"
 import place_stroller from "../../../images/place_types/place_stroller.svg"
-import circle from "../../../images/circle.svg"
 import {NavLink} from "react-router-dom"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 
@@ -48,7 +47,7 @@ const SeanceCard = (props) => {
                     })}
                 </Box>
                 <Box className='schedule-full-tariff-footer'>
-                    <img src={circle} alt="" className='schedule-full-tariff-footer-circle'/>
+                    <div className='circle'></div>
                 </Box>
             </Box>
         </NavLink>

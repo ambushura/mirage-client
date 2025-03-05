@@ -11,7 +11,7 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    background-color: #121315;
+    background-color: var(--bg-color);
     margin-bottom: 10px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -46,6 +46,25 @@
     color: #8B919B;
     margin-right: 5px;
 }
+.order-box-panel-cinema-1,
+.order-box-panel-cinema-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.order-box-panel-cinema-1 {
+    position: sticky;
+    top: 0;
+    height: 60px;
+    z-index: 2;
+}
+.order-box-panel-cinema-2 {
+    height: 60px;
+    position: sticky;
+    top: 60px;
+    z-index: 1;
+}
 .order-box-panel-1 {
     width: 100%;
     display: flex;
@@ -55,7 +74,7 @@
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #121315;
+    background-color: var(--bg-color);
 }
 .order-box-panel-1-number {
     width: calc(490px - 317px);
@@ -73,7 +92,7 @@
     position: sticky;
     top: 60px;
     z-index: 2;
-    background-color: #121315;
+    background-color: var(--bg-color);
 }
 .order-box-panel-3 {
     display: flex;
@@ -126,7 +145,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #2f3238;
+    background-color: var(--bg-order-item);
     border-radius: 12px;
     padding: 5px;
     margin-bottom: 5px;

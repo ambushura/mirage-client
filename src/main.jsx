@@ -19,16 +19,19 @@ import {LocalizationProvider} from "@mui/x-date-pickers"
 import {ThemeProvider} from "@mui/material"
 import {BrowserRouter} from "react-router-dom"
 import Notifier from "./components/Notifier.jsx"
+import {ThemeBlackWhite} from "./ui/ThemeContext.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
             <Provider store={store}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-                    <ThemeProvider theme={theme}>
-                        <App/>
-                        <Notifier/>
-                    </ThemeProvider>
+                    <ThemeBlackWhite>
+                        <ThemeProvider theme={theme}>
+                            <App/>
+                            <Notifier/>
+                        </ThemeProvider>
+                    </ThemeBlackWhite>
                 </LocalizationProvider>
             </Provider>
         </BrowserRouter>
