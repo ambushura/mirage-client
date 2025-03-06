@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {date_dayjs} from "../service/advanced.js"
 const current_date = date_dayjs(new Date())
-export const MOBILE_WIDTH = 768
+export const MOBILE_WIDTH = 1150
 export const ANIMATION_SPEED = 250
 export const HEADER_HEIGHT = [200, 70]
 export const TOP_MENU_HEIGHT = [65, 65]
@@ -22,15 +22,15 @@ const initialState = {
     },
     top_menu: [
         [
-            { id: "films", name: "Фильмы", path: "" },
-            { id: "schedule", name: "Расписание", path: "" },
-            { id: "mkitchen", name: "Mkitchen", path: "" },
+            {id: "films", name: "Фильмы", path: ""},
+            {id: "schedule", name: "Расписание", path: ""},
+            {id: "mkitchen", name: "Mkitchen", path: ""},
         ],
         [
-            { id: "films", name: "Фильмы", path: "" },
-            { id: "schedule", name: "Расписание", path: "" },
-            { id: "menu", name: "Меню", path: "" },
-            { id: "admin", name: "Администрирование", path: "" },
+            {id: "films", name: "Фильмы", path: ""},
+            {id: "schedule", name: "Расписание", path: ""},
+            {id: "menu", name: "Меню", path: ""},
+            {id: "admin", name: "Администрирование", path: ""},
         ],
     ],
 }

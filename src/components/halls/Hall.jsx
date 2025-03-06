@@ -76,7 +76,7 @@ const Hall = (props) => {
                             transform: `scale(${hall_scale})`,
                             cursor: 'grab',
                             transition: 'transform 0.5s ease',
-                            transformOrigin: 'top'
+                            transformOrigin: 'top left'
                         }}>
                         {props.hall.rows.map(row => {
                             return (

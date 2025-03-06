@@ -1,9 +1,9 @@
 #order {
-    box-sizing: border-box;
-    min-width: calc(470px + 50px);
-    max-width: calc(470px + 50px);
-    padding: 0 10px;
-    overflow: hidden;
+    min-width: var(--width-order);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 50px;
+    margin-right: -50px;
 }
 .order-box {
     box-sizing: border-box;
@@ -15,8 +15,8 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-.order-box:first-child {
-    margin-bottom: 10px;
+.order-box>div {
+    width: calc(var(--width-order) - 50px);
 }
 .order-booking {
     display: flex;
@@ -43,6 +43,7 @@
 .order-booking-item-numbers {
     font-weight: bold;
     margin-right: 5px;
+    color: white;
 }
 .order-booking-item-labels {
     color: #8B919B;
@@ -55,17 +56,30 @@
     justify-content: space-between;
     width: 100%;
     padding: 0 0 5px 0;
+    background-color: var(--bg-color);
 }
 .order-box-panel-cinema-1 {
     position: sticky;
     top: 0;
     height: 60px;
+    z-index: 4;
 }
 .order-box-panel-cinema-2 {
     height: 60px;
     position: sticky;
-    z-index: 2;
+    z-index: 3;
     top: 65px;
+}
+.order-box-panel-cinema-3 {
+    height: 120px;
+    position: sticky;
+    top: calc(65px + 65px);
+    z-index: 2;
+    background-color: var(--bg-color);
+}
+.order-box-panel-cinema-4 {
+    height: 120px;
+    z-index: 1;
 }
 .order-box-panel-1 {
     width: 100%;

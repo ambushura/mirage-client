@@ -177,7 +177,7 @@ const PageSeance = () => {
                                 hall={hall}
                                 seance={seance}
                                 height={hall_height}
-                                width={app_width - (authenticated === 1 ? 400 : 0)}
+                                width={app_width - (authenticated === 1 ? 520 : 0)}
                                 booking={booking}
                                 set_count_book={set_count_book}
                                 set_time_remaining={set_time_remaining}

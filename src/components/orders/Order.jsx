@@ -1,7 +1,6 @@
 import "../../css/admin.css"
 import {Box, Button, ButtonGroup} from "@mui/material"
 import ReceiptIcon from '@mui/icons-material/Receipt'
-import SaveIcon from '@mui/icons-material/Save'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CachedIcon from '@mui/icons-material/Cached'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -47,15 +46,13 @@ const Order = () => {
                                     }}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
-                                    }}><SaveIcon/></Button>
-                            <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
-                                    onClick={() => {
                                     }}><CachedIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="primary"
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
                         </ButtonGroup>
-                        <Box className="order-box-panel-1-number"><span style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
+                        <Box className="order-box-panel-1-number"><span
+                            style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
                     </Box>
                     <Box className="order-box-panel-cinema-2">
                         <ButtonGroup>
@@ -79,28 +76,30 @@ const Order = () => {
                             </ButtonGroup>
                         </ButtonGroup>
                     </Box>
-                    <Box sx={{padding: '5px 0'}}>
+                    <Box className="order-box-panel-cinema-3">
                         <SeanceTitle
                             seance={pre_order.seance}
                             content_type={true}
                             day={true}
                             its_hall_map={true}
                             age={true}/>
+                        <Box className='seance-title-film-name'>
+                            {pre_order.seance.film_name}
+                        </Box>
+                        <Box className='seance-title-hall-name'>
+                            Зал {pre_order.seance.hall_full_name}
+                        </Box>
                     </Box>
-                    <Box className='seance-title-film-name'>
-                        {pre_order.seance.film_name}
-                    </Box>
-                    <Box className='seance-title-hall-name'>
-                        Зал {pre_order.seance.hall_full_name}
-                    </Box>
-                    <Box className='order-booking'>{pre_order.booking.map((booking) => {
-                        return (
-                            <BookingItem
-                                key={booking.uid}
-                                number={booking.number}
-                                row={booking.row}/>
-                        )
-                    })}
+                    <Box className="order-box-panel-cinema-4">
+                        <Box className='order-booking'>{pre_order.booking.map((booking) => {
+                            return (
+                                <BookingItem
+                                    key={booking.uid}
+                                    number={booking.number}
+                                    row={booking.row}/>
+                            )
+                        })}
+                        </Box>
                     </Box>
                 </Box> : <></>
             }
@@ -111,9 +110,6 @@ const Order = () => {
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
                                     onClick={() => {
                                     }}><ReceiptIcon/></Button>
-                            <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
-                                    onClick={() => {
-                                    }}><SaveIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><CachedIcon/></Button>

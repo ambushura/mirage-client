@@ -46,97 +46,94 @@ const PageSchedule = () => {
                 display: 'flex',
                 height: content_height,
             }}>
-                <Box id="content-wrap" style={{display: 'flex'}}>
-                    <Box id="content-wrap"
+                <Box id="content-wrap" style={{display: 'flex', height: content_height}}>
+                    <Box id="content"
                          sx={{height: content_height}}>
-                        <Box id="content"
-                             sx={{height: content_height}}>
-                            <Box id="schedule-full">
-                                {schedule.map((filial_hall_seances, index) => {
-                                    if (filial_hall_seances.error !== null) {
-                                        return (<></>)
-                                    } else if (filial_hall_seances.loading) {
-                                        return (
-                                            <Box key={filial_hall_seances.filial.uid}>
-                                                <Box className="schedule-full-filial-name" style={{
-                                                    position: 'sticky',
-                                                    left: 0,
-                                                    top: 0,
-                                                    zIndex: 100,
-                                                    paddingLeft: '15px',
-                                                    minWidth: '210px',
-                                                    width: `${content_width}px`
-                                                }}>
-                                                    <Button variant='contained' color='primary'
-                                                            sx={{
-                                                                marginBottom: '5px',
-                                                                minWidth: '210px'
-                                                            }}>{filial_hall_seances.filial.name}</Button>
-                                                </Box>
-                                                <Box className="schedule-full-filial">
-                                                    <Loader key={filial_hall_seances.filial.uid}/>
-                                                </Box>
+                        <Box id="schedule-full">
+                            {schedule.map((filial_hall_seances, index) => {
+                                if (filial_hall_seances.error !== null) {
+                                    return (<></>)
+                                } else if (filial_hall_seances.loading) {
+                                    return (
+                                        <Box key={filial_hall_seances.filial.uid}>
+                                            <Box className="schedule-full-filial-name" style={{
+                                                position: 'sticky',
+                                                left: 0,
+                                                top: 0,
+                                                zIndex: 100,
+                                                paddingLeft: '15px',
+                                                minWidth: '210px',
+                                                width: `${content_width}px`
+                                            }}>
+                                                <Button variant='contained' color='primary'
+                                                        sx={{
+                                                            marginBottom: '5px',
+                                                            minWidth: '210px'
+                                                        }}>{filial_hall_seances.filial.name}</Button>
                                             </Box>
-                                        )
-                                    } else {
-                                        return (
-                                            <Box key={filial_hall_seances.filial.uid}>
-                                                <Box
-                                                    className="schedule-full-filial-name" style={{
-                                                    position: 'sticky',
-                                                    left: 0,
-                                                    top: 0,
-                                                    zIndex: 100,
-                                                    paddingLeft: '15px',
-                                                    minWidth: '210px',
-                                                    width: `${content_width}px`
-                                                }}>
-                                                    <Button variant='contained'
-                                                            color='primary'
-                                                            sx={{minWidth: '210px'}}>{filial_hall_seances.filial.name}
-                                                    </Button>
-                                                </Box>
-                                                <Box className="schedule-full-filial"
-                                                     ref={el => elementsRef.current.set(index, el)}>
-                                                    {filial_hall_seances.data.map(hall => {
-                                                        return (
-                                                            <Box key={hall.uid} className='schedule-full-hall'>
-                                                                <Box className='schedule-full-hall-name' style={{
-                                                                    position: 'sticky',
-                                                                    top: '65px',
-                                                                    zIndex: 99,
-                                                                    marginBottom: '5px'
-                                                                }}>
-                                                                    <Button variant='contained'
-                                                                            style={{
-                                                                                width: '100%',
-                                                                                backgroundColor: '#2E3239'
-                                                                            }}>Зал {hall.name_full_hall}</Button>
-                                                                </Box>
-                                                                <Box className='schedule-full-seances' style={{
-                                                                    position: 'sticky',
-                                                                    top: '130px',
-                                                                    zIndex: 98,
-                                                                }}>
-                                                                    {hall.seances.map(seance => {
-                                                                        return (
-                                                                            <SeanceCard
-                                                                                key={seance.uid}
-                                                                                city={city}
-                                                                                filial={filial_hall_seances.filial}
-                                                                                seance={seance}>
-                                                                            </SeanceCard>
-                                                                        )
-                                                                    })}
-                                                                </Box>
+                                            <Box className="schedule-full-filial">
+                                                <Loader key={filial_hall_seances.filial.uid}/>
+                                            </Box>
+                                        </Box>
+                                    )
+                                } else {
+                                    return (
+                                        <Box key={filial_hall_seances.filial.uid}>
+                                            <Box
+                                                className="schedule-full-filial-name" style={{
+                                                position: 'sticky',
+                                                left: 0,
+                                                top: 0,
+                                                zIndex: 100,
+                                                paddingLeft: '15px',
+                                                minWidth: '210px',
+                                                width: `${content_width}px`
+                                            }}>
+                                                <Button variant='contained'
+                                                        color='primary'
+                                                        sx={{minWidth: '210px'}}>{filial_hall_seances.filial.name}
+                                                </Button>
+                                            </Box>
+                                            <Box className="schedule-full-filial"
+                                                 ref={el => elementsRef.current.set(index, el)}>
+                                                {filial_hall_seances.data.map(hall => {
+                                                    return (
+                                                        <Box key={hall.uid} className='schedule-full-hall'>
+                                                            <Box className='schedule-full-hall-name' style={{
+                                                                position: 'sticky',
+                                                                top: '65px',
+                                                                zIndex: 99,
+                                                                marginBottom: '5px'
+                                                            }}>
+                                                                <Button variant='contained'
+                                                                        style={{
+                                                                            width: '100%',
+                                                                            backgroundColor: '#2E3239'
+                                                                        }}>Зал {hall.name_full_hall}</Button>
                                                             </Box>
-                                                        )
-                                                    })}
-                                                </Box>
-                                            </Box>)
-                                    }
-                                })}
-                            </Box>
+                                                            <Box className='schedule-full-seances' style={{
+                                                                position: 'sticky',
+                                                                top: '130px',
+                                                                zIndex: 98,
+                                                            }}>
+                                                                {hall.seances.map(seance => {
+                                                                    return (
+                                                                        <SeanceCard
+                                                                            key={seance.uid}
+                                                                            city={city}
+                                                                            filial={filial_hall_seances.filial}
+                                                                            seance={seance}>
+                                                                        </SeanceCard>
+                                                                    )
+                                                                })}
+                                                            </Box>
+                                                        </Box>
+                                                    )
+                                                })}
+                                            </Box>
+                                        </Box>)
+                                }
+                            })}
                         </Box>
                     </Box>
                     {show_pre_order ? <Order/> : <></>}

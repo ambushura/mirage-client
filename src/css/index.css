@@ -1,16 +1,18 @@
 :root[data-theme='dark'] {
   --bg-color: #121212;
-  --bg-text-color: white;
+  --text-color: white;
   --bg-gradient-block: #0E0F11;
   --bg-menu-item: #EFEFEF;
-  --bg-order-irem: #EFEFEF;
+  --bg-order-item: #EFEFEF;
+  --width-order: 520px;
 }
 :root[data-theme='light'] {
   --bg-color: #F8F8F8;
-  --bg-text-color: black;
+  --text-color: black;
   --bg-gradient-block: #F8F8F8;
   --bg-menu-item: #D7D7D7;
   --bg-order-item: #dfdede;
+  --width-order: 520px;
 }
 
 /* Сброс стилей */
@@ -96,6 +98,9 @@ html, body {
   position: relative;
   width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 #content {
   overflow: auto;

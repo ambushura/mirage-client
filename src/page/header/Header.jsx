@@ -65,7 +65,7 @@ const Header = () => {
         } else {
             up.push(<Button key='4'
                             onClick={() => dispatch(setAuthOpened(true))}
-                            startIcon={<AccountCircleIcon/>}>Вход</Button>)
+                            startIcon={<AccountCircleIcon/>}>Авторизация</Button>)
         }
         return up
     }
