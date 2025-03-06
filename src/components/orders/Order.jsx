@@ -57,7 +57,7 @@ const Order = () => {
                         </ButtonGroup>
                         <Box className="order-box-panel-1-number"><span style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
                     </Box>
-                    <Box className="order-box-panel-cinema-1">
+                    <Box className="order-box-panel-cinema-2">
                         <ButtonGroup>
                             <ButtonGroup sx={{marginRight: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
