@@ -1,7 +1,7 @@
 import {Box} from "@mui/material"
 import Menu from "./Menu.jsx"
 import Order from "../../../components/orders/Order.jsx"
-import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
+import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 
 const PageHoreca = () => {
 

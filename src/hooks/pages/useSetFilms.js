@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {useFetchingArray} from "./useFetchingArray.js"
+import {useFetchingArray} from "../common/useFetchingArray.js"
 import {useSelector} from "react-redux"
 
 export function useSetFilms() {
@@ -27,7 +27,9 @@ export function useSetFilms() {
                 url: `http://${filial.ip}:${filial.port}/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
             })
         }
-        set_urls(urls_new)
+        if (urls_new.length > 0) {
+            set_urls(urls_new)
+        }
     }, [city, filial, param_date])
 
     useEffect(() => {

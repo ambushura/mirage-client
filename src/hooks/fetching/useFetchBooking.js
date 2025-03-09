@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {useFetching} from "./useFetching.js"
+import {useFetching} from "../common/useFetching.js"
 import {useSelector} from "react-redux"
 
 export function useFetchBooking() {

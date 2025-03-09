@@ -1,4 +1,4 @@
-import {useSetSchedule} from "../../../hooks/useSetSchedule.js"
+import {useSetSchedule} from "../../../hooks/pages/useSetSchedule.js"
 import {Box, Button} from "@mui/material"
 import SeanceCard from "./SeanceCard.jsx"
 import {useDispatch, useSelector} from "react-redux"
@@ -6,7 +6,7 @@ import {useEffect, useRef, useState} from "react"
 import {setSchedule} from "../../../redux/scheduleReducer.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
-import {useSetContentHeight} from "../../../hooks/useSetContentHeight.js"
+import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 import Loader from "../../../components/Loader.jsx"
 
 const PageSchedule = () => {

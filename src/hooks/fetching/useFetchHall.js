@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import {useSelector} from "react-redux"
-import {useFetching} from "./useFetching.js"
+import {useFetching} from "../common/useFetching.js"
 
 export function useFetchHall() {
 

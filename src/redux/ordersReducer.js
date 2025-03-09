@@ -1,15 +1,18 @@
-import {createSlice} from "@reduxjs/toolkit"
-import {date_dayjs} from "../service/advanced.js"
-import {v4} from "uuid"
-export const NEW_EMPTY_ORDER = () => {return {
+import { createSlice } from "@reduxjs/toolkit"
+import { date_dayjs } from "../service/advanced.js"
+import { v4 } from "uuid"
+
+export const NEW_EMPTY_ORDER = () => ({
     in_base: false,
     uid: v4(),
     ver: v4(),
     number: undefined,
     price: 0,
     quantity: 0,
-    booking: []}}
-export const NEW_EMPTY_HORDER = () => {return {
+    booking: []
+})
+
+export const NEW_EMPTY_HORDER = () => ({
     in_base: false,
     uid: v4(),
     ver: v4(),
@@ -17,27 +20,31 @@ export const NEW_EMPTY_HORDER = () => {return {
     price: 0,
     quantity: 0,
     items: []
-}}
+})
+
 export const ORDER_TIME_OUT = 1000
+
 const initialState = {
     date: JSON.stringify(date_dayjs(new Date())),
     pre_order: NEW_EMPTY_ORDER(),
     horder: NEW_EMPTY_HORDER()
 }
+
 export const ordersSlice = createSlice({
     name: "orders",
     initialState,
     reducers: {
-        setDate: (state, action) => {
-            state.date = action.payload
+        setDate: (state, {payload}) => {
+            state.date = payload
         },
-        setCurrentPreOrder: (state, action) => {
-            state.pre_order = action.payload
+        setCurrentPreOrder: (state, {payload}) => {
+            state.pre_order = payload
         },
-        setCurrentHorder: (state, action) => {
-            state.horder = action.payload
+        setCurrentHorder: (state, {payload}) => {
+            state.horder = payload
         }
     },
 })
-export const {setDate, setCurrentPreOrder, setCurrentHorder} = ordersSlice.actions
+
+export const { setDate, setCurrentPreOrder, setCurrentHorder } = ordersSlice.actions
 export default ordersSlice.reducer

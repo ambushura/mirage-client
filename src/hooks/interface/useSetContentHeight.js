@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {FOOTER_HEIGHT, HEADER_HEIGHT, TOP_MENU_HEIGHT} from "../redux/interfaceReducer.js"
+import {FOOTER_HEIGHT, HEADER_HEIGHT, TOP_MENU_HEIGHT} from "../../redux/interfaceReducer.js"
 import {useSelector} from "react-redux"
 
 export function useSetContentHeight() {

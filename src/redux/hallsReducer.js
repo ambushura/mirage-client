@@ -1,17 +1,20 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
+
 const initialState = {
-    halls: [],
+    halls: []
 }
+
 export const hallsSlice = createSlice({
     name: "halls",
     initialState,
     reducers: {
-        addHall: (state, action) => {
-            if (!state.halls.find(hall => hall.uid === action.payload.uid)) {
-                state.halls.push(action.payload)
+        addHall: (state, {payload}) => {
+            if (!state.halls.some(hall => hall.uid === payload.uid)) {
+                state.halls.push(payload)
             }
         },
     },
 })
+
 export const { addHall } = hallsSlice.actions
 export default hallsSlice.reducer

@@ -4,11 +4,9 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {useNavigate} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-import {useFetchSeance} from "../../../hooks/useFetchSeance.js"
-import {useFetchHall} from "../../../hooks/useFetchHall.js"
-import {useFetchOrder} from "../../../hooks/useFetchOrder.js"
-import {useFetchBooking} from "../../../hooks/useFetchBooking.js"
-import {setBooking, setSeance} from "../../../redux/scheduleReducer.js"
+import {useFetchOrder} from "../../../hooks/fetching/useFetchOrder.js"
+import {useFetchBooking} from "../../../hooks/fetching/useFetchBooking.js"
+import {setBooking} from "../../../redux/scheduleReducer.js"
 import {ORDER_TIME_OUT, setCurrentPreOrder} from "../../../redux/ordersReducer.js"
 import {ticket_count} from "../../../service/advanced.js"
 import {deletePreOrder} from "../../../service/fetch_service.js"
@@ -18,25 +16,23 @@ import CheckOut from "./CheckOut.jsx"
 import Loader from "../../../components/Loader.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
+import {useSetSeance} from "../../../hooks/pages/useSetSeance.js"
 
 const PageSeance = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const [authenticated, set_authenticated] = useState(0)
     const permissions = useSelector(state => state.auth.permissions)
     const seance = useSelector(state => state.schedule.seance)
     const pre_order = useSelector(state => state.orders.pre_order)
-    const [hall, set_hall] = useState(undefined)
     const booking = useSelector(state => state.schedule.booking)
 
-    const [seance_data, ,] = useFetchSeance()
-    const [hall_data, ,] = useFetchHall()
     const [order_data, ,] = useFetchOrder()
     const [booking_data, ,] = useFetchBooking()
+    const hall = useSetSeance()
 
     const refTitle = useRef(null)
     const [checkout, set_check_out] = useState(false)
@@ -47,37 +43,15 @@ const PageSeance = () => {
     const [count_book, set_count_book] = useState(0)
 
     useEffect(() => {
-        if (city !== undefined && filial !== undefined) {
-            if (seance_data !== undefined) {
-                dispatch(setSeance(seance_data))
-            }
-        }
-        return () => {
-            dispatch(setSeance(undefined))
-        }
-    }, [dispatch, city, filial, seance_data])
-
-    useEffect(() => {
-        if (city !== undefined && filial !== undefined) {
-            if (seance !== undefined && hall_data !== undefined) {
-                set_hall(hall_data)
-            }
-        }
-        return () => {
-            set_hall(undefined)
-        }
-    }, [city, filial, seance, hall_data])
-
-    useEffect(() => {
-        if (city !== undefined && filial !== undefined) {
+        if (filial !== undefined) {
             if (order_data !== undefined) {
                 dispatch(setCurrentPreOrder(order_data))
             }
         }
-    }, [dispatch, city, filial, order_data])
+    }, [dispatch, filial, order_data])
 
     useEffect(() => {
-        if (city !== undefined && filial !== undefined) {
+        if (filial !== undefined) {
             if (booking_data.length > 0) {
                 dispatch(setBooking(booking_data))
             }
@@ -85,7 +59,7 @@ const PageSeance = () => {
         return () => {
             dispatch(setBooking([]))
         }
-    }, [dispatch, city, filial, booking_data, count_book])
+    }, [dispatch, filial, booking_data, count_book])
 
     useEffect(() => {
         if (!permissions.includes('staff')) {

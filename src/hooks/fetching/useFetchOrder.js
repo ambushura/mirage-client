@@ -1,23 +1,23 @@
 import {useEffect, useState} from "react"
-import {useFetching} from "./useFetching.js"
+import {useFetching} from "../common/useFetching.js"
 import {useSelector} from "react-redux"
 
-export function useFetchSeance() {
+export function useFetchOrder() {
 
     const [url, set_url] = useState(undefined)
-    const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
+    const [fetch_data, fetch_errors,] = useFetching(url)
     const [data, set_data] = useState(undefined)
 
     const filial = useSelector(state => state.data.filial)
-    const uid_seance = useSelector(state => state.interface.params.uid_seance)
+    const pre_order = useSelector(state => state.data.pre_order)
 
     useEffect(() => {
-        if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}/api/get_seance?uid_seance=${uid_seance}`)
+        if (filial !== undefined && pre_order !== undefined) {
+            set_url(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${pre_order.uid}`)
         } else {
             set_url(undefined)
         }
-    }, [filial, uid_seance])
+    }, [filial, pre_order])
 
     useEffect(() => {
         if (fetch_data !== null) {
@@ -27,5 +27,5 @@ export function useFetchSeance() {
         }
     }, [fetch_data])
 
-    return [data, fetch_errors, fetch_loading]
+    return [data, fetch_errors, fetch_errors]
 }

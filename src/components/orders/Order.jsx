@@ -9,7 +9,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import {useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./BookingItem.jsx"
-import {useSetContentHeight} from "../../hooks/useSetContentHeight.js"
+import {useSetContentHeight} from "../../hooks/interface/useSetContentHeight.js"
 import HorecaItem from "./HorecaItem.jsx"
 import {useEffect, useState} from "react"
 
@@ -131,6 +131,8 @@ const Order = () => {
                                 }}>Разделить</Button>
                             </ButtonGroup>
                         </ButtonGroup>
+                    </Box>
+                    <Box className="order-box-panel-2-1">
                         <ButtonGroup>
                             <ButtonGroup sx={{marginRight: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {

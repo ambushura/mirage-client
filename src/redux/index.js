@@ -7,7 +7,10 @@ import interfaceSlice from "./interfaceReducer.js"
 import authSlice from "./authReducer.js"
 import notifierReducer from "./notifierReducer.js"
 import wsReducer from "./wsReducer.js"
-export const store = configureStore({
+
+export const HOST= "10.101.3.88:8080"
+
+export const store= configureStore({
     reducer: {
         schedule: scheduleSlice,
         halls: hallsSlice,
@@ -18,7 +21,6 @@ export const store = configureStore({
         notifier: notifierReducer,
         webSocket: wsReducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 })
+
 export default store
-export const HOST = '10.101.3.88:8080'

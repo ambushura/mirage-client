@@ -188,6 +188,8 @@
 .seance-title-film-name {
     font-size: 30px;
     font-weight: bold;
+    overflow: hidden;
+    color: var(--text-color);
 }
 .seance-title-hall-name {
     font-size: 18px;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
-import {TIMEOUT} from "../service/fetch_service.js"
+import {TIMEOUT} from "../../service/fetch_service.js"
 
 export function useFetchingArray(urls) {
 

@@ -1,23 +1,26 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
+
 const initialState = {
     cities: [],
     city: undefined,
     filial: undefined
 }
+
 export const dataSlice = createSlice({
     name: "data",
     initialState,
     reducers: {
-        setCities: (state, action) => {
-            state.cities = action.payload === null ? [] : action.payload
+        setCities: (state, {payload}) => {
+            state.cities = payload ?? []
         },
-        setCity: (state, action) => {
-            state.city = action.payload === null ? undefined : action.payload
+        setCity: (state, {payload}) => {
+            state.city = payload ?? undefined
         },
-        setFilial: (state, action) => {
-            state.filial = action.payload === null ? undefined : action.payload
+        setFilial: (state, {payload}) => {
+            state.filial = payload ?? undefined
         },
     },
 })
-export const {setCities, setCity, setFilial} = dataSlice.actions
+
+export const { setCities, setCity, setFilial } = dataSlice.actions
 export default dataSlice.reducer

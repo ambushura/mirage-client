@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {useFetchingArray} from "./useFetchingArray.js"
+import {useFetchingArray} from "../common/useFetchingArray.js"
 import {useSelector} from "react-redux"
 
 export function useSetFilm() {
