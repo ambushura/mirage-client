@@ -40,7 +40,7 @@ const Auth = (props) => {
     }
     return (
         <Box>
-            <Box style={{fontWeight: 'bold', textAlign: 'center', paddingBottom: '10px'}}>Вход для сотрудников</Box>
+            <Box style={{fontWeight: 'bold', textAlign: 'center', paddingBottom: '10px', color: 'var(--text-color)'}}>Введите код сотрудника:</Box>
             <Keyboard input={password}
                       setInput={set_password}
                       apply={apply}

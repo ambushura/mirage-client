@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux"
 import {Box} from "@mui/material"
-import {Navigate, Route, Routes, useLocation} from "react-router-dom"
+import {Navigate, Route, Routes} from "react-router-dom"
 
 import Header from "./page/header/Header.jsx"
 import Footer from "./page/footer/Footer.jsx"
@@ -13,18 +13,8 @@ import {useSetTopMenu}from "./hooks/interface/useSetTopMenu.js"
 import {useFullScreen}from "./hooks/interface/useFullScreen.js"
 import {useSetWS}from "./hooks/common/useSetWS.js"
 import {useReset}from "./hooks/common/useReset.js"
-import {useEffect} from "react";
 
 function App() {
-
-
-    //
-    const location = useLocation()
-    useEffect(() => {
-        console.log("Переход на:", location.pathname)
-        console.trace()
-    }, [location])
-    //
 
     // Хуки
     useSetWS()

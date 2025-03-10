@@ -32,21 +32,18 @@ const PageAdmin = () => {
         value: PropTypes.number.isRequired,
     }
 
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        }
+    function allProps(index) {
+        return {id: `simple-tab-${index}`, 'aria-controls': `simple-tabpanel-${index}`}
     }
 
     return (
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs variant="scrollable" value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Заказы" {...a11yProps(0)}/>
-                    <Tab label="Итоги" {...a11yProps(1)}/>
-                    <Tab label="Залы" {...a11yProps(2)}/>
-                    <Tab label="Оборудование" {...a11yProps(3)}/>
+                <Tabs variant="scrollable" value={value} onChange={handleChange}>
+                    <Tab label="Заказы" {...allProps(0)}/>
+                    <Tab label="Итоги" {...allProps(1)}/>
+                    <Tab label="Залы" {...allProps(2)}/>
+                    <Tab label="Оборудование" {...allProps(3)}/>
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>

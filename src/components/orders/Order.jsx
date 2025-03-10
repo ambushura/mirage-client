@@ -4,8 +4,6 @@ import ReceiptIcon from '@mui/icons-material/Receipt'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CachedIcon from '@mui/icons-material/Cached'
 import DeleteIcon from '@mui/icons-material/Delete'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CloseIcon from '@mui/icons-material/Close'
 import {useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
@@ -72,8 +70,11 @@ const Order = () => {
                                     onClick={() => {
                                     }}><CloseIcon/></Button>
                         </ButtonGroup>
-                        <Box className="order-box-panel-1-number"><span
-                            style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
+                        <Box className="order-box-panel-1-sum-number">
+                            <span
+                                className='order-box-panel-1-number'>{`${pre_order.number === 'Временные брони' ? pre_order.number : '№' + pre_order.number}`}</span>
+                            <span className='order-box-panel-1-sum'>{pre_order.sum} р</span>
+                        </Box>
                     </Box>
                     <Box className="order-box-panel-cinema-2">
                         <ButtonGroup>
@@ -88,12 +89,6 @@ const Order = () => {
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}><DeleteIcon/></Button>
-                            </ButtonGroup>
-                            <ButtonGroup>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><CheckBoxIcon/></Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><CheckBoxOutlineBlankIcon/></Button>
                             </ButtonGroup>
                         </ButtonGroup>
                     </Box>
@@ -143,40 +138,30 @@ const Order = () => {
                                     onClick={() => {
                                     }}><CloseIcon/></Button>
                         </ButtonGroup>
-                        <Box className="order-box-panel-1-number"><span
-                            style={{textAlign: 'center'}}>{horder.number}</span></Box>
+                        <Box className="order-box-panel-1-sum-number">
+                            <span className='order-box-panel-1-number'>№{horder.number}</span>
+                            <span className='order-box-panel-1-sum'>{horder.sum} р</span>
+                        </Box>
                     </Box>
                     <Box className="order-box-panel-2">
                         <ButtonGroup sx={{marginBottom: '4px'}}>
-                            <ButtonGroup>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}>На кухню</Button>
+                            <ButtonGroup sx={{marginRight: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Пречек</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Разделить</Button>
                             </ButtonGroup>
-                        </ButtonGroup>
-                    </Box>
-                    <Box className="order-box-panel-2-1">
-                        <ButtonGroup>
                             <ButtonGroup sx={{marginRight: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}><DeleteIcon/></Button>
                             </ButtonGroup>
-                            <ButtonGroup sx={{marginRight: '4px'}}>
+                            <ButtonGroup>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Стол</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}><DeleteIcon/></Button>
-                            </ButtonGroup>
-                            <ButtonGroup>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><CheckBoxIcon/></Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><CheckBoxOutlineBlankIcon/></Button>
                             </ButtonGroup>
                         </ButtonGroup>
                     </Box>
