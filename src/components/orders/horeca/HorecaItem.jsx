@@ -7,18 +7,25 @@ import QrCodeIcon from '@mui/icons-material/QrCode'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CalculateIcon from '@mui/icons-material/Calculate'
+import {openModal} from "../../../redux/interfaceReducer.js"
+import {useDispatch} from "react-redux"
 
 const HorecaItem = (props) => {
 
+    const dispatch = useDispatch()
+
+    // Кухня
     const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
 
     return (
         <li className='order-box-horeca-item'>
             <Box className='order-box-horeca-item-1'>
-                <Box className='order-box-horeca-item-1-calc'><CalculateIcon/></Box>
+                <Box className='order-box-horeca-item-1-calc' onClick={() => dispatch(openModal('quantity'))}><CalculateIcon/></Box>
                 <Box className='order-box-horeca-item-1-1'><Box>{props.item.name}</Box></Box>
-                <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum} р</Box><Box>{props.item.quantity} {props.item.unit_name}</Box></Box>
-                <Box className='order-box-horeca-item-1-2'><BorderColorIcon sx={{color: 'white'}}/></Box>
+                <Box
+                    className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum} р</Box><Box
+                    sx={{color: '#8B919B'}}>{props.item.quantity} {props.item.unit_name}</Box></Box>
+                <Box className='order-box-horeca-item-1-2' onClick={() => dispatch(openModal('comment'))}><BorderColorIcon sx={{color: 'white'}}/></Box>
                 <Box className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></Box>
             </Box>
             {props.item.mark.type !== '' ? <Box className='order-box-horeca-item-2'>

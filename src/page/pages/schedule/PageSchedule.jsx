@@ -52,7 +52,7 @@ const PageSchedule = () => {
                         <Box id="schedule-full">
                             {schedule.map((filial_hall_seances, index) => {
                                 if (filial_hall_seances.error !== null) {
-                                    return (<Box key={index}></Box>)
+                                    return (<Box key={filial_hall_seances.filial.uid}></Box>)
                                 } else if (filial_hall_seances.loading) {
                                     return (
                                         <Box key={filial_hall_seances.filial.uid}>
@@ -98,7 +98,7 @@ const PageSchedule = () => {
                                                  ref={el => elementsRef.current.set(index, el)}>
                                                 {filial_hall_seances.data.map(hall => {
                                                     return (
-                                                        <Box key={hall.uid} className='schedule-full-hall'>
+                                                        <Box key={hall.uid_hall} className='schedule-full-hall'>
                                                             <Box className='schedule-full-hall-name' style={{
                                                                 position: 'sticky',
                                                                 top: '65px',

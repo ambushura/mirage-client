@@ -15,6 +15,8 @@ const initialState = {
     app_height: undefined,
     auth_opened: false,
     current_page: "films",
+    modal_opened: false,
+    modal_type: null,
     search_params: {},
     params: {
         param_city: undefined,
@@ -63,6 +65,14 @@ const interfaceSlice = createSlice({
         setSearchParams: (state, {payload}) => {
             state.search_params = JSON.parse(payload)
         },
+        openModal: (state, {payload}) => {
+            state.modal_opened = true
+            state.modal_type = payload
+        },
+        closeModal: (state) => {
+            state.modal_opened = false
+            state.modal_type = null
+        }
     },
 })
 
@@ -74,6 +84,8 @@ export const {
     setTopMenu,
     setParams,
     setSearchParams,
+    openModal,
+    closeModal,
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

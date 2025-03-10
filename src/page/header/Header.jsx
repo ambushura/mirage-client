@@ -115,7 +115,7 @@ const Header = () => {
                                    onClose={() => dispatch(setAuthOpened(false))}
                                    aria-labelledby="Страница авторизации"
                                    aria-describedby="Введите пароль">
-                                <Box id="auth">
+                                <Box id="modal">
                                     <Auth setAuthOpened={setAuthOpened}/>
                                 </Box>
                             </Modal>

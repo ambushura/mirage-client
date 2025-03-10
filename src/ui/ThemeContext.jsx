@@ -9,10 +9,8 @@ export const ThemeBlackWhite = ({children}) => {
     useEffect(() => {
         if (permissions.includes('staff')) {
             set_theme('light')
-            console.log('темная тема')
         } else {
             set_theme('dark')
-            console.log('темная тема')
         }
     }, [permissions])
 

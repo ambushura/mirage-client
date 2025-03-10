@@ -7,9 +7,9 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import CloseIcon from '@mui/icons-material/Close'
 import {useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
-import BookingItem from "./BookingItem.jsx"
+import BookingItem from "./cinema/BookingItem.jsx"
 import {useSetContentHeight} from "../../hooks/interface/useSetContentHeight.js"
-import HorecaItem from "./HorecaItem.jsx"
+import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 

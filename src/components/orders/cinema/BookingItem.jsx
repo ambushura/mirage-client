@@ -1,8 +1,13 @@
 import {Box, Button, ButtonGroup} from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
+import {useDispatch} from "react-redux"
+import {openModal} from "../../../redux/interfaceReducer.js"
 
 const BookingItem = (props) => {
+
+    const dispatch = useDispatch()
+
     return (
         <Box>
             <Box className="order-booking-item">
@@ -13,8 +18,7 @@ const BookingItem = (props) => {
                     <span className="order-booking-item-labels">м</span>
                 </Box>
                 <ButtonGroup sx={{maxWidth: '140px'}}>
-                    <Button color='secondary' variant='contained' onClick={() => {
-                    }}><BorderColorIcon/></Button>
+                    <Button color='secondary' variant='contained'  onClick={() => {dispatch(openModal('comment'))}}><BorderColorIcon/></Button>
                     <Button color='secondary' variant='contained' onClick={() => {
                     }}><DeleteIcon/></Button>
                 </ButtonGroup>
