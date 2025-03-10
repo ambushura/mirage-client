@@ -1,6 +1,6 @@
 import {createContext, useState, useEffect} from 'react'
 import {useSelector} from "react-redux"
-import {createTheme} from "@mui/material";
+import {createTheme} from "@mui/material"
 const ThemeContext = createContext()
 
 export const ThemeBlackWhite = ({children}) => {
@@ -9,13 +9,17 @@ export const ThemeBlackWhite = ({children}) => {
     useEffect(() => {
         if (permissions.includes('staff')) {
             set_theme('light')
+            console.log('темная тема')
         } else {
             set_theme('dark')
+            console.log('темная тема')
         }
     }, [permissions])
+
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme)
     }, [theme])
+
     return (
         <ThemeContext.Provider value={{theme, set_theme}}>
             {children}

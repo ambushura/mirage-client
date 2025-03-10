@@ -1,8 +1,8 @@
 import {useEffect} from "react"
 import {PARAM_DATE_SHIFT, setTopMenu} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {from_dayjs_to_str} from "../../service/advanced.js";
-import dayjs from "dayjs";
+import {from_dayjs_to_str} from "../../service/advanced.js"
+import dayjs from "dayjs"
 
 export function useSetTopMenu() {
 

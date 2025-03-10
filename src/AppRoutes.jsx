@@ -30,10 +30,12 @@ const AppRoutes = (props)=> {
     }, [dispatch, search_params])
 
     useEffect(() => {
-        if (search_params.get("wp") === null) {
-            const search_params_new = JSON.parse(JSON.stringify(search_params))
-            search_params_new.wp = "mpopcorn2"
-            set_search_params(search_params_new)
+        if (!search_params.has("wp")) {
+            set_search_params(prev => {
+                const new_params = new URLSearchParams(prev)
+                new_params.set("wp", "mpopcorn2")
+                return new_params
+            }, {replace: true})
         }
     }, [search_params, set_search_params])
 

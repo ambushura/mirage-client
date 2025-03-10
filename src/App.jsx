@@ -13,9 +13,18 @@ import {useSetTopMenu}from "./hooks/interface/useSetTopMenu.js"
 import {useFullScreen}from "./hooks/interface/useFullScreen.js"
 import {useSetWS}from "./hooks/common/useSetWS.js"
 import {useReset}from "./hooks/common/useReset.js"
-import {useEffect} from "react"
+import {useEffect} from "react";
 
 function App() {
+
+
+    //
+    const location = useLocation()
+    useEffect(() => {
+        console.log("Переход на:", location.pathname)
+        console.trace()
+    }, [location])
+    //
 
     // Хуки
     useSetWS()
@@ -30,18 +39,11 @@ function App() {
     const cities = useSelector(state => state.data.cities)
     const param_date = useSelector(state => state.interface.params.param_date)
 
-    //
-    const location = useLocation()
-    useEffect(() => {
-        console.log("Переход на:", location.pathname)
-    }, [location])
-    //
-
     return (
         <Box id="app">
             {(!full || permissions.includes("staff")) && <Header/>}
             <Routes>
-                <Route path="/" element={<Navigate to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : `/`}/>}/>
+                <Route path="/" element={<Navigate replace to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : `/`}/>}/>
                 <Route path="/films/:param_city/:param_filial/:param_date" element={<AppRoutes current_page="films"/>}/>
                 <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
                        element={<AppRoutes current_page="film"/>}/>

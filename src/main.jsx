@@ -27,8 +27,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
                 <ThemeBlackWhite>
                     <ThemeProvider theme={Theme}>
-                        <App />
-                        <Notifier />
+                        <App/>
+                        <Notifier/>
                     </ThemeProvider>
                 </ThemeBlackWhite>
             </LocalizationProvider>

@@ -164,6 +164,7 @@
     vertical-align: center;
     margin-top: 10px;
     font-size: 14px;
+    color: var(--text-color);
 }
 
 /* Сеанс */
