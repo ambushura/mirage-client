@@ -52,7 +52,7 @@ const PageSchedule = () => {
                         <Box id="schedule-full">
                             {schedule.map((filial_hall_seances, index) => {
                                 if (filial_hall_seances.error !== null) {
-                                    return (<></>)
+                                    return (<Box key={index}></Box>)
                                 } else if (filial_hall_seances.loading) {
                                     return (
                                         <Box key={filial_hall_seances.filial.uid}>

@@ -38,7 +38,7 @@ const HorecaItem = (props) => {
                 <Box className='order-box-horeca-item-5-1'><DirectionsRunIcon sx={{color: 'white'}}/></Box>
                 <Box className='order-box-horeca-item-5-2'><LooksOneIcon sx={{color: 'white'}}/></Box>
                 <Box className='order-box-horeca-item-5-3' sx={{color: 'white'}}>{state[props.item.kitchen.state]}</Box>
-                <Box className='order-box-horeca-item-5-4'>Цех</Box>
+                <Box className='order-box-horeca-item-5-4'></Box>
                 <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box>
             </Box> : <></>}
             {props.item.kitchen.modificators.length > 0 ? <Box className='order-box-horeca-item-6'>

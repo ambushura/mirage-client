@@ -48,6 +48,7 @@
     color: black;
 }
 .component-seance-title-content-type-pushkarta {
+    background-color: #df1782;
     color: white;
 }
 .component-seance-title-rate-age {
@@ -100,12 +101,14 @@
 }
 .component-seance-title-content-type-toKino-x2, .component-seance-title-content-type-pushkarta-x2 {
     width: calc(64px * 1.5);
+    color: black;
 }
 .component-seance-title-content-type-toKino-x2 {
     background-color: #FFCF09;
     color: black;
 }
 .component-seance-title-content-type-pushkarta-x2 {
+    background-color: #df1782;
     color: white;
 }
 .component-seance-title-rate-age-x2 {

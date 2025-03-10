@@ -6,15 +6,19 @@ import CachedIcon from '@mui/icons-material/Cached'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import CloseIcon from '@mui/icons-material/Close'
 import {useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./BookingItem.jsx"
 import {useSetContentHeight} from "../../hooks/interface/useSetContentHeight.js"
 import HorecaItem from "./HorecaItem.jsx"
 import {useEffect, useState} from "react"
+import {useNavigate} from "react-router-dom"
 
 const Order = () => {
 
+    const navigate = useNavigate()
+    const cities = useSelector(state => state.data.cities)
     const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
@@ -35,6 +39,20 @@ const Order = () => {
         }
     }, [horder, pre_order, filial])
 
+    const seance_link = () => {
+        let link = '/'
+        if (pre_order !== undefined) {
+            const city = cities.find(el => el.uid === pre_order.uid_city)
+            if (city !== undefined) {
+                const filial = city.filials.find(el => el.uid === pre_order.uid_filial)
+                if (filial !== undefined) {
+                    link = `/seance/${city.code}/${filial.eais}/${pre_order.uid_seance}/`
+                }
+            }
+        }
+        return link
+    }
+
     return (
         <Box id="order" style={{height: content_height}}>
             {pre_order_show ?
@@ -50,6 +68,9 @@ const Order = () => {
                             <Button style={{minWidth: '80px'}} variant="contained" color="primary"
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
+                            <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
+                                    onClick={() => {
+                                    }}><CloseIcon/></Button>
                         </ButtonGroup>
                         <Box className="order-box-panel-1-number"><span
                             style={{textAlign: 'center'}}>{pre_order.number}</span></Box>
@@ -76,7 +97,9 @@ const Order = () => {
                             </ButtonGroup>
                         </ButtonGroup>
                     </Box>
-                    <Box className="order-box-panel-cinema-3">
+                    <Box className="order-box-panel-cinema-3" onClick={() => {
+                        navigate(seance_link())
+                    }}>
                         <SeanceTitle
                             seance={pre_order.seance}
                             content_type={true}
@@ -116,6 +139,9 @@ const Order = () => {
                             <Button style={{minWidth: '80px'}} variant="contained" color="primary"
                                     onClick={() => {
                                     }}><DeleteForeverIcon/></Button>
+                            <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
+                                    onClick={() => {
+                                    }}><CloseIcon/></Button>
                         </ButtonGroup>
                         <Box className="order-box-panel-1-number"><span
                             style={{textAlign: 'center'}}>{horder.number}</span></Box>
@@ -193,7 +219,7 @@ const Order = () => {
                         }
                         {horder.items.filter(el => el.kitchen.state === 0).length > 0 ?
                             <>
-                                <Box className="order-box-panel-3-title-others">Концессия</Box>
+                                <Box className="order-box-panel-3-title-others">Готово к выдаче</Box>
                                 <ul className="order-box-panel-3-list-others">
                                     {horder.items.filter(el => el.kitchen.state === 0).map((item) => {
                                         return (

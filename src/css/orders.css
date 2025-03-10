@@ -40,11 +40,13 @@
     font-weight: bold;
     display: flex;
     justify-content: space-between;
+    color: var(--text-color);
 }
 .checkout-order-title {
     font-size: 32px;
     font-weight: bold;
     margin: 20px 0 20px 16px;
+    color: var(--text-color);
 }
 .checkout-order-tickets-box {
     box-sizing: content-box;
@@ -111,6 +113,7 @@
 }
 .checkout-order-ticket-body-2>div {
     padding-bottom: 5px;
+    color: var(--text-color);
 }
 .checkout-order-ticket-body-2-film-name {
     font-size: 14px;
@@ -145,6 +148,7 @@
     font-weight: bold;
     font-size: 18px;
     padding: 16px;
+    color: var(--text-color);
 }
 .checkout-order-ticket-body-3-delete {
     display: flex;

@@ -112,7 +112,6 @@
 }
 .order-box-panel-2-1 {
     width: 100%;
-    padding: 5px 0;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -293,7 +292,7 @@
     background-color: #1C1F23;
 }
 .order-box-horeca-item-5-3 {
-    width: 100px;
+    width: 110px;
     font-weight: bold;
     background-color: #1C1F23;
     border-radius: 0 12px 12px 0;
@@ -302,7 +301,8 @@
     min-width: 50px;
 }
 .order-box-horeca-item-5-5 {
-    width: calc(490px - 50px - 50px - 100px - 50px);
+    width: calc(490px - 50px - 50px - 110px - 50px);
+    font-weight: bold;
 }
 .order-box-horeca-item-6 {
     width: 100%;
