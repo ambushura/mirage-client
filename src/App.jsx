@@ -14,8 +14,8 @@ import {useFullScreen}from "./hooks/interface/useFullScreen.js"
 import {useSetWS}from "./hooks/common/useSetWS.js"
 import {useReset}from "./hooks/common/useReset.js"
 import {closeModal} from "./redux/interfaceReducer.js"
-import Quantity from "./components/orders/horeca/Quantity.jsx"
-import Comment from "./components/orders/Comment.jsx"
+import Quantity from "./components/modal/Quantity.jsx"
+import Comment from "./components/modal/Comment.jsx"
 
 function App() {
 

@@ -19,7 +19,7 @@ import '@fontsource/roboto/700.css'
 
 import App from './App.jsx'
 import store from './redux/index.js'
-import Notifier from './components/Notifier.jsx'
+import Notifier from './components/modal/Notifier.jsx'
 import {Theme, ThemeBlackWhite} from './ui/ThemeContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -8,7 +8,7 @@ import {useSetFilm} from "../../../hooks/pages/useSetFilm.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setFilm} from "../../../redux/scheduleReducer.js"
-import Loader from "../../../components/Loader.jsx"
+import Loader from "../../../components/modal/Loader.jsx"
 
 const PageFilm = () => {
 

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Snackbar, Alert } from '@mui/material'
-import {removeNotification} from "../redux/notifierReducer.js"
+import {removeNotification} from "../../redux/notifierReducer.js"
 
 const Notifier = () => {
     const notifications = useSelector(state => state.notifier.notifications)
