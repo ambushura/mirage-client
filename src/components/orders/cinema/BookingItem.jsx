@@ -18,7 +18,7 @@ const BookingItem = (props) => {
                     <span className="order-booking-item-labels">м</span>
                 </Box>
                 <ButtonGroup sx={{maxWidth: '140px'}}>
-                    <Button color='secondary' variant='contained'  onClick={() => {dispatch(openModal('comment'))}}><BorderColorIcon/></Button>
+                    <Button color='secondary' variant='contained' onClick={() => {dispatch(openModal('comment'))}}><BorderColorIcon/></Button>
                     <Button color='secondary' variant='contained' onClick={() => {
                     }}><DeleteIcon/></Button>
                 </ButtonGroup>
