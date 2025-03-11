@@ -16,6 +16,8 @@ import {useReset}from "./hooks/common/useReset.js"
 import {closeModal} from "./redux/interfaceReducer.js"
 import Quantity from "./components/modal/Quantity.jsx"
 import Comment from "./components/modal/Comment.jsx"
+import {useEffect, useState} from "react"
+import Payment from "./components/modal/Payment.jsx"
 
 function App() {
 
@@ -37,16 +39,17 @@ function App() {
     // Модальное окно
     const modal_opened = useSelector(state => state.interface.modal_opened)
     const modal_type = useSelector(state => state.interface.modal_type)
-    const modal_component = () => {
-        switch (modal_type) {
-            case 'quantity':
-                return (<Quantity/>)
-            case 'comment':
-                return (<Comment/>)
-            default:
-                return (<></>)
+    const modal_props = useSelector(state => state.interface.modal_props)
+    const [modal_window, set_modal_window] = useState(<></>)
+    useEffect(() => {
+        if (modal_type === 'quantity') {
+            set_modal_window(<Quantity param={modal_props}/>)
+        } else if (modal_type === 'comment') {
+            set_modal_window(<Comment param={modal_props}/>)
+        } else if (modal_type === 'payment') {
+            set_modal_window(<Payment param={modal_props}/>)
         }
-    }
+    }, [modal_type, modal_props])
 
     return (
         <Box id="app">
@@ -72,7 +75,7 @@ function App() {
             {(!full || permissions.includes("staff")) && <Footer/>}
             <Modal open={modal_opened} onClose={() => dispatch(closeModal())}>
                 <Box id="modal">
-                    {modal_component()}
+                    {modal_window}
                 </Box>
             </Modal>
         </Box>

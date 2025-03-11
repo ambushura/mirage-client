@@ -17,6 +17,7 @@ const initialState = {
     current_page: "films",
     modal_opened: false,
     modal_type: null,
+    modal_props: {},
     search_params: {},
     params: {
         param_city: undefined,
@@ -67,11 +68,13 @@ const interfaceSlice = createSlice({
         },
         openModal: (state, {payload}) => {
             state.modal_opened = true
-            state.modal_type = payload
+            state.modal_type = payload.type
+            state.modal_props = payload.props
         },
         closeModal: (state) => {
             state.modal_opened = false
             state.modal_type = null
+            state.modal_props = {}
         }
     },
 })

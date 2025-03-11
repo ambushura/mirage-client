@@ -5,17 +5,20 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CachedIcon from '@mui/icons-material/Cached'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CloseIcon from '@mui/icons-material/Close'
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./cinema/BookingItem.jsx"
 import {useSetContentHeight} from "../../hooks/interface/useSetContentHeight.js"
 import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
+import {openModal} from "../../redux/interfaceReducer.js";
 
 const Order = () => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const cities = useSelector(state => state.data.cities)
     const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
@@ -58,8 +61,7 @@ const Order = () => {
                     <Box className="order-box-panel-cinema-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
-                                    onClick={() => {
-                                    }}><ReceiptIcon/></Button>
+                                    onClick={() => dispatch(openModal({type: 'payment', props: {type: 'cinema'}}))}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><CachedIcon/></Button>
@@ -126,8 +128,7 @@ const Order = () => {
                     <Box className="order-box-panel-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
-                                    onClick={() => {
-                                    }}><ReceiptIcon/></Button>
+                                    onClick={() => dispatch(openModal({type: 'payment', props: {type: 'horeca'}}))}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><CachedIcon/></Button>
