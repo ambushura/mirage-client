@@ -404,3 +404,81 @@
 .order-box::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+#order-receipts {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 500px;
+}
+.order-receipt {
+    background-color: #EFEFEF;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 8px;
+}
+.order-receipt-panel {
+    height: fit-content;
+}
+.order-receipt-panel>button {
+    margin-right: 4px;
+}
+.order-receipt-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+.order-receipt-items {
+
+}
+.order-receipt-payment-payment-types-calc {
+    display: flex;
+    color: black;
+    font-weight: bold;
+    flex-direction: column;
+}
+.order-receipt-payment-calc {
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #EFEFEF;
+}
+.order-receipt-payment-calc-row {
+    display: flex;
+    flex-direction: row;
+}
+.receipt-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.order-receipt-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.order-receipt-payment-types {
+
+}
+.order-receipt-payment-calc {
+    display: flex;
+    flex-direction: column;
+}
+.order-receipt-payment-calc-column {
+    display: flex;
+    flex-direction: column;
+}
+.order-receipt-payment-calc-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.order-receipt-payment-calc-row>button {
+    margin: 0 2px 2px 0;
+    display: flex;
+    color: white;
+}

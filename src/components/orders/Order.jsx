@@ -12,7 +12,7 @@ import {useSetContentHeight} from "../../hooks/interface/useSetContentHeight.js"
 import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
-import {openModal} from "../../redux/interfaceReducer.js";
+import {openModal} from "../../redux/interfaceReducer.js"
 
 const Order = () => {
 
@@ -61,7 +61,7 @@ const Order = () => {
                     <Box className="order-box-panel-cinema-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
-                                    onClick={() => dispatch(openModal({type: 'payment', props: {type: 'cinema'}}))}><ReceiptIcon/></Button>
+                                    onClick={() => dispatch(openModal({type: 'payment', props: {type: 'cinema', uid: pre_order.uid}}))}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><CachedIcon/></Button>
@@ -128,7 +128,7 @@ const Order = () => {
                     <Box className="order-box-panel-1">
                         <ButtonGroup>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
-                                    onClick={() => dispatch(openModal({type: 'payment', props: {type: 'horeca'}}))}><ReceiptIcon/></Button>
+                                    onClick={() => dispatch(openModal({type: 'payment', props: {type: 'horeca', uid: horder.uid}}))}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
                                     onClick={() => {
                                     }}><CachedIcon/></Button>
