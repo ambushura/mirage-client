@@ -18,7 +18,7 @@ const Calc = () => {
                 </Box>
             </Box>
             <Box className='order-receipt-payment-calc-row' sx={{height: '50px'}}>
-                <Box className='receipt-row receipt-sum' style={{fontWeight: 'normal', borderRadius: '0 0 0 12px'}}>
+                <Box className='receipt-row receipt-sum' style={{fontWeight: 'normal'}}>
                     <span style={{fontSize: '80%'}}>скидка</span>
                     <span className='receipt-price'>0</span>
                 </Box>
@@ -31,11 +31,10 @@ const Calc = () => {
                     <span className='receipt-price'>0</span>
                 </Box>
             </Box>
-            <Box className='order-receipt-payment-calc-row' sx={{height: '50px', marginBottom: '8px'}}>
-                <Box className='receipt-row receipt-sum'>
-                    <Box style={{width: '100%', height: '100%', backgroundColor: '#0e0f11', borderRadius: '0 12px 0 0'}}></Box>
-                </Box>
+            <Box className='order-receipt-payment-calc-row' sx={{height: '50px', marginBottom: '4px'}}>
                 <Box className='receipt-row receipt-sum' style={{borderRadius: '0 0 0 12px'}}>
+                </Box>
+                <Box className='receipt-row receipt-sum'>
                     <span style={{fontSize: '80%'}}>Вам должны</span>
                     <span className='receipt-price'>0</span>
                 </Box>
@@ -62,7 +61,7 @@ const Calc = () => {
             <Box className='order-receipt-payment-calc-row' style={{display: 'flex'}}>
                 <Button variant='contained' color='secondary' style={{margin: '0 2px 0 0'}}>0</Button>
                 <Button variant='contained' color='secondary'
-                        style={{flexGrow: 1, margin: '0 0 0 12px'}}>Очистить</Button>
+                        style={{flexGrow: 1, margin: '0 0 0 2px'}}>Очистить</Button>
             </Box>
         </Box>
     )
