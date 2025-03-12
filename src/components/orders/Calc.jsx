@@ -3,44 +3,45 @@ import {Box, Button} from "@mui/material"
 const Calc = () => {
     return (
         <Box className='order-receipt-payment-calc'>
-            <Box className='order-receipt-payment-calc-row'>
-                <Box className='receipt-row'>
+            <Box className='order-receipt-payment-calc-row' sx={{height: '50px'}}>
+                <Box className='receipt-row receipt-sum' style={{borderRadius: '12px 0 0 0'}}>
                     <span>Кино</span>
-                    <span>0</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
-                <Box className='receipt-row'>
+                <Box className='receipt-row receipt-sum'>
                     <span>Общепит</span>
-                    <span>0</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
-                <Box className='receipt-row'>
+                <Box className='receipt-row receipt-sum' style={{borderRadius: '0 12px 0 0'}}>
                     <span>Всего</span>
-                    <span>0</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
             </Box>
-            <Box className='order-receipt-payment-calc-row'>
-                <Box className='receipt-row'>
-                    <span>скидка</span>
-                    <span>0</span>
+            <Box className='order-receipt-payment-calc-row' sx={{height: '50px'}}>
+                <Box className='receipt-row receipt-sum' style={{fontWeight: 'normal', borderRadius: '0 0 0 12px'}}>
+                    <span style={{fontSize: '80%'}}>скидка</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
-                <Box className='receipt-row'>
-                    <span>скидка</span>
-                    <span>0</span>
+                <Box className='receipt-row receipt-sum' style={{fontWeight: 'normal'}}>
+                    <span style={{fontSize: '80%'}}>скидка</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
-                <Box className='receipt-row'>
-                    <span>скидка</span>
-                    <span>0</span>
+                <Box className='receipt-row receipt-sum' style={{fontWeight: 'normal'}}>
+                    <span style={{fontSize: '80%'}}>скидка</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
             </Box>
-            <Box className='order-receipt-payment-calc-row'>
-                <Box className='receipt-row'>
+            <Box className='order-receipt-payment-calc-row' sx={{height: '50px', marginBottom: '8px'}}>
+                <Box className='receipt-row receipt-sum'>
+                    <Box style={{width: '100%', height: '100%', backgroundColor: '#0e0f11', borderRadius: '0 12px 0 0'}}></Box>
                 </Box>
-                <Box className='receipt-row'>
-                    <span>вам должны</span>
-                    <span>0</span>
+                <Box className='receipt-row receipt-sum' style={{borderRadius: '0 0 0 12px'}}>
+                    <span style={{fontSize: '80%'}}>Вам должны</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
-                <Box className='receipt-row'>
-                    <span>принял</span>
-                    <span>0</span>
+                <Box className='receipt-row receipt-sum' style={{borderRadius: '0 0 12px 0'}}>
+                    <span style={{fontSize: '85%'}}>Вы получили</span>
+                    <span className='receipt-price'>0</span>
                 </Box>
             </Box>
             <Box className='order-receipt-payment-calc-row'>
@@ -59,8 +60,9 @@ const Calc = () => {
                 <Button variant='contained' color='secondary'>9</Button>
             </Box>
             <Box className='order-receipt-payment-calc-row' style={{display: 'flex'}}>
-                <Button variant='contained' color='secondary'>0</Button>
-                <Button variant='contained' color='secondary' style={{flexGrow: 1}}>Очистить</Button>
+                <Button variant='contained' color='secondary' style={{margin: '0 2px 0 0'}}>0</Button>
+                <Button variant='contained' color='secondary'
+                        style={{flexGrow: 1, margin: '0 0 0 12px'}}>Очистить</Button>
             </Box>
         </Box>
     )

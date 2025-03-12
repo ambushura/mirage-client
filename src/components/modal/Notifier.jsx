@@ -18,13 +18,11 @@ const Notifier = () => {
                         }
                     }}
                     anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                    sx={{marginBottom: `${index * 60 + 16}px`}}
-                >
+                    sx={{marginBottom: `${index * 60 + 16}px`}}>
                     <Alert
                         onClose={() => dispatch(removeNotification(id))}
                         severity={severity}
-                        variant="filled"
-                    >
+                        variant="filled">
                         {message}
                     </Alert>
                 </Snackbar>

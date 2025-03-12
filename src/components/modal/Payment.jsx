@@ -23,7 +23,8 @@ const Payment = (props) => {
                 <>
                     {payment_methods.list.map(paymentMethod => {
                         return (
-                            <Button key={paymentMethod.uid}>{paymentMethod.name}</Button>
+                            <Button variant='contained' color='info'
+                                    key={paymentMethod.uid}>{paymentMethod.name}</Button>
                         )
                     })}
                 </>
@@ -65,10 +66,10 @@ const Payment = (props) => {
                         })}
                     </Box>
                     <Box className='order-receipt-payment-payment-types-calc'>
+                        <Calc/>
                         <Box className='order-receipt-payment-types'>
                             {paymentMethodsArray()}
                         </Box>
-                        <Calc/>
                     </Box>
                 </Box>
             </Box>

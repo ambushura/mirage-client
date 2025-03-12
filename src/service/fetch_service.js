@@ -11,10 +11,15 @@ export const fetchPreOrder = (filial, uid_order) => {
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`, {timeout: TIMEOUT})
             dispatch(setCurrentPreOrder(response.data.data))
         } catch (e) {
-            console.error(e)
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
         }
     }
 }
+
 export const deletePreOrder = (filial, uid_order) => {
     return async (dispatch) => {
         try {
@@ -24,10 +29,15 @@ export const deletePreOrder = (filial, uid_order) => {
                 }
             )
         } catch (e) {
-            console.error(e)
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
         }
     }
 }
+
 export const takeSeat = (filial, uid_seance, uid_order, uid_place) => {
     return async (dispatch) => {
         try {
@@ -44,10 +54,15 @@ export const takeSeat = (filial, uid_seance, uid_order, uid_place) => {
                 }))
             }
         } catch (e) {
-            console.error(e)
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
         }
     }
 }
+
 export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     return async (dispatch) => {
         try {
@@ -63,19 +78,24 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e,
+                message: e.message,
                 severity: 'error',
                 autoHide: true
             }))
         }
     }
 }
+
 export const payment = (filial, uid_order, wp) => {
-    return async () => {
+    return async (dispatch) => {
         try {
             await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`, {timeout: 5000})
         } catch (e) {
-            console.error(e)
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
         }
     }
 }
