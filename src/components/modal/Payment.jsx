@@ -389,9 +389,7 @@ const Payment = (props) => {
                     <Box className='order-receipts-calc'>
                         <Stack direction="column" spacing={1}>
                             <Stack direction="row" spacing={1}>
-                                <Button variant="contained" color='secondary' onClick={() => {
-                                    set_cash()
-                                }}>7</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {}}>7</Button>
                                 <Button variant="contained" color='secondary'>8</Button>
                                 <Button variant="contained" color='secondary'>9</Button>
                             </Stack>
