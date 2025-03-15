@@ -407,155 +407,91 @@
 #order-receipts {
     color: var(--text-color);
     max-height: 60vh;
-}
-.order-receipt {
-    box-sizing: border-box;
-    background-color: #2E3239;
-    padding: 4px;
-    border-radius: 12px;
-    margin-right: 4px;
-    margin-bottom: 4px;
-}
-.order-receipt-body {
+    overflow: hidden;
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-height: inherit;
 }
-.order-receipt-items {
-    box-sizing: border-box;
-    width: 600px;
+.order-receipts-section {
     overflow-x: hidden;
     overflow-y: auto;
 }
-.order-receipt-items::-webkit-scrollbar {
+.order-receipts-section::-webkit-scrollbar {
     min-width: 50px;
     height: 50px;
     background-color: transparent;
 }
-.order-receipt-items::-webkit-scrollbar-thumb {
+.order-receipts-section::-webkit-scrollbar-thumb {
     background: #8B919B ;
     border-radius: 12px;
     padding-right: 5px;
 }
-.order-receipt-items::-webkit-scrollbar-track {
+.order-receipts-section::-webkit-scrollbar-track {
     background: transparent;
 }
-.order-receipt-items::-webkit-scrollbar-corner {
+.order-receipts-section::-webkit-scrollbar-corner {
     background: transparent;
 }
-.order-receipt-title {
-    box-sizing: border-box;
-    height: 30px;
-    padding: 4px 4px 4px 0;
-    color: white;
-    font-weight: bold;
-    font-size: 120%;
+.order-receipts-section-total {
     position: sticky;
     top: 0;
     z-index: 1;
     background-color: #0e0f11;
 }
+.order-receipt-title {
+    box-sizing: border-box;
+    color: white;
+    position: sticky;
+    top: 160px;
+    z-index: 2;
+    height: 35px;
+    font-size: 120%;
+    font-weight: bold;
+    background-color: #0e0f11;
+    padding: 8px 0;
+}
 .order-receipt-title-type {
     box-sizing: border-box;
-    height: 30px;
     color: white;
-    padding: 4px 4px 4px 0;
-    font-weight: bold;
-    font-size: 90%;
     position: sticky;
-    top: 30px;
-    z-index: 1;
-    background-color: #0e0f11;
-}
-.order-receipt-payment-payment-types-calc {
-    box-sizing: border-box;
-    padding: 0 0 0 4px;
-    display: flex;
-    color: black;
+    top: calc(160px + 35px);
+    z-index: 3;
+    height: 30px;
+    font-size: 100%;
     font-weight: bold;
-    flex-direction: row;
-    width: 400px;
-}
-.order-receipt-payment-calc {
-    box-sizing: border-box;
-    width: 200px;
-    border-radius: 12px;
     background-color: #0e0f11;
+    padding: 8px 0;
 }
-.order-receipt-payment-calc-row {
-    display: flex;
-    flex-direction: row;
-}
-.receipt-sum {
-    background-color: #fff;
-}
-.order-receipt-payment-calc-row>div {
-    width: calc(100% / 3);
-    font-size: 80%;
-}
-.order-receipt-payment-calc-row>div>span {
-    padding: 5px 0 0 0;
-}
-.receipt-row {
+.order-receipts-calc-payment {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.receipt-price {
-    font-size: 150%;
-}
-.order-receipt-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.order-receipt-payment-types {
-    width: 180px;
+    justify-content: space-between;
     box-sizing: border-box;
-    padding: 0 4px;
+    padding-left: 8px;
 }
-.order-receipt-payment-types::-webkit-scrollbar {
+.order-receipts-payment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.order-receipts-payment {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.order-receipts-payment::-webkit-scrollbar {
     min-width: 50px;
     height: 50px;
     background-color: transparent;
 }
-.order-receipt-payment-types::-webkit-scrollbar-thumb {
+.order-receipts-payment::-webkit-scrollbar-thumb {
     background: #8B919B ;
     border-radius: 12px;
     padding-right: 5px;
 }
-.order-receipt-payment-types::-webkit-scrollbar-track {
+.order-receipts-payment::-webkit-scrollbar-track {
     background: transparent;
 }
-.order-receipt-payment-types::-webkit-scrollbar-corner {
+.order-receipts-payment::-webkit-scrollbar-corner {
     background: transparent;
-}
-.order-receipt-payment-types>button {
-    margin-bottom: 4px;
-    width: 100%;
-}
-.order-receipt-payment-calc {
-    display: flex;
-    flex-direction: column;
-}
-.order-receipt-payment-calc-column {
-    display: flex;
-    flex-direction: column;
-}
-.order-receipt-payment-calc-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-.order-receipt-payment-calc-row>button {
-    margin: 0 0 4px 0;
-    display: flex;
-    color: white;
-}
-.order-receipt-item {
-    background-color: white;
-    padding: 4px;
 }

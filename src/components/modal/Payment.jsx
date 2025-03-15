@@ -1,93 +1,157 @@
-import {Box, Button} from "@mui/material"
+import {Box, Button, Stack} from "@mui/material"
 import {useFetchReceiptsFromOrder} from "../../hooks/payment/useFetchReceiptsFromOrder.js"
 import Loader from "./Loader.jsx"
-import Calc from "../orders/Calc.jsx"
 import {useSetPaymentMethods} from "../../hooks/payment/useSetPaymentMethods.js"
 import {DataGrid} from "@mui/x-data-grid"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {useEffect, useState} from "react"
-import {SXDataGrid} from "../../ui/ThemeContext.jsx"
-import CloudDoneIcon from '@mui/icons-material/CloudDone'
+import {useEffect, useMemo, useState} from "react"
+import {useSelector} from "react-redux"
 
 const Payment = (props) => {
 
+    const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
+    const [total, set_total] = useState([0, 0])
+    const [cash, set_cash] = useState([0, 0])
+
+    useEffect(() => {
+        set_total([pre_order.sum + horder.sum, pre_order.sum_discount + horder.sum_discount])
+    }, [pre_order, horder])
+
+    useEffect(() => {
+
+    }, [pre_order, horder])
+
     const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
     const [receiptsFromOrder, receiptsFromOrder_error, receiptsFromOrder_loading] = useFetchReceiptsFromOrder(props.param.type)
-    const columns = [
-        {
-            field: 'id',
-            headerName: '№',
-            width: 90,
-        },
-        {
-            field: 'name',
-            headerName: 'Наименование',
-            width: 300,
-            editable: false,
-        },
-        {
-            field: 'quantity',
-            headerName: 'кол-во',
-            width: 80,
-            editable: false,
-        },
-        {
-            field: 'price',
-            headerName: 'цена',
-            width: 80,
-            editable: false,
-        },
-        {
-            field: 'sum',
-            headerName: 'сумма',
-            width: 80,
-            editable: false,
-        }]
 
-    const data = {
-        waiting: {
-            mark_egais_items: {
-                rows: [],
-                columns: columns,
-            },
-            horeca_items: {
-                rows: [],
-                columns: columns,
-            },
-            cinema_items: {
-                rows: [],
-                columns: [],
-            }
+    const SXDataGrid = {
+        borderRadius: '12px',
+        border: 'none',
+        '& .MuiDataGrid-row': {
+            background: 'white',
         },
-        slip_without_receipt: {
-            mark_egais_items: {
-                rows: [],
-                columns: [],
-            },
-            horeca_items: {
-                rows: [],
-                columns: [],
-            },
-            cinema_items: {
-                rows: [],
-                columns: [],
-            }
+        '& .MuiDataGrid-row:hover': {
+            background: '#dfdfdf',
         },
-        success: {
-            mark_egais_items: {
-                rows: [],
-                columns: [],
+        '& .MuiDataGrid-row.Mui-selected:hover': {
+            background: '#bdbaba',
+        },
+        '& .MuiDataGrid-row.Mui-selected': {
+            background: '#cac6c6',
+        },
+        '& .MuiDataGrid-columnHeaderTitleContainer': {
+            background: 'white',
+            borderRadius: '12px 12px 0 0',
+        },
+        '& .MuiDataGrid-footerContainer': {
+            background: 'white',
+            borderRadius: '0 0 12px 12px',
+        },
+        '& .MuiDataGrid-root': {
+            backgroundColor: '#f5f5f5',
+        },
+        '& .MuiDataGrid-cell': {
+            fontWeight: 'bold',
+        },
+        '& .MuiDataGrid-columnHeaders': {
+            color: 'black',
+        },
+        '& .MuiDataGrid-row:nth-of-type(even)': {
+            backgroundColor: '#fff',
+        },
+        '& .MuiDataGrid-columnHeader:focus': {
+            outline: 'none',
+        },
+        '& .MuiDataGrid-cell:focus': {
+            outline: 'none',
+            backgroundColor: '#b6b5b5',
+        },
+        '& MuiDataGrid-root *': {
+            userSelect: 'none !important'
+        },
+    }
+
+    const columns = useMemo(() => {
+        return [
+            {
+                field: 'id',
+                headerName: '№',
+                width: 90,
             },
-            horeca_items: {
-                rows: [],
-                columns: [],
+            {
+                field: 'name',
+                headerName: 'Наименование',
+                width: 300,
+                editable: false,
             },
-            cinema_items: {
-                rows: [],
-                columns: [],
+            {
+                field: 'quantity',
+                headerName: 'кол-во',
+                width: 90,
+                editable: false,
+            },
+            {
+                field: 'price',
+                headerName: 'цена',
+                width: 90,
+                editable: false,
+            },
+            {
+                field: 'sum',
+                headerName: 'сумма',
+                width: 90,
+                editable: false,
+            },
+        ]
+    }, [])
+
+    const data = useMemo(() => {
+        return {
+            waiting: {
+                mark_egais_items: {
+                    rows: [],
+                    columns: columns,
+                },
+                horeca_items: {
+                    rows: [],
+                    columns: columns,
+                },
+                cinema_items: {
+                    rows: [],
+                    columns: [],
+                }
+            },
+            slip_without_receipt: {
+                mark_egais_items: {
+                    rows: [],
+                    columns: [],
+                },
+                horeca_items: {
+                    rows: [],
+                    columns: [],
+                },
+                cinema_items: {
+                    rows: [],
+                    columns: [],
+                }
+            },
+            success: {
+                mark_egais_items: {
+                    rows: [],
+                    columns: [],
+                },
+                horeca_items: {
+                    rows: [],
+                    columns: [],
+                },
+                cinema_items: {
+                    rows: [],
+                    columns: [],
+                }
             }
         }
-    }
+    }, [columns])
 
     const [receipts, set_receipts] = useState(Object.assign({}, data))
     useEffect(() => {
@@ -99,7 +163,7 @@ const Payment = (props) => {
                     name: item.name,
                     quantity: item.quantity + ' ' + item.unit_name,
                     price: `${item.price} р`,
-                    sum: `${item.sum} р`
+                    sum: `${item.sum} р`,
                 })
             })
             receiptsFromOrder.waiting.horeca_items.forEach((item) => {
@@ -108,7 +172,7 @@ const Payment = (props) => {
                     name: item.name,
                     quantity: item.quantity + ' ' + item.unit_name,
                     price: `${item.price} р`,
-                    sum: `${item.sum} р`
+                    sum: `${item.sum} р`,
                 })
             })
             receiptsFromOrder.waiting.cinema_items.forEach((item) => {
@@ -117,7 +181,7 @@ const Payment = (props) => {
                     name: item.name,
                     quantity: item.quantity + ' ' + item.unit_name,
                     price: `${item.price} р`,
-                    sum: `${item.sum} р`
+                    sum: `${item.sum} р`,
                 })
             })
             set_receipts(receiptsNew)
@@ -178,6 +242,9 @@ const Payment = (props) => {
                 <>
                     <Box className='order-receipt-title-type'>{title}</Box>
                     <DataGrid
+                        hideColumnHeaders
+                        disableRowSelectionOnClick
+                        disableColumnSelector
                         treeData
                         columnVisibilityModel={{id: false}}
                         rows={receipts[table_name.split(".")[0]][table_name.split(".")[1]].rows}
@@ -199,12 +266,96 @@ const Payment = (props) => {
     } else if (receiptsFromOrder !== null) {
         return (
             <Box id="order-receipts">
-                <Box className='order-receipt-body'>
-                    <Box className='order-receipt-items'>
+                <Box className='order-receipts-section'>
+                    <Box className='order-receipts-section-total'>
+                        <DataGrid
+                            disableRowSelection
+                            disableColumnSelector
+                            hideFooter
+                            columnVisibilityModel={{id: false}}
+                            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                            sx={SXDataGrid}
+                            columns={[
+                                {field: 'id', headerName: '№', width: 1},
+                                {
+                                    field: 'name',
+                                    headerName: '',
+                                    width: 80,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                                {
+                                    field: 'total',
+                                    headerName: 'ВСЕГО',
+                                    width: 90,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                                {
+                                    field: 'cinema',
+                                    headerName: 'КИНО',
+                                    width: 90,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                                {
+                                    field: 'horeca',
+                                    headerName: 'ОБЩЕПИТ',
+                                    width: 90,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                                {
+                                    field: 'cash',
+                                    headerName: 'ПОЛУЧИЛ',
+                                    width: 90,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                                {
+                                    field: 'back',
+                                    headerName: 'СДАЧА',
+                                    width: 90,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                            ]}
+                            rows={[
+                                {
+                                    id: '0',
+                                    name: 'к оплате',
+                                    total: `${total[0]} р`,
+                                    cinema: `${pre_order.sum} р`,
+                                    horeca: `${horder.sum} р`,
+                                    cash: `${cash[0]} р`,
+                                    back: `${cash[1]} р`,
+                                },
+                                {
+                                    id: '1',
+                                    name: 'скидка',
+                                    total: `${total[1]} р`,
+                                    cinema: `${pre_order.sum_discount} р`,
+                                    horeca: `${horder.sum_discount} р`
+                                },
+                            ]}/>
+                    </Box>
+                    <Box className='order-receipts-section-items'>
                         <Box sx={{display: slip_without_receipt ? 'block' : 'none'}}>
                             <Box className='order-receipt-title'>Списали деньги с карты, но не пробили чек</Box>
                             <Box>
-                                {table('slip_without_receipt.mark_egais_items', 'Товары (ЧЗ, ЕГАИС)')}
+                                {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                                 {table('slip_without_receipt.horeca_items', 'Товары')}
                                 {table('slip_without_receipt.cinema_items', 'Услуги')}
                             </Box>
@@ -212,7 +363,7 @@ const Payment = (props) => {
                         <Box sx={{display: waiting ? 'block' : 'none'}}>
                             <Box className='order-receipt-title'>Ожидает оплаты</Box>
                             <Box>
-                                {table('waiting.mark_egais_items', 'Товары (ЧЗ, ЕГАИС)')}
+                                {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                                 {table('waiting.horeca_items', 'Товары')}
                                 {table('waiting.cinema_items', 'Услуги')}
                             </Box>
@@ -221,22 +372,46 @@ const Payment = (props) => {
                             <Box className='order-receipt-title'>Успешно оплачено</Box>
                             <Box>
                                 <Box>
-                                    {table('success.mark_egais_items', 'Товары (ЧЗ, ЕГАИС)')}
+                                    {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                                     {table('success.horeca_items', 'Товары')}
                                     {table('success.cinema_items', 'Услуги')}
                                 </Box>
                             </Box>
                         </Box>
                     </Box>
-                    <Box className='order-receipt-payment-payment-types-calc'>
-                        <Calc/>
-                        <Box className='order-receipt-payment-types'>
-                            <Button variant='contained' color='secondary' startIcon={<CloudDoneIcon/>}>Проверить в
-                                ЧЗ</Button>
-                            <Button variant='contained' color='secondary' startIcon={<CloudDoneIcon/>}>Проверить в
-                                ЕГАИС</Button>
+                </Box>
+                <Box className='order-receipts-calc-payment'>
+                    <Box className='order-receipts-payment'>
+                        <Box className='order-receipts-calc-payment-types'>
                             {paymentMethodsArray()}
                         </Box>
+                    </Box>
+                    <Box className='order-receipts-calc'>
+                        <Stack direction="column" spacing={1}>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    set_cash()
+                                }}>7</Button>
+                                <Button variant="contained" color='secondary'>8</Button>
+                                <Button variant="contained" color='secondary'>9</Button>
+                            </Stack>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color='secondary'>4</Button>
+                                <Button variant="contained" color='secondary'>5</Button>
+                                <Button variant="contained" color='secondary'>6</Button>
+                            </Stack>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color='secondary'>1</Button>
+                                <Button variant="contained" color='secondary'>2</Button>
+                                <Button variant="contained" color='secondary'>3</Button>
+                            </Stack>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color='secondary'>0</Button>
+                                <Button variant="contained" color='secondary' fullWidth onClick={() => {
+                                    set_cash([0, 0])
+                                }}>Очистить</Button>
+                            </Stack>
+                        </Stack>
                     </Box>
                 </Box>
             </Box>
