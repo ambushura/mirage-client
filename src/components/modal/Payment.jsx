@@ -13,12 +13,16 @@ const Payment = (props) => {
 
     const dispatch = useDispatch()
 
+    const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
+    const [receiptsFromOrder, receiptsFromOrder_error, receiptsFromOrder_loading] = useFetchReceiptsFromOrder(props.param.type)
+
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const total = useSelector(state => state.orders.total)
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
 
+    // Считаем сумму и сдачу в калькуляторе
     useEffect(() => {
         dispatch(setTotal([pre_order.sum + horder.sum, pre_order.sum_discount + horder.sum_discount]))
         dispatch(setCash(['clean', pre_order.sum + horder.sum]))
@@ -27,9 +31,7 @@ const Payment = (props) => {
         }
     }, [dispatch, pre_order, horder])
 
-    const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
-    const [receiptsFromOrder, receiptsFromOrder_error, receiptsFromOrder_loading] = useFetchReceiptsFromOrder(props.param.type)
-
+    // Оформление таблиц
     const SXDataGrid = {
         borderRadius: 0,
         border: 'none',
@@ -81,6 +83,7 @@ const Payment = (props) => {
         }
     }
 
+    // Образец столбцов для таблицы с товарами
     const columns = useMemo(() => {
         return [
             {
@@ -121,6 +124,7 @@ const Payment = (props) => {
         ]
     }, [])
 
+    // Пустые данные для таблицы с товарами
     const data = useMemo(() => {
         return {
             waiting: {
@@ -168,6 +172,7 @@ const Payment = (props) => {
         }
     }, [columns])
 
+    // Заполнение товарами таблицы с товарами (при загрузке их с сервера)
     const [receipts, set_receipts] = useState({...data})
     useEffect(() => {
         if (!receiptsFromOrder) return
@@ -217,6 +222,7 @@ const Payment = (props) => {
         )
     }
 
+    // Отрисовка загруженных способов оплаты
     const paymentMethodsArray = () => {
         if (payment_methods_loading) {
             return <Loader/>
@@ -243,6 +249,7 @@ const Payment = (props) => {
         }
     }
 
+    // Для скрытия/отображения нужных таблиц с товарами подсчитываем, какие нужно оставить
     const [slip_without_receipt, set_slip_without_receipt] = useState(false)
     const [waiting, set_waiting] = useState(false)
     const [success, set_success] = useState(false)
@@ -270,6 +277,7 @@ const Payment = (props) => {
         }
     }, [receipts])
 
+    // Таблица с товарами (со с сылкой на данные)
     const table = (table_name, title) => {
         if (receipts[table_name.split(".")[0]][table_name.split(".")[1]].rows.length > 0) {
             return (
@@ -293,6 +301,7 @@ const Payment = (props) => {
         }
     }
 
+    // Кнопка калькулятора
     const calc = (b) => {
         dispatch(setCash([b, pre_order.sum + horder.sum]))
     }
