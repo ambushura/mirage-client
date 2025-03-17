@@ -22,6 +22,20 @@ const Payment = (props) => {
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
 
+    const [selected_mark_egais_items, set_selected_mark_egais_items] = useState(false)
+    const [selected_horeca_items, set_selected_horeca_items] = useState(false)
+    const [selected_cinema_items, set_selected_cinema_items] = useState(false)
+
+    // Проставляем, какие чеки будут пробиваться по умолчанию
+    useEffect(() => {
+        if (props.param.type === 'horeca') {
+            set_selected_mark_egais_items(true)
+            set_selected_horeca_items(true)
+        } else {
+            set_selected_cinema_items(true)
+        }
+    }, [props.param.type])
+
     // Считаем сумму и сдачу в калькуляторе
     useEffect(() => {
         dispatch(setTotal([pre_order.sum + horder.sum, pre_order.sum_discount + horder.sum_discount]))
@@ -282,7 +296,19 @@ const Payment = (props) => {
         if (receipts[table_name.split(".")[0]][table_name.split(".")[1]].rows.length > 0) {
             return (
                 <Box sx={{minHeight: '100px', minWidth: '100px'}}>
-                    <Box className='order-receipt-title-type'><Checkbox color="success"/>{title}</Box>
+                    <Box className='order-receipt-title-type'><Checkbox onChange={() => {
+                        if (table_name === 'waiting.mark_egais_items') {
+                            set_selected_mark_egais_items(!selected_mark_egais_items)
+                        } else if (table_name === 'waiting.horeca_items') {
+                            set_selected_horeca_items(!selected_horeca_items)
+                        } else if (table_name === 'waiting.cinema_items') {
+                            set_selected_cinema_items(!selected_cinema_items)
+                        }
+                    }} checked={
+                        (table_name === 'waiting.mark_egais_items' && selected_mark_egais_items) ||
+                        (table_name === 'waiting.horeca_items' && selected_horeca_items) ||
+                        (table_name === 'waiting.cinema_items' && selected_cinema_items)
+                    } color="success"/>{title}</Box>
                     <DataGrid
                         hideColumnHeaders
                         disableRowSelectionOnClick
@@ -409,7 +435,18 @@ const Payment = (props) => {
                             {table('slip_without_receipt.cinema_items', 'Услуги')}
                         </Box>
                         <Box sx={{display: waiting ? 'block' : 'none'}}>
-                            <Box className='order-receipt-title'><Checkbox color="success"/>Ожидает оплаты</Box>
+                            <Box className='order-receipt-title'>
+                                <Checkbox
+                                    onChange={() => {
+                                        if (props.param.type === 'horeca') {
+                                            set_selected_mark_egais_items(true)
+                                            set_selected_horeca_items(true)
+                                        } else {
+                                            set_selected_cinema_items(true)
+                                        }
+                                    }}
+                                    checked={(selected_mark_egais_items && selected_horeca_items) || selected_cinema_items}
+                                    color="success"/>Ожидает оплаты</Box>
                             {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                             {table('waiting.horeca_items', 'Товары')}
                             {table('waiting.cinema_items', 'Услуги')}
@@ -471,6 +508,17 @@ const Payment = (props) => {
                                 <Button variant="contained" color='secondary' onClick={() => {
                                     calc('00')
                                 }}>00</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc('000')
+                                }}>000</Button>
+                            </Stack>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(10)
+                                }}>10</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc('100')
+                                }}>100</Button>
                                 <Button variant="contained" color='secondary' fullWidth onClick={() => {
                                     dispatch(setCash(['clean', pre_order.sum + horder.sum]))
                                 }}><DeleteForeverIcon/></Button>
