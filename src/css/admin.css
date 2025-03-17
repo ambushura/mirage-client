@@ -435,7 +435,7 @@
 .order-receipts-section-total {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 3;
     background-color: #0e0f11;
     min-height: 100px;
     min-width: 100px;
@@ -446,23 +446,21 @@
     position: sticky;
     top: 160px;
     z-index: 2;
-    height: 35px;
+    height: 42px;
     font-size: 120%;
     font-weight: bold;
     background-color: #fff;
-    padding: 8px 10px;
 }
 .order-receipt-title-type {
     box-sizing: border-box;
     color: #000;
     position: sticky;
-    top: calc(160px + 35px);
-    z-index: 3;
-    height: 30px;
+    top: calc(160px + 42px);
+    z-index: 1;
+    height: 42px;
     font-size: 100%;
     font-weight: bold;
     background-color: #fff;
-    padding: 8px 10px;
 }
 .order-receipts-calc-payment {
     display: flex;

@@ -1,4 +1,4 @@
-import {Box, Button, Stack} from "@mui/material"
+import {Box, Button, Checkbox, Stack} from "@mui/material"
 import {useFetchReceiptsFromOrder} from "../../hooks/payment/useFetchReceiptsFromOrder.js"
 import Loader from "./Loader.jsx"
 import {useSetPaymentMethods} from "../../hooks/payment/useSetPaymentMethods.js"
@@ -274,7 +274,7 @@ const Payment = (props) => {
         if (receipts[table_name.split(".")[0]][table_name.split(".")[1]].rows.length > 0) {
             return (
                 <Box sx={{minHeight: '100px', minWidth: '100px'}}>
-                    <Box className='order-receipt-title-type'>{title}</Box>
+                    <Box className='order-receipt-title-type'><Checkbox color="success"/>{title}</Box>
                     <DataGrid
                         hideColumnHeaders
                         disableRowSelectionOnClick
@@ -362,7 +362,7 @@ const Payment = (props) => {
                                 },
                                 {
                                     field: 'change',
-                                    headerName: total[0] > cash ? 'Получи' : 'Верни',
+                                    headerName: total[0] > cash ? 'Возьми' : 'Верни',
                                     width: 100,
                                     editable: false,
                                     sortable: false,
@@ -393,19 +393,21 @@ const Payment = (props) => {
                     </Box>
                     <Box className='order-receipts-section-items'>
                         <Box sx={{display: slip_without_receipt ? 'block' : 'none'}}>
-                            <Box className='order-receipt-title'>Списали деньги с карты, но не пробили чек</Box>
+                            <Box className='order-receipt-title'><Checkbox color="success"/>Списали деньги с карты, но
+                                не пробили чек</Box>
                             {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                             {table('slip_without_receipt.horeca_items', 'Товары')}
                             {table('slip_without_receipt.cinema_items', 'Услуги')}
                         </Box>
                         <Box sx={{display: waiting ? 'block' : 'none'}}>
-                            <Box className='order-receipt-title'>Ожидает оплаты</Box>
+                            <Box className='order-receipt-title'><Checkbox color="success"/>Ожидает оплаты</Box>
                             {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                             {table('waiting.horeca_items', 'Товары')}
                             {table('waiting.cinema_items', 'Услуги')}
                         </Box>
                         <Box sx={{display: success ? 'block' : 'none'}}>
-                            <Box className='order-receipt-title'>Успешно оплачено</Box>
+                            <Box className='order-receipt-title'><Checkbox color="success" disabled checked/>Успешно
+                                оплачено</Box>
                             {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                             {table('success.horeca_items', 'Товары')}
                             {table('success.cinema_items', 'Услуги')}
