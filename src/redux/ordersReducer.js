@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { date_dayjs } from "../service/advanced.js"
-import { v4 } from "uuid"
+import {createSlice} from "@reduxjs/toolkit"
+import {date_dayjs} from "../service/advanced.js"
+import {v4} from "uuid"
 
 export const NEW_EMPTY_ORDER = () => ({
     in_base: false,
@@ -31,7 +31,10 @@ export const ORDER_TIME_OUT = 1000
 const initialState = {
     date: JSON.stringify(date_dayjs(new Date())),
     pre_order: NEW_EMPTY_ORDER(),
-    horder: NEW_EMPTY_HORDER()
+    horder: NEW_EMPTY_HORDER(),
+    total: 0,
+    cash: 0,
+    change: 0,
 }
 
 export const ordersSlice = createSlice({
@@ -46,9 +49,21 @@ export const ordersSlice = createSlice({
         },
         setCurrentHorder: (state, {payload}) => {
             state.horder = payload
-        }
+        },
+        setTotal: (state, {payload}) => {
+            state.total = payload
+        },
+        setCash: (state, {payload}) => {
+            if (payload[0] === 'clean') {
+                state.cash = 0
+                state.change = payload[1]
+            } else {
+                state.cash = parseFloat(`${state.cash}${payload[0]}`)
+                state.change = payload[1] - state.cash
+            }
+        },
     },
 })
 
-export const { setDate, setCurrentPreOrder, setCurrentHorder } = ordersSlice.actions
+export const { setDate, setCurrentPreOrder, setCurrentHorder, setCash, setTotal} = ordersSlice.actions
 export default ordersSlice.reducer

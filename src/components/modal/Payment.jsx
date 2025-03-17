@@ -5,22 +5,26 @@ import {useSetPaymentMethods} from "../../hooks/payment/useSetPaymentMethods.js"
 import {DataGrid} from "@mui/x-data-grid"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {useEffect, useMemo, useState} from "react"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {setCash, setTotal} from "../../redux/ordersReducer.js"
 
 const Payment = (props) => {
 
+    const dispatch = useDispatch()
+
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
-    const [total, set_total] = useState([0, 0])
-    const [cash, set_cash] = useState([0, 0])
+    const total = useSelector(state => state.orders.total)
+    const cash = useSelector(state => state.orders.cash)
+    const change = useSelector(state => state.orders.change)
 
     useEffect(() => {
-        set_total([pre_order.sum + horder.sum, pre_order.sum_discount + horder.sum_discount])
-    }, [pre_order, horder])
-
-    useEffect(() => {
-
-    }, [pre_order, horder])
+        dispatch(setTotal([pre_order.sum + horder.sum, pre_order.sum_discount + horder.sum_discount]))
+        dispatch(setCash(['clean', pre_order.sum + horder.sum]))
+        return () => {
+            dispatch(setTotal(0))
+        }
+    }, [dispatch, pre_order, horder])
 
     const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
     const [receiptsFromOrder, receiptsFromOrder_error, receiptsFromOrder_loading] = useFetchReceiptsFromOrder(props.param.type)
@@ -51,9 +55,6 @@ const Payment = (props) => {
         '& .MuiDataGrid-root': {
             backgroundColor: '#f5f5f5',
         },
-        '& .MuiDataGrid-cell': {
-            fontWeight: 'bold',
-        },
         '& .MuiDataGrid-columnHeaders': {
             color: 'black',
         },
@@ -70,6 +71,13 @@ const Payment = (props) => {
         '& MuiDataGrid-root *': {
             userSelect: 'none !important'
         },
+        '& .MuiDataGrid-cell': {
+            fontWeight: 'bold',
+        },
+        '& .MuiDataGrid-row:nth-of-type(1) .MuiDataGrid-cell[data-field="change"]': {
+            backgroundColor: total[0] > cash ? '#E3000B' : '#50DB92',
+            color: total[0] > cash ? '#fff' : '#000'
+        }
     }
 
     const columns = useMemo(() => {
@@ -259,6 +267,10 @@ const Payment = (props) => {
         }
     }
 
+    const calc = (b) => {
+        dispatch(setCash([b, pre_order.sum + horder.sum]))
+    }
+
     if (receiptsFromOrder_error !== null) {
         return (<Box>Ошибка</Box>)
     } else if (receiptsFromOrder_loading) {
@@ -323,8 +335,8 @@ const Payment = (props) => {
                                     disableColumnMenu: true
                                 },
                                 {
-                                    field: 'back',
-                                    headerName: 'СДАЧА',
+                                    field: 'change',
+                                    headerName: total[0] > cash ? 'ПОЛУЧИ' : 'ВЕРНИ',
                                     width: 90,
                                     editable: false,
                                     sortable: false,
@@ -339,15 +351,17 @@ const Payment = (props) => {
                                     total: `${total[0]} р`,
                                     cinema: `${pre_order.sum} р`,
                                     horeca: `${horder.sum} р`,
-                                    cash: `${cash[0]} р`,
-                                    back: `${cash[1]} р`,
+                                    cash: `${cash} р`,
+                                    change: `${Math.abs(change)} р`,
                                 },
                                 {
                                     id: '1',
                                     name: 'скидка',
-                                    total: `${total[1]} р`,
+                                    total: `${pre_order.sum_discount + horder.sum_discount} р`,
                                     cinema: `${pre_order.sum_discount} р`,
-                                    horeca: `${horder.sum_discount} р`
+                                    horeca: `${horder.sum_discount} р`,
+                                    cash: '',
+                                    change: '',
                                 },
                             ]}/>
                     </Box>
@@ -389,24 +403,44 @@ const Payment = (props) => {
                     <Box className='order-receipts-calc'>
                         <Stack direction="column" spacing={1}>
                             <Stack direction="row" spacing={1}>
-                                <Button variant="contained" color='secondary' onClick={() => {}}>7</Button>
-                                <Button variant="contained" color='secondary'>8</Button>
-                                <Button variant="contained" color='secondary'>9</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(7)
+                                }}>7</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(8)
+                                }}>8</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(9)
+                                }}>9</Button>
                             </Stack>
                             <Stack direction="row" spacing={1}>
-                                <Button variant="contained" color='secondary'>4</Button>
-                                <Button variant="contained" color='secondary'>5</Button>
-                                <Button variant="contained" color='secondary'>6</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(4)
+                                }}>4</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(5)
+                                }}>5</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(6)
+                                }}>6</Button>
                             </Stack>
                             <Stack direction="row" spacing={1}>
-                                <Button variant="contained" color='secondary'>1</Button>
-                                <Button variant="contained" color='secondary'>2</Button>
-                                <Button variant="contained" color='secondary'>3</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(1)
+                                }}>1</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(2)
+                                }}>2</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(3)
+                                }}>3</Button>
                             </Stack>
                             <Stack direction="row" spacing={1}>
-                                <Button variant="contained" color='secondary'>0</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc(0)
+                                }}>0</Button>
                                 <Button variant="contained" color='secondary' fullWidth onClick={() => {
-                                    set_cash([0, 0])
+                                    dispatch(setCash(['clean', pre_order.sum + horder.sum]))
                                 }}>Очистить</Button>
                             </Stack>
                         </Stack>
