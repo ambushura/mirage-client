@@ -495,3 +495,11 @@
 .order-receipts-payment::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+
+
+
+.payment-path {
+    display: flex;
+    flex-direction: column;
+}

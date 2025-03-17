@@ -7,6 +7,7 @@ import {ruRU} from "@mui/x-data-grid/locales"
 import {useEffect, useMemo, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {setCash, setTotal} from "../../redux/ordersReducer.js"
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 const Payment = (props) => {
 
@@ -111,6 +112,12 @@ const Payment = (props) => {
                 width: 90,
                 editable: false,
             },
+            {
+                field: 'discount',
+                headerName: 'скидка',
+                width: 100,
+                editable: false,
+            },
         ]
     }, [])
 
@@ -172,6 +179,7 @@ const Payment = (props) => {
                     quantity: item.quantity + ' ' + item.unit_name,
                     price: `${item.price} р`,
                     sum: `${item.sum} р`,
+                    discount: `${item.name_discount === null ? '-' : item.name_discount}`,
                 })
             })
             receiptsFromOrder.waiting.horeca_items.forEach((item) => {
@@ -181,6 +189,7 @@ const Payment = (props) => {
                     quantity: item.quantity + ' ' + item.unit_name,
                     price: `${item.price} р`,
                     sum: `${item.sum} р`,
+                    discount: `${item.name_discount === null ? '-' : item.name_discount}`,
                 })
             })
             receiptsFromOrder.waiting.cinema_items.forEach((item) => {
@@ -190,6 +199,7 @@ const Payment = (props) => {
                     quantity: item.quantity + ' ' + item.unit_name,
                     price: `${item.price} р`,
                     sum: `${item.sum} р`,
+                    discount: `${item.name_discount === null ? '-' : item.name_discount}`,
                 })
             })
             set_receipts(receiptsNew)
@@ -209,7 +219,12 @@ const Payment = (props) => {
                     {payment_methods.list.map(paymentMethod => {
                         return (
                             <Button variant='contained' color='info'
-                                    key={paymentMethod.uid}>{paymentMethod.name}</Button>
+                                    key={paymentMethod.uid}
+                                    className='payment-path'>
+                                <span>{paymentMethod.name}</span>
+                                <span
+                                    style={{fontSize: '70%'}}>kkt..{paymentMethod.kkt.number.slice(-4)} - pin..{paymentMethod.pinpad.number.slice(-4)}</span>
+                            </Button>
                         )
                     })}
                 </>
@@ -299,18 +314,9 @@ const Payment = (props) => {
                                     disableColumnMenu: true
                                 },
                                 {
-                                    field: 'total',
-                                    headerName: 'ВСЕГО',
-                                    width: 90,
-                                    editable: false,
-                                    sortable: false,
-                                    filterable: false,
-                                    disableColumnMenu: true
-                                },
-                                {
                                     field: 'cinema',
                                     headerName: 'КИНО',
-                                    width: 90,
+                                    width: 100,
                                     editable: false,
                                     sortable: false,
                                     filterable: false,
@@ -319,7 +325,16 @@ const Payment = (props) => {
                                 {
                                     field: 'horeca',
                                     headerName: 'ОБЩЕПИТ',
-                                    width: 90,
+                                    width: 100,
+                                    editable: false,
+                                    sortable: false,
+                                    filterable: false,
+                                    disableColumnMenu: true
+                                },
+                                {
+                                    field: 'total',
+                                    headerName: 'ВСЕГО',
+                                    width: 100,
                                     editable: false,
                                     sortable: false,
                                     filterable: false,
@@ -328,7 +343,7 @@ const Payment = (props) => {
                                 {
                                     field: 'cash',
                                     headerName: 'ПОЛУЧИЛ',
-                                    width: 90,
+                                    width: 100,
                                     editable: false,
                                     sortable: false,
                                     filterable: false,
@@ -337,7 +352,7 @@ const Payment = (props) => {
                                 {
                                     field: 'change',
                                     headerName: total[0] > cash ? 'ПОЛУЧИ' : 'ВЕРНИ',
-                                    width: 90,
+                                    width: 100,
                                     editable: false,
                                     sortable: false,
                                     filterable: false,
@@ -439,9 +454,12 @@ const Payment = (props) => {
                                 <Button variant="contained" color='secondary' onClick={() => {
                                     calc(0)
                                 }}>0</Button>
+                                <Button variant="contained" color='secondary' onClick={() => {
+                                    calc('00')
+                                }}>00</Button>
                                 <Button variant="contained" color='secondary' fullWidth onClick={() => {
                                     dispatch(setCash(['clean', pre_order.sum + horder.sum]))
-                                }}>Очистить</Button>
+                                }}><DeleteForeverIcon/></Button>
                             </Stack>
                         </Stack>
                     </Box>
