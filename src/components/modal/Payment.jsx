@@ -31,27 +31,27 @@ const Payment = (props) => {
     const [receiptsFromOrder, receiptsFromOrder_error, receiptsFromOrder_loading] = useFetchReceiptsFromOrder(props.param.type)
 
     const SXDataGrid = {
-        borderRadius: '12px',
+        borderRadius: 0,
         border: 'none',
         '& .MuiDataGrid-row': {
             background: 'white',
         },
         '& .MuiDataGrid-row:hover': {
-            background: '#dfdfdf',
+            background: '#fff',
         },
         '& .MuiDataGrid-row.Mui-selected:hover': {
-            background: '#bdbaba',
+            background: '#fff',
         },
         '& .MuiDataGrid-row.Mui-selected': {
-            background: '#cac6c6',
+            background: '#fff',
         },
         '& .MuiDataGrid-columnHeaderTitleContainer': {
             background: 'white',
-            borderRadius: '12px 12px 0 0',
+            fontWeight: 'bold',
+            fontSize: '120%',
         },
         '& .MuiDataGrid-footerContainer': {
             background: 'white',
-            borderRadius: '0 0 12px 12px',
         },
         '& .MuiDataGrid-root': {
             backgroundColor: '#f5f5f5',
@@ -168,43 +168,54 @@ const Payment = (props) => {
         }
     }, [columns])
 
-    const [receipts, set_receipts] = useState(Object.assign({}, data))
+    const [receipts, set_receipts] = useState({...data})
     useEffect(() => {
-        if (receiptsFromOrder !== null) {
-            const receiptsNew = Object.assign({}, data)
-            receiptsFromOrder.waiting.mark_egais_items.forEach((item) => {
-                receiptsNew.waiting.mark_egais_items.rows.push({
-                    id: item.uid,
+        if (!receiptsFromOrder) return
+        const receiptsNew = structuredClone(data)
+        const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
+        categories.forEach((category) => {
+            receiptsFromOrder.waiting[category].forEach((item) => {
+                receiptsNew.waiting[category].rows.push({
                     name: item.name,
-                    quantity: item.quantity + ' ' + item.unit_name,
-                    price: `${item.price} р`,
-                    sum: `${item.sum} р`,
-                    discount: `${item.name_discount === null ? '-' : item.name_discount}`,
+                    unit_name: item.unit_name,
+                    price: item.price,
+                    discount: item.name_discount ?? "-",
+                    quantity: item.quantity,
+                    sum: item.sum,
                 })
             })
-            receiptsFromOrder.waiting.horeca_items.forEach((item) => {
-                receiptsNew.waiting.horeca_items.rows.push({
-                    id: item.uid,
-                    name: item.name,
-                    quantity: item.quantity + ' ' + item.unit_name,
-                    price: `${item.price} р`,
-                    sum: `${item.sum} р`,
-                    discount: `${item.name_discount === null ? '-' : item.name_discount}`,
-                })
-            })
-            receiptsFromOrder.waiting.cinema_items.forEach((item) => {
-                receiptsNew.waiting.cinema_items.rows.push({
-                    id: item.uid,
-                    name: item.name,
-                    quantity: item.quantity + ' ' + item.unit_name,
-                    price: `${item.price} р`,
-                    sum: `${item.sum} р`,
-                    discount: `${item.name_discount === null ? '-' : item.name_discount}`,
-                })
-            })
-            set_receipts(receiptsNew)
-        }
+            const groupedItems = groupAndSum(
+                receiptsNew.waiting[category].rows,
+                ["name", "unit_name", "price", "discount"],
+                ["quantity", "sum"]
+            )
+            receiptsNew.waiting[category].rows = groupedItems.map((item, i) => ({
+                id: i,
+                name: item.name,
+                price: `${item.price.toLocaleString("ru-RU")} р`,
+                discount: item.name_discount ?? "-",
+                quantity: `${item.quantity} ${item.unit_name}`,
+                sum: `${item.sum.toLocaleString("ru-RU")} р`,
+            }))
+        })
+        set_receipts(receiptsNew)
     }, [data, receiptsFromOrder])
+
+    function groupAndSum(data, groupByFields, sumFields) {
+        return Object.values(
+            data.reduce((acc, item) => {
+                const key = groupByFields.map(field => item[field]).join('-')
+                if (!acc[key]) {
+                    acc[key] = {...item}
+                } else {
+                    sumFields.forEach(field => {
+                        acc[key][field] += item[field]
+                    })
+                }
+                return acc
+            }, {})
+        )
+    }
 
     const paymentMethodsArray = () => {
         if (payment_methods_loading) {
@@ -262,7 +273,7 @@ const Payment = (props) => {
     const table = (table_name, title) => {
         if (receipts[table_name.split(".")[0]][table_name.split(".")[1]].rows.length > 0) {
             return (
-                <>
+                <Box sx={{minHeight: '100px', minWidth: '100px'}}>
                     <Box className='order-receipt-title-type'>{title}</Box>
                     <DataGrid
                         hideColumnHeaders
@@ -275,7 +286,7 @@ const Payment = (props) => {
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         sx={SXDataGrid}
                     />
-                </>
+                </Box>
             )
         } else {
             return (<></>)
@@ -315,7 +326,7 @@ const Payment = (props) => {
                                 },
                                 {
                                     field: 'cinema',
-                                    headerName: 'КИНО',
+                                    headerName: 'Кино',
                                     width: 100,
                                     editable: false,
                                     sortable: false,
@@ -324,7 +335,7 @@ const Payment = (props) => {
                                 },
                                 {
                                     field: 'horeca',
-                                    headerName: 'ОБЩЕПИТ',
+                                    headerName: 'Общепит',
                                     width: 100,
                                     editable: false,
                                     sortable: false,
@@ -333,7 +344,7 @@ const Payment = (props) => {
                                 },
                                 {
                                     field: 'total',
-                                    headerName: 'ВСЕГО',
+                                    headerName: 'Всего',
                                     width: 100,
                                     editable: false,
                                     sortable: false,
@@ -342,7 +353,7 @@ const Payment = (props) => {
                                 },
                                 {
                                     field: 'cash',
-                                    headerName: 'ПОЛУЧИЛ',
+                                    headerName: 'Получил',
                                     width: 100,
                                     editable: false,
                                     sortable: false,
@@ -351,7 +362,7 @@ const Payment = (props) => {
                                 },
                                 {
                                     field: 'change',
-                                    headerName: total[0] > cash ? 'ПОЛУЧИ' : 'ВЕРНИ',
+                                    headerName: total[0] > cash ? 'Получи' : 'Верни',
                                     width: 100,
                                     editable: false,
                                     sortable: false,
@@ -362,19 +373,19 @@ const Payment = (props) => {
                             rows={[
                                 {
                                     id: '0',
-                                    name: 'к оплате',
-                                    total: `${total[0]} р`,
-                                    cinema: `${pre_order.sum} р`,
-                                    horeca: `${horder.sum} р`,
-                                    cash: `${cash} р`,
-                                    change: `${Math.abs(change)} р`,
+                                    name: 'К оплате',
+                                    total: `${total[0].toLocaleString("ru-RU")} р`,
+                                    cinema: `${pre_order.sum.toLocaleString("ru-RU")} р`,
+                                    horeca: `${horder.sum.toLocaleString("ru-RU")} р`,
+                                    cash: `${cash.toLocaleString("ru-RU")} р`,
+                                    change: `${Math.abs(change).toLocaleString("ru-RU")} р`,
                                 },
                                 {
                                     id: '1',
-                                    name: 'скидка',
-                                    total: `${pre_order.sum_discount + horder.sum_discount} р`,
-                                    cinema: `${pre_order.sum_discount} р`,
-                                    horeca: `${horder.sum_discount} р`,
+                                    name: 'Скидка',
+                                    total: `${(pre_order.sum_discount + horder.sum_discount).toLocaleString("ru-RU")} р`,
+                                    cinema: `${pre_order.sum_discount.toLocaleString("ru-RU")} р`,
+                                    horeca: `${horder.sum_discount.toLocaleString("ru-RU")} р`,
                                     cash: '',
                                     change: '',
                                 },
@@ -383,29 +394,21 @@ const Payment = (props) => {
                     <Box className='order-receipts-section-items'>
                         <Box sx={{display: slip_without_receipt ? 'block' : 'none'}}>
                             <Box className='order-receipt-title'>Списали деньги с карты, но не пробили чек</Box>
-                            <Box>
-                                {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                                {table('slip_without_receipt.horeca_items', 'Товары')}
-                                {table('slip_without_receipt.cinema_items', 'Услуги')}
-                            </Box>
+                            {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                            {table('slip_without_receipt.horeca_items', 'Товары')}
+                            {table('slip_without_receipt.cinema_items', 'Услуги')}
                         </Box>
                         <Box sx={{display: waiting ? 'block' : 'none'}}>
                             <Box className='order-receipt-title'>Ожидает оплаты</Box>
-                            <Box>
-                                {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                                {table('waiting.horeca_items', 'Товары')}
-                                {table('waiting.cinema_items', 'Услуги')}
-                            </Box>
+                            {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                            {table('waiting.horeca_items', 'Товары')}
+                            {table('waiting.cinema_items', 'Услуги')}
                         </Box>
                         <Box sx={{display: success ? 'block' : 'none'}}>
                             <Box className='order-receipt-title'>Успешно оплачено</Box>
-                            <Box>
-                                <Box>
-                                    {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                                    {table('success.horeca_items', 'Товары')}
-                                    {table('success.cinema_items', 'Услуги')}
-                                </Box>
-                            </Box>
+                            {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                            {table('success.horeca_items', 'Товары')}
+                            {table('success.cinema_items', 'Услуги')}
                         </Box>
                     </Box>
                 </Box>
