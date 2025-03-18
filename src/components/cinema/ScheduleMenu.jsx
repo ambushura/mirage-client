@@ -41,7 +41,7 @@ const ScheduleMenu = () => {
                     <Button variant="contained" color="secondary" style={{marginRight: '5px'}} onClick={() => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
                     }}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
-                <ButtonGroup>
+                <ButtonGroup size='small'>
                     <Button variant="contained" color="secondary" onClick={() => {
                         const date = date_dayjs(new Date())
                         const current_param_date = from_dayjs_to_str(date)
@@ -128,11 +128,11 @@ const ScheduleMenu = () => {
                                   format="DD dd"
                                   views={['day']}/>
                 </Popover>
-                <Box className='top-menu-content-types'>
+                <ButtonGroup className='top-menu-content-types' size='small' sx={{marginLeft: '5px'}}>
                     <Button variant="contained" color="primary">Все фильмы</Button>
                     <Button variant="contained" color="secondary">ТоКино!</Button>
                     <Button variant="contained" color="secondary">Пушкарта</Button>
-                </Box>
+                </ButtonGroup>
             </Box>
         </Box>
     )

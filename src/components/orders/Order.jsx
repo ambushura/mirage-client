@@ -59,7 +59,7 @@ const Order = () => {
             {pre_order_show ?
                 <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                     <Box className="order-box-panel-cinema-1">
-                        <ButtonGroup>
+                        <ButtonGroup size='small'>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
                                     onClick={() => dispatch(openModal({type: 'payment', props: {type: 'cinema', uid: pre_order.uid}}))}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
@@ -79,7 +79,7 @@ const Order = () => {
                         </Box>
                     </Box>
                     <Box className="order-box-panel-cinema-2">
-                        <ButtonGroup>
+                        <ButtonGroup size='small'>
                             <ButtonGroup sx={{marginRight: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Скидки</Button>
@@ -126,7 +126,7 @@ const Order = () => {
             {horder_show ?
                 <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                     <Box className="order-box-panel-1">
-                        <ButtonGroup>
+                        <ButtonGroup size='small'>
                             <Button style={{minWidth: '80px'}} variant="contained" color="info"
                                     onClick={() => dispatch(openModal({type: 'payment', props: {type: 'horeca', uid: horder.uid}}))}><ReceiptIcon/></Button>
                             <Button style={{minWidth: '80px'}} variant="contained" color="secondary"
@@ -145,20 +145,20 @@ const Order = () => {
                         </Box>
                     </Box>
                     <Box className="order-box-panel-2">
-                        <ButtonGroup sx={{marginBottom: '4px'}}>
-                            <ButtonGroup sx={{marginRight: '4px'}}>
+                        <ButtonGroup sx={{marginBottom: '4px'}} size='small'>
+                            <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Пречек</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Разделить</Button>
                             </ButtonGroup>
-                            <ButtonGroup sx={{marginRight: '4px'}}>
+                            <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}><DeleteIcon/></Button>
                             </ButtonGroup>
-                            <ButtonGroup>
+                            <ButtonGroup size='small'>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}>Стол</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {

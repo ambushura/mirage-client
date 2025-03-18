@@ -76,14 +76,16 @@ const Header = () => {
                 <Box id="header-desktop">
                     {permissions.includes("staff") ? <></> : <TopSlider/>}
                     <Box id="header-menu">
-                        <ButtonGroup id="header-menu-list" variant="contained">
+                        <ButtonGroup id="header-menu-list" variant="contained" size='small'>
                             {top_menu[authenticated].map(el => {
-                                return <NavLink key={el.id} className='link' to={el.path}><Button
-                                    style={{height: '100%'}}>{el.name}</Button></NavLink>
+                                return <NavLink key={el.id} className='link' to={el.path}>
+                                    <Button style={{height: '100%'}}>{el.name}</Button>
+                                </NavLink>
                             })}
                         </ButtonGroup>
-                        <ButtonGroup id="top-menu-left" variant="contained">
+                        <ButtonGroup id="top-menu-left" variant="contained" size='small' sx={{marginLeft: '5px'}}>
                             <List
+                                size='small'
                                 open={cities_open}
                                 anchor={cities_ref}
                                 prev_open={prev_cities_open}
@@ -96,6 +98,7 @@ const Header = () => {
                                 type="cities"
                             />
                             <List
+                                size='small'
                                 open={filials_open}
                                 anchor={filials_ref}
                                 prev_open={prev_filials_open}
@@ -107,8 +110,8 @@ const Header = () => {
                                 type='filials'
                             />
                         </ButtonGroup>
-                        <Box sx={{display: 'flex', alignItems: 'center'}}>
-                            <ButtonGroup size="large" variant='contained' color='secondary' id="header-time-username">
+                        <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
+                            <ButtonGroup size="small" variant='contained' color='secondary' id="header-time-username">
                                 {user_panel()}
                             </ButtonGroup>
                             <Modal open={auth_opened}

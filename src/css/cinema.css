@@ -3,14 +3,6 @@
     justify-content: center;
     align-items: center;
 }
-.top-menu-content-types {
-    margin-left: 5px;
-    display: flex;
-    justify-content: center;
-}
-.top-menu-content-types>button {
-    margin-right: 5px;
-}
 
 /* Плиточное расписание */
 #schedule {
