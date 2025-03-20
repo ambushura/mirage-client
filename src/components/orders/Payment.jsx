@@ -3,7 +3,8 @@ import {useSetPaymentMethods} from "../../hooks/payment/useSetPaymentMethods.js"
 import {useFetchReceiptsFromOrder} from "../../hooks/payment/useFetchReceiptsFromOrder.js"
 import {useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import {useEffect} from "react";
+import {useEffect} from "react"
+import Loader from "../modal/Loader.jsx"
 
 const Payment = (props) => {
 
@@ -11,6 +12,32 @@ const Payment = (props) => {
     const [order_receipt, order_error, order_loading] = useFetchReceiptsFromOrder(props.type)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+
+    const paymentMethodsArray = () => {
+        if (payment_methods_loading) {
+            return <Loader/>
+        } else if (payment_methods_error) {
+            return <Box>Ошибка загрузки маршрутов оплаты</Box>
+        } else if (payment_methods.list.length === 0) {
+            return <Box>Для этого рабочего места не найдено маршрутов оплаты</Box>
+        } else {
+            return (
+                <>
+                    {payment_methods.list.map(paymentMethod => {
+                        return (
+                            <Button variant='contained' color='info'
+                                    key={paymentMethod.uid}
+                                    className='payment-path'>
+                                <span>{paymentMethod.name}</span>
+                                <span
+                                    style={{fontSize: '70%'}}>kkt..{paymentMethod.kkt.number.slice(-4)} - pin..{paymentMethod.pinpad.number.slice(-4)}</span>
+                            </Button>
+                        )
+                    })}
+                </>
+            )
+        }
+    }
 
     useEffect(() => {
         // блокируем заказ
@@ -69,7 +96,7 @@ const Payment = (props) => {
                 </Box>
             </Box>
             <Box>
-
+                {paymentMethodsArray()}
             </Box>
         </Box>
     )

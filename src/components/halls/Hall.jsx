@@ -109,6 +109,7 @@ const Hall = (props) => {
                                         }
                                         return (<Place
                                             set_count_book={props.set_count_book}
+                                            city={props.city}
                                             filial={props.filial}
                                             pre_order={props.pre_order}
                                             seance={props.seance}

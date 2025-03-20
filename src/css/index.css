@@ -4,7 +4,7 @@
   --bg-gradient-block: #0E0F11;
   --bg-menu-item: #EFEFEF;
   --bg-order-item: #EFEFEF;
-  --width-order: 520px;
+  --width-order: calc(520px - 4px);
 }
 :root[data-theme='light'] {
   --bg-color: #F8F8F8;
@@ -12,7 +12,7 @@
   --bg-gradient-block: #F8F8F8;
   --bg-menu-item: #D7D7D7;
   --bg-order-item: #dfdede;
-  --width-order: 520px;
+  --width-order: calc(520px - 4px);
 }
 
 /* Сброс стилей */

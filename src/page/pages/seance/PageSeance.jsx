@@ -22,6 +22,7 @@ const PageSeance = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const [authenticated, set_authenticated] = useState(0)
     const permissions = useSelector(state => state.auth.permissions)
@@ -140,6 +141,7 @@ const PageSeance = () => {
                             : <></>}
                         <Box style={{display: 'flex'}}>
                             <Hall
+                                city={city}
                                 filial={filial}
                                 pre_order={pre_order}
                                 hall={hall}

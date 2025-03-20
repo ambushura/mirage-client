@@ -4,6 +4,7 @@
     overflow-y: auto;
     padding-right: 50px;
     margin-right: -50px;
+    padding-left: 4px;
 }
 .order-box {
     box-sizing: border-box;
@@ -509,6 +510,7 @@
     background-color: #ececec;
     height: 60px;
     border-radius: 12px;
+    margin-bottom: 4px;
 }
 .payment-total>div {
     flex: 1;

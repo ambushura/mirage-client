@@ -38,10 +38,10 @@ export const deletePreOrder = (filial, uid_order) => {
     }
 }
 
-export const takeSeat = (filial, uid_seance, uid_order, uid_place, ver) => {
+export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}`, {timeout: 5000})
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {timeout: 5000})
             if (response.data.code === 200) {
                 if (response.data.data === null) {
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))

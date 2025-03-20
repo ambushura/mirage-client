@@ -58,7 +58,7 @@ const Place = (props) => {
                 if (props.set_time_remaining !== undefined) {
                     props.set_time_remaining(100)
                 }
-                dispatch(takeSeat(props.filial, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
+                dispatch(takeSeat(props.city, props.filial, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
             }}
             style={{
                 background: 'transparent',
