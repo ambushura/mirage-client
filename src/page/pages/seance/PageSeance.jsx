@@ -4,10 +4,9 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {useNavigate} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-import {useFetchOrder} from "../../../hooks/fetching/useFetchOrder.js"
 import {useFetchBooking} from "../../../hooks/fetching/useFetchBooking.js"
 import {setBooking} from "../../../redux/scheduleReducer.js"
-import {ORDER_TIME_OUT, setCurrentPreOrder} from "../../../redux/ordersReducer.js"
+import {ORDER_TIME_OUT} from "../../../redux/ordersReducer.js"
 import {ticket_count} from "../../../service/advanced.js"
 import {deletePreOrder} from "../../../service/fetch_service.js"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
@@ -30,7 +29,6 @@ const PageSeance = () => {
     const pre_order = useSelector(state => state.orders.pre_order)
     const booking = useSelector(state => state.schedule.booking)
 
-    const [order_data, ,] = useFetchOrder()
     const [booking_data, ,] = useFetchBooking()
     const hall = useSetSeance()
 
@@ -41,14 +39,6 @@ const PageSeance = () => {
     const [hall_height, set_hall_height] = useState(0)
     const [time_remaining, set_time_remaining] = useState(100)
     const [count_book, set_count_book] = useState(0)
-
-    useEffect(() => {
-        if (filial !== undefined) {
-            if (order_data !== undefined) {
-                dispatch(setCurrentPreOrder(order_data))
-            }
-        }
-    }, [dispatch, filial, order_data])
 
     useEffect(() => {
         if (filial !== undefined) {
@@ -116,9 +106,13 @@ const PageSeance = () => {
                                 <Box className='seance-title-film-name'>{seance.name_film}</Box>
                                 <Box className='seance-title-hall-name'>Зал {hall.name_full}</Box>
                                 <Box className='seance-title-panel'>
-                                    <SeanceTitle seance={seance} content_type={true} day={true} its_hall_map={true}
-                                                 age={false}/>
-                                    {pre_order.booking.length > 0 ?
+                                    <SeanceTitle
+                                        seance={seance}
+                                        content_type={true}
+                                        day={true}
+                                        its_hall_map={true}
+                                        age={false}/>
+                                    {pre_order.items.length > 0 ?
                                         <Button sx={{height: '48px', marginLeft: '10px'}} variant="contained"
                                                 className='seance-title-preorder' onClick={() => {
                                             set_check_out(true)

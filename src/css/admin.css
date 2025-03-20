@@ -27,18 +27,16 @@
     display: flex;
     justify-content: space-between;
     vertical-align: center;
-    margin: 4px 4px 0 0;
-    width: 200px;
+    margin: 0 4px 4px 0;
 }
 .order-booking-item-description {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 3px 0 0;
     background-color: #414650;
-    border-radius: 12px;
+    border-radius: 12px 0 0 12px;
     padding: 0 8px;
-    width: 80px;
+    width: 120px;
 }
 .order-booking-item-numbers {
     font-weight: bold;
@@ -496,11 +494,37 @@
 .order-receipts-payment::-webkit-scrollbar-corner {
     background: transparent;
 }
-
-
-
-
 .payment-path {
     display: flex;
     flex-direction: column;
+}
+
+
+
+
+
+.payment-total {
+    display: flex;
+    width: 100%;
+    background-color: #ececec;
+    height: 60px;
+    border-radius: 12px;
+}
+.payment-total>div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 120%;
+    color: black;
+}
+.payment-total-title {
+    font-size: 70%;
+}
+.payment-total-sum {
+    font-size: 70%;
+}
+.payment-total-title, .payment-total-sum {
+    text-align: center;
 }

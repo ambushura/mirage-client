@@ -18,22 +18,28 @@ const Ticket = (props) => {
                 </Box>
                 <Box className='checkout-order-ticket-body'>
                     <img className='checkout-order-ticket-body-cover'
-                         src={pre_order.seance.cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + pre_order.seance.cover_link}
-                         alt={pre_order.seance.name_film}></img>
+                         src={pre_order.seance_cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + pre_order.seance_cover_link}
+                         alt={pre_order.film_name}></img>
                     <Box className='checkout-order-ticket-body-2'>
                         <SeanceTitle
-                            key={pre_order.seance.uid}
-                            seance={pre_order.seance}
+                            key={pre_order.uid_seance}
+                            seance={{
+                                uid: pre_order.seance_uid,
+                                beginning: pre_order.beginning,
+                                ending: pre_order.ending,
+                                copy_type: pre_order.film_copy_type,
+                                rate_age: pre_order.film_rate_age
+                            }}
                             content_type={true}
                             day={true}
                             age={true}
                         />
-                        <Box className='checkout-order-ticket-body-2-film-name'>{pre_order.seance.name_film}</Box>
+                        <Box className='checkout-order-ticket-body-2-film-name'>{pre_order.film_name}</Box>
                         <Box className='checkout-order-ticket-body-2-filial'>{filial.name}</Box>
                         <Box className='checkout-order-ticket-body-2-hall'>
-                            <Box>{pre_order.seance.name_hall}</Box>
-                            <Box><span>Ряд</span>{ticket.row}</Box>
-                            <Box><span>Место</span>{ticket.number}</Box>
+                            <Box>{pre_order.hall_name}</Box>
+                            <Box><span>Ряд</span>{ticket.place_row}</Box>
+                            <Box><span>Место</span>{ticket.place_number}</Box>
                         </Box>
                     </Box>
                     <Box className='checkout-order-ticket-body-3'>

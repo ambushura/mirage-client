@@ -30,7 +30,7 @@ const CheckOut = (props) => {
                     <Box className="checkout-order-title">Ваш заказ</Box>
                     <Box className="checkout-order-tickets-box">
                         <Box className="checkout-order-tickets">
-                            {pre_order.booking.map(ticket => {
+                            {pre_order.items.map(ticket => {
                                 return (
                                     <Ticket
                                         key={ticket.uid}

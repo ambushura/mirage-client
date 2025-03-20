@@ -107,9 +107,11 @@
     font-size: 18px;
     font-weight: 900;
     margin-bottom: 20px;
+    color: var(--text-color);
 }
 .seances-body-description {
     margin-bottom: 20px;
+    color: var(--text-color);
 }
 .seances-body-description-name {
     font-size: 32px;

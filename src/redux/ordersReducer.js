@@ -11,7 +11,7 @@ export const NEW_EMPTY_ORDER = () => ({
     quantity: 0,
     sum: 0,
     sum_discount: 0,
-    booking: []
+    items: []
 })
 
 export const NEW_EMPTY_HORDER = () => ({
