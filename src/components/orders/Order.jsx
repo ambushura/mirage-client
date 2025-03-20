@@ -14,19 +14,20 @@ import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {openModal} from "../../redux/interfaceReducer.js"
 import Payment from "./Payment.jsx"
+import {setPreOrderPaying} from "../../redux/ordersReducer.js";
 
 const Order = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [processing_cinema, set_processing_cinema] = useState(false)
-    const [processing_horeca, set_processing_horeca] = useState(false)
-
     const cities = useSelector(state => state.data.cities)
     const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+    const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
+    const horder_paying = useSelector(state => state.orders.horder_paying)
+
     const [pre_order_show, set_pre_order_show] = useState(false)
     const [horder_show, set_horder_show] = useState(false)
     const [content_height] = useSetContentHeight()
@@ -62,13 +63,13 @@ const Order = () => {
         <Box id="order" style={{height: content_height}}>
             {pre_order_show ?
                 <>
-                    <Fade in={!processing_cinema} unmountOnExit>
+                    <Fade in={!pre_order_paying} unmountOnExit>
                         <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                             <Box className="order-box-panel-cinema-1">
                                 <ButtonGroup size='small'>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="info"
                                             onClick={() => {
-                                                set_processing_cinema(true)
+                                                dispatch(setPreOrderPaying(true))
                                             }}><ReceiptIcon/></Button>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="secondary"
                                             onClick={() => {
@@ -138,18 +139,16 @@ const Order = () => {
                             </Box>
                         </Box>
                     </Fade>
-                    <Fade in={processing_cinema} unmountOnExit>
+                    <Fade in={pre_order_paying} unmountOnExit>
                         <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
-                            <Payment type={'cinema'}
-                                     set_processing_cinema={set_processing_cinema}
-                                     set_processing_horeca={set_processing_horeca}/>
+                            <Payment type={'cinema'}/>
                         </Box>
                     </Fade>
                 </> : <></>
             }
             {horder_show ?
                 <>
-                    <Fade in={!processing_horeca} unmountOnExit>
+                    <Fade in={!horder_paying} unmountOnExit>
                         <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                             <Box className="order-box-panel-1">
                                 <ButtonGroup size='small'>
@@ -247,12 +246,10 @@ const Order = () => {
                             </Box>
                         </Box>
                     </Fade>
-                    <Fade in={processing_horeca} unmountOnExit>
+                    <Fade in={horder_paying} unmountOnExit>
                         <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                             <Payment
-                                type={'horeca'}
-                                set_processing_cinema={set_processing_cinema}
-                                set_processing_horeca={set_processing_horeca}/>
+                                type={'horeca'}/>
                         </Box>
                     </Fade>
                 </> : <></>
