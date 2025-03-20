@@ -17,7 +17,6 @@ import {closeModal} from "./redux/interfaceReducer.js"
 import Quantity from "./components/modal/Quantity.jsx"
 import Comment from "./components/modal/Comment.jsx"
 import {useEffect, useState} from "react"
-import Payment from "./components/modal/Payment.jsx"
 
 function App() {
 
@@ -46,8 +45,6 @@ function App() {
             set_modal_window(<Quantity param={modal_props}/>)
         } else if (modal_type === 'comment') {
             set_modal_window(<Comment param={modal_props}/>)
-        } else if (modal_type === 'payment') {
-            set_modal_window(<Payment param={modal_props}/>)
         }
     }, [modal_type, modal_props])
 

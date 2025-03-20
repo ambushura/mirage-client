@@ -52,12 +52,10 @@ const Payment = (props) => {
     return (
         <Box>
             <Box className='payment-total'>
-                <Box sx={{display: 'flex', alignItems: 'none'}}>
-                    <Button variant='contained' color='secondary' sx={{maxWidth: '70px'}} onClick={() => {
-                        props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
-                    }}><ArrowBackIosNewIcon/></Button>
-                </Box>
-                <Box>
+                <Box sx={{display: 'flex', alignItems: 'none'}} onClick={() => {
+                    props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
+                }}><ArrowBackIosNewIcon/></Box>
+                <Box sx={{backgroundColor: '#e4e2e2'}}>
                     <Box className='payment-total-title'>
                         Кино
                     </Box>
@@ -73,7 +71,7 @@ const Payment = (props) => {
                         {horder.sum}
                     </Box>
                 </Box>
-                <Box>
+                <Box sx={{backgroundColor: '#e4e2e2'}}>
                     <Box className='payment-total-title'>
                         Всего
                     </Box>
@@ -89,7 +87,7 @@ const Payment = (props) => {
                         0
                     </Box>
                 </Box>
-                <Box>
+                <Box sx={{backgroundColor: '#e4e2e2'}}>
                     <Box className='payment-total-title'>
                         Сдача
                     </Box>

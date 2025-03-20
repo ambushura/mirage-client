@@ -511,6 +511,7 @@
     height: 60px;
     border-radius: 12px;
     margin-bottom: 4px;
+    overflow: hidden;
 }
 .payment-total>div {
     flex: 1;
@@ -520,6 +521,7 @@
     font-weight: bold;
     font-size: 120%;
     color: black;
+    align-items: center;
 }
 .payment-total-title {
     font-size: 70%;
