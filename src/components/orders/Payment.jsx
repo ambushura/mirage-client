@@ -3,7 +3,7 @@ import {useSetPaymentMethods} from "../../hooks/payment/useSetPaymentMethods.js"
 import {useFetchReceiptsFromOrder} from "../../hooks/payment/useFetchReceiptsFromOrder.js"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import {useEffect} from "react"
+import {useEffect, useMemo, useState} from "react"
 import Loader from "../modal/Loader.jsx"
 import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
@@ -13,7 +13,7 @@ const Payment = (props) => {
     const dispatch = useDispatch()
 
     const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
-    const [order_receipt, order_error, order_loading] = useFetchReceiptsFromOrder(props.type)
+    const [receiptsFromOrder, ,] = useFetchReceiptsFromOrder(props.type)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const total = useSelector(state => state.orders.total)
@@ -34,7 +34,8 @@ const Payment = (props) => {
                         return (
                             <Button variant='contained' color='info'
                                     key={paymentMethod.uid}
-                                    className='payment-path'>
+                                    className='payment-path'
+                                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                 <span>{paymentMethod.name}</span>
                                 <span
                                     style={{fontSize: '70%'}}>kkt..{paymentMethod.kkt.number.slice(-4)} - pin..{paymentMethod.pinpad.number.slice(-4)}</span>
@@ -57,6 +58,124 @@ const Payment = (props) => {
         dispatch(setTotal(pre_order.sum + horder.sum))
         dispatch(setCash(['clean', pre_order.sum + horder.sum]))
     }, [dispatch, horder.sum, pre_order.sum])
+
+    const data = useMemo(() => {
+        return {
+            waiting: {
+                mark_egais_items: [],
+                horeca_items: [],
+                cinema_items: [],
+            },
+            slip_without_receipt: {
+                mark_egais_items: [],
+                horeca_items: [],
+                cinema_items: [],
+            },
+            success: {
+                mark_egais_items: [],
+                horeca_items: [],
+                cinema_items: [],
+            }
+        }
+    }, [])
+
+    const [order_receipt, set_order_receipt] = useState({...data})
+    useEffect(() => {
+        if (!receiptsFromOrder) return
+        const receiptsNew = structuredClone(data)
+        const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
+        categories.forEach((category) => {
+            receiptsFromOrder.waiting[category].forEach((item) => {
+                receiptsNew.waiting[category].push({
+                    name: item.name,
+                    unit_name: item.unit_name,
+                    price: item.price,
+                    discount: item.name_discount ?? "-",
+                    quantity: item.quantity,
+                    sum: item.sum,
+                })
+            })
+            const groupedItems = groupAndSum(
+                receiptsNew.waiting[category],
+                ["name", "unit_name", "price", "discount"],
+                ["quantity", "sum"]
+            )
+            receiptsNew.waiting[category] = groupedItems.map((item, i) => ({
+                id: i,
+                name: item.name,
+                price: `${item.price.toLocaleString("ru-RU")} р`,
+                discount: item.name_discount ?? "-",
+                quantity: `${item.quantity} ${item.unit_name}`,
+                sum: `${item.sum.toLocaleString("ru-RU")} р`,
+            }))
+        })
+        set_order_receipt(receiptsNew)
+    }, [data, receiptsFromOrder])
+
+    function groupAndSum(data, groupByFields, sumFields) {
+        return Object.values(
+            data.reduce((acc, item) => {
+                const key = groupByFields.map(field => item[field]).join('-')
+                if (!acc[key]) {
+                    acc[key] = {...item}
+                } else {
+                    sumFields.forEach(field => {
+                        acc[key][field] += item[field]
+                    })
+                }
+                return acc
+            }, {})
+        )
+    }
+
+    const [slip_without_receipt, set_slip_without_receipt] = useState(false)
+    const [waiting, set_waiting] = useState(false)
+    const [success, set_success] = useState(false)
+    useEffect(() => {
+        if (order_receipt.slip_without_receipt.mark_egais_items.length > 0 ||
+            order_receipt.slip_without_receipt.horeca_items.length > 0 ||
+            order_receipt.slip_without_receipt.cinema_items.length > 0) {
+            set_slip_without_receipt(true)
+        } else {
+            set_slip_without_receipt(false)
+        }
+        if (order_receipt.waiting.mark_egais_items.length > 0 ||
+            order_receipt.waiting.horeca_items.length > 0 ||
+            order_receipt.waiting.cinema_items.length > 0) {
+            set_waiting(true)
+        } else {
+            set_waiting(false)
+        }
+        if (order_receipt.success.mark_egais_items.length > 0 ||
+            order_receipt.success.horeca_items.length > 0 ||
+            order_receipt.success.cinema_items.length > 0) {
+            set_success(true)
+        } else {
+            set_success(false)
+        }
+    }, [order_receipt])
+
+    const table = (table_name, title) => {
+        if (order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].length > 0) {
+            return (
+                <>
+                    <Box>{title}</Box>
+                    <Box>
+                        {order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].map((item) => (
+                            <>
+                                <Box key={item.id}>{item.name}</Box>
+                                <Box key={item.id}>{item.quantity} {item.unit_name}</Box>
+                                <Box key={item.id}>{item.price}</Box>
+                                <Box key={item.id}>{item.sum}</Box>
+                            </>
+                        ))}
+                    </Box>
+                </>
+            )
+        } else {
+            return (<></>)
+        }
+    }
 
     return (
         <Box>
@@ -110,6 +229,26 @@ const Payment = (props) => {
             </Box>
             <Box>
                 {paymentMethodsArray()}
+            </Box>
+            <Box>
+                <Box sx={{display: slip_without_receipt ? 'block' : 'none'}}>
+                    <Box className='order-receipt-title'>Списали деньги с карты, но не пробили чек</Box>
+                    {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                    {table('slip_without_receipt.horeca_items', 'Товары')}
+                    {table('slip_without_receipt.cinema_items', 'Услуги')}
+                </Box>
+                <Box sx={{display: waiting ? 'block' : 'none'}}>
+                    <Box className='order-receipt-title'>Ожидает оплаты</Box>
+                    {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                    {table('waiting.horeca_items', 'Товары')}
+                    {table('waiting.cinema_items', 'Услуги')}
+                </Box>
+                <Box sx={{display: success ? 'block' : 'none'}}>
+                    <Box className='order-receipt-title'>Успешно оплачено</Box>
+                    {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                    {table('success.horeca_items', 'Товары')}
+                    {table('success.cinema_items', 'Услуги')}
+                </Box>
             </Box>
         </Box>
     )

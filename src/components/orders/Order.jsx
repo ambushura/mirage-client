@@ -12,16 +12,15 @@ import {useSetContentHeight} from "../../hooks/interface/useSetContentHeight.js"
 import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
-import {openModal} from "../../redux/interfaceReducer.js"
 import Payment from "./Payment.jsx"
 import {
     NEW_EMPTY_HORDER,
     NEW_EMPTY_ORDER,
     setCurrentHorder,
-    setCurrentPreOrder,
+    setCurrentPreOrder, setHorderPaying,
     setPreOrderPaying
 } from "../../redux/ordersReducer.js"
-import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js";
+import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js"
 
 const Order = () => {
 
@@ -157,10 +156,7 @@ const Order = () => {
                             <Box className="order-box-panel-1">
                                 <ButtonGroup size='small'>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="info"
-                                            onClick={() => dispatch(openModal({
-                                                type: 'payment',
-                                                props: {type: 'horeca', uid: horder.uid}
-                                            }))}><ReceiptIcon/></Button>
+                                            onClick={() => dispatch(setHorderPaying(true))}><ReceiptIcon/></Button>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="secondary"
                                             onClick={() => {
                                             }}><CachedIcon/></Button>
