@@ -30,11 +30,6 @@ export const deletePreOrder = (filial, uid_order) => {
         try {
             await axios.get(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`, {timeout: TIMEOUT})
             dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-            dispatch(addNotification({
-                message: 'Заказ был успешно удален.',
-                severity: 'success',
-                autoHide: true
-            }))
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,

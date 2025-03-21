@@ -61,6 +61,9 @@ function App() {
                        element={<AppRoutes current_page="schedule"/>}/>
                 <Route path="/seance/:param_city/:param_filial/:uid_seance"
                        element={<AppRoutes current_page="seance"/>}/>
+                <Route path="/seance/:param_city/:param_filial"
+                       element={<Navigate replace
+                                          to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : `/`}/>}/>
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
