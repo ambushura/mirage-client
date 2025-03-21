@@ -3,7 +3,7 @@ import {setBooking} from "../redux/scheduleReducer.js"
 import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
 
-export const TIMEOUT = 5000
+export const TIMEOUT = 10000
 
 export const fetchPreOrder = (filial, uid_order) => {
     return async (dispatch) => {
