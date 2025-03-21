@@ -18,12 +18,12 @@ const Keyboard = (props) => {
             shift: ["Ё \" ! № ; % : ? * ( ) _ + {bksp}", "Й Ц У К Е Н Г Ш Щ З", "Ф Ы В А П Р О Л Д Ж Э {enter}", "{shift} Я Ч С М И Т Ь Б Ю", ".com @ {lang} {space} {lang}"]
         },
         num: {
-            default: ["1 2 3", "4 5 6", "7 8 9", "0 10 100", "{bksp} {enter}"],
-            shift: ["1 2 3", "4 5 6", "7 8 9", "0 10 100", "{bksp} {enter}"]
+            default: ["7 8 9", "4 5 6", "1 2 3", "0 00 000", "{bksp} {enter}"],
+            shift: ["7 8 9", "4 5 6", "1 2 3", "0 00 000", "{bksp} {enter}"]
         },
         auth: {
-            default: ["1 2 3", "4 5 6", "7 8 9", "0 {enter}"],
-            shift: ["1 2 3", "4 5 6", "7 8 9", "0 {enter}"]
+            default: ["7 8 9", "4 5 6", "1 2 3", "0 {enter}"],
+            shift: ["7 8 9", "4 5 6", "1 2 3", "0 {enter}"]
         }
     }
     return (
@@ -53,4 +53,5 @@ const Keyboard = (props) => {
         </Box>
     )
 }
+
 export default Keyboard
