@@ -1,4 +1,4 @@
-import {Box} from "@mui/material"
+import {Box, Button} from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
@@ -19,37 +19,37 @@ const HorecaItem = (props) => {
     return (
         <li className='order-box-horeca-item'>
             <Box className='order-box-horeca-item-1'>
-                <Box className='order-box-horeca-item-1-calc'
-                     onClick={() => dispatch(openModal({type: 'quantity', props: {}}))}><CalculateIcon/></Box>
+                <button className='order-box-horeca-item-1-calc'
+                     onClick={() => dispatch(openModal({type: 'quantity', props: {}}))}><CalculateIcon/></button>
                 <Box className='order-box-horeca-item-1-1'><Box>{props.item.name}</Box></Box>
                 <Box
                     className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum} р</Box><Box
                     sx={{color: '#8B919B'}}>{props.item.quantity} {props.item.unit_name}</Box></Box>
-                <Box className='order-box-horeca-item-1-2'
+                <button className='order-box-horeca-item-1-2'
                      onClick={() => dispatch(openModal({type: 'comment', props: {}}))}><BorderColorIcon
-                    sx={{color: 'white'}}/></Box>
-                <Box className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></Box>
+                    sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
             {props.item.mark.type !== '' ? <Box className='order-box-horeca-item-2'>
-                <Box className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon/></Box>
+                <button className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon/></button>
                 <Box
                     className='order-box-horeca-item-2-2'>{props.item.egais.value === '' ? 'Отсканируйте маркировку' : props.item.egais.value}</Box>
-                <Box className='order-box-horeca-item-2-3'><QrCodeIcon sx={{color: 'white'}}/></Box>
+                <button className='order-box-horeca-item-2-3'><QrCodeIcon sx={{color: 'white'}}/></button>
             </Box> : <></>}
             {props.item.egais.type_code !== '' ? <Box className='order-box-horeca-item-3'>
-                <Box className='order-box-horeca-item-3-1'><CheckCircleOutlineIcon/></Box>
+                <button className='order-box-horeca-item-3-1'><CheckCircleOutlineIcon/></button>
                 <Box
                     className='order-box-horeca-item-3-2'>{props.item.mark.value === '' ? 'Отсканируйте акцизную марку' : props.item.mark.value}</Box>
-                <Box className='order-box-horeca-item-3-3'><QrCodeIcon sx={{color: 'white'}}/></Box>
+                <button className='order-box-horeca-item-3-3'><QrCodeIcon sx={{color: 'white'}}/></button>
             </Box> : <></>}
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
                 <Box className='order-box-horeca-item-4-1'>{props.item.comment}</Box>
                 <Box className='order-box-horeca-item-4-2'><DeleteIcon sx={{color: 'white'}}/></Box>
             </Box> : <></>}
             {props.item.kitchen.state !== 0 ? <Box className='order-box-horeca-item-5'>
-                <Box className='order-box-horeca-item-5-1'><DirectionsRunIcon sx={{color: 'white'}}/></Box>
-                <Box className='order-box-horeca-item-5-2'><LooksOneIcon sx={{color: 'white'}}/></Box>
-                <Box className='order-box-horeca-item-5-3' sx={{color: 'white'}}>{state[props.item.kitchen.state]}</Box>
+                <button className='order-box-horeca-item-5-1'><DirectionsRunIcon sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-5-2'><LooksOneIcon sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-5-3'>{state[props.item.kitchen.state]}</button>
                 <Box className='order-box-horeca-item-5-4'></Box>
                 <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box>
             </Box> : <></>}
