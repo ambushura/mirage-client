@@ -14,7 +14,13 @@ import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {openModal} from "../../redux/interfaceReducer.js"
 import Payment from "./Payment.jsx"
-import {setPreOrderPaying} from "../../redux/ordersReducer.js";
+import {
+    NEW_EMPTY_HORDER,
+    NEW_EMPTY_ORDER,
+    setCurrentHorder,
+    setCurrentPreOrder,
+    setPreOrderPaying
+} from "../../redux/ordersReducer.js"
 
 const Order = () => {
 
@@ -78,8 +84,7 @@ const Order = () => {
                                             onClick={() => {
                                             }}><DeleteForeverIcon/></Button>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="secondary"
-                                            onClick={() => {
-                                            }}><CloseIcon/></Button>
+                                            onClick={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}><CloseIcon/></Button>
                                 </ButtonGroup>
                                 <Box className="order-box-panel-1-sum-number">
                             <span
@@ -164,8 +169,7 @@ const Order = () => {
                                             onClick={() => {
                                             }}><DeleteForeverIcon/></Button>
                                     <Button style={{minWidth: '60px'}} variant="contained" color="secondary"
-                                            onClick={() => {
-                                            }}><CloseIcon/></Button>
+                                            onClick={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}><CloseIcon/></Button>
                                 </ButtonGroup>
                                 <Box className="order-box-panel-1-sum-number">
                                     <span className='order-box-panel-1-number'>№{horder.number}</span>
