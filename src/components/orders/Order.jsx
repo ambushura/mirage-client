@@ -21,6 +21,7 @@ import {
     setCurrentPreOrder,
     setPreOrderPaying
 } from "../../redux/ordersReducer.js"
+import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js";
 
 const Order = () => {
 
@@ -78,11 +79,9 @@ const Order = () => {
                                                 dispatch(setPreOrderPaying(true))
                                             }}><ReceiptIcon/></Button>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="secondary"
-                                            onClick={() => {
-                                            }}><CachedIcon/></Button>
+                                            onClick={() => dispatch(fetchPreOrder(filial, pre_order.uid))}><CachedIcon/></Button>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="primary"
-                                            onClick={() => {
-                                            }}><DeleteForeverIcon/></Button>
+                                            onClick={() => dispatch(deletePreOrder(filial, pre_order.uid))}><DeleteForeverIcon/></Button>
                                     <Button style={{minWidth: '70px'}} variant="contained" color="secondary"
                                             onClick={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}><CloseIcon/></Button>
                                 </ButtonGroup>

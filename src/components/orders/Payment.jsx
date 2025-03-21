@@ -52,7 +52,7 @@ const Payment = (props) => {
     return (
         <Box>
             <Box className='payment-total'>
-                <Box sx={{display: 'flex', alignItems: 'none'}} onClick={() => {
+                <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
                     props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
                 }}><ArrowBackIosNewIcon/></Box>
                 <Box sx={{backgroundColor: '#e4e2e2'}}>
@@ -79,7 +79,7 @@ const Payment = (props) => {
                         {pre_order.sum + horder.sum}
                     </Box>
                 </Box>
-                <Box>
+                <Box sx={{cursor: 'pointer'}}>
                     <Box className='payment-total-title'>
                         Получил
                     </Box>
