@@ -7,6 +7,7 @@ import {useEffect, useMemo, useState} from "react"
 import Loader from "../modal/Loader.jsx"
 import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 
 const Payment = (props) => {
 
@@ -220,10 +221,10 @@ const Payment = (props) => {
                     color: total > cash ? 'white' : 'black'
                 }}>
                     <Box className='payment-total-title'>
-                        {total > cash ? 'Получи' : 'Верни'}
+                        {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
                     </Box>
                     <Box className='payment-total-sum'>
-                        {Math.abs(change)}
+                        {total !== cash ? Math.abs(change) : <></>}
                     </Box>
                 </Box>
             </Box>
