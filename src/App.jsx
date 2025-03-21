@@ -17,6 +17,7 @@ import {closeModal} from "./redux/interfaceReducer.js"
 import Quantity from "./components/modal/Quantity.jsx"
 import Comment from "./components/modal/Comment.jsx"
 import {useEffect, useState} from "react"
+import Calc from "./components/modal/Calc.jsx"
 
 function App() {
 
@@ -45,6 +46,8 @@ function App() {
             set_modal_window(<Quantity param={modal_props}/>)
         } else if (modal_type === 'comment') {
             set_modal_window(<Comment param={modal_props}/>)
+        } else if (modal_type === 'calc') {
+            set_modal_window(<Calc/>)
         }
     }, [modal_type, modal_props])
 

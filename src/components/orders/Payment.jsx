@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {useEffect} from "react"
 import Loader from "../modal/Loader.jsx"
-import {setHorderPaying, setPreOrderPaying} from "../../redux/ordersReducer.js"
+import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 
 const Payment = (props) => {
 
@@ -15,6 +16,9 @@ const Payment = (props) => {
     const [order_receipt, order_error, order_loading] = useFetchReceiptsFromOrder(props.type)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+    const total = useSelector(state => state.orders.total)
+    const cash = useSelector(state => state.orders.cash)
+    const change = useSelector(state => state.orders.change)
 
     const paymentMethodsArray = () => {
         if (payment_methods_loading) {
@@ -49,6 +53,11 @@ const Payment = (props) => {
         }
     }, [])
 
+    useEffect(() => {
+        dispatch(setTotal(pre_order.sum + horder.sum))
+        dispatch(setCash(['clean', pre_order.sum + horder.sum]))
+    }, [dispatch, horder.sum, pre_order.sum])
+
     return (
         <Box>
             <Box className='payment-total'>
@@ -76,23 +85,26 @@ const Payment = (props) => {
                         Всего
                     </Box>
                     <Box className='payment-total-sum'>
-                        {pre_order.sum + horder.sum}
+                        {total}
                     </Box>
                 </Box>
-                <Box sx={{cursor: 'pointer'}}>
+                <Box sx={{cursor: 'pointer'}} onClick={() => dispatch(openModal({type: 'calc', props: {}}))}>
                     <Box className='payment-total-title'>
                         Получил
                     </Box>
                     <Box className='payment-total-sum'>
-                        0
+                        {cash}
                     </Box>
                 </Box>
-                <Box sx={{backgroundColor: '#e4e2e2'}}>
+                <Box style={{
+                    backgroundColor: total > cash ? '#FF1A25' : '#50DB92',
+                    color: total > cash ? 'white' : 'black'
+                }}>
                     <Box className='payment-total-title'>
-                        Сдача
+                        {total > cash ? 'Получи' : 'Верни'}
                     </Box>
                     <Box className='payment-total-sum'>
-                        0
+                        {Math.abs(change)}
                     </Box>
                 </Box>
             </Box>
