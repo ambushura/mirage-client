@@ -9,7 +9,11 @@ export const blockOrder = (filial, uid_order, ver, type, value) => {
     return async (dispatch) => {
         try {
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/${value ? 'order_block' : 'order_unlock'}?uid_order=${uid_order}&ver=${ver}&type=${type}`, {timeout: TIMEOUT})
-            dispatch(setCurrentPreOrder(response.data.data))
+            if (type === 'cinema') {
+                dispatch(setCurrentPreOrder(response.data.data))
+            } else {
+                dispatch(setCurrentHorder(response.data.data))
+            }
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,
