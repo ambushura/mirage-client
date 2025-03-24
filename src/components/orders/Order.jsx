@@ -143,7 +143,7 @@ const Order = () => {
                         </Box>
                     </Fade>
                     <Fade in={pre_order_paying} unmountOnExit>
-                        <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
+                        <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                             <Payment type={'cinema'}/>
                         </Box>
                     </Fade>
@@ -246,7 +246,7 @@ const Order = () => {
                         </Box>
                     </Fade>
                     <Fade in={horder_paying} unmountOnExit>
-                        <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
+                        <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                             <Payment
                                 type={'horeca'}/>
                         </Box>

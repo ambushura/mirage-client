@@ -407,15 +407,22 @@
 
 
 .payment-total {
-    display: flex;
     width: 100%;
-    background-color: #ececec;
-    height: 60px;
-    border-radius: 12px;
-    margin-bottom: 4px;
+    height: 64px;
     overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f8f8f8;
 }
-.payment-total>div {
+.payment-total-div {
+    box-sizing: border-box;
+    display: flex;
+    background-color: #ececec;
+    border-radius: 12px;
+    height: 60px;
+}
+.payment-total-div>div {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -436,31 +443,76 @@
 }
 .payment-types {
     padding: 4px 0;
-    margin-bottom: 4px;
     display: flex;
+    position: sticky;
+    top: 64px;
+    z-index: 2;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+    height: 80px;
 }
 .payment-items {
-    padding: 4px 0;
-    margin-bottom: 4px;
     display: flex;
-    border-radius: 12px;
-    background-color: #ececec;
+    flex-direction: row;
 }
 .payment-items-group {
-    background-color: #ececec;
+    width: 100%;
 }
 .payment-items-group-title {
-
+    height: 20px;
+    width: 100%;
+    padding: 4px 2px;
+    font-weight: bold;
+    position: sticky;
+    top: 144px;
+    z-index: 2;
+    background-color: #e4e2e2;
 }
 .payment-items-group-title-name {
-
+    height: 20px;
+    width: 100%;
+    padding: 4px 4px;
+    font-weight: bold;
+    color: #0E0F11;
+    position: sticky;
+    top: calc(144px + 28px);
+    z-index: 2;
+    background-color: #ececec;
 }
 .payment-items-group-item {
-
+    display: flex;
+    flex-direction: column;
+}
+.payment-items-group-item-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    border-bottom: 1px solid #b6b5b5;
+    align-items: center;
 }
 .payment-items-group-item-0,
 .payment-items-group-item-1,
 .payment-items-group-item-2,
 .payment-items-group-item-3 {
-
+    overflow: hidden;
+    padding: 4px 8px;
+}
+.payment-items-group-item-0 {
+    width: 200px;
+    text-align: left;
+}
+.payment-items-group-item-1 {
+    width: 62px;
+    font-weight: bold;
+    text-align: right;
+}
+.payment-items-group-item-2 {
+    width: calc(100px - 32px);
+    text-align: right;
+}
+.payment-items-group-item-3 {
+    width: 100px;
+    font-weight: bold;
+    text-align: right;
 }

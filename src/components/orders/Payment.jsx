@@ -106,7 +106,7 @@ const Payment = (props) => {
                 name: item.name,
                 price: `${item.price.toLocaleString("ru-RU")} р`,
                 discount: item.name_discount ?? "-",
-                quantity: `${item.quantity} ${item.unit_name}`,
+                quantity: `${item.quantity.toFixed(3)} ${item.unit_name}`,
                 sum: `${item.sum.toLocaleString("ru-RU")} р`,
             }))
         })
@@ -163,12 +163,12 @@ const Payment = (props) => {
                     <Box className='payment-items-group-title-name'>{title}</Box>
                     <Box className='payment-items-group-item'>
                         {order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].map((item) => (
-                            <>
-                                <Box className='payment-items-group-item-0' key={item.id}>{item.name}</Box>
-                                <Box className='payment-items-group-item-1' key={item.id}>{item.quantity} {item.unit_name}</Box>
-                                <Box className='payment-items-group-item-2' key={item.id}>{item.price}</Box>
-                                <Box className='payment-items-group-item-3' key={item.id}>{item.sum}</Box>
-                            </>
+                            <Box key={item.id} className='payment-items-group-item-row'>
+                                <Box className='payment-items-group-item-0'>{item.name}</Box>
+                                <Box className='payment-items-group-item-1'>{item.quantity}</Box>
+                                <Box className='payment-items-group-item-2'>{item.price}</Box>
+                                <Box className='payment-items-group-item-3'>{item.sum}</Box>
+                            </Box>
                         ))}
                     </Box>
                 </>
@@ -179,52 +179,55 @@ const Payment = (props) => {
     }
 
     return (
-        <Box>
+        <Box style={{backgroundColor: '#f8f8f8'}}>
             <Box className='payment-total'>
-                <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
-                    props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
-                }}><ArrowBackIosNewIcon/></Box>
-                <Box sx={{backgroundColor: '#e4e2e2'}}>
-                    <Box className='payment-total-title'>
-                        Кино
+                <Box className='payment-total-div'>
+                    <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
+                        props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
+                    }}><ArrowBackIosNewIcon/></Box>
+                    <Box sx={{backgroundColor: '#e4e2e2'}}>
+                        <Box className='payment-total-title'>
+                            Кино
+                        </Box>
+                        <Box className='payment-total-sum'>
+                            {pre_order.sum}
+                        </Box>
                     </Box>
-                    <Box className='payment-total-sum'>
-                        {pre_order.sum}
+                    <Box>
+                        <Box className='payment-total-title'>
+                            Общепит
+                        </Box>
+                        <Box className='payment-total-sum'>
+                            {horder.sum}
+                        </Box>
                     </Box>
-                </Box>
-                <Box>
-                    <Box className='payment-total-title'>
-                        Общепит
+                    <Box sx={{backgroundColor: '#e4e2e2'}}>
+                        <Box className='payment-total-title'>
+                            Всего
+                        </Box>
+                        <Box className='payment-total-sum'>
+                            {total}
+                        </Box>
                     </Box>
-                    <Box className='payment-total-sum'>
-                        {horder.sum}
+                    <Box sx={{cursor: 'pointer'}} onClick={() => dispatch(openModal({type: 'calc', props: {}}))}>
+                        <Box className='payment-total-title'>
+                            Получил
+                        </Box>
+                        <Box className='payment-total-sum'>
+                            {cash}
+                        </Box>
                     </Box>
-                </Box>
-                <Box sx={{backgroundColor: '#e4e2e2'}}>
-                    <Box className='payment-total-title'>
-                        Всего
-                    </Box>
-                    <Box className='payment-total-sum'>
-                        {total}
-                    </Box>
-                </Box>
-                <Box sx={{cursor: 'pointer'}} onClick={() => dispatch(openModal({type: 'calc', props: {}}))}>
-                    <Box className='payment-total-title'>
-                        Получил
-                    </Box>
-                    <Box className='payment-total-sum'>
-                        {cash}
-                    </Box>
-                </Box>
-                <Box style={{
-                    backgroundColor: total > cash ? '#FF1A25' : '#50DB92',
-                    color: total > cash ? 'white' : 'black'
-                }}>
-                    <Box className='payment-total-title'>
-                        {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
-                    </Box>
-                    <Box className='payment-total-sum'>
-                        {total !== cash ? Math.abs(change) : <></>}
+                    <Box style={{
+                        backgroundColor: total > cash ? '#FF1A25' : '#50DB92',
+                        color: total > cash ? 'white' : 'black',
+                        borderRadius: '0 12px 12px 0'
+                    }}>
+                        <Box className='payment-total-title'>
+                            {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
+                        </Box>
+                        <Box className='payment-total-sum'>
+                            {total !== cash ? Math.abs(change) : <></>}
+                        </Box>
                     </Box>
                 </Box>
             </Box>
