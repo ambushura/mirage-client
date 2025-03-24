@@ -1,5 +1,5 @@
 import "../../css/admin.css"
-import {Box, Button, ButtonGroup, Fade} from "@mui/material"
+import {Box, Button, ButtonGroup} from "@mui/material"
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CachedIcon from '@mui/icons-material/Cached'
@@ -69,7 +69,7 @@ const Order = () => {
         <Box id="order" style={{height: content_height}}>
             {pre_order_show ?
                 <>
-                    <Fade in={!pre_order_paying} unmountOnExit>
+                    {!pre_order_paying ?
                         <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                             <Box className="order-box-panel-cinema-1">
                                 <ButtonGroup size='small'>
@@ -140,18 +140,16 @@ const Order = () => {
                                 })}
                                 </Box>
                             </Box>
-                        </Box>
-                    </Fade>
-                    <Fade in={pre_order_paying} unmountOnExit>
+                        </Box> :
                         <Box className="order-box" style={{height: horder_show ? '50%' : '100%'}}>
                             <Payment type={'cinema'}/>
                         </Box>
-                    </Fade>
+                    }
                 </> : <></>
             }
             {horder_show ?
                 <>
-                    <Fade in={!horder_paying} unmountOnExit>
+                    {!horder_paying ?
                         <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                             <Box className="order-box-panel-1">
                                 <ButtonGroup size='small'>
@@ -196,7 +194,8 @@ const Order = () => {
                             <Box className="order-box-panel-3">
                                 {horder.items.filter(el => el.kitchen.state === 1).length > 0 ?
                                     <>
-                                        <Box className="order-box-panel-3-title-for-kitchen">Отправить на кухню</Box>
+                                        <Box className="order-box-panel-3-title-for-kitchen">Отправить на
+                                            кухню</Box>
                                         <ul className="order-box-panel-3-list-for-kitchen">
                                             {horder.items.filter(el => el.kitchen.state === 1).map((item) => {
                                                 return (
@@ -244,13 +243,11 @@ const Order = () => {
                                 }
                             </Box>
                         </Box>
-                    </Fade>
-                    <Fade in={horder_paying} unmountOnExit>
-                        <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
+                        : <Box className="order-box" style={{height: pre_order_show ? '50%' : '100%'}}>
                             <Payment
                                 type={'horeca'}/>
                         </Box>
-                    </Fade>
+                    }
                 </> : <></>
             }
         </Box>
