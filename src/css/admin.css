@@ -434,3 +434,33 @@
 .payment-total-title, .payment-total-sum {
     text-align: center;
 }
+.payment-types {
+    padding: 4px 0;
+    margin-bottom: 4px;
+    display: flex;
+}
+.payment-items {
+    padding: 4px 0;
+    margin-bottom: 4px;
+    display: flex;
+    border-radius: 12px;
+    background-color: #ececec;
+}
+.payment-items-group {
+    background-color: #ececec;
+}
+.payment-items-group-title {
+
+}
+.payment-items-group-title-name {
+
+}
+.payment-items-group-item {
+
+}
+.payment-items-group-item-0,
+.payment-items-group-item-1,
+.payment-items-group-item-2,
+.payment-items-group-item-3 {
+
+}

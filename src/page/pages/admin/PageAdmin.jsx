@@ -40,10 +40,10 @@ const PageAdmin = () => {
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs variant="scrollable" value={value} onChange={handleChange}>
-                    <Tab label="Заказы" {...allProps(0)}/>
-                    <Tab label="Итоги" {...allProps(1)}/>
-                    <Tab label="Залы" {...allProps(2)}/>
-                    <Tab label="Оборудование" {...allProps(3)}/>
+                    <Tab sx={{color: 'var(--text-color)'}} label="Заказы" {...allProps(0)}/>
+                    <Tab sx={{color: 'var(--text-color)'}} label="Итоги" {...allProps(1)}/>
+                    <Tab sx={{color: 'var(--text-color)'}} label="Залы" {...allProps(2)}/>
+                    <Tab sx={{color: 'var(--text-color)'}} label="Оборудование" {...allProps(3)}/>
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>

@@ -160,14 +160,14 @@ const Payment = (props) => {
         if (order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].length > 0) {
             return (
                 <>
-                    <Box>{title}</Box>
-                    <Box>
+                    <Box className='payment-items-group-title-name'>{title}</Box>
+                    <Box className='payment-items-group-item'>
                         {order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].map((item) => (
                             <>
-                                <Box key={item.id}>{item.name}</Box>
-                                <Box key={item.id}>{item.quantity} {item.unit_name}</Box>
-                                <Box key={item.id}>{item.price}</Box>
-                                <Box key={item.id}>{item.sum}</Box>
+                                <Box className='payment-items-group-item-0' key={item.id}>{item.name}</Box>
+                                <Box className='payment-items-group-item-1' key={item.id}>{item.quantity} {item.unit_name}</Box>
+                                <Box className='payment-items-group-item-2' key={item.id}>{item.price}</Box>
+                                <Box className='payment-items-group-item-3' key={item.id}>{item.sum}</Box>
                             </>
                         ))}
                     </Box>
@@ -228,24 +228,24 @@ const Payment = (props) => {
                     </Box>
                 </Box>
             </Box>
-            <Box>
+            <Box className='payment-types'>
                 {paymentMethodsArray()}
             </Box>
-            <Box>
-                <Box sx={{display: slip_without_receipt ? 'block' : 'none'}}>
-                    <Box className='order-receipt-title'>Списали деньги с карты, но не пробили чек</Box>
+            <Box className='payment-items'>
+                <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
+                    <Box className='payment-items-group-title'>Списали деньги с карты, но не пробили чек</Box>
                     {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                     {table('slip_without_receipt.horeca_items', 'Товары')}
                     {table('slip_without_receipt.cinema_items', 'Услуги')}
                 </Box>
-                <Box sx={{display: waiting ? 'block' : 'none'}}>
-                    <Box className='order-receipt-title'>Ожидает оплаты</Box>
+                <Box sx={{display: waiting ? 'block' : 'none'}} className='payment-items-group'>
+                    <Box className='payment-items-group-title'>Ожидает оплаты</Box>
                     {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                     {table('waiting.horeca_items', 'Товары')}
                     {table('waiting.cinema_items', 'Услуги')}
                 </Box>
-                <Box sx={{display: success ? 'block' : 'none'}}>
-                    <Box className='order-receipt-title'>Успешно оплачено</Box>
+                <Box sx={{display: success ? 'block' : 'none'}} className='payment-items-group'>
+                    <Box className='payment-items-group-title'>Успешно оплачено</Box>
                     {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                     {table('success.horeca_items', 'Товары')}
                     {table('success.cinema_items', 'Услуги')}
