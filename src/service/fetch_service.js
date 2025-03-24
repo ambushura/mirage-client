@@ -5,16 +5,26 @@ import {addNotification} from "../redux/notifierReducer.js"
 
 export const TIMEOUT = 10000
 
+export const blockOrder = (filial, uid_order, ver, type, value) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/${value ? 'order_block' : 'order_unlock'}?uid_order=${uid_order}&ver=${ver}&type=${type}`, {timeout: TIMEOUT})
+            dispatch(setCurrentPreOrder(response.data.data))
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
 export const fetchPreOrder = (filial, uid_order) => {
     return async (dispatch) => {
         try {
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`, {timeout: TIMEOUT})
             dispatch(setCurrentPreOrder(response.data.data))
-            dispatch(addNotification({
-                message: `Заказ №${response.data.data.number} был успешно обновлен.`,
-                severity: 'success',
-                autoHide: true
-            }))
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,

@@ -8,6 +8,7 @@ import Loader from "../modal/Loader.jsx"
 import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import {blockOrder} from "../../service/fetch_service.js"
 
 const Payment = (props) => {
 
@@ -20,6 +21,7 @@ const Payment = (props) => {
     const total = useSelector(state => state.orders.total)
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
+    const filial = useSelector(state => state.data.filial)
 
     const paymentMethodsArray = () => {
         if (payment_methods_loading) {
@@ -33,13 +35,14 @@ const Payment = (props) => {
                 <>
                     {payment_methods.list.map(paymentMethod => {
                         return (
-                            <Button variant='contained' color='info'
+                            <Button variant='contained'
+                                    color='secondary'
                                     key={paymentMethod.uid}
                                     className='payment-path'
                                     sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                 <span>{paymentMethod.name}</span>
                                 <span
-                                    style={{fontSize: '70%'}}>kkt..{paymentMethod.kkt.number.slice(-4)} - pin..{paymentMethod.pinpad.number.slice(-4)}</span>
+                                    style={{fontSize: '70%'}}>kkt {paymentMethod.kkt.number.slice(-4)} | pin {paymentMethod.pinpad.number.slice(-4)}</span>
                             </Button>
                         )
                     })}
@@ -49,11 +52,21 @@ const Payment = (props) => {
     }
 
     useEffect(() => {
-        // блокируем заказ
+        dispatch(blockOrder(
+            filial,
+            props.type === 'cinema' ? pre_order.uid : horder.uid,
+            props.type === 'cinema' ? pre_order.ver : horder.ver,
+            props.type,
+            true))
         return () => {
-            // разблокируем заказ
+            dispatch(blockOrder(
+                filial,
+                props.type === 'cinema' ? pre_order.uid : horder.uid,
+                props.type === 'cinema' ? pre_order.ver : horder.ver,
+                props.type,
+                false))
         }
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(setTotal(pre_order.sum + horder.sum))
