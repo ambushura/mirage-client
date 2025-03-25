@@ -38,13 +38,15 @@ const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchO
                             </ButtonGroup>
                         </Box>
                         <Box className="order-box-panel-3" onClick={navigateTo}>
-                            <SeanceTitle seance={{
-                                uid: order.seance_uid,
-                                beginning: order.beginning,
-                                ending: order.ending,
-                                copy_type: order.film_copy_type,
-                                rate_age: order.film_rate_age
-                            }} content_type={true} day={true} its_hall_map={true} age={true} />
+                            <SeanceTitle
+                                seance={{
+                                    uid: order.seance_uid,
+                                    beginning: order.beginning,
+                                    ending: order.ending,
+                                    copy_type: order.film_copy_type,
+                                    rate_age: order.film_rate_age,
+                                    content_type: order.seance_content_type
+                            }} content_type={true} day={true} its_hall_map={true} age={true}/>
                             <Box className='seance-title-film-name'>{order.film_name}</Box>
                             <Box className='seance-title-hall-name'>Зал {order.hall_full_name}</Box>
                         </Box>
