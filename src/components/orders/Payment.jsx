@@ -9,6 +9,7 @@ import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {blockOrder} from "../../service/fetch_service.js"
+import Checkbox from '@mui/material/Checkbox'
 
 const Payment = (props) => {
 
@@ -22,6 +23,14 @@ const Payment = (props) => {
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
     const filial = useSelector(state => state.data.filial)
+
+    const [waiting_mark_egais_items, set_waiting_mark_egais_items] = useState(true)
+    const [waiting_horeca_items, set_waiting_horeca_items] = useState(true)
+    const [waiting_cinema_items, set_waiting_cinema_items] = useState(true)
+
+    const [slip_without_receipt_mark_egais_items, set_slip_without_receipt_mark_egais_items] = useState(true)
+    const [slip_without_receipt_horeca_items, set_slip_without_receipt_horeca_items] = useState(true)
+    const [slip_without_receipt_cinema_items, set_slip_without_receipt_cinema_items] = useState(true)
 
     const paymentMethodsArray = () => {
         if (payment_methods_loading) {
@@ -170,12 +179,37 @@ const Payment = (props) => {
     }, [order_receipt])
 
     const table = (table_name, title) => {
-        if (order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].length > 0) {
+        const chapter = table_name.split(".")[0]
+        const table = table_name.split(".")[1]
+        if (order_receipt[chapter][table].length > 0) {
             return (
                 <>
-                    <Box className='payment-items-group-title-name'>{title}</Box>
+                    <Box className='payment-items-group-title-name'><Checkbox
+                        checked={
+                            `${chapter}.${table}` === 'waiting.mark_egais_items' ? waiting_mark_egais_items :
+                                `${chapter}.${table}` === 'waiting.horeca_items' ? waiting_horeca_items :
+                                    `${chapter}.${table}` === 'waiting.cinema_items' ? waiting_cinema_items :
+                                        `${chapter}.${table}` === 'slip_without_receipt.mark_egais_items' ? slip_without_receipt_mark_egais_items :
+                                            `${chapter}.${table}` === 'slip_without_receipt.horeca_items' ? slip_without_receipt_horeca_items :
+                                                `${chapter}.${table}` === 'slip_without_receipt.cinema_items' ? slip_without_receipt_cinema_items :
+                                                    false
+                        } onChange={() => {
+                        if (`${chapter}.${table}` === 'waiting.mark_egais_items') {
+                            set_waiting_mark_egais_items(prev_value => !prev_value)
+                        } else if (`${chapter}.${table}` === 'waiting.horeca_items') {
+                            set_waiting_horeca_items(prev_value => !prev_value)
+                        } else if (`${chapter}.${table}` === 'waiting.cinema_items') {
+                            set_waiting_cinema_items(prev_value => !prev_value)
+                        } else if (`${chapter}.${table}` === 'slip_without_receipt.mark_egais_items') {
+                            set_slip_without_receipt_mark_egais_items(prev_value => !prev_value)
+                        } else if (`${chapter}.${table}` === 'slip_without_receipt.horeca_items') {
+                            set_slip_without_receipt_horeca_items(prev_value => !prev_value)
+                        } else if (`${chapter}.${table}` === 'slip_without_receipt.cinema_items') {
+                            set_slip_without_receipt_cinema_items(prev_value => !prev_value)
+                        }
+                    }}/>{title}</Box>
                     <Box className='payment-items-group-item'>
-                        {order_receipt[table_name.split(".")[0]][table_name.split(".")[1]].map((item) => (
+                        {order_receipt[chapter][table].map((item) => (
                             <Box key={item.id} className='payment-items-group-item-row'>
                                 <Box className='payment-items-group-item-0'>{item.name}</Box>
                                 <Box className='payment-items-group-item-1'>{item.quantity}</Box>
@@ -249,7 +283,8 @@ const Payment = (props) => {
             </Box>
             <Box className='payment-items'>
                 <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box className='payment-items-group-title'>Списали деньги с карты, но не пробили чек</Box>
+                    <Box className='payment-items-group-title'>Списали деньги с карты, но не пробили
+                        чек</Box>
                     {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
                     {table('slip_without_receipt.horeca_items', 'Товары')}
                     {table('slip_without_receipt.cinema_items', 'Услуги')}

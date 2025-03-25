@@ -463,9 +463,10 @@
     width: 100%;
 }
 .payment-items-group-title {
-    height: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 42px;
     width: 100%;
-    padding: 4px 4px;
     font-weight: bold;
     position: sticky;
     top: 144px;
@@ -473,13 +474,12 @@
     background-color: #e4e2e2;
 }
 .payment-items-group-title-name {
-    height: 20px;
+    height: 42px;
     width: 100%;
-    padding: 4px 4px;
     font-weight: bold;
     color: #0E0F11;
     position: sticky;
-    top: calc(144px + 28px);
+    top: calc(144px + 42px);
     z-index: 2;
     background-color: #ececec;
 }
