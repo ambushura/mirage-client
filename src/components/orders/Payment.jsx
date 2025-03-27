@@ -21,7 +21,7 @@ const Payment = (props) => {
     const dispatch = useDispatch()
 
     const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
-    const [order_error, order_loading] = useFetchReceiptsFromOrder(props.type)
+    const [for_payment_error, for_payment_loading] = useFetchReceiptsFromOrder(props.type)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const total = useSelector(state => state.orders.total)
@@ -110,7 +110,7 @@ const Payment = (props) => {
         }
     }, [])
 
-    const [order_receipt, set_order_receipt] = useState({...data})
+    const [for_payment, set_for_payment] = useState({...data})
     useEffect(() => {
         let order = undefined
         if (props.type === 'cinema') {
@@ -118,7 +118,7 @@ const Payment = (props) => {
         } else {
             order = horder
         }
-        const for_payment = structuredClone(order.for_payment)
+        const for_payment_new = structuredClone(order.for_payment)
         const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
         categories.forEach((category) => {
             order.for_payment.waiting[category].forEach((item) => {
@@ -136,7 +136,7 @@ const Payment = (props) => {
                 ["name", "unit_name", "price", "discount"],
                 ["quantity", "sum"]
             )
-            for_payment.waiting[category] = groupedItems.map((item, i) => ({
+            for_payment_new.waiting[category] = groupedItems.map((item, i) => ({
                 id: i,
                 name: item.name,
                 price: `${item.price.toLocaleString("ru-RU")} р`,
@@ -145,7 +145,7 @@ const Payment = (props) => {
                 sum: `${item.sum.toLocaleString("ru-RU")} р`,
             }))
         })
-        set_order_receipt(for_payment)
+        set_for_payment(for_payment_new)
     }, [data, pre_order, horder, props.type])
 
     function groupAndSum(data, groupByFields, sumFields) {
@@ -168,33 +168,33 @@ const Payment = (props) => {
     const [waiting, set_waiting] = useState(false)
     const [success, set_success] = useState(false)
     useEffect(() => {
-        if (order_receipt.slip_without_receipt.mark_egais_items.length > 0 ||
-            order_receipt.slip_without_receipt.horeca_items.length > 0 ||
-            order_receipt.slip_without_receipt.cinema_items.length > 0) {
+        if (for_payment.slip_without_receipt.mark_egais_items.length > 0 ||
+            for_payment.slip_without_receipt.horeca_items.length > 0 ||
+            for_payment.slip_without_receipt.cinema_items.length > 0) {
             set_slip_without_receipt(true)
         } else {
             set_slip_without_receipt(false)
         }
-        if (order_receipt.waiting.mark_egais_items.length > 0 ||
-            order_receipt.waiting.horeca_items.length > 0 ||
-            order_receipt.waiting.cinema_items.length > 0) {
+        if (for_payment.waiting.mark_egais_items.length > 0 ||
+            for_payment.waiting.horeca_items.length > 0 ||
+            for_payment.waiting.cinema_items.length > 0) {
             set_waiting(true)
         } else {
             set_waiting(false)
         }
-        if (order_receipt.success.mark_egais_items.length > 0 ||
-            order_receipt.success.horeca_items.length > 0 ||
-            order_receipt.success.cinema_items.length > 0) {
+        if (for_payment.success.mark_egais_items.length > 0 ||
+            for_payment.success.horeca_items.length > 0 ||
+            for_payment.success.cinema_items.length > 0) {
             set_success(true)
         } else {
             set_success(false)
         }
-    }, [order_receipt])
+    }, [for_payment])
 
     const table = (table_name, title) => {
         const chapter = table_name.split(".")[0]
         const table = table_name.split(".")[1]
-        if (order_receipt[chapter][table].length > 0) {
+        if (for_payment[chapter][table].length > 0) {
             return (
                 <>
                     <Box className='payment-items-group-title-name'><Checkbox
@@ -222,7 +222,7 @@ const Payment = (props) => {
                         }
                     }}/>{title}</Box>
                     <Box className='payment-items-group-item'>
-                        {order_receipt[chapter][table].map((item) => (
+                        {for_payment[chapter][table].map((item) => (
                             <Box key={item.id} className='payment-items-group-item-row'>
                                 <Box className='payment-items-group-item-0'>{item.name}</Box>
                                 <Box className='payment-items-group-item-1'>{item.quantity}</Box>
@@ -238,85 +238,91 @@ const Payment = (props) => {
         }
     }
 
-    return (
-        <Box style={{backgroundColor: '#f8f8f8'}}>
-            <Box className='payment-total'>
-                <Box className='payment-total-div'>
-                    <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
-                        props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
-                    }}><ArrowBackIosNewIcon/></Box>
-                    <Box sx={{backgroundColor: '#e4e2e2'}}>
-                        <Box className='payment-total-title'>
-                            Кино
+    if (for_payment_error !== null) {
+        return <Box>Ошибка загрузки</Box>
+    } else if (for_payment_loading) {
+        return <Loader/>
+    } else {
+        return (
+            <Box style={{backgroundColor: '#f8f8f8'}}>
+                <Box className='payment-total'>
+                    <Box className='payment-total-div'>
+                        <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
+                            props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
+                        }}><ArrowBackIosNewIcon/></Box>
+                        <Box sx={{backgroundColor: '#e4e2e2'}}>
+                            <Box className='payment-total-title'>
+                                Кино
+                            </Box>
+                            <Box className='payment-total-sum'>
+                                {pre_order.sum}
+                            </Box>
                         </Box>
-                        <Box className='payment-total-sum'>
-                            {pre_order.sum}
+                        <Box>
+                            <Box className='payment-total-title'>
+                                Общепит
+                            </Box>
+                            <Box className='payment-total-sum'>
+                                {horder.sum}
+                            </Box>
+                        </Box>
+                        <Box sx={{backgroundColor: '#e4e2e2'}}>
+                            <Box className='payment-total-title'>
+                                Всего
+                            </Box>
+                            <Box className='payment-total-sum'>
+                                {total}
+                            </Box>
+                        </Box>
+                        <Box sx={{cursor: 'pointer'}} onClick={() => dispatch(openModal({type: 'calc', props: {}}))}>
+                            <Box className='payment-total-title'>
+                                Получил
+                            </Box>
+                            <Box className='payment-total-sum'>
+                                {cash}
+                            </Box>
+                        </Box>
+                        <Box style={{
+                            backgroundColor: total > cash ? '#FF1A25' : '#50DB92',
+                            color: total > cash ? 'white' : 'black',
+                            borderRadius: '0 12px 12px 0'
+                        }}>
+                            <Box className='payment-total-title'>
+                                {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
+                            </Box>
+                            <Box className='payment-total-sum'>
+                                {total !== cash ? Math.abs(change) : <></>}
+                            </Box>
                         </Box>
                     </Box>
-                    <Box>
-                        <Box className='payment-total-title'>
-                            Общепит
-                        </Box>
-                        <Box className='payment-total-sum'>
-                            {horder.sum}
-                        </Box>
+                </Box>
+                <Box className='payment-types'>
+                    {paymentMethodsArray()}
+                </Box>
+                <Box className='payment-items'>
+                    <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
+                        <Box className='payment-items-group-title'>Списали деньги с карты, но не пробили
+                            чек</Box>
+                        {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                        {table('slip_without_receipt.horeca_items', 'Товары')}
+                        {table('slip_without_receipt.cinema_items', 'Услуги')}
                     </Box>
-                    <Box sx={{backgroundColor: '#e4e2e2'}}>
-                        <Box className='payment-total-title'>
-                            Всего
-                        </Box>
-                        <Box className='payment-total-sum'>
-                            {total}
-                        </Box>
+                    <Box sx={{display: waiting ? 'block' : 'none'}} className='payment-items-group'>
+                        <Box className='payment-items-group-title'>Ожидает оплаты</Box>
+                        {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                        {table('waiting.horeca_items', 'Товары')}
+                        {table('waiting.cinema_items', 'Услуги')}
                     </Box>
-                    <Box sx={{cursor: 'pointer'}} onClick={() => dispatch(openModal({type: 'calc', props: {}}))}>
-                        <Box className='payment-total-title'>
-                            Получил
-                        </Box>
-                        <Box className='payment-total-sum'>
-                            {cash}
-                        </Box>
-                    </Box>
-                    <Box style={{
-                        backgroundColor: total > cash ? '#FF1A25' : '#50DB92',
-                        color: total > cash ? 'white' : 'black',
-                        borderRadius: '0 12px 12px 0'
-                    }}>
-                        <Box className='payment-total-title'>
-                            {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
-                        </Box>
-                        <Box className='payment-total-sum'>
-                            {total !== cash ? Math.abs(change) : <></>}
-                        </Box>
+                    <Box sx={{display: success ? 'block' : 'none'}} className='payment-items-group'>
+                        <Box className='payment-items-group-title'>Успешно оплачено</Box>
+                        {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
+                        {table('success.horeca_items', 'Товары')}
+                        {table('success.cinema_items', 'Услуги')}
                     </Box>
                 </Box>
             </Box>
-            <Box className='payment-types'>
-                {paymentMethodsArray()}
-            </Box>
-            <Box className='payment-items'>
-                <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box className='payment-items-group-title'>Списали деньги с карты, но не пробили
-                        чек</Box>
-                    {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                    {table('slip_without_receipt.horeca_items', 'Товары')}
-                    {table('slip_without_receipt.cinema_items', 'Услуги')}
-                </Box>
-                <Box sx={{display: waiting ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box className='payment-items-group-title'>Ожидает оплаты</Box>
-                    {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                    {table('waiting.horeca_items', 'Товары')}
-                    {table('waiting.cinema_items', 'Услуги')}
-                </Box>
-                <Box sx={{display: success ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box className='payment-items-group-title'>Успешно оплачено</Box>
-                    {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                    {table('success.horeca_items', 'Товары')}
-                    {table('success.cinema_items', 'Услуги')}
-                </Box>
-            </Box>
-        </Box>
-    )
+        )
+    }
 }
 
 export default Payment
