@@ -5,7 +5,12 @@ import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {useEffect, useMemo, useState} from "react"
 import Loader from "../modal/Loader.jsx"
-import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
+import {
+    setCash,
+    setHorderPaying,
+    setPreOrderPaying,
+    setTotal
+} from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {blockOrder, payment} from "../../service/fetch_service.js"
@@ -16,7 +21,7 @@ const Payment = (props) => {
     const dispatch = useDispatch()
 
     const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
-    const [receiptsFromOrder, ,] = useFetchReceiptsFromOrder(props.type)
+    const [order_error, order_loading] = useFetchReceiptsFromOrder(props.type)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const total = useSelector(state => state.orders.total)
@@ -107,12 +112,17 @@ const Payment = (props) => {
 
     const [order_receipt, set_order_receipt] = useState({...data})
     useEffect(() => {
-        if (!receiptsFromOrder) return
-        const receiptsNew = structuredClone(data)
+        let order = undefined
+        if (props.type === 'cinema') {
+            order = pre_order
+        } else {
+            order = horder
+        }
+        const for_payment = structuredClone(order.for_payment)
         const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
         categories.forEach((category) => {
-            receiptsFromOrder.waiting[category].forEach((item) => {
-                receiptsNew.waiting[category].push({
+            order.for_payment.waiting[category].forEach((item) => {
+                for_payment.waiting[category].push({
                     name: item.name,
                     unit_name: item.unit_name,
                     price: item.price,
@@ -122,11 +132,11 @@ const Payment = (props) => {
                 })
             })
             const groupedItems = groupAndSum(
-                receiptsNew.waiting[category],
+                order.for_payment.waiting[category],
                 ["name", "unit_name", "price", "discount"],
                 ["quantity", "sum"]
             )
-            receiptsNew.waiting[category] = groupedItems.map((item, i) => ({
+            for_payment.waiting[category] = groupedItems.map((item, i) => ({
                 id: i,
                 name: item.name,
                 price: `${item.price.toLocaleString("ru-RU")} р`,
@@ -135,8 +145,8 @@ const Payment = (props) => {
                 sum: `${item.sum.toLocaleString("ru-RU")} р`,
             }))
         })
-        set_order_receipt(receiptsNew)
-    }, [data, receiptsFromOrder])
+        set_order_receipt(for_payment)
+    }, [data, pre_order, horder, props.type])
 
     function groupAndSum(data, groupByFields, sumFields) {
         return Object.values(
