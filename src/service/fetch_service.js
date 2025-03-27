@@ -57,14 +57,14 @@ export const deletePreOrder = (filial, uid_order) => {
 export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {timeout: 5000})
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {timeout: TIMEOUT})
             if (response.data.code === 200) {
                 if (response.data.data === null) {
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 } else {
                     dispatch(setCurrentPreOrder(response.data.data))
                 }
-                const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {timeout: 5000})
+                const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {timeout: TIMEOUT})
                 dispatch(setBooking(booking.data.data))
             } else {
                 dispatch(addNotification({
@@ -106,10 +106,10 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     }
 }
 
-export const payment = (filial, uid_order, wp) => {
+export const payment = (filial, pm, uid_order, type) => {
     return async (dispatch) => {
         try {
-            await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_order=${uid_order}&wp=${wp}`, {timeout: 5000})
+            await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_kkt=${pm.uid_kkt}&uid_pinpad=${pm.uid_pinpad}&uid_payment_type=${pm.uid_payment_type}&uid_order=${uid_order}&uid_work_place=${pm.uid_work_place}&type=${type}`, {timeout: TIMEOUT * 2})
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,

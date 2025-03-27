@@ -8,7 +8,7 @@ import Loader from "../modal/Loader.jsx"
 import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import {blockOrder} from "../../service/fetch_service.js"
+import {blockOrder, payment} from "../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
 
 const Payment = (props) => {
@@ -42,16 +42,19 @@ const Payment = (props) => {
         } else {
             return (
                 <>
-                    {payment_methods.list.map(paymentMethod => {
+                    {payment_methods.list.map(pm => {
                         return (
                             <Button variant='contained'
                                     color='secondary'
-                                    key={paymentMethod.uid}
+                                    key={pm.uid}
                                     className='payment-path'
-                                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                <span>{paymentMethod.name}</span>
+                                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+                                    onClick={() => {
+                                        dispatch(payment(filial, pm, props.type === 'cinema' ? pre_order.uid : horder.uid, props.type))
+                                    }}>
+                                <span>{pm.name}</span>
                                 <span
-                                    style={{fontSize: '70%'}}>kkt {paymentMethod.kkt.number.slice(-4)} | pin {paymentMethod.pinpad.number.slice(-4)}</span>
+                                    style={{fontSize: '70%'}}>kkt {pm.kkt.number.slice(-4)} | pin {pm.pinpad.number.slice(-4)}</span>
                             </Button>
                         )
                     })}
