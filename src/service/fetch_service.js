@@ -106,10 +106,19 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     }
 }
 
-export const payment = (filial, pm, uid_order, type) => {
+export const payment = (filial, pm, uid_order, type, for_payment) => {
     return async (dispatch) => {
         try {
-            await axios.get(`http://${filial.ip}:8081/api/payment-server/payment?uid_filial=${filial.uid}&uid_kkt=${pm.uid_kkt}&uid_pinpad=${pm.uid_pinpad}&uid_payment_type=${pm.uid_payment_type}&uid_order=${uid_order}&uid_work_place=${pm.uid_work_place}&type=${type}`, {timeout: TIMEOUT * 2})
+            await axios.post(`http://${filial.ip}:8081/api/payment-server/payment`, {
+                uid_filial: filial.uid,
+                uid_payment_type: pm.uid_payment_type,
+                uid_kkt: pm.uid_kkt,
+                uid_pinpad: pm.uid_pinpad,
+                uid_work_place: pm.uid_work_place,
+                uid_order: uid_order,
+                type: type,
+                for_payment: for_payment
+            }, {timeout: TIMEOUT * 2})
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,

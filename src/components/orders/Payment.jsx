@@ -40,7 +40,7 @@ const Payment = (props) => {
     const paymentMethodsArray = () => {
         if (payment_methods_loading) {
             return <Loader/>
-        } else if (payment_methods_error) {
+        } else if (payment_methods_error !== null) {
             return <Box>Ошибка загрузки маршрутов оплаты</Box>
         } else if (payment_methods.list.length === 0) {
             return <Box>Для этого рабочего места не найдено маршрутов оплаты</Box>
@@ -55,11 +55,27 @@ const Payment = (props) => {
                                     className='payment-path'
                                     sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
                                     onClick={() => {
-                                        dispatch(payment(filial, pm, props.type === 'cinema' ? pre_order.uid : horder.uid, props.type))
+                                        dispatch(payment(
+                                            filial,
+                                            pm,
+                                            props.type === 'cinema' ? pre_order.uid : horder.uid,
+                                            props.type,
+                                            {
+                                                waiting: {
+                                                    mark_egais_items: waiting_mark_egais_items,
+                                                    horeca_items: waiting_horeca_items,
+                                                    cinema_items: waiting_cinema_items,
+                                                },
+                                                slip_without_receipt: {
+                                                    mark_egais_items: slip_without_receipt_mark_egais_items,
+                                                    horeca_items: slip_without_receipt_horeca_items,
+                                                    cinema_items: slip_without_receipt_cinema_items,
+                                                }
+                                            }))
                                     }}>
                                 <span>{pm.name}</span>
                                 <span
-                                    style={{fontSize: '70%'}}>kkt {pm.kkt.number.slice(-4)} | pin {pm.pinpad.number.slice(-4)}</span>
+                                    style={{fontSize: '70%'}}>kkt {pm.kkt.number.slice(-4)} {pm.pinpad !== null ? ` | pm${pm.pinpad.number.slice(-4)}` : ''}</span>
                             </Button>
                         )
                     })}
@@ -238,10 +254,10 @@ const Payment = (props) => {
         }
     }
 
-    if (for_payment_error !== null) {
-        return <Box>Ошибка загрузки</Box>
-    } else if (for_payment_loading) {
+    if (for_payment_loading) {
         return <Loader/>
+    } else if (for_payment_error !== null) {
+        return <Box>Не удалось сформировать чеки</Box>
     } else {
         return (
             <Box style={{backgroundColor: '#f8f8f8'}}>

@@ -448,12 +448,16 @@
 .payment-types {
     padding: 4px 0;
     display: flex;
+    flex-direction: row;
     position: sticky;
     top: 64px;
     z-index: 2;
     background-color: #f8f8f8;
     box-sizing: border-box;
     height: 80px;
+}
+.payment-types>button {
+    margin: 0 4px 0 0;
 }
 .payment-items {
     display: flex;
