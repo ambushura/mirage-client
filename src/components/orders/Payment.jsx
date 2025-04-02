@@ -13,7 +13,7 @@ import {
 } from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import {blockOrder, payment} from "../../service/fetch_service.js"
+import {payment} from "../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
 
 const Payment = (props) => {
@@ -59,6 +59,7 @@ const Payment = (props) => {
                                             filial,
                                             pm,
                                             props.type === 'cinema' ? pre_order.uid : horder.uid,
+                                            props.type === 'cinema' ? pre_order.ver : horder.ver,
                                             props.type,
                                             {
                                                 waiting: {
@@ -75,7 +76,7 @@ const Payment = (props) => {
                                     }}>
                                 <span>{pm.name}</span>
                                 <span
-                                    style={{fontSize: '70%'}}>kkt {pm.kkt.number.slice(-4)} {pm.pinpad !== null ? ` | pm${pm.pinpad.number.slice(-4)}` : ''}</span>
+                                    style={{fontSize: '70%'}}>kkt {pm.kkt.number.slice(-4)} {pm.pinpad !== null ? ` | pm ${pm.pinpad.number.slice(-4)}` : ''}</span>
                             </Button>
                         )
                     })}
@@ -83,23 +84,6 @@ const Payment = (props) => {
             )
         }
     }
-
-    useEffect(() => {
-        dispatch(blockOrder(
-            filial,
-            props.type === 'cinema' ? pre_order.uid : horder.uid,
-            props.type === 'cinema' ? pre_order.ver : horder.ver,
-            props.type,
-            true))
-        return () => {
-            dispatch(blockOrder(
-                filial,
-                props.type === 'cinema' ? pre_order.uid : horder.uid,
-                props.type === 'cinema' ? pre_order.ver : horder.ver,
-                props.type,
-                false))
-        }
-    }, [dispatch])
 
     useEffect(() => {
         dispatch(setTotal(pre_order.sum + horder.sum))
@@ -134,34 +118,52 @@ const Payment = (props) => {
         } else {
             order = horder
         }
-        const for_payment_new = structuredClone(order.for_payment)
-        const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
-        categories.forEach((category) => {
-            order.for_payment.waiting[category].forEach((item) => {
-                for_payment.waiting[category].push({
-                    name: item.name,
-                    unit_name: item.unit_name,
-                    price: item.price,
-                    discount: item.name_discount ?? "-",
-                    quantity: item.quantity,
-                    sum: item.sum,
+        const for_payment_new = {
+            waiting: {
+                mark_egais_items: [],
+                horeca_items: [],
+                cinema_items: []
+            },
+            slip_without_receipt: {
+                mark_egais_items: [],
+                horeca_items: [],
+                cinema_items: []
+            },
+            success: {
+                mark_egais_items: [],
+                horeca_items: [],
+                cinema_items: []
+            }
+        }
+        if (order.for_payment !== null) {
+            const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
+            categories.forEach((category) => {
+                order.for_payment.waiting[category].forEach((item) => {
+                    for_payment.waiting[category].push({
+                        name: item.name,
+                        unit_name: item.unit_name,
+                        price: item.price,
+                        discount: item.name_discount ?? "-",
+                        quantity: item.quantity,
+                        sum: item.sum,
+                    })
                 })
+                const groupedItems = groupAndSum(
+                    order.for_payment.waiting[category],
+                    ["name", "unit_name", "price", "discount"],
+                    ["quantity", "sum"]
+                )
+                for_payment_new.waiting[category] = groupedItems.map((item, i) => ({
+                    id: i,
+                    name: item.name,
+                    price: `${item.price.toLocaleString("ru-RU")} р`,
+                    discount: item.name_discount ?? "-",
+                    quantity: `${item.quantity.toFixed(3)} ${item.unit_name}`,
+                    sum: `${item.sum.toLocaleString("ru-RU")} р`,
+                }))
             })
-            const groupedItems = groupAndSum(
-                order.for_payment.waiting[category],
-                ["name", "unit_name", "price", "discount"],
-                ["quantity", "sum"]
-            )
-            for_payment_new.waiting[category] = groupedItems.map((item, i) => ({
-                id: i,
-                name: item.name,
-                price: `${item.price.toLocaleString("ru-RU")} р`,
-                discount: item.name_discount ?? "-",
-                quantity: `${item.quantity.toFixed(3)} ${item.unit_name}`,
-                sum: `${item.sum.toLocaleString("ru-RU")} р`,
-            }))
-        })
-        set_for_payment(for_payment_new)
+            set_for_payment(for_payment_new)
+        }
     }, [data, pre_order, horder, props.type])
 
     function groupAndSum(data, groupByFields, sumFields) {
