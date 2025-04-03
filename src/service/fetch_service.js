@@ -90,7 +90,7 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
 export const payment = (filial, pm, uid_order, ver, type, for_payment) => {
     return async (dispatch) => {
         try {
-            await axios.post(`http://${filial.ip}:8081/api/payment-server/payment`, {
+            const response = await axios.post(`http://${filial.ip}:8081/api/payment-server/payment`, {
                 uid_filial: filial.uid,
                 uid_payment_type: pm.uid_payment_type,
                 uid_kkt: pm.uid_kkt,
@@ -101,8 +101,15 @@ export const payment = (filial, pm, uid_order, ver, type, for_payment) => {
                 ver: ver,
                 for_payment: for_payment,
             }, {timeout: TIMEOUT * 2})
+            if (response.data.code === 500) {
+                dispatch(addNotification({
+                    message: response.data.data,
+                    severity: 'error',
+                    autoHide: true
+                }))
+            }
         } catch (e) {
-            await dispatch(addNotification({
+            dispatch(addNotification({
                 message: e.message,
                 severity: 'error',
                 autoHide: true
