@@ -67,7 +67,7 @@ export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) =>
 export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver_order=${ver_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`, {timeout: TIMEOUT})
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`, {timeout: TIMEOUT})
             if (response.data.code === 200) {
                 dispatch(setCurrentHorder(response.data.data))
             } else {
