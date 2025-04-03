@@ -454,7 +454,7 @@
     z-index: 2;
     background-color: #f8f8f8;
     box-sizing: border-box;
-    height: 80px;
+    height: 70px;
 }
 .payment-types>button {
     margin: 0 4px 0 0;
@@ -473,7 +473,7 @@
     width: 100%;
     font-weight: bold;
     position: sticky;
-    top: 144px;
+    top: 134px;
     z-index: 2;
     background-color: #e4e2e2;
 }
@@ -483,7 +483,7 @@
     font-weight: bold;
     color: #0E0F11;
     position: sticky;
-    top: calc(144px + 42px);
+    top: calc(144px + 32px);
     z-index: 2;
     background-color: #ececec;
 }
