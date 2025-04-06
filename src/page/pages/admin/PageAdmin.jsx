@@ -1,6 +1,7 @@
 import {Box, Tab, Tabs} from "@mui/material"
 import {useState} from "react"
 import PropTypes from "prop-types"
+import Orders from "./orders/Orders.jsx"
 
 const PageAdmin = () => {
 
@@ -21,7 +22,7 @@ const PageAdmin = () => {
                 aria-labelledby={`simple-tab-${index}`}
                 {...other}
             >
-                {value === index && <Box sx={{p: 3}}>{children}</Box>}
+                {value === index && <Box>{children}</Box>}
             </div>
         );
     }
@@ -47,7 +48,7 @@ const PageAdmin = () => {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                Заказы
+                <Orders/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 Итоги

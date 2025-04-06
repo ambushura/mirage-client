@@ -1,0 +1,25 @@
+.admin-orders-panel {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.admin-orders-panel-page {
+    height: 100%;
+}
+.admin-orders-panel-period {
+    height: 100%;
+}
+
+
+
+
+.admin-orders-panel-cinema{
+    display: flex;
+}
+.admin-orders-panel-cinema-seances {
+    width: 300px;
+}
+.admin-orders-panel-cinema-orders {
+    width: calc(100% - 300px - 520px);
+}
