@@ -30,12 +30,18 @@
 
 }
 
+.admin-orders-cinema-filial {
+    z-index: 1;
+}
+
 .admin-orders-cinema-filial-name {
     box-sizing: border-box;
     padding: 10px 0 10px 10px;;
     font-weight: bold;
     position: sticky;
     top: 0;
+    background: #fff;
+    z-index: 6;
 }
 
 .admin-orders-cinema-filial-content {

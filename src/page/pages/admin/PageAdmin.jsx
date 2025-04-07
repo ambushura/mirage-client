@@ -19,7 +19,7 @@ const PageAdmin = () => {
         const {children, value, index, ...other} = props
         return (
             <Box
-                sx={{overflowX: 'hidden', display: 'flex', flexDirection: 'row', padding: '2px 0 0 0'}}
+                sx={{overflow: 'hidden', display: 'flex', flexDirection: 'row', padding: '2px 0 0 0'}}
                 role="tabpanel"
                 hidden={value !== index}
                 id={`simple-tabpanel-${index}`}
