@@ -9,6 +9,7 @@ export const HEADER_HEIGHT = [200, 70]
 export const TOP_MENU_HEIGHT = [65, 65]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule"]
+export const PARAM_DATA_ADMIN_SHIFT = ["admin/cinema", "admin/horeca"]
 
 const initialState = {
     app_width: undefined,
@@ -23,20 +24,21 @@ const initialState = {
         param_city: undefined,
         param_filial: undefined,
         param_date: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
+        param_date_admin: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
         uid_film: undefined,
         uid_seance: undefined,
     },
     top_menu: [
         [
-            { id: "films", name: "Фильмы", path: "" },
-            { id: "schedule", name: "Расписание", path: "" },
-            { id: "mkitchen", name: "Mkitchen", path: "" },
+            {id: "films", name: "Фильмы", path: ""},
+            {id: "schedule", name: "Расписание", path: ""},
+            {id: "mkitchen", name: "Mkitchen", path: ""},
         ],
         [
-            { id: "films", name: "Фильмы", path: "" },
-            { id: "schedule", name: "Расписание", path: "" },
-            { id: "menu", name: "Меню", path: "" },
-            { id: "admin", name: "Кинокомплекс", path: "" },
+            {id: "films", name: "Фильмы", path: ""},
+            {id: "schedule", name: "Расписание", path: ""},
+            {id: "menu", name: "Меню", path: ""},
+            {id: "admin/cinema", name: "Кинокомплекс", path: ""},
         ],
     ],
 }

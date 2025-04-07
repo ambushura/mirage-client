@@ -5,27 +5,42 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {to_str_DAY} from "../../../../service/advanced.js"
 import dayjs from "dayjs"
-import {useSelector} from "react-redux"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import {useSelector} from "react-redux"
+import {useNavigate} from "react-router-dom"
 
 const Orders = () => {
 
-    const param_date = useSelector(state => state.interface.params.param_date)
+    const navigate = useNavigate()
+    const current_page = useSelector(state => state.interface.current_page)
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     return (
         <Box>
             <Box className='admin-orders-panel'>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained'
                              className='admin-orders-panel-page'>
-                    <Button color='primary' sx={{padding: '0 30px'}}>Кино</Button>
-                    <Button color='secondary' sx={{padding: '0 30px'}}>Общепит</Button>
+                    <Button color={current_page === 'admin/cinema' ? 'primary' : 'secondary'}
+                            sx={{padding: '0 30px'}}
+                            onClick={() => {
+                                navigate(`/admin/cinema/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}/`)
+                            }
+                            }>Кино</Button>
+                    <Button color={current_page === 'admin/horeca' ? 'primary' : 'secondary'}
+                            sx={{padding: '0 30px'}}
+                            onClick={() => {
+                                navigate(`/admin/horeca/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}/`)
+                            }
+                            }>Общепит</Button>
                 </ButtonGroup>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
                              className='admin-orders-panel-period'>
                     <Button sx={{padding: '0 20px'}}>сегодня</Button>
                     <Button sx={{padding: '0 20px'}}><KeyboardArrowLeftIcon/></Button>
                     <Button sx={{padding: '0 30px'}} endIcon={
-                        <KeyboardArrowDownIcon/>}>Заказы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}</Button>
+                        <KeyboardArrowDownIcon/>}>Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}</Button>
                     <Button sx={{padding: '0 20px'}}><KeyboardArrowRightIcon/></Button>
                 </ButtonGroup>
                 <TextField sx={{marginLeft: '4px', width: '250px'}} label="Поиск" variant='filled'/>

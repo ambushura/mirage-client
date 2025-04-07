@@ -1,8 +1,6 @@
 import {useEffect} from "react"
-import {PARAM_DATE_SHIFT, setTopMenu} from "../../redux/interfaceReducer.js"
+import {PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT, setTopMenu} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {from_dayjs_to_str} from "../../service/advanced.js"
-import dayjs from "dayjs"
 
 export function useSetTopMenu() {
 
@@ -11,6 +9,7 @@ export function useSetTopMenu() {
     const filial = useSelector(state => state.data.filial)
     const top_menu = useSelector(state => state.interface.top_menu)
     const param_date = useSelector(state => state.interface.params.param_date)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     useEffect(() => {
         if (city !== undefined) {
@@ -20,14 +19,13 @@ export function useSetTopMenu() {
                 top_menu[i].forEach(old_option => {
                     let new_option = Object.assign({}, old_option)
                     if (PARAM_DATE_SHIFT.find(el => el === new_option.id) !== undefined) {
-                        if (param_date === undefined) {
-                            new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${from_dayjs_to_str(dayjs(new Date()))}`
-                        } else {
-                            new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}`
-                        }
+                        new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}`
                     }
                     if (PARAM_DATE_SHIFT.find(el => el === new_option.id) === undefined) {
                         new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/`
+                    }
+                    if (PARAM_DATA_ADMIN_SHIFT.find(el => el === new_option.id) !== undefined) {
+                        new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
                     }
                     top_menu_new[i].push(new_option)
                 })

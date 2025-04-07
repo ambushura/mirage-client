@@ -45,7 +45,8 @@ const AppRoutes = (props)=> {
         film: <PageFilm/>,
         seance: <PageSeance/>,
         menu: permissions.includes("staff") ? <PageHoreca/> : null,
-        admin: permissions.includes("staff") ? <PageAdmin/> : null
+        "admin/cinema": permissions.includes("staff") ? <PageAdmin/> : null,
+        "admin/horeca": permissions.includes("staff") ? <PageAdmin/> : null
     }
 
     return <Fade in={!!pages[props.current_page]} unmountOnExit><Box>{pages[props.current_page] || null}</Box></Fade>

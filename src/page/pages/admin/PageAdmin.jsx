@@ -2,9 +2,11 @@ import {Box, Tab, Tabs} from "@mui/material"
 import {useState} from "react"
 import PropTypes from "prop-types"
 import Orders from "./orders/Orders.jsx"
+import {useSelector} from "react-redux"
 
 const PageAdmin = () => {
 
+    const current_page = useSelector(state => state.interface.current_page)
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
@@ -48,7 +50,8 @@ const PageAdmin = () => {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                <Orders/>
+                {current_page === 'admin/cinema' || current_page === 'admin/horeca' ?
+                    <Orders/> : null}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 Итоги

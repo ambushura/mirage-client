@@ -37,6 +37,7 @@ const initialState = {
     change: 0,
     pre_order_paying: false,
     horder_paying: false,
+    orders_cinema: {seance: [], schedule: [], orders: []}
 }
 
 export const ordersSlice = createSlice({
@@ -69,9 +70,12 @@ export const ordersSlice = createSlice({
         },
         setHorderPaying(state, {payload}) {
             state.horder_paying = payload
+        },
+        setOrdersCinema(state, {payload}) {
+            state.orders_cinema = payload
         }
     },
 })
 
-export const { setDate, setCurrentPreOrder, setCurrentHorder, setCash, setTotal, setPreOrderPaying, setHorderPaying} = ordersSlice.actions
+export const { setDate, setCurrentPreOrder, setCurrentHorder, setCash, setTotal, setPreOrderPaying, setHorderPaying, setOrdersCinema} = ordersSlice.actions
 export default ordersSlice.reducer

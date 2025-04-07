@@ -9,10 +9,11 @@ export function useSetMenu(uid_folder) {
     const [data, set_data] = useState(undefined)
 
     const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.data.param_date_admin)
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}/api/horeca_get_menu?uid_folder=${uid_folder}&&uid_filial=${filial.uid}`)
+            set_url(`http://${filial.ip}:${filial.port}/api/horeca_get_menu?uid_folder=${uid_folder}&uid_filial=${filial.uid}&date_shift=${param_date_admin}`)
         } else {
             set_url(undefined)
         }
