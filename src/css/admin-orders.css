@@ -1,25 +1,84 @@
-.admin-orders-panel {
+#page-admin {
+    padding: 0 5px 5px 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.admin-panel {
     height: 70px;
     width: 100%;
     display: flex;
     align-items: center;
 }
-.admin-orders-panel-page {
-    height: 100%;
-}
-.admin-orders-panel-period {
-    height: 100%;
-}
 
-
-
-
-.admin-orders-panel-cinema{
+.admin-orders-cinema {
     display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
 }
-.admin-orders-panel-cinema-seances {
-    width: 300px;
+
+.admin-orders-schedule {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: inherit;
 }
-.admin-orders-panel-cinema-orders {
-    width: calc(100% - 300px - 520px);
+
+.admin-orders-orders {
+
+}
+
+.admin-orders-cinema-filial-name {
+    box-sizing: border-box;
+    padding: 10px 0 10px 10px;;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+}
+
+.admin-orders-cinema-filial-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-orders-cinema-seances {
+    width: 350px;
+}
+
+.admin-orders-cinema-seance {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px 6px;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.admin-orders-cinema-schedule {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+
+.admin-orders-schedule::-webkit-scrollbar {
+    min-width: 50px;
+    height: 50px;
+    background-color: transparent;
+}
+
+.admin-orders-schedule::-webkit-scrollbar-thumb {
+    background: #8B919B ;
+    border-radius: 12px;
+    padding-right: 5px;
+}
+
+.admin-orders-schedule::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-orders-schedule::-webkit-scrollbar-corner{
+    background: transparent;
 }

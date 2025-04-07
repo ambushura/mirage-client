@@ -3,21 +3,23 @@ import {useState} from "react"
 import PropTypes from "prop-types"
 import Orders from "./orders/Orders.jsx"
 import {useSelector} from "react-redux"
+import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 
 const PageAdmin = () => {
 
     const current_page = useSelector(state => state.interface.current_page)
     const [value, setValue] = useState(0)
+    const [content_height, show_pre_order] = useSetContentHeight()
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
 
     function CustomTabPanel(props) {
-        const {children, value, index, ...other} = props;
-
+        const {children, value, index, ...other} = props
         return (
-            <div
+            <Box
+                sx={{overflowX: 'hidden', display: 'flex', flexDirection: 'row', padding: '2px 0 0 0'}}
                 role="tabpanel"
                 hidden={value !== index}
                 id={`simple-tabpanel-${index}`}
@@ -25,8 +27,8 @@ const PageAdmin = () => {
                 {...other}
             >
                 {value === index && <Box>{children}</Box>}
-            </div>
-        );
+            </Box>
+        )
     }
 
     CustomTabPanel.propTypes = {
@@ -40,7 +42,7 @@ const PageAdmin = () => {
     }
 
     return (
-        <Box sx={{width: '100%'}}>
+        <Box sx={{height: content_height, display: 'flex', flexDirection: 'column'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs variant="scrollable" value={value} onChange={handleChange}>
                     <Tab sx={{color: 'var(--text-color)'}} label="Заказы" {...allProps(0)}/>

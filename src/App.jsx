@@ -71,8 +71,10 @@ function App() {
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
                        element={permissions.includes("staff") ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
-                <Route path="/admin/cinema/:param_city/:param_filial/:param_date_admin/" element={<AppRoutes current_page="admin/cinema"/>}/>
-                <Route path="/admin/horeca/:param_city/:param_filial/:param_date_admin/" element={<AppRoutes current_page="admin/horeca"/>}/>
+                <Route path="/admin/cinema/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/cinema"/>}/>
+                <Route path="/admin/horeca/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/horeca"/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             {(!full || permissions.includes("staff")) && <Footer/>}

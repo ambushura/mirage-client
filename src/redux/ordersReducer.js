@@ -37,7 +37,7 @@ const initialState = {
     change: 0,
     pre_order_paying: false,
     horder_paying: false,
-    orders_cinema: {seance: [], schedule: [], orders: []}
+    orders_cinema: [],
 }
 
 export const ordersSlice = createSlice({

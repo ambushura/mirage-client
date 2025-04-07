@@ -18,10 +18,10 @@ const Orders = () => {
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     return (
-        <Box>
-            <Box className='admin-orders-panel'>
-                <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained'
-                             className='admin-orders-panel-page'>
+        <Box id="page-admin">
+            <Box className='admin-panel'>
+                <ButtonGroup size='small' variant='contained'
+                             className='admin-panel-page'>
                     <Button color={current_page === 'admin/cinema' ? 'primary' : 'secondary'}
                             sx={{padding: '0 30px'}}
                             onClick={() => {
@@ -36,7 +36,7 @@ const Orders = () => {
                             }>Общепит</Button>
                 </ButtonGroup>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
-                             className='admin-orders-panel-period'>
+                             className='admin-panel-period'>
                     <Button sx={{padding: '0 20px'}}>сегодня</Button>
                     <Button sx={{padding: '0 20px'}}><KeyboardArrowLeftIcon/></Button>
                     <Button sx={{padding: '0 30px'}} endIcon={
@@ -45,8 +45,8 @@ const Orders = () => {
                 </ButtonGroup>
                 <TextField sx={{marginLeft: '4px', width: '250px'}} label="Поиск" variant='filled'/>
             </Box>
-            <OrdersCinema/>
-            <OrdersHoreca/>
+            {current_page === 'admin/cinema' ? <OrdersCinema/> : null}
+            {current_page === 'admin/horeca' ? <OrdersHoreca/> : null}
         </Box>
     )
 }

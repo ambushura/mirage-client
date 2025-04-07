@@ -1,46 +1,61 @@
-import {Box} from "@mui/material"
-import Order from "../../../../components/orders/Order.jsx"
+import {Box, Button} from "@mui/material"
 import {useFetchOrdersCinema} from "../../../../hooks/fetching/useFetchOrdersCinema.js"
-import Loader from "../../../../components/modal/Loader.jsx"
+import {useSelector} from "react-redux"
+import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
 
 const OrdersCinema = () => {
 
-    const orders_cinema = useFetchOrdersCinema()
+    useFetchOrdersCinema()
+
+    const orders = useSelector(state => state.orders.orders_cinema)
 
     return (
-        <Box className='admin-orders-panel-cinema'>
-            <Box className='admin-orders-panel-cinema-seances'>Сеансы</Box>
-            <Box className='admin-orders-panel-cinema-orders'>
-                {orders_cinema.map(filial_data => {
+        <Box className='admin-orders-cinema'>
+            <Box className='admin-orders-schedule'>
+                {orders.map(filial_data => {
                     if (filial_data.loading) {
-                        return <Loader key='0'/>
+                        return null
                     } else if (filial_data.error !== null) {
-                        return <div key='1'>{filial_data.error}</div>
+                        return (
+                            <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
+                                <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
+                                <Button variant='contained' color='primary' className='admin-orders-cinema-seance'
+                                        sx={{marginBottom: '5px'}}>{filial_data.error}</Button>
+                            </Box>
+                        )
                     } else {
                         return (
-                            <Box key={filial_data.filial.uid}>
-                                <div>{filial_data.filial.name}</div>
-                                <Box>{filial_data.data.seances_orders.map(((seance_orders, i) => {
-                                    return (
-                                        <Box key={i}>
-                                            <Box>{seance_orders.seance.name_film}</Box>
-                                            <Box>
-                                                {seance_orders.orders.map(order => {
-                                                    return (
-                                                        <Box key={order.uid}>{order.number}</Box>
-                                                    )
-                                                })}
-                                            </Box>
-                                        </Box>
-                                    )
-                                }))}</Box>
+                            <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
+                                <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
+                                <Box className='admin-orders-cinema-filial-content'>
+                                    <Box className='admin-orders-cinema-seances'>
+                                        {filial_data.data.seances_orders.map((seance_orders => {
+                                            return (
+                                                <Button variant='contained' color='secondary'
+                                                        key={seance_orders.seance.uid}
+                                                        className='admin-orders-cinema-seance'
+                                                        sx={{marginBottom: '5px'}}>
+                                                    <SeanceTitle
+                                                        content_type={true}
+                                                        seance={seance_orders.seance}
+                                                        age={true}/>
+                                                    <span style={{
+                                                        flex: 1,
+                                                        overflow: 'hidden',
+                                                        textAlign: 'end'
+                                                    }}>{seance_orders.seance.name_film}</span>
+                                                </Button>
+                                            )
+                                        }))}
+                                    </Box>
+                                </Box>
                             </Box>
                         )
                     }
                 })}
             </Box>
-            <Box>
-                <Order/>
+            <Box className='admin-orders-orders'>
+                Заказы
             </Box>
         </Box>
     )

@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "../common/useFetchingArray.js"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {setOrdersCinema} from "../../redux/ordersReducer.js";
 
 export function useFetchOrdersCinema() {
 
+    const dispatch = useDispatch()
     const [urls, set_urls] = useState([])
     const fetch_data = useFetchingArray(urls)
 
@@ -29,5 +31,13 @@ export function useFetchOrdersCinema() {
         set_urls(urls_new)
     }, [city, filial, param_date_admin])
 
-    return fetch_data
+    useEffect(() => {
+        if (fetch_data.length > 0) {
+            dispatch(setOrdersCinema(fetch_data))
+        }
+        return () => {
+            dispatch(setOrdersCinema([]))
+        }
+    }, [dispatch, fetch_data])
+
 }
