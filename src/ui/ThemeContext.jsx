@@ -1,6 +1,7 @@
 import {createContext, useState, useEffect} from 'react'
 import {useSelector} from "react-redux"
 import {createTheme} from "@mui/material"
+
 const ThemeContext = createContext()
 
 export const ThemeBlackWhite = ({children}) => {

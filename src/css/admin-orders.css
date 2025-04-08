@@ -22,12 +22,24 @@
 
 .admin-orders-schedule {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: inherit;
 }
 
 .admin-orders-orders {
+    padding: 0 0 0 10px;
+    min-width: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 
+.admin-orders-orders-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-orders-orders-buttons-button {
+    margin-bottom: 4px;
 }
 
 .admin-orders-cinema-filial {
@@ -36,11 +48,11 @@
 
 .admin-orders-cinema-filial-name {
     box-sizing: border-box;
-    padding: 10px 0 10px 10px;;
+    padding: 10px 0 10px 10px;
     font-weight: bold;
     position: sticky;
     top: 0;
-    background: #fff;
+    background: #f8f8f8;
     z-index: 6;
 }
 
@@ -57,7 +69,6 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 10px 6px;
     border-radius: 8px;
     align-items: center;
 }
@@ -69,22 +80,22 @@
 }
 
 
-.admin-orders-schedule::-webkit-scrollbar {
+.admin-orders-schedule::-webkit-scrollbar, .admin-orders-orders::-webkit-scrollbar {
     min-width: 50px;
     height: 50px;
     background-color: transparent;
 }
 
-.admin-orders-schedule::-webkit-scrollbar-thumb {
+.admin-orders-schedule::-webkit-scrollbar-thumb, .admin-orders-orders::-webkit-scrollbar-thumb {
     background: #8B919B ;
     border-radius: 12px;
     padding-right: 5px;
 }
 
-.admin-orders-schedule::-webkit-scrollbar-track {
+.admin-orders-schedule::-webkit-scrollbar-track, .admin-orders-orders::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.admin-orders-schedule::-webkit-scrollbar-corner{
+.admin-orders-schedule::-webkit-scrollbar-corner, .admin-orders-orders::-webkit-scrollbar-corner {
     background: transparent;
 }

@@ -17,7 +17,7 @@ export function useSetContentHeight() {
         } else {
             set_authenticated(0)
         }
-        setHeight(`calc(${app_height}px - ${HEADER_HEIGHT[authenticated]}px - ${['menu', 'seance'].find(el => el === current_page) === undefined ? TOP_MENU_HEIGHT[authenticated]: 0}px - ${FOOTER_HEIGHT[authenticated]}px)`)
+        setHeight(`calc(${app_height}px - ${HEADER_HEIGHT[authenticated]}px - ${['menu', 'seance', 'admin/cinema', 'admin/horeca'].find(el => el === current_page) === undefined ? TOP_MENU_HEIGHT[authenticated] : 0}px - ${FOOTER_HEIGHT[authenticated]}px)`)
     }, [app_height, authenticated, permissions, current_page])
 
     useEffect(() => {
