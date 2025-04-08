@@ -41,8 +41,7 @@ const OrdersCinema = () => {
                         return (
                             <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
                                 <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
-                                <Button variant='contained' color='primary' className='admin-orders-cinema-seance'
-                                        sx={{marginBottom: '5px'}}>{filial_data.error}</Button>
+                                <Box className='admin-orders-cinema-seance'>{filial_data.error}</Box>
                             </Box>
                         )
                     } else {
@@ -53,16 +52,15 @@ const OrdersCinema = () => {
                                     <Box className='admin-orders-cinema-seances'>
                                         {filial_data.data.seances_orders.map((seance_orders => {
                                             return (
-                                                <Button
+                                                <Box
                                                     onClick={() => {
                                                         set_seance(seance_orders)
                                                         set_filial(filial_data.filial)
                                                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                                                     }}
-                                                    variant='contained' color={seance !== null && seance_orders.seance.uid === seance.seance.uid ? 'info' : 'secondary'}
+                                                    sx={{backgroundColor: seance !== null && seance_orders.seance.uid === seance.seance.uid ? '#eaeaea' : null}}
                                                     key={seance_orders.seance.uid}
-                                                    className='admin-orders-cinema-seance'
-                                                    sx={{marginBottom: '5px'}}>
+                                                    className='admin-orders-cinema-seance'>
                                                     <SeanceTitle
                                                         content_type={true}
                                                         seance={seance_orders.seance}
@@ -79,7 +77,7 @@ const OrdersCinema = () => {
                                                         padding: '4px 10px',
                                                         borderRadius: '6px'
                                                     }}>{seance_orders.orders.length}</span>
-                                                </Button>
+                                                </Box>
                                             )
                                         }))}
                                     </Box>
