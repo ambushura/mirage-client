@@ -21,9 +21,10 @@
 }
 
 .admin-orders-schedule {
+    width: 100%;
+    height: inherit;
     overflow-x: auto;
     overflow-y: auto;
-    height: inherit;
 }
 
 .admin-orders-list {

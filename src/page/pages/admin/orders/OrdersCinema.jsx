@@ -18,10 +18,11 @@ const OrdersCinema = () => {
 
     const dispatch = useDispatch()
 
-    const pre_order = useSelector(state => state.orders.pre_order)
     useFetchOrdersCinema()
+
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
     const {filial, seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     const order_button = (o) => {
         return (
