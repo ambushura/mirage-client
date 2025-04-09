@@ -41,6 +41,7 @@ function App() {
     const modal_type = useSelector(state => state.interface.modal_type)
     const modal_props = useSelector(state => state.interface.modal_props)
     const [modal_window, set_modal_window] = useState(<></>)
+
     useEffect(() => {
         if (modal_type === 'quantity') {
             set_modal_window(<Quantity param={modal_props}/>)

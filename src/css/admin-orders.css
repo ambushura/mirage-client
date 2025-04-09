@@ -72,6 +72,7 @@
 
 .admin-orders-cinema-filial {
     z-index: 1;
+    width: 350px;
 }
 
 .admin-orders-cinema-filial-name {
@@ -88,10 +89,6 @@
 .admin-orders-cinema-filial-content {
     display: flex;
     flex-direction: row;
-}
-
-.admin-orders-cinema-seances {
-    width: 350px;
 }
 
 .admin-orders-cinema-seance {

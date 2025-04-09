@@ -7,11 +7,10 @@ import {to_str_DAY} from "../../../../service/advanced.js"
 import dayjs from "dayjs"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import {useSelector} from "react-redux"
-import {useNavigate} from "react-router-dom"
+import {NavLink} from "react-router-dom"
 
 const Orders = () => {
 
-    const navigate = useNavigate()
     const current_page = useSelector(state => state.interface.current_page)
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
@@ -22,18 +21,14 @@ const Orders = () => {
             <Box className='admin-panel'>
                 <ButtonGroup size='small' variant='contained'
                              className='admin-panel-page'>
-                    <Button color={current_page === 'admin/cinema' ? 'primary' : 'secondary'}
-                            sx={{padding: '0 30px'}}
-                            onClick={() => {
-                                navigate(`/admin/cinema/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}/`)
-                            }
-                            }>Кино</Button>
-                    <Button color={current_page === 'admin/horeca' ? 'primary' : 'secondary'}
-                            sx={{padding: '0 30px'}}
-                            onClick={() => {
-                                navigate(`/admin/horeca/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}/`)
-                            }
-                            }>Общепит</Button>
+                    <NavLink
+                        to={city !== undefined ? `/admin/cinema/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}/` : '/'}>
+                        <Button color={current_page === 'admin/cinema' ? 'primary' : 'secondary'} sx={{padding: '0 30px'}}>Кино</Button>
+                    </NavLink>
+                    <NavLink
+                        to={city !== undefined ? `/admin/horeca/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}/` : '/'}>
+                        <Button color={current_page === 'admin/horeca' ? 'primary' : 'secondary'} sx={{padding: '0 30px'}}>Общепит</Button>
+                    </NavLink>
                 </ButtonGroup>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
                              className='admin-panel-period'>

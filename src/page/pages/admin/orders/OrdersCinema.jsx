@@ -132,9 +132,11 @@ const OrdersCinema = () => {
                         </Box>
                     </Fade>
                 </Box> : null}
-                <Box style={{flex: 1, paddingLeft: '10px'}}>
-                    <Order/>
-                </Box>
+                <Fade in={pre_order.in_base} timeout={TIMEOUT} unmountOnExit>
+                    <Box style={{flex: 1, paddingLeft: '10px'}}>
+                        <Order/>
+                    </Box>
+                </Fade>
             </Box>
         )
     } else {
