@@ -1,11 +1,14 @@
 import {Box, Tab, Tabs} from "@mui/material"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import PropTypes from "prop-types"
 import Orders from "./orders/Orders.jsx"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
+import {NEW_EMPTY_ORDER, setCurrentPreOrder} from "../../../redux/ordersReducer.js"
 
 const PageAdmin = () => {
+
+    const dispatch = useDispatch()
 
     const current_page = useSelector(state => state.interface.current_page)
     const [value, setValue] = useState(0)
@@ -40,6 +43,10 @@ const PageAdmin = () => {
     function allProps(index) {
         return {id: `simple-tab-${index}`, 'aria-controls': `simple-tabpanel-${index}`}
     }
+
+    useEffect(() => {
+        dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+    }, [dispatch])
 
     return (
         <Box sx={{height: content_height, display: 'flex', flexDirection: 'column'}}>

@@ -23,7 +23,7 @@ const OrdersCinema = () => {
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
     const {filial, uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
     const pre_order = useSelector(state => state.orders.pre_order)
-    const [orders, set_orders] = useState([])
+    const [orders, set_orders] = useState({data: {orders: [], uid_seance: undefined, schedule: []}, loading: false, error: null})
 
     useEffect(() => {
         if (orders_cinema.length > 0 && filial !== null) {

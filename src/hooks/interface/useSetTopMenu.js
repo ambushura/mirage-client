@@ -32,5 +32,5 @@ export function useSetTopMenu() {
             }
             dispatch(setTopMenu(top_menu_new))
         }
-    }, [city, dispatch, filial, param_date])
+    }, [city, dispatch, filial, param_date, param_date_admin])
 }
