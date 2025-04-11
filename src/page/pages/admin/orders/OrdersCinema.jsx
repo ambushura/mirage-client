@@ -12,6 +12,7 @@ import dayjs from "dayjs"
 import NotInterestedIcon from '@mui/icons-material/NotInterested'
 import CancelIcon from '@mui/icons-material/Cancel'
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline'
+import {useEffect, useState} from "react"
 
 const OrdersCinema = () => {
 
@@ -22,6 +23,14 @@ const OrdersCinema = () => {
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
     const {filial, uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
     const pre_order = useSelector(state => state.orders.pre_order)
+    const [orders, set_orders] = useState([])
+
+    useEffect(() => {
+        if (orders_cinema.length > 0 && filial !== null) {
+            const orders_new = orders_cinema.find(el => el.filial.uid === filial.uid)
+            set_orders(orders_new)
+        }
+    }, [filial, orders_cinema])
 
     return (
         <Box className='admin-orders-cinema'>
@@ -49,7 +58,7 @@ const OrdersCinema = () => {
                                                         onClick={() => {
                                                             dispatch(setOrdersCinemaFilialSeance({
                                                                 filial: filial_data.filial,
-                                                                uid_seance: current_seance.uid
+                                                                uid_seance: current_seance.seance.uid
                                                             }))
                                                             dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                                                         }}
@@ -83,57 +92,58 @@ const OrdersCinema = () => {
                     })}
                 </Box>
             </Fade>
-            {filial !== null && uid_seance !== null ? <Box className='admin-orders-list'>
-                <Box className='admin-orders-cinema-filial-name'>{filial.name}</Box>
-                <Fade in={orders_cinema[0].data.orders.length > 0} timeout={TIMEOUT} unmountOnExit>
-                    <Box className='admin-orders-list-content'>
-                        <Box className='admin-orders-list-content-order-header'>
-                            <Box></Box>
-                            <Box>Номер</Box>
-                            <Box>Создан</Box>
-                            <Box>Изменен</Box>
-                            <Box>Кол-во</Box>
-                            <Box>Цена</Box>
-                            <Box>Скидка</Box>
-                            <Box>Сумма</Box>
-                            <Box>Телефон</Box>
-                            <Box>e-mail</Box>
+            {filial !== null && uid_seance !== null && !orders.loading && orders.error === null ?
+                <Box className='admin-orders-list'>
+                    <Box className='admin-orders-cinema-filial-name'>{filial.name}</Box>
+                    <Fade in={orders.data.orders.length > 0} timeout={TIMEOUT} unmountOnExit>
+                        <Box className='admin-orders-list-content'>
+                            <Box className='admin-orders-list-content-order-header'>
+                                <Box></Box>
+                                <Box>Номер</Box>
+                                <Box>Создан</Box>
+                                <Box>Изменен</Box>
+                                <Box>Кол-во</Box>
+                                <Box>Цена</Box>
+                                <Box>Скидка</Box>
+                                <Box>Сумма</Box>
+                                <Box>Телефон</Box>
+                                <Box>e-mail</Box>
+                            </Box>
+                            {orders.data.orders.map(order => {
+                                return (
+                                    <Box sx={{backgroundColor: order.uid === pre_order.uid ? '#eaeaea' : null}}
+                                         key={`${order.uid}${order.ver}`}
+                                         className='admin-orders-list-content-order' onClick={() => {
+                                        dispatch(fetchPreOrder(filial, order.uid))
+                                    }}>
+                                        <Box>{order.canceled ? <NotInterestedIcon/> : order.deleted || order.closed ?
+                                            <CancelIcon/> :
+                                            <PauseCircleOutlineIcon/>}</Box>
+                                        <Box span style={{fontWeight: 'bold'}}>{order.number}</Box>
+                                        <Box><span
+                                            style={{color: '#8b919b'}}>{dayjs(order.date_create).format('DD.MM')}</span><span
+                                            style={{
+                                                fontWeight: 'bold',
+                                                marginLeft: '4px'
+                                            }}>{dayjs(order.date_create).format('HH:mm')}</span></Box>
+                                        <Box><span
+                                            style={{color: '#8b919b'}}>{dayjs(order.date_change).format('DD.MM')}</span><span
+                                            style={{
+                                                fontWeight: 'bold',
+                                                marginLeft: '4px'
+                                            }}>{dayjs(order.date_change).format('HH:mm')}</span></Box>
+                                        <Box sx={{fontWeight: 'bold'}}>{order.quantity}</Box>
+                                        <Box>{order.price} р</Box>
+                                        <Box>{order.sum_discount !== 0 ? `${order.sum_discount} р` : null}</Box>
+                                        <Box sx={{fontWeight: 'bold'}}>{order.sum} р</Box>
+                                        <Box>{order.email}</Box>
+                                        <Box>{order.phone}</Box>
+                                    </Box>
+                                )
+                            })}
                         </Box>
-                        {orders_cinema[0].data.orders.map(order => {
-                            return (
-                                <Box sx={{backgroundColor: order.uid === pre_order.uid ? '#eaeaea' : null}}
-                                     key={`${order.uid}${order.ver}`}
-                                     className='admin-orders-list-content-order' onClick={() => {
-                                    dispatch(fetchPreOrder(filial, order.uid))
-                                }}>
-                                    <Box>{order.canceled ? <NotInterestedIcon/> : order.deleted || order.closed ?
-                                        <CancelIcon/> :
-                                        <PauseCircleOutlineIcon/>}</Box>
-                                    <Box span style={{fontWeight: 'bold'}}>{order.number}</Box>
-                                    <Box><span
-                                        style={{color: '#8b919b'}}>{dayjs(order.date_create).format('DD.MM')}</span><span
-                                        style={{
-                                            fontWeight: 'bold',
-                                            marginLeft: '4px'
-                                        }}>{dayjs(order.date_create).format('HH:mm')}</span></Box>
-                                    <Box><span
-                                        style={{color: '#8b919b'}}>{dayjs(order.date_change).format('DD.MM')}</span><span
-                                        style={{
-                                            fontWeight: 'bold',
-                                            marginLeft: '4px'
-                                        }}>{dayjs(order.date_change).format('HH:mm')}</span></Box>
-                                    <Box sx={{fontWeight: 'bold'}}>{order.quantity}</Box>
-                                    <Box>{order.price} р</Box>
-                                    <Box>{order.sum_discount !== 0 ? `${order.sum_discount} р` : null}</Box>
-                                    <Box sx={{fontWeight: 'bold'}}>{order.sum} р</Box>
-                                    <Box>{order.email}</Box>
-                                    <Box>{order.phone}</Box>
-                                </Box>
-                            )
-                        })}
-                    </Box>
-                </Fade>
-            </Box> : null}
+                    </Fade>
+                </Box> : null}
             <Fade in={pre_order.in_base} timeout={TIMEOUT} unmountOnExit>
                 <Box style={{flex: 1, paddingLeft: '10px'}}>
                     <Order/>

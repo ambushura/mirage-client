@@ -76,7 +76,7 @@ export const ordersSlice = createSlice({
             state.orders_cinema = JSON.parse(JSON.stringify(payload))
         },
         setOrdersCinemaFilialSeance(state, {payload}) {
-            state.orders_cinema_filial = payload
+            state.orders_cinema_filial_seance = payload
         }
     },
 })
