@@ -38,6 +38,7 @@ const initialState = {
             {id: "films", name: "Фильмы", path: ""},
             {id: "schedule", name: "Расписание", path: ""},
             {id: "menu", name: "Меню", path: ""},
+            {id: "kitchen", name: "Кухня", path: ""},
             {id: "admin/cinema", name: "Кинокомплекс", path: ""},
         ],
     ],

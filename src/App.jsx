@@ -76,6 +76,8 @@ function App() {
                        element={<AppRoutes current_page="admin/cinema"/>}/>
                 <Route path="/admin/horeca/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/horeca"/>}/>
+                <Route path="/kitchen/:param_city/:param_filial/"
+                       element={<AppRoutes current_page="kitchen"/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             {(!full || permissions.includes("staff")) && <Footer/>}

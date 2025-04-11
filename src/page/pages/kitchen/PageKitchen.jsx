@@ -1,8 +1,10 @@
+import {Box} from "@mui/material"
+
 const PageKitchen = () => {
     return (
-        <div>
-
-        </div>
+        <Box>
+            Кухня
+        </Box>
     )
 }
 export default PageKitchen

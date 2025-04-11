@@ -23,7 +23,7 @@ const OrdersCinema = () => {
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
     const {filial, uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
     const pre_order = useSelector(state => state.orders.pre_order)
-    const [orders, set_orders] = useState({data: {orders: [], uid_seance: undefined, schedule: []}, loading: false, error: null})
+    const [orders, set_orders] = useState(null)
 
     useEffect(() => {
         if (orders_cinema.length > 0 && filial !== null) {
@@ -92,10 +92,10 @@ const OrdersCinema = () => {
                     })}
                 </Box>
             </Fade>
-            {filial !== null && uid_seance !== null && !orders.loading && orders.error === null ?
+            {filial !== null && uid_seance !== null && orders !== null ?
                 <Box className='admin-orders-list'>
                     <Box className='admin-orders-cinema-filial-name'>{filial.name}</Box>
-                    <Fade in={orders.data.orders.length > 0} timeout={TIMEOUT} unmountOnExit>
+                    <Fade in={orders.data !== null} timeout={TIMEOUT} unmountOnExit>
                         <Box className='admin-orders-list-content'>
                             <Box className='admin-orders-list-content-order-header'>
                                 <Box></Box>
@@ -109,7 +109,7 @@ const OrdersCinema = () => {
                                 <Box>Телефон</Box>
                                 <Box>e-mail</Box>
                             </Box>
-                            {orders.data.orders.map(order => {
+                            {orders.data !== null && orders.data.orders.map(order => {
                                 return (
                                     <Box sx={{backgroundColor: order.uid === pre_order.uid ? '#eaeaea' : null}}
                                          key={`${order.uid}${order.ver}`}

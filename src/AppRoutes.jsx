@@ -9,6 +9,7 @@ import PageSeance from "./page/pages/seance/PageSeance.jsx"
 import PageAdmin from "./page/pages/admin/PageAdmin.jsx"
 import PageSchedule from "./page/pages/schedule/PageSchedule.jsx"
 import PageHoreca from "./page/pages/horeca/PageHoreca.jsx"
+import PageKitchen from "./page/pages/kitchen/PageKitchen.jsx"
 
 const AppRoutes = (props)=> {
 
@@ -44,7 +45,8 @@ const AppRoutes = (props)=> {
         seance: <PageSeance/>,
         menu: permissions.includes("staff") && search_params.get("wp") ? <PageHoreca/> : null,
         "admin/cinema": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null,
-        "admin/horeca": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null
+        "admin/horeca": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null,
+        kitchen: <PageKitchen/>
     }
 
     return <Fade in={!!pages[props.current_page]} unmountOnExit><Box>{pages[props.current_page] || null}</Box></Fade>
