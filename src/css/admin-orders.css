@@ -21,10 +21,13 @@
 }
 
 .admin-orders-schedule {
-    width: 100%;
     height: inherit;
     overflow-x: auto;
     overflow-y: auto;
+}
+
+.admin-orders-cinema-seances {
+    width: 100%;
 }
 
 .admin-orders-list {

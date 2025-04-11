@@ -38,7 +38,7 @@ const initialState = {
     pre_order_paying: false,
     horder_paying: false,
     orders_cinema: [],
-    orders_cinema_filial_seance: {filial: null, seance: null},
+    orders_cinema_filial_seance: {filial: null, uid_seance: null},
 }
 
 export const ordersSlice = createSlice({
@@ -72,11 +72,11 @@ export const ordersSlice = createSlice({
         setHorderPaying(state, {payload}) {
             state.horder_paying = payload
         },
-        setOrdersCinemaSeances(state, {payload}) {
-            state.orders_cinema = payload
+        setOrdersCinema(state, {payload}) {
+            state.orders_cinema = JSON.parse(JSON.stringify(payload))
         },
         setOrdersCinemaFilialSeance(state, {payload}) {
-            state.orders_cinema_filial_seance = payload
+            state.orders_cinema_filial = payload
         }
     },
 })
@@ -88,6 +88,6 @@ export const { setDate,
     setTotal,
     setPreOrderPaying,
     setHorderPaying,
-    setOrdersCinemaSeances,
-    setOrdersCinemaFilialSeance} = ordersSlice.actions
+    setOrdersCinema,
+    setOrdersCinemaFilialSeance,} = ordersSlice.actions
 export default ordersSlice.reducer

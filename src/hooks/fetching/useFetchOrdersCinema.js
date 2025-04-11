@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "../common/useFetchingArray.js"
 import {useDispatch, useSelector} from "react-redux"
-import {setOrdersCinemaSeances} from "../../redux/ordersReducer.js"
+import {setOrdersCinema} from "../../redux/ordersReducer.js"
 
 export function useFetchOrdersCinema() {
 
@@ -33,10 +33,10 @@ export function useFetchOrdersCinema() {
 
     useEffect(() => {
         if (fetch_data.length > 0) {
-            dispatch(setOrdersCinemaSeances(fetch_data))
+            dispatch(setOrdersCinema(structuredClone(fetch_data)))
         }
         return () => {
-            dispatch(setOrdersCinemaSeances([]))
+            dispatch(setOrdersCinema([]))
         }
     }, [dispatch, fetch_data])
 }

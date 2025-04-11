@@ -31,22 +31,20 @@ const AppRoutes = (props)=> {
 
     useEffect(() => {
         if (!search_params.has("wp")) {
-            set_search_params(prev => {
-                const new_params = new URLSearchParams(prev)
-                new_params.set("wp", "mpopcorn2")
-                return new_params
-            }, {replace: true})
+            const new_params = new URLSearchParams(search_params.toString())
+            new_params.set("wp", "mpopcorn2")
+            set_search_params(new_params, { replace: true })
         }
-    }, [search_params, set_search_params])
+    }, [set_search_params])
 
     const pages = {
         schedule: <PageSchedule/>,
         films: <PageFilms/>,
         film: <PageFilm/>,
         seance: <PageSeance/>,
-        menu: permissions.includes("staff") ? <PageHoreca/> : null,
-        "admin/cinema": permissions.includes("staff") ? <PageAdmin/> : null,
-        "admin/horeca": permissions.includes("staff") ? <PageAdmin/> : null
+        menu: permissions.includes("staff") && search_params.get("wp") ? <PageHoreca/> : null,
+        "admin/cinema": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null,
+        "admin/horeca": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null
     }
 
     return <Fade in={!!pages[props.current_page]} unmountOnExit><Box>{pages[props.current_page] || null}</Box></Fade>
