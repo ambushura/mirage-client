@@ -1,4 +1,4 @@
-import {Box, Fade} from "@mui/material"
+import {Box, Fade, TextField} from "@mui/material"
 import {useFetchOrdersCinema} from "../../../../hooks/fetching/useFetchOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
@@ -99,15 +99,15 @@ const OrdersCinema = () => {
                         <Box className='admin-orders-list-content'>
                             <Box className='admin-orders-list-content-order-header'>
                                 <Box></Box>
-                                <Box>Номер</Box>
-                                <Box>Создан</Box>
-                                <Box>Изменен</Box>
-                                <Box>Кол-во</Box>
-                                <Box>Цена</Box>
-                                <Box>Скидка</Box>
-                                <Box>Сумма</Box>
-                                <Box>Телефон</Box>
-                                <Box>e-mail</Box>
+                                <TextField size='small' label="Номер" variant='filled'/>
+                                <TextField size='small' label="Создан" variant='filled'/>
+                                <TextField size='small' label="Изменен" variant='filled'/>
+                                <TextField size='small' label="Кол-во" variant='filled'/>
+                                <TextField size='small' label="Цена" variant='filled'/>
+                                <TextField size='small' label="Скидка" variant='filled'/>
+                                <TextField size='small' label="Сумма" variant='filled'/>
+                                <TextField size='small' label="Телефон" variant='filled'/>
+                                <TextField size='small' label="e-mail" variant='filled'/>
                             </Box>
                             {orders.data !== null && orders.data.orders.map(order => {
                                 return (
