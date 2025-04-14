@@ -12,7 +12,6 @@ import dayjs from "dayjs"
 import NotInterestedIcon from '@mui/icons-material/NotInterested'
 import CancelIcon from '@mui/icons-material/Cancel'
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline'
-import {useEffect, useState} from "react"
 
 const OrdersCinema = () => {
 
@@ -20,23 +19,17 @@ const OrdersCinema = () => {
 
     useFetchOrdersCinema()
 
+    const order_cinema_schedule = useSelector(state => state.orders.orders_cinema_schedule)
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
-    const {filial, uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
-    const pre_order = useSelector(state => state.orders.pre_order)
-    const [orders, set_orders] = useState(null)
+    const {current_filial, current_uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
 
-    useEffect(() => {
-        if (orders_cinema.length > 0 && filial !== null) {
-            const orders_new = orders_cinema.find(el => el.filial.uid === filial.uid)
-            set_orders(orders_new)
-        }
-    }, [filial, orders_cinema])
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     return (
         <Box className='admin-orders-cinema'>
-            <Fade in={orders_cinema.length > 0} timeout={TIMEOUT} unmountOnExit>
+            <Fade in={order_cinema_schedule.length > 0} timeout={TIMEOUT} unmountOnExit>
                 <Box className='admin-orders-schedule'>
-                    {orders_cinema.map(filial_data => {
+                    {order_cinema_schedule.map(filial_data => {
                         if (filial_data.loading) {
                             return null
                         } else if (filial_data.error !== null) {
@@ -52,17 +45,17 @@ const OrdersCinema = () => {
                                     <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
                                     <Box className='admin-orders-cinema-filial-content'>
                                         <Box className='admin-orders-cinema-seances'>
-                                            {filial_data.data.schedule.map((current_seance => {
+                                            {filial_data.data.map((current_seance => {
                                                 return (
                                                     <Box
                                                         onClick={() => {
                                                             dispatch(setOrdersCinemaFilialSeance({
-                                                                filial: filial_data.filial,
-                                                                uid_seance: current_seance.seance.uid
+                                                                current_filial: filial_data.filial,
+                                                                current_uid_seance: current_seance.seance.uid
                                                             }))
                                                             dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                                                         }}
-                                                        sx={{backgroundColor: uid_seance !== null && current_seance.seance.uid === uid_seance ? '#eaeaea' : null}}
+                                                        sx={{backgroundColor: current_uid_seance !== null && current_seance.seance.uid === current_uid_seance ? '#eaeaea' : null}}
                                                         key={`${current_seance.seance.uid}${current_seance.seance.ver}`}
                                                         className='admin-orders-cinema-seance'>
                                                         <SeanceTitle
@@ -92,10 +85,10 @@ const OrdersCinema = () => {
                     })}
                 </Box>
             </Fade>
-            {filial !== null && uid_seance !== null && orders !== null ?
+            {current_filial !== null && current_uid_seance !== null ?
                 <Box className='admin-orders-list'>
-                    <Box className='admin-orders-cinema-filial-name'>{filial.name}</Box>
-                    <Fade in={orders.data !== null} timeout={TIMEOUT} unmountOnExit>
+                    <Box className='admin-orders-cinema-filial-name'>{current_filial.name}</Box>
+                    <Fade in={orders_cinema !== undefined} timeout={TIMEOUT} unmountOnExit>
                         <Box className='admin-orders-list-content'>
                             <Box className='admin-orders-list-content-order-header'>
                                 <Box></Box>
@@ -109,12 +102,12 @@ const OrdersCinema = () => {
                                 <TextField size='small' label="Телефон" variant='filled'/>
                                 <TextField size='small' label="e-mail" variant='filled'/>
                             </Box>
-                            {orders.data !== null && orders.data.orders.map(order => {
+                            {orders_cinema !== undefined && orders_cinema.map(order => {
                                 return (
                                     <Box sx={{backgroundColor: order.uid === pre_order.uid ? '#eaeaea' : null}}
                                          key={`${order.uid}${order.ver}`}
                                          className='admin-orders-list-content-order' onClick={() => {
-                                        dispatch(fetchPreOrder(filial, order.uid))
+                                        dispatch(fetchPreOrder(current_filial, order.uid))
                                     }}>
                                         <Box>{order.canceled ? <NotInterestedIcon/> : order.deleted || order.closed ?
                                             <CancelIcon/> :
