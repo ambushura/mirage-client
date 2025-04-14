@@ -36,6 +36,9 @@ export const Theme = createTheme({
         },
         success: {
             main: '#45B97C',
+        },
+        grey: {
+            main: '#e3e3e3',
         }
     },
     components: {
@@ -46,7 +49,11 @@ export const Theme = createTheme({
                     borderRadius: '12px',
                     textTransform: 'none',
                     height: '60px',
-                }
+                    boxShadow: 'none',
+                    '&:hover': {
+                        boxShadow: 'none',
+                    },
+                },
             }
         },
         MuiButtonGroup: {

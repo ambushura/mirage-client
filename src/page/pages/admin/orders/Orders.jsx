@@ -7,7 +7,7 @@ import {to_str_DAY} from "../../../../service/advanced.js"
 import dayjs from "dayjs"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import {useDispatch, useSelector} from "react-redux"
-import {NavLink, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import LaptopIcon from '@mui/icons-material/Laptop'
 import LanguageIcon from '@mui/icons-material/Language'
 import CachedIcon from '@mui/icons-material/Cached'
@@ -31,26 +31,25 @@ const Orders = () => {
     return (
         <Box id="page-admin">
             <Box className='admin-panel'>
-                <Button variant='text' color='secondary' sx={{marginRight: '4px'}} onClick={() => {
-                    dispatch(setOrdersCinemaFilialSeance({
-                        current_filial: filial,
-                        current_uid_seance: null
-                    }))
-                    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                    set_update_cinema(prev => !prev)
-                }}><CachedIcon/></Button>
-                <ButtonGroup size='small' variant='contained'
+                <ButtonGroup size='small'
                              className='admin-panel-page'>
-                    <NavLink
-                        to={city !== undefined ? `/admin/cinema/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}` : '/'}>
-                        <Button color={current_page === 'admin/cinema' ? 'primary' : 'secondary'}
-                                sx={{padding: '0 30px'}}>Кино</Button>
-                    </NavLink>
-                    <NavLink
-                        to={city !== undefined ? `/admin/horeca/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}` : '/'}>
-                        <Button color={current_page === 'admin/horeca' ? 'primary' : 'secondary'}
-                                sx={{padding: '0 30px'}}>Общепит</Button>
-                    </NavLink>
+                    <Button variant='contained' color={current_page === 'admin/cinema' ? 'primary' : 'secondary'}
+                            sx={{padding: '0 30px'}} onClick={() => {
+                        navigate(city !== undefined ? `/admin/cinema/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}` : '/')
+                    }}>Кино</Button>
+                    <Button variant='contained' color={current_page === 'admin/horeca' ? 'primary' : 'secondary'}
+                            sx={{padding: '0 30px'}}
+                            onClick={() => {
+                                navigate(city !== undefined ? `/admin/horeca/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}` : '/')
+                            }}>Общепит</Button>
+                    <Button size='large' variant='contained' color='secondary' onClick={() => {
+                        dispatch(setOrdersCinemaFilialSeance({
+                            current_filial: filial,
+                            current_uid_seance: null
+                        }))
+                        dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                        set_update_cinema(prev => !prev)
+                    }}><CachedIcon/></Button>
                 </ButtonGroup>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
                              className='admin-panel-period'>

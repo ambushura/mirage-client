@@ -137,3 +137,99 @@
 .admin-orders-schedule::-webkit-scrollbar-corner, .admin-orders-list::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+
+
+
+
+
+
+
+.admin-orders-horeca {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    flex: 1;
+}
+.admin-orders-horeca-halls {
+    width: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.admin-orders-horeca-halls>div {
+    box-sizing: border-box;
+    height: 70px;
+    cursor: pointer;
+    background-color: #f8f8f8;
+}
+.admin-orders-horeca-halls>div>span {
+    box-sizing: border-box;
+    background-color: #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 4px;
+    border-radius: 12px;
+    height: calc(100% - 8px);
+    overflow: hidden;
+    font-size: 150%;
+}
+.admin-orders-horeca-halls>div>span:hover {
+    background-color: #dfdfdf;
+}
+.admin-orders-horeca-panel {
+    width: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.admin-orders-horeca-panel>div {
+    height: 60px;
+    background-color: #f8f8f8;
+    overflow: hidden;
+    padding-bottom: 4px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.admin-orders-horeca-panel>div>button {
+    width: 100%;
+}
+.admin-orders-horeca-orders {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: calc(100% - 120px - 200px);
+}
+.admin-orders-horeca-orders>div {
+    width: 300px;
+    height: 300px;
+    background-color: #d63a41;
+}
+
+
+
+
+.admin-orders-horeca-halls::-webkit-scrollbar, .admin-orders-horeca-panel::-webkit-scrollbar {
+    min-width: 50px;
+    height: 50px;
+    background-color: transparent;
+}
+
+.admin-orders-horeca-halls::-webkit-scrollbar-thumb, .admin-orders-horeca-panel::-webkit-scrollbar-thumb {
+    background: #8B919B ;
+    border-radius: 12px;
+    padding-right: 5px;
+}
+
+.admin-orders-horeca-halls::-webkit-scrollbar-track, .admin-orders-horeca-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-orders-horeca-halls::-webkit-scrollbar-corner, .admin-orders-horeca-panel::-webkit-scrollbar-corner {
+    background: transparent;
+}
