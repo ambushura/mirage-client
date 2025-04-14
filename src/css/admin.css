@@ -121,6 +121,7 @@
     padding: 5px 0;
     z-index: 2;
     background-color: #f8f8f8;
+    cursor: pointer;
 }
 .order-box-panel-3-title-mark {
 

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useFetching} from "../common/useFetching.js"
 import {setOrdersCinema, setOrdersCinemaSchedule} from "../../redux/ordersReducer.js"
 
-export function useFetchOrdersCinema() {
+export function useSetOrdersCinema(update) {
 
     const dispatch = useDispatch()
 
@@ -38,13 +38,13 @@ export function useFetchOrdersCinema() {
             })
         }
         set_urls_schedule(urls_new)
-    }, [city, filial, param_date_admin])
+    }, [city, filial, param_date_admin, update])
 
     useEffect(() => {
         if (city !== undefined && current_filial !== null && current_uid_seance !== null) {
             set_url_orders(`http://${current_filial.ip}:${current_filial.port}/api/get_orders_cinema?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
         }
-    }, [city, current_filial, current_uid_seance])
+    }, [city, current_filial, current_uid_seance, update])
 
     useEffect(() => {
         if (fetch_data_schedule.length > 0) {

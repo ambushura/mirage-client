@@ -1,5 +1,5 @@
 import {Box, Fade, TextField} from "@mui/material"
-import {useFetchOrdersCinema} from "../../../../hooks/fetching/useFetchOrdersCinema.js"
+import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
 import Order from "../../../../components/orders/Order.jsx"
@@ -13,11 +13,11 @@ import NotInterestedIcon from '@mui/icons-material/NotInterested'
 import CancelIcon from '@mui/icons-material/Cancel'
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline'
 
-const OrdersCinema = () => {
+const OrdersCinema = (props) => {
 
     const dispatch = useDispatch()
 
-    useFetchOrdersCinema()
+    useSetOrdersCinema(props.update_cinema)
 
     const order_cinema_schedule = useSelector(state => state.orders.orders_cinema_schedule)
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
@@ -45,35 +45,35 @@ const OrdersCinema = () => {
                                     <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
                                     <Box className='admin-orders-cinema-filial-content'>
                                         <Box className='admin-orders-cinema-seances'>
-                                            {filial_data.data.map((current_seance => {
+                                            {filial_data.data !== null && filial_data.data.map((seance => {
                                                 return (
                                                     <Box
                                                         onClick={() => {
                                                             dispatch(setOrdersCinemaFilialSeance({
                                                                 current_filial: filial_data.filial,
-                                                                current_uid_seance: current_seance.seance.uid
+                                                                current_uid_seance: seance.seance.uid
                                                             }))
                                                             dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                                                         }}
-                                                        sx={{backgroundColor: current_uid_seance !== null && current_seance.seance.uid === current_uid_seance ? '#eaeaea' : null}}
-                                                        key={`${current_seance.seance.uid}${current_seance.seance.ver}`}
+                                                        sx={{backgroundColor: current_uid_seance !== null && seance.seance.uid === current_uid_seance ? '#eaeaea' : null}}
+                                                        key={`${seance.seance.uid}${seance.seance.ver}`}
                                                         className='admin-orders-cinema-seance'>
                                                         <SeanceTitle
                                                             content_type={true}
-                                                            seance={current_seance.seance}
+                                                            seance={seance.seance}
                                                             age={true}/>
                                                         <span style={{
                                                             flex: 1,
                                                             overflow: 'hidden',
                                                             textAlign: 'end'
-                                                        }}>{current_seance.seance.name_film}</span>
+                                                        }}>{seance.seance.name_film}</span>
                                                         <span style={{
                                                             backgroundColor: 'white',
                                                             color: 'black',
                                                             marginLeft: '10px',
                                                             padding: '4px 10px',
                                                             borderRadius: '6px'
-                                                        }}>{current_seance.count}</span>
+                                                        }}>{seance.count}</span>
                                                     </Box>
                                                 )
                                             }))}
