@@ -64,7 +64,7 @@ export const Theme = createTheme({
                 }
             }
         },
-        MuiPopper: {
+        MuiPaper: {
             styleOverrides: {
                 root: {
                     borderRadius: '12px'
@@ -75,6 +75,14 @@ export const Theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: '12px'
+                }
+            }
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    color: 'white',
+                    fontWeight: 'bold',
                 }
             }
         },

@@ -1,25 +1,28 @@
 import { useEffect } from 'react'
-import PlaceIcon from "@mui/icons-material/Place"
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import {Button, ClickAwayListener, Grow, MenuList, Paper, Popper} from "@mui/material"
+import {Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from "@mui/material"
 import Filial from "../page/header/Filial.jsx"
 import City from "../page/header/City.jsx"
+
 const List = (props) => {
+
     useEffect(() => {
         if (props.prev_open.current === true && props.open === false) {
             props.anchor.current.focus()
         }
         props.prev_open.current = props.open
     }, [props.open, props.anchor, props.prev_open, props.type])
+
     const handleToggle = () => {
         props.setOpen(prevOpen => !prevOpen)
     }
+
     const handleClose = (event) => {
         if (props.anchor.current && props.anchor.current.contains(event.target)) {
             return
         }
         props.setOpen(false)
     }
+
     const handleListKeyDown = (event) => {
         if (event.key === 'Tab') {
             event.preventDefault()
@@ -28,6 +31,7 @@ const List = (props) => {
             props.setOpen(false)
         }
     }
+
     return (
         <>
             <Button
@@ -37,9 +41,9 @@ const List = (props) => {
                 aria-expanded={props.open ? 'true' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                startIcon={props.startIcon !== undefined ? <PlaceIcon/> : <></>}
-                endIcon={props.endIcon !== undefined ? <KeyboardArrowDownIcon/> : <></>}
-                size="large">
+                startIcon={props.startIcon !== undefined ? props.startIcon : null}
+                endIcon={props.endIcon !== undefined ? props.endIcon : null}
+                size="small">
                 {props.button_text}
             </Button>
             <Popper
@@ -51,10 +55,9 @@ const List = (props) => {
                 {({TransitionProps, placement}) => (
                     <Grow {...TransitionProps}
                           style={{transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'}}>
-                        <Paper sx={{backgroundColor: '#0E0F11'}}>
+                        <Paper sx={{backgroundColor: '#1b1d20'}}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
-                                    sx={{backgroundColor: '#0E0F11'}}
                                     autoFocusItem={props.open}
                                     id={props.id}
                                     onKeyDown={handleListKeyDown}>
@@ -73,6 +76,34 @@ const List = (props) => {
                                                     handleClose={handleClose}
                                                     filial={el}/>)
                                         }
+                                        if (props.type === 'staff') {
+                                            return (
+                                                <MenuItem key={props.type}>
+                                                    {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
+                                        if (props.type === 'state') {
+                                            return (
+                                                <MenuItem key={el.uid}>
+                                                    {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
+                                        if (props.type === 'halls') {
+                                            return (
+                                                <MenuItem key={el.uid}>
+                                                    {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
+                                        if (props.type === 'workplaces') {
+                                            return (
+                                                <MenuItem key={el.uid}>
+                                                    {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
                                     })}
                                 </MenuList>
                             </ClickAwayListener>
@@ -83,4 +114,5 @@ const List = (props) => {
         </>
     )
 }
+
 export default List

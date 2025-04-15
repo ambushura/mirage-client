@@ -1,165 +1,119 @@
-import {Box, Button, Fade} from "@mui/material"
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
+import {Box, ButtonGroup} from "@mui/material"
 import PersonIcon from '@mui/icons-material/Person'
-import {useSelector} from "react-redux"
-import {TIMEOUT} from "../../../../service/fetch_service.js"
+import List from "../../../../ui/List.jsx"
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import {useRef, useState} from "react"
+import ReceiptIcon from '@mui/icons-material/Receipt'
+import ChairIcon from '@mui/icons-material/Chair'
+import ComputerIcon from '@mui/icons-material/Computer'
 
 const OrdersHoreca = () => {
 
-    const orders_show_halls = useSelector(state => state.interface.orders_show_halls)
+    const state_list_id = "state-menu"
+    const state_ref = useRef(null)
+    const [state_opened, set_state_open] = useState(false)
+    const prev_state_open = useRef(Boolean(state_opened))
+
+    const staff_list_id = "staff-menu"
+    const staff_ref = useRef(null)
+    const [staff_opened, set_staff_open] = useState(false)
+    const prev_staff_open = useRef(Boolean(staff_opened))
+
+    const halls_list_id = "halls-menu"
+    const halls_ref = useRef(null)
+    const [halls_opened, set_halls_open] = useState(false)
+    const prev_halls_open = useRef(Boolean(halls_opened))
+
+    const workplaces_list_id = "halls-menu"
+    const workplaces_ref = useRef(null)
+    const [workplaces_opened, set_workplaces_open] = useState(false)
+    const prev_workplaces_open = useRef(Boolean(workplaces_opened))
+
+    const staff = [
+        {uid: 0, name: 'Все официанты'},
+        {uid: 1, name: 'Иванов Иван Иванович'},
+        {uid: 2, name: 'Петров Петр Петрович'}
+    ]
+    const state = [
+        {uid: 0, name: 'Ожидают оплаты'},
+        {uid: 1, name: 'Пробить кассовый чек'},
+        {uid: 2, name: 'Успешно оплаченные'},
+        {uid: 3, name: 'Отмененные'}
+    ]
+    const halls = [
+        {uid: 0, name: 'Все залы'},
+        {uid: 1, name: 'Зал 1'},
+        {uid: 2, name: 'Зал 2'}
+    ]
+    const workplaces = [
+        {uid: 0, name: 'Все рабочие места'},
+        {uid: 0, name: 'mpopcorn2'},
+        {uid: 0, name: 'mpopcorn3'},
+    ]
 
     return (
         <Box className='admin-orders-horeca'>
             <Box className='admin-orders-horeca-panel'>
-                <Box sx={{position: 'sticky', top: 0, zIndex: 1}}><Button variant='contained'
-                                                                          color='secondary'>Ожидают
-                    оплаты</Button></Box>
-                <Box sx={{position: 'sticky', top: '64px', zIndex: 1}}><Button variant='contained' color='secondary'>Пробейте
-                    кассовый чек</Button></Box>
-                <Box sx={{position: 'sticky', top: '128px', zIndex: 1}}><Button variant='contained'
-                                                                                color='secondary'>Успешно
-                    оплаченные</Button></Box>
-                <Box sx={{position: 'sticky', top: '192px', zIndex: 1}}><Button variant='contained'
-                                                                                color='secondary'>Отмененные</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
-                <Box><Button variant='contained' color='grey' startIcon={<PersonIcon/>}>Петров Иван
-                    Иванович</Button></Box>
+                <ButtonGroup variant='contained' color='secondary'>
+                    <List
+                        size='small'
+                        open={staff_opened}
+                        anchor={staff_ref}
+                        prev_open={prev_staff_open}
+                        id={staff_list_id}
+                        setOpen={set_staff_open}
+                        button_text={'Все официанты'}
+                        list={staff}
+                        startIcon={<PersonIcon/>}
+                        endIcon={<KeyboardArrowDownIcon/>}
+                        type="staff"
+                    />
+                    <List
+                        size='small'
+                        open={state_opened}
+                        anchor={state_ref}
+                        prev_open={prev_state_open}
+                        id={state_list_id}
+                        setOpen={set_state_open}
+                        button_text={'Ожидают оплаты'}
+                        list={state}
+                        startIcon={<ReceiptIcon/>}
+                        endIcon={<KeyboardArrowDownIcon/>}
+                        type="state"
+                    />
+                    <List
+                        size='small'
+                        open={halls_opened}
+                        anchor={halls_ref}
+                        prev_open={prev_halls_open}
+                        id={halls_list_id}
+                        setOpen={set_halls_open}
+                        button_text={halls[0].name}
+                        list={halls}
+                        startIcon={<ChairIcon/>}
+                        endIcon={<KeyboardArrowDownIcon/>}
+                        type="halls"
+                    />
+                    <List
+                        size='small'
+                        open={workplaces_opened}
+                        anchor={workplaces_ref}
+                        prev_open={prev_workplaces_open}
+                        id={workplaces_list_id}
+                        setOpen={set_workplaces_open}
+                        button_text={workplaces[0].name}
+                        list={workplaces}
+                        startIcon={<ComputerIcon/>}
+                        endIcon={<KeyboardArrowDownIcon/>}
+                        type="workplaces"
+                    />
+                </ButtonGroup>
             </Box>
-            <Fade in={orders_show_halls} timeout={TIMEOUT} unmountOnExit>
-                <Box className='admin-orders-horeca-halls'>
-                    <Box sx={{position: 'sticky', top: 0}}><span
-                        style={{backgroundColor: 'transparent'}}><AppRegistrationIcon
-                        sx={{width: '100%', height: '100%'}}/></span></Box>
-                    <Box sx={{position: 'sticky', top: '70px'}}><span style={{fontSize: '100%'}}>Все</span></Box>
-                    <Box sx={{position: 'sticky', top: '140px'}}><span style={{fontSize: '100%'}}>Без места</span></Box>
-                    <Box><span>13</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                    <Box><span>1</span></Box>
-                    <Box><span>2</span></Box>
-                    <Box><span>3</span></Box>
-                </Box>
-            </Fade>
             <Box className='admin-orders-horeca-orders'>
-                <Box>Заказ 1</Box>
-                <Box>Заказ 2</Box>
-                <Box>Заказ 3</Box>
-                <Box>Заказ 4</Box>
+                <Box className='admin-orders-horeca-order'>Заказ 1</Box>
+                <Box className='admin-orders-horeca-order'>Заказ 2</Box>
+                <Box className='admin-orders-horeca-order'>Заказ 3</Box>
+                <Box className='admin-orders-horeca-order'>Заказ 4</Box>
             </Box>
         </Box>
     )

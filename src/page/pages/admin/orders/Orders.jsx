@@ -14,9 +14,7 @@ import CachedIcon from '@mui/icons-material/Cached'
 import DockIcon from "@mui/icons-material/Dock"
 import {useState} from "react"
 import {NEW_EMPTY_ORDER, setCurrentPreOrder, setOrdersCinemaFilialSeance} from "../../../../redux/ordersReducer.js"
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration"
-import {setOrdersShowHalls} from "../../../../redux/interfaceReducer.js"
-import {TIMEOUT} from "../../../../service/fetch_service.js";
+import {TIMEOUT} from "../../../../service/fetch_service.js"
 
 const Orders = () => {
 
@@ -53,10 +51,6 @@ const Orders = () => {
                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                         set_update_cinema(prev => !prev)
                     }}><CachedIcon/></Button>
-                    {current_page === 'admin/horeca' ?
-                        <Button size='large' variant='contained' color='secondary' onClick={() => {
-                            dispatch(setOrdersShowHalls())
-                        }}><AppRegistrationIcon/></Button> : null}
                 </ButtonGroup>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
                              className='admin-panel-period'>
@@ -100,7 +94,7 @@ const Orders = () => {
                 <TextField sx={{marginLeft: '4px', width: '250px'}} label="Поиск" variant='filled'/>
             </Box>
             {current_page === 'admin/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
-            {current_page === 'admin/horeca' ? <OrdersHoreca update_cinema={update_cinema}/> : null}
+            {current_page === 'admin/horeca' && filial !== undefined ? <OrdersHoreca update_horeca={update_horeca}/> : null}
         </Box>
     )
 }

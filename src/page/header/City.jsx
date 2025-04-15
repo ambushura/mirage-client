@@ -12,8 +12,7 @@ const City = (props) => {
     return (
         <NavLink
             to={`/${current_page}/${props.city.code}/all/${PARAM_DATE_SHIFT.find(el => el === current_page) !== undefined ? param_date + '/' : ''}${PARAM_DATA_ADMIN_SHIFT.find(el => el === current_page) !== undefined ? param_date_admin + '/' : ''}`}>
-            <MenuItem style={{color: 'white', fontWeight: 'bold'}}
-                      onClick={(event) => {
+            <MenuItem onClick={(event) => {
                           props.handleClose(event)
                       }}>{props.city.name}</MenuItem>
         </NavLink>
