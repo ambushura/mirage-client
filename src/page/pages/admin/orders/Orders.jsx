@@ -1,4 +1,4 @@
-import {Box, Button, ButtonGroup, TextField} from "@mui/material"
+import {Box, Button, ButtonGroup, Fade, TextField} from "@mui/material"
 import OrdersCinema from "./OrdersCinema.jsx"
 import OrdersHoreca from "./OrdersHoreca.jsx"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
@@ -14,6 +14,9 @@ import CachedIcon from '@mui/icons-material/Cached'
 import DockIcon from "@mui/icons-material/Dock"
 import {useState} from "react"
 import {NEW_EMPTY_ORDER, setCurrentPreOrder, setOrdersCinemaFilialSeance} from "../../../../redux/ordersReducer.js"
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration"
+import {setOrdersShowHalls} from "../../../../redux/interfaceReducer.js"
+import {TIMEOUT} from "../../../../service/fetch_service.js";
 
 const Orders = () => {
 
@@ -50,6 +53,10 @@ const Orders = () => {
                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                         set_update_cinema(prev => !prev)
                     }}><CachedIcon/></Button>
+                    {current_page === 'admin/horeca' ?
+                        <Button size='large' variant='contained' color='secondary' onClick={() => {
+                            dispatch(setOrdersShowHalls())
+                        }}><AppRegistrationIcon/></Button> : null}
                 </ButtonGroup>
                 <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
                              className='admin-panel-period'>
@@ -83,11 +90,13 @@ const Orders = () => {
                         navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
                     }}><KeyboardArrowRightIcon/></Button>
                 </ButtonGroup>
-                <ButtonGroup sx={{marginLeft: '4px'}} size='medium' variant='contained' color='secondary'>
-                    <Button variant='contained'><LaptopIcon/></Button>
-                    <Button variant='contained'><DockIcon/></Button>
-                    <Button variant='contained'>< LanguageIcon/></Button>
-                </ButtonGroup>
+                <Fade in={current_page === 'admin/cinema'} timeout={TIMEOUT} unmountOnExit>
+                    <ButtonGroup sx={{marginLeft: '4px'}} size='medium' variant='contained' color='secondary'>
+                        <Button variant='contained'><LaptopIcon/></Button>
+                        <Button variant='contained'><DockIcon/></Button>
+                        <Button variant='contained'>< LanguageIcon/></Button>
+                    </ButtonGroup>
+                </Fade>
                 <TextField sx={{marginLeft: '4px', width: '250px'}} label="Поиск" variant='filled'/>
             </Box>
             {current_page === 'admin/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}

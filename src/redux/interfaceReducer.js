@@ -42,6 +42,7 @@ const initialState = {
             {id: "admin/cinema", name: "Кинокомплекс", path: ""},
         ],
     ],
+    orders_show_halls: false
 }
 
 const interfaceSlice = createSlice({
@@ -78,6 +79,9 @@ const interfaceSlice = createSlice({
             state.modal_opened = false
             state.modal_type = null
             state.modal_props = {}
+        },
+        setOrdersShowHalls: (state) => {
+            state.orders_show_halls = !state.orders_show_halls
         }
     },
 })
@@ -92,6 +96,7 @@ export const {
     setSearchParams,
     openModal,
     closeModal,
+    setOrdersShowHalls,
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer
