@@ -29,7 +29,7 @@ const initialState = {
     token: localStorage.getItem("token") || null,
     permissions: getStorageItem("permissions", []),
     filials: getStorageItem("filials", []),
-    user: localStorage.getItem("user") || null
+    user: getStorageItem("user", null)
 }
 
 const authReducer = createSlice({
@@ -42,10 +42,10 @@ const authReducer = createSlice({
             state.user = decode.user
             state.permissions = decode.permissions
             state.filials = decode.filials
-            setStorageItem("token", decode.token)
+            setStorageItem("token", payload)
             setStorageItem("permissions", decode.permissions)
             setStorageItem("filials", decode.filials)
-            setStorageItem("user", decode.user)
+            setStorageItem("user", JSON.stringify(decode.user))
         },
         logout: (state) => {
             state.token = null
