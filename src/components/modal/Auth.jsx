@@ -14,7 +14,7 @@ const Auth = (props) => {
     const apply = async () => {
         try {
             if (filial === undefined) {
-                throw new Error("Для начала выберите филиал аутентификации")
+                throw new Error("для начала выберите филиал аутентификации")
             } else {
                 const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
                     method: "POST",
@@ -22,10 +22,14 @@ const Auth = (props) => {
                     body: JSON.stringify({username, password})
                 })
                 if (!response.ok) {
-                    throw new Error("Неправильный логин или пароль")
+                    throw new Error(response.message)
                 }
                 const data = await response.json()
-                dispatch(loginSuccess(data))
+                if (data.code === 200) {
+                    dispatch(loginSuccess(data.data))
+                } else {
+                    throw new Error(data.data)
+                }
             }
         } catch (error) {
             dispatch(addNotification({

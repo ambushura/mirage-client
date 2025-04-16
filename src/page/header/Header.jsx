@@ -38,7 +38,7 @@ const Header = () => {
     const auth_opened = useSelector(state => state.interface.auth_opened)
 
     const [authenticated, set_authenticated] = useState(0)
-    const username = useSelector(state => state.auth.username)
+    const user = useSelector(state => state.auth.user)
 
     useEffect(() => {
         if (permissions.includes("staff")) {
@@ -60,7 +60,7 @@ const Header = () => {
         if (authenticated) {
             up.push(<Button
                 key='3'>{String(current_time.hour()).padStart(2, '0')}:{String(current_time.minute()).padStart(2, '0')}</Button>)
-            up.push(<Button key='2'>{username}</Button>)
+            up.push(<Button key='2'>{user.name}</Button>)
             up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
         } else {
             up.push(<Button key='4'
