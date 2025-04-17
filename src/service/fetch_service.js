@@ -3,7 +3,7 @@ import {setBooking} from "../redux/scheduleReducer.js"
 import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
 
-export const TIMEOUT = 700
+export const TIMEOUT = 130
 
 export const fetchPreOrder = (filial, uid_order) => {
     const token = localStorage.getItem("token")
@@ -50,7 +50,7 @@ export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) =>
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/${token !== null ? '' : 'kiosk/'}take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token

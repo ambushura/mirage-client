@@ -56,6 +56,7 @@ const PageAdmin = () => {
                     <Tab sx={{color: 'var(--text-color)'}} label="Итоги" {...allProps(1)}/>
                     <Tab sx={{color: 'var(--text-color)'}} label="Залы" {...allProps(2)}/>
                     <Tab sx={{color: 'var(--text-color)'}} label="Оборудование" {...allProps(3)}/>
+                    <Tab sx={{color: 'var(--text-color)'}} label="Кадры" {...allProps(4)}/>
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -70,6 +71,9 @@ const PageAdmin = () => {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
                 Оборудование
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={4}>
+                Кадры
             </CustomTabPanel>
         </Box>
     )

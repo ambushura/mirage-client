@@ -1,5 +1,5 @@
 import {useSetSchedule} from "../../../hooks/pages/useSetSchedule.js"
-import {Box, Button} from "@mui/material"
+import {Box, Button, Fade} from "@mui/material"
 import SeanceCard from "./SeanceCard.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useRef, useState} from "react"
@@ -8,6 +8,7 @@ import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 import Loader from "../../../components/modal/Loader.jsx"
+import {TIMEOUT} from "../../../service/fetch_service.js";
 
 const PageSchedule = () => {
 
@@ -98,40 +99,44 @@ const PageSchedule = () => {
                                                  ref={el => elementsRef.current.set(index, el)}>
                                                 {filial_hall_seances.data.map(hall => {
                                                     return (
-                                                        <Box key={hall.uid_hall} className='schedule-full-hall'>
-                                                            <Box className='schedule-full-hall-name' style={{
-                                                                position: 'sticky',
-                                                                top: '65px',
-                                                                zIndex: 99,
-                                                                marginBottom: '5px'
-                                                            }}>
-                                                                <Button variant='contained'
-                                                                        style={{
-                                                                            width: '100%',
-                                                                            backgroundColor: '#2E3239'
-                                                                        }}>Зал {hall.name_full_hall}</Button>
+                                                        <Fade key={hall.uid_hall} in={hall.seances.length > 0}
+                                                              timeout={TIMEOUT} unmountOnExit>
+                                                            <Box className='schedule-full-hall'>
+                                                                <Box className='schedule-full-hall-name' style={{
+                                                                    position: 'sticky',
+                                                                    top: '65px',
+                                                                    zIndex: 99,
+                                                                    marginBottom: '5px'
+                                                                }}>
+                                                                    <Button variant='contained'
+                                                                            style={{
+                                                                                width: '100%',
+                                                                                backgroundColor: '#2E3239'
+                                                                            }}>Зал {hall.name_full_hall}</Button>
+                                                                </Box>
+                                                                <Box className='schedule-full-seances' style={{
+                                                                    position: 'sticky',
+                                                                    top: '130px',
+                                                                    zIndex: 98,
+                                                                }}>
+                                                                    {hall.seances.map(seance => {
+                                                                        return (
+                                                                            <SeanceCard
+                                                                                key={seance.uid}
+                                                                                city={city}
+                                                                                filial={filial_hall_seances.filial}
+                                                                                seance={seance}>
+                                                                            </SeanceCard>
+                                                                        )
+                                                                    })}
+                                                                </Box>
                                                             </Box>
-                                                            <Box className='schedule-full-seances' style={{
-                                                                position: 'sticky',
-                                                                top: '130px',
-                                                                zIndex: 98,
-                                                            }}>
-                                                                {hall.seances.map(seance => {
-                                                                    return (
-                                                                        <SeanceCard
-                                                                            key={seance.uid}
-                                                                            city={city}
-                                                                            filial={filial_hall_seances.filial}
-                                                                            seance={seance}>
-                                                                        </SeanceCard>
-                                                                    )
-                                                                })}
-                                                            </Box>
-                                                        </Box>
+                                                        </Fade>
                                                     )
                                                 })}
                                             </Box>
-                                        </Box>)
+                                        </Box>
+                                    )
                                 }
                             })}
                         </Box>

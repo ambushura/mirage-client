@@ -1,4 +1,4 @@
-import {Box} from "@mui/material"
+import {Box, Fade} from "@mui/material"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setFilm} from "../../../redux/scheduleReducer.js"
 import Loader from "../../../components/modal/Loader.jsx"
+import {TIMEOUT} from "../../../service/fetch_service.js";
 
 const PageFilm = () => {
 
@@ -74,21 +75,24 @@ const PageFilm = () => {
                                                 </Box>)
                                         } else {
                                             return (
-                                                <Box className='seances-body-filial'
-                                                     key={filial_seances.filial.uid}>
-                                                    <Box
-                                                        className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
-                                                    <Box className='seances-body-seances'>
-                                                        {filial_seances.data.seances.map(seance => {
-                                                            return (<SeanceCard
-                                                                key={`${filial_seances.filial.uid}${seance.uid}`}
-                                                                seance={seance}
-                                                                city={city}
-                                                                filial={filial_seances.filial}
-                                                            />)
-                                                        })}
+                                                <Fade key={filial_seances.filial.uid}
+                                                      in={filial_seances.data.seances.length > 0} timeout={TIMEOUT}
+                                                      unmountOnExit>
+                                                    <Box className='seances-body-filial'>
+                                                        <Box
+                                                            className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
+                                                        <Box className='seances-body-seances'>
+                                                            {filial_seances.data.seances.map(seance => {
+                                                                return (<SeanceCard
+                                                                    key={`${filial_seances.filial.uid}${seance.uid}`}
+                                                                    seance={seance}
+                                                                    city={city}
+                                                                    filial={filial_seances.filial}
+                                                                />)
+                                                            })}
+                                                        </Box>
                                                     </Box>
-                                                </Box>
+                                                </Fade>
                                             )
                                         }
                                     })}
