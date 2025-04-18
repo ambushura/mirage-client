@@ -3,7 +3,7 @@ import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
 import Order from "../../../../components/orders/Order.jsx"
-import {fetchPreOrder, TIMEOUT} from "../../../../service/fetch_service.js"
+import {fetchPreOrder} from "../../../../service/fetch_service.js"
 import {
     NEW_EMPTY_ORDER,
     setCurrentPreOrder, setOrdersCinemaFilialSeance,
@@ -12,6 +12,7 @@ import dayjs from "dayjs"
 import NotInterestedIcon from '@mui/icons-material/NotInterested'
 import CancelIcon from '@mui/icons-material/Cancel'
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline'
+import {TIMEOUT} from "../../../../redux/interfaceReducer.js"
 
 const OrdersCinema = (props) => {
 

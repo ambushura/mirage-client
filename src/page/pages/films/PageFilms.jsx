@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setFilms} from "../../../redux/scheduleReducer.js"
 import FilmCard from "./FilmCard.jsx"
-import {TIMEOUT} from "../../../service/fetch_service.js";
+import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 
 const PageFilms = () => {
 

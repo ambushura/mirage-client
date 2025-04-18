@@ -14,7 +14,7 @@ import CachedIcon from '@mui/icons-material/Cached'
 import DockIcon from "@mui/icons-material/Dock"
 import {useState} from "react"
 import {NEW_EMPTY_ORDER, setCurrentPreOrder, setOrdersCinemaFilialSeance} from "../../../../redux/ordersReducer.js"
-import {TIMEOUT} from "../../../../service/fetch_service.js"
+import {TIMEOUT} from "../../../../redux/interfaceReducer.js"
 
 const Orders = () => {
 

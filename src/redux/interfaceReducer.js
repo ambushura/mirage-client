@@ -95,3 +95,4 @@ export const {
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer
+export const TIMEOUT = 130

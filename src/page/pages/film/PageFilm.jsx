@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setFilm} from "../../../redux/scheduleReducer.js"
 import Loader from "../../../components/modal/Loader.jsx"
-import {TIMEOUT} from "../../../service/fetch_service.js";
+import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 
 const PageFilm = () => {
 

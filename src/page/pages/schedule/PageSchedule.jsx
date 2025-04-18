@@ -8,7 +8,7 @@ import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 import Loader from "../../../components/modal/Loader.jsx"
-import {TIMEOUT} from "../../../service/fetch_service.js";
+import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 
 const PageSchedule = () => {
 
