@@ -6,14 +6,14 @@ const ThemeContext = createContext()
 
 export const ThemeBlackWhite = ({children}) => {
     const [theme, set_theme] = useState('light')
-    const permissions = useSelector(state => state.auth.permissions)
+    const user = useSelector(state => state.auth.user)
     useEffect(() => {
-        if (permissions.includes(0)) {
+        if (user !== null) {
             set_theme('light')
         } else {
             set_theme('dark')
         }
-    }, [permissions])
+    }, [user])
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme)

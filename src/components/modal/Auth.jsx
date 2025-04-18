@@ -21,19 +21,19 @@ const Auth = () => {
     const apply = () => {
         if (filial === undefined) {
             dispatch(addNotification({
-                message: "Для начала выберите филиал аутентификации",
+                message: "для начала выберите филиал аутентификации",
                 severity: 'error',
                 autoHide: true
             }))
         } else if (way === 'desktop' && (username === '' || password === '')) {
             dispatch(addNotification({
-                message: "Логин и пароль не могут бысть пустыми",
+                message: "логин и пароль не могут бысть пустыми",
                 severity: 'error',
                 autoHide: true
             }))
         } else if (way === 'kiosk' && password === '') {
             dispatch(addNotification({
-                message: "Пароль не может бысть пустым",
+                message: "пароль не может бысть пустым",
                 severity: 'error',
                 autoHide: true
             }))

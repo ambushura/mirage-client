@@ -13,6 +13,7 @@ import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
 import dayjs from "dayjs"
+import {addNotification} from "../../redux/notifierReducer.js";
 
 const Header = () => {
 
@@ -36,16 +37,7 @@ const Header = () => {
     const app_width = useSelector(state => state.interface.app_width)
     const auth_opened = useSelector(state => state.interface.auth_opened)
 
-    const [authenticated, set_authenticated] = useState(0)
     const user = useSelector(state => state.auth.user)
-
-    useEffect(() => {
-        if (permissions.includes(0)) {
-            set_authenticated(1)
-        } else {
-            set_authenticated(0)
-        }
-    }, [permissions])
 
     const timeRef = useRef(dayjs())
     const [, forceUpdate] = useState(0)
@@ -60,31 +52,48 @@ const Header = () => {
 
     const user_panel = () => {
         const up = []
-        if (authenticated) {
+        if (user !== null) {
             up.push(<Button
                 key='3'>{timeRef.current.format('HH:mm')}</Button>)
-            up.push(<Button key='2'>{user !== null ? user.name : ''}</Button>)
+            up.push(<Button key='2'>{user.name}</Button>)
             up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
         } else {
             up.push(<Button size='large' key='4'
-                            onClick={() => dispatch(setAuthOpened(true))}
+                            onClick={() => {
+                                if (filial !== undefined) {
+                                    dispatch(setAuthOpened(true))
+                                } else {
+                                    dispatch(addNotification({
+                                        message: 'для начала выберите филиал аутентификации',
+                                        severity: 'error',
+                                        autoHide: true
+                                    }))
+                                }
+                            }}
                             startIcon={<AccountCircleIcon/>}>Вход</Button>)
         }
         return up
     }
 
     return (
-        <header id="header" style={{minHeight: `${HEADER_HEIGHT[authenticated]}px`}}>
+        <header id="header" style={{minHeight: `${user === null ? HEADER_HEIGHT[0] : HEADER_HEIGHT[1]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
                 <Box id="header-desktop">
                     {permissions.includes(0) ? <></> : <TopSlider/>}
                     <Box id="header-menu">
                         <ButtonGroup id="header-menu-list" variant="contained" size='small'>
-                            {top_menu[authenticated].map(el => {
-                                return <NavLink key={el.id} className='link' to={el.path}>
-                                    <Button style={{height: '100%'}}>{el.name}</Button>
-                                </NavLink>
-                            })}
+                            {user === null ?
+                                top_menu[0].map(el => {
+                                    return <NavLink key={el.id} className='link' to={el.path}>
+                                        <Button style={{height: '100%'}}>{el.name}</Button>
+                                    </NavLink>
+                                }) :
+                                top_menu[1].map(el => {
+                                    return <NavLink key={el.id} className='link' to={el.path}>
+                                        <Button style={{height: '100%'}}>{el.name}</Button>
+                                    </NavLink>
+                                })
+                            }
                         </ButtonGroup>
                         <ButtonGroup id="top-menu-left" variant="contained" size='small' sx={{marginLeft: '5px'}}>
                             <List
