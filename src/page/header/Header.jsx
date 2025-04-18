@@ -40,7 +40,7 @@ const Header = () => {
     const user = useSelector(state => state.auth.user)
 
     useEffect(() => {
-        if (permissions.includes("staff")) {
+        if (permissions.includes(0)) {
             set_authenticated(1)
         } else {
             set_authenticated(0)
@@ -48,9 +48,11 @@ const Header = () => {
     }, [permissions])
 
     const timeRef = useRef(dayjs())
+    const [, forceUpdate] = useState(0)
     useEffect(() => {
         const update = () => {
             timeRef.current = dayjs()
+            forceUpdate(v => v + 1)
             requestAnimationFrame(update)
         }
         update()
@@ -60,7 +62,7 @@ const Header = () => {
         const up = []
         if (authenticated) {
             up.push(<Button
-                key='3'>{timeRef}</Button>)
+                key='3'>{timeRef.current.format('HH:mm')}</Button>)
             up.push(<Button key='2'>{user !== null ? user.name : ''}</Button>)
             up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
         } else {
@@ -75,7 +77,7 @@ const Header = () => {
         <header id="header" style={{minHeight: `${HEADER_HEIGHT[authenticated]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
                 <Box id="header-desktop">
-                    {permissions.includes("staff") ? <></> : <TopSlider/>}
+                    {permissions.includes(0) ? <></> : <TopSlider/>}
                     <Box id="header-menu">
                         <ButtonGroup id="header-menu-list" variant="contained" size='small'>
                             {top_menu[authenticated].map(el => {

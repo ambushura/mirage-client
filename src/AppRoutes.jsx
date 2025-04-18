@@ -43,9 +43,9 @@ const AppRoutes = (props)=> {
         films: <PageFilms/>,
         film: <PageFilm/>,
         seance: <PageSeance/>,
-        menu: permissions.includes("staff") && search_params.get("wp") ? <PageHoreca/> : null,
-        "admin/cinema": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null,
-        "admin/horeca": permissions.includes("staff") && search_params.get("wp") ? <PageAdmin/> : null,
+        menu: permissions.includes(0) && search_params.get("wp") ? <PageHoreca/> : null,
+        "admin/cinema": permissions.includes(0) && search_params.get("wp") ? <PageAdmin/> : null,
+        "admin/horeca": permissions.includes(0) && search_params.get("wp") ? <PageAdmin/> : null,
         kitchen: <PageKitchen/>
     }
 

@@ -73,7 +73,7 @@ const PageSeance = () => {
     }, [dispatch, filial, navigate, permissions, pre_order, time_remaining])
 
     useEffect(() => {
-        if (permissions.includes("staff")) {
+        if (permissions.includes(0)) {
             set_authenticated(1)
         } else {
             set_authenticated(0)

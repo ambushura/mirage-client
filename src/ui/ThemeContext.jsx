@@ -8,7 +8,7 @@ export const ThemeBlackWhite = ({children}) => {
     const [theme, set_theme] = useState('light')
     const permissions = useSelector(state => state.auth.permissions)
     useEffect(() => {
-        if (permissions.includes('staff')) {
+        if (permissions.includes(0)) {
             set_theme('light')
         } else {
             set_theme('dark')

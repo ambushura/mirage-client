@@ -18,7 +18,7 @@ const Auth = () => {
     const [username, set_username] = useState("")
     const [password, set_password] = useState("")
 
-    const apply = async () => {
+    const apply = () => {
         if (filial === undefined) {
             dispatch(addNotification({
                 message: "Для начала выберите филиал аутентификации",
@@ -38,7 +38,7 @@ const Auth = () => {
                 autoHide: true
             }))
         } else {
-            await login(filial, way, username, password)
+            dispatch(login(filial, way, username, password))
             dispatch(setAuthOpened(false))
         }
     }

@@ -54,7 +54,7 @@ function App() {
 
     return (
         <Box id="app">
-            {(!full || permissions.includes("staff")) && <Header/>}
+            {(!full || permissions.includes(0)) && <Header/>}
             <Routes>
                 <Route path="/" element={<Navigate replace
                                                    to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : `/`}/>}/>
@@ -71,7 +71,7 @@ function App() {
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
-                       element={permissions.includes("staff") ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
+                       element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
                 <Route path="/admin/cinema/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/cinema"/>}/>
                 <Route path="/admin/horeca/:param_city/:param_filial/:param_date_admin/"
@@ -80,7 +80,7 @@ function App() {
                        element={<AppRoutes current_page="kitchen"/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
-            {(!full || permissions.includes("staff")) && <Footer/>}
+            {(!full || permissions.includes(0)) && <Footer/>}
             <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
                 <Box id="modal">
                     {modal_window}

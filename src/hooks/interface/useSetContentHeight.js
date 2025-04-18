@@ -12,7 +12,7 @@ export function useSetContentHeight() {
     const [show_pre_order, set_show_pre_order] = useState(false)
 
     useEffect(() => {
-        if (permissions.includes("staff")) {
+        if (permissions.includes(0)) {
             set_authenticated(1)
         } else {
             set_authenticated(0)
@@ -21,7 +21,7 @@ export function useSetContentHeight() {
     }, [app_height, authenticated, permissions, current_page])
 
     useEffect(() => {
-        if (permissions.includes("staff")) {
+        if (permissions.includes(0)) {
             set_show_pre_order(true)
         } else {
             set_show_pre_order(false)
