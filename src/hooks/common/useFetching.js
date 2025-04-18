@@ -1,8 +1,11 @@
 import {useEffect, useState} from 'react'
 import axios from "axios"
 import {TIMEOUT} from "../../service/fetch_service.js"
+import {useSelector} from "react-redux";
 
 export function useFetching(url) {
+
+    const token = useSelector(state => state.auth.token)
 
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
@@ -12,7 +15,10 @@ export function useFetching(url) {
         let isMounted = true
         const fetchData = async () => {
             try {
-                const response = await axios.get(url, {timeout: TIMEOUT})
+                const response = await axios.get(url, {
+                    timeout: TIMEOUT,
+                    headers: {Authorization: token},
+                })
                 if (isMounted) setData(response.data.data)
             } catch (err) {
                 if (isMounted) setError(err.message)

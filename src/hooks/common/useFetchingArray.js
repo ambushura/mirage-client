@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
 import {TIMEOUT} from "../../service/fetch_service.js"
+import {useSelector} from "react-redux";
 
 export function useFetchingArray(urls) {
+
+    const token = useSelector(state => state.auth.token)
 
     const [results, set_results] = useState([])
 
@@ -20,7 +23,10 @@ export function useFetchingArray(urls) {
             const fetchResults = await Promise.all(
                 urls.map(async (url) => {
                     try {
-                        const response = await axios.get(url.url, {timeout: TIMEOUT})
+                        const response = await axios.get(url.url, {
+                            timeout: TIMEOUT,
+                            headers: {Authorization: token},
+                        })
                         return {url: url.url, data: response.data.data, filial: url.filial, loading: false, error: null}
                     } catch (err) {
                         return {url: url.url, data: null, filial: url.filial, loading: false, error: err.message}
