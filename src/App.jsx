@@ -81,7 +81,7 @@ function App() {
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             {(!full || permissions.includes("staff")) && <Footer/>}
-            <Modal open={modal_opened} onClose={() => dispatch(closeModal())}>
+            <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
                 <Box id="modal">
                     {modal_window}
                 </Box>

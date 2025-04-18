@@ -18,7 +18,6 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
-    const [current_time, set_current_time] = useState(dayjs(new Date()))
     const permissions = useSelector(state => state.auth.permissions)
     const top_menu = useSelector(state => state.interface.top_menu)
     const cities = useSelector(state => state.data.cities)
@@ -48,24 +47,26 @@ const Header = () => {
         }
     }, [permissions])
 
+    const timeRef = useRef(dayjs())
     useEffect(() => {
-        const interval = setInterval(() => {
-            set_current_time(dayjs(new Date()))
-        }, 1000)
-        return () => clearInterval(interval)
+        const update = () => {
+            timeRef.current = dayjs()
+            requestAnimationFrame(update)
+        }
+        update()
     }, [])
 
     const user_panel = () => {
         const up = []
         if (authenticated) {
             up.push(<Button
-                key='3'>{String(current_time.hour()).padStart(2, '0')}:{String(current_time.minute()).padStart(2, '0')}</Button>)
+                key='3'>{timeRef}</Button>)
             up.push(<Button key='2'>{user !== null ? user.name : ''}</Button>)
             up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
         } else {
-            up.push(<Button key='4'
+            up.push(<Button size='large' key='4'
                             onClick={() => dispatch(setAuthOpened(true))}
-                            startIcon={<AccountCircleIcon/>}>Авторизация</Button>)
+                            startIcon={<AccountCircleIcon/>}>Вход</Button>)
         }
         return up
     }
@@ -115,11 +116,12 @@ const Header = () => {
                                 {user_panel()}
                             </ButtonGroup>
                             <Modal open={auth_opened}
+                                   keepMounted
                                    onClose={() => dispatch(setAuthOpened(false))}
                                    aria-labelledby="Страница авторизации"
                                    aria-describedby="Введите пароль">
                                 <Box id="modal">
-                                    <Auth setAuthOpened={setAuthOpened}/>
+                                    <Auth/>
                                 </Box>
                             </Modal>
                         </Box>

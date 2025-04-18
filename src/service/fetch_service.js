@@ -2,8 +2,36 @@ import {NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/or
 import {setBooking} from "../redux/scheduleReducer.js"
 import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
+import {loginSuccess} from "../redux/authReducer.js"
 
 export const TIMEOUT = 130
+
+export const login = (filial, way, username, password) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({way, username, password})
+            })
+            if (!response.ok) {
+                throw new Error(response.message)
+            }
+            const data = await response.json()
+            if (data.code === 200) {
+                dispatch(loginSuccess(data.data))
+            } else {
+                throw new Error(data.data)
+            }
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
 
 export const fetchPreOrder = (filial, uid_order) => {
     const token = localStorage.getItem("token")
