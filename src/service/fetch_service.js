@@ -4,8 +4,6 @@ import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
 
-export const TIMEOUT = 2000
-
 export const login = (filial, way, username, password) => {
     return async (dispatch) => {
         try {
@@ -175,3 +173,5 @@ export const payment = (filial, pm, uid_order, ver, type, for_payment) => {
         }
     }
 }
+
+export const TIMEOUT = 2000

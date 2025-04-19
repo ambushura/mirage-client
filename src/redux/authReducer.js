@@ -21,14 +21,12 @@ const setStorageItem = (key, value) => {
 const removeStorageItems = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("permissions")
-    localStorage.removeItem("filials")
     localStorage.removeItem("user")
 }
 
 const initialState = {
     token: localStorage.getItem("token") || null,
     permissions: getStorageItem("permissions", []),
-    filials: getStorageItem("filials", []),
     user: getStorageItem("user", null)
 }
 
@@ -41,16 +39,13 @@ const authReducer = createSlice({
             state.token = payload
             state.user = decode.user
             state.permissions = decode.permissions
-            state.filials = decode.filials
             setStorageItem("token", payload)
             setStorageItem("permissions", decode.permissions)
-            setStorageItem("filials", decode.filials)
             setStorageItem("user", JSON.stringify(decode.user))
         },
         logout: (state) => {
             state.token = null
             state.user = null
-            state.filial = []
             state.permissions = []
             removeStorageItems()
         }
