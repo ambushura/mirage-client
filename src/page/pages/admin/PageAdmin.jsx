@@ -5,7 +5,6 @@ import Orders from "./orders/Orders.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 import {NEW_EMPTY_ORDER, setCurrentPreOrder} from "../../../redux/ordersReducer.js"
-import HR from "./hr/HR.jsx";
 
 const PageAdmin = () => {
 
@@ -57,7 +56,6 @@ const PageAdmin = () => {
                     <Tab sx={{color: 'var(--text-color)'}} label="Итоги" {...allProps(1)}/>
                     <Tab sx={{color: 'var(--text-color)'}} label="Залы" {...allProps(2)}/>
                     <Tab sx={{color: 'var(--text-color)'}} label="Рабочие места" {...allProps(3)}/>
-                    <Tab sx={{color: 'var(--text-color)'}} label="Кадры" {...allProps(4)}/>
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -72,9 +70,6 @@ const PageAdmin = () => {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
                 Оборудование
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={4}>
-                <HR/>
             </CustomTabPanel>
         </Box>
     )

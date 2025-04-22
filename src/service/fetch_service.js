@@ -4,13 +4,13 @@ import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
 
-export const login = (filial, way, username, password) => {
+export const login = (filial, login_auth, pincode_auth, username, password) => {
     return async (dispatch) => {
         try {
             const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({way, username, password})
+                body: JSON.stringify({login_auth, pincode_auth, username, password})
             })
             if (!response.ok) {
                 throw new Error(response.message)

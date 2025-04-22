@@ -110,10 +110,14 @@ const OrdersHoreca = () => {
                 </ButtonGroup>
             </Box>
             <Box className='admin-orders-horeca-orders'>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ 1</Box></Box>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ 2</Box></Box>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ 3</Box></Box>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ 4</Box></Box>
+                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                    1</Box></Box>
+                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                    2</Box></Box>
+                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                    3</Box></Box>
+                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                    4</Box></Box>
             </Box>
         </Box>
     )

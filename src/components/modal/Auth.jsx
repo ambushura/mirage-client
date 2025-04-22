@@ -14,7 +14,9 @@ const Auth = () => {
 
     const filial = useSelector(state => state.data.filial)
 
-    const [way, set_way] = useState('kiosk')
+    const [pincode_auth, set_pincode_auth] = useState(true)
+    const [login_auth, set_login_auth] = useState(false)
+
     const [username, set_username] = useState("")
     const [password, set_password] = useState("")
 
@@ -25,20 +27,20 @@ const Auth = () => {
                 severity: 'error',
                 autoHide: true
             }))
-        } else if (way === 'desktop' && (username === '' || password === '')) {
+        } else if (login_auth && (username === '' || password === '')) {
             dispatch(addNotification({
                 message: "логин и пароль не могут бысть пустыми",
                 severity: 'error',
                 autoHide: true
             }))
-        } else if (way === 'kiosk' && password === '') {
+        } else if (pincode_auth && password === '') {
             dispatch(addNotification({
                 message: "пароль не может бысть пустым",
                 severity: 'error',
                 autoHide: true
             }))
         } else {
-            dispatch(login(filial, way, username, password))
+            dispatch(login(filial, login_auth, pincode_auth, username, password))
             dispatch(setAuthOpened(false))
         }
     }
@@ -53,12 +55,14 @@ const Auth = () => {
                 marginBottom: '10px'
             }}>
                 <Button sx={{marginRight: '5px'}} variant='contained' color='primary' onClick={() => {
-                    set_way('kiosk')
+                    set_pincode_auth(true)
+                    set_login_auth(false)
                 }}>
                     <DialpadIcon/>
                 </Button>
                 <Button variant='contained' color='primary' onClick={() => {
-                    set_way('desktop')
+                    set_pincode_auth(false)
+                    set_login_auth(true)
                 }}>
                     <Face3Icon/>
                 </Button>
@@ -66,7 +70,7 @@ const Auth = () => {
             <Box sx={{width: '100%'}}>
                 <Box sx={{
                     width: '100%',
-                    display: way === 'kiosk' ? 'flex' : 'none',
+                    display: pincode_auth ? 'flex' : 'none',
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
@@ -98,7 +102,7 @@ const Auth = () => {
                     </Box>
                 </Box>
                 <Box sx={{
-                    display: way === 'desktop' ? 'flex' : 'none',
+                    display: login_auth ? 'flex' : 'none',
                     flexDirection: 'column',
                     justifyContent: 'space-around'
                 }}>

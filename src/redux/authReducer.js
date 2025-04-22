@@ -19,15 +19,25 @@ const setStorageItem = (key, value) => {
 }
 
 const removeStorageItems = () => {
+    localStorage.removeItem("uid")
+    localStorage.removeItem("name")
+    localStorage.removeItem("login")
+    localStorage.removeItem("tips")
+    localStorage.removeItem("god")
     localStorage.removeItem("token")
+    localStorage.removeItem("filials")
     localStorage.removeItem("permissions")
-    localStorage.removeItem("user")
 }
 
 const initialState = {
+    uid: localStorage.getItem("uid") || null,
+    name: localStorage.getItem("name") || null,
+    login: localStorage.getItem("login") || null,
+    tips: localStorage.getItem("tips") || null,
+    god: localStorage.getItem("god") || false,
     token: localStorage.getItem("token") || null,
+    filials: getStorageItem("filials", []),
     permissions: getStorageItem("permissions", []),
-    user: getStorageItem("user", null)
 }
 
 const authReducer = createSlice({
@@ -36,16 +46,32 @@ const authReducer = createSlice({
     reducers: {
         loginSuccess: (state, {payload}) => {
             const decode = jwtDecode(payload)
+            state.uid = decode.uid
+            state.name = decode.name
+            state.login = decode.login
+            state.tips = decode.tips
+            state.god = decode.god
             state.token = payload
-            state.user = decode.user
+            state.filials = decode.filials
             state.permissions = decode.permissions
+
+            setStorageItem("uid", decode.uid)
+            setStorageItem("name", decode.name)
+            setStorageItem("login", decode.login)
+            setStorageItem("tips", decode.tips)
+            setStorageItem("god", decode.god)
             setStorageItem("token", payload)
+            setStorageItem("filials", decode.filials)
             setStorageItem("permissions", decode.permissions)
-            setStorageItem("user", JSON.stringify(decode.user))
         },
         logout: (state) => {
+            state.uid = null
+            state.name = null
+            state.login = null
+            state.tips = null
+            state.god = false
             state.token = null
-            state.user = null
+            state.filials = []
             state.permissions = []
             removeStorageItems()
         }
