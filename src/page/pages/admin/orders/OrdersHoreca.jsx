@@ -8,6 +8,8 @@ import ChairIcon from '@mui/icons-material/Chair'
 import ComputerIcon from '@mui/icons-material/Computer'
 import KitchenIcon from '@mui/icons-material/Kitchen'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
+import {useSetOrdersHoreca} from "../../../../hooks/pages/useSetOrdersHoreca.js"
+import {useSelector} from "react-redux"
 
 const OrdersHoreca = () => {
 
@@ -73,6 +75,10 @@ const OrdersHoreca = () => {
         {uid: 2, name: 'Готовится'},
         {uid: 3, name: 'Готово'},
     ]
+
+    useSetOrdersHoreca(false)
+
+    const orders = useSelector(state => state.orders.orders_horeca)
 
     return (
         <Box className='admin-orders-horeca'>
@@ -160,54 +166,21 @@ const OrdersHoreca = () => {
             </Box>
             <Box className='admin-orders-horeca-orders'>
                 <Box className='admin-orders-horeca-orders-content'>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        1</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        2</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        3</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        4</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        1</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        2</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        3</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        4</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        1</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        2</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        3</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        4</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        1</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        2</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        3</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        4</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        1</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        2</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        3</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        4</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        1</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        2</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        3</Box></Box>
-                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                        4</Box></Box>
+                    {orders.length > 0 ? orders.map(filial_data => {
+                            return (
+                                <Box key={filial_data.filial.uid}>
+                                    <Box>{filial_data.filial.name}</Box>
+                                    <Box>{filial_data.data !== null ? filial_data.data.map(order => {
+                                        return (
+                                            <Box key={order.uid} className='admin-orders-horeca-order'>
+                                                <Box className='admin-orders-horeca-order-content'>{order.number}</Box>
+                                            </Box>
+                                        )
+                                    }) : null}</Box>
+                                </Box>
+                            )
+                        })
+                        : null}
                 </Box>
             </Box>
         </Box>

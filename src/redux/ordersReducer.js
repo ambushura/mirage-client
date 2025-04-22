@@ -40,6 +40,7 @@ const initialState = {
     orders_cinema_schedule: [],
     orders_cinema: [],
     orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
+    orders_horeca: []
 }
 
 export const ordersSlice = createSlice({
@@ -81,6 +82,9 @@ export const ordersSlice = createSlice({
         },
         setOrdersCinemaFilialSeance(state, {payload}) {
             state.orders_cinema_filial_seance = payload
+        },
+        setOrdersHoreca(state, {payload}) {
+            state.orders_horeca = payload
         }
     },
 })
@@ -94,5 +98,6 @@ export const { setDate,
     setHorderPaying,
     setOrdersCinemaSchedule,
     setOrdersCinema,
-    setOrdersCinemaFilialSeance,} = ordersSlice.actions
+    setOrdersCinemaFilialSeance,
+    setOrdersHoreca,} = ordersSlice.actions
 export default ordersSlice.reducer
