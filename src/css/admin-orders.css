@@ -154,9 +154,15 @@
 }
 
 .admin-orders-horeca-orders {
+    padding-top: 6px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.admin-orders-horeca-orders-content {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    padding-top: 6px;
+    flex-wrap: wrap;
 }
 
 .admin-orders-horeca-order {
@@ -175,22 +181,22 @@
     border-radius: 12px;
 }
 
-.admin-orders-horeca-panel::-webkit-scrollbar {
+.admin-orders-horeca-panel::-webkit-scrollbar, .admin-orders-horeca-orders::-webkit-scrollbar {
     min-width: 50px;
     height: 50px;
     background-color: transparent;
 }
 
-.admin-orders-horeca-panel::-webkit-scrollbar-thumb {
+.admin-orders-horeca-panel::-webkit-scrollbar-thumb, .admin-orders-horeca-orders::-webkit-scrollbar-thumb {
     background: #8B919B ;
     border-radius: 12px;
     padding-right: 5px;
 }
 
-.admin-orders-horeca-panel::-webkit-scrollbar-track {
+.admin-orders-horeca-panel::-webkit-scrollbar-track, .admin-orders-horeca-orders::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.admin-orders-horeca-panel::-webkit-scrollbar-corner {
+.admin-orders-horeca-panel::-webkit-scrollbar-corner, .admin-orders-horeca-orders::-webkit-scrollbar-corner {
     background: transparent;
 }

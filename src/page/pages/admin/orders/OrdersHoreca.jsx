@@ -6,6 +6,8 @@ import {useRef, useState} from "react"
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import ChairIcon from '@mui/icons-material/Chair'
 import ComputerIcon from '@mui/icons-material/Computer'
+import KitchenIcon from '@mui/icons-material/Kitchen'
+import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 
 const OrdersHoreca = () => {
 
@@ -29,6 +31,16 @@ const OrdersHoreca = () => {
     const [workplaces_opened, set_workplaces_open] = useState(false)
     const prev_workplaces_open = useRef(Boolean(workplaces_opened))
 
+    const kitchen_points_list_id = "kitchen-points-menu"
+    const kitchen_points_ref = useRef(null)
+    const [kitchen_points_opened, set_kitchen_points_open] = useState(false)
+    const prev_kitchen_points_open = useRef(Boolean(kitchen_points_opened))
+
+    const kitchen_status_list_id = "kitchen-status-menu"
+    const kitchen_status_ref = useRef(null)
+    const [kitchen_status_opened, set_kitchen_status_open] = useState(false)
+    const prev_kitchen_status_open = useRef(Boolean(kitchen_status_opened))
+
     const staff = [
         {uid: 0, name: 'Все официанты'},
         {uid: 1, name: 'Иванов Иван Иванович'},
@@ -47,8 +59,19 @@ const OrdersHoreca = () => {
     ]
     const workplaces = [
         {uid: 0, name: 'Все рабочие места'},
-        {uid: 0, name: 'mpopcorn2'},
-        {uid: 0, name: 'mpopcorn3'},
+        {uid: 1, name: 'mpopcorn2'},
+        {uid: 2, name: 'mpopcorn3'},
+    ]
+    const kitchen_points = [
+        {uid: 0, name: 'Вся кухня'},
+        {uid: 1, name: 'Цех 1'},
+    ]
+    const kitchen_status = [
+        {uid: 0, name: 'Любой статус'},
+        {uid: 0, name: 'Без готовки'},
+        {uid: 1, name: 'Начать готовить'},
+        {uid: 2, name: 'Готовится'},
+        {uid: 3, name: 'Готово'},
     ]
 
     return (
@@ -107,17 +130,85 @@ const OrdersHoreca = () => {
                         endIcon={<KeyboardArrowDownIcon/>}
                         type="workplaces"
                     />
+                    <List
+                        size='small'
+                        open={kitchen_points_opened}
+                        anchor={kitchen_points_ref}
+                        prev_open={prev_kitchen_points_open}
+                        id={kitchen_points_list_id}
+                        setOpen={set_kitchen_points_open}
+                        button_text={kitchen_points[0].name}
+                        list={kitchen_points}
+                        startIcon={<KitchenIcon/>}
+                        endIcon={<KeyboardArrowDownIcon/>}
+                        type="kitchen_points"
+                    />
+                    <List
+                        size='small'
+                        open={kitchen_status_opened}
+                        anchor={kitchen_status_ref}
+                        prev_open={prev_kitchen_status_open}
+                        id={kitchen_status_list_id}
+                        setOpen={set_kitchen_status_open}
+                        button_text={kitchen_status[0].name}
+                        list={kitchen_status}
+                        startIcon={<SoupKitchenIcon/>}
+                        endIcon={<KeyboardArrowDownIcon/>}
+                        type="kitchen_status"
+                    />
                 </ButtonGroup>
             </Box>
             <Box className='admin-orders-horeca-orders'>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                    1</Box></Box>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                    2</Box></Box>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                    3</Box></Box>
-                <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
-                    4</Box></Box>
+                <Box className='admin-orders-horeca-orders-content'>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        1</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        2</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        3</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        4</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        1</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        2</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        3</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        4</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        1</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        2</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        3</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        4</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        1</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        2</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        3</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        4</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        1</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        2</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        3</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        4</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        1</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        2</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        3</Box></Box>
+                    <Box className='admin-orders-horeca-order'><Box className='admin-orders-horeca-order-content'>Заказ
+                        4</Box></Box>
+                </Box>
             </Box>
         </Box>
     )

@@ -77,7 +77,7 @@ const Header = () => {
     }
 
     return (
-        <header id="header" style={{minHeight: `${name === null ? HEADER_HEIGHT[0] : HEADER_HEIGHT[1]}px`}}>
+        <header id="header" style={{minHeight: `${uid_user === null ? HEADER_HEIGHT[0] : HEADER_HEIGHT[1]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
                 <Box id="header-desktop">
                     {permissions.includes(0) ? <></> : <TopSlider/>}

@@ -104,6 +104,20 @@ const List = (props) => {
                                                 </MenuItem>
                                             )
                                         }
+                                        if (props.type === 'kitchen_points') {
+                                            return (
+                                                <MenuItem key={el.uid}>
+                                                    {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
+                                        if (props.type === 'kitchen_status') {
+                                            return (
+                                                <MenuItem key={el.uid}>
+                                                    {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
                                     })}
                                 </MenuList>
                             </ClickAwayListener>
