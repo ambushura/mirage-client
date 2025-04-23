@@ -4,7 +4,7 @@ import "react-simple-keyboard/build/css/index.css"
 import {useDispatch, useSelector} from "react-redux"
 import {setAuthOpened} from "../../redux/interfaceReducer.js"
 import DialpadIcon from '@mui/icons-material/Dialpad'
-import Face3Icon from '@mui/icons-material/Face3'
+import KeyboardIcon from '@mui/icons-material/Keyboard'
 import {addNotification} from "../../redux/notifierReducer.js"
 import {login} from "../../service/fetch_service.js"
 
@@ -65,7 +65,7 @@ const Auth = () => {
                     set_pincode_auth(false)
                     set_login_auth(true)
                 }}>
-                    <Face3Icon/>
+                    <KeyboardIcon/>
                 </Button>
             </Box>
             <Box sx={{width: '100%'}}>
