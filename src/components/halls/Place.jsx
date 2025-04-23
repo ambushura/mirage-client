@@ -1,11 +1,12 @@
 import {useEffect} from 'react'
 import {useState} from 'react'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {takeSeat} from "../../service/fetch_service.js"
 
 const Place = (props) => {
 
     const dispatch = useDispatch()
+    const wp = useSelector(state => state.interface.search_params.wp)
 
     const heads = props.description.heads
     const label = props.description.label
@@ -58,7 +59,7 @@ const Place = (props) => {
                 if (props.set_time_remaining !== undefined) {
                     props.set_time_remaining(100)
                 }
-                dispatch(takeSeat(props.city, props.filial, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
+                dispatch(takeSeat(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
             }}
             style={{
                 background: 'transparent',

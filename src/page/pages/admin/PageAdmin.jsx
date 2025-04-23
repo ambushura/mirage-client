@@ -29,7 +29,7 @@ const PageAdmin = () => {
                 aria-labelledby={`simple-tab-${index}`}
                 {...other}
             >
-                {value === index && <Box>{children}</Box>}
+                {value === index && <>{children}</>}
             </Box>
         )
     }

@@ -1,4 +1,4 @@
-import {Box, ButtonGroup} from "@mui/material"
+import {Box, ButtonGroup, Fade} from "@mui/material"
 import PersonIcon from '@mui/icons-material/Person'
 import List from "../../../../ui/List.jsx"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
@@ -10,6 +10,9 @@ import KitchenIcon from '@mui/icons-material/Kitchen'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import {useSetOrdersHoreca} from "../../../../hooks/pages/useSetOrdersHoreca.js"
 import {useSelector} from "react-redux"
+import {TIMEOUT} from "../../../../redux/interfaceReducer.js"
+import Order from "../../../../components/orders/Order.jsx"
+import OrderFood from "./OrderFood.jsx"
 
 const OrdersHoreca = () => {
 
@@ -79,110 +82,121 @@ const OrdersHoreca = () => {
     useSetOrdersHoreca(false)
 
     const orders = useSelector(state => state.orders.orders_horeca)
+    const horder = useSelector(state => state.orders.horder)
 
     return (
         <Box className='admin-orders-horeca'>
-            <Box className='admin-orders-horeca-panel'>
-                <ButtonGroup variant='contained' color='secondary'>
-                    <List
-                        size='small'
-                        open={staff_opened}
-                        anchor={staff_ref}
-                        prev_open={prev_staff_open}
-                        id={staff_list_id}
-                        setOpen={set_staff_open}
-                        button_text={'Все официанты'}
-                        list={staff}
-                        startIcon={<PersonIcon/>}
-                        endIcon={<KeyboardArrowDownIcon/>}
-                        type="staff"
-                    />
-                    <List
-                        size='small'
-                        open={state_opened}
-                        anchor={state_ref}
-                        prev_open={prev_state_open}
-                        id={state_list_id}
-                        setOpen={set_state_open}
-                        button_text={'Ожидают оплаты'}
-                        list={state}
-                        startIcon={<ReceiptIcon/>}
-                        endIcon={<KeyboardArrowDownIcon/>}
-                        type="state"
-                    />
-                    <List
-                        size='small'
-                        open={halls_opened}
-                        anchor={halls_ref}
-                        prev_open={prev_halls_open}
-                        id={halls_list_id}
-                        setOpen={set_halls_open}
-                        button_text={halls[0].name}
-                        list={halls}
-                        startIcon={<ChairIcon/>}
-                        endIcon={<KeyboardArrowDownIcon/>}
-                        type="halls"
-                    />
-                    <List
-                        size='small'
-                        open={workplaces_opened}
-                        anchor={workplaces_ref}
-                        prev_open={prev_workplaces_open}
-                        id={workplaces_list_id}
-                        setOpen={set_workplaces_open}
-                        button_text={workplaces[0].name}
-                        list={workplaces}
-                        startIcon={<ComputerIcon/>}
-                        endIcon={<KeyboardArrowDownIcon/>}
-                        type="workplaces"
-                    />
-                    <List
-                        size='small'
-                        open={kitchen_points_opened}
-                        anchor={kitchen_points_ref}
-                        prev_open={prev_kitchen_points_open}
-                        id={kitchen_points_list_id}
-                        setOpen={set_kitchen_points_open}
-                        button_text={kitchen_points[0].name}
-                        list={kitchen_points}
-                        startIcon={<KitchenIcon/>}
-                        endIcon={<KeyboardArrowDownIcon/>}
-                        type="kitchen_points"
-                    />
-                    <List
-                        size='small'
-                        open={kitchen_status_opened}
-                        anchor={kitchen_status_ref}
-                        prev_open={prev_kitchen_status_open}
-                        id={kitchen_status_list_id}
-                        setOpen={set_kitchen_status_open}
-                        button_text={kitchen_status[0].name}
-                        list={kitchen_status}
-                        startIcon={<SoupKitchenIcon/>}
-                        endIcon={<KeyboardArrowDownIcon/>}
-                        type="kitchen_status"
-                    />
-                </ButtonGroup>
-            </Box>
-            <Box className='admin-orders-horeca-orders'>
-                <Box className='admin-orders-horeca-orders-content'>
-                    {orders.length > 0 ? orders.map(filial_data => {
-                            return (
-                                <Box key={filial_data.filial.uid}>
-                                    <Box>{filial_data.filial.name}</Box>
-                                    <Box>{filial_data.data !== null ? filial_data.data.map(order => {
-                                        return (
-                                            <Box key={order.uid} className='admin-orders-horeca-order'>
-                                                <Box className='admin-orders-horeca-order-content'>{order.number}</Box>
-                                            </Box>
-                                        )
-                                    }) : null}</Box>
-                                </Box>
-                            )
-                        })
-                        : null}
+            <Box>
+                <Box className='admin-orders-horeca-panel'>
+                    <ButtonGroup variant='contained' color='secondary'>
+                        <List
+                            size='small'
+                            open={staff_opened}
+                            anchor={staff_ref}
+                            prev_open={prev_staff_open}
+                            id={staff_list_id}
+                            setOpen={set_staff_open}
+                            button_text={'Все официанты'}
+                            list={staff}
+                            startIcon={<PersonIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="staff"
+                        />
+                        <List
+                            size='small'
+                            open={state_opened}
+                            anchor={state_ref}
+                            prev_open={prev_state_open}
+                            id={state_list_id}
+                            setOpen={set_state_open}
+                            button_text={'Ожидают оплаты'}
+                            list={state}
+                            startIcon={<ReceiptIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="state"
+                        />
+                        <List
+                            size='small'
+                            open={halls_opened}
+                            anchor={halls_ref}
+                            prev_open={prev_halls_open}
+                            id={halls_list_id}
+                            setOpen={set_halls_open}
+                            button_text={halls[0].name}
+                            list={halls}
+                            startIcon={<ChairIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="halls"
+                        />
+                        <List
+                            size='small'
+                            open={workplaces_opened}
+                            anchor={workplaces_ref}
+                            prev_open={prev_workplaces_open}
+                            id={workplaces_list_id}
+                            setOpen={set_workplaces_open}
+                            button_text={workplaces[0].name}
+                            list={workplaces}
+                            startIcon={<ComputerIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="workplaces"
+                        />
+                        <List
+                            size='small'
+                            open={kitchen_points_opened}
+                            anchor={kitchen_points_ref}
+                            prev_open={prev_kitchen_points_open}
+                            id={kitchen_points_list_id}
+                            setOpen={set_kitchen_points_open}
+                            button_text={kitchen_points[0].name}
+                            list={kitchen_points}
+                            startIcon={<KitchenIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="kitchen_points"
+                        />
+                        <List
+                            size='small'
+                            open={kitchen_status_opened}
+                            anchor={kitchen_status_ref}
+                            prev_open={prev_kitchen_status_open}
+                            id={kitchen_status_list_id}
+                            setOpen={set_kitchen_status_open}
+                            button_text={kitchen_status[0].name}
+                            list={kitchen_status}
+                            startIcon={<SoupKitchenIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="kitchen_status"
+                        />
+                    </ButtonGroup>
+                </Box>
+                <Box className='admin-orders-horeca-orders'>
+                    <Box className='admin-orders-horeca-orders-content'>
+                        {orders.length > 0 ? orders.map(filial_data => {
+                                if (filial_data.data !== null) {
+                                    return (
+                                        <Box className='admin-orders-horeca-filial' key={filial_data.filial.uid}>
+                                            <Box>{filial_data.filial.name}</Box>
+                                            <Box
+                                                className='admin-orders-horeca-filial-orders'>{filial_data.data !== null ? filial_data.data.map(order => {
+                                                return (
+                                                    <OrderFood key={`${order.uid}${order.ver}`} order={order}/>
+                                                )
+                                            }) : null}</Box>
+                                        </Box>
+                                    )
+                                } else {
+                                    return (null)
+                                }
+                            })
+                            : null}
+                    </Box>
                 </Box>
             </Box>
+            <Fade in={horder.in_base} timeout={TIMEOUT} unmountOnExit>
+                <Box style={{flex: 1, paddingLeft: '10px'}}>
+                    <Order/>
+                </Box>
+            </Fade>
         </Box>
     )
 }

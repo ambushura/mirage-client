@@ -9,7 +9,7 @@ export function useSetMenu(uid_folder) {
     const [data, set_data] = useState(undefined)
 
     const filial = useSelector(state => state.data.filial)
-    const param_date_admin = useSelector(state => state.data.param_date_admin)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     useEffect(() => {
         if (filial !== undefined) {

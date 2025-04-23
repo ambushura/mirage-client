@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 export function useFetching(url) {
 
     const token = useSelector(state => state.auth.token)
+    const wp = useSelector(state => state.interface.search_params.wp)
 
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
@@ -17,7 +18,10 @@ export function useFetching(url) {
             try {
                 const response = await axios.get(url, {
                     timeout: TIMEOUT,
-                    headers: {Authorization: token},
+                    headers: {
+                        Authorization: token,
+                        wp: wp,
+                    },
                 })
                 if (isMounted) setData(response.data.data)
             } catch (err) {
@@ -26,7 +30,7 @@ export function useFetching(url) {
                 if (isMounted) setLoading(false)
             }
         }
-        if (url !== undefined) {
+        if (url !== undefined && wp !== undefined && wp.length > 0) {
             fetchData().then()
         } else {
             setData(null)
@@ -35,7 +39,7 @@ export function useFetching(url) {
         return () => {
             isMounted = false
         }
-    }, [url])
+    }, [url, wp])
 
     return [data, error, loading]
 }

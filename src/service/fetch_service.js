@@ -4,9 +4,12 @@ import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
 
-export const login = (filial, login_auth, pincode_auth, username, password) => {
+export const login = (filial, wp, login_auth, pincode_auth, username, password) => {
     return async (dispatch) => {
         try {
+            if (wp === undefined || wp.length === 0) {
+                throw new Error("не указано рабочее место")
+            }
             const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -31,15 +34,19 @@ export const login = (filial, login_auth, pincode_auth, username, password) => {
     }
 }
 
-export const fetchPreOrder = (filial, uid_order) => {
+export const fetchPreOrder = (filial, wp, uid_order) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
+            if (wp === undefined || wp.length === 0) {
+                throw new Error("не указано рабочее место")
+            }
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token
-                }})
+                }
+            })
             dispatch(setCurrentPreOrder(response.data.data))
         } catch (e) {
             dispatch(addNotification({
@@ -51,10 +58,36 @@ export const fetchPreOrder = (filial, uid_order) => {
     }
 }
 
-export const deletePreOrder = (filial, uid_order) => {
+export const fetchHorder = (filial, wp, uid_order) => {
+    const token = localStorage.getItem("token")
+    return async (dispatch) => {
+        if (wp === undefined || wp.length === 0) {
+            throw new Error("не указано рабочее место")
+        }
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_horder?uid_order=${uid_order}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token
+                }})
+            dispatch(setCurrentHorder(response.data.data))
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
+export const deletePreOrder = (filial, wp, uid_order) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
+            if (wp === undefined || wp.length === 0) {
+                throw new Error("не указано рабочее место")
+            }
             await axios.get(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
@@ -72,14 +105,18 @@ export const deletePreOrder = (filial, uid_order) => {
     }
 }
 
-export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) => {
+export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
+            if (wp === undefined || wp.length === 0) {
+                throw new Error("не указано рабочее место")
+            }
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/${token !== null ? '' : 'kiosk/'}take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
                 timeout: TIMEOUT,
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    wp: wp,
                 }})
             if (response.data.code === 200) {
                 if (response.data.data === null) {
@@ -90,7 +127,8 @@ export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) =>
                 const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {
                     timeout: TIMEOUT,
                     headers: {
-                        Authorization: token
+                        Authorization: token,
+                        workplace: wp,
                     }})
                 dispatch(setBooking(booking.data.data))
             } else {
@@ -110,14 +148,18 @@ export const takeSeat = (city, filial, uid_seance, uid_order, uid_place, ver) =>
     }
 }
 
-export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
+export const horeca_add = (filial, wp, uid_order, ver_order, uid_menu) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}${wp !== undefined ? '&wp=' + wp : ''}`, {
+            if (wp === undefined || wp.length === 0) {
+                throw new Error("не указано рабочее место")
+            }
+            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}`, {
                 timeout: TIMEOUT,
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    wp: wp,
                 }})
             if (response.data.code === 200) {
                 dispatch(setCurrentHorder(response.data.data))
@@ -138,10 +180,13 @@ export const horeca_add = (filial, uid_order, ver_order, uid_menu, wp) => {
     }
 }
 
-export const payment = (filial, pm, uid_order, ver, type, for_payment) => {
+export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
+            if (wp === undefined || wp.length === 0) {
+                throw new Error("не указано рабочее место")
+            }
             const response = await axios.post(`http://${filial.ip}:8081/api/payment-server/payment`, {
                 uid_filial: filial.uid,
                 uid_payment_type: pm.uid_payment_type,

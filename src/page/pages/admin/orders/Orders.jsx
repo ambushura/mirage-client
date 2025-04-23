@@ -94,8 +94,7 @@ const Orders = () => {
                 <TextField sx={{marginLeft: '4px', width: '250px'}} label="Поиск" variant='filled'/>
             </Box>
             {current_page === 'admin/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
-            {current_page === 'admin/horeca' && filial !== undefined ?
-                <OrdersHoreca update_horeca={update_horeca}/> : null}
+            {current_page === 'admin/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
         </Box>
     )
 }

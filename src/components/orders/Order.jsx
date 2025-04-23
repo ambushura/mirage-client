@@ -110,6 +110,7 @@ const Order = () => {
     const horder = useSelector(state => state.orders.horder)
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
+    const wp = useSelector(state => state.interface.search_params.wp)
     const [content_height] = useSetContentHeight()
 
     const seance_link = () => {
@@ -128,8 +129,8 @@ const Order = () => {
                     paying={pre_order_paying}
                     setPaying={value => dispatch(setPreOrderPaying(value))}
                     emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
-                    fetchOrder={() => dispatch(fetchPreOrder(filial, pre_order.uid))}
-                    deleteOrder={() => dispatch(deletePreOrder(filial, pre_order.uid))}
+                    fetchOrder={() => dispatch(fetchPreOrder(filial, wp, pre_order.uid))}
+                    deleteOrder={() => dispatch(deletePreOrder(filial, wp, pre_order.uid))}
                     navigateTo={() => navigate(seance_link())}
                 />
             )}

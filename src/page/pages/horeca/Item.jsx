@@ -11,7 +11,7 @@ const Item = (props) => {
     const wp = useSelector(state => state.interface.search_params.wp)
 
     return (
-        <Box className="menu-item" onClick={() => dispatch(horeca_add(filial, horder.uid, horder.ver, props.item.uid, wp))}>
+        <Box className="menu-item" onClick={() => dispatch(horeca_add(filial, wp, horder.uid, horder.ver, props.item.uid))}>
             <Box style={{height: '25px'}}>{props.item.name}</Box>
             <Box style={{height: '25px', display: 'flex', justifyContent: 'end', alignItems: 'flex-end'}}>
                 <span style={{
