@@ -12,7 +12,10 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
             }
             const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    wp: wp,
+                },
                 body: JSON.stringify({login_auth, pincode_auth, username, password})
             })
             if (!response.ok) {

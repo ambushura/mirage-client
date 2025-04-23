@@ -29,6 +29,7 @@ const PageSeance = () => {
     const seance = useSelector(state => state.schedule.seance)
     const pre_order = useSelector(state => state.orders.pre_order)
     const booking = useSelector(state => state.schedule.booking)
+    const wp = useSelector(state => state.interface.search_params.wp)
 
     const [booking_data, ,] = useFetchBooking()
     const hall = useSetSeance()
@@ -67,7 +68,7 @@ const PageSeance = () => {
         if (!permissions.includes('staff')) {
             if (time_remaining <= 1) {
                 navigate(-1)
-                dispatch(deletePreOrder(filial, pre_order.uid))
+                dispatch(deletePreOrder(filial, wp, pre_order.uid))
             }
         }
     }, [dispatch, filial, navigate, permissions, pre_order, time_remaining])
@@ -97,7 +98,7 @@ const PageSeance = () => {
                                 <Box className='order-panel'>
                                     <Button onClick={() => {
                                         navigate(-1)
-                                        dispatch(deletePreOrder(filial, pre_order.uid))
+                                        dispatch(deletePreOrder(filial, wp, pre_order.uid))
                                     }} variant="contained" color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
                                     <Box sx={{width: '100%', marginLeft: '10px'}}>
                                         <LinearProgress className='order-progress'
