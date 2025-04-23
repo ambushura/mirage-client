@@ -23,6 +23,7 @@ const OrdersCinema = (props) => {
     const order_cinema_schedule = useSelector(state => state.orders.orders_cinema_schedule)
     const orders_cinema = useSelector(state => state.orders.orders_cinema)
     const {current_filial, current_uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
+    const wp = useSelector(state => state.interface.search_params.wp)
 
     const pre_order = useSelector(state => state.orders.pre_order)
 
@@ -108,7 +109,7 @@ const OrdersCinema = (props) => {
                                     <Box sx={{backgroundColor: order.uid === pre_order.uid ? '#eaeaea' : null}}
                                          key={`${order.uid}${order.ver}`}
                                          className='admin-orders-list-content-order' onClick={() => {
-                                        dispatch(fetchPreOrder(current_filial, order.uid))
+                                        dispatch(fetchPreOrder(current_filial, wp, order.uid))
                                     }}>
                                         <Box>{order.canceled ? <NotInterestedIcon/> : order.deleted || order.closed ?
                                             <CancelIcon/> :

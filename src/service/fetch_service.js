@@ -44,7 +44,8 @@ export const fetchPreOrder = (filial, wp, uid_order) => {
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    wp: wp
                 }
             })
             dispatch(setCurrentPreOrder(response.data.data))
@@ -68,7 +69,8 @@ export const fetchHorder = (filial, wp, uid_order) => {
             const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_horder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    wp: wp,
                 }})
             dispatch(setCurrentHorder(response.data.data))
         } catch (e) {
@@ -91,7 +93,8 @@ export const deletePreOrder = (filial, wp, uid_order) => {
             await axios.get(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    wp: wp
                 }
             })
             dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -128,7 +131,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
                     timeout: TIMEOUT,
                     headers: {
                         Authorization: token,
-                        workplace: wp,
+                        wp: wp,
                     }})
                 dispatch(setBooking(booking.data.data))
             } else {
@@ -200,7 +203,8 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
             }, {
                 timeout: TIMEOUT * 2,
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    wp: wp,
                 }})
             if (response.data.code === 500) {
                 dispatch(addNotification({
