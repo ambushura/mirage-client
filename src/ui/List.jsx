@@ -1,9 +1,27 @@
 import { useEffect } from 'react'
-import {Button, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from "@mui/material"
+import {
+    Button,
+    ClickAwayListener,
+    Grow,
+    ListItemIcon,
+    ListItemText,
+    MenuItem,
+    MenuList,
+    Paper,
+    Popper
+} from "@mui/material"
 import Filial from "../page/header/Filial.jsx"
 import City from "../page/header/City.jsx"
+import {useNavigate} from "react-router-dom"
+import EqualizerIcon from "@mui/icons-material/Equalizer"
+import ChairIcon from "@mui/icons-material/Chair"
+import FastfoodIcon from '@mui/icons-material/Fastfood'
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
+import TerminalIcon from '@mui/icons-material/Terminal'
 
 const List = (props) => {
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (props.prev_open.current === true && props.open === false) {
@@ -115,6 +133,27 @@ const List = (props) => {
                                             return (
                                                 <MenuItem key={el.uid}>
                                                     {el.name}
+                                                </MenuItem>
+                                            )
+                                        }
+                                        if (props.type === 'admin') {
+                                            return (
+                                                <MenuItem key={el.id} onClick={() => {
+                                                    navigate(el.path)
+                                                }}>
+                                                    <>
+                                                        <ListItemIcon sx={{color: 'white'}}>
+                                                        {el.id === 'admin/orders/cinema' ? <ConfirmationNumberIcon/> :
+                                                            el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
+                                                                el.id === 'admin/total' ? <EqualizerIcon/> :
+                                                                    el.id === 'admin/halls' ? <ChairIcon/> :
+                                                                        el.id === 'admin/equipment' ?
+                                                                            <TerminalIcon/> : null}
+                                                        </ListItemIcon>
+                                                        <ListItemText>
+                                                            {el.name}
+                                                        </ListItemText>
+                                                    </>
                                                 </MenuItem>
                                             )
                                         }

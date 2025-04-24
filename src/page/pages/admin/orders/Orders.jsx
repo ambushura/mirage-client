@@ -10,7 +10,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import LaptopIcon from '@mui/icons-material/Laptop'
 import LanguageIcon from '@mui/icons-material/Language'
-import CachedIcon from '@mui/icons-material/Cached'
 import DockIcon from "@mui/icons-material/Dock"
 import {useState} from "react"
 import {NEW_EMPTY_ORDER, setCurrentPreOrder, setOrdersCinemaFilialSeance} from "../../../../redux/ordersReducer.js"
@@ -32,27 +31,7 @@ const Orders = () => {
     return (
         <Box id="page-admin">
             <Box className='admin-panel'>
-                <ButtonGroup size='small'
-                             className='admin-panel-page'>
-                    <Button variant='contained' color={current_page === 'admin/cinema' ? 'primary' : 'secondary'}
-                            sx={{padding: '0 30px'}} onClick={() => {
-                        navigate(city !== undefined ? `/admin/cinema/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}` : '/')
-                    }}>Кино</Button>
-                    <Button variant='contained' color={current_page === 'admin/horeca' ? 'primary' : 'secondary'}
-                            sx={{padding: '0 30px'}}
-                            onClick={() => {
-                                navigate(city !== undefined ? `/admin/horeca/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}` : '/')
-                            }}>Общепит</Button>
-                    <Button size='large' variant='contained' color='secondary' onClick={() => {
-                        dispatch(setOrdersCinemaFilialSeance({
-                            current_filial: filial,
-                            current_uid_seance: null
-                        }))
-                        dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                        set_update_cinema(prev => !prev)
-                    }}><CachedIcon/></Button>
-                </ButtonGroup>
-                <ButtonGroup sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'
+                <ButtonGroup size='small' variant='outlined' color='secondary'
                              className='admin-panel-period'>
                     <Button sx={{padding: '0 20px'}} onClick={() => {
                         const date = dayjs(new Date()).format('YYYY-MM-DD')
@@ -93,8 +72,8 @@ const Orders = () => {
                 </Fade>
                 <TextField sx={{marginLeft: '4px', width: '250px'}} label="Поиск" variant='filled'/>
             </Box>
-            {current_page === 'admin/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
-            {current_page === 'admin/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
+            {current_page === 'admin/orders/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
+            {current_page === 'admin/orders/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
         </Box>
     )
 }

@@ -37,8 +37,11 @@ const AppRoutes = (props)=> {
         film: <PageFilm/>,
         seance: <PageSeance/>,
         menu: permissions.includes(0) && wp !== undefined ? <PageHoreca/> : null,
-        "admin/cinema": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
-        "admin/horeca": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
+        "admin/orders/cinema": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
+        "admin/orders/horeca": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
+        "admin/total": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
+        "admin/halls": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
+        "admin/equipment": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
         kitchen: <PageKitchen/>
     }
 

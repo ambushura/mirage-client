@@ -72,10 +72,16 @@ function App() {
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
                        element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
-                <Route path="/admin/cinema/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/cinema"/>}/>
-                <Route path="/admin/horeca/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/horeca"/>}/>
+                <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/orders/cinema"/>}/>
+                <Route path="/admin/orders/horeca/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/orders/horeca"/>}/>
+                <Route path="/admin/total/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/total"/>}/>
+                <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/halls"/>}/>
+                <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/equipment"/>}/>
                 <Route path="/kitchen/:param_city/:param_filial/"
                        element={<AppRoutes current_page="kitchen"/>}/>
                 <Route path="*" element={<NotFound/>}/>

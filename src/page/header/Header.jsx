@@ -14,6 +14,7 @@ import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
 import dayjs from "dayjs"
 import {addNotification} from "../../redux/notifierReducer.js"
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
 
 const Header = () => {
 
@@ -76,6 +77,11 @@ const Header = () => {
         return up
     }
 
+    const admin_list_id = "admin-menu"
+    const admin_ref = useRef(null)
+    const [admin_opened, set_admin_open] = useState(false)
+    const prev_admin_open = useRef(Boolean(admin_opened))
+
     return (
         <header id="header" style={{minHeight: `${uid_user === null ? HEADER_HEIGHT[0] : HEADER_HEIGHT[1]}px`}}>
             <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
@@ -90,9 +96,26 @@ const Header = () => {
                                     </NavLink>
                                 }) :
                                 top_menu[1].map(el => {
-                                    return <NavLink key={el.id} className='link' to={el.path}>
-                                        <Button style={{height: '100%'}}>{el.name}</Button>
-                                    </NavLink>
+                                    if (el.id !== 'admin') {
+                                        return <NavLink key={el.id} className='link' to={el.path}>
+                                            <Button style={{height: '100%'}}>{el.name}</Button>
+                                        </NavLink>
+                                    } else {
+                                        return <List
+                                            key={el.id}
+                                            size='small'
+                                            open={admin_opened}
+                                            anchor={admin_ref}
+                                            prev_open={prev_admin_open}
+                                            id={admin_list_id}
+                                            setOpen={set_admin_open}
+                                            button_text={'Кинокомплекс'}
+                                            list={el.path}
+                                            startIcon={<ManageAccountsIcon/>}
+                                            endIcon={<KeyboardArrowDownIcon/>}
+                                            type="admin"
+                                        />
+                                    }
                                 })
                             }
                         </ButtonGroup>

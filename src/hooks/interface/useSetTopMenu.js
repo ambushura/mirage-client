@@ -1,5 +1,5 @@
 import {useEffect} from "react"
-import {PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT, setTopMenu} from "../../redux/interfaceReducer.js"
+import {PARAM_DATE_SHIFT, setTopMenu} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 
 export function useSetTopMenu() {
@@ -17,15 +17,18 @@ export function useSetTopMenu() {
             let i = 0
             for (i; i < 2; i++) {
                 top_menu[i].forEach(old_option => {
-                    let new_option = Object.assign({}, old_option)
+                    let new_option = structuredClone(old_option)
                     if (PARAM_DATE_SHIFT.find(el => el === new_option.id) !== undefined) {
                         new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}`
                     }
                     if (PARAM_DATE_SHIFT.find(el => el === new_option.id) === undefined) {
-                        new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/`
-                    }
-                    if (PARAM_DATA_ADMIN_SHIFT.find(el => el === new_option.id) !== undefined) {
-                        new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
+                        if (new_option.id.includes('admin')) {
+                            new_option.path.forEach(el => {
+                                el.path = `/${el.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
+                            })
+                        } else {
+                            new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/`
+                        }
                     }
                     top_menu_new[i].push(new_option)
                 })

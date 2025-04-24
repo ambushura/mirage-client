@@ -9,13 +9,13 @@ export const HEADER_HEIGHT = [200, 70]
 export const TOP_MENU_HEIGHT = [65, 65]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule"]
-export const PARAM_DATA_ADMIN_SHIFT = ["admin/cinema", "admin/horeca"]
+export const PARAM_DATA_ADMIN_SHIFT = ["admin/orders/cinema", "admin/orders/horeca", "admin/total", "admin/halls", "admin/equipment"]
 
 const initialState = {
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,
-    current_page: "films",
+    current_page: 'films',
     modal_opened: false,
     modal_type: null,
     modal_props: {},
@@ -40,7 +40,15 @@ const initialState = {
             {id: "schedule", name: "Расписание", path: ""},
             {id: "menu", name: "Меню", path: ""},
             {id: "kitchen", name: "Кухня", path: ""},
-            {id: "admin/cinema", name: "Кинокомплекс", path: ""},
+            {id: "admin", name: "Кинокомплекс",
+                path: [
+                    {id: "admin/orders/cinema", name: "Кино", path: ""},
+                    {id: "admin/orders/horeca", name: "Общепит", path: ""},
+                    {id: "admin/total", name: "Итоги", path: ""},
+                    {id: "admin/halls", name: "Схемы залов", path: ""},
+                    {id: "admin/equipment", name: "Оборудование", path: ""},
+                ]
+            },
         ],
     ],
 }
