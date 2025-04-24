@@ -17,6 +17,7 @@ const AppRoutes = (props)=> {
     const permissions = useSelector(state => state.auth.permissions)
     const params = useParams()
     const [search_params] = useSearchParams()
+    const wp = useSelector(state => state.interface.wp)
 
     useEffect(() => {
         dispatch(setCurrentPage(props.current_page))
@@ -35,9 +36,9 @@ const AppRoutes = (props)=> {
         films: <PageFilms/>,
         film: <PageFilm/>,
         seance: <PageSeance/>,
-        menu: permissions.includes(0) && search_params.get("wp") ? <PageHoreca/> : null,
-        "admin/cinema": permissions.includes(0) && search_params.get("wp") ? <PageAdmin/> : null,
-        "admin/horeca": permissions.includes(0) && search_params.get("wp") ? <PageAdmin/> : null,
+        menu: permissions.includes(0) && wp !== undefined ? <PageHoreca/> : null,
+        "admin/cinema": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
+        "admin/horeca": permissions.includes(0) && wp !== undefined ? <PageAdmin/> : null,
         kitchen: <PageKitchen/>
     }
 
