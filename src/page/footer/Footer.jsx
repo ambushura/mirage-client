@@ -2,7 +2,7 @@ import {useSelector} from "react-redux"
 
 const Footer = () => {
 
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     return (
         <footer id="footer">

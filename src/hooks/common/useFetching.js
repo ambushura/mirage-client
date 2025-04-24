@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 export function useFetching(url) {
 
     const token = useSelector(state => state.auth.token)
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)

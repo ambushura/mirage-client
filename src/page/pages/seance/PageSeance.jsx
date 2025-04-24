@@ -29,7 +29,7 @@ const PageSeance = () => {
     const seance = useSelector(state => state.schedule.seance)
     const pre_order = useSelector(state => state.orders.pre_order)
     const booking = useSelector(state => state.schedule.booking)
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     const [booking_data, ,] = useFetchBooking()
     const hall = useSetSeance()

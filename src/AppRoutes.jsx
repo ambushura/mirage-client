@@ -16,7 +16,7 @@ const AppRoutes = (props)=> {
     const dispatch = useDispatch()
     const permissions = useSelector(state => state.auth.permissions)
     const params = useParams()
-    const [search_params, set_search_params] = useSearchParams()
+    const [search_params] = useSearchParams()
 
     useEffect(() => {
         dispatch(setCurrentPage(props.current_page))
@@ -29,14 +29,6 @@ const AppRoutes = (props)=> {
     useEffect(() => {
         dispatch(setSearchParams(JSON.stringify(Object.fromEntries(search_params.entries()))))
     }, [dispatch, search_params])
-
-    useEffect(() => {
-        if (!search_params.has("wp")) {
-            const new_params = new URLSearchParams(search_params.toString())
-            new_params.set("wp", "mpopcorn2")
-            set_search_params(new_params, { replace: true })
-        }
-    }, [set_search_params])
 
     const pages = {
         schedule: <PageSchedule/>,

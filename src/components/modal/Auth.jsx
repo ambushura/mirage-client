@@ -13,7 +13,7 @@ const Auth = () => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     const [pincode_auth, set_pincode_auth] = useState(true)
     const [login_auth, set_login_auth] = useState(false)

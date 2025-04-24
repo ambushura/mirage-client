@@ -20,6 +20,7 @@ const initialState = {
     modal_type: null,
     modal_props: {},
     search_params: {},
+    wp: 'mpopcorn2',
     params: {
         param_city: undefined,
         param_filial: undefined,
@@ -79,6 +80,9 @@ const interfaceSlice = createSlice({
             state.modal_type = null
             state.modal_props = {}
         },
+        setWP: (state, {payload}) => {
+            state.wp = payload
+        }
     },
 })
 
@@ -92,6 +96,7 @@ export const {
     setSearchParams,
     openModal,
     closeModal,
+    setWP,
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

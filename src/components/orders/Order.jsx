@@ -110,7 +110,7 @@ const Order = () => {
     const horder = useSelector(state => state.orders.horder)
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
     const [content_height] = useSetContentHeight()
 
     const seance_link = () => {

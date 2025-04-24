@@ -28,7 +28,7 @@ const Payment = (props) => {
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     const [waiting_mark_egais_items, set_waiting_mark_egais_items] = useState(true)
     const [waiting_horeca_items, set_waiting_horeca_items] = useState(true)

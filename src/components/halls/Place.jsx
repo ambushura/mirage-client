@@ -6,7 +6,7 @@ import {takeSeat} from "../../service/fetch_service.js"
 const Place = (props) => {
 
     const dispatch = useDispatch()
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     const heads = props.description.heads
     const label = props.description.label

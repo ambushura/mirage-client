@@ -6,7 +6,7 @@ const OrderFood = (props) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     const order = props.order
 
