@@ -1,4 +1,4 @@
-import {Box, Fade} from "@mui/material"
+import {Box} from "@mui/material"
 import {useEffect} from "react"
 import Orders from "./orders/Orders.jsx"
 import {useDispatch, useSelector} from "react-redux"
@@ -14,16 +14,12 @@ const PageAdmin = () => {
 
     useEffect(() => {
         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-        dispatch(setCurrentHorder(NEW_EMPTY_HORDER))
+        dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
     }, [dispatch])
 
     return (
-        <Box sx={{height: content_height, display: 'flex', flexDirection: 'column'}}>
-            <Fade in={current_page === 'admin/orders/cinema' || current_page === 'admin/orders/horeca'} timeout={300}>
-                <Box>
-                    <Orders/>
-                </Box>
-            </Fade>
+        <Box sx={{height: content_height, display: 'flex', flexDirection: 'column'}} id="page-admin">
+            {current_page === 'admin/orders/cinema' || current_page === 'admin/orders/horeca' ? <Orders/> : null}
         </Box>
     )
 }

@@ -193,7 +193,7 @@ const OrdersHoreca = () => {
                 </Box>
             </Box>
             <Fade in={horder.in_base} timeout={TIMEOUT} unmountOnExit>
-                <Box style={{flex: 1, paddingLeft: '10px'}}>
+                <Box style={{paddingLeft: '10px'}}>
                     <Order/>
                 </Box>
             </Fade>

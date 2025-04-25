@@ -29,64 +29,62 @@ const OrdersCinema = (props) => {
 
     return (
         <Box className='admin-orders-cinema'>
-            <Fade in={order_cinema_schedule.length > 0} timeout={TIMEOUT} unmountOnExit>
-                <Box className='admin-orders-schedule'>
-                    {order_cinema_schedule.map(filial_data => {
-                        if (filial_data.loading) {
-                            return null
-                        } else if (filial_data.error !== null) {
-                            return (
-                                <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
-                                    <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
-                                    <Box className='admin-orders-cinema-seance'>{filial_data.error}</Box>
-                                </Box>
-                            )
-                        } else {
-                            return (
-                                <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
-                                    <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
-                                    <Box className='admin-orders-cinema-filial-content'>
-                                        <Box className='admin-orders-cinema-seances'>
-                                            {filial_data.data !== null && filial_data.data.map((seance => {
-                                                return (
-                                                    <Box
-                                                        onClick={() => {
-                                                            dispatch(setOrdersCinemaFilialSeance({
-                                                                current_filial: filial_data.filial,
-                                                                current_uid_seance: seance.seance.uid
-                                                            }))
-                                                            dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                                                        }}
-                                                        sx={{backgroundColor: current_uid_seance !== null && seance.seance.uid === current_uid_seance ? '#eaeaea' : null}}
-                                                        key={`${seance.seance.uid}${seance.seance.ver}`}
-                                                        className='admin-orders-cinema-seance'>
-                                                        <SeanceTitle
-                                                            content_type={true}
-                                                            seance={seance.seance}
-                                                            age={true}/>
-                                                        <span style={{
-                                                            flex: 1,
-                                                            overflow: 'hidden',
-                                                            textAlign: 'end'
-                                                        }}>{seance.seance.name_film}</span>
-                                                        <span style={{
-                                                            backgroundColor: 'white',
-                                                            color: 'black',
-                                                            marginLeft: '10px',
-                                                            padding: '4px 10px',
-                                                            borderRadius: '6px'
-                                                        }}>{seance.count}</span>
-                                                    </Box>
-                                                )
-                                            }))}
-                                        </Box>
+            <Box className='admin-orders-schedule'>
+                {order_cinema_schedule.map(filial_data => {
+                    if (filial_data.loading) {
+                        return null
+                    } else if (filial_data.error !== null) {
+                        return (
+                            <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
+                                <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
+                                <Box className='admin-orders-cinema-seance'>{filial_data.error}</Box>
+                            </Box>
+                        )
+                    } else {
+                        return (
+                            <Box className='admin-orders-cinema-filial' key={filial_data.filial.uid}>
+                                <Box className='admin-orders-cinema-filial-name'>{filial_data.filial.name}</Box>
+                                <Box className='admin-orders-cinema-filial-content'>
+                                    <Box className='admin-orders-cinema-seances'>
+                                        {filial_data.data !== null && filial_data.data.map((seance => {
+                                            return (
+                                                <Box
+                                                    onClick={() => {
+                                                        dispatch(setOrdersCinemaFilialSeance({
+                                                            current_filial: filial_data.filial,
+                                                            current_uid_seance: seance.seance.uid
+                                                        }))
+                                                        dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                                                    }}
+                                                    sx={{backgroundColor: current_uid_seance !== null && seance.seance.uid === current_uid_seance ? '#eaeaea' : null}}
+                                                    key={`${seance.seance.uid}${seance.seance.ver}`}
+                                                    className='admin-orders-cinema-seance'>
+                                                    <SeanceTitle
+                                                        content_type={true}
+                                                        seance={seance.seance}
+                                                        age={true}/>
+                                                    <span style={{
+                                                        flex: 1,
+                                                        overflow: 'hidden',
+                                                        textAlign: 'end'
+                                                    }}>{seance.seance.name_film}</span>
+                                                    <span style={{
+                                                        backgroundColor: 'white',
+                                                        color: 'black',
+                                                        marginLeft: '10px',
+                                                        padding: '4px 10px',
+                                                        borderRadius: '6px'
+                                                    }}>{seance.count}</span>
+                                                </Box>
+                                            )
+                                        }))}
                                     </Box>
                                 </Box>
-                            )
-                        }
-                    })}
-                </Box>
-            </Fade>
+                            </Box>
+                        )
+                    }
+                })}
+            </Box>
             {current_filial !== null && current_uid_seance !== null ?
                 <Box className='admin-orders-list'>
                     <Box className='admin-orders-cinema-filial-name'>{current_filial.name}</Box>
@@ -140,7 +138,7 @@ const OrdersCinema = (props) => {
                     </Fade>
                 </Box> : null}
             <Fade in={pre_order.in_base} timeout={TIMEOUT} unmountOnExit>
-                <Box style={{flex: 1, paddingLeft: '10px'}}>
+                <Box style={{paddingLeft: '10px'}}>
                     <Order/>
                 </Box>
             </Fade>

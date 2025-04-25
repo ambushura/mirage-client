@@ -29,7 +29,7 @@ const Orders = () => {
     const [update_horeca, set_update_horeca] = useState(true)
 
     return (
-        <Box id="page-admin">
+        <Box sx={{height: '100%'}}>
             <Box className='admin-panel'>
                 <ButtonGroup size='small' variant='outlined' color='secondary'
                              className='admin-panel-period'>

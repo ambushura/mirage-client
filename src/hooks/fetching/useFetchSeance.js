@@ -13,7 +13,7 @@ export function useFetchSeance() {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}/api/get_seance?uid_seance=${uid_seance}`)
+            set_url(`https://${filial.ip}/api/get_seance?uid_seance=${uid_seance}`)
         } else {
             set_url(undefined)
         }

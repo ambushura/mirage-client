@@ -14,7 +14,7 @@ import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
 import dayjs from "dayjs"
 import {addNotification} from "../../redux/notifierReducer.js"
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
+import AppsIcon from '@mui/icons-material/Apps'
 
 const Header = () => {
 
@@ -44,12 +44,12 @@ const Header = () => {
     const timeRef = useRef(dayjs())
     const [, forceUpdate] = useState(0)
     useEffect(() => {
-        const update = () => {
+        const interval = setInterval(() => {
             timeRef.current = dayjs()
             forceUpdate(v => v + 1)
-            requestAnimationFrame(update)
-        }
-        update()
+        }, 1000)
+
+        return () => clearInterval(interval)
     }, [])
 
     const user_panel = () => {
@@ -111,7 +111,7 @@ const Header = () => {
                                             setOpen={set_admin_open}
                                             button_text={'Кинокомплекс'}
                                             list={el.path}
-                                            startIcon={<ManageAccountsIcon/>}
+                                            startIcon={<AppsIcon/>}
                                             endIcon={<KeyboardArrowDownIcon/>}
                                             type="admin"
                                         />

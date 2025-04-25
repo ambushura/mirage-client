@@ -13,7 +13,7 @@ export function useSetMenu(uid_folder) {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}/api/horeca_get_menu?uid_folder=${uid_folder}&uid_filial=${filial.uid}&date_shift=${param_date_admin}`)
+            set_url(`https://${filial.ip}/api/horeca_get_menu?uid_folder=${uid_folder}&uid_filial=${filial.uid}&date_shift=${param_date_admin}`)
         } else {
             set_url(undefined)
         }

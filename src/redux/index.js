@@ -8,7 +8,7 @@ import authSlice from "./authReducer.js"
 import notifierReducer from "./notifierReducer.js"
 import wsReducer from "./wsReducer.js"
 
-export const HOST= "10.101.3.88:8080"
+export const HOST= "10.101.3.88"
 
 export const store= configureStore({
     reducer: {

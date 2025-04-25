@@ -7,7 +7,7 @@ import {setCities, setCity, setFilial} from "../../redux/dataReducer.js"
 export function useSetCityAndFilial() {
 
     const dispatch = useDispatch()
-    const [fetch_data, loading, error] = useFetching(`http://${HOST}/api/get_cities`)
+    const [fetch_data, loading, error] = useFetching(`https://${HOST}/api/get_cities`)
     const cities = useSelector(state => state.data.cities)
     const param_city = useSelector(state => state.interface.params.param_city)
     const param_filial = useSelector(state => state.interface.params.param_filial)

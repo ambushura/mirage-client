@@ -28,13 +28,13 @@ export function useSetOrdersCinema(update) {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:${filial.port}/api/get_orders_schedule?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
+                    url: `https://${filial.ip}/api/get_orders_schedule?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
                 })
             })
         } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:${filial.port}/api/get_orders_schedule?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
+                url: `https://${filial.ip}/api/get_orders_schedule?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
             })
         }
         set_urls_schedule(urls_new)
@@ -42,7 +42,7 @@ export function useSetOrdersCinema(update) {
 
     useEffect(() => {
         if (city !== undefined && current_filial !== null && current_uid_seance !== null) {
-            set_url_orders(`http://${current_filial.ip}:${current_filial.port}/api/get_orders_cinema?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
+            set_url_orders(`https://${current_filial.ip}/api/get_orders_cinema?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
         }
     }, [city, current_filial, current_uid_seance, update])
 

@@ -10,7 +10,7 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await fetch(`http://${filial.ip}:${filial.port}/api/login`, {
+            const response = await fetch(`https://${filial.ip}/api/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const fetchPreOrder = (filial, wp, uid_order) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_preorder?uid_order=${uid_order}`, {
+            const response = await axios.get(`https://${filial.ip}/api/get_preorder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -69,7 +69,7 @@ export const fetchHorder = (filial, wp, uid_order) => {
             throw new Error("не указано рабочее место")
         }
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/get_horder?uid_order=${uid_order}`, {
+            const response = await axios.get(`https://${filial.ip}/api/get_horder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -93,7 +93,7 @@ export const deletePreOrder = (filial, wp, uid_order) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            await axios.get(`http://${filial.ip}:${filial.port}/api/delete_preorder?uid_order=${uid_order}`, {
+            await axios.get(`https://${filial.ip}/api/delete_preorder?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -118,7 +118,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/${token !== null ? '' : 'kiosk/'}take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
+            const response = await axios.get(`https://${filial.ip}/api/${token !== null ? '' : 'kiosk/'}take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -130,7 +130,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
                 } else {
                     dispatch(setCurrentPreOrder(response.data.data))
                 }
-                const booking = await axios.get(`http://${filial.ip}:${filial.port}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {
+                const booking = await axios.get(`https://${filial.ip}/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {
                     timeout: TIMEOUT,
                     headers: {
                         Authorization: token,
@@ -161,7 +161,7 @@ export const horeca_add = (filial, wp, uid_order, ver_order, uid_menu) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.get(`http://${filial.ip}:${filial.port}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}`, {
+            const response = await axios.get(`https://${filial.ip}/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -193,7 +193,7 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.post(`http://${filial.ip}:8081/api/payment-server/payment`, {
+            const response = await axios.post(`https://${filial.ip}:8081/api/payment-server/payment`, {
                 uid_filial: filial.uid,
                 uid_payment_type: pm.uid_payment_type,
                 uid_kkt: pm.uid_kkt,
