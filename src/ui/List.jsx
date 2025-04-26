@@ -140,6 +140,7 @@ const List = (props) => {
                                             return (
                                                 <MenuItem key={el.id} onClick={() => {
                                                     navigate(el.path)
+                                                    handleClose()
                                                 }}>
                                                     <>
                                                         <ListItemIcon sx={{color: 'white'}}>
