@@ -169,8 +169,18 @@
 .admin-orders-horeca-orders-content {
     width: 100%;
 }
-.admin-orders-horeca-filial {
+.admin-orders-horeca-filial-content {
     width: 100%;
+}
+.admin-orders-horeca-filial-name {
+    box-sizing: border-box;
+    padding: 8px 0 8px 10px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background: #f8f8f8;
+    z-index: 0;
+    text-align: center;
 }
 .admin-orders-horeca-filial-orders {
     width: 100%;

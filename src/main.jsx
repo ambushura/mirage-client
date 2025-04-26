@@ -1,10 +1,20 @@
 import ReactDOM from 'react-dom/client'
-import {Provider} from 'react-redux'
-import {BrowserRouter} from 'react-router-dom'
-import {ThemeProvider} from '@mui/material'
-import {LocalizationProvider} from '@mui/x-date-pickers'
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
+import App from './App.jsx'
+import store from './redux/index.js'
+import Notifier from './components/modal/Notifier.jsx'
+import { Theme, ThemeBlackWhite } from './ui/ThemeContext.jsx'
+
 import 'dayjs/locale/ru'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 
 import './css/index.css'
 import './css/cinema.css'
@@ -13,15 +23,6 @@ import './css/orders.css'
 import './css/horeca.css'
 import './css/modal.css'
 import './css/admin-orders.css'
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
-
-import App from './App.jsx'
-import store from './redux/index.js'
-import Notifier from './components/modal/Notifier.jsx'
-import {Theme, ThemeBlackWhite} from './ui/ThemeContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
@@ -29,8 +30,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
                 <ThemeBlackWhite>
                     <ThemeProvider theme={Theme}>
-                        <App/>
-                        <Notifier/>
+                        <App />
+                        <Notifier />
                     </ThemeProvider>
                 </ThemeBlackWhite>
             </LocalizationProvider>

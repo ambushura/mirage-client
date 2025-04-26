@@ -22,12 +22,12 @@ const OrderFood = (props) => {
                                 {order.number}
                             </Box>
                             <Box className='admin-orders-horeca-order-header-1-1-2'>
-                                {'рабочее место'}
+                                {order.name_workplace}
                             </Box>
                         </Box>
                         <Box className='admin-orders-horeca-order-header-1-2'>
                             <Box className='admin-orders-horeca-order-header-1-2-1'>
-                                {'официант'}
+                                {order.name_creator}
                             </Box>
                             <Box className='admin-orders-horeca-order-header-1-2-1'>
                                 {'зал/место'}

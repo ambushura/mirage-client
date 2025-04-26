@@ -89,7 +89,7 @@
     top: 0;
     z-index: 3;
     background-color: var(--bg-color);
-    padding: 5px 0;
+    padding: 0 0 5px 0;
 }
 .order-box-panel-1-sum-number {
     width: calc(460px - 317px);

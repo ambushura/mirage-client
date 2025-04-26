@@ -174,8 +174,8 @@ const OrdersHoreca = () => {
                         {orders.length > 0 ? orders.map(filial_data => {
                                 if (filial_data.data !== null) {
                                     return (
-                                        <Box className='admin-orders-horeca-filial' key={filial_data.filial.uid}>
-                                            <Box>{filial_data.filial.name}</Box>
+                                        <Box className='admin-orders-horeca-filial-content' key={filial_data.filial.uid}>
+                                            <Box className='admin-orders-horeca-filial-name'>{filial_data.filial.name}</Box>
                                             <Box
                                                 className='admin-orders-horeca-filial-orders'>{filial_data.data !== null ? filial_data.data.map(order => {
                                                 return (

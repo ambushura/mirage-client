@@ -1,14 +1,17 @@
 #horeca-menu {
     padding: 5px;
 }
+
 .menu-breadcrumbs, .menu-folders, .menu-items {
     display: flex;
     flex-wrap: wrap;
 }
-.menu-breadcrumbs>div, .menu-folders>div, .menu-items>div {
+
+.menu-breadcrumbs > div, .menu-folders > div, .menu-items > div {
     margin: 0 5px 5px 0;
     font-weight: bold;
 }
+
 .menu-breadcrumb, .menu-folder, .menu-item {
     display: flex;
     width: 140px;
@@ -19,7 +22,8 @@
     flex-direction: column;
     cursor: pointer;
 }
-.menu-breadcrumb>div, .menu-folder>div, .menu-item>div {
+
+.menu-breadcrumb > div, .menu-folder > div, .menu-item > div {
     padding: 5px;
     max-width: calc(140px - 10px);
     overflow: hidden;
@@ -28,15 +32,18 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
+
 .menu-breadcrumb {
-    color: black;
     background-color: #1EC7D3;
+    color: black;
 }
+
 .menu-folder {
-    color: black;
     background-color: #50DB92;
-}
-.menu-item {
     color: black;
+}
+
+.menu-item {
     background-color: var(--bg-menu-item);
+    color: black;
 }

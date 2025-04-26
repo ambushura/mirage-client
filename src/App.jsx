@@ -1,63 +1,71 @@
-import {useDispatch, useSelector} from "react-redux"
-import {Box, Modal} from "@mui/material"
-import {Navigate, Route, Routes} from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Box, Modal } from "@mui/material"
+import { Routes, Route, Navigate } from "react-router-dom"
 
 import Header from "./page/header/Header.jsx"
 import Footer from "./page/footer/Footer.jsx"
 import NotFound from "./page/pages/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
 
-import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
-import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
-import {useSetTopMenu}from "./hooks/interface/useSetTopMenu.js"
-import {useFullScreen}from "./hooks/interface/useFullScreen.js"
-import {useSetWS}from "./hooks/common/useSetWS.js"
-import {useReset}from "./hooks/common/useReset.js"
-import {closeModal} from "./redux/interfaceReducer.js"
+import { useSetCityAndFilial } from "./hooks/common/useSetCityAndFilial.js"
+import { useSetSizeWindow } from "./hooks/interface/useSetSizeWindow.js"
+import { useSetTopMenu } from "./hooks/interface/useSetTopMenu.js"
+import { useFullScreen } from "./hooks/interface/useFullScreen.js"
+import { useSetWS } from "./hooks/common/useSetWS.js"
+import { useReset } from "./hooks/common/useReset.js"
+
+import { closeModal } from "./redux/interfaceReducer.js"
 import Quantity from "./components/modal/Quantity.jsx"
 import Comment from "./components/modal/Comment.jsx"
-import {useEffect, useState} from "react"
 import Calc from "./components/modal/Calc.jsx"
 
 function App() {
-
     const dispatch = useDispatch()
 
-    // Хуки
+    // Инициализация хуков
     useSetWS()
     useSetCityAndFilial()
     useSetSizeWindow()
     useSetTopMenu()
     useReset()
-    const full = useFullScreen()
 
-    // Данные из хранилища
-    const permissions = useSelector(state => state.auth.permissions)
-    const cities = useSelector(state => state.data.cities)
-    const param_date = useSelector(state => state.interface.params.param_date)
+    const isFullScreen = useFullScreen()
 
-    // Модальное окно
-    const modal_opened = useSelector(state => state.interface.modal_opened)
-    const modal_type = useSelector(state => state.interface.modal_type)
-    const modal_props = useSelector(state => state.interface.modal_props)
-    const [modal_window, set_modal_window] = useState(<></>)
+    // Данные из стора
+    const {permissions} = useSelector(state => state.auth)
+    const {cities} = useSelector(state => state.data)
+    const {param_date, modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
 
+    const [modalContent, setModalContent] = useState(null)
+
+    // Обновление содержимого модального окна
     useEffect(() => {
-        if (modal_type === 'quantity') {
-            set_modal_window(<Quantity param={modal_props}/>)
-        } else if (modal_type === 'comment') {
-            set_modal_window(<Comment param={modal_props}/>)
-        } else if (modal_type === 'calc') {
-            set_modal_window(<Calc/>)
+        switch (modal_type) {
+            case 'quantity':
+                setModalContent(<Quantity param={modal_props}/>)
+                break
+            case 'comment':
+                setModalContent(<Comment param={modal_props}/>)
+                break
+            case 'calc':
+                setModalContent(<Calc/>)
+                break
+            default:
+                setModalContent(null)
         }
     }, [modal_type, modal_props])
 
+    const defaultRedirect = cities.length > 0
+        ? `/films/${cities[0].code}/all/${param_date}/`
+        : `/`
+
     return (
         <Box id="app">
-            {(!full || permissions.includes(0)) && <Header/>}
+            {(!isFullScreen || permissions.includes(0)) && <Header/>}
+
             <Routes>
-                <Route path="/" element={<Navigate replace
-                                                   to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : `/`}/>}/>
+                <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
                 <Route path="/films/:param_city/:param_filial/:param_date" element={<AppRoutes current_page="films"/>}/>
                 <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
                        element={<AppRoutes current_page="film"/>}/>
@@ -65,9 +73,7 @@ function App() {
                        element={<AppRoutes current_page="schedule"/>}/>
                 <Route path="/seance/:param_city/:param_filial/:uid_seance"
                        element={<AppRoutes current_page="seance"/>}/>
-                <Route path="/seance/:param_city/:param_filial"
-                       element={<Navigate replace
-                                          to={cities.length > 0 ? `/films/${cities[0].code}/all/${param_date}/` : `/`}/>}/>
+                <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirect}/>}/>
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
                 <Route path="/menu/:param_city/:param_filial/"
@@ -82,14 +88,15 @@ function App() {
                        element={<AppRoutes current_page="admin/halls"/>}/>
                 <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/equipment"/>}/>
-                <Route path="/kitchen/:param_city/:param_filial/"
-                       element={<AppRoutes current_page="kitchen"/>}/>
+                <Route path="/kitchen/:param_city/:param_filial/" element={<AppRoutes current_page="kitchen"/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
-            {(!full || permissions.includes(0)) && <Footer/>}
+
+            {(!isFullScreen || permissions.includes(0)) && <Footer/>}
+
             <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
                 <Box id="modal">
-                    {modal_window}
+                    {modalContent}
                 </Box>
             </Modal>
         </Box>
