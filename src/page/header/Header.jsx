@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux"
-import {Box, Button, ButtonGroup, Fade, Modal} from "@mui/material"
+import {Box, Button, ButtonGroup, Modal} from "@mui/material"
 import PlaceIcon from "@mui/icons-material/Place"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
@@ -8,7 +8,7 @@ import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/modal/Auth.jsx"
 import {useEffect, useState} from "react"
 import { useRef } from "react"
-import {ANIMATION_SPEED, HEADER_HEIGHT, MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
+import {setAuthOpened} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -35,7 +35,6 @@ const Header = () => {
     const prev_cities_open = useRef(Boolean(cities_open))
     const prev_filials_open = useRef(Boolean(filials_open))
 
-    const app_width = useSelector(state => state.interface.app_width)
     const auth_opened = useSelector(state => state.interface.auth_opened)
 
     const name_user = useSelector(state => state.auth.name)
@@ -83,91 +82,84 @@ const Header = () => {
     const prev_admin_open = useRef(Boolean(admin_opened))
 
     return (
-        <header id="header" style={{minHeight: `${uid_user === null ? HEADER_HEIGHT[0] : HEADER_HEIGHT[1]}px`}}>
-            <Fade key='1' in={app_width > MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
-                <Box id="header-desktop">
-                    {permissions.includes(0) ? <></> : <TopSlider/>}
-                    <Box id="header-menu">
-                        <ButtonGroup id="header-menu-list" variant="contained" size='small'>
-                            {uid_user === null ?
-                                top_menu[0].map(el => {
+        <header id="header">
+            <Box id="header-desktop">
+                {permissions.includes(0) ? <></> : <TopSlider/>}
+                <Box id="header-menu">
+                    <ButtonGroup id="header-menu-list" variant="contained" size='small'>
+                        {uid_user === null ?
+                            top_menu[0].map(el => {
+                                return <NavLink key={el.id} className='link' to={el.path}>
+                                    <Button style={{height: '100%'}}>{el.name}</Button>
+                                </NavLink>
+                            }) :
+                            top_menu[1].map(el => {
+                                if (el.id !== 'admin') {
                                     return <NavLink key={el.id} className='link' to={el.path}>
                                         <Button style={{height: '100%'}}>{el.name}</Button>
                                     </NavLink>
-                                }) :
-                                top_menu[1].map(el => {
-                                    if (el.id !== 'admin') {
-                                        return <NavLink key={el.id} className='link' to={el.path}>
-                                            <Button style={{height: '100%'}}>{el.name}</Button>
-                                        </NavLink>
-                                    } else {
-                                        return <List
-                                            key={el.id}
-                                            size='small'
-                                            open={admin_opened}
-                                            anchor={admin_ref}
-                                            prev_open={prev_admin_open}
-                                            id={admin_list_id}
-                                            setOpen={set_admin_open}
-                                            button_text={'Кинокомплекс'}
-                                            list={el.path}
-                                            startIcon={<AppsIcon/>}
-                                            endIcon={<KeyboardArrowDownIcon/>}
-                                            type="admin"
-                                        />
-                                    }
-                                })
-                            }
+                                } else {
+                                    return <List
+                                        key={el.id}
+                                        size='small'
+                                        open={admin_opened}
+                                        anchor={admin_ref}
+                                        prev_open={prev_admin_open}
+                                        id={admin_list_id}
+                                        setOpen={set_admin_open}
+                                        button_text={'Кинокомплекс'}
+                                        list={el.path}
+                                        startIcon={<AppsIcon/>}
+                                        endIcon={<KeyboardArrowDownIcon/>}
+                                        type="admin"
+                                    />
+                                }
+                            })
+                        }
+                    </ButtonGroup>
+                    <ButtonGroup id="top-menu-left" variant="contained" size='small' sx={{marginLeft: '5px'}}>
+                        <List
+                            size='small'
+                            open={cities_open}
+                            anchor={cities_ref}
+                            prev_open={prev_cities_open}
+                            id={cities_list_id}
+                            setOpen={set_cities_open}
+                            button_text={city !== undefined ? city.name : 'Все города'}
+                            list={cities}
+                            startIcon={<PlaceIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="cities"
+                        />
+                        <List
+                            size='small'
+                            open={filials_open}
+                            anchor={filials_ref}
+                            prev_open={prev_filials_open}
+                            id={filials_list_id}
+                            setOpen={set_filials_open}
+                            button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
+                            list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type='filials'
+                        />
+                    </ButtonGroup>
+                    <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
+                        <ButtonGroup size="small" variant='contained' color='secondary' id="header-time-username">
+                            {user_panel()}
                         </ButtonGroup>
-                        <ButtonGroup id="top-menu-left" variant="contained" size='small' sx={{marginLeft: '5px'}}>
-                            <List
-                                size='small'
-                                open={cities_open}
-                                anchor={cities_ref}
-                                prev_open={prev_cities_open}
-                                id={cities_list_id}
-                                setOpen={set_cities_open}
-                                button_text={city !== undefined ? city.name : 'Все города'}
-                                list={cities}
-                                startIcon={<PlaceIcon/>}
-                                endIcon={<KeyboardArrowDownIcon/>}
-                                type="cities"
-                            />
-                            <List
-                                size='small'
-                                open={filials_open}
-                                anchor={filials_ref}
-                                prev_open={prev_filials_open}
-                                id={filials_list_id}
-                                setOpen={set_filials_open}
-                                button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
-                                list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
-                                endIcon={<KeyboardArrowDownIcon/>}
-                                type='filials'
-                            />
-                        </ButtonGroup>
-                        <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
-                            <ButtonGroup size="small" variant='contained' color='secondary' id="header-time-username">
-                                {user_panel()}
-                            </ButtonGroup>
-                            <Modal open={auth_opened}
-                                   keepMounted
-                                   onClose={() => dispatch(setAuthOpened(false))}
-                                   aria-labelledby="Страница авторизации"
-                                   aria-describedby="Введите пароль">
-                                <Box id="modal">
-                                    <Auth/>
-                                </Box>
-                            </Modal>
-                        </Box>
+                        <Modal open={auth_opened}
+                               keepMounted
+                               onClose={() => dispatch(setAuthOpened(false))}
+                               aria-labelledby="Страница авторизации"
+                               aria-describedby="Введите пароль">
+                            <Box id="modal">
+                                <Auth/>
+                            </Box>
+                        </Modal>
                     </Box>
                 </Box>
-            </Fade>
-            <Fade key='2' in={app_width <= MOBILE_WIDTH} timeout={ANIMATION_SPEED}>
-                <Box id="header-mobile">
-                    <div>Мобильное меню</div>
-                </Box>
-            </Fade>
+            </Box>
         </header>
     )
 }

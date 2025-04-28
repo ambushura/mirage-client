@@ -6,10 +6,8 @@ const Footer = () => {
 
     return (
         <footer id="footer">
-            <div style={{fontSize: '14px', fontWeight: '500', color: '#8B919B', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div>© «МИРАЖ СИНЕМА».</div>
-                <div>{wp}</div>
-            </div>
+            <div>© «МИРАЖ СИНЕМА».</div>
+            <div>{wp}</div>
         </footer>
     )
 }

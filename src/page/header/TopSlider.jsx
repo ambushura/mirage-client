@@ -23,12 +23,11 @@ const TopSlider = () => {
     return (
         <div id="header-slider">
             {images.map((image, index) => (
-                <img
+                <div
                     key={index}
-                    src={image}
-                    alt={`slide ${index}`}
-                    className={`slide${index === currentIndex ? "-active" : ""}`}
-                />
+                    className={`slide${index === currentIndex ? " slide-active" : ""}`}>
+                    <img src={image} alt={`slide ${index}`}/>
+                </div>
             ))}
         </div>
     )

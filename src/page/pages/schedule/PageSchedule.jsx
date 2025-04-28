@@ -43,13 +43,9 @@ const PageSchedule = () => {
     return (
         <>
             <ScheduleMenu/>
-            <Box sx={{
-                display: 'flex',
-                height: content_height,
-            }}>
-                <Box id="content-wrap" style={{display: 'flex', height: content_height}}>
-                    <Box id="content"
-                         sx={{height: content_height}}>
+            <Box id='content-box'>
+                <Box id="content-wrap">
+                    <Box id="content">
                         <Box id="schedule-full">
                             {schedule.map((filial_hall_seances, index) => {
                                 if (filial_hall_seances.error !== null) {

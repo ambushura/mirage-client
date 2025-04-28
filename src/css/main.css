@@ -1,0 +1,305 @@
+/* ============================== */
+/*            RESET               */
+/* ============================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: none;
+    letter-spacing: -0.5px;
+    font-family: Roboto, serif;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+}
+a, a:link, a:visited {
+    color: white;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+aside, nav, footer, header, section, main {
+    display: block;
+}
+ul, li {
+    list-style: none;
+}
+img, svg {
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+}
+label {
+    cursor: pointer;
+}
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html, body {
+    touch-action: none;
+    user-select: none;
+}
+
+/* ============================== */
+/*          ПЕРЕМЕННЫЕ            */
+/* ============================== */
+:root {
+    --page-height: calc(100vh - var(--footer-height) - var(--header-height));
+    --top-menu-height: 65px;
+    --order-width: 520px;
+    --grad-line: 10px;
+}
+
+/* ============================== */
+/*       АВТОРИЗОВАННЫЙ           */
+/* ============================== */
+:root[authorized="true"] {
+    --bgr-color: #f8f8f8;
+    --txt-color: black;
+    --header-height: 70px;
+    --footer-height: 50px;
+    --header-display: flex;
+    --page-display: flex;
+    --footer-display: flex;
+}
+
+/* ============================== */
+/*       НЕАВТОРИЗОВАННЫЙ         */
+/* ============================== */
+:root[authorized="false"] {
+    --bgr-color: #121212;
+    --txt-color: white;
+}
+
+/* --- Полный экран (НЕавторизован) --- */
+:root[authorized="false"][full-screen="true"] {
+    --header-height: 0px;
+    --footer-height: 0px;
+    --header-display: none;
+    --page-display: flex;
+    --footer-display: none;
+}
+
+/* --- Обычный экран (НЕавторизован) --- */
+:root[authorized="false"][full-screen="false"] {
+    --header-height: 200px;
+    --footer-height: 50px;
+    --header-display: flex;
+    --page-display: flex;
+    --footer-display: flex;
+}
+/* ============================== */
+/*            КОНТЕНТ             */
+/* ============================== */
+:root[show-order="true"] {
+    --content-width: calc(100% - var(--order-width));
+    --order-display: flex;
+}
+:root[show-order="false"] {
+    --content-width: 100%;
+    --order-display: none;
+}
+/* ============================== */
+/*            РЕЗУЛЬТАТ           */
+/* ============================== */
+body {
+    background-color: var(--bgr-color);
+}
+#app {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bgr-color);
+    color: var(--txt-color);
+}
+#header {
+    height: var(--header-height);
+    display: var(--header-display);
+    width: inherit;
+    position: relative;
+}
+#header-desktop {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+#header-menu {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#page {
+    height: var(--page-height);
+    display: var(--page-display);
+    flex-direction: column;
+    width: inherit;
+    position: relative;
+}
+#top-menu {
+    height: var(--top-menu-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#content-box {
+    width: inherit;
+    height: calc(var(--page-height) - var(--top-menu-height));
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+#content-wrap {
+    height: inherit;
+    width: var(--content-width);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+#content {
+    overflow: auto;
+}
+#order {
+    width: var(--order-width);
+    display: var(--order-display);
+}
+#footer {
+    height: var(--footer-height);
+    display: var(--footer-display);
+    justify-content: center;
+    width: inherit;
+    position: relative;
+    background-color: var(--bgr-color);
+    font-weight: bold;
+    font-size: 14px;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+/* ============================== */
+/*          ГРАДИЕНТ              */
+/* ============================== */
+.grad-l {
+    position: absolute;
+    background: linear-gradient(to right, var(--bgr-color), rgba(0, 0, 0, 0));
+    left: 0;
+    width: var(--grad-line);
+    height: 100%;
+}
+.grad-r {
+    position: absolute;
+    background: linear-gradient(to left, var(--bgr-color), rgba(0, 0, 0, 0));
+    right: 0;
+    width: var(--grad-line);
+    height: 100%;
+}
+.grad-t {
+    position: absolute;
+    background: linear-gradient(to bottom, var(--bgr-color), rgba(0, 0, 0, 0));
+    top: 0;
+    height: var(--grad-line);
+    width: 100%;
+}
+.grad-b {
+    position: absolute;
+    background: linear-gradient(to top, var(--bgr-color), rgba(0, 0, 0, 0));
+    bottom: 0;
+    height: var(--grad-line);
+    width: 100%;
+}
+
+
+
+
+
+/* ============================== */
+/*              СКРОЛЛ            */
+/* ============================== */
+#content::-webkit-scrollbar,
+.admin-orders-horeca-panel::-webkit-scrollbar,
+.admin-orders-horeca-orders::-webkit-scrollbar {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+}
+#content::-webkit-scrollbar-thumb,
+.admin-orders-horeca-panel::-webkit-scrollbar-thumb,
+.admin-orders-horeca-orders::-webkit-scrollbar-thumb {
+    background: #8b919b;
+    border-radius: 12px;
+}
+#content::-webkit-scrollbar-track,
+.admin-orders-horeca-panel::-webkit-scrollbar-track,
+.admin-orders-horeca-orders::-webkit-scrollbar-track,
+#content::-webkit-scrollbar-corner,
+.admin-orders-horeca-panel::-webkit-scrollbar-corner,
+.admin-orders-horeca-orders::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+
+
+
+
+/* ============================== */
+/*           СЛАЙДЕР              */
+/* ============================== */
+#header-slider {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.slide-active {
+    opacity: 1;
+}
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* ============================== */
+/*             MODAL              */
+/* ============================== */
+#modal {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 20px;
+    background-color: var(--bgr-color);
+    padding: 10px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

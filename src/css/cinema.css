@@ -1,16 +1,10 @@
-#top-menu-schedule {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 /* Плиточное расписание */
 #schedule {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    overflow: hidden;
 }
 .film {
     margin: 0 0 0 16px;

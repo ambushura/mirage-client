@@ -53,7 +53,7 @@ const AppRoutes = ({ current_page }) => {
 
     return (
         <Fade in={!!pages[current_page]} unmountOnExit>
-            <Box>
+            <Box id='page'>
                 {pages[current_page] || null}
             </Box>
         </Fade>

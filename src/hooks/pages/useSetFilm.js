@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "../common/useFetchingArray.js"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {setFilm} from "../../redux/scheduleReducer.js"
 
 export function useSetFilm() {
 
+    const dispatch = useDispatch()
+
     const [urls, set_urls] = useState([])
     const fetch_data = useFetchingArray(urls)
-    const [film, set_film] = useState(undefined)
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
@@ -38,8 +40,10 @@ export function useSetFilm() {
                 film_new = filial_data.data.film
             }
         })
-        set_film(film_new)
+        dispatch(setFilm({film: film_new, data: fetch_data}))
+        return () => {
+            dispatch(setFilm({film: undefined, data: []}))
+        }
     }, [fetch_data])
 
-    return [film, fetch_data]
 }

@@ -1,26 +1,66 @@
 import {createContext, useState, useEffect} from 'react'
 import {useSelector} from "react-redux"
 import {createTheme} from "@mui/material"
+import {useFullScreen} from "../hooks/interface/useFullScreen.js"
 
 const ThemeContext = createContext()
 
 export const ThemeBlackWhite = ({children}) => {
-    const [theme, set_theme] = useState('light')
+
     const uid_user = useSelector(state => state.auth.uid)
+    const is_full_screen = useFullScreen()
+    const pre_oder = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
+
+    const [uiState, setUiState] = useState({
+        authorized: false,
+        is_full_screen: false,
+        is_mobile: false,
+        show_order: false,
+    })
+
     useEffect(() => {
-        if (uid_user !== null) {
-            set_theme('light')
-        } else {
-            set_theme('dark')
-        }
+        document.documentElement.setAttribute('authorized', uiState.authorized)
+        document.documentElement.setAttribute('full-screen', String(uiState.is_full_screen))
+        document.documentElement.setAttribute('mobile', String(uiState.is_mobile))
+        document.documentElement.setAttribute('show-order', String(uiState.show_order))
+    }, [uiState])
+
+    useEffect(() => {
+        setUiState(preValue => ({
+            ...preValue,
+            authorized: uid_user !== null
+        }))
     }, [uid_user])
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme)
-    }, [theme])
+        setUiState(preValue => ({
+            ...preValue,
+            is_full_screen: is_full_screen
+        }))
+    }, [is_full_screen])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setUiState(preValue => ({
+                ...preValue,
+                is_mobile: window.innerWidth <= 768
+            }))
+        }
+        window.addEventListener('resize', handleResize)
+        handleResize()
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    useEffect(() => {
+        setUiState(preValue => ({
+            ...preValue,
+            show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null
+        }))
+    }, [pre_oder, horder, uid_user])
 
     return (
-        <ThemeContext.Provider value={{theme, set_theme}}>
+        <ThemeContext.Provider value={{uiState, setUiState}}>
             {children}
         </ThemeContext.Provider>
     )

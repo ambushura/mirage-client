@@ -77,9 +77,9 @@ const Auth = () => {
                 }}>
                     <Box maxWidth={200} mx="auto">
                         <Box
+                            sx={{gap: '2px'}}
                             display="grid"
-                            gridTemplateColumns="repeat(3, 1fr)"
-                            gap={1}>
+                            gridTemplateColumns="repeat(3, 1fr)">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                                 <Button
                                     color='secondary'

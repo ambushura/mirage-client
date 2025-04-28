@@ -30,13 +30,13 @@ function App() {
     useSetTopMenu()
     useReset()
 
-    const isFullScreen = useFullScreen()
+    useFullScreen()
 
     // Данные из стора
     const {permissions} = useSelector(state => state.auth)
     const {cities} = useSelector(state => state.data)
-    const {param_date, modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
-
+    const {modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
+    const param_date = useSelector(state => state.interface.params.param_date)
     const [modalContent, setModalContent] = useState(null)
 
     // Обновление содержимого модального окна
@@ -62,8 +62,7 @@ function App() {
 
     return (
         <Box id="app">
-            {(!isFullScreen || permissions.includes(0)) && <Header/>}
-
+            <Header/>
             <Routes>
                 <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
                 <Route path="/films/:param_city/:param_filial/:param_date" element={<AppRoutes current_page="films"/>}/>
@@ -91,9 +90,7 @@ function App() {
                 <Route path="/kitchen/:param_city/:param_filial/" element={<AppRoutes current_page="kitchen"/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
-
-            {(!isFullScreen || permissions.includes(0)) && <Footer/>}
-
+            <Footer/>
             <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
                 <Box id="modal">
                     {modalContent}

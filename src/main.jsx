@@ -16,6 +16,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
+import './css/main.css'
 import './css/index.css'
 import './css/cinema.css'
 import './css/components.css'
