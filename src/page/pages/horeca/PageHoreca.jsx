@@ -11,9 +11,7 @@ const PageHoreca = () => {
     return (
         <Box id='content-box'>
             <Box id="content-wrap">
-                <Box id="content">
-                    <Menu/>
-                </Box>
+                <Menu/>
             </Box>
             {pre_order.in_base || horder.in_base ? <Order/> : null}
         </Box>
