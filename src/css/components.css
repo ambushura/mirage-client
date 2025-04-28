@@ -21,7 +21,7 @@
 .component-seance-title-time {
     background-color: #fff;
     color: black;
-    width: 70px;
+    width: 80px;
 }
 .component-seance-title>div>div {
     padding-left: 10px;
@@ -38,7 +38,7 @@
 .component-seance-title-copy-type {
     background-color: #E3000B;
     color: white;
-    width: 25px;
+    width: 30px;
 }
 .component-seance-title-content-type-toKino, .component-seance-title-content-type-pushkarta {
     width: 64px;
@@ -80,7 +80,7 @@
 .component-seance-title-time-x2 {
     background-color: #fff;
     color: black;
-    width: calc(70px * 1.5);
+    width: calc(80px * 1.5);
 }
 .component-seance-title-x2>div>div {
     padding-left: calc(10px * 1.5);
@@ -97,7 +97,7 @@
 .component-seance-title-copy-type-x2 {
     background-color: #E3000B;
     color: white;
-    width: calc(25px * 1.5);
+    width: calc(30px * 1.5);
 }
 .component-seance-title-content-type-toKino-x2, .component-seance-title-content-type-pushkarta-x2 {
     width: calc(64px * 1.5);

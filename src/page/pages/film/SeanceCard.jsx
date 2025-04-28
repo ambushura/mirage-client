@@ -8,6 +8,16 @@ const SeanceCard = (props) => {
     const seance = props.seance
     const beginning = dayjs(seance.beginning.replace('Z', ''))
 
+    const min_tariff = (seance) => {
+        let result = 1000000000
+        seance.tariff.forEach(t => {
+            if (t.price < result) {
+                result = t.price
+            }
+        })
+        return result
+    }
+
     return (
         <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}>
             <div className='seances-body-seance'>
@@ -22,7 +32,7 @@ const SeanceCard = (props) => {
                     </div>
                 </div>
                 <div className='seances-body-seance-price'>
-                    от 190 p
+                    от {min_tariff(seance)} р
                 </div>
             </div>
         </NavLink>

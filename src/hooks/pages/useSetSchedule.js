@@ -38,4 +38,5 @@ export function useSetSchedule() {
             dispatch(setSchedule([]))
         }
     }, [dispatch, fetch_data])
+
 }
