@@ -13,7 +13,7 @@
 .order-panel {
     display: flex;
     justify-content: space-between;
-    width: calc(100vw - 20px);
+    width: 100%;
     padding: 0 10px;
 }
 
@@ -104,10 +104,9 @@
     flex-direction: row;
     position: absolute;
     left: 0;
-    width: calc(100% - 60px); /* без правого цветного блока */
+    width: calc(100% - 60px);
     height: 140px;
     background-color: #1c1f23;
-    border-radius: 16px;
 }
 
 .checkout-order-ticket-body-cover {

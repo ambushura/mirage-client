@@ -12,8 +12,8 @@ const Item = (props) => {
 
     return (
         <Box className="menu-item" onClick={() => dispatch(horeca_add(filial, wp, horder.uid, horder.ver, props.item.uid))}>
-            <Box style={{height: '25px'}}>{props.item.name}</Box>
-            <Box style={{height: '25px', display: 'flex', justifyContent: 'end', alignItems: 'flex-end'}}>
+            <Box>{props.item.name}</Box>
+            <Box style={{display: 'flex', justifyContent: 'end', alignItems: 'flex-end'}}>
                 <span style={{
                     backgroundColor: '#c9c9c9',
                     padding: '5px',
