@@ -51,14 +51,14 @@
     justify-content: space-between;
     font-size: 24px;
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--txt-color);
 }
 
 .checkout-order-title {
     margin: 20px 0 20px 16px;
     font-size: 32px;
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--txt-color);
 }
 
 /* ========================== */
@@ -124,7 +124,7 @@
 
 .checkout-order-ticket-body-2 > div {
     padding-bottom: 5px;
-    color: var(--text-color);
+    color: var(--txt-color);
 }
 
 .checkout-order-ticket-body-2-film-name {
@@ -195,7 +195,7 @@
     padding: 16px;
     font-size: 18px;
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--txt-color);
 }
 
 .checkout-order-ticket-body-3-delete {

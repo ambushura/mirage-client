@@ -720,7 +720,7 @@ body {
     left: 0;
     top: 0;
     z-index: 100;
-    min-width: 210px;
+    min-width: 225px;
     padding-left: 15px;
     height: 65px;
     background-color: var(--bgr-color);
@@ -729,7 +729,13 @@ body {
     width: 210px;
     background-color: #0e0f11;
 }
-
+.circle {
+    width: 24px;
+    height: 12px;
+    background: var(--bgr-color);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
 
 
 
@@ -779,3 +785,95 @@ body {
     background-color: var(--bg-menu-item);
     color: black;
 }
+
+
+
+
+
+/* ============================== */
+/*         ЛЕЙБЛ СЕАНСА           */
+/* ============================== */
+.component-seance-title, .component-seance-title-x2 {
+    --scale: 1;
+    --font-size: 12px;
+    --border-radius: 6px;
+    --padding-y: 4px;
+    --padding-x: 6px;
+    --margin-right: -10px;
+    --inner-padding-left: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+}
+.component-seance-title-x2 {
+    --scale: 2;
+    --font-size: calc(12px * 1.5);
+    --border-radius: 12px;
+    --padding-y: 6px;
+    --padding-x: 12px;
+    --margin-right: -20px;
+    --inner-padding-left: calc(10px * 1.5);
+    margin-right: 20px;
+}
+.component-seance-title > div,
+.component-seance-title-x2 > div {
+    font-size: var(--font-size);
+    border-radius: var(--border-radius);
+    padding: var(--padding-y) var(--padding-x);
+    font-weight: bold;
+    margin-right: var(--margin-right);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(24px * var(--scale));
+}
+.component-seance-title > div:nth-child(1),
+.component-seance-title-x2 > div:nth-child(1) { z-index: 5; }
+.component-seance-title > div:nth-child(2),
+.component-seance-title-x2 > div:nth-child(2) { z-index: 4; }
+.component-seance-title > div:nth-child(3),
+.component-seance-title-x2 > div:nth-child(3) { z-index: 3; }
+.component-seance-title > div:nth-child(4),
+.component-seance-title-x2 > div:nth-child(4) { z-index: 2; }
+.component-seance-title > div:nth-child(5),
+.component-seance-title-x2 > div:nth-child(5) { z-index: 1; }
+.component-seance-title > div > div,
+.component-seance-title-x2 > div > div {
+    padding-left: var(--inner-padding-left);
+}
+
+.component-seance-title-time, .component-seance-title-time-x2 {
+    background-color: #fff;
+    color: black;
+    width: calc(80px * var(--scale));
+}
+.component-seance-title-time > div > span,
+.component-seance-title-time-x2 > div > span {
+    background-color: #fff;
+    color: #8B919B;
+}
+.component-seance-title-day, .component-seance-title-day-x2 {
+    background-color: #fff;
+    color: black;
+    width: calc(40px * var(--scale));
+}
+.component-seance-title-copy-type, .component-seance-title-copy-type-x2 {
+    background-color: #E3000B;
+    color: white;
+    width: calc(30px * var(--scale));
+}
+.component-seance-title-content-type-toKino, .component-seance-title-content-type-toKino-x2 {
+    background-color: #FFCF09;
+    color: black;
+    width: calc(68px * var(--scale));
+}
+.component-seance-title-content-type-pushkarta, .component-seance-title-content-type-pushkarta-x2 {
+    background-color: #df1782;
+    color: white;
+    width: calc(64px * var(--scale));
+}
+.component-seance-title-rate-age, .component-seance-title-rate-age-x2 {
+    width: calc(40px * var(--scale));
+}
+
+

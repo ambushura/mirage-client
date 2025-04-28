@@ -17,8 +17,6 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
 import './css/main.css'
-import './css/index.css'
-import './css/components.css'
 import './css/orders.css'
 import './css/admin-orders.css'
 

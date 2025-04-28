@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import {DateCalendar} from "@mui/x-date-pickers"
 import {Box, Button, ButtonGroup, Popover} from "@mui/material"
 import {useSelector} from "react-redux"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
@@ -8,6 +7,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
+import Calendar from "../modal/Calendar.jsx"
 
 const ScheduleMenu = () => {
 
@@ -25,13 +25,19 @@ const ScheduleMenu = () => {
     // Календарь
     const [schedule_calendar_open, set_schedule_calendar_open] = useState(null)
     const open = Boolean(schedule_calendar_open)
-    const id = open ? 'schedule_city-calendar' : undefined
+    const id = open ? 'schedule-city-calendar' : null
 
     const handleClick = (event) => {
         set_schedule_calendar_open(event.currentTarget)
     }
     const handleClose = () => {
         set_schedule_calendar_open(null)
+    }
+
+    const handleOnChahge = (value) => {
+        set_schedule_calendar_open(null)
+        const current_param_data = value.year() + '-' + (value.month() + 1) + '-' + (value.date())
+        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
     }
 
     return (
@@ -79,54 +85,10 @@ const ScheduleMenu = () => {
                             }
                         }
                     }}>
-                    <DateCalendar value={dayjs(param_date)}
-                                  onChange={(newValue) => {
-                                      set_schedule_calendar_open(null)
-                                      const current_param_data = newValue.year() + '-' + (newValue.month() + 1) + '-' + (newValue.date())
-                                      navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
-                                  }}
-                                  sx={{
-                                      backgroundColor: '#0E0F11',
-                                      opacity: '95%',
-                                      textTransform: 'uppercase'
-                                  }}
-                                  slotProps={{
-                                      desktopPaper: {sx: {backgroundColor: '#393a3b'}},
-                                      mobilePaper: {sx: {backgroundColor: '#393a3b'}},
-                                      layout: {sx: {backgroundColor: '#393a3b', borderRadius: '10px'}},
-                                      day: {
-                                          sx: {
-                                              backgroundColor: '#1C1F23',
-                                              "&:hover": {backgroundColor: '#282a2e'},
-                                              borderRadius: '12px',
-                                              fontWeight: 'bold',
-                                              color: 'white'
-                                          }
-                                      },
-                                      calendarHeader: {
-                                          sx: {color: 'white', textTransform: 'capitalize'}
-                                      },
-                                      monthButton: {sx: {backgroundColor: 'white'}},
-                                      yearButton: {sx: {backgroundColor: '#1C1F23', color: 'white'}},
-                                      openPickerIcon: {sx: {padding: '10px', marginRight: '20px'}},
-                                      previousIconButton: {
-                                          sx: {
-                                              borderRadius: '16px',
-                                              backgroundColor: '#2e3239',
-                                              "&:hover": {backgroundColor: '#1f2226'}
-                                          },
-                                      },
-                                      nextIconButton: {
-                                          sx: {
-                                              borderRadius: '16px',
-                                              marginLeft: 0,
-                                              backgroundColor: '#2e3239',
-                                              "&:hover": {backgroundColor: '#1f2226'}
-                                          }
-                                      },
-                                  }}
-                                  format="DD dd"
-                                  views={['day']}/>
+                    <Calendar
+                        value={dayjs(param_date)}
+                        handleOnChahge={handleOnChahge}
+                    />
                 </Popover>
                 <ButtonGroup className='top-menu-content-types' size='small' sx={{marginLeft: '5px'}}>
                     <Button variant="contained" color="primary">Все фильмы</Button>
