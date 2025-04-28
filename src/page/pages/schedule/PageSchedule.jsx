@@ -1,39 +1,23 @@
 import {useSetSchedule} from "../../../hooks/pages/useSetSchedule.js"
 import {Box, Button, Fade} from "@mui/material"
 import SeanceCard from "./SeanceCard.jsx"
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import {useEffect, useRef, useState} from "react"
-import {setSchedule} from "../../../redux/scheduleReducer.js"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
-import {useSetContentHeight} from "../../../hooks/interface/useSetContentHeight.js"
 import Loader from "../../../components/modal/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 
 const PageSchedule = () => {
 
-    // Служебные функции
-    const dispatch = useDispatch()
+    useSetSchedule()
 
-    // Данные из хранилища
     const city = useSelector(state => state.data.city)
-    const schedule = useSelector(state => state.schedule.schedule)
+    const schedule = useSelector(state => state.schedule.schedule || [])
+    const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
+    const horder = useSelector(state => state.orders.horder || {in_base: false})
 
-    // Хуки
-    const [content_height, show_pre_order] = useSetContentHeight()
-    const filial_halls_seances = useSetSchedule()
-
-    // Монтаж/демонтаж
-    useEffect(() => {
-        dispatch(setSchedule(filial_halls_seances))
-        return () => {
-            dispatch(setSchedule([]))
-        }
-    }, [dispatch, filial_halls_seances])
-
-    // Массив ширины контента по филиалам
     const elementsRef = useRef(new Map())
-    // Максимальная ширина для перекрытия фона при прокрутке
     const [content_width, set_content_width] = useState(200)
     useEffect(() => {
         const widths = Array.from(elementsRef.current.values()).map(el => el?.getBoundingClientRect().width || 0)
@@ -54,12 +38,6 @@ const PageSchedule = () => {
                                     return (
                                         <Box key={filial_hall_seances.filial.uid}>
                                             <Box className="schedule-full-filial-name" style={{
-                                                position: 'sticky',
-                                                left: 0,
-                                                top: 0,
-                                                zIndex: 100,
-                                                paddingLeft: '15px',
-                                                minWidth: '210px',
                                                 width: `${content_width}px`
                                             }}>
                                                 <Button variant='contained' color='primary'
@@ -78,12 +56,6 @@ const PageSchedule = () => {
                                         <Box key={filial_hall_seances.filial.uid}>
                                             <Box
                                                 className="schedule-full-filial-name" style={{
-                                                position: 'sticky',
-                                                left: 0,
-                                                top: 0,
-                                                zIndex: 100,
-                                                paddingLeft: '15px',
-                                                minWidth: '210px',
                                                 width: `${content_width}px`
                                             }}>
                                                 <Button variant='contained'
@@ -137,7 +109,7 @@ const PageSchedule = () => {
                             })}
                         </Box>
                     </Box>
-                    {show_pre_order ? <Order/> : <></>}
+                    {pre_order.in_base || horder.in_base ? <Order/> : null}
                 </Box>
             </Box>
         </>

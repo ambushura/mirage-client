@@ -18,11 +18,8 @@ import '@fontsource/roboto/700.css'
 
 import './css/main.css'
 import './css/index.css'
-import './css/cinema.css'
 import './css/components.css'
 import './css/orders.css'
-import './css/horeca.css'
-import './css/modal.css'
 import './css/admin-orders.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

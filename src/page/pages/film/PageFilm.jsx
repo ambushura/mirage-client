@@ -74,11 +74,10 @@ const PageFilm = () => {
                                     }
                                 })}
                             </Box>
-                            <Box className='seances-rate'>IMDB 4.7</Box>
                         </Box>
                     </Box>
                 </Box>
-                {pre_order.in_base || horder.in_base ? <Order/> : <></>}
+                {pre_order.in_base || horder.in_base ? <Order/> : null}
             </Box>
         </>
     )

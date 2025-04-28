@@ -1,8 +1,11 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "../common/useFetchingArray.js"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {setSchedule} from "../../redux/scheduleReducer.js"
 
 export function useSetSchedule() {
+
+    const dispatch = useDispatch()
 
     const [urls, set_urls] = useState([])
     const fetch_data = useFetchingArray(urls)
@@ -29,5 +32,10 @@ export function useSetSchedule() {
         set_urls(urls_new)
     }, [city, filial, param_date])
 
-    return fetch_data
+    useEffect(() => {
+        dispatch(setSchedule(fetch_data))
+        return () => {
+            dispatch(setSchedule([]))
+        }
+    }, [dispatch, fetch_data])
 }
