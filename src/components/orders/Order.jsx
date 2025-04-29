@@ -118,7 +118,7 @@ const Order = () => {
     }
 
     return (
-        <Box id="order">
+        <Box id='order'>
             {pre_order.in_base ? (
                 <OrderPanel
                     height={horder.in_base ? '50%' : '100%'}
