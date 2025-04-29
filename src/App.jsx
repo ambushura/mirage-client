@@ -11,7 +11,6 @@ import AppRoutes from "./AppRoutes.jsx"
 import { useSetCityAndFilial } from "./hooks/common/useSetCityAndFilial.js"
 import { useSetSizeWindow } from "./hooks/interface/useSetSizeWindow.js"
 import { useSetTopMenu } from "./hooks/interface/useSetTopMenu.js"
-import { useFullScreen } from "./hooks/interface/useFullScreen.js"
 import { useSetWS } from "./hooks/common/useSetWS.js"
 import { useReset } from "./hooks/common/useReset.js"
 
@@ -29,8 +28,6 @@ function App() {
     useSetSizeWindow()
     useSetTopMenu()
     useReset()
-
-    useFullScreen()
 
     // Данные из стора
     const {permissions} = useSelector(state => state.auth)

@@ -1,4 +1,4 @@
-import {useState, memo} from 'react'
+import {useState, memo, useEffect} from 'react'
 import {Box, Button, TextField} from "@mui/material"
 import "react-simple-keyboard/build/css/index.css"
 import {useDispatch, useSelector} from "react-redux"
@@ -18,8 +18,8 @@ const Auth = () => {
     const [pincode_auth, set_pincode_auth] = useState(true)
     const [login_auth, set_login_auth] = useState(false)
 
-    const [username, set_username] = useState("")
-    const [password, set_password] = useState("")
+    const [username, set_username] = useState('')
+    const [password, set_password] = useState('')
 
     const apply = () => {
         if (filial === undefined) {
@@ -45,6 +45,11 @@ const Auth = () => {
             dispatch(setAuthOpened(false))
         }
     }
+
+    useEffect(() => {
+        set_username('')
+        set_password('')
+    }, [pincode_auth, login_auth])
 
     return (
         <Box>
