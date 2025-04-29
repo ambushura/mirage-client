@@ -1052,3 +1052,26 @@ body {
     justify-content: center;
     padding: 16px;
 }
+
+
+
+
+/* ========================== */
+/*       ПАНЕЛЬ ЗАКАЗА        */
+/* ========================== */
+#order {
+    height: 100%;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-left: 4px;
+}
+.order-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bgr-color);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex: 1;
+}

@@ -20,13 +20,13 @@ export function useSetFilms() {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `https://${filial.ip}/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
+                    url: `http://${filial.ip}:8080/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
                 })
             })
         } else if (city !== undefined && filial !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `https://${filial.ip}/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
+                url: `http://${filial.ip}:8080/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
             })
         }
         if (urls_new.length > 0) {

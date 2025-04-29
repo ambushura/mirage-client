@@ -14,7 +14,7 @@ export function useFetchBooking() {
 
     useEffect(() => {
         if (filial !== undefined && seance !== undefined && pre_order !== undefined) {
-            set_url(`https://${filial.ip}/api/get_booking?uid_seance=${seance.uid}&uid_order=${pre_order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+            set_url(`http://${filial.ip}:8080:8080/api/get_booking?uid_seance=${seance.uid}&uid_order=${pre_order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
         } else {
             set_url(undefined)
         }
