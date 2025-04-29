@@ -27,7 +27,8 @@ const PageSeance = () => {
     const [authenticated, set_authenticated] = useState(0)
     const permissions = useSelector(state => state.auth.permissions)
     const seance = useSelector(state => state.schedule.seance)
-    const pre_order = useSelector(state => state.orders.pre_order)
+    const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
+    const horder = useSelector(state => state.orders.horder || {in_base: false})
     const booking = useSelector(state => state.schedule.booking)
     const wp = useSelector(state => state.interface.wp)
 
@@ -91,82 +92,93 @@ const PageSeance = () => {
 
     if (seance !== undefined && hall !== undefined) {
         return (
-            <Box>
-                <Fade in={!checkout}>
-                    <Box id='seance' style={{display: checkout ? 'none' : 'block', height: '100%'}}>
-                        {authenticated === 0 ? <Box id='seance-title' ref={refTitle}>
-                                <Box className='order-panel'>
-                                    <Button onClick={() => {
-                                        navigate(-1)
-                                        dispatch(deletePreOrder(filial, wp, pre_order.uid))
-                                    }} variant="contained" color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
-                                    <Box sx={{width: '100%', marginLeft: '10px'}}>
-                                        <LinearProgress className='order-progress'
-                                                        sx={{height: '100%'}} value={time_remaining} variant="determinate"/>
-                                    </Box>
-                                </Box>
-                                <Box className='seance-title-film-name'>{seance.name_film}</Box>
-                                <Box className='seance-title-hall-name'>Зал {hall.name_full}</Box>
-                                <Box className='seance-title-panel'>
-                                    <SeanceTitle
-                                        seance={seance}
-                                        content_type={true}
-                                        day={true}
-                                        its_hall_map={true}
-                                        age={false}/>
-                                    {pre_order.items.length > 0 ?
-                                        <Button sx={{height: '48px', marginLeft: '10px'}} variant="contained"
-                                                className='seance-title-preorder' onClick={() => {
-                                            set_check_out(true)
-                                        }}>
-                                            <Box style={{display: 'flex', flexDirection: 'column', marginRight: '20px'}}>
-                                                <Box style={{
-                                                    fontSize: '12px',
-                                                    fontWeight: '400'
-                                                }}>{ticket_count(pre_order.quantity)}</Box>
-                                                <Box style={{fontWeight: 'bold'}}>{pre_order.price} P
+            <>
+                <Fade in={!checkout} unmountOnExit>
+                    <Box id='content-box'>
+                        <Box id='content-wrap'>
+                            <Box id='content'>
+                                <Box id='seance' style={{display: checkout ? 'none' : 'block', height: '100%'}}>
+                                    {authenticated === 0 ? <Box id='seance-title' ref={refTitle}>
+                                            <Box className='order-panel'>
+                                                <Button onClick={() => {
+                                                    navigate(-1)
+                                                    dispatch(deletePreOrder(filial, wp, pre_order.uid))
+                                                }} variant="contained"
+                                                        color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
+                                                <Box sx={{width: '100%', marginLeft: '10px'}}>
+                                                    <LinearProgress className='order-progress'
+                                                                    sx={{height: '100%'}} value={time_remaining}
+                                                                    variant="determinate"/>
                                                 </Box>
                                             </Box>
-                                            <Box style={{
-                                                verticalAlign: 'center',
-                                                textAlign: 'center',
-                                                display: 'flex',
-                                                fontWeight: 'bold'
-                                            }}>
-                                                <div>Продолжить</div>
-                                                <KeyboardArrowRightIcon/>
+                                            <Box className='seance-title-film-name'>{seance.name_film}</Box>
+                                            <Box className='seance-title-hall-name'>Зал {hall.name_full}</Box>
+                                            <Box className='seance-title-panel'>
+                                                <SeanceTitle
+                                                    seance={seance}
+                                                    content_type={true}
+                                                    day={true}
+                                                    its_hall_map={true}
+                                                    age={false}/>
+                                                {pre_order.items.length > 0 ?
+                                                    <Button sx={{height: '48px', marginLeft: '10px'}} variant="contained"
+                                                            className='seance-title-preorder' onClick={() => {
+                                                        set_check_out(true)
+                                                    }}>
+                                                        <Box
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                marginRight: '20px'
+                                                            }}>
+                                                            <Box style={{
+                                                                fontSize: '12px',
+                                                                fontWeight: '400'
+                                                            }}>{ticket_count(pre_order.quantity)}</Box>
+                                                            <Box style={{fontWeight: 'bold'}}>{pre_order.price} P
+                                                            </Box>
+                                                        </Box>
+                                                        <Box style={{
+                                                            verticalAlign: 'center',
+                                                            textAlign: 'center',
+                                                            display: 'flex',
+                                                            fontWeight: 'bold'
+                                                        }}>
+                                                            <div>Продолжить</div>
+                                                            <KeyboardArrowRightIcon/>
+                                                        </Box>
+                                                    </Button> : <></>}
                                             </Box>
-                                        </Button> : <></>}
+                                        </Box>
+                                        : <></>}
+                                    <Box style={{display: 'flex'}}>
+                                        <Hall
+                                            city={city}
+                                            filial={filial}
+                                            pre_order={pre_order}
+                                            hall={hall}
+                                            seance={seance}
+                                            height={hall_height}
+                                            width={app_width - (authenticated === 1 ? 520 : 0)}
+                                            booking={booking}
+                                            set_count_book={set_count_book}
+                                            set_time_remaining={set_time_remaining}
+                                        />
+                                    </Box>
                                 </Box>
                             </Box>
-                            : <></>}
-                        <Box style={{display: 'flex'}}>
-                            <Hall
-                                city={city}
-                                filial={filial}
-                                pre_order={pre_order}
-                                hall={hall}
-                                seance={seance}
-                                height={hall_height}
-                                width={app_width - (authenticated === 1 ? 520 : 0)}
-                                booking={booking}
-                                set_count_book={set_count_book}
-                                set_time_remaining={set_time_remaining}
-                            />
-                            {authenticated === 1 ? <Box>
-                                <Order/>
-                            </Box> : <></>}
                         </Box>
+                        {pre_order.in_base || horder.in_base ? <Order/> : null}
                     </Box>
                 </Fade>
-                <Fade in={checkout}>
+                <Fade in={checkout} unmountOnExit>
                     <Box style={{display: checkout ? 'block' : 'none', height: '100%'}}>
                         <CheckOut
                             set_check_out={set_check_out}
                             time_remaining={time_remaining}/>
                     </Box>
                 </Fade>
-            </Box>
+            </>
         )
     } else {
         return <Loader/>

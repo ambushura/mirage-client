@@ -4,7 +4,6 @@ import { Receipt as ReceiptIcon, DeleteForever as DeleteForeverIcon, Cached as C
 import { useDispatch, useSelector } from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./cinema/BookingItem.jsx"
-import { useSetContentHeight } from "../../hooks/interface/useSetContentHeight.js"
 import HorecaItem from "./horeca/HorecaItem.jsx"
 import { useNavigate } from "react-router-dom"
 import Payment from "./Payment.jsx"
@@ -111,7 +110,6 @@ const Order = () => {
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
     const wp = useSelector(state => state.interface.wp)
-    const [content_height] = useSetContentHeight()
 
     const seance_link = () => {
         const city = cities.find(el => el.uid === pre_order.uid_city)
@@ -120,10 +118,10 @@ const Order = () => {
     }
 
     return (
-        <Box id="order" style={{height: content_height}}>
-            {pre_order.in_base && pre_order.items.length > 0 && (
+        <Box id="order">
+            {pre_order.in_base ? (
                 <OrderPanel
-                    height={horder.in_base && horder.items.length > 0 ? '50%' : '100%'}
+                    height={horder.in_base ? '50%' : '100%'}
                     type='cinema'
                     order={pre_order}
                     paying={pre_order_paying}
@@ -133,17 +131,17 @@ const Order = () => {
                     deleteOrder={() => dispatch(deletePreOrder(filial, wp, pre_order.uid))}
                     navigateTo={() => navigate(seance_link())}
                 />
-            )}
-            {horder.in_base && horder.items.length > 0 && (
+            ) : null}
+            {horder.in_base ? (
                 <OrderPanel
-                    height={pre_order.in_base && pre_order.items.length > 0 ? '50%' : '100%'}
+                    height={pre_order.in_base ? '50%' : '100%'}
                     type='horeca'
                     order={horder}
                     paying={horder_paying}
                     setPaying={value => dispatch(setHorderPaying(value))}
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                 />
-            )}
+            ) : null}
         </Box>
     )
 }

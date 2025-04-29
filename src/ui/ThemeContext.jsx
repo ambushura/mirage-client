@@ -11,12 +11,14 @@ export const ThemeBlackWhite = ({children}) => {
     const is_full_screen = useFullScreen()
     const pre_oder = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+    const current_page = useSelector(state => state.interface.current_page)
 
     const [uiState, setUiState] = useState({
         authorized: false,
         is_full_screen: false,
         is_mobile: false,
         show_order: false,
+        top_menu: false,
     })
 
     useEffect(() => {
@@ -24,6 +26,7 @@ export const ThemeBlackWhite = ({children}) => {
         document.documentElement.setAttribute('full-screen', String(uiState.is_full_screen))
         document.documentElement.setAttribute('mobile', String(uiState.is_mobile))
         document.documentElement.setAttribute('show-order', String(uiState.show_order))
+        document.documentElement.setAttribute('top-menu', String(uiState.top_menu))
     }, [uiState])
 
     useEffect(() => {
@@ -58,6 +61,14 @@ export const ThemeBlackWhite = ({children}) => {
             show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null
         }))
     }, [pre_oder, horder, uid_user])
+
+    useEffect(() => {
+        setUiState(preValue => ({
+            ...preValue,
+            top_menu: ['films', 'film', 'schedule', 'admin/orders/cinema', 'admin/orders/horeca'].find(el => el === current_page) !== undefined
+        }))
+
+    }, [current_page])
 
     return (
         <ThemeContext.Provider value={{uiState, setUiState}}>

@@ -47,7 +47,6 @@ html, body {
 /* ============================== */
 :root {
     --page-height: calc(100vh - var(--footer-height) - var(--header-height));
-    --top-menu-height: 65px;
     --order-width: 520px;
     --grad-line: 10px;
     --bg-menu-item: #efefef;
@@ -103,6 +102,12 @@ html, body {
     --content-width: 100%;
     --order-display: none;
 }
+:root[top-menu="true"] {
+    --top-menu-height: 65px;
+}
+:root[top-menu="false"] {
+    --top-menu-height: 0px;
+}
 /* ============================== */
 /*            РЕЗУЛЬТАТ           */
 /* ============================== */
@@ -156,6 +161,9 @@ body {
     justify-content: center;
 }
 #content-box {
+
+}
+#content-box {
     width: inherit;
     height: calc(var(--page-height) - var(--top-menu-height));
     position: relative;
@@ -172,6 +180,7 @@ body {
 }
 #content {
     overflow: auto;
+    width: 100%;
 }
 #order {
     width: var(--order-width);
@@ -878,3 +887,168 @@ body {
 }
 
 
+
+
+
+/* ========================== */
+/*          CHECKOUT          */
+/* ========================== */
+#checkout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+}
+.order-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+}
+.order-progress {
+    height: 100%;
+    border-radius: 12px;
+}
+#checkout-order {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(100vh - 62px);
+    padding: 0 10px;
+}
+#checkout-total {
+    width: 280px;
+    padding: 10px;
+}
+#checkout-total-box {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    min-height: 300px;
+    background-color: #1c1f23;
+    box-sizing: border-box;
+}
+.checkout-order-title-box {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--txt-color);
+}
+.checkout-order-title {
+    margin: 20px 0 20px 16px;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--txt-color);
+}
+.checkout-order-tickets-box {
+    width: 100%;
+    height: calc(100% - 77px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-right: -17px;
+    padding-right: 17px;
+    box-sizing: content-box;
+}
+.checkout-order-tickets-box::-webkit-scrollbar {
+    display: none;
+}
+.checkout-order-tickets {
+    width: 584px;
+    display: flex;
+    flex-direction: column;
+}
+.checkout-order-ticket {
+    width: 100%;
+    height: 140px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+.checkout-order-ticket-body {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    width: calc(100% - 60px);
+    height: 140px;
+    background-color: #1c1f23;
+}
+.checkout-order-ticket-body-cover {
+    width: 74px;
+    height: 108px;
+    margin: 16px;
+    border-radius: 12px;
+}
+.checkout-order-ticket-body-2 {
+    flex-grow: 1;
+    padding-top: 16px;
+}
+.checkout-order-ticket-body-2 > div {
+    padding-bottom: 5px;
+    color: var(--txt-color);
+}
+.checkout-order-ticket-body-2-film-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+.checkout-order-ticket-body-2-filial {
+    font-size: 12px;
+    color: #8b919b;
+}
+.checkout-order-ticket-body-2-hall {
+    display: flex;
+    font-size: 12px;
+}
+.checkout-order-ticket-body-2-hall > div {
+    background-color: #414650;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.checkout-order-ticket-body-2-hall > div > span {
+    color: #8b919b;
+    margin-right: 4px;
+}
+.checkout-order-ticket-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 140px;
+    background-color: #1db1ba;
+    border-radius: 0 16px 16px 0;
+}
+.checkout-order-ticket-circle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 32px;
+    background-color: #0e0f11;
+    border-radius: 16px 0 0 16px;
+}
+.checkout-order-ticket-body-3 {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.checkout-order-ticket-body-3-price {
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--txt-color);
+}
+.checkout-order-ticket-body-3-delete {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}
