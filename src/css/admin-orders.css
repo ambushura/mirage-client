@@ -1,6 +1,7 @@
 #page-admin {
     box-sizing: border-box;
     padding: 0 5px 5px 5px;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -15,7 +16,7 @@
 }
 
 .admin-orders-cinema {
-    height: calc(100% - 70px);
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

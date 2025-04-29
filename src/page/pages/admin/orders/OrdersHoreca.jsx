@@ -1,4 +1,4 @@
-import {Box, ButtonGroup, Fade} from "@mui/material"
+import {Box, ButtonGroup} from "@mui/material"
 import PersonIcon from '@mui/icons-material/Person'
 import List from "../../../../ui/List.jsx"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
@@ -10,8 +10,6 @@ import KitchenIcon from '@mui/icons-material/Kitchen'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import {useSetOrdersHoreca} from "../../../../hooks/pages/useSetOrdersHoreca.js"
 import {useSelector} from "react-redux"
-import {TIMEOUT} from "../../../../redux/interfaceReducer.js"
-import Order from "../../../../components/orders/Order.jsx"
 import OrderFood from "./OrderFood.jsx"
 
 const OrdersHoreca = () => {
@@ -82,7 +80,6 @@ const OrdersHoreca = () => {
     useSetOrdersHoreca(false)
 
     const orders = useSelector(state => state.orders.orders_horeca)
-    const horder = useSelector(state => state.orders.horder)
 
     return (
         <Box className='admin-orders-horeca'>
@@ -192,11 +189,6 @@ const OrdersHoreca = () => {
                     </Box>
                 </Box>
             </Box>
-            <Fade in={horder.in_base} timeout={TIMEOUT} unmountOnExit>
-                <Box style={{paddingLeft: '10px'}}>
-                    <Order/>
-                </Box>
-            </Fade>
         </Box>
     )
 }

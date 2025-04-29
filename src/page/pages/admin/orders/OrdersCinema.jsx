@@ -2,7 +2,6 @@ import {Box, Fade, TextField} from "@mui/material"
 import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
-import Order from "../../../../components/orders/Order.jsx"
 import {fetchPreOrder} from "../../../../service/fetch_service.js"
 import {
     NEW_EMPTY_ORDER,
@@ -137,11 +136,6 @@ const OrdersCinema = (props) => {
                         </Box>
                     </Fade>
                 </Box> : null}
-            <Fade in={pre_order.in_base} timeout={TIMEOUT} unmountOnExit>
-                <Box style={{paddingLeft: '10px'}}>
-                    <Order/>
-                </Box>
-            </Fade>
         </Box>
     )
 }

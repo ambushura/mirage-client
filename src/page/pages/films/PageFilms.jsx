@@ -11,7 +11,7 @@ const PageFilms = () => {
     useSetFilms()
 
     const films = useSelector(state => state.schedule.films || [])
-    const pre_orders = useSelector(state => state.orders.pre_order || {in_base: false})
+    const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
     const horder = useSelector(state => state.orders.horder || {in_base: false})
 
     return (
@@ -19,7 +19,7 @@ const PageFilms = () => {
             <ScheduleMenu/>
             <Box id='content-box'>
                 <Box id='content-wrap'>
-                    <Box id='content' style={{overflowX: 'hidden'}}>
+                    <Box id='content'>
                         <Fade in={films.length > 0} timeout={TIMEOUT} unmountOnExit>
                             <Box id="schedule">
                                 {films.map(film => {
@@ -33,7 +33,7 @@ const PageFilms = () => {
                         </Fade>
                     </Box>
                 </Box>
-                {pre_orders.in_base || horder.in_base ? <Order/> : null}
+                {pre_order.in_base || horder.in_base ? <Order/> : null}
             </Box>
         </>
     )
