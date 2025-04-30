@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react"
 import {useSelector} from "react-redux"
 import {useFetching} from "../common/useFetching.js"
+import {ROUTE_CINEMA_HALL_GET} from "../../service/fetch_routes.js"
 
 export function useFetchHall() {
 
@@ -16,7 +17,7 @@ export function useFetchHall() {
         const hall = halls.find(hall => hall.uid === seance.uid_hall)
         if (hall === undefined) {
             if (filial !== undefined && seance !== undefined) {
-                set_url(`http://${filial.ip}:8080/api/get_hall?uid_hall=${seance.uid_hall}`)
+                set_url(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_HALL_GET}?uid_hall=${seance.uid_hall}`)
             } else {
                 set_url(undefined)
             }

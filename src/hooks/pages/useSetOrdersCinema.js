@@ -3,6 +3,7 @@ import {useFetchingArray} from "../common/useFetchingArray.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useFetching} from "../common/useFetching.js"
 import {setOrdersCinema, setOrdersCinemaSchedule} from "../../redux/ordersReducer.js"
+import {ROUTE_CINEMA_ORDERS_GET, ROUTE_CINEMA_ORDERS_GET_SCHEDULE} from "../../service/fetch_routes.js"
 
 export function useSetOrdersCinema(update) {
 
@@ -28,13 +29,13 @@ export function useSetOrdersCinema(update) {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:8080/api/get_orders_schedule?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET_SCHEDULE}?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
                 })
             })
         } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:8080/api/get_orders_schedule?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET_SCHEDULE}?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
             })
         }
         set_urls_schedule(urls_new)
@@ -42,7 +43,7 @@ export function useSetOrdersCinema(update) {
 
     useEffect(() => {
         if (city !== undefined && current_filial !== null && current_uid_seance !== null) {
-            set_url_orders(`http://${current_filial.ip}/api/get_orders_cinema?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
+            set_url_orders(`http://${current_filial.ip}:${current_filial}${ROUTE_CINEMA_ORDERS_GET}?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
         }
     }, [city, current_filial, current_uid_seance, update])
 

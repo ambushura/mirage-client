@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {useFetchingArray} from "../common/useFetchingArray.js"
 import {useDispatch, useSelector} from "react-redux"
 import {setFilms} from "../../redux/scheduleReducer.js"
+import {ROUTE_CINEMA_FILMS_GET} from "../../service/fetch_routes.js"
 
 export function useSetFilms() {
 
@@ -20,13 +21,13 @@ export function useSetFilms() {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:8080/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}?uid_filial=${filial.uid}&date_shift=${param_date}`
                 })
             })
         } else if (city !== undefined && filial !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:8080/api/get_films?uid_filial=${filial.uid}&date_shift=${param_date}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}?uid_filial=${filial.uid}&date_shift=${param_date}`
             })
         }
         if (urls_new.length > 0) {

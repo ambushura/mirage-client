@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react"
 import {useFetching} from "../common/useFetching.js"
 import {useSelector} from "react-redux"
+import {ROUTE_CINEMA_SEANCE_GET_BOOKING} from "../../service/fetch_routes.js"
 
 export function useFetchBooking() {
 
@@ -14,7 +15,7 @@ export function useFetchBooking() {
 
     useEffect(() => {
         if (filial !== undefined && seance !== undefined && pre_order !== undefined) {
-            set_url(`http://${filial.ip}:8080:8080/api/get_booking?uid_seance=${seance.uid}&uid_order=${pre_order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+            set_url(`http://${filial.ip}${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}?uid_seance=${seance.uid}&uid_order=${pre_order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
         } else {
             set_url(undefined)
         }

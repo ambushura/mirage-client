@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
+import path from "path"
+import {fileURLToPath} from "url"
 
-// http://vite.dev/config/
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -9,4 +13,13 @@ export default defineConfig({
     sourcemap: true,
     port: 3000,
   },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    target: 'esnext',
+    assetsDir: 'assets',
+    rollupOptions: {
+      input: path.resolve(__dirname, 'index.html')
+    }
+  }
 })

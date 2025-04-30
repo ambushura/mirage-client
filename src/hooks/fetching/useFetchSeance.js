@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react"
 import {useFetching} from "../common/useFetching.js"
 import {useSelector} from "react-redux"
+import {ROUTE_CINEMA_SEANCE_GET} from "../../service/fetch_routes.js"
 
 export function useFetchSeance() {
 
@@ -13,7 +14,7 @@ export function useFetchSeance() {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:8080/api/get_seance?uid_seance=${uid_seance}`)
+            set_url(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET}?uid_seance=${uid_seance}`)
         } else {
             set_url(undefined)
         }

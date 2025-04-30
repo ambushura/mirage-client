@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {useFetching} from "../common/useFetching.js"
-import {setCurrentHorder, setCurrentPreOrder} from "../../redux/ordersReducer.js";
+import {setCurrentHorder, setCurrentPreOrder} from "../../redux/ordersReducer.js"
+import {ROUTE_COMMON_ORDERS_GET_RECEIPTS} from "../../service/fetch_routes.js"
 
 export function useFetchReceiptsFromOrder(type) {
 
@@ -16,7 +17,7 @@ export function useFetchReceiptsFromOrder(type) {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:8080/api/get_receipts_from_order?&uid_order=${type === 'horeca' ? horder.uid : pre_order.uid}&type=${type}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+            set_url(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_GET_RECEIPTS}?&uid_order=${type === 'horeca' ? horder.uid : pre_order.uid}&type=${type}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
         } else {
             set_url(undefined)
         }

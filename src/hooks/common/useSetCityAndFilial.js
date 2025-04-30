@@ -1,13 +1,13 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {useFetching} from "./useFetching.js"
-import {HOST} from "../../redux/index.js"
 import {setCities, setCity, setFilial} from "../../redux/dataReducer.js"
+import {ROUTE_COMMON_CITIES_GET, ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"
 
 export function useSetCityAndFilial() {
 
     const dispatch = useDispatch()
-    const [fetch_data, loading, error] = useFetching(`http://${HOST}:8080/api/get_cities`)
+    const [fetch_data, loading, error] = useFetching(`http://${ROUTE_MAIN_HOST}${ROUTE_COMMON_CITIES_GET}`)
     const cities = useSelector(state => state.data.cities)
     const param_city = useSelector(state => state.interface.params.param_city)
     const param_filial = useSelector(state => state.interface.params.param_filial)

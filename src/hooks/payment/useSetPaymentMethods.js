@@ -1,6 +1,7 @@
 import {useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {useFetching} from "../common/useFetching.js"
+import {ROUTE_COMMON_PAYMENT_METHODS_GET} from "../../service/fetch_routes.js"
 
 export function useSetPaymentMethods() {
 
@@ -13,7 +14,7 @@ export function useSetPaymentMethods() {
 
     useEffect(() => {
         if (filial !== undefined && name_workplace !== undefined) {
-            set_url(`http://${filial.ip}:8080/api/get_payment_methods?name_workplace=${name_workplace}&&uid_filial=${filial.uid}`)
+            set_url(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}?name_workplace=${name_workplace}&&uid_filial=${filial.uid}`)
         } else {
             set_url(undefined)
         }

@@ -3,6 +3,13 @@ import {setBooking} from "../redux/scheduleReducer.js"
 import axios from "axios"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
+import {
+    ROUTE_CINEMA_KIOSK_POSITION_ADD,
+    ROUTE_CINEMA_ORDER_DELETE,
+    ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_POSITION_ADD, ROUTE_CINEMA_SEANCE_GET_BOOKING,
+    ROUTE_COMMON_LOGIN,
+    ROUTE_HORECA_ORDER_GET, ROUTE_HORECA_POSITION_ADD
+} from "./fetch_routes.js"
 
 export const login = (filial, wp, login_auth, pincode_auth, username, password) => {
     return async (dispatch) => {
@@ -10,7 +17,7 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await fetch(`http://${filial.ip}:8080/api/login`, {
+            const response = await fetch(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_LOGIN}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,7 +51,7 @@ export const fetchPreOrder = (filial, wp, uid_order) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.get(`http://${filial.ip}:8080/api/get_preorder?uid_order=${uid_order}`, {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_GET}?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -69,7 +76,7 @@ export const fetchHorder = (filial, wp, uid_order) => {
             throw new Error("не указано рабочее место")
         }
         try {
-            const response = await axios.get(`http://${filial.ip}:8080/api/get_horder?uid_order=${uid_order}`, {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_GET}?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -93,7 +100,7 @@ export const deletePreOrder = (filial, wp, uid_order) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            await axios.get(`http://${filial.ip}:8080/api/delete_preorder?uid_order=${uid_order}`, {
+            await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_DELETE}?uid_order=${uid_order}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -118,7 +125,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.get(`http://${filial.ip}:8080/api/${token !== null ? '' : 'kiosk/'}take_seat?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${token !== null ? ROUTE_CINEMA_POSITION_ADD : ROUTE_CINEMA_KIOSK_POSITION_ADD}?uid_seance=${uid_seance}&uid_order=${uid_order}&uid_place=${uid_place}&ver=${ver}&uid_city=${city.uid}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -130,7 +137,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
                 } else {
                     dispatch(setCurrentPreOrder(response.data.data))
                 }
-                const booking = await axios.get(`http://${filial.ip}:8080/api/get_booking?uid_seance=${uid_seance}&uid_order=${uid_order}`, {
+                const booking = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}?uid_seance=${uid_seance}&uid_order=${uid_order}`, {
                     timeout: TIMEOUT,
                     headers: {
                         Authorization: token,
@@ -161,7 +168,7 @@ export const horeca_add = (filial, wp, uid_order, ver_order, uid_menu) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.get(`http://${filial.ip}:8080/api/horeca_add?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}`, {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD}?uid_filial=${filial.uid}&uid_order=${uid_order}&ver=${ver_order}&uid_menu=${uid_menu}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -193,7 +200,7 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await axios.post(`http://${filial.ip}:8080:8081/api/payment-server/payment`, {
+            const response = await axios.post(`http://${filial.ip}:8081/api/payment-server/payment`, {
                 uid_filial: filial.uid,
                 uid_payment_type: pm.uid_payment_type,
                 uid_kkt: pm.uid_kkt,
@@ -226,4 +233,4 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
     }
 }
 
-export const TIMEOUT = 2000
+export const TIMEOUT = 10000

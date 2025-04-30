@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {setOrdersHoreca} from "../../redux/ordersReducer.js"
 import {useFetchingArray} from "../common/useFetchingArray.js"
+import {ROUTE_HORECA_ORDERS_GET} from "../../service/fetch_routes.js"
 
 export function useSetOrdersHoreca(update) {
 
@@ -21,13 +22,13 @@ export function useSetOrdersHoreca(update) {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:8080/api/get_orders_horeca?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
                 })
             })
         } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:8080/api/get_orders_horeca?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
             })
         }
         set_urls_orders(urls_new)
