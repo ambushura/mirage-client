@@ -64,6 +64,9 @@ html, body {
     --header-display: flex;
     --page-display: flex;
     --footer-display: flex;
+    --bgr-seance-card: #E0E0E0;
+    --bgr-seance-card-tariff: #EEEEEE;
+    --bgr-scroll: #E0E0E0;
 }
 
 /* ============================== */
@@ -72,6 +75,9 @@ html, body {
 :root[authorized="false"] {
     --bgr-color: #121212;
     --txt-color: white;
+    --bgr-seance-card: #1C1F23;
+    --bgr-seance-card-tariff: #2E3239;
+    --bgr-scroll: #616161;
 }
 
 /* --- Полный экран (НЕавторизован) --- */
@@ -244,15 +250,17 @@ body {
 /* ============================== */
 #content::-webkit-scrollbar,
 .admin-orders-horeca-panel::-webkit-scrollbar,
-.admin-orders-horeca-orders::-webkit-scrollbar {
+.admin-orders-horeca-orders::-webkit-scrollbar,
+.order-box::-webkit-scrollbar {
     width: 50px;
     height: 50px;
     background-color: transparent;
 }
 #content::-webkit-scrollbar-thumb,
 .admin-orders-horeca-panel::-webkit-scrollbar-thumb,
-.admin-orders-horeca-orders::-webkit-scrollbar-thumb {
-    background: #8b919b;
+.admin-orders-horeca-orders::-webkit-scrollbar-thumb,
+.order-box::-webkit-scrollbar-thumb {
+    background: var(--bgr-scroll);
     border-radius: 12px;
 }
 #content::-webkit-scrollbar-track,
@@ -260,7 +268,8 @@ body {
 .admin-orders-horeca-orders::-webkit-scrollbar-track,
 #content::-webkit-scrollbar-corner,
 .admin-orders-horeca-panel::-webkit-scrollbar-corner,
-.admin-orders-horeca-orders::-webkit-scrollbar-corner {
+.admin-orders-horeca-orders::-webkit-scrollbar-corner,
+.order-box::-webkit-scrollbar-corner {
     background: transparent;
 }
 
@@ -623,7 +632,8 @@ body {
     height: auto;
 }
 .schedule-full-seance {
-    background-color: #1C1F23;
+    background-color: var(--bgr-seance-card);
+    color: var(--txt-color) !important;
     width: 210px;
     margin: 0 10px 15px 0;
     border-radius: 12px;
@@ -692,8 +702,9 @@ body {
 }
 .schedule-full-tariff {
     margin-top: 5px;
-    background-color: #2E3239;
+    background-color: var(--bgr-seance-card-tariff);
     border-radius: 12px;
+    color: var(--txt-color);
 }
 .schedule-full-tariff-body {
     display: flex;
@@ -714,6 +725,8 @@ body {
     height: 12px;
 }
 .schedule-full-tariff-place {
+    min-width: 80px;
+    font-size: 80%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -722,7 +735,6 @@ body {
 }
 .schedule-full-tariff-place>div {
     margin-left: 5px;
-    height: 20px;
 }
 .schedule-full-filial-name {
     position: sticky;

@@ -79,7 +79,8 @@ const PageSchedule = () => {
                                                                     <Button variant='contained'
                                                                             style={{
                                                                                 width: '100%',
-                                                                                backgroundColor: '#2E3239'
+                                                                                backgroundColor: 'var(--bgr-seance-card)',
+                                                                                color: 'var(--txt-color)'
                                                                             }}>Зал {hall.name_full_hall}</Button>
                                                                 </Box>
                                                                 <Box className='schedule-full-seances' style={{
