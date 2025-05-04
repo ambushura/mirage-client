@@ -892,7 +892,7 @@ body {
 .component-seance-title-content-type-pushkarta, .component-seance-title-content-type-pushkarta-x2 {
     background-color: #df1782;
     color: white;
-    width: calc(64px * var(--scale));
+    width: calc(72px * var(--scale));
 }
 .component-seance-title-rate-age, .component-seance-title-rate-age-x2 {
     width: calc(40px * var(--scale));

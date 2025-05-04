@@ -24,7 +24,7 @@ const AdminMenu = () => {
 
     return (
         <Box className='admin-panel'>
-            <ButtonGroup size='small' variant='outlined' color='secondary'
+            <ButtonGroup size='small' variant='contained' color='secondary'
                          className='admin-panel-period'>
                 <Button sx={{padding: '0 20px'}} onClick={() => {
                     const date = dayjs(new Date()).format('YYYY-MM-DD')

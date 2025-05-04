@@ -85,7 +85,7 @@ const OrdersHoreca = () => {
         <Box className='admin-orders-horeca'>
             <Box>
                 <Box className='admin-orders-horeca-panel'>
-                    <ButtonGroup variant='outlined' color='secondary'>
+                    <ButtonGroup variant='contained' color='secondary'>
                         <List
                             size='small'
                             open={staff_opened}
