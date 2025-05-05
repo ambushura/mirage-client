@@ -17,16 +17,22 @@ const HorecaItem = (props) => {
     const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
 
     return (
-        <li className='order-box-horeca-item'>
-            <Box className='order-box-horeca-item-1'>
+        <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-horeca-selected' : ''}`}>
+            <Box
+                className='order-box-horeca-item-1'>
                 <button className='order-box-horeca-item-1-calc'
-                     onClick={() => dispatch(openModal({type: 'quantity', props: {}}))}><CalculateIcon/></button>
-                <Box className='order-box-horeca-item-1-1'><Box>{props.item.name}</Box></Box>
-                <Box
-                    className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum} р</Box><Box
+                        onClick={() => dispatch(openModal({type: 'quantity', props: {}}))}><CalculateIcon/></button>
+                <Box className='order-box-horeca-item-1-1' onClick={() => {
+                    props.set_uid_selected(prev =>
+                        prev.includes(props.item.uid)
+                            ? prev.filter(el => el !== props.item.uid)
+                            : [...prev, props.item.uid]
+                    )
+                }}><Box>{props.item.name}</Box></Box>
+                <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum} р</Box><Box
                     sx={{color: '#8B919B'}}>{props.item.quantity} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
-                     onClick={() => dispatch(openModal({type: 'comment', props: {}}))}><BorderColorIcon
+                        onClick={() => dispatch(openModal({type: 'comment', props: {}}))}><BorderColorIcon
                     sx={{color: 'white'}}/></button>
                 <button className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></button>
             </Box>

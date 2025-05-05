@@ -7,26 +7,38 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background-color: #F5F5F5;
 }
 .order-booking-item {
     display: flex;
     justify-content: space-between;
     vertical-align: center;
     margin: 0 4px 4px 0;
+    height: 60px;
+    cursor: pointer;
+    width: 180px;
+}
+.order-booking-item-button {
+    transition: background-color 0.3s;
+    background-color: #1C1F23;
+    border-radius: 12px;
+    color: white;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
 .order-booking-item-description {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: #414650;
-    border-radius: 12px 0 0 12px;
-    padding: 0 8px;
-    width: 120px;
+    justify-content: flex-end;
+    border-radius: 14px;
+    padding-right: 4px;
 }
 .order-booking-item-numbers {
     font-weight: bold;
     margin-right: 5px;
-    color: white;
+    color: black;
 }
 .order-booking-item-labels {
     color: #8B919B;
@@ -153,7 +165,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-order-item);
     border-radius: 12px;
     padding: 5px;
     margin-bottom: 5px;
@@ -198,6 +209,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.position-horeca-selected {
+    background-color: #E0E0E0 !important;
+}
+.position-cinema-selected {
+    background-color: #E0E0E0 !important;
 }
 .order-box-horeca-item-1-1>div {
     text-align: center;

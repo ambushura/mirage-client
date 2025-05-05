@@ -18,18 +18,17 @@ import { closeModal } from "./redux/interfaceReducer.js"
 import Quantity from "./components/modal/Quantity.jsx"
 import Comment from "./components/modal/Comment.jsx"
 import Calc from "./components/modal/Calc.jsx"
+import Discounts from "./components/modal/Discounts.jsx";
 
 function App() {
     const dispatch = useDispatch()
 
-    // Инициализация хуков
     useSetWS()
     useSetCityAndFilial()
     useSetSizeWindow()
     useSetTopMenu()
     useReset()
 
-    // Данные из стора
     const {permissions} = useSelector(state => state.auth)
     const {cities} = useSelector(state => state.data)
     const {modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
@@ -47,6 +46,9 @@ function App() {
                 break
             case 'calc':
                 setModalContent(<Calc/>)
+                break
+            case 'discounts':
+                setModalContent(<Discounts param={modal_props}/>)
                 break
             default:
                 setModalContent(null)

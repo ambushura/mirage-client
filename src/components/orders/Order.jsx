@@ -10,33 +10,36 @@ import Payment from "./Payment.jsx"
 import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying } from "../../redux/ordersReducer.js"
 import { deletePreOrder, fetchPreOrder } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
+import {useState} from "react";
 
-const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchOrder, deleteOrder, navigateTo, dispatch }) => (
-    <Box className="order-box" style={{ height: height }}>
+const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOrder, deleteOrder, navigateTo, dispatch, uid_selected, set_uid_selected}) => (
+    <Box className="order-box" style={{height: height}}>
         {paying ? <Payment type={type} /> : (
             <>
                 <Box className="order-box-panel-1">
                     <ButtonGroup size='large'>
-                        <Button variant="contained" color="info" onClick={() => setPaying(true)}><ReceiptIcon /></Button>
-                        <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon /></Button>
-                        <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon /></Button>
-                        <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon /></Button>
+                        <Button variant="contained" color="info" onClick={() => setPaying(true)}><ReceiptIcon/></Button>
+                        <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
+                        <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
+                        <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
                     </ButtonGroup>
                     <Box className="order-box-panel-1-sum-number">
                         <span className='order-box-panel-1-number'>{order.number ? `№${order.number}` : 'Временные брони'}</span>
-                        <span className='order-box-panel-1-sum'>{order.sum} р</span>
+                        <span className='order-box-panel-1-sum'>{order.sum} Р</span>
                     </Box>
                 </Box>
                 {type === 'cinema' && (
                     <>
                         <Box className="order-box-panel-2">
                             <ButtonGroup size='small'>
-                                <Button variant="contained" color="secondary">Скидки</Button>
-                                <Button variant="contained" color="secondary"><DeleteIcon /></Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                    dispatch(openModal({type: 'discounts', props: {}}))
+                                }}>Скидки</Button>
+                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                     dispatch(openModal({type: 'comment', props: {}}))
                                 }}>Комментарий</Button>
-                                <Button variant="contained" color="secondary"><DeleteIcon /></Button>
+                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                             </ButtonGroup>
                         </Box>
                         <Box className="order-box-panel-3" onClick={navigateTo}>
@@ -54,7 +57,10 @@ const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchO
                         </Box>
                         <Box className="order-box-panel-4">
                             <Box className='order-booking'>{order.items.map(booking => (
-                                <BookingItem key={booking.uid} {...booking} />
+                                <BookingItem key={booking.uid}
+                                             {...booking}
+                                             uid_selected={uid_selected}
+                                             set_uid_selected={set_uid_selected}/>
                             ))}</Box>
                         </Box>
                     </>
@@ -90,7 +96,11 @@ const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchO
                                 <>
                                     <Box className={`order-box-panel-3-title-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>{['Отправить на кухню', 'На кухне', 'Приготовлено', 'Готово к выдаче'][state]}</Box>
                                     <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>
-                                        {order.items.filter(item => item.kitchen.state === state).map(item => <HorecaItem key={item.uid} item={item} />)}
+                                        {order.items.filter(item => item.kitchen.state === state).map(item => <HorecaItem
+                                            key={item.uid}
+                                            item={item}
+                                            uid_selected={uid_selected}
+                                            set_uid_selected={set_uid_selected}/>)}
                                     </ul>
                                 </>
                             )
@@ -114,6 +124,8 @@ const Order = () => {
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
     const wp = useSelector(state => state.interface.wp)
+    const [uid_horeca_selected, set_uid_horeca_selected] = useState([])
+    const [uid_cinema_selected, set_uid_cinema_selected] = useState([])
 
     const seance_link = () => {
         const city = cities.find(el => el.uid === pre_order.uid_city)
@@ -135,6 +147,8 @@ const Order = () => {
                     deleteOrder={() => dispatch(deletePreOrder(filial, wp, pre_order.uid))}
                     navigateTo={() => navigate(seance_link())}
                     dispatch={dispatch}
+                    uid_selected={uid_cinema_selected}
+                    set_uid_selected={set_uid_cinema_selected}
                 />
             ) : null}
             {horder.in_base ? (
@@ -146,6 +160,8 @@ const Order = () => {
                     setPaying={value => dispatch(setHorderPaying(value))}
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                     dispatch={dispatch}
+                    uid_selected={uid_horeca_selected}
+                    set_uid_selected={set_uid_horeca_selected}
                 />
             ) : null}
         </Box>
