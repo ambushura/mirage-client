@@ -18,7 +18,8 @@ import { closeModal } from "./redux/interfaceReducer.js"
 import Quantity from "./components/modal/Quantity.jsx"
 import Comment from "./components/modal/Comment.jsx"
 import Calc from "./components/modal/Calc.jsx"
-import Discounts from "./components/modal/Discounts.jsx";
+import Discounts from "./components/modal/Discounts.jsx"
+import CommentOrder from "./components/modal/CommentOrder.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -35,7 +36,6 @@ function App() {
     const param_date = useSelector(state => state.interface.params.param_date)
     const [modalContent, setModalContent] = useState(null)
 
-    // Обновление содержимого модального окна
     useEffect(() => {
         switch (modal_type) {
             case 'quantity':
@@ -43,6 +43,9 @@ function App() {
                 break
             case 'comment':
                 setModalContent(<Comment param={modal_props}/>)
+                break
+            case 'commentOrder':
+                setModalContent(<CommentOrder param={modal_props}/>)
                 break
             case 'calc':
                 setModalContent(<Calc/>)

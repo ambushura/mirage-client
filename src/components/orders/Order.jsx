@@ -24,7 +24,7 @@ const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOr
                         <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
                     </ButtonGroup>
                     <Box className="order-box-panel-1-sum-number">
-                        <span className='order-box-panel-1-number'>{order.number ? `№${order.number}` : 'Временные брони'}</span>
+                        <span className='order-box-panel-1-number'>{`№${order.number}`}</span>
                         <span className='order-box-panel-1-sum'>{order.sum} Р</span>
                     </Box>
                 </Box>
@@ -37,7 +37,7 @@ const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOr
                                 }}>Скидки</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'comment', props: {}}))
+                                    dispatch(openModal({type: 'commentOrder', props: {}}))
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                             </ButtonGroup>
@@ -77,7 +77,7 @@ const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOr
                             </ButtonGroup>
                             <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'comment', props: {}}))
+                                    dispatch(openModal({type: 'commentOrder', props: {}}))
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}><DeleteIcon/></Button>
