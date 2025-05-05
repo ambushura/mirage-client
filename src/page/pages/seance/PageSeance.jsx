@@ -55,7 +55,7 @@ const PageSeance = () => {
     }, [dispatch, filial, booking_data, count_book])
 
     useEffect(() => {
-        if (!permissions.includes('staff')) {
+        if (!permissions.includes(0)) {
             const timer = setInterval(() => {
                 set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
             }, ORDER_TIME_OUT)
@@ -66,7 +66,7 @@ const PageSeance = () => {
     }, [permissions])
 
     useEffect(() => {
-        if (!permissions.includes('staff')) {
+        if (!permissions.includes(0)) {
             if (time_remaining <= 1) {
                 navigate(-1)
                 dispatch(deletePreOrder(filial, wp, pre_order.uid))

@@ -19,7 +19,7 @@ const Calc = () => {
 
     return (
         <Box sx={{width: 220, mx: "auto", textAlign: "center", color: 'white', overflow: 'hidden'}}>
-            <Typography variant="h5" sx={{mb: 2, fontWeight: 'bold', color: 'black'}}>{`${cash + ' р' || '0'}`}</Typography>
+            <Typography variant="h5" sx={{mb: 2, fontWeight: 'bold', color: 'black'}}>{`${cash + ' Р' || '0'}`}</Typography>
             <Stack spacing={1}>
                 {[[7, 8, 9], [4, 5, 6], [1, 2, 3], [0, "00", "000"]].map((row, index) => (
                     <Stack key={index} direction="row" justifyContent="center">

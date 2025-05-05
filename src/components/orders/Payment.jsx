@@ -275,7 +275,7 @@ const Payment = (props) => {
                                 Кино
                             </Box>
                             <Box className='payment-total-sum'>
-                                {pre_order.sum}
+                                {Math.round(pre_order.sum)}
                             </Box>
                         </Box>
                         <Box>
@@ -283,7 +283,7 @@ const Payment = (props) => {
                                 Общепит
                             </Box>
                             <Box className='payment-total-sum'>
-                                {horder.sum}
+                                {Math.round(horder.sum)}
                             </Box>
                         </Box>
                         <Box sx={{backgroundColor: '#e4e2e2'}}>
@@ -291,7 +291,7 @@ const Payment = (props) => {
                                 Всего
                             </Box>
                             <Box className='payment-total-sum'>
-                                {total}
+                                {Math.round(total)}
                             </Box>
                         </Box>
                         <Box sx={{cursor: 'pointer'}} onClick={() => dispatch(openModal({type: 'calc', props: {}}))}>
@@ -299,7 +299,7 @@ const Payment = (props) => {
                                 Получил
                             </Box>
                             <Box className='payment-total-sum'>
-                                {cash}
+                                {Math.round(cash)}
                             </Box>
                         </Box>
                         <Box style={{

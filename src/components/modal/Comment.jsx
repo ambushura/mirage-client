@@ -1,9 +1,10 @@
-import {Box} from "@mui/material"
+import {Box, Button, TextField} from "@mui/material"
 
 const Comment = () => {
     return (
-        <Box id="modal-comment">
-            Комментарий
+        <Box component='form' display="flex" flexDirection="row" gap={1} id="modal-comment">
+            <TextField label="Комментарий" variant="filled" color="secondary" focused multiline/>
+            <Button variant='contained' color='secondary'>Сохранить</Button>
         </Box>
     )
 }

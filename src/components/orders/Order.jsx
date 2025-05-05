@@ -9,8 +9,9 @@ import { useNavigate } from "react-router-dom"
 import Payment from "./Payment.jsx"
 import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying } from "../../redux/ordersReducer.js"
 import { deletePreOrder, fetchPreOrder } from "../../service/fetch_service.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 
-const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchOrder, deleteOrder, navigateTo }) => (
+const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchOrder, deleteOrder, navigateTo, dispatch }) => (
     <Box className="order-box" style={{ height: height }}>
         {paying ? <Payment type={type} /> : (
             <>
@@ -32,7 +33,9 @@ const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchO
                             <ButtonGroup size='small'>
                                 <Button variant="contained" color="secondary">Скидки</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon /></Button>
-                                <Button variant="contained" color="secondary">Комментарий</Button>
+                                <Button variant="contained" color="secondary" onClick={() => {
+                                    dispatch(openModal({type: 'comment', props: {}}))
+                                }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon /></Button>
                             </ButtonGroup>
                         </Box>
@@ -68,6 +71,7 @@ const OrderPanel = ({ height, type, order, paying, setPaying, emptyOrder, fetchO
                             </ButtonGroup>
                             <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                 <Button variant="contained" color="secondary" onClick={() => {
+                                    dispatch(openModal({type: 'comment', props: {}}))
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                 }}><DeleteIcon/></Button>
@@ -130,6 +134,7 @@ const Order = () => {
                     fetchOrder={() => dispatch(fetchPreOrder(filial, wp, pre_order.uid))}
                     deleteOrder={() => dispatch(deletePreOrder(filial, wp, pre_order.uid))}
                     navigateTo={() => navigate(seance_link())}
+                    dispatch={dispatch}
                 />
             ) : null}
             {horder.in_base ? (
@@ -140,6 +145,7 @@ const Order = () => {
                     paying={horder_paying}
                     setPaying={value => dispatch(setHorderPaying(value))}
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
+                    dispatch={dispatch}
                 />
             ) : null}
         </Box>

@@ -136,4 +136,5 @@ const Hall = (props) => {
         </Fade>
     )
 }
+
 export default Hall
