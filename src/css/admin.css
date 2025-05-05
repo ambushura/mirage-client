@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: #F5F5F5;
+    background-color: #f8f8f8;
 }
 .order-booking-item {
     display: flex;
@@ -34,6 +34,7 @@
     justify-content: flex-end;
     border-radius: 14px;
     padding-right: 4px;
+    background-color: #EEEEEE;
 }
 .order-booking-item-numbers {
     font-weight: bold;
@@ -168,6 +169,7 @@
     border-radius: 12px;
     padding: 5px;
     margin-bottom: 5px;
+    background-color: #EEEEEE;
 }
 .order-box-horeca-item>div {
     margin-bottom: 2px;
