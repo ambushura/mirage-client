@@ -212,11 +212,8 @@
     justify-content: center;
     align-items: center;
 }
-.position-horeca-selected {
-    background-color: #E0E0E0 !important;
-}
-.position-cinema-selected {
-    background-color: #E0E0E0 !important;
+.position-selected {
+    background-color: #BDBDBD !important;
 }
 .order-box-horeca-item-1-1>div {
     text-align: center;

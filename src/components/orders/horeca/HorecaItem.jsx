@@ -17,7 +17,7 @@ const HorecaItem = (props) => {
     const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
 
     return (
-        <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-horeca-selected' : ''}`}>
+        <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-selected' : ''}`}>
             <Box
                 className='order-box-horeca-item-1'>
                 <button className='order-box-horeca-item-1-calc'

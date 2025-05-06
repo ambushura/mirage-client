@@ -10,7 +10,7 @@ const BookingItem = (props) => {
     return (
         <Box className="order-booking-item">
             <Box
-                className={`order-booking-item-description ${props.uid_selected.find(el => el === props.uid) ? 'position-cinema-selected' : ''}`}
+                className={`order-booking-item-description ${props.uid_selected.find(el => el === props.uid) ? 'position-selected' : ''}`}
                 onClick={() => {
                     props.set_uid_selected(prev =>
                         prev.includes(props.uid)
