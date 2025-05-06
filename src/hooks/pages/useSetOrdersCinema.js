@@ -43,7 +43,7 @@ export function useSetOrdersCinema(update) {
 
     useEffect(() => {
         if (city !== undefined && current_filial !== null && current_uid_seance !== null) {
-            set_url_orders(`http://${current_filial.ip}:${current_filial}${ROUTE_CINEMA_ORDERS_GET}?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
+            set_url_orders(`http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_ORDERS_GET}?uid_filial=${current_filial.uid}&uid_seance=${current_uid_seance}`)
         }
     }, [city, current_filial, current_uid_seance, update])
 

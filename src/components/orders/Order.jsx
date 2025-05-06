@@ -52,11 +52,11 @@ const OrderPanel = ({
                         {uid_selected.length > 0 ?
                             <Button variant="outlined" color="secondary" sx={{marginRight: '4px'}} onClick={() => {
                                 set_uid_selected([])
-                            }}><RemoveDoneIcon/></Button> : null}
+                            }} endIcon={<RemoveDoneIcon/>}>{uid_selected.length}</Button> : null}
                     </ButtonGroup>
                     <Box className="order-box-panel-1-sum-number">
                         <span className='order-box-panel-1-number'>{`№${order.number}`}</span>
-                        <span className='order-box-panel-1-sum'>{order.sum} Р</span>
+                        <span className='order-box-panel-1-sum'>{Math.round(order.sum)} Р</span>
                     </Box>
                 </Box>
                 {type === 'cinema' && (

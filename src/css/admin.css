@@ -100,7 +100,7 @@
 }
 
 .order-box-panel-1-sum-number {
-    width: calc(460px - 340px);
+    width: calc(460px - 360px);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
