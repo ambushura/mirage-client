@@ -1,4 +1,4 @@
-import {Box, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material"
+import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material"
 import {useState} from "react"
 
 const Discounts = () => {
@@ -50,7 +50,9 @@ const Discounts = () => {
                                                              value={discount.uid}>{discount.name}</MenuItem>)}
                     </Select>
                 </FormControl>
+                <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary" multiline/>
             </Box>
+            <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary">Сохранить</Button>
         </Box>
     )
 }
