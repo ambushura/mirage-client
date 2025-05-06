@@ -7,7 +7,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
-import Calendar from "../modal/Calendar.jsx"
+import Calendar from "../forms/Calendar.jsx"
 
 const ScheduleMenu = () => {
 

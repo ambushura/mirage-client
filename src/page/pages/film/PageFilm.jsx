@@ -4,7 +4,7 @@ import Order from "../../../components/orders/Order.jsx"
 import cover from "../../../images/cover.jpg"
 import SeanceCard from "./SeanceCard.jsx"
 import {useSelector} from "react-redux"
-import Loader from "../../../components/modal/Loader.jsx"
+import Loader from "../../../components/elements/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 import {useSetFilm} from "../../../hooks/pages/useSetFilm.js"
 

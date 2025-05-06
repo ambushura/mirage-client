@@ -4,7 +4,7 @@ import {useFetchReceiptsFromOrder} from "../../hooks/payment/useFetchReceiptsFro
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {useEffect, useMemo, useState} from "react"
-import Loader from "../modal/Loader.jsx"
+import Loader from "../elements/Loader.jsx"
 import {
     setCash,
     setHorderPaying,

@@ -5,7 +5,7 @@ import {useSelector} from "react-redux"
 import {useEffect, useRef, useState} from "react"
 import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
-import Loader from "../../../components/modal/Loader.jsx"
+import Loader from "../../../components/elements/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 
 const PageSchedule = () => {

@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import App from './App.jsx'
 import store from './redux/index.js'
-import Notifier from './components/modal/Notifier.jsx'
+import Notifier from './components/elements/Notifier.jsx'
 import { Theme, ThemeBlackWhite } from './ui/ThemeContext.jsx'
 
 import 'dayjs/locale/ru'

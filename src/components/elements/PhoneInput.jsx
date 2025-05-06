@@ -12,7 +12,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
             overwrite
             unmask={false}
             inputRef={ref}
-            onAccept={(value) => onChange({ target: { name: props.name, value } })}
+            onAccept={(value) => onChange({target: {name: props.name, value}})}
         />
     )
 })

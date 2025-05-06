@@ -15,11 +15,11 @@ import { useSetWS } from "./hooks/common/useSetWS.js"
 import { useReset } from "./hooks/common/useReset.js"
 
 import { closeModal } from "./redux/interfaceReducer.js"
-import Quantity from "./components/modal/Quantity.jsx"
-import Comment from "./components/modal/Comment.jsx"
-import Calc from "./components/modal/Calc.jsx"
-import Discounts from "./components/modal/Discounts.jsx"
-import CommentOrder from "./components/modal/CommentOrder.jsx"
+import Quantity from "./components/forms/Quantity.jsx"
+import Comment from "./components/forms/Comment.jsx"
+import Calc from "./components/forms/Calc.jsx"
+import Discounts from "./components/forms/Discounts.jsx"
+import CommentOrder from "./components/forms/CommentOrder.jsx"
 
 function App() {
     const dispatch = useDispatch()
