@@ -12,31 +12,39 @@
     transition: background-color 0.3s;
     box-sizing: border-box;
 }
+
 a, a:link, a:visited {
     color: white;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: none;
 }
+
 aside, nav, footer, header, section, main {
     display: block;
 }
+
 ul, li {
     list-style: none;
 }
+
 img, svg {
     max-width: 100%;
     height: auto;
     vertical-align: top;
 }
+
 label {
     cursor: pointer;
 }
+
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 html, body {
     touch-action: none;
     user-select: none;
@@ -96,6 +104,7 @@ html, body {
     --page-display: flex;
     --footer-display: flex;
 }
+
 /* ============================== */
 /*            КОНТЕНТ             */
 /* ============================== */
@@ -103,25 +112,33 @@ html, body {
     --content-width: calc(100% - var(--order-width));
     --order-display: flex;
 }
+
 :root[show-order="false"] {
     --content-width: 100%;
     --order-display: none;
 }
+
 :root[top-menu="true"] {
     --top-menu-height: 65px;
 }
+
 :root[top-menu="false"] {
     --top-menu-height: 0px;
 }
+
 /* ============================== */
 /*            РЕЗУЛЬТАТ           */
 /* ============================== */
 body {
     background-color: var(--bgr-color);
 }
+
 #app {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -130,28 +147,34 @@ body {
     background-color: var(--bgr-color);
     color: var(--txt-color);
 }
+
 #header {
     height: var(--header-height);
     display: var(--header-display);
     width: inherit;
     position: relative;
 }
+
 #header-desktop {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: 101;
 }
+
 #header-menu {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
+
 #page {
     height: var(--page-height);
     display: var(--page-display);
@@ -159,15 +182,18 @@ body {
     width: inherit;
     position: relative;
 }
+
 #top-menu {
     height: var(--top-menu-height);
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 #content-box {
 
 }
+
 #content-box {
     width: inherit;
     height: calc(var(--page-height) - var(--top-menu-height));
@@ -175,6 +201,7 @@ body {
     display: flex;
     flex-direction: row;
 }
+
 #content-wrap {
     height: inherit;
     width: var(--content-width);
@@ -183,14 +210,17 @@ body {
     justify-content: space-between;
     overflow: hidden;
 }
+
 #content {
     overflow: auto;
     width: 100%;
 }
+
 #order {
     width: var(--order-width);
     display: var(--order-display);
 }
+
 #footer {
     height: var(--footer-height);
     display: var(--footer-display);
@@ -205,9 +235,6 @@ body {
 }
 
 
-
-
-
 /* ============================== */
 /*          ГРАДИЕНТ              */
 /* ============================== */
@@ -218,6 +245,7 @@ body {
     width: var(--grad-line);
     height: 100%;
 }
+
 .grad-r {
     position: absolute;
     background: linear-gradient(to left, var(--bgr-color), rgba(0, 0, 0, 0));
@@ -225,6 +253,7 @@ body {
     width: var(--grad-line);
     height: 100%;
 }
+
 .grad-t {
     position: absolute;
     background: linear-gradient(to bottom, var(--bgr-color), rgba(0, 0, 0, 0));
@@ -232,6 +261,7 @@ body {
     height: var(--grad-line);
     width: 100%;
 }
+
 .grad-b {
     position: absolute;
     background: linear-gradient(to top, var(--bgr-color), rgba(0, 0, 0, 0));
@@ -239,9 +269,6 @@ body {
     height: var(--grad-line);
     width: 100%;
 }
-
-
-
 
 
 /* ============================== */
@@ -255,6 +282,7 @@ body {
     height: 50px;
     background-color: transparent;
 }
+
 #content::-webkit-scrollbar-thumb,
 .admin-orders-horeca-panel::-webkit-scrollbar-thumb,
 .admin-orders-horeca-orders::-webkit-scrollbar-thumb,
@@ -262,6 +290,7 @@ body {
     background: var(--bgr-scroll);
     border-radius: 12px;
 }
+
 #content::-webkit-scrollbar-track,
 .admin-orders-horeca-panel::-webkit-scrollbar-track,
 .admin-orders-horeca-orders::-webkit-scrollbar-track,
@@ -271,9 +300,6 @@ body {
 .order-box::-webkit-scrollbar-corner {
     background: transparent;
 }
-
-
-
 
 
 /* ============================== */
@@ -286,6 +312,7 @@ body {
     height: 100%;
     overflow: hidden;
 }
+
 .slide {
     position: absolute;
     top: 0;
@@ -295,19 +322,17 @@ body {
     opacity: 0;
     transition: opacity 0.5s ease;
 }
+
 .slide-active {
     opacity: 1;
 }
+
 .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
-
-
-
-
 
 
 /* ============================== */
@@ -317,7 +342,8 @@ body {
     width: fit-content;
     height: fit-content;
     position: absolute;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     border-radius: 20px;
     background-color: var(--bgr-color);
     padding: 10px;
@@ -328,10 +354,6 @@ body {
 }
 
 
-
-
-
-
 /* ============================== */
 /*       ПЛИТКИ РАСПИСАНИЯ        */
 /* ============================== */
@@ -340,17 +362,20 @@ body {
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .film {
     margin: 0 0 0 16px;
     height: 340px;
     width: 174px;
     position: relative;
 }
+
 .film-poster {
     position: relative;
     height: 268px;
     width: 100%;
 }
+
 .film-poster-img {
     position: absolute;
     top: 0;
@@ -359,6 +384,7 @@ body {
     width: 100%;
     border-radius: 12px;
 }
+
 .film-rate-age {
     position: absolute;
     background-color: white;
@@ -374,6 +400,7 @@ body {
     align-items: center;
     color: #2E3239;
 }
+
 .film-description {
     position: absolute;
     bottom: 0;
@@ -383,6 +410,7 @@ body {
     flex-direction: column;
     color: var(--txt-color);
 }
+
 .film-description-name {
     font-weight: 600;
     font-size: 14px;
@@ -394,13 +422,12 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
 .film-description-genre {
     color: #8B919B;
     font-size: 12px;
     margin-left: 12px;
 }
-
-
 
 
 /* ============================== */
@@ -412,50 +439,62 @@ body {
     overflow: hidden;
     padding: 12px;
 }
+
 .seances-cover {
     min-width: 184px;
     max-width: 184px;
 }
+
 .seances-cover-img {
     border-radius: 12px;
 }
+
 .seances-body-poster {
     display: flex;
     flex-direction: row;
 }
-.seances-body-poster>div {
+
+.seances-body-poster > div {
     padding: 5px 10px;
 }
+
 .seances-body {
     display: flex;
     flex-direction: column;
 }
+
 .seances-body-filial {
     margin-bottom: 10px;
 }
+
 .seances-body-filial-name {
     font-size: 18px;
     font-weight: 900;
     margin-bottom: 20px;
     color: var(--txt-color);
 }
+
 .seances-body-description {
     margin-bottom: 20px;
     color: var(--txt-color);
 }
+
 .seances-body-description-name {
     font-size: 32px;
     font-weight: 900;
 }
+
 .seances-body-description-genre {
     margin: 5px 0 20px 0;
     color: #8B919B;
 }
+
 .seances-body-seances {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .seances-body-seance {
     width: 80px;
     height: 100px;
@@ -463,6 +502,7 @@ body {
     cursor: pointer;
     color: white;
 }
+
 .seances-body-seance-description {
     display: flex;
     width: 80px;
@@ -472,17 +512,20 @@ body {
     flex-direction: column;
     justify-content: center
 }
+
 .seances-body-seance-description-time {
     font-weight: 900;
     text-align: center;
     vertical-align: center;
 }
+
 .seances-body-seance-description-copy-type {
     text-align: center;
     vertical-align: center;
     color: #8B919B;
     font-size: 12px;
 }
+
 .seances-body-seance-price {
     text-align: center;
     vertical-align: center;
@@ -490,8 +533,6 @@ body {
     font-size: 14px;
     color: var(--txt-color);
 }
-
-
 
 
 /* ============================== */
@@ -503,6 +544,7 @@ body {
     align-items: center;
     overflow: hidden;
 }
+
 #seance-title {
     width: 100%;
     display: flex;
@@ -512,28 +554,34 @@ body {
     padding: 10px 0;
     text-align: center;
 }
-#seance-title>div {
+
+#seance-title > div {
     margin-bottom: 5px;
 }
+
 .seance-title-film-name {
     font-size: 30px;
     font-weight: bold;
     overflow: hidden;
     color: var(--txt-color);
 }
+
 .seance-title-hall-name {
     font-size: 18px;
     color: #8B919B;
     font-weight: bold;
 }
+
 .seance-title-panel {
     display: flex;
 }
+
 .seance-title-preorder {
     height: 48px;
     color: white;
     display: flex;
 }
+
 .seance-title-timeslot {
     padding: 0 10px;
     height: 48px;
@@ -546,13 +594,11 @@ body {
     align-items: center;
     font-weight: 900;
 }
+
 .seance-title-timeslot-day {
     color: #8B919B;
     margin-left: 5px;
 }
-
-
-
 
 
 /* ============================== */
@@ -563,6 +609,7 @@ body {
     width: 100%;
     overflow: hidden;
 }
+
 .hall-row {
     position: absolute;
     display: flex;
@@ -573,18 +620,18 @@ body {
     color: #8B919B;
     transform-origin: top left;
 }
+
 .hall-places {
     position: absolute;
     height: 100%;
 }
+
 .hall-screen {
     position: absolute;
     width: 100%;
     height: 60px;
     bottom: -60px;
 }
-
-
 
 
 /* ============================== */
@@ -595,6 +642,7 @@ body {
     flex-direction: column;
     width: 100%;
 }
+
 .schedule-full-filial {
     display: flex;
     flex-direction: row;
@@ -602,11 +650,13 @@ body {
     padding: 0 15px;
     width: fit-content;
 }
+
 .schedule-full-hall {
     display: flex;
     flex-direction: column;
     height: auto;
 }
+
 .schedule-full-hall-name {
     box-sizing: border-box;
     width: calc(100% - 10px);
@@ -620,16 +670,19 @@ body {
     color: black;
     background-color: var(--bgr-color);
 }
-.schedule-full-hall-name>div {
+
+.schedule-full-hall-name > div {
     font-size: 18px;
     font-weight: bold;
 }
+
 .schedule-full-seances {
     display: flex;
     flex-direction: column;
     overflow: hidden;
     height: auto;
 }
+
 .schedule-full-seance {
     background-color: var(--bgr-seance-card);
     color: var(--txt-color) !important;
@@ -640,11 +693,13 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
+
 .schedule-full-seance-title {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
+
 .schedule-full-seance-title-age {
     width: 19px;
     height: 20px;
@@ -652,6 +707,7 @@ body {
     font-weight: bold;
     margin: 12px;
 }
+
 .schedule-full-seance-time-copy-type {
     margin: 12px;
     width: 110px;
@@ -660,6 +716,7 @@ body {
     font-size: 12px;
     font-weight: bold;
 }
+
 .schedule-full-seance-title-time {
     background-color: white;
     border-radius: 6px;
@@ -674,10 +731,12 @@ body {
     top: 0;
     left: 0;
 }
-.schedule-full-seance-title-time>span {
+
+.schedule-full-seance-title-time > span {
     padding-left: 3px;
     color: #8B919B;
 }
+
 .schedule-full-seance-title-copy-type {
     top: 0;
     left: 0;
@@ -687,7 +746,8 @@ body {
     position: absolute;
     border-radius: 6px;
 }
-.schedule-full-seance-title-copy-type>span {
+
+.schedule-full-seance-title-copy-type > span {
     position: absolute;
     right: 0;
     width: 30px;
@@ -696,15 +756,18 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .schedule-full-seance-film-name {
     font-weight: bold;
 }
+
 .schedule-full-tariff {
     margin-top: 5px;
     background-color: var(--bgr-seance-card-tariff);
     border-radius: 12px;
     color: var(--txt-color);
 }
+
 .schedule-full-tariff-body {
     display: flex;
     flex-direction: row;
@@ -713,16 +776,19 @@ body {
     font-weight: bold;
     padding: 5px;
 }
+
 .schedule-full-tariff-footer {
     height: 12px;
     display: flex;
     justify-content: center;
     align-items: end;
 }
+
 .schedule-full-tariff-footer-circle {
     width: 24px;
     height: 12px;
 }
+
 .schedule-full-tariff-place {
     min-width: 80px;
     font-size: 80%;
@@ -732,9 +798,11 @@ body {
     align-items: center;
     margin-left: 5px;
 }
-.schedule-full-tariff-place>div {
+
+.schedule-full-tariff-place > div {
     margin-left: 5px;
 }
+
 .schedule-full-filial-name {
     position: sticky;
     left: 0;
@@ -745,10 +813,12 @@ body {
     height: 65px;
     background-color: var(--bgr-color);
 }
-.schedule-full-filial-name>span {
+
+.schedule-full-filial-name > span {
     width: 210px;
     background-color: #0e0f11;
 }
+
 .circle {
     width: 24px;
     height: 12px;
@@ -758,22 +828,23 @@ body {
 }
 
 
-
-
 /* ============================== */
 /*              МЕНЮ              */
 /* ============================== */
 #horeca-menu {
     padding: 5px;
 }
+
 .menu-breadcrumbs, .menu-folders, .menu-items {
     display: flex;
     flex-wrap: wrap;
 }
+
 .menu-breadcrumbs > div, .menu-folders > div, .menu-items > div {
     margin: 0 5px 5px 0;
     font-weight: bold;
 }
+
 .menu-breadcrumb, .menu-folder, .menu-item {
     display: flex;
     width: 140px;
@@ -784,6 +855,7 @@ body {
     flex-direction: column;
     cursor: pointer;
 }
+
 .menu-breadcrumb > div, .menu-folder > div, .menu-item > div {
     padding: 5px;
     max-width: calc(140px - 10px);
@@ -793,22 +865,22 @@ body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
+
 .menu-breadcrumb {
     background-color: #1EC7D3;
     color: black;
 }
+
 .menu-folder {
     background-color: #50DB92;
     color: black;
 }
+
 .menu-item {
     background-color: var(--bg-menu-item);
     color: black;
     justify-content: space-between;
 }
-
-
-
 
 
 /* ============================== */
@@ -826,6 +898,7 @@ body {
     flex-wrap: nowrap;
     position: relative;
 }
+
 .component-seance-title-x2 {
     --scale: 2;
     --font-size: calc(12px * 1.5);
@@ -836,6 +909,7 @@ body {
     --inner-padding-left: calc(10px * 1.5);
     margin-right: 20px;
 }
+
 .component-seance-title > div,
 .component-seance-title-x2 > div {
     font-size: var(--font-size);
@@ -848,16 +922,32 @@ body {
     align-items: center;
     height: calc(24px * var(--scale));
 }
+
 .component-seance-title > div:nth-child(1),
-.component-seance-title-x2 > div:nth-child(1) { z-index: 5; }
+.component-seance-title-x2 > div:nth-child(1) {
+    z-index: 5;
+}
+
 .component-seance-title > div:nth-child(2),
-.component-seance-title-x2 > div:nth-child(2) { z-index: 4; }
+.component-seance-title-x2 > div:nth-child(2) {
+    z-index: 4;
+}
+
 .component-seance-title > div:nth-child(3),
-.component-seance-title-x2 > div:nth-child(3) { z-index: 3; }
+.component-seance-title-x2 > div:nth-child(3) {
+    z-index: 3;
+}
+
 .component-seance-title > div:nth-child(4),
-.component-seance-title-x2 > div:nth-child(4) { z-index: 2; }
+.component-seance-title-x2 > div:nth-child(4) {
+    z-index: 2;
+}
+
 .component-seance-title > div:nth-child(5),
-.component-seance-title-x2 > div:nth-child(5) { z-index: 1; }
+.component-seance-title-x2 > div:nth-child(5) {
+    z-index: 1;
+}
+
 .component-seance-title > div > div,
 .component-seance-title-x2 > div > div {
     padding-left: var(--inner-padding-left);
@@ -868,37 +958,40 @@ body {
     color: black;
     width: calc(80px * var(--scale));
 }
+
 .component-seance-title-time > div > span,
 .component-seance-title-time-x2 > div > span {
     background-color: #fff;
     color: #8B919B;
 }
+
 .component-seance-title-day, .component-seance-title-day-x2 {
     background-color: #fff;
     color: black;
     width: calc(40px * var(--scale));
 }
+
 .component-seance-title-copy-type, .component-seance-title-copy-type-x2 {
     background-color: #E3000B;
     color: white;
     width: calc(30px * var(--scale));
 }
+
 .component-seance-title-content-type-toKino, .component-seance-title-content-type-toKino-x2 {
     background-color: #FFCF09;
     color: black;
     width: calc(68px * var(--scale));
 }
+
 .component-seance-title-content-type-pushkarta, .component-seance-title-content-type-pushkarta-x2 {
     background-color: #df1782;
     color: white;
     width: calc(72px * var(--scale));
 }
+
 .component-seance-title-rate-age, .component-seance-title-rate-age-x2 {
     width: calc(40px * var(--scale));
 }
-
-
-
 
 
 /* ========================== */
@@ -911,16 +1004,19 @@ body {
     height: 100%;
     padding: 10px 0;
 }
+
 .order-panel {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding: 0 10px;
 }
+
 .order-progress {
     height: 100%;
     border-radius: 12px;
 }
+
 #checkout-order {
     display: flex;
     justify-content: center;
@@ -930,10 +1026,12 @@ body {
     height: calc(100vh - 62px);
     padding: 0 10px;
 }
+
 #checkout-total {
     width: 280px;
     padding: 10px;
 }
+
 #checkout-total-box {
     width: 100%;
     padding: 16px;
@@ -942,6 +1040,7 @@ body {
     background-color: #1c1f23;
     box-sizing: border-box;
 }
+
 .checkout-order-title-box {
     display: flex;
     justify-content: space-between;
@@ -949,12 +1048,14 @@ body {
     font-weight: bold;
     color: var(--txt-color);
 }
+
 .checkout-order-title {
     margin: 20px 0 20px 16px;
     font-size: 32px;
     font-weight: bold;
     color: var(--txt-color);
 }
+
 .checkout-order-tickets-box {
     width: 100%;
     height: calc(100% - 77px);
@@ -964,14 +1065,17 @@ body {
     padding-right: 17px;
     box-sizing: content-box;
 }
+
 .checkout-order-tickets-box::-webkit-scrollbar {
     display: none;
 }
+
 .checkout-order-tickets {
     width: 584px;
     display: flex;
     flex-direction: column;
 }
+
 .checkout-order-ticket {
     width: 100%;
     height: 140px;
@@ -980,6 +1084,7 @@ body {
     position: relative;
     overflow: hidden;
 }
+
 .checkout-order-ticket-body {
     display: flex;
     flex-wrap: nowrap;
@@ -990,32 +1095,39 @@ body {
     height: 140px;
     background-color: #1c1f23;
 }
+
 .checkout-order-ticket-body-cover {
     width: 74px;
     height: 108px;
     margin: 16px;
     border-radius: 12px;
 }
+
 .checkout-order-ticket-body-2 {
     flex-grow: 1;
     padding-top: 16px;
 }
+
 .checkout-order-ticket-body-2 > div {
     padding-bottom: 5px;
     color: var(--txt-color);
 }
+
 .checkout-order-ticket-body-2-film-name {
     font-size: 14px;
     font-weight: bold;
 }
+
 .checkout-order-ticket-body-2-filial {
     font-size: 12px;
     color: #8b919b;
 }
+
 .checkout-order-ticket-body-2-hall {
     display: flex;
     font-size: 12px;
 }
+
 .checkout-order-ticket-body-2-hall > div {
     background-color: #414650;
     margin-right: 5px;
@@ -1023,10 +1135,12 @@ body {
     border-radius: 8px;
     font-weight: bold;
 }
+
 .checkout-order-ticket-body-2-hall > div > span {
     color: #8b919b;
     margin-right: 4px;
 }
+
 .checkout-order-ticket-right {
     position: absolute;
     top: 0;
@@ -1036,6 +1150,7 @@ body {
     background-color: #1db1ba;
     border-radius: 0 16px 16px 0;
 }
+
 .checkout-order-ticket-circle {
     position: absolute;
     right: 0;
@@ -1046,25 +1161,26 @@ body {
     background-color: #0e0f11;
     border-radius: 16px 0 0 16px;
 }
+
 .checkout-order-ticket-body-3 {
     width: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+
 .checkout-order-ticket-body-3-price {
     padding: 16px;
     font-size: 18px;
     font-weight: bold;
     color: var(--txt-color);
 }
+
 .checkout-order-ticket-body-3-delete {
     display: flex;
     justify-content: center;
     padding: 16px;
 }
-
-
 
 
 /* ========================== */
@@ -1077,6 +1193,7 @@ body {
     overflow-y: hidden;
     padding-left: 4px;
 }
+
 .order-box {
     width: 100%;
     display: flex;

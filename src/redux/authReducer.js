@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 import {jwtDecode} from "jwt-decode"
 
 const getStorageItem = (key, fallback = null) => {
@@ -78,5 +78,5 @@ const authReducer = createSlice({
     }
 })
 
-export const { loginSuccess, logout } = authReducer.actions
+export const {loginSuccess, logout} = authReducer.actions
 export default authReducer.reducer

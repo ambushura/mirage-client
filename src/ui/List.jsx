@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import {useEffect} from 'react'
 import {
     Button,
     ClickAwayListener,
@@ -144,12 +144,13 @@ const List = (props) => {
                                                 }}>
                                                     <>
                                                         <ListItemIcon sx={{color: 'white'}}>
-                                                        {el.id === 'admin/orders/cinema' ? <ConfirmationNumberIcon/> :
-                                                            el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
-                                                                el.id === 'admin/total' ? <EqualizerIcon/> :
-                                                                    el.id === 'admin/halls' ? <ChairIcon/> :
-                                                                        el.id === 'admin/equipment' ?
-                                                                            <TerminalIcon/> : null}
+                                                            {el.id === 'admin/orders/cinema' ?
+                                                                <ConfirmationNumberIcon/> :
+                                                                el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
+                                                                    el.id === 'admin/total' ? <EqualizerIcon/> :
+                                                                        el.id === 'admin/halls' ? <ChairIcon/> :
+                                                                            el.id === 'admin/equipment' ?
+                                                                                <TerminalIcon/> : null}
                                                         </ListItemIcon>
                                                         <ListItemText>
                                                             {el.name}

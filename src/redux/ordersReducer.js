@@ -89,7 +89,8 @@ export const ordersSlice = createSlice({
     },
 })
 
-export const { setDate,
+export const {
+    setDate,
     setCurrentPreOrder,
     setCurrentHorder,
     setCash,
@@ -99,5 +100,6 @@ export const { setDate,
     setOrdersCinemaSchedule,
     setOrdersCinema,
     setOrdersCinemaFilialSeance,
-    setOrdersHoreca,} = ordersSlice.actions
+    setOrdersHoreca,
+} = ordersSlice.actions
 export default ordersSlice.reducer

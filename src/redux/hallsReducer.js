@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
     halls: []
@@ -16,5 +16,5 @@ export const hallsSlice = createSlice({
     },
 })
 
-export const { addHall } = hallsSlice.actions
+export const {addHall} = hallsSlice.actions
 export default hallsSlice.reducer

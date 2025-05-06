@@ -11,14 +11,20 @@ const BookingItem = (props) => {
         <Box className="order-booking-item">
             <Box
                 className={`order-booking-item-description ${props.uid_selected.find(el => el === props.uid) ? 'position-selected' : ''}`}>
-                <div style={{height:'100%', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'calc(100% - 50px)'}}
+                <div style={{
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 'calc(100% - 50px)'
+                }}
                      onClick={() => {
-                    props.set_uid_selected(prev =>
-                        prev.includes(props.uid)
-                            ? prev.filter(el => el !== props.uid)
-                            : [...prev, props.uid]
-                    )
-                }}>
+                         props.set_uid_selected(prev =>
+                             prev.includes(props.uid)
+                                 ? prev.filter(el => el !== props.uid)
+                                 : [...prev, props.uid]
+                         )
+                     }}>
                     <span className="order-booking-item-numbers">{props.place_row}</span>
                     <span className="order-booking-item-labels">р</span>
                     <span className="order-booking-item-numbers">{props.place_number}</span>

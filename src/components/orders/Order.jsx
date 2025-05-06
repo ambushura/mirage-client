@@ -1,20 +1,47 @@
 import "../../css/admin.css"
-import { Box, Button, ButtonGroup } from "@mui/material"
-import { Receipt as ReceiptIcon, DeleteForever as DeleteForeverIcon, Cached as CachedIcon, Delete as DeleteIcon, Close as CloseIcon } from '@mui/icons-material'
-import { useDispatch, useSelector } from "react-redux"
+import {Box, Button, ButtonGroup} from "@mui/material"
+import {
+    Receipt as ReceiptIcon,
+    DeleteForever as DeleteForeverIcon,
+    Cached as CachedIcon,
+    Delete as DeleteIcon,
+    Close as CloseIcon
+} from '@mui/icons-material'
+import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"
 import BookingItem from "./cinema/BookingItem.jsx"
 import HorecaItem from "./horeca/HorecaItem.jsx"
-import { useNavigate } from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import Payment from "./Payment.jsx"
-import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying } from "../../redux/ordersReducer.js"
-import { deletePreOrder, fetchPreOrder } from "../../service/fetch_service.js"
+import {
+    NEW_EMPTY_HORDER,
+    NEW_EMPTY_ORDER,
+    setCurrentHorder,
+    setCurrentPreOrder,
+    setHorderPaying,
+    setPreOrderPaying
+} from "../../redux/ordersReducer.js"
+import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
-import {useState} from "react";
+import {useState} from "react"
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 
-const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOrder, deleteOrder, navigateTo, dispatch, uid_selected, set_uid_selected}) => (
+const OrderPanel = ({
+                        height,
+                        type,
+                        order,
+                        paying,
+                        setPaying,
+                        emptyOrder,
+                        fetchOrder,
+                        deleteOrder,
+                        navigateTo,
+                        dispatch,
+                        uid_selected,
+                        set_uid_selected
+                    }) => (
     <Box className="order-box" style={{height: height}}>
-        {paying ? <Payment type={type} /> : (
+        {paying ? <Payment type={type}/> : (
             <>
                 <Box className="order-box-panel-1">
                     <ButtonGroup size='large'>
@@ -22,6 +49,10 @@ const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOr
                         <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
                         <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
                         <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
+                        {uid_selected.length > 0 ?
+                            <Button variant="outlined" color="secondary" sx={{marginRight: '4px'}} onClick={() => {
+                                set_uid_selected([])
+                            }}><RemoveDoneIcon/></Button> : null}
                     </ButtonGroup>
                     <Box className="order-box-panel-1-sum-number">
                         <span className='order-box-panel-1-number'>{`№${order.number}`}</span>
@@ -51,7 +82,7 @@ const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOr
                                     copy_type: order.film_copy_type,
                                     rate_age: order.film_rate_age,
                                     content_type: order.seance_content_type
-                            }} content_type={true} day={true} its_hall_map={true} age={true}/>
+                                }} content_type={true} day={true} its_hall_map={true} age={true}/>
                             <Box className='seance-title-film-name'>{order.film_name}</Box>
                             <Box className='seance-title-hall-name'>Зал {order.hall_full_name}</Box>
                         </Box>
@@ -67,46 +98,48 @@ const OrderPanel = ({height, type, order, paying, setPaying, emptyOrder, fetchOr
                 )}
                 {type === 'horeca' && (
                     <>
-                    <Box className="order-box-panel-2">
-                        <ButtonGroup sx={{marginBottom: '4px'}} size='small'>
-                            <ButtonGroup sx={{marginRight: '4px'}} size='small'>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}>Пречек</Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}>Разделить</Button>
+                        <Box className="order-box-panel-2">
+                            <ButtonGroup sx={{marginBottom: '4px'}} size='small'>
+                                <ButtonGroup sx={{marginRight: '4px'}} size='small'>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}>Пречек</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}>Разделить</Button>
+                                </ButtonGroup>
+                                <ButtonGroup sx={{marginRight: '4px'}} size='small'>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                        dispatch(openModal({type: 'commentOrder', props: {}}))
+                                    }}>Комментарий</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><DeleteIcon/></Button>
+                                </ButtonGroup>
+                                <ButtonGroup size='small'>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}>Стол</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><DeleteIcon/></Button>
+                                </ButtonGroup>
                             </ButtonGroup>
-                            <ButtonGroup sx={{marginRight: '4px'}} size='small'>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'commentOrder', props: {}}))
-                                }}>Комментарий</Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><DeleteIcon/></Button>
-                            </ButtonGroup>
-                            <ButtonGroup size='small'>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}>Стол</Button>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                }}><DeleteIcon/></Button>
-                            </ButtonGroup>
-                        </ButtonGroup>
-                    </Box>
-                    <Box className="order-box-panel-3">
-                        {[1, 2, 3, 0].map(state => (
-                            order.items.some(item => item.kitchen.state === state) && (
-                                <>
-                                    <Box className={`order-box-panel-3-title-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>{['Отправить на кухню', 'На кухне', 'Приготовлено', 'Готово к выдаче'][state]}</Box>
-                                    <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>
-                                        {order.items.filter(item => item.kitchen.state === state).map(item => <HorecaItem
-                                            key={item.uid}
-                                            item={item}
-                                            uid_selected={uid_selected}
-                                            set_uid_selected={set_uid_selected}/>)}
-                                    </ul>
-                                </>
-                            )
-                        ))}
-                    </Box>
-                        </>
+                        </Box>
+                        <Box className="order-box-panel-3">
+                            {[1, 2, 3, 0].map(state => (
+                                order.items.some(item => item.kitchen.state === state) && (
+                                    <>
+                                        <Box
+                                            className={`order-box-panel-3-title-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>{['Отправить на кухню', 'На кухне', 'Приготовлено', 'Готово к выдаче'][state]}</Box>
+                                        <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>
+                                            {order.items.filter(item => item.kitchen.state === state).map(item =>
+                                                <HorecaItem
+                                                    key={item.uid}
+                                                    item={item}
+                                                    uid_selected={uid_selected}
+                                                    set_uid_selected={set_uid_selected}/>)}
+                                        </ul>
+                                    </>
+                                )
+                            ))}
+                        </Box>
+                    </>
                 )}
             </>
         )}

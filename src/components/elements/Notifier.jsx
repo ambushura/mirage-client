@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { Snackbar, Alert } from '@mui/material'
+import {useSelector, useDispatch} from 'react-redux'
+import {Snackbar, Alert} from '@mui/material'
 import {removeNotification} from "../../redux/notifierReducer.js"
 
 const Notifier = () => {

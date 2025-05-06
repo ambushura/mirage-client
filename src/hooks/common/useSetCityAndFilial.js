@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import {useEffect} from "react"
+import {useDispatch, useSelector} from "react-redux"
 import {useFetching} from "./useFetching.js"
 import {setCities, setCity, setFilial} from "../../redux/dataReducer.js"
 import {ROUTE_COMMON_CITIES_GET, ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"

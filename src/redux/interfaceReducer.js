@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { date_dayjs } from "../service/advanced.js"
+import {createSlice} from "@reduxjs/toolkit"
+import {date_dayjs} from "../service/advanced.js"
 
 const current_date = date_dayjs(new Date())
 
@@ -40,7 +40,8 @@ const initialState = {
             {id: "schedule", name: "Расписание", path: ""},
             {id: "menu", name: "Меню", path: ""},
             {id: "kitchen", name: "Кухня", path: ""},
-            {id: "admin", name: "Кинокомплекс",
+            {
+                id: "admin", name: "Кинокомплекс",
                 path: [
                     {id: "admin/orders/cinema", name: "Кино", path: ""},
                     {id: "admin/orders/horeca", name: "Общепит", path: ""},

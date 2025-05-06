@@ -81,7 +81,8 @@ export const fetchHorder = (filial, wp, uid_order) => {
                 headers: {
                     Authorization: token,
                     wp: wp,
-                }})
+                }
+            })
             dispatch(setCurrentHorder(response.data.data))
         } catch (e) {
             dispatch(addNotification({
@@ -130,7 +131,8 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
                 headers: {
                     Authorization: token,
                     wp: wp,
-                }})
+                }
+            })
             if (response.data.code === 200) {
                 if (response.data.data === null) {
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -142,7 +144,8 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
                     headers: {
                         Authorization: token,
                         wp: wp,
-                    }})
+                    }
+                })
                 dispatch(setBooking(booking.data.data))
             } else {
                 dispatch(addNotification({
@@ -173,7 +176,8 @@ export const horeca_add = (filial, wp, uid_order, ver_order, uid_menu) => {
                 headers: {
                     Authorization: token,
                     wp: wp,
-                }})
+                }
+            })
             if (response.data.code === 200) {
                 dispatch(setCurrentHorder(response.data.data))
             } else {
@@ -215,7 +219,8 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
                 headers: {
                     Authorization: token,
                     wp: wp,
-                }})
+                }
+            })
             if (response.data.code === 500) {
                 dispatch(addNotification({
                     message: response.data.data,

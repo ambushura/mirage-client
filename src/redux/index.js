@@ -8,7 +8,7 @@ import authSlice from "./authReducer.js"
 import notifierReducer from "./notifierReducer.js"
 import wsReducer from "./wsReducer.js"
 
-export const store= configureStore({
+export const store = configureStore({
     reducer: {
         schedule: scheduleSlice,
         halls: hallsSlice,

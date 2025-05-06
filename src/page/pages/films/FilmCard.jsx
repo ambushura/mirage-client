@@ -2,6 +2,7 @@ import cover from "../../../images/cover.jpg"
 import {useSelector} from "react-redux"
 import {Box} from "@mui/material"
 import {NavLink} from "react-router-dom"
+
 const FilmCard = (props) => {
 
     const city = useSelector(state => state.data.city)
@@ -10,7 +11,7 @@ const FilmCard = (props) => {
 
     return (
         <NavLink className='film'
-              to={`/film/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/${props.film.uid}/`}>
+                 to={`/film/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/${props.film.uid}/`}>
             <Box className='film-poster'>
                 <img className='film-poster-img'
                      src={props.film.cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + props.film.cover_link}

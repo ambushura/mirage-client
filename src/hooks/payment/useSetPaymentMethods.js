@@ -10,15 +10,15 @@ export function useSetPaymentMethods() {
     const [data, set_data] = useState({uid_filial: undefined, uid_work_place: undefined, list: []})
 
     const filial = useSelector(state => state.data.filial)
-    const name_workplace = useSelector(state => state.interface.search_params.wp)
+    const wp = useSelector(state => state.interface.wp)
 
     useEffect(() => {
-        if (filial !== undefined && name_workplace !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}?name_workplace=${name_workplace}&&uid_filial=${filial.uid}`)
+        if (filial !== undefined && wp !== undefined) {
+            set_url(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}?name_workplace=${wp}&&uid_filial=${filial.uid}`)
         } else {
             set_url(undefined)
         }
-    }, [filial, name_workplace])
+    }, [filial, wp])
 
     useEffect(() => {
         if (fetch_data !== null) {

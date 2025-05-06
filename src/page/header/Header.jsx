@@ -7,7 +7,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/forms/Auth.jsx"
 import {useEffect, useState} from "react"
-import { useRef } from "react"
+import {useRef} from "react"
 import {setAuthOpened} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"

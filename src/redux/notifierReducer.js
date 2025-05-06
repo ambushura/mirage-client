@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
     notifications: []
@@ -22,5 +22,5 @@ const notifierSlice = createSlice({
     }
 })
 
-export const { addNotification, removeNotification } = notifierSlice.actions
+export const {addNotification, removeNotification} = notifierSlice.actions
 export default notifierSlice.reducer

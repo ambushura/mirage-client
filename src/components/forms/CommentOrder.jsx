@@ -19,7 +19,8 @@ const CommentOrder = () => {
                 </Box>
             </Box>
             <Box>
-                <TextField sx={{width: '100%'}} label='Комментарий' color='secondary' margin='dense' focused autoFocus multiline/>
+                <TextField sx={{width: '100%'}} label='Комментарий' color='secondary' margin='dense' focused autoFocus
+                           multiline/>
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
                 <Button variant='contained' color='secondary'>Сохранить</Button>
