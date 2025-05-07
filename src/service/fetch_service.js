@@ -36,7 +36,7 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -61,7 +61,7 @@ export const fetchPreOrder = (filial, wp, uid_order) => {
             dispatch(setCurrentPreOrder(response.data.data))
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -111,7 +111,7 @@ export const deletePreOrder = (filial, wp, uid_order) => {
             dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -156,7 +156,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -189,7 +189,7 @@ export const horeca_add = (filial, wp, uid_order, ver_order, uid_menu) => {
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -230,7 +230,7 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
