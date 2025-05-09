@@ -9,9 +9,9 @@ const SeanceCard = (props) => {
     const beginning = dayjs(seance.beginning.replace('Z', ''))
 
     const min_tariff = (seance) => {
-        let result = 1000000000
+        let result = undefined
         seance.tariff.forEach(t => {
-            if (t.price < result) {
+            if (t.price < result || result === undefined) {
                 result = t.price
             }
         })
