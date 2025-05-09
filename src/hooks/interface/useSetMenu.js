@@ -9,7 +9,7 @@ export function useSetMenu(uid_folder) {
     const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
     const [data, set_data] = useState(undefined)
 
-    const filial = useSelector(state => state.data.filial || {ip: '', port: ''})
+    const filial = useSelector(state => state.data.filial || undefined)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     useEffect(() => {

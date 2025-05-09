@@ -118,14 +118,28 @@ export const Theme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    borderRadius: '12px'
+                    borderRadius: '12px',
+                    '&::-webkit-scrollbar': {
+                        width: '50px',
+                        height: '50px',
+                        backgroundColor: 'transparent'
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        backgroundColor: 'transparent',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'var(--bgr-scroll)',
+                        borderRadius: '12px',
+                    },
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: 'var(--bgr-scroll) transparent',
                 }
             }
         },
         MuiList: {
             styleOverrides: {
                 root: {
-                    borderRadius: '12px'
+                    borderRadius: '12px',
                 }
             }
         },

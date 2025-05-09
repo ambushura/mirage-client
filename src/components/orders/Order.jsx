@@ -23,7 +23,7 @@ import {
 } from "../../redux/ordersReducer.js"
 import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
-import {useState} from "react"
+import {Fragment, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 
 const OrderPanel = ({
@@ -124,18 +124,18 @@ const OrderPanel = ({
                         <Box className="order-box-panel-3">
                             {[1, 2, 3, 0].map(state => (
                                 order.items.some(item => item.kitchen.state === state) && (
-                                    <>
+                                    <Fragment key={`${state}`}>
                                         <Box
                                             className={`order-box-panel-3-title-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>{['Отправить на кухню', 'На кухне', 'Приготовлено', 'Готово к выдаче'][state]}</Box>
                                         <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>
                                             {order.items.filter(item => item.kitchen.state === state).map(item =>
                                                 <HorecaItem
-                                                    key={item.uid}
+                                                    key={`${item.uid}${order.ver}`}
                                                     item={item}
                                                     uid_selected={uid_selected}
                                                     set_uid_selected={set_uid_selected}/>)}
                                         </ul>
-                                    </>
+                                    </Fragment>
                                 )
                             ))}
                         </Box>

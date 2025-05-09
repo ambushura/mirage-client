@@ -1,13 +1,16 @@
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material"
 import {useState} from "react"
+import {useFetchDiscounts} from "../../hooks/fetching/useFetchDiscounts.js"
 
 const Discounts = () => {
+
+    const [discounts, errors, loading] = useFetchDiscounts()
 
     const [discount_groups, set_discount_groups] = useState([{uid: '0', name: 'Группа 1'}, {
         uid: '1',
         name: 'Группа 2'
     }])
-    const [discounts, set_discounts] = useState([{uid: '0', name: 'Скидка 1'}, {uid: '1', name: 'Скидка 2'}])
+
     const [current_group, set_current_group] = useState(null)
     const [current_discount, set_current_discount] = useState(null)
 
@@ -46,7 +49,7 @@ const Discounts = () => {
                         value={current_discount}
                         label="Скидка"
                         variant='filled'>
-                        {discounts.map(discount => <MenuItem sx={{color: 'black'}} key={discount.uid}
+                        {discounts !== null && discounts.map(discount => <MenuItem sx={{color: 'black'}} key={discount.uid}
                                                              value={discount.uid}>{discount.name}</MenuItem>)}
                     </Select>
                 </FormControl>
