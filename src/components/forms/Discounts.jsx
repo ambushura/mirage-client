@@ -50,7 +50,7 @@ const Discounts = () => {
                         label="Скидка"
                         variant='filled'>
                         {discounts !== null && discounts.map(discount => <MenuItem sx={{color: 'black'}} key={discount.uid}
-                                                             value={discount.uid}>{discount.name}</MenuItem>)}
+                                                                                   value={discount.uid}>{discount.name} <span style={{padding: '4px', borderRadius: '8px', marginLeft: '4px', backgroundColor: '#EEEEEE', fontWeight: 'bold'}}>{discount.value}</span></MenuItem>)}
                     </Select>
                 </FormControl>
                 <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary" multiline/>
