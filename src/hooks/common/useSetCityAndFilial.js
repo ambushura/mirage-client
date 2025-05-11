@@ -7,7 +7,13 @@ import {ROUTE_COMMON_CITIES_GET, ROUTE_MAIN_HOST} from "../../service/fetch_rout
 export function useSetCityAndFilial() {
 
     const dispatch = useDispatch()
-    const [fetch_data, loading, error] = useFetching(`http://${ROUTE_MAIN_HOST}${ROUTE_COMMON_CITIES_GET}`)
+
+    const filial = structuredClone(ROUTE_MAIN_HOST)
+    const [fetch_data, loading, error] = useFetching({
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CITIES_GET}`,
+        uid_filial: filial.uid,
+        params: {}
+    })
     const cities = useSelector(state => state.data.cities)
     const param_city = useSelector(state => state.interface.params.param_city)
     const param_filial = useSelector(state => state.interface.params.param_filial)

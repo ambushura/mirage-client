@@ -18,16 +18,22 @@ export function useSetFilms() {
     useEffect(() => {
         let urls_new = []
         if (city !== undefined && filial === undefined) {
-            city.filials.forEach(filial => {
+            city.filials.forEach(current_filial => {
                 urls_new.push({
-                    filial: filial,
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}?uid_filial=${filial.uid}&date_shift=${param_date}`
+                    filial: current_filial,
+                    url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_FILMS_GET}`,
+                    params: {
+                        date_shift: param_date,
+                    }
                 })
             })
         } else if (city !== undefined && filial !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}?uid_filial=${filial.uid}&date_shift=${param_date}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}`,
+                params: {
+                    date_shift: param_date,
+                }
             })
         }
         if (urls_new.length > 0) {

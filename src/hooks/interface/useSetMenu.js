@@ -14,7 +14,15 @@ export function useSetMenu(uid_folder) {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}${ROUTE_HORECA_MENU_GET}?uid_folder=${uid_folder}&uid_filial=${filial.uid}&date_shift=${param_date_admin}`)
+            set_url({
+                url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MENU_GET}`,
+                uid_filial: filial.uid,
+                params: {
+                    uid_folder: uid_folder,
+                    uid_filial: filial.uid,
+                    date_shift: param_date_admin
+                }
+            })
         } else {
             set_url(undefined)
         }

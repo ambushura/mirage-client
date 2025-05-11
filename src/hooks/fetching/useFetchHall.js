@@ -17,7 +17,11 @@ export function useFetchHall() {
         const hall = halls.find(hall => hall.uid === seance.uid_hall)
         if (hall === undefined) {
             if (filial !== undefined && seance !== undefined) {
-                set_url(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_HALL_GET}?uid_hall=${seance.uid_hall}`)
+                set_url({
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_HALL_GET}`,
+                    uid_filial: filial.uid,
+                    params: {uid_hall: seance.uid_hall}
+                })
             } else {
                 set_url(undefined)
             }

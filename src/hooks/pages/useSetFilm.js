@@ -22,13 +22,21 @@ export function useSetFilm() {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:${filial.port}/${ROUTE_CINEMA_FILM_GET_SEANCES}?uid_filial=${filial.uid}&date_shift=${param_date}&uid_film=${uid_film}`
+                    url: `http://${filial.ip}:${filial.port}/${ROUTE_CINEMA_FILM_GET_SEANCES}`,
+                    params: {
+                        date_shift: param_date,
+                        uid_film: uid_film,
+                    }
                 })
             })
         } else if (city !== undefined && filial !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILM_GET_SEANCES}?uid_filial=${filial.uid}&date_shift=${param_date}&uid_film=${uid_film}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILM_GET_SEANCES}`,
+                params: {
+                    date_shift: param_date,
+                    uid_film: uid_film,
+                }
             })
         }
         set_urls(urls_new)

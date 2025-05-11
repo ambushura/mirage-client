@@ -19,16 +19,22 @@ export function useSetOrdersHoreca(update) {
     useEffect(() => {
         let urls_new = []
         if (city !== undefined && filial === undefined && param_date_admin !== undefined) {
-            city.filials.forEach(filial => {
+            city.filials.forEach(current_filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}?uid_filial=${filial.uid}&date_shift=${param_date_admin}`,
+                    url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_HORECA_ORDERS_GET}`,
+                    params: {
+                        date_shift: param_date_admin,
+                    }
                 })
             })
         } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}?uid_filial=${filial.uid}&date_shift=${param_date_admin}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}`,
+                params: {
+                    date_shift: param_date_admin,
+                }
             })
         }
         set_urls_orders(urls_new)

@@ -1,10 +1,18 @@
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material"
 import {useState} from "react"
 import {useFetchDiscounts} from "../../hooks/fetching/useFetchDiscounts.js"
+import {useDispatch, useSelector} from "react-redux"
+import {applyDiscount} from "../../service/fetch_service.js"
 
 const Discounts = () => {
 
+    const dispatch = useDispatch()
+
     const [discounts, errors, loading] = useFetchDiscounts()
+
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     const [discount_groups, set_discount_groups] = useState([{uid: '0', name: 'Группа 1'}, {
         uid: '1',
@@ -49,13 +57,24 @@ const Discounts = () => {
                         value={current_discount}
                         label="Скидка"
                         variant='filled'>
-                        {discounts !== null && discounts.map(discount => <MenuItem sx={{color: 'black'}} key={discount.uid}
-                                                                                   value={discount.uid}>{discount.name} <span style={{padding: '4px 8px', borderRadius: '8px', marginLeft: '4px', backgroundColor: '#EEEEEE', fontWeight: 'bold'}}>{discount.value} {discount.fix ? 'р' : '%'}</span></MenuItem>)}
+                        {discounts !== null && discounts.map(discount => <MenuItem sx={{color: 'black'}}
+                                                                                   key={discount.uid}
+                                                                                   value={discount.uid}>{discount.name}
+                            <span style={{
+                                padding: '4px 8px',
+                                borderRadius: '8px',
+                                marginLeft: '4px',
+                                backgroundColor: '#EEEEEE',
+                                fontWeight: 'bold'
+                            }}>{discount.value} {discount.fix ? 'р' : '%'}</span></MenuItem>)}
                     </Select>
                 </FormControl>
-                <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary" multiline/>
+                <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary"
+                           multiline/>
             </Box>
-            <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary">Сохранить</Button>
+            <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary" onClick={() => {
+                dispatch((applyDiscount(filial, wp, pre_order.uid, current_discount, ['24234', 'wff'])))
+            }}>Сохранить</Button>
         </Box>
     )
 }

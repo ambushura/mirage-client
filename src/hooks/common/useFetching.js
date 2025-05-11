@@ -5,6 +5,8 @@ import {useSelector} from "react-redux"
 
 export function useFetching(url) {
 
+    const ref_url = JSON.stringify(url)
+
     const token = useSelector(state => state.auth.token)
     const wp = useSelector(state => state.interface.wp)
 
@@ -16,12 +18,14 @@ export function useFetching(url) {
         let isMounted = true
         const fetchData = async () => {
             try {
-                const response = await axios.get(url, {
+                const response = await axios.get(url.url, {
                     timeout: TIMEOUT,
                     headers: {
                         Authorization: token,
+                        uid_filial: url.uid_filial,
                         wp: wp,
                     },
+                    params: url.params
                 })
                 if (isMounted) setData(response.data.data)
             } catch (err) {
@@ -39,7 +43,7 @@ export function useFetching(url) {
         return () => {
             isMounted = false
         }
-    }, [url, wp])
+    }, [token, ref_url, wp])
 
     return [data, error, loading]
 }

@@ -17,7 +17,14 @@ export function useFetchReceiptsFromOrder(type) {
 
     useEffect(() => {
         if (filial !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_GET_RECEIPTS}?&uid_order=${type === 'horeca' ? horder.uid : pre_order.uid}&type=${type}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+            set_url({
+                url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_GET_RECEIPTS}`,
+                uid_filial: filial.uid,
+                params: {
+                    uid_order: type === 'horeca' ? horder.uid : pre_order.uid,
+                    type: type
+                }
+            })
         } else {
             set_url(undefined)
         }

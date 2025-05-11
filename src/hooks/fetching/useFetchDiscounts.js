@@ -15,7 +15,13 @@ export function useFetchDiscounts() {
 
     useEffect(() => {
         if (filial !== undefined && pre_order.in_base && pre_order.uid_seance !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_GET}?&uid_seance=${pre_order.uid_seance}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+            set_url({
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_GET}`,
+                uid_filial: filial.uid,
+                params: {
+                    uid_seance: pre_order.uid_seance
+                }
+            })
         } else {
             set_url(undefined)
         }

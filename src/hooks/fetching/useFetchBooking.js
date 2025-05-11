@@ -15,7 +15,15 @@ export function useFetchBooking() {
 
     useEffect(() => {
         if (filial !== undefined && seance !== undefined && pre_order !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}?uid_seance=${seance.uid}&uid_order=${pre_order.uid}&time=${new Date().getMinutes()}-${new Date().getSeconds()}`)
+            set_url({
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`,
+                    uid_filial: filial.uid,
+                    params: {
+                        uid_seance: seance.uid,
+                        uid_order: pre_order.uid
+                    }
+                }
+            )
         } else {
             set_url(undefined)
         }

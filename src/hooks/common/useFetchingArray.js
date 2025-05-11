@@ -18,7 +18,8 @@ export function useFetchingArray(urls) {
                 data: null,
                 filial: url.filial,
                 loading: true,
-                error: null
+                error: null,
+                params: url.params,
             }))
             set_results(initialResults)
             const fetchResults = await Promise.all(
@@ -28,12 +29,14 @@ export function useFetchingArray(urls) {
                             timeout: TIMEOUT,
                             headers: {
                                 Authorization: token,
+                                uid_filial: url.filial.uid,
                                 wp: wp,
                             },
+                            params: url.params,
                         })
-                        return {url: url.url, data: response.data.data, filial: url.filial, loading: false, error: null}
+                        return {url: url.url, data: response.data.data, filial: url.filial, loading: false, error: null, params: url.params}
                     } catch (err) {
-                        return {url: url.url, data: null, filial: url.filial, loading: false, error: err.message}
+                        return {url: url.url, data: null, filial: url.filial, loading: false, error: err.message, params: url.params}
                     }
                 })
             )
@@ -47,7 +50,7 @@ export function useFetchingArray(urls) {
         return () => {
             isMounted = false
         }
-    }, [urls])
+    }, [token, urls, wp])
 
     return results
 }

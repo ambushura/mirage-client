@@ -21,13 +21,19 @@ export function useSetSchedule() {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}?uid_filial=${filial.uid}&date_shift=${param_date}`
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`,
+                    params: {
+                        date_shift: param_date,
+                    }
                 })
             })
         } else if (city !== undefined && filial !== undefined && param_date !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}?uid_filial=${filial.uid}&date_shift=${param_date}`
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`,
+                params: {
+                    date_shift: param_date,
+                }
             })
         }
         set_urls(urls_new)

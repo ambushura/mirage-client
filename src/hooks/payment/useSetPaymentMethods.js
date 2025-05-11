@@ -14,7 +14,11 @@ export function useSetPaymentMethods() {
 
     useEffect(() => {
         if (filial !== undefined && wp !== undefined) {
-            set_url(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}?name_workplace=${wp}&&uid_filial=${filial.uid}`)
+            set_url({
+                url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}`,
+                uid_filial: filial.uid,
+                params: {}
+            })
         } else {
             set_url(undefined)
         }
