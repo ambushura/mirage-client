@@ -22,7 +22,7 @@ const Discounts = () => {
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Скидки
             </Typography>
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '300px', overflow: 'hidden'}}>
                 <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
                     <InputLabel id="discounts-group-select-label">Группа скидок</InputLabel>
                     <Select
@@ -50,7 +50,7 @@ const Discounts = () => {
                         label="Скидка"
                         variant='filled'>
                         {discounts !== null && discounts.map(discount => <MenuItem sx={{color: 'black'}} key={discount.uid}
-                                                                                   value={discount.uid}>{discount.name} <span style={{padding: '4px', borderRadius: '8px', marginLeft: '4px', backgroundColor: '#EEEEEE', fontWeight: 'bold'}}>{discount.value}</span></MenuItem>)}
+                                                                                   value={discount.uid}>{discount.name} <span style={{padding: '4px 8px', borderRadius: '8px', marginLeft: '4px', backgroundColor: '#EEEEEE', fontWeight: 'bold'}}>{discount.value} {discount.fix ? 'р' : '%'}</span></MenuItem>)}
                     </Select>
                 </FormControl>
                 <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary" multiline/>
