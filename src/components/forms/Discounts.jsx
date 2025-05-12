@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {applyDiscount} from "../../service/fetch_service.js"
 import {closeModal} from "../../redux/interfaceReducer.js"
 
-const Discounts = () => {
+const Discounts = (props) => {
 
     const dispatch = useDispatch()
 
@@ -39,8 +39,9 @@ const Discounts = () => {
                         value={uid_group_discount}
                         label="Группа скидок"
                         variant='filled'>
-                        {discounts_groups[0] !== null ? discounts_groups[0].map(discount_group => <MenuItem sx={{color: 'black'}} key={discount_group.uid}
-                                                                         value={discount_group.uid}>{discount_group.name}</MenuItem>) : null}
+                        {discounts_groups[0] !== null ? discounts_groups[0].map(discount_group => <MenuItem
+                            sx={{color: 'black'}} key={discount_group.uid}
+                            value={discount_group.uid}>{discount_group.name}</MenuItem>) : null}
                     </Select>
                 </FormControl>
                 <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
@@ -55,8 +56,8 @@ const Discounts = () => {
                         label="Скидка"
                         variant='filled'>
                         {discounts[0] !== null ? discounts[0].map(discount => <MenuItem sx={{color: 'black'}}
-                                                                                   key={discount.uid}
-                                                                                   value={discount.uid}>{discount.name}
+                                                                                        key={discount.uid}
+                                                                                        value={discount.uid}>{discount.name}
                             <span style={{
                                 padding: '4px 8px',
                                 borderRadius: '8px',
@@ -68,15 +69,15 @@ const Discounts = () => {
                 </FormControl>
                 <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary"
                            multiline value={comment} onChange={(event) => {
-                               set_comment(event.target.value)
+                    set_comment(event.target.value)
                 }}/>
             </Box>
             <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary" onClick={() => {
-                dispatch((applyDiscount(filial, wp, pre_order.uid, uid_discount, uid_group_discount, comment, [])))
+                dispatch((applyDiscount(filial, wp, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions)))
                 dispatch(closeModal())
             }}>Сохранить</Button>
         </Box>
     )
-    }
+}
 
 export default Discounts

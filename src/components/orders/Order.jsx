@@ -64,7 +64,7 @@ const OrderPanel = ({
                         <Box className="order-box-panel-2">
                             <ButtonGroup size='small'>
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'discounts', props: {}}))
+                                    dispatch(openModal({type: 'discounts', props: {uid_positions: uid_selected}}))
                                 }}>Скидки</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                                 <Button variant="contained" color="secondary" onClick={() => {

@@ -39,19 +39,19 @@ function App() {
     useEffect(() => {
         switch (modal_type) {
             case 'quantity':
-                setModalContent(<Quantity param={modal_props}/>)
+                setModalContent(<Quantity props={modal_props}/>)
                 break
             case 'comment':
-                setModalContent(<Comment param={modal_props}/>)
+                setModalContent(<Comment props={modal_props}/>)
                 break
             case 'commentOrder':
-                setModalContent(<CommentOrder param={modal_props}/>)
+                setModalContent(<CommentOrder props={modal_props}/>)
                 break
             case 'calc':
                 setModalContent(<Calc/>)
                 break
             case 'discounts':
-                setModalContent(<Discounts param={modal_props}/>)
+                setModalContent(<Discounts props={modal_props}/>)
                 break
             default:
                 setModalContent(null)
