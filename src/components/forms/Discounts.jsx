@@ -3,6 +3,7 @@ import {useState} from "react"
 import {useFetchDiscounts} from "../../hooks/fetching/useFetchDiscounts.js"
 import {useDispatch, useSelector} from "react-redux"
 import {applyDiscount} from "../../service/fetch_service.js"
+import {closeModal} from "../../redux/interfaceReducer.js"
 
 const Discounts = () => {
 
@@ -14,8 +15,9 @@ const Discounts = () => {
     const wp = useSelector(state => state.interface.wp)
     const pre_order = useSelector(state => state.orders.pre_order)
 
-    const [current_group, set_current_group] = useState(null)
-    const [current_discount, set_current_discount] = useState(null)
+    const [uid_group_discount, set_uid_group_discount] = useState(null)
+    const [uid_discount, set_uid_discount] = useState(null)
+    const [comment, set_comment] = useState(null)
 
     return (
         <Box component="form"
@@ -30,11 +32,11 @@ const Discounts = () => {
                     <InputLabel id="discounts-group-select-label">Группа скидок</InputLabel>
                     <Select
                         onChange={(event) => {
-                            set_current_group(event.target.value)
+                            set_uid_group_discount(event.target.value)
                         }}
                         labelId="discounts-group-select-label"
                         id="discounts-group-select"
-                        value={current_group}
+                        value={uid_group_discount}
                         label="Группа скидок"
                         variant='filled'>
                         {discounts_groups[0] !== null ? discounts_groups[0].map(discount_group => <MenuItem sx={{color: 'black'}} key={discount_group.uid}
@@ -45,11 +47,11 @@ const Discounts = () => {
                     <InputLabel id="discounts-select-label">Скидка</InputLabel>
                     <Select
                         onChange={(event) => {
-                            set_current_discount(event.target.value)
+                            set_uid_discount(event.target.value)
                         }}
                         labelId="discounts-select-label"
                         id="discounts-select"
-                        value={current_discount}
+                        value={uid_discount}
                         label="Скидка"
                         variant='filled'>
                         {discounts[0] !== null ? discounts[0].map(discount => <MenuItem sx={{color: 'black'}}
@@ -65,13 +67,16 @@ const Discounts = () => {
                     </Select>
                 </FormControl>
                 <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary"
-                           multiline/>
+                           multiline value={comment} onChange={(event) => {
+                               set_comment(event.target.value)
+                }}/>
             </Box>
             <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary" onClick={() => {
-                dispatch((applyDiscount(filial, wp, pre_order.uid, current_discount, ['24234', 'wff'])))
+                dispatch((applyDiscount(filial, wp, pre_order.uid, uid_discount, uid_group_discount, comment, [])))
+                dispatch(closeModal())
             }}>Сохранить</Button>
         </Box>
     )
-}
+    }
 
 export default Discounts

@@ -29,7 +29,7 @@ const BookingItem = (props) => {
                     <span className="order-booking-item-labels">р</span>
                     <span className="order-booking-item-numbers">{props.place_number}</span>
                     <span className="order-booking-item-labels">м</span>
-                    <span className="order-booking-item-numbers">{props.price} р</span>
+                    <span className="order-booking-item-numbers">{props.sum} р</span>
                 </div>
                 <button className='order-booking-item-button' onClick={() => {
                     dispatch(openModal({type: 'comment', props: {}}))

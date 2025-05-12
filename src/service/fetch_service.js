@@ -271,7 +271,7 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
     }
 }
 
-export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_positions) => {
+export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         if (wp === undefined || wp.length === 0) {
@@ -288,7 +288,9 @@ export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_positions
                 params: {
                     uid_order: uid_order,
                     uid_discount: uid_discount,
+                    uid_group_discount: uid_group_discount,
                     uid_positions: uid_positions,
+                    comment: comment,
                 },
             })
             dispatch(setCurrentPreOrder(response.data.data))
