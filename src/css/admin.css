@@ -39,6 +39,14 @@
     background-color: #EEEEEE;
 }
 
+.order-booking-item-comment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80%;
+    color: #8B919B;
+}
+
 .order-booking-item-discount {
     overflow: hidden;
     margin-top: 2px;
