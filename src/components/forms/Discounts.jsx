@@ -8,16 +8,11 @@ const Discounts = () => {
 
     const dispatch = useDispatch()
 
-    const [discounts, errors, loading] = useFetchDiscounts()
+    const {discounts, discounts_groups} = useFetchDiscounts()
 
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
     const pre_order = useSelector(state => state.orders.pre_order)
-
-    const [discount_groups, set_discount_groups] = useState([{uid: '0', name: 'Группа 1'}, {
-        uid: '1',
-        name: 'Группа 2'
-    }])
 
     const [current_group, set_current_group] = useState(null)
     const [current_discount, set_current_discount] = useState(null)
@@ -42,8 +37,8 @@ const Discounts = () => {
                         value={current_group}
                         label="Группа скидок"
                         variant='filled'>
-                        {discount_groups.map(group_discount => <MenuItem sx={{color: 'black'}} key={group_discount.uid}
-                                                                         value={group_discount.uid}>{group_discount.name}</MenuItem>)}
+                        {discounts_groups[0] !== null ? discounts_groups[0].map(discount_group => <MenuItem sx={{color: 'black'}} key={discount_group.uid}
+                                                                         value={discount_group.uid}>{discount_group.name}</MenuItem>) : null}
                     </Select>
                 </FormControl>
                 <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
@@ -57,7 +52,7 @@ const Discounts = () => {
                         value={current_discount}
                         label="Скидка"
                         variant='filled'>
-                        {discounts !== null && discounts.map(discount => <MenuItem sx={{color: 'black'}}
+                        {discounts[0] !== null ? discounts[0].map(discount => <MenuItem sx={{color: 'black'}}
                                                                                    key={discount.uid}
                                                                                    value={discount.uid}>{discount.name}
                             <span style={{
@@ -66,7 +61,7 @@ const Discounts = () => {
                                 marginLeft: '4px',
                                 backgroundColor: '#EEEEEE',
                                 fontWeight: 'bold'
-                            }}>{discount.value} {discount.fix ? 'р' : '%'}</span></MenuItem>)}
+                            }}>{discount.value} {discount.fix ? 'р' : '%'}</span></MenuItem>) : null}
                     </Select>
                 </FormControl>
                 <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary"

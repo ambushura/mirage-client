@@ -1,6 +1,7 @@
 export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: '8080', uid: ''}
 
 export const ROUTE_CINEMA_DISCOUNTS_GET = "/api/cinema/discounts/get"
+export const ROUTE_CINEMA_DISCOUNTS_GROUPS_GET = "/api/cinema/discounts/groups/get"
 export const ROUTE_CINEMA_DISCOUNTS_APPLY = "/api/cinema/discounts/apply"
 export const ROUTE_CINEMA_ORDERS_GET = "/api/cinema/orders/get"
 export const ROUTE_CINEMA_ORDERS_GET_SCHEDULE = "/api/cinema/orders/get_schedule"
