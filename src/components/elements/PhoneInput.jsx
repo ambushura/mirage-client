@@ -17,7 +17,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     )
 })
 
-export default function PhoneInput() {
+export default function PhoneInput(props) {
     const {control} = useForm()
     return (
         <Controller
@@ -30,6 +30,10 @@ export default function PhoneInput() {
                     label="Телефон"
                     variant="filled"
                     fullWidth
+                    onChange={(event) => {
+                        props.set_value(event.target.value)
+                    }}
+                    value={props.value}
                     InputProps={{
                         inputComponent: TextMaskCustom
                     }}

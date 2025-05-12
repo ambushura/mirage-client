@@ -8,7 +8,7 @@ import {
     ROUTE_CINEMA_KIOSK_POSITION_ADD,
     ROUTE_CINEMA_ORDER_DELETE,
     ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_POSITION_ADD, ROUTE_CINEMA_SEANCE_GET_BOOKING,
-    ROUTE_COMMON_LOGIN,
+    ROUTE_COMMON_LOGIN, ROUTE_COMMON_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET, ROUTE_HORECA_POSITION_ADD
 } from "./fetch_routes.js"
 
@@ -290,6 +290,42 @@ export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_group_dis
                     uid_discount: uid_discount,
                     uid_group_discount: uid_group_discount,
                     uid_positions: uid_positions,
+                    comment: comment,
+                },
+            })
+            dispatch(setCurrentPreOrder(response.data.data))
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
+export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buyer_n, buyer_o, phone, email, comment) => {
+    const token = localStorage.getItem("token")
+    return async (dispatch) => {
+        if (wp === undefined || wp.length === 0) {
+            throw new Error("не указано рабочее место")
+        }
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_ADD_COMMENT}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token,
+                    uid_filial: filial.uid,
+                    wp: wp,
+                },
+                params: {
+                    order_type: order_type,
+                    uid_order: uid_order,
+                    buyer_s: buyer_s,
+                    buyer_n: buyer_n,
+                    buyer_o: buyer_o,
+                    phone: phone,
+                    email: email,
                     comment: comment,
                 },
             })
