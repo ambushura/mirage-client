@@ -12,10 +12,10 @@
 
 .order-booking-item {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     vertical-align: center;
     margin: 0 4px 4px 0;
-    height: 60px;
     cursor: pointer;
     width: 180px;
 }
@@ -36,8 +36,17 @@
     align-items: center;
     justify-content: flex-end;
     border-radius: 14px;
-    padding-right: 4px;
     background-color: #EEEEEE;
+}
+
+.order-booking-item-discount {
+    overflow: hidden;
+    margin-top: 2px;
+    font-size: 70%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .order-booking-item-numbers {

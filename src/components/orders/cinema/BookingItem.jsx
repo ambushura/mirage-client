@@ -29,12 +29,18 @@ const BookingItem = (props) => {
                     <span className="order-booking-item-labels">р</span>
                     <span className="order-booking-item-numbers">{props.place_number}</span>
                     <span className="order-booking-item-labels">м</span>
-                    <span className="order-booking-item-numbers">{props.sum} р</span>
+                    <span className="order-booking-item-numbers" style={{color: props.uid_discount !== null ? '#FF9800' : 'black'}}>{props.sum} р</span>
                 </div>
                 <button className='order-booking-item-button' onClick={() => {
                     dispatch(openModal({type: 'comment', props: {}}))
                 }}><BorderColorIcon/></button>
             </Box>
+            {props.uid_discount !== null ?
+                <Box className="order-booking-item-discount">
+                    <div>{props.name_discount}</div>
+                    <div style={{marginLeft: '4px'}}>{props.sum_discount} р</div>
+                </Box>
+                : null}
         </Box>
     )
 }

@@ -1,4 +1,14 @@
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material"
+import {
+    Box,
+    Button,
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography
+} from "@mui/material"
 import {useState} from "react"
 import {useFetchDiscounts} from "../../hooks/fetching/useFetchDiscounts.js"
 import {useDispatch, useSelector} from "react-redux"
@@ -8,6 +18,8 @@ import {closeModal} from "../../redux/interfaceReducer.js"
 const Discounts = (props) => {
 
     const dispatch = useDispatch()
+
+    const [discount_error, set_discount_error] = useState(false)
 
     const {discounts, discounts_groups} = useFetchDiscounts()
 
@@ -23,7 +35,25 @@ const Discounts = (props) => {
         <Box component="form"
              noValidate
              autoComplete="off"
-             sx={{minWidth: '200px', display: 'flex', flexDirection: 'column'}}>
+             sx={{minWidth: '200px', display: 'flex', flexDirection: 'column'}}
+             onSubmit={(e) => {
+                 e.preventDefault()
+                 if (!uid_discount) {
+                     set_discount_error(true)
+                     return
+                 }
+                 set_discount_error(false)
+                 dispatch(applyDiscount(
+                     filial,
+                     wp,
+                     pre_order.uid,
+                     uid_discount,
+                     uid_group_discount,
+                     comment,
+                     props.props.uid_positions
+                 ))
+                 dispatch(closeModal())
+             }}>
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Скидки
             </Typography>
@@ -44,11 +74,12 @@ const Discounts = (props) => {
                             value={discount_group.uid}>{discount_group.name}</MenuItem>) : null}
                     </Select>
                 </FormControl>
-                <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
+                <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}} error={discount_error}>
                     <InputLabel id="discounts-select-label">Скидка</InputLabel>
                     <Select
                         onChange={(event) => {
                             set_uid_discount(event.target.value)
+                            set_discount_error(false)
                         }}
                         labelId="discounts-select-label"
                         id="discounts-select"
@@ -66,16 +97,15 @@ const Discounts = (props) => {
                                 fontWeight: 'bold'
                             }}>{discount.value} {discount.fix ? 'р' : '%'}</span></MenuItem>) : null}
                     </Select>
+                    {discount_error && <FormHelperText>Вы забыли указать скидку</FormHelperText>}
                 </FormControl>
                 <TextField label='Комментарий' sx={{m: 1, minWidth: '200px'}} variant='filled' color="textSecondary"
                            multiline value={comment} onChange={(event) => {
                     set_comment(event.target.value)
                 }}/>
             </Box>
-            <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary" onClick={() => {
-                dispatch((applyDiscount(filial, wp, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions)))
-                dispatch(closeModal())
-            }}>Сохранить</Button>
+            <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary"
+                    type="submit">Сохранить</Button>
         </Box>
     )
 }

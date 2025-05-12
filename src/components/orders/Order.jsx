@@ -23,7 +23,7 @@ import {
 } from "../../redux/ordersReducer.js"
 import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
-import {Fragment, useState} from "react"
+import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 
 const OrderPanel = ({
@@ -165,6 +165,14 @@ const Order = () => {
         const fil = city?.filials.find(el => el.uid === pre_order.uid_filial)
         return fil ? `/seance/${city.code}/${fil.eais}/${pre_order.uid_seance}/` : '/'
     }
+
+    useEffect(() => {
+        set_uid_horeca_selected([])
+    }, [horder.ver])
+
+    useEffect(() => {
+        set_uid_cinema_selected([])
+    }, [pre_order.ver])
 
     return (
         <Box id='order'>
