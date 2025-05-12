@@ -20,7 +20,6 @@ const Discounts = (props) => {
     const dispatch = useDispatch()
 
     const [discount_error, set_discount_error] = useState(false)
-
     const {discounts, discounts_groups} = useFetchDiscounts()
 
     const filial = useSelector(state => state.data.filial)
