@@ -15,6 +15,7 @@ import {logout} from "../../redux/authReducer.js"
 import dayjs from "dayjs"
 import {addNotification} from "../../redux/notifierReducer.js"
 import AppsIcon from '@mui/icons-material/Apps'
+import CachedIcon from '@mui/icons-material/Cached'
 
 const Header = () => {
 
@@ -87,6 +88,9 @@ const Header = () => {
                 {permissions.includes(0) ? <></> : <TopSlider/>}
                 <Box id="header-menu">
                     <ButtonGroup id="header-menu-list" variant="contained" size='small'>
+                        {uid_user !== null ? <Button size='medium' onClick={() => {
+                            document.location.reload()
+                        }}><CachedIcon/></Button> : null}
                         {uid_user === null ?
                             top_menu[0].map(el => {
                                 return <NavLink key={el.id} className='link' to={el.path}>

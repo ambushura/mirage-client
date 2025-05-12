@@ -7,7 +7,7 @@ export function useReset() {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const uid_user = useSelector(state => state.auth.uid_user)
+    const uid_user = useSelector(state => state.auth.uid)
 
     const [clear, set_clear] = useState(0)
 

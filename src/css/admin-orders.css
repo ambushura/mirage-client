@@ -36,7 +36,6 @@
 .admin-orders-list {
     overflow-x: auto;
     padding: 0 0 0 10px;
-    width: calc(40px + 100px + 80px + 80px + 60px + 60px + 60px + 60px + 60px + 100px + 100px);
 }
 
 .admin-orders-list-content {
