@@ -2,6 +2,7 @@ import {Box} from "@mui/material"
 import Menu from "./Menu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {useSelector} from "react-redux"
+import HorecaMenu from "./HorecaMenu.jsx";
 
 const PageHoreca = () => {
 
@@ -9,14 +10,17 @@ const PageHoreca = () => {
     const horder = useSelector(state => state.orders.horder || {in_base: false})
 
     return (
-        <Box id='content-box'>
-            <Box id="content-wrap">
-                <Box id='content'>
-                    <Menu/>
+        <>
+            <HorecaMenu/>
+            <Box id='content-box'>
+                <Box id="content-wrap">
+                    <Box id='content'>
+                        <Menu/>
+                    </Box>
                 </Box>
+                {pre_order.in_base || horder.in_base ? <Order/> : null}
             </Box>
-            {pre_order.in_base || horder.in_base ? <Order/> : null}
-        </Box>
+        </>
     )
 }
 
