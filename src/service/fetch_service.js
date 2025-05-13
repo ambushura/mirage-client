@@ -6,10 +6,17 @@ import {loginSuccess} from "../redux/authReducer.js"
 import {
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_KIOSK_POSITION_ADD,
+    ROUTE_CINEMA_ORDER_ADD_COMMENT,
     ROUTE_CINEMA_ORDER_DELETE,
-    ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_POSITION_ADD, ROUTE_CINEMA_SEANCE_GET_BOOKING,
-    ROUTE_COMMON_LOGIN, ROUTE_COMMON_ORDER_ADD_COMMENT, ROUTE_COMMON_ORDER_ADD_CONTACT,
-    ROUTE_HORECA_ORDER_GET, ROUTE_HORECA_POSITION_ADD
+    ROUTE_CINEMA_ORDER_GET,
+    ROUTE_CINEMA_POSITION_ADD,
+    ROUTE_CINEMA_POSITION_ADD_COMMENT,
+    ROUTE_CINEMA_SEANCE_GET_BOOKING,
+    ROUTE_COMMON_LOGIN,
+    ROUTE_COMMON_ORDER_ADD_CONTACT,
+    ROUTE_HORECA_ORDER_ADD_COMMENT,
+    ROUTE_HORECA_ORDER_GET,
+    ROUTE_HORECA_POSITION_ADD, ROUTE_HORECA_POSITION_ADD_COMMENT
 } from "./fetch_routes.js"
 
 export const login = (filial, wp, login_auth, pincode_auth, username, password) => {
@@ -343,14 +350,14 @@ export const common_contact_add = (filial, wp, order_type, uid_order, buyer_s, b
     }
 }
 
-export const common_comment_add = (filial, wp, order_type, uid_order, uid_position, comment) => {
+export const common_order_add_comment = (filial, wp, order_type, uid_order, comment) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         if (wp === undefined || wp.length === 0) {
             throw new Error("не указано рабочее место")
         }
         try {
-            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_ADD_COMMENT}`, {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_ORDER_ADD_COMMENT : ROUTE_HORECA_ORDER_ADD_COMMENT}`, {
                 timeout: TIMEOUT,
                 headers: {
                     Authorization: token,
@@ -358,7 +365,40 @@ export const common_comment_add = (filial, wp, order_type, uid_order, uid_positi
                     wp: wp,
                 },
                 params: {
-                    order_type: order_type,
+                    uid_order: uid_order,
+                    comment: comment,
+                },
+            })
+            if (order_type === 'cinema') {
+                dispatch(setCurrentPreOrder(response.data.data))
+            } else {
+                dispatch(setCurrentHorder(response.data.data))
+            }
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
+export const common_position_add_comment = (filial, wp, order_type, uid_order, uid_position, comment) => {
+    const token = localStorage.getItem("token")
+    return async (dispatch) => {
+        if (wp === undefined || wp.length === 0) {
+            throw new Error("не указано рабочее место")
+        }
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_ADD_COMMENT : ROUTE_HORECA_POSITION_ADD_COMMENT}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token,
+                    uid_filial: filial.uid,
+                    wp: wp,
+                },
+                params: {
                     uid_order: uid_order,
                     uid_position: uid_position,
                     comment: comment,

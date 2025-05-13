@@ -95,6 +95,7 @@ const OrderPanel = ({
                             <Box className='order-booking'>{order.items.map(booking => (
                                 <BookingItem key={booking.uid}
                                              {...booking}
+                                             uid_order={order.uid}
                                              uid_selected={uid_selected}
                                              set_uid_selected={set_uid_selected}/>
                             ))}</Box>
@@ -135,6 +136,7 @@ const OrderPanel = ({
                                         <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>
                                             {order.items.filter(item => item.kitchen.state === state).map(item =>
                                                 <HorecaItem
+                                                    uid_order={order.uid}
                                                     key={`${item.uid}${order.ver}`}
                                                     item={item}
                                                     uid_selected={uid_selected}

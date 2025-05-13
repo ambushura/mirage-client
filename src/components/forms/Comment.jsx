@@ -1,6 +1,6 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
-import {common_comment_add} from "../../service/fetch_service.js"
+import {common_order_add_comment} from "../../service/fetch_service.js"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 
@@ -14,10 +14,11 @@ const Comment = (props) => {
 
     const order_type = props.props.order_type
     const action_type = props.props.action_type
+    const order = props.props.order
 
     useEffect(() => {
-        set_comment('')
-    }, [])
+        set_comment(order.comment)
+    }, [order.comment])
 
     return (
         <Box component="form"
@@ -25,7 +26,7 @@ const Comment = (props) => {
              noValidate
              onSubmit={(e) => {
                  e.preventDefault()
-                 dispatch(common_comment_add(filial, wp, order_type, comment))
+                 dispatch(common_order_add_comment(filial, wp, order_type, order.uid, comment))
                  dispatch(closeModal())
              }}
              display="flex" flexDirection="column" sx={{alignItems: 'flex-start'}} id="modal-comment">
@@ -37,7 +38,7 @@ const Comment = (props) => {
                 set_comment(event.target.value)
             }}/>
             <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
-                <Button variant='contained' color='secondary'>Сохранить</Button>
+                <Button variant='contained' color='secondary' type="submit">Сохранить</Button>
             </Box>
         </Box>
     )
