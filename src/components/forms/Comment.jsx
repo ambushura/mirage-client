@@ -8,4 +8,5 @@ const Comment = () => {
         </Box>
     )
 }
+
 export default Comment
