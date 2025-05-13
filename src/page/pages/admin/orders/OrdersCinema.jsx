@@ -2,7 +2,7 @@ import {Box, Fade, TextField} from "@mui/material"
 import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
-import {fetchPreOrder} from "../../../../service/fetch_service.js"
+import {cinema_order_fetch} from "../../../../service/fetch_service.js"
 import {
     NEW_EMPTY_ORDER,
     setCurrentPreOrder, setOrdersCinemaFilialSeance,
@@ -109,7 +109,7 @@ const OrdersCinema = (props) => {
                                     <Box sx={{backgroundColor: order.uid === pre_order.uid ? '#eaeaea' : null}}
                                          key={`${order.uid}${order.ver}`}
                                          className='admin-orders-list-content-order' onClick={() => {
-                                        dispatch(fetchPreOrder(current_filial, wp, order.uid))
+                                        dispatch(cinema_order_fetch(current_filial, wp, order.uid))
                                     }}>
                                         <Box>{order.canceled ? <NotInterestedIcon/> : order.deleted || order.closed ?
                                             <CancelIcon/> :

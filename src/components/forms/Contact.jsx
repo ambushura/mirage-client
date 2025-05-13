@@ -3,9 +3,9 @@ import PhoneInput from "../elements/PhoneInput.jsx"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {addOrderComment} from "../../service/fetch_service.js"
+import {common_contact_add} from "../../service/fetch_service.js"
 
-const CommentOrder = (props) => {
+const Contact = (props) => {
 
     const dispatch = useDispatch()
 
@@ -17,7 +17,6 @@ const CommentOrder = (props) => {
     const [buyer_o, set_buyer_o] = useState('')
     const [buyer_email, set_buyer_email] = useState('')
     const [buyer_phone_number, set_buyer_phone_number] = useState('')
-    const [comment, set_comment] = useState('')
 
     useEffect(() => {
         set_buyer_s(props.props.order.buyer_s)
@@ -25,7 +24,6 @@ const CommentOrder = (props) => {
         set_buyer_o(props.props.order.buyer_o)
         set_buyer_email(props.props.order.buyer_email)
         set_buyer_phone_number(props.props.order.buyer_phone_number)
-        set_comment(props.props.order.comment)
     }, [])
 
     return (
@@ -34,12 +32,12 @@ const CommentOrder = (props) => {
              noValidate
              onSubmit={(e) => {
                  e.preventDefault()
-                 dispatch(addOrderComment(filial, wp, props.props.order_type, props.props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, comment))
+                 dispatch(common_contact_add(filial, wp, props.props.order_type, props.props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
                  dispatch(closeModal())
              }}
         >
             <Typography variant="h6" color="textSecondary" margin={1}>
-                Комментарий к заказу
+                Информация о клиенте
             </Typography>
             <Box
                 sx={{'& .MuiTextField-root': {m: 1, width: '25ch'}}}
@@ -63,12 +61,6 @@ const CommentOrder = (props) => {
                     <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number}/>
                 </Box>
             </Box>
-            <Box>
-                <TextField sx={{width: '100%'}} label='Комментарий' color='secondary' margin='dense' focused autoFocus
-                           multiline value={comment} onChange={(event) => {
-                    set_comment(event.target.value)
-                }}/>
-            </Box>
             <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
                 <Button variant='contained' color='secondary' type="submit">Сохранить</Button>
             </Box>
@@ -76,4 +68,4 @@ const CommentOrder = (props) => {
     )
 }
 
-export default CommentOrder
+export default Contact

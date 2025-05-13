@@ -8,7 +8,7 @@ import {
     ROUTE_CINEMA_KIOSK_POSITION_ADD,
     ROUTE_CINEMA_ORDER_DELETE,
     ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_POSITION_ADD, ROUTE_CINEMA_SEANCE_GET_BOOKING,
-    ROUTE_COMMON_LOGIN, ROUTE_COMMON_ORDER_ADD_COMMENT,
+    ROUTE_COMMON_LOGIN, ROUTE_COMMON_ORDER_ADD_COMMENT, ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_HORECA_ORDER_GET, ROUTE_HORECA_POSITION_ADD
 } from "./fetch_routes.js"
 
@@ -46,7 +46,7 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
     }
 }
 
-export const fetchPreOrder = (filial, wp, uid_order) => {
+export const cinema_order_fetch = (filial, wp, uid_order) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
@@ -75,7 +75,7 @@ export const fetchPreOrder = (filial, wp, uid_order) => {
     }
 }
 
-export const fetchHorder = (filial, wp, uid_order) => {
+export const horeca_order_fetch = (filial, wp, uid_order) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         if (wp === undefined || wp.length === 0) {
@@ -104,7 +104,7 @@ export const fetchHorder = (filial, wp, uid_order) => {
     }
 }
 
-export const deletePreOrder = (filial, wp, uid_order) => {
+export const cinema_order_delete = (filial, wp, uid_order) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
@@ -133,7 +133,7 @@ export const deletePreOrder = (filial, wp, uid_order) => {
     }
 }
 
-export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver) => {
+export const cinema_position_add = (city, filial, wp, uid_seance, uid_order, uid_place, ver) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
@@ -191,7 +191,7 @@ export const takeSeat = (city, filial, wp, uid_seance, uid_order, uid_place, ver
     }
 }
 
-export const horeca_add = (filial, wp, uid_order, ver, uid_menu) => {
+export const horeca_position_add = (filial, wp, uid_order, ver, uid_menu) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
@@ -230,7 +230,7 @@ export const horeca_add = (filial, wp, uid_order, ver, uid_menu) => {
     }
 }
 
-export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
+export const common_order_pay = (filial, wp, pm, uid_order, ver, type, for_payment) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         try {
@@ -271,7 +271,7 @@ export const payment = (filial, wp, pm, uid_order, ver, type, for_payment) => {
     }
 }
 
-export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => {
+export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         if (wp === undefined || wp.length === 0) {
@@ -304,7 +304,46 @@ export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_group_dis
     }
 }
 
-export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, comment) => {
+export const common_contact_add = (filial, wp, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email) => {
+    const token = localStorage.getItem("token")
+    return async (dispatch) => {
+        if (wp === undefined || wp.length === 0) {
+            throw new Error("не указано рабочее место")
+        }
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_ADD_CONTACT}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token,
+                    uid_filial: filial.uid,
+                    wp: wp,
+                },
+                params: {
+                    order_type: order_type,
+                    uid_order: uid_order,
+                    buyer_s: buyer_s,
+                    buyer_n: buyer_n,
+                    buyer_o: buyer_o,
+                    buyer_phone_number: buyer_phone_number,
+                    buyer_email: buyer_email,
+                },
+            })
+            if (order_type === 'cinema') {
+                dispatch(setCurrentPreOrder(response.data.data))
+            } else {
+                dispatch(setCurrentHorder(response.data.data))
+            }
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.message,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
+export const common_comment_add = (filial, wp, order_type, uid_order, uid_position, comment) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         if (wp === undefined || wp.length === 0) {
@@ -321,11 +360,7 @@ export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buye
                 params: {
                     order_type: order_type,
                     uid_order: uid_order,
-                    buyer_s: buyer_s,
-                    buyer_n: buyer_n,
-                    buyer_o: buyer_o,
-                    buyer_phone_number: buyer_phone_number,
-                    buyer_email: buyer_email,
+                    uid_position: uid_position,
                     comment: comment,
                 },
             })

@@ -1,6 +1,6 @@
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {fetchHorder} from "../../../../service/fetch_service.js"
+import {horeca_order_fetch} from "../../../../service/fetch_service.js"
 
 const OrderFood = (props) => {
 
@@ -12,7 +12,7 @@ const OrderFood = (props) => {
 
     return (
         <Box key={order.uid} className='admin-orders-horeca-order' onClick={() => {
-            dispatch(fetchHorder(filial, wp, order.uid))
+            dispatch(horeca_order_fetch(filial, wp, order.uid))
         }}>
             <Box className='admin-orders-horeca-order-content'>
                 <Box className='admin-orders-horeca-order-header'>

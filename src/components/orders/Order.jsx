@@ -21,10 +21,11 @@ import {
     setHorderPaying,
     setPreOrderPaying
 } from "../../redux/ordersReducer.js"
-import {deletePreOrder, fetchPreOrder} from "../../service/fetch_service.js"
+import {cinema_order_delete, cinema_order_fetch} from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
+import ContactMailIcon from '@mui/icons-material/ContactMail'
 
 const OrderPanel = ({
                         height,
@@ -36,6 +37,7 @@ const OrderPanel = ({
                         fetchOrder,
                         deleteOrder,
                         navigateTo,
+                        addContact,
                         dispatch,
                         uid_selected,
                         set_uid_selected
@@ -47,6 +49,7 @@ const OrderPanel = ({
                     <ButtonGroup size='large'>
                         <Button variant="contained" color="info" onClick={() => setPaying(true)}><ReceiptIcon/></Button>
                         <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
+                        <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
                         <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
                         <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
                         {uid_selected.length > 0 ?
@@ -67,8 +70,10 @@ const OrderPanel = ({
                                     dispatch(openModal({type: 'discounts', props: {uid_positions: uid_selected}}))
                                 }}>Скидки</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                            </ButtonGroup>
+                            <ButtonGroup size='small' sx={{marginLeft: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'commentOrder', props: {order_type: 'cinema', order: order}}))
+                                    dispatch(openModal({type: 'comment', props: {order_type: 'cinema', action_type: 'order', order: order}}))
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                             </ButtonGroup>
@@ -108,7 +113,7 @@ const OrderPanel = ({
                                 </ButtonGroup>
                                 <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {
-                                        dispatch(openModal({type: 'commentOrder', props: {order_type: 'horeca', order: order}}))
+                                        dispatch(openModal({type: 'comment', props: {order_type: 'horeca', action_type: 'order', order: order}}))
                                     }}>Комментарий</Button>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                     }}><DeleteIcon/></Button>
@@ -184,9 +189,10 @@ const Order = () => {
                     paying={pre_order_paying}
                     setPaying={value => dispatch(setPreOrderPaying(value))}
                     emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
-                    fetchOrder={() => dispatch(fetchPreOrder(filial, wp, pre_order.uid))}
-                    deleteOrder={() => dispatch(deletePreOrder(filial, wp, pre_order.uid))}
+                    fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
+                    deleteOrder={() => dispatch(cinema_order_delete(filial, wp, pre_order.uid))}
                     navigateTo={() => navigate(seance_link())}
+                    addContact={() => {dispatch(openModal({type: 'add_contact', props: {order_type: 'cinema', order: pre_order}}))}}
                     dispatch={dispatch}
                     uid_selected={uid_cinema_selected}
                     set_uid_selected={set_uid_cinema_selected}
@@ -203,6 +209,7 @@ const Order = () => {
                     dispatch={dispatch}
                     uid_selected={uid_horeca_selected}
                     set_uid_selected={set_uid_horeca_selected}
+                    addContact={() => {dispatch(openModal({type: 'add_contact', props: {order_type: 'horeca', order: horder}}))}}
                 />
             ) : null}
         </Box>

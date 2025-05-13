@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {Box, Button, LinearProgress} from "@mui/material"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import Ticket from "./Ticket.jsx"
-import {payment} from "../../../service/fetch_service.js"
+import {common_order_pay} from "../../../service/fetch_service.js"
 
 const CheckOut = (props) => {
 
@@ -49,7 +49,7 @@ const CheckOut = (props) => {
                         </Box>
                     </Box>
                     <Button onClick={() => {
-                        dispatch(payment(filial, pre_order.uid, wp))
+                        dispatch(common_order_pay(filial, pre_order.uid, wp))
                     }} variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}>Оплатить</Button>
                 </Box>
             </Box>

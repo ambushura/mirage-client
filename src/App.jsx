@@ -19,7 +19,7 @@ import Quantity from "./components/forms/Quantity.jsx"
 import Comment from "./components/forms/Comment.jsx"
 import Calc from "./components/forms/Calc.jsx"
 import Discounts from "./components/forms/Discounts.jsx"
-import CommentOrder from "./components/forms/CommentOrder.jsx"
+import Contact from "./components/forms/Contact.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -44,14 +44,14 @@ function App() {
             case 'comment':
                 setModalContent(<Comment props={modal_props}/>)
                 break
-            case 'commentOrder':
-                setModalContent(<CommentOrder props={modal_props}/>)
-                break
             case 'calc':
                 setModalContent(<Calc/>)
                 break
             case 'discounts':
                 setModalContent(<Discounts props={modal_props}/>)
+                break
+            case 'add_contact':
+                setModalContent(<Contact props={modal_props}/>)
                 break
             default:
                 setModalContent(null)

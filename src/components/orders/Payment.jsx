@@ -13,7 +13,7 @@ import {
 } from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import {payment} from "../../service/fetch_service.js"
+import {common_order_pay} from "../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
 
 const Payment = (props) => {
@@ -56,7 +56,7 @@ const Payment = (props) => {
                                     className='payment-path'
                                     sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
                                     onClick={() => {
-                                        dispatch(payment(
+                                        dispatch(common_order_pay(
                                             filial,
                                             wp,
                                             pm,

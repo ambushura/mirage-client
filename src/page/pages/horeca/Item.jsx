@@ -1,6 +1,6 @@
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {horeca_add} from "../../../service/fetch_service.js"
+import {horeca_position_add} from "../../../service/fetch_service.js"
 
 const Item = (props) => {
 
@@ -12,7 +12,7 @@ const Item = (props) => {
 
     return (
         <Box className="menu-item"
-             onClick={() => dispatch(horeca_add(filial, wp, horder.uid, horder.ver, props.item.uid))}>
+             onClick={() => dispatch(horeca_position_add(filial, wp, horder.uid, horder.ver, props.item.uid))}>
             <Box>{props.item.name}</Box>
             <Box style={{display: 'flex', justifyContent: 'end', alignItems: 'flex-end'}}>
                 <span style={{

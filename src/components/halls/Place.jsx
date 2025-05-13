@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {useState} from 'react'
 import {useDispatch, useSelector} from "react-redux"
-import {takeSeat} from "../../service/fetch_service.js"
+import {cinema_position_add} from "../../service/fetch_service.js"
 
 const Place = (props) => {
 
@@ -59,7 +59,7 @@ const Place = (props) => {
                 if (props.set_time_remaining !== undefined) {
                     props.set_time_remaining(100)
                 }
-                dispatch(takeSeat(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
+                dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
             }}
             style={{
                 background: 'transparent',

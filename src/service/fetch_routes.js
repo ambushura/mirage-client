@@ -11,6 +11,7 @@ export const ROUTE_CINEMA_POSITION_ADD_DISCOUNT = "/api/cinema/position/add_disc
 export const ROUTE_CINEMA_SEANCE_ADD = "/api/cinema/seance/add"
 export const ROUTE_CINEMA_SEANCE_CLOSE = "/api/cinema/seance/close"
 export const ROUTE_COMMON_ORDER_ADD_COMMENT = "/api/common/order/add/comment"
+export const ROUTE_COMMON_ORDER_ADD_CONTACT = "/api/common/order/add/contact"
 export const ROUTE_COMMON_ORDERS_GET_RECEIPTS = "/api/common/orders/get_receipts"
 export const ROUTE_COMMON_PAYMENT_METHODS_GET = "/api/common/payment_methods/get"
 export const ROUTE_COMMON_POSITION_ADD_COMMENT = "/api/common/position/add/comment"

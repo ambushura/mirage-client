@@ -4,7 +4,7 @@ import {
 import {useState} from "react"
 import {useFetchDiscounts} from "../../hooks/fetching/useFetchDiscounts.js"
 import {useDispatch, useSelector} from "react-redux"
-import {applyDiscount} from "../../service/fetch_service.js"
+import {cinema_discount_apply} from "../../service/fetch_service.js"
 import {closeModal} from "../../redux/interfaceReducer.js"
 
 const Discounts = (props) => {
@@ -34,7 +34,7 @@ const Discounts = (props) => {
                      return
                  }
                  set_discount_error(false)
-                 dispatch(applyDiscount(filial, wp, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions))
+                 dispatch(cinema_discount_apply(filial, wp, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions))
                  dispatch(closeModal())
              }}>
             <Typography variant="h6" color="textSecondary" margin={1}>

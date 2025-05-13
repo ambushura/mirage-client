@@ -8,7 +8,7 @@ import {useFetchBooking} from "../../../hooks/fetching/useFetchBooking.js"
 import {setBooking} from "../../../redux/scheduleReducer.js"
 import {ORDER_TIME_OUT} from "../../../redux/ordersReducer.js"
 import {ticket_count} from "../../../service/advanced.js"
-import {deletePreOrder} from "../../../service/fetch_service.js"
+import {cinema_order_delete} from "../../../service/fetch_service.js"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 import Hall from "../../../components/halls/Hall.jsx"
 import CheckOut from "./CheckOut.jsx"
@@ -69,7 +69,7 @@ const PageSeance = () => {
         if (!permissions.includes(0)) {
             if (time_remaining <= 1) {
                 navigate(-1)
-                dispatch(deletePreOrder(filial, wp, pre_order.uid))
+                dispatch(cinema_order_delete(filial, wp, pre_order.uid))
             }
         }
     }, [dispatch, filial, navigate, permissions, pre_order, time_remaining])
@@ -102,7 +102,7 @@ const PageSeance = () => {
                                             <Box className='order-panel'>
                                                 <Button onClick={() => {
                                                     navigate(-1)
-                                                    dispatch(deletePreOrder(filial, wp, pre_order.uid))
+                                                    dispatch(cinema_order_delete(filial, wp, pre_order.uid))
                                                 }} variant="contained"
                                                         color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
                                                 <Box sx={{width: '100%', marginLeft: '10px'}}>
