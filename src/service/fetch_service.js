@@ -329,7 +329,11 @@ export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buye
                     comment: comment,
                 },
             })
-            dispatch(setCurrentPreOrder(response.data.data))
+            if (order_type === 'cinema') {
+                dispatch(setCurrentPreOrder(response.data.data))
+            } else {
+                dispatch(setCurrentHorder(response.data.data))
+            }
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,
