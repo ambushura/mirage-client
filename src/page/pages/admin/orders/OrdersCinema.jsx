@@ -98,6 +98,9 @@ const OrdersCinema = (props) => {
                                 <TextField size='small' label="Цена" variant='filled'/>
                                 <TextField size='small' label="Скидка" variant='filled'/>
                                 <TextField size='small' label="Сумма" variant='filled'/>
+                                <TextField size='small' label="Фамилия" variant='filled'/>
+                                <TextField size='small' label="Имя" variant='filled'/>
+                                <TextField size='small' label="Отчество" variant='filled'/>
                                 <TextField size='small' label="Телефон" variant='filled'/>
                                 <TextField size='small' label="e-mail" variant='filled'/>
                             </Box>
@@ -128,8 +131,11 @@ const OrdersCinema = (props) => {
                                         <Box>{order.price} р</Box>
                                         <Box>{order.sum_discount !== 0 ? `${order.sum_discount} р` : null}</Box>
                                         <Box sx={{fontWeight: 'bold'}}>{order.sum} р</Box>
-                                        <Box>{order.email}</Box>
-                                        <Box>{order.phone}</Box>
+                                        <Box>{order.buyer_s}</Box>
+                                        <Box>{order.buyer_n}</Box>
+                                        <Box>{order.buyer_o}</Box>
+                                        <Box>{order.buyer_email}</Box>
+                                        <Box>{order.buyer_phone_number}</Box>
                                     </Box>
                                 )
                             })}

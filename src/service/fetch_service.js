@@ -304,7 +304,7 @@ export const applyDiscount = (filial, wp, uid_order, uid_discount, uid_group_dis
     }
 }
 
-export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buyer_n, buyer_o, phone, email, comment) => {
+export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, comment) => {
     const token = localStorage.getItem("token")
     return async (dispatch) => {
         if (wp === undefined || wp.length === 0) {
@@ -324,8 +324,8 @@ export const addOrderComment = (filial, wp, order_type, uid_order, buyer_s, buye
                     buyer_s: buyer_s,
                     buyer_n: buyer_n,
                     buyer_o: buyer_o,
-                    phone: phone,
-                    email: email,
+                    buyer_phone_number: buyer_phone_number,
+                    buyer_email: buyer_email,
                     comment: comment,
                 },
             })

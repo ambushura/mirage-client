@@ -39,7 +39,7 @@
 }
 
 .admin-orders-list-content {
-    width: calc(40px + 100px + 80px + 80px + 60px + 60px + 60px + 60px + 60px + 100px + 100px);
+    width: calc(40px + 100px + 80px + 80px + 60px + 60px + 60px + 60px + 60px + 100px + 100px + 100px + 100px + 150px);
     display: flex;
     flex-direction: column;
 }
@@ -55,7 +55,7 @@
 
 .admin-orders-list-content-order, .admin-orders-list-content-order-header {
     display: grid;
-    grid-template-columns: 40px 100px 80px 80px 60px 60px 60px 60px 60px 100px 100px;
+    grid-template-columns: 40px 100px 80px 80px 60px 60px 60px 60px 60px 100px 100px 100px 100px 150px;
     gap: 8px;
     align-items: center;
     border-radius: 6px;

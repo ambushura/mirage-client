@@ -15,16 +15,16 @@ const CommentOrder = (props) => {
     const [buyer_s, set_buyer_s] = useState('')
     const [buyer_n, set_buyer_n] = useState('')
     const [buyer_o, set_buyer_o] = useState('')
-    const [email, set_email] = useState('')
-    const [phone, set_phone] = useState('')
+    const [buyer_email, set_buyer_email] = useState('')
+    const [buyer_phone_number, set_buyer_phone_number] = useState('')
     const [comment, set_comment] = useState('')
 
     useEffect(() => {
         set_buyer_s(props.props.order.buyer_s)
         set_buyer_n(props.props.order.buyer_n)
         set_buyer_o(props.props.order.buyer_o)
-        set_email(props.props.order.email)
-        set_phone(props.props.order.phone)
+        set_buyer_email(props.props.order.buyer_email)
+        set_buyer_phone_number(props.props.order.buyer_phone_number)
         set_comment(props.props.order.comment)
     }, [])
 
@@ -34,7 +34,7 @@ const CommentOrder = (props) => {
              noValidate
              onSubmit={(e) => {
                  e.preventDefault()
-                 dispatch(addOrderComment(filial, wp, props.props.order_type, props.props.order.uid, buyer_s, buyer_n, buyer_o, phone, email, comment))
+                 dispatch(addOrderComment(filial, wp, props.props.order_type, props.props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, comment))
                  dispatch(closeModal())
              }}
         >
@@ -56,11 +56,11 @@ const CommentOrder = (props) => {
                     }}/>
                 </Box>
                 <Box>
-                    <TextField variant='filled' label='e-mail' margin="dense" type="email" value={email}
+                    <TextField variant='filled' label='e-mail' margin="dense" type="email" value={buyer_email}
                                onChange={(event) => {
-                                   set_email(event.target.value)
+                                   set_buyer_email(event.target.value)
                                }}/>
-                    <PhoneInput value={phone} set_value={set_phone}/>
+                    <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number}/>
                 </Box>
             </Box>
             <Box>

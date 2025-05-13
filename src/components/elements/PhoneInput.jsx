@@ -1,7 +1,6 @@
-import {useForm, Controller} from 'react-hook-form'
-import {IMaskInput} from 'react-imask'
-import TextField from '@mui/material/TextField'
-import React from 'react'
+import {TextField} from "@mui/material"
+import {IMaskInput} from "react-imask"
+import React from "react"
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     const {onChange, ...other} = props
@@ -17,28 +16,17 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     )
 })
 
-export default function PhoneInput(props) {
-    const {control} = useForm()
+export default function PhoneInput({value, set_value}) {
     return (
-        <Controller
-            name="phone"
-            control={control}
-            defaultValue=""
-            render={({field}) => (
-                <TextField
-                    {...field}
-                    label="Телефон"
-                    variant="filled"
-                    fullWidth
-                    onChange={(event) => {
-                        props.set_value(event.target.value)
-                    }}
-                    value={props.value}
-                    InputProps={{
-                        inputComponent: TextMaskCustom
-                    }}
-                />
-            )}
+        <TextField
+            label="Телефон"
+            variant="filled"
+            fullWidth
+            value={value}
+            onChange={(event) => set_value(event.target.value)}
+            InputProps={{
+                inputComponent: TextMaskCustom
+            }}
         />
     )
 }
