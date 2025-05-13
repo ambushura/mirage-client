@@ -8,7 +8,7 @@ import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/forms/Auth.jsx"
 import {useEffect, useState} from "react"
 import {useRef} from "react"
-import {setAuthOpened} from "../../redux/interfaceReducer.js"
+import {MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -16,6 +16,10 @@ import dayjs from "dayjs"
 import {addNotification} from "../../redux/notifierReducer.js"
 import AppsIcon from '@mui/icons-material/Apps'
 import CachedIcon from '@mui/icons-material/Cached'
+import TheatersIcon from '@mui/icons-material/Theaters'
+import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 
 const Header = () => {
 
@@ -37,6 +41,7 @@ const Header = () => {
     const prev_filials_open = useRef(Boolean(filials_open))
 
     const auth_opened = useSelector(state => state.interface.auth_opened)
+    const app_width = useSelector(state => state.interface.app_width)
 
     const name_user = useSelector(state => state.auth.name)
     const uid_user = useSelector(state => state.auth.uid)
@@ -82,6 +87,35 @@ const Header = () => {
     const [admin_opened, set_admin_open] = useState(false)
     const prev_admin_open = useRef(Boolean(admin_opened))
 
+    const main_button = (el) => {
+        if (app_width > MOBILE_WIDTH || uid_user === null) {
+            return (
+                <Button>{el.name}</Button>
+            )
+        } else {
+            switch (el.id) {
+                case 'films':
+                    return (
+                        <Button><TheatersIcon/></Button>
+                    )
+                case 'schedule':
+                    return (
+                        <Button><CalendarViewMonthIcon/></Button>
+                    )
+                case 'menu':
+                    return (
+                        <Button><MenuBookIcon/></Button>
+                    )
+                case 'kitchen':
+                    return (
+                        <Button><SoupKitchenIcon/></Button>
+                    )
+                default:
+                    el.name
+            }
+        }
+    }
+
     return (
         <header id="header">
             <Box id="header-desktop">
@@ -94,13 +128,13 @@ const Header = () => {
                         {uid_user === null ?
                             top_menu[0].map(el => {
                                 return <NavLink key={el.id} className='link' to={el.path}>
-                                    <Button style={{height: '100%'}}>{el.name}</Button>
+                                    {main_button(el)}
                                 </NavLink>
                             }) :
                             top_menu[1].map(el => {
                                 if (el.id !== 'admin') {
                                     return <NavLink key={el.id} className='link' to={el.path}>
-                                        <Button style={{height: '100%'}}>{el.name}</Button>
+                                        {main_button(el)}
                                     </NavLink>
                                 } else {
                                     return <List
@@ -111,7 +145,7 @@ const Header = () => {
                                         prev_open={prev_admin_open}
                                         id={admin_list_id}
                                         setOpen={set_admin_open}
-                                        button_text={'Кинокомплекс'}
+                                        button_text={app_width >= MOBILE_WIDTH ? 'Кинокомплекс' : null}
                                         list={el.path}
                                         startIcon={<AppsIcon/>}
                                         endIcon={<KeyboardArrowDownIcon/>}
