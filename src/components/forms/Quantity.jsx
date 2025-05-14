@@ -3,6 +3,7 @@ import { closeModal } from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import { useState } from "react"
 import {horeca_position_add_quantity} from "../../service/fetch_service.js"
+import {addNotification} from "../../redux/notifierReducer.js"
 
 const Quantity = (props) => {
 
@@ -44,8 +45,14 @@ const Quantity = (props) => {
         const quantity = parseFloat(countStr)
         if (!isNaN(quantity)) {
             dispatch(horeca_position_add_quantity(filial, wp, uid_order, uid_position, quantity))
+            dispatch(closeModal())
+        } else {
+            dispatch(addNotification({
+                message: 'количество должно быть отличным от нуля',
+                severity: 'error',
+                autoHide: true
+            }))
         }
-        dispatch(closeModal())
     }
 
     return (
