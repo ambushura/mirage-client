@@ -247,6 +247,7 @@
     justify-content: center;
     height: 100%;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .order-box-horeca-item-1-calc {
@@ -321,6 +322,7 @@
 .order-box-horeca-item-2-3 {
     min-width: 50px;
     background-color: #1C1F23;
+    cursor: pointer;
 }
 
 .order-box-horeca-item-3-1,
@@ -377,6 +379,7 @@
     justify-content: center;
     height: 100%;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .order-box-horeca-item-5-1 {
@@ -392,6 +395,7 @@
     height: 100%;
     min-width: 50px;
     background-color: #1C1F23;
+    cursor: pointer;
 }
 
 .order-box-horeca-item-5-3 {

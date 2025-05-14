@@ -25,14 +25,17 @@ const HorecaItem = (props) => {
             <Box
                 className='order-box-horeca-item-1'>
                 <button className='order-box-horeca-item-1-calc'
-                        onClick={() => dispatch(openModal({type: 'quantity', props: {
-                            uid_order: props.uid_order,
+                        onClick={() => dispatch(openModal({
+                            type: 'quantity', props: {
+                                uid_order: props.uid_order,
                                 uid_position: props.item.uid,
                                 fraction: props.item.fraction,
                                 unit_name: props.item.unit_name,
                                 unit_code: props.item.unit_code,
                                 v: props.item.v,
-                                quantity: props.item.quantity}}))}><CalculateIcon/></button>
+                                quantity: props.item.quantity
+                            }
+                        }))}><CalculateIcon/></button>
                 <Box className='order-box-horeca-item-1-1' onClick={() => {
                     props.set_uid_selected(prev =>
                         prev.includes(props.item.uid)
@@ -43,7 +46,15 @@ const HorecaItem = (props) => {
                 <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum.toFixed(0)} р</Box><Box
                     sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3)} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
-                        onClick={() => dispatch(openModal({type: 'comment_position', props: {order_type: 'horeca', action_type: 'position', uid_order: props.uid_order, uid_position: props.item.uid, comment: props.item.comment}}))}><BorderColorIcon
+                        onClick={() => dispatch(openModal({type: 'comment_position',
+                            props: {
+                                order_type: 'horeca',
+                                action_type: 'position',
+                                uid_order: props.uid_order,
+                                uid_position: props.item.uid,
+                                comment: props.item.comment
+                            }
+                        }))}><BorderColorIcon
                     sx={{color: 'white'}}/></button>
                 <button className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
@@ -68,7 +79,7 @@ const HorecaItem = (props) => {
             {props.item.kitchen.state !== 0 ? <Box className='order-box-horeca-item-5'>
                 <button className='order-box-horeca-item-5-1'><DirectionsRunIcon sx={{color: 'white'}}/></button>
                 <button className='order-box-horeca-item-5-2'><LooksOneIcon sx={{color: 'white'}}/></button>
-                <button className='order-box-horeca-item-5-3'>{state[props.item.kitchen.state]}</button>
+                <button className='order-box-horeca-item-5-3' style={{backgroundColor: '#e3000b'}}>{state[props.item.kitchen.state]}</button>
                 <Box className='order-box-horeca-item-5-4'></Box>
                 <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box>
             </Box> : <></>}
