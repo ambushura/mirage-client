@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import LooksOneIcon from '@mui/icons-material/LooksOne'
-import QrCodeIcon from '@mui/icons-material/QrCode'
+import QrCode2Icon from '@mui/icons-material/QrCode2'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CalculateIcon from '@mui/icons-material/Calculate'
@@ -40,13 +40,13 @@ const HorecaItem = (props) => {
                 <button className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon/></button>
                 <Box
                     className='order-box-horeca-item-2-2'>{props.item.egais.value === '' ? 'Отсканируйте маркировку' : props.item.egais.value}</Box>
-                <button className='order-box-horeca-item-2-3'><QrCodeIcon sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-2-3'><QrCode2Icon sx={{color: 'white'}}/></button>
             </Box> : <></>}
             {props.item.egais.type_code !== '' ? <Box className='order-box-horeca-item-3'>
                 <button className='order-box-horeca-item-3-1'><CheckCircleOutlineIcon/></button>
                 <Box
                     className='order-box-horeca-item-3-2'>{props.item.mark.value === '' ? 'Отсканируйте акцизную марку' : props.item.mark.value}</Box>
-                <button className='order-box-horeca-item-3-3'><QrCodeIcon sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-3-3'><QrCode2Icon sx={{color: 'white'}}/></button>
             </Box> : <></>}
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
                 <Box className='order-box-horeca-item-4-1'>{props.item.comment}</Box>
