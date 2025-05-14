@@ -1,11 +1,11 @@
 import "../../css/admin.css"
 import {Box, Button, ButtonGroup} from "@mui/material"
 import {
-    Receipt as ReceiptIcon,
-    DeleteForever as DeleteForeverIcon,
     Cached as CachedIcon,
+    Close as CloseIcon,
     Delete as DeleteIcon,
-    Close as CloseIcon
+    DeleteForever as DeleteForeverIcon,
+    Receipt as ReceiptIcon
 } from '@mui/icons-material'
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../cinema/SeanceTitle.jsx"

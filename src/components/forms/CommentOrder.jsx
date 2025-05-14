@@ -13,7 +13,6 @@ const CommentOrder = (props) => {
     const wp = useSelector(state => state.interface.wp)
 
     const order_type = props.props.order_type
-    const action_type = props.props.action_type
     const order = props.props.order
 
     useEffect(() => {

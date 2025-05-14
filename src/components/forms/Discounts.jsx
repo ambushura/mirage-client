@@ -1,5 +1,13 @@
 import {
-    Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography
+    Box,
+    Button,
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography
 } from "@mui/material"
 import {useState} from "react"
 import {useFetchDiscounts} from "../../hooks/fetching/useFetchDiscounts.js"

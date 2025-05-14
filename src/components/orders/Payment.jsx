@@ -5,12 +5,7 @@ import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {useEffect, useMemo, useState} from "react"
 import Loader from "../elements/Loader.jsx"
-import {
-    setCash,
-    setHorderPaying,
-    setPreOrderPaying,
-    setTotal
-} from "../../redux/ordersReducer.js"
+import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {common_order_pay} from "../../service/fetch_service.js"

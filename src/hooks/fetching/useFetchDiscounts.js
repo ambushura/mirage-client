@@ -1,8 +1,6 @@
 import {useEffect, useState} from "react"
 import {useFetching} from "../common/useFetching.js"
-import {
-    ROUTE_CINEMA_DISCOUNTS_GET, ROUTE_CINEMA_DISCOUNTS_GROUPS_GET,
-} from "../../service/fetch_routes.js"
+import {ROUTE_CINEMA_DISCOUNTS_GET, ROUTE_CINEMA_DISCOUNTS_GROUPS_GET,} from "../../service/fetch_routes.js"
 import {useSelector} from "react-redux"
 
 export function useFetchDiscounts() {

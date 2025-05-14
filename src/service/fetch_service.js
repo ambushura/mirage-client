@@ -16,7 +16,8 @@ import {
     ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
-    ROUTE_HORECA_POSITION_ADD, ROUTE_HORECA_POSITION_ADD_COMMENT
+    ROUTE_HORECA_POSITION_ADD,
+    ROUTE_HORECA_POSITION_ADD_COMMENT
 } from "./fetch_routes.js"
 
 export const login = (filial, wp, login_auth, pincode_auth, username, password) => {

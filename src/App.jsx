@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {Box, Modal} from "@mui/material"
-import {Routes, Route, Navigate} from "react-router-dom"
+import {Navigate, Route, Routes} from "react-router-dom"
 
 import Header from "./page/header/Header.jsx"
 import Footer from "./page/footer/Footer.jsx"

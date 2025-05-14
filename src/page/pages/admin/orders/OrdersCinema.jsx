@@ -3,10 +3,7 @@ import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../../../components/cinema/SeanceTitle.jsx"
 import {cinema_order_fetch} from "../../../../service/fetch_service.js"
-import {
-    NEW_EMPTY_ORDER,
-    setCurrentPreOrder, setOrdersCinemaFilialSeance,
-} from "../../../../redux/ordersReducer.js"
+import {NEW_EMPTY_ORDER, setCurrentPreOrder, setOrdersCinemaFilialSeance,} from "../../../../redux/ordersReducer.js"
 import dayjs from "dayjs"
 import NotInterestedIcon from '@mui/icons-material/NotInterested'
 import CancelIcon from '@mui/icons-material/Cancel'

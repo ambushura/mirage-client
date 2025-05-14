@@ -1,4 +1,4 @@
-import {createContext, useState, useEffect} from 'react'
+import {createContext, useEffect, useState} from 'react'
 import {useSelector} from "react-redux"
 import {createTheme} from "@mui/material"
 import {useFullScreen} from "../hooks/interface/useFullScreen.js"
