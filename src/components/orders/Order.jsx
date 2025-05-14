@@ -26,6 +26,7 @@ import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
 
 const OrderPanel = ({
                         height,
@@ -49,7 +50,6 @@ const OrderPanel = ({
                     <ButtonGroup size='large'>
                         <Button variant="contained" color="info" onClick={() => setPaying(true)}><ReceiptIcon/></Button>
                         <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
-                        <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
                         <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
                         <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
                         {uid_selected.length > 0 ?
@@ -65,16 +65,17 @@ const OrderPanel = ({
                 {type === 'cinema' && (
                     <>
                         <Box className="order-box-panel-2">
-                            <ButtonGroup size='small'>
-                                <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'discounts', props: {uid_positions: uid_selected}}))
-                                }}>Скидки</Button>
-                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
-                            </ButtonGroup>
-                            <ButtonGroup size='small' sx={{marginLeft: '4px'}}>
+                            <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
+                            <ButtonGroup size='medium' sx={{marginLeft: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                     dispatch(openModal({type: 'comment_order', props: {order_type: 'cinema', action_type: 'order', order: order}}))
-                                }}>Комментарий</Button>
+                                }}><BorderColorIcon/></Button>
+                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                            </ButtonGroup>
+                            <ButtonGroup size='small'>
+                                <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
+                                    dispatch(openModal({type: 'discounts', props: {uid_positions: uid_selected}}))
+                                }}>Скидки</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                             </ButtonGroup>
                         </Box>
@@ -105,19 +106,20 @@ const OrderPanel = ({
                 {type === 'horeca' && (
                     <>
                         <Box className="order-box-panel-2">
-                            <ButtonGroup sx={{marginBottom: '4px'}} size='small'>
+                            <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
+                            <ButtonGroup sx={{marginLeft: '4px', marginBottom: '4px'}} size='small'>
+                                <ButtonGroup sx={{marginRight: '4px'}} size='medium'>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                        dispatch(openModal({type: 'comment_order', props: {order_type: 'horeca', action_type: 'order', order: order}}))
+                                    }}><BorderColorIcon/></Button>
+                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    }}><DeleteIcon/></Button>
+                                </ButtonGroup>
                                 <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                     }}>Пречек</Button>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                     }}>Разделить</Button>
-                                </ButtonGroup>
-                                <ButtonGroup sx={{marginRight: '4px'}} size='small'>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                        dispatch(openModal({type: 'comment_order', props: {order_type: 'horeca', action_type: 'order', order: order}}))
-                                    }}>Комментарий</Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><DeleteIcon/></Button>
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {
