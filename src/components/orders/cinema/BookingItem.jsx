@@ -33,7 +33,7 @@ const BookingItem = (props) => {
                           style={{color: props.uid_discount !== null ? '#FF9800' : 'black'}}>{props.sum} р</span>
                 </div>
                 <button className='order-booking-item-button' onClick={() => {
-                    dispatch(openModal({type: 'comment', props: {order_type: 'cinema', action_type: 'position', uid_order: props.uid_order, uid_position: props.uid}}))
+                    dispatch(openModal({type: 'comment_position', props: {order_type: 'cinema', action_type: 'position', uid_order: props.uid_order, uid_position: props.uid, comment: props.comment}}))
                 }}><BorderColorIcon/></button>
             </Box>
             {props.uid_discount !== null ?

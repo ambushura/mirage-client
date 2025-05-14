@@ -4,7 +4,7 @@ import {common_order_add_comment} from "../../service/fetch_service.js"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 
-const Comment = (props) => {
+const CommentOrder = (props) => {
 
     const dispatch = useDispatch()
 
@@ -30,9 +30,7 @@ const Comment = (props) => {
                  dispatch(closeModal())
              }}
              display="flex" flexDirection="column" sx={{alignItems: 'flex-start'}} id="modal-comment">
-            <Typography variant="h6" color="textSecondary" margin={1}>
-                {`Комментарий к ${action_type === 'order' ? 'заказу' : 'позиции заказа'}`}
-            </Typography>
+            <Typography variant="h6" color="textSecondary" margin={1}>Комментарий к заказу</Typography>
             <TextField label='Комментарий' sx={{m: 1, minWidth: '400px'}} variant='filled' color="textSecondary"
                        multiline value={comment} onChange={(event) => {
                 set_comment(event.target.value)
@@ -44,4 +42,4 @@ const Comment = (props) => {
     )
 }
 
-export default Comment
+export default CommentOrder

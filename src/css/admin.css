@@ -45,6 +45,9 @@
     justify-content: center;
     font-size: 80%;
     color: #8B919B;
+    padding: 0 12px;
+    max-height: 100px;
+    overflow: hidden;
 }
 
 .order-booking-item-discount {

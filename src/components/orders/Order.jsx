@@ -73,7 +73,7 @@ const OrderPanel = ({
                             </ButtonGroup>
                             <ButtonGroup size='small' sx={{marginLeft: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'comment', props: {order_type: 'cinema', action_type: 'order', order: order}}))
+                                    dispatch(openModal({type: 'comment_order', props: {order_type: 'cinema', action_type: 'order', order: order}}))
                                 }}>Комментарий</Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                             </ButtonGroup>
@@ -114,7 +114,7 @@ const OrderPanel = ({
                                 </ButtonGroup>
                                 <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {
-                                        dispatch(openModal({type: 'comment', props: {order_type: 'horeca', action_type: 'order', order: order}}))
+                                        dispatch(openModal({type: 'comment_order', props: {order_type: 'horeca', action_type: 'order', order: order}}))
                                     }}>Комментарий</Button>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                     }}><DeleteIcon/></Button>

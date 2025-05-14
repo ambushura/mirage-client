@@ -16,10 +16,11 @@ import {useReset} from "./hooks/common/useReset.js"
 
 import {closeModal} from "./redux/interfaceReducer.js"
 import Quantity from "./components/forms/Quantity.jsx"
-import Comment from "./components/forms/Comment.jsx"
+import CommentOrder from "./components/forms/CommentOrder.jsx"
 import Calc from "./components/forms/Calc.jsx"
 import Discounts from "./components/forms/Discounts.jsx"
 import Contact from "./components/forms/Contact.jsx"
+import CommentPosition from "./components/forms/CommentPosition.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -41,8 +42,11 @@ function App() {
             case 'quantity':
                 setModalContent(<Quantity props={modal_props}/>)
                 break
-            case 'comment':
-                setModalContent(<Comment props={modal_props}/>)
+            case 'comment_order':
+                setModalContent(<CommentOrder props={modal_props}/>)
+                break
+            case 'comment_position':
+                setModalContent(<CommentPosition props={modal_props}/>)
                 break
             case 'calc':
                 setModalContent(<Calc/>)
