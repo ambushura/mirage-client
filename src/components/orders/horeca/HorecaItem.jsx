@@ -25,7 +25,14 @@ const HorecaItem = (props) => {
             <Box
                 className='order-box-horeca-item-1'>
                 <button className='order-box-horeca-item-1-calc'
-                        onClick={() => dispatch(openModal({type: 'quantity', props: {}}))}><CalculateIcon/></button>
+                        onClick={() => dispatch(openModal({type: 'quantity', props: {
+                            uid_order: props.uid_order,
+                                uid_position: props.item.uid,
+                                fraction: props.item.fraction,
+                                unit_name: props.item.unit_name,
+                                unit_code: props.item.unit_code,
+                                v: props.item.v,
+                                quantity: props.item.quantity}}))}><CalculateIcon/></button>
                 <Box className='order-box-horeca-item-1-1' onClick={() => {
                     props.set_uid_selected(prev =>
                         prev.includes(props.item.uid)

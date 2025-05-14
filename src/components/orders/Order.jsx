@@ -66,7 +66,7 @@ const OrderPanel = ({
                     <>
                         <Box className="order-box-panel-2">
                             <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
-                            <ButtonGroup size='medium' sx={{marginLeft: '4px'}}>
+                            <ButtonGroup size='large' sx={{marginLeft: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
                                     dispatch(openModal({type: 'comment_order', props: {order_type: 'cinema', action_type: 'order', order: order}}))
                                 }}><BorderColorIcon/></Button>
@@ -108,7 +108,7 @@ const OrderPanel = ({
                         <Box className="order-box-panel-2">
                             <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
                             <ButtonGroup sx={{marginLeft: '4px', marginBottom: '4px'}} size='small'>
-                                <ButtonGroup sx={{marginRight: '4px'}} size='medium'>
+                                <ButtonGroup sx={{marginRight: '4px'}} size='large'>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                         dispatch(openModal({type: 'comment_order', props: {order_type: 'horeca', action_type: 'order', order: order}}))
                                     }}><BorderColorIcon/></Button>

@@ -17,7 +17,7 @@ import {
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
-    ROUTE_HORECA_POSITION_ADD_COMMENT
+    ROUTE_HORECA_POSITION_ADD_COMMENT, ROUTE_HORECA_POSITION_ADD_QUANTITY
 } from "./fetch_routes.js"
 
 export const login = (filial, wp, login_auth, pincode_auth, username, password) => {
@@ -304,7 +304,7 @@ export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_g
             dispatch(setCurrentPreOrder(response.data.data))
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -343,7 +343,7 @@ export const common_contact_add = (filial, wp, order_type, uid_order, buyer_s, b
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -377,7 +377,7 @@ export const common_order_add_comment = (filial, wp, order_type, uid_order, comm
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
@@ -412,7 +412,38 @@ export const common_position_add_comment = (filial, wp, order_type, uid_order, u
             }
         } catch (e) {
             dispatch(addNotification({
-                message: e.message,
+                message: e.response.data,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
+export const horeca_position_add_quantity = (filial, wp, uid_order, uid_position, quantity) => {
+    const token = localStorage.getItem("token")
+    return async (dispatch) => {
+        if (wp === undefined || wp.length === 0) {
+            throw new Error("не указано рабочее место")
+        }
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_QUANTITY}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token,
+                    uid_filial: filial.uid,
+                    wp: wp,
+                },
+                params: {
+                    uid_order: uid_order,
+                    uid_position: uid_position,
+                    quantity: quantity,
+                },
+            })
+            dispatch(setCurrentHorder(response.data.data))
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.response.data,
                 severity: 'error',
                 autoHide: true
             }))
