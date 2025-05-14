@@ -21,7 +21,7 @@ import {
     setHorderPaying,
     setPreOrderPaying
 } from "../../redux/ordersReducer.js"
-import {cinema_order_delete, cinema_order_fetch} from "../../service/fetch_service.js"
+import {cinema_order_delete, cinema_order_fetch, horeca_order_fetch} from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
@@ -208,6 +208,7 @@ const Order = () => {
                     paying={horder_paying}
                     setPaying={value => dispatch(setHorderPaying(value))}
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
+                    fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
                     dispatch={dispatch}
                     uid_selected={uid_horeca_selected}
                     set_uid_selected={set_uid_horeca_selected}
