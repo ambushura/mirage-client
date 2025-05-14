@@ -34,7 +34,7 @@ export function useFetchingArray(urls) {
                             },
                             params: url.params,
                         })
-                        return {url: url.url, data: response.data.data, filial: url.filial, loading: false, error: null, params: url.params}
+                        return {url: url.url, data: response.data, filial: url.filial, loading: false, error: null, params: url.params}
                     } catch (err) {
                         return {url: url.url, data: null, filial: url.filial, loading: false, error: err.message, params: url.params}
                     }

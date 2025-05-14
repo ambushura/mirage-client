@@ -29,24 +29,16 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
             if (wp === undefined || wp.length === 0) {
                 throw new Error("не указано рабочее место")
             }
-            const response = await fetch(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_LOGIN}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    uid_filial: filial.uid,
-                    wp: wp,
-                },
-                body: JSON.stringify({login_auth, pincode_auth, username, password})
-            })
-            if (!response.ok) {
-                throw new Error(response.message)
-            }
-            const data = await response.json()
-            if (data.code === 200) {
-                dispatch(loginSuccess(data.data))
-            } else {
-                throw new Error(data.data)
-            }
+            const response = await axios.post(`http://${filial.ip}:${filial.port}${ROUTE_COMMON_LOGIN}`,
+                {login_auth, pincode_auth, username, password},
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        uid_filial: filial.uid,
+                        wp: wp,
+                    },
+                })
+            dispatch(loginSuccess(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -75,7 +67,7 @@ export const cinema_order_fetch = (filial, wp, uid_order) => {
                     uid_order: uid_order,
                 }
             })
-            dispatch(setCurrentPreOrder(response.data.data))
+            dispatch(setCurrentPreOrder(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -104,7 +96,7 @@ export const horeca_order_fetch = (filial, wp, uid_order) => {
                     uid_order: uid_order,
                 }
             })
-            dispatch(setCurrentHorder(response.data.data))
+            dispatch(setCurrentHorder(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.message,
@@ -166,32 +158,24 @@ export const cinema_position_add = (city, filial, wp, uid_seance, uid_order, uid
                     ver: ver,
                 }
             })
-            if (response.data.code === 200) {
-                if (response.data.data === null) {
-                    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                } else {
-                    dispatch(setCurrentPreOrder(response.data.data))
-                }
-                const booking = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`, {
-                    timeout: TIMEOUT,
-                    headers: {
-                        Authorization: token,
-                        uid_filial: filial.uid,
-                        wp: wp,
-                    },
-                    params: {
-                        uid_seance: uid_seance,
-                        uid_order: uid_order,
-                    }
-                })
-                dispatch(setBooking(booking.data.data))
+            if (response.data === null) {
+                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
             } else {
-                dispatch(addNotification({
-                    message: response.data.data,
-                    severity: 'error',
-                    autoHide: true
-                }))
+                dispatch(setCurrentPreOrder(response.data))
             }
+            const booking = await axios.get(`http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token,
+                    uid_filial: filial.uid,
+                    wp: wp,
+                },
+                params: {
+                    uid_seance: uid_seance,
+                    uid_order: uid_order,
+                }
+            })
+            dispatch(setBooking(booking.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -222,15 +206,7 @@ export const horeca_position_add = (filial, wp, uid_order, ver, uid_menu) => {
                     uid_menu: uid_menu,
                 }
             })
-            if (response.data.code === 200) {
-                dispatch(setCurrentHorder(response.data.data))
-            } else {
-                dispatch(addNotification({
-                    message: response.data.data,
-                    severity: 'error',
-                    autoHide: true
-                }))
-            }
+            dispatch(setCurrentHorder(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -265,13 +241,6 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, for_payme
                     wp: wp,
                 }
             })
-            if (response.data.code === 500) {
-                dispatch(addNotification({
-                    message: response.data.data,
-                    severity: 'error',
-                    autoHide: true
-                }))
-            }
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -304,7 +273,7 @@ export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_g
                     comment: comment,
                 },
             })
-            dispatch(setCurrentPreOrder(response.data.data))
+            dispatch(setCurrentPreOrder(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -340,9 +309,9 @@ export const common_contact_add = (filial, wp, order_type, uid_order, buyer_s, b
                 },
             })
             if (order_type === 'cinema') {
-                dispatch(setCurrentPreOrder(response.data.data))
+                dispatch(setCurrentPreOrder(response.data))
             } else {
-                dispatch(setCurrentHorder(response.data.data))
+                dispatch(setCurrentHorder(response.data))
             }
         } catch (e) {
             dispatch(addNotification({
@@ -374,9 +343,9 @@ export const common_order_add_comment = (filial, wp, order_type, uid_order, comm
                 },
             })
             if (order_type === 'cinema') {
-                dispatch(setCurrentPreOrder(response.data.data))
+                dispatch(setCurrentPreOrder(response.data))
             } else {
-                dispatch(setCurrentHorder(response.data.data))
+                dispatch(setCurrentHorder(response.data))
             }
         } catch (e) {
             dispatch(addNotification({
@@ -409,9 +378,9 @@ export const common_position_add_comment = (filial, wp, order_type, uid_order, u
                 },
             })
             if (order_type === 'cinema') {
-                dispatch(setCurrentPreOrder(response.data.data))
+                dispatch(setCurrentPreOrder(response.data))
             } else {
-                dispatch(setCurrentHorder(response.data.data))
+                dispatch(setCurrentHorder(response.data))
             }
         } catch (e) {
             dispatch(addNotification({
@@ -443,7 +412,7 @@ export const horeca_position_add_quantity = (filial, wp, uid_order, uid_position
                     quantity: quantity,
                 },
             })
-            dispatch(setCurrentHorder(response.data.data))
+            dispatch(setCurrentHorder(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,
@@ -487,7 +456,7 @@ export const horeca_position_change_state = (filial, wp, uid_order, uid_position
                     uid_position: uid_position,
                 },
             })
-            dispatch(setCurrentHorder(response.data.data))
+            dispatch(setCurrentHorder(response.data))
         } catch (e) {
             dispatch(addNotification({
                 message: e.response.data,

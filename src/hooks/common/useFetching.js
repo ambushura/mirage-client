@@ -27,7 +27,7 @@ export function useFetching(url) {
                     },
                     params: url.params
                 })
-                if (isMounted) setData(response.data.data)
+                if (isMounted) setData(response.data)
             } catch (err) {
                 if (isMounted) setError(err.message)
             } finally {

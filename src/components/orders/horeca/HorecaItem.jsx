@@ -20,10 +20,10 @@ const HorecaItem = (props) => {
     const wp = useSelector(state => state.interface.wp)
     const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
     const course = [
-        <LooksOneIcon sx={{color: 'white'}} key={0}/>,
-        <LooksTwoIcon sx={{color: 'black'}} key={1}/>,
-        <Looks3Icon sx={{color: 'black'}} key={2}/>,
-        <Looks4Icon sx={{color: 'black'}} key={3}/>
+        <LooksOneIcon sx={{color: 'white'}} key='0'/>,
+        <LooksTwoIcon sx={{color: 'black'}} key='1'/>,
+        <Looks3Icon sx={{color: 'black'}} key='2'/>,
+        <Looks4Icon sx={{color: 'black'}} key='3'/>
     ]
 
     return (
@@ -86,14 +86,14 @@ const HorecaItem = (props) => {
             {props.item.kitchen.state !== 0 ? <Box className='order-box-horeca-item-5'>
                 <button className='order-box-horeca-item-5-1' onClick={() => {
                     dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'away'))
-                }} style={{backgroundColor: props.item.kitchen.take_away ? '#FF1A25' : '#1C1F23'}}><DirectionsRunIcon
+                }} style={{backgroundColor: props.item.kitchen.take_away ? '#1DB1BA' : '#1C1F23'}}><DirectionsRunIcon
                     sx={{color: props.item.kitchen.take_away ? 'black' : 'white'}}/></button>
-                <button className='order-box-horeca-item-5-2' style={{backgroundColor: props.item.kitchen.course > 0 ? '#FF1A25' : '#1C1F23'}} onClick={() => {
+                <button className='order-box-horeca-item-5-2' style={{backgroundColor: props.item.kitchen.course > 0 ? '#1DB1BA' : '#1C1F23'}} onClick={() => {
                     dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'course'))
                 }}>{course[props.item.kitchen.course]}</button>
                 <button className='order-box-horeca-item-5-3' onClick={() => {
                     dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'cook'))
-                }} style={{backgroundColor: '#FF1A25'}}>{state[props.item.kitchen.state]}</button>
+                }} style={{backgroundColor: '#1DB1BA', color: 'black'}}>{state[props.item.kitchen.state]}</button>
                 <Box className='order-box-horeca-item-5-4'></Box>
                 <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box>
             </Box> : <></>}
