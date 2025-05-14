@@ -415,55 +415,6 @@
     font-weight: bold;
 }
 
-.order-box-horeca-item-6 {
-    width: 100%;
-    display: flex;
-    height: fit-content;
-}
-
-.order-box-horeca-item-6-1 {
-    width: 390px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.order-box-horeca-item-6-1 > div {
-    margin: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 390px;
-}
-
-.order-box-horeca-item-6-2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.order-box-horeca-item-6-2 > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    min-width: 50px;
-    height: 50px;
-    background-color: #1C1F23;
-}
-
-.order-box-horeca-item-6-1-modif {
-    box-sizing: border-box;
-    min-width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    background-color: #1C1F23;
-    margin-left: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .order-box-horeca-item-1-calc:hover,
 .order-box-horeca-item-1-2:hover,
 .order-box-horeca-item-1-3:hover,
@@ -474,9 +425,7 @@
 .order-box-horeca-item-4-2:hover,
 .order-box-horeca-item-5-1:hover,
 .order-box-horeca-item-5-2:hover,
-.order-box-horeca-item-5-3:hover,
-.order-box-horeca-item-6-2 > div:hover,
-.order-box-horeca-item-6-1-modif:hover {
+.order-box-horeca-item-5-3:hover {
     transition: background-color 0.3s;
     background-color: #000000;
 }

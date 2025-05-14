@@ -5,20 +5,26 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import LooksOneIcon from '@mui/icons-material/LooksOne'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {common_position_add_comment} from "../../../service/fetch_service.js"
+import {common_position_add_comment, horeca_position_change_state} from "../../../service/fetch_service.js"
+import LooksTwoIcon from '@mui/icons-material/LooksTwo'
+import Looks3Icon from '@mui/icons-material/Looks3'
+import Looks4Icon from '@mui/icons-material/Looks4'
 
 const HorecaItem = (props) => {
 
     const dispatch = useDispatch()
-
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
-
     const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
+    const course = [
+        <LooksOneIcon sx={{color: 'white'}} key={0}/>,
+        <LooksTwoIcon sx={{color: 'black'}} key={1}/>,
+        <Looks3Icon sx={{color: 'black'}} key={2}/>,
+        <Looks4Icon sx={{color: 'black'}} key={3}/>
+    ]
 
     return (
         <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-selected' : ''}`}>
@@ -46,7 +52,8 @@ const HorecaItem = (props) => {
                 <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum.toFixed(0)} р</Box><Box
                     sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3)} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
-                        onClick={() => dispatch(openModal({type: 'comment_position',
+                        onClick={() => dispatch(openModal({
+                            type: 'comment_position',
                             props: {
                                 order_type: 'horeca',
                                 action_type: 'position',
@@ -77,30 +84,19 @@ const HorecaItem = (props) => {
                 }}><DeleteIcon sx={{color: 'white'}}/></Box>
             </Box> : <></>}
             {props.item.kitchen.state !== 0 ? <Box className='order-box-horeca-item-5'>
-                <button className='order-box-horeca-item-5-1'><DirectionsRunIcon sx={{color: 'white'}}/></button>
-                <button className='order-box-horeca-item-5-2'><LooksOneIcon sx={{color: 'white'}}/></button>
-                <button className='order-box-horeca-item-5-3' style={{backgroundColor: '#e3000b'}}>{state[props.item.kitchen.state]}</button>
+                <button className='order-box-horeca-item-5-1' onClick={() => {
+                    dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'away'))
+                }} style={{backgroundColor: props.item.kitchen.take_away ? '#FF1A25' : '#1C1F23'}}><DirectionsRunIcon
+                    sx={{color: props.item.kitchen.take_away ? 'black' : 'white'}}/></button>
+                <button className='order-box-horeca-item-5-2' style={{backgroundColor: props.item.kitchen.course > 0 ? '#FF1A25' : '#1C1F23'}} onClick={() => {
+                    dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'course'))
+                }}>{course[props.item.kitchen.course]}</button>
+                <button className='order-box-horeca-item-5-3' onClick={() => {
+                    dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'cook'))
+                }} style={{backgroundColor: '#FF1A25'}}>{state[props.item.kitchen.state]}</button>
                 <Box className='order-box-horeca-item-5-4'></Box>
                 <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box>
             </Box> : <></>}
-            {props.item.kitchen.modificators.length > 0 ? <Box className='order-box-horeca-item-6'>
-                    <Box className='order-box-horeca-item-6-1'>
-                        <Box><span>Модификатор 1</span><span
-                            className='order-box-horeca-item-6-1-modif'><DeleteIcon/></span></Box>
-                        <Box><span>Модификатор 2</span><span
-                            className='order-box-horeca-item-6-1-modif'><DeleteIcon/></span></Box>
-                        <Box><span>Модификатор 3</span><span
-                            className='order-box-horeca-item-6-1-modif'><DeleteIcon/></span></Box>
-                        <Box><span>Модификатор 4</span><span
-                            className='order-box-horeca-item-6-1-modif'><DeleteIcon/></span></Box>
-                        <Box><span>Модификатор 5</span><span
-                            className='order-box-horeca-item-6-1-modif'><DeleteIcon/></span></Box>
-                    </Box>
-                    <Box className='order-box-horeca-item-6-2'>
-                        <Box><AddCircleIcon/></Box>
-                    </Box>
-                </Box>
-                : <></>}
         </li>
     )
 }

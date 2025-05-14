@@ -17,7 +17,10 @@ import {
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
-    ROUTE_HORECA_POSITION_ADD_COMMENT, ROUTE_HORECA_POSITION_ADD_QUANTITY
+    ROUTE_HORECA_POSITION_ADD_COMMENT,
+    ROUTE_HORECA_POSITION_ADD_QUANTITY,
+    ROUTE_HORECA_POSITION_AWAY, ROUTE_HORECA_POSITION_COOK,
+    ROUTE_HORECA_POSITION_COURSE
 } from "./fetch_routes.js"
 
 export const login = (filial, wp, login_auth, pincode_auth, username, password) => {
@@ -438,6 +441,50 @@ export const horeca_position_add_quantity = (filial, wp, uid_order, uid_position
                     uid_order: uid_order,
                     uid_position: uid_position,
                     quantity: quantity,
+                },
+            })
+            dispatch(setCurrentHorder(response.data.data))
+        } catch (e) {
+            dispatch(addNotification({
+                message: e.response.data,
+                severity: 'error',
+                autoHide: true
+            }))
+        }
+    }
+}
+
+export const horeca_position_change_state = (filial, wp, uid_order, uid_position, action) => {
+    const token = localStorage.getItem("token")
+    return async (dispatch) => {
+        if (wp === undefined || wp.length === 0) {
+            throw new Error("не указано рабочее место")
+        }
+        let request = ''
+        switch (action) {
+            case 'away':
+                request = ROUTE_HORECA_POSITION_AWAY
+                break
+            case 'course':
+                request = ROUTE_HORECA_POSITION_COURSE
+                break
+            case 'cook':
+                request = ROUTE_HORECA_POSITION_COOK
+                break
+            default:
+                return
+        }
+        try {
+            const response = await axios.get(`http://${filial.ip}:${filial.port}${request}`, {
+                timeout: TIMEOUT,
+                headers: {
+                    Authorization: token,
+                    uid_filial: filial.uid,
+                    wp: wp,
+                },
+                params: {
+                    uid_order: uid_order,
+                    uid_position: uid_position,
                 },
             })
             dispatch(setCurrentHorder(response.data.data))
