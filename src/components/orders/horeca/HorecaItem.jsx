@@ -8,11 +8,15 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../../redux/interfaceReducer.js"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {common_position_add_comment} from "../../../service/fetch_service.js"
 
 const HorecaItem = (props) => {
 
     const dispatch = useDispatch()
+
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
 
     const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
 
@@ -50,7 +54,9 @@ const HorecaItem = (props) => {
             </Box> : <></>}
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
                 <Box className='order-box-horeca-item-4-1'>{props.item.comment}</Box>
-                <Box className='order-box-horeca-item-4-2'><DeleteIcon sx={{color: 'white'}}/></Box>
+                <Box className='order-box-horeca-item-4-2' onClick={() => {
+                    dispatch(common_position_add_comment(filial, wp, 'horeca', props.uid_order, props.item.uid, ''))
+                }}><DeleteIcon sx={{color: 'white'}}/></Box>
             </Box> : <></>}
             {props.item.kitchen.state !== 0 ? <Box className='order-box-horeca-item-5'>
                 <button className='order-box-horeca-item-5-1'><DirectionsRunIcon sx={{color: 'white'}}/></button>
