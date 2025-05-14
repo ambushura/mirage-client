@@ -40,8 +40,8 @@ const HorecaItem = (props) => {
                             : [...prev, props.item.uid]
                     )
                 }}><Box>{props.item.name}</Box></Box>
-                <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum} р</Box><Box
-                    sx={{color: '#8B919B'}}>{props.item.quantity} {props.item.unit_name}</Box></Box>
+                <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum.toFixed(0)} р</Box><Box
+                    sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3)} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
                         onClick={() => dispatch(openModal({type: 'comment_position', props: {order_type: 'horeca', action_type: 'position', uid_order: props.uid_order, uid_position: props.item.uid, comment: props.item.comment}}))}><BorderColorIcon
                     sx={{color: 'white'}}/></button>

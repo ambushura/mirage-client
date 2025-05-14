@@ -27,10 +27,9 @@ const Quantity = (props) => {
     const handleClick = (val) => {
         setCountStr(prev => {
             if (val === "." && (!fraction || prev.includes("."))) return prev
+            if (val === "." && prev === "") return "0."
             const [intPart, decPart] = (prev + val).split(".")
-            if (intPart > 100000000) {
-                return prev
-            }
+            if (intPart.length > 8) return prev
             if (decPart && decPart.length > 3) return prev
             return prev + val
         })
