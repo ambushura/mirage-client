@@ -59,7 +59,7 @@ const OrderPanel = ({
                     </ButtonGroup>
                     <Box className="order-box-panel-1-sum-number">
                         <span className='order-box-panel-1-number'>{`№${order.number}`}</span>
-                        <span className='order-box-panel-1-sum'>{Math.round(order.sum)} Р</span>
+                        <span className='order-box-panel-1-sum'>{Math.round(order.sum).toLocaleString('ru-RU')} Р</span>
                     </Box>
                 </Box>
                 {type === 'cinema' && (

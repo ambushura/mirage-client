@@ -49,8 +49,8 @@ const HorecaItem = (props) => {
                             : [...prev, props.item.uid]
                     )
                 }}><Box>{props.item.name}</Box></Box>
-                <Box className='order-box-horeca-item-1-1-sum'><Box>{props.item.price.sum.toFixed(0)} р</Box><Box
-                    sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3)} {props.item.unit_name}</Box></Box>
+                <Box className='order-box-horeca-item-1-1-sum'><Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box><Box
+                    sx={{color: '#8B919B'}}>{Math.round(props.item.quantity).toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
                         onClick={() => dispatch(openModal({
                             type: 'comment_position',
