@@ -29,7 +29,7 @@ const Quantity = (props) => {
             if (val === "." && (!fraction || prev.includes("."))) return prev
             if (val === "." && prev === "") return "0."
             const [intPart, decPart] = (prev + val).split(".")
-            if (intPart.length > 8) return prev
+            if (intPart.length > 3) return prev
             if (decPart && decPart.length > 3) return prev
             return prev + val
         })
@@ -101,24 +101,24 @@ const Quantity = (props) => {
                 {[7, 8, 9, 4, 5, 6, 1, 2, 3].map(num => (
                     <Button
                         key={num}
-                        variant="outlined"
+                        variant="contained"
                         color="secondary"
                         sx={{fontSize: "150%"}}
                         onClick={() => handleClick(num.toString())}>{num}</Button>
                 ))}
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     color="secondary"
                     sx={{fontSize: "150%"}}
                     onClick={() => handleClick("0")}>0</Button>
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     color="secondary"
                     sx={{fontSize: "150%"}}
                     onClick={() => handleClick(".")}
                     disabled={!fraction}>.</Button>
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     color="secondary"
                     sx={{fontSize: "150%"}}
                     onClick={handleBackspace}>←</Button>

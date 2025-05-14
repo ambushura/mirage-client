@@ -126,7 +126,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    font-size: 80%;
+    font-size: 65%;
     font-weight: bold;
     color: #8B919B;
 }
@@ -261,7 +261,7 @@
 }
 
 .order-box-horeca-item-1-1 {
-    width: calc(460px - 50px - 50px - 70px - 50px);
+    width: calc(460px - 50px - 50px - 100px - 50px);
     font-weight: bold;
     font-size: 80%;
     display: flex;
@@ -279,7 +279,7 @@
 }
 
 .order-box-horeca-item-1-1-sum {
-    width: 70px;
+    width: 100px;
     font-weight: bold;
     font-size: 80%;
     display: flex;
