@@ -206,6 +206,9 @@
     color: #8B919B;
     text-align: left;
     padding: 5px 0;
+    position: sticky;
+    top: 64px;
+    background-color: #f8f8f8;
 }
 
 .order-box-horeca-item {

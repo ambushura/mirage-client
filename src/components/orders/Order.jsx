@@ -134,8 +134,8 @@ const OrderPanel = ({
                                 order.items.some(item => item.kitchen.state === state) && (
                                     <Fragment key={`${state}`}>
                                         <Box
-                                            className={`order-box-panel-3-title-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>{['Отправить на кухню', 'На кухне', 'Приготовлено', 'Готово к выдаче'][state]}</Box>
-                                        <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready', 'others'][state]}`}>
+                                            className={`order-box-panel-3-title-${['others', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['Без кухни', 'Отправить на кухню', 'На кухне', 'Приготовлено'][state]}</Box>
+                                        <ul className={`order-box-panel-3-list-${['others', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>
                                             {order.items.filter(item => item.kitchen.state === state).map(item =>
                                                 <HorecaItem
                                                     uid_order={order.uid}
@@ -196,7 +196,9 @@ const Order = () => {
                     fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
                     deleteOrder={() => dispatch(cinema_order_delete(filial, wp, pre_order.uid))}
                     navigateTo={() => navigate(seance_link())}
-                    addContact={() => {dispatch(openModal({type: 'add_contact', props: {order_type: 'cinema', order: pre_order}}))}}
+                    addContact={() => {
+                        dispatch(openModal({type: 'add_contact', props: {order_type: 'cinema', order: pre_order}}))
+                    }}
                     dispatch={dispatch}
                     uid_selected={uid_cinema_selected}
                     set_uid_selected={set_uid_cinema_selected}
@@ -214,7 +216,9 @@ const Order = () => {
                     dispatch={dispatch}
                     uid_selected={uid_horeca_selected}
                     set_uid_selected={set_uid_horeca_selected}
-                    addContact={() => {dispatch(openModal({type: 'add_contact', props: {order_type: 'horeca', order: horder}}))}}
+                    addContact={() => {
+                        dispatch(openModal({type: 'add_contact', props: {order_type: 'horeca', order: horder}}))
+                    }}
                 />
             ) : null}
         </Box>
