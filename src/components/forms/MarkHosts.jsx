@@ -4,6 +4,7 @@ import {markirovka_cdn_info_get, markirovka_cdn_info_update} from "../../service
 import {DataGrid} from "@mui/x-data-grid"
 import {useEffect, useState} from "react"
 import dayjs from "dayjs"
+import {fillHosts} from "../../redux/markirovkaReducer.js"
 
 const MarkHosts = () => {
 
@@ -42,11 +43,17 @@ const MarkHosts = () => {
                 period: dayjs(host.period).format('DD.MM HH:mm:ss'),
             })
         })
+        cdn_rows_new.sort((a, b) => a.avg_time_ms - b.avg_time_ms)
         set_cdn_rows(cdn_rows_new)
     }, [hosts])
 
     useEffect(() => {
-        dispatch(markirovka_cdn_info_get(filial, wp))
+        if (hosts.length === 0) {
+            dispatch(markirovka_cdn_info_get(filial, wp))
+        }
+        return () => {
+            fillHosts([])
+        }
     })
 
     return (
@@ -62,6 +69,7 @@ const MarkHosts = () => {
             </Typography>
             <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
                 <DataGrid
+                    disableSelectionOnClick
                     hideFooter
                     rows={cdn_rows}
                     columns={cdn_columns}

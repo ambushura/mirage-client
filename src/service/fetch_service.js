@@ -27,7 +27,7 @@ import {
     ROUTE_HORECA_POSITION_COOK,
     ROUTE_HORECA_POSITION_COURSE, ROUTE_MARKIROVKA_CDN_INFO_GET, ROUTE_MARKIROVKA_CDN_INFO_UPDATE
 } from "./fetch_routes.js"
-import {fillHosts} from "../redux/markirovkaReducer.js";
+import {fillHosts} from "../redux/markirovkaReducer.js"
 
 export const TIMEOUT = 10000
 
