@@ -8,7 +8,10 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {common_position_add_comment, horeca_position_change_state} from "../../../service/fetch_service.js"
+import {
+    common_position_add_comment,
+    horeca_position_change_state
+} from "../../../service/fetch_service.js"
 import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
@@ -49,7 +52,8 @@ const HorecaItem = (props) => {
                             : [...prev, props.item.uid]
                     )
                 }}><Box>{props.item.name}</Box></Box>
-                <Box className='order-box-horeca-item-1-1-sum'><Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box><Box
+                <Box
+                    className='order-box-horeca-item-1-1-sum'><Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box><Box
                     sx={{color: '#8B919B'}}>{Math.round(props.item.quantity).toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
                         onClick={() => dispatch(openModal({
@@ -65,16 +69,18 @@ const HorecaItem = (props) => {
                     sx={{color: 'white'}}/></button>
                 <button className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
-            {props.item.mark.type !== '' ? <Box className='order-box-horeca-item-2'>
+            {props.item.mark.type_code !== '' ? <Box className='order-box-horeca-item-2'>
                 <button className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon/></button>
                 <Box
-                    className='order-box-horeca-item-2-2'>{props.item.egais.value === '' ? 'Отсканируйте маркировку' : props.item.egais.value}</Box>
-                <button className='order-box-horeca-item-2-3'><QrCode2Icon sx={{color: 'white'}}/></button>
+                    className='order-box-horeca-item-2-2'>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
+                <button className='order-box-horeca-item-2-3' onClick={() => {
+                    dispatch(openModal({type: 'mark', props: {filial: filial, wp: wp, uid_order: props.uid_order, uid_position: props.item.uid}}))
+                }}><QrCode2Icon sx={{color: 'white'}}/></button>
             </Box> : <></>}
             {props.item.egais.type_code !== '' ? <Box className='order-box-horeca-item-3'>
                 <button className='order-box-horeca-item-3-1'><CheckCircleOutlineIcon/></button>
                 <Box
-                    className='order-box-horeca-item-3-2'>{props.item.mark.value === '' ? 'Отсканируйте акцизную марку' : props.item.mark.value}</Box>
+                    className='order-box-horeca-item-3-2'>{props.item.egais.value === '' ? 'Отсканируйте акцизную марку' : props.item.egais.value}</Box>
                 <button className='order-box-horeca-item-3-3'><QrCode2Icon sx={{color: 'white'}}/></button>
             </Box> : <></>}
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
@@ -88,9 +94,11 @@ const HorecaItem = (props) => {
                     dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'away'))
                 }} style={{backgroundColor: props.item.kitchen.take_away ? '#45B97C' : '#1C1F23'}}><DirectionsRunIcon
                     sx={{color: props.item.kitchen.take_away ? 'black' : 'white'}}/></button>
-                <button className='order-box-horeca-item-5-2' style={{backgroundColor: props.item.kitchen.course > 0 ? '#45B97C' : '#1C1F23'}} onClick={() => {
-                    dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'course'))
-                }}>{course[props.item.kitchen.course]}</button>
+                <button className='order-box-horeca-item-5-2'
+                        style={{backgroundColor: props.item.kitchen.course > 0 ? '#45B97C' : '#1C1F23'}}
+                        onClick={() => {
+                            dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'course'))
+                        }}>{course[props.item.kitchen.course]}</button>
                 <button className='order-box-horeca-item-5-3' onClick={() => {
                     dispatch(horeca_position_change_state(filial, wp, props.uid_order, props.item.uid, 'cook'))
                 }} style={{backgroundColor: '#45B97C', color: 'black'}}>{state[props.item.kitchen.state]}</button>

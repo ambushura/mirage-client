@@ -2,7 +2,7 @@ import {Box, Button} from "@mui/material"
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
 import {useDispatch} from "react-redux"
-import {openModal} from "../../../redux/interfaceReducer.js";
+import {openModal} from "../../../redux/interfaceReducer.js"
 
 const HorecaMenu = () => {
 
