@@ -25,7 +25,7 @@ import {
     ROUTE_HORECA_POSITION_ADD_QUANTITY,
     ROUTE_HORECA_POSITION_AWAY,
     ROUTE_HORECA_POSITION_COOK,
-    ROUTE_HORECA_POSITION_COURSE
+    ROUTE_HORECA_POSITION_COURSE, ROUTE_MARKIROVKA_CDN_INFO
 } from "./fetch_routes.js"
 
 export const TIMEOUT = 10000
@@ -212,6 +212,14 @@ export const horeca_position_add_mark = (filial, wp, uid_order, uid_position, ma
     method: 'get',
     url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_MARK}`,
     params: {uid_order, uid_position, mark},
+    wp,
+    filial
+}, data => dispatch(setCurrentHorder(data)))
+
+export const markirovka_cdn_info = (filial, wp) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO}`,
+    params: {},
     wp,
     filial
 }, data => dispatch(setCurrentHorder(data)))

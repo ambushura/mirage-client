@@ -1,10 +1,13 @@
 import {Box, Button, Typography} from "@mui/material"
 import {closeModal} from "../../redux/interfaceReducer.js"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 
 const MarkHosts = () => {
 
     const dispatch = useDispatch()
+
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
 
     return (
         <Box component="form"
