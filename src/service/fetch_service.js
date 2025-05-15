@@ -25,7 +25,7 @@ import {
     ROUTE_HORECA_POSITION_ADD_QUANTITY,
     ROUTE_HORECA_POSITION_AWAY,
     ROUTE_HORECA_POSITION_COOK,
-    ROUTE_HORECA_POSITION_COURSE, ROUTE_MARKIROVKA_CDN_INFO
+    ROUTE_HORECA_POSITION_COURSE, ROUTE_MARKIROVKA_CDN_INFO, ROUTE_MARKIROVKA_CDN_INFO_UPDATE
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js";
 
@@ -217,9 +217,17 @@ export const horeca_position_add_mark = (filial, wp, uid_order, uid_position, ma
     filial
 }, data => dispatch(setCurrentHorder(data)))
 
-export const markirovka_cdn_info = (filial, wp) => async (dispatch) => makeRequest(dispatch, {
+export const markirovka_cdn_info_get = (filial, wp) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
-    url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO}`,
+    url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO_GET}`,
+    params: {},
+    wp,
+    filial
+}, data => dispatch(fillHosts(data)))
+
+export const markirovka_cdn_info_update = (filial, wp) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO_UPDATE}`,
     params: {},
     wp,
     filial
