@@ -1,7 +1,7 @@
-import { Box, Button, Typography } from "@mui/material"
-import { closeModal } from "../../redux/interfaceReducer.js"
+import {Box, Button, Typography} from "@mui/material"
+import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import { useState } from "react"
+import {useState} from "react"
 import {horeca_position_add_quantity} from "../../service/fetch_service.js"
 import {addNotification} from "../../redux/notifierReducer.js"
 
@@ -42,7 +42,7 @@ const Quantity = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const quantity = parseFloat(countStr)
-        if (!isNaN(quantity)) {
+        if (!isNaN(quantity) && quantity !== 0) {
             dispatch(horeca_position_add_quantity(filial, wp, uid_order, uid_position, quantity))
             dispatch(closeModal())
         } else {

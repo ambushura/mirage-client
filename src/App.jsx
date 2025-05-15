@@ -21,6 +21,8 @@ import Calc from "./components/forms/Calc.jsx"
 import Discounts from "./components/forms/Discounts.jsx"
 import Contact from "./components/forms/Contact.jsx"
 import CommentPosition from "./components/forms/CommentPosition.jsx"
+import Mark from "./components/forms/Mark.jsx"
+import EGAIS from "./components/forms/EGAIS.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -56,6 +58,12 @@ function App() {
                 break
             case 'add_contact':
                 setModalContent(<Contact props={modal_props}/>)
+                break
+            case 'mark':
+                setModalContent(<Mark props={modal_props}/>)
+                break
+            case 'egais':
+                setModalContent(<EGAIS props={modal_props}/>)
                 break
             default:
                 setModalContent(null)
