@@ -54,7 +54,7 @@ const HorecaItem = (props) => {
                 }}><Box>{props.item.name}</Box></Box>
                 <Box
                     className='order-box-horeca-item-1-1-sum'><Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box><Box
-                    sx={{color: '#8B919B'}}>{Math.round(props.item.quantity).toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}</Box></Box>
+                    sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}</Box></Box>
                 <button className='order-box-horeca-item-1-2'
                         onClick={() => dispatch(openModal({
                             type: 'comment_position',
@@ -70,18 +70,22 @@ const HorecaItem = (props) => {
                 <button className='order-box-horeca-item-1-3'><DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
             {props.item.mark.type_code !== '' ? <Box className='order-box-horeca-item-2'>
-                <button className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon/></button>
+                <button className='order-box-horeca-item-2-3' onClick={() => {
+                    dispatch(openModal({
+                        type: 'mark',
+                        props: {filial: filial, wp: wp, uid_order: props.uid_order, uid_position: props.item.uid}
+                    }))
+                }}><QrCode2Icon sx={{color: 'white'}}/></button>
                 <Box
                     className='order-box-horeca-item-2-2'>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
-                <button className='order-box-horeca-item-2-3' onClick={() => {
-                    dispatch(openModal({type: 'mark', props: {filial: filial, wp: wp, uid_order: props.uid_order, uid_position: props.item.uid}}))
-                }}><QrCode2Icon sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon
+                    sx={{color: props.item.mark.value === '' ? 'red' : 'orange'}}/></button>
             </Box> : <></>}
             {props.item.egais.type_code !== '' ? <Box className='order-box-horeca-item-3'>
-                <button className='order-box-horeca-item-3-1'><CheckCircleOutlineIcon/></button>
+                <button className='order-box-horeca-item-3-3'><QrCode2Icon sx={{color: 'white'}}/></button>
                 <Box
                     className='order-box-horeca-item-3-2'>{props.item.egais.value === '' ? 'Отсканируйте акцизную марку' : props.item.egais.value}</Box>
-                <button className='order-box-horeca-item-3-3'><QrCode2Icon sx={{color: 'white'}}/></button>
+                <button className='order-box-horeca-item-3-1'><CheckCircleOutlineIcon/></button>
             </Box> : <></>}
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
                 <Box className='order-box-horeca-item-4-1'>{props.item.comment}</Box>

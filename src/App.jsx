@@ -23,6 +23,7 @@ import Contact from "./components/forms/Contact.jsx"
 import CommentPosition from "./components/forms/CommentPosition.jsx"
 import Mark from "./components/forms/Mark.jsx"
 import EGAIS from "./components/forms/EGAIS.jsx"
+import MarkHosts from "./components/forms/MarkHosts.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -61,6 +62,9 @@ function App() {
                 break
             case 'mark':
                 setModalContent(<Mark props={modal_props}/>)
+                break
+            case 'mark_hosts':
+                setModalContent(<MarkHosts props={modal_props}/>)
                 break
             case 'egais':
                 setModalContent(<EGAIS props={modal_props}/>)

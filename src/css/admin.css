@@ -136,10 +136,10 @@
     color: var(--txt-color);
 }
 
-.order-box-panel-2 {
+.order-box-panel-2, .order-box-panel-adv {
     width: 100%;
     position: sticky;
-    top: 0;
+    top: 64px;
     z-index: 1;
     background-color: var(--bgr-color);
     display: flex;

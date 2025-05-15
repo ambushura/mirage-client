@@ -129,6 +129,11 @@ const OrderPanel = ({
                                 </ButtonGroup>
                             </ButtonGroup>
                         </Box>
+                        <Box className="order-box-panel-adv">
+                            <ButtonGroup sx={{marginBottom: '4px'}} size='small'>
+                                <Button variant="contained" color="secondary" onClick={() => {}}>Проверить марки</Button>
+                            </ButtonGroup>
+                        </Box>
                         <Box className="order-box-panel-3">
                             {[1, 2, 3, 0].map(state => (
                                 order.items.some(item => item.kitchen.state === state) && (
