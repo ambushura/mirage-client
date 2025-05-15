@@ -7,6 +7,7 @@ import interfaceSlice from "./interfaceReducer.js"
 import authSlice from "./authReducer.js"
 import notifierReducer from "./notifierReducer.js"
 import wsReducer from "./wsReducer.js"
+import markirovkaReducer from "./markirovkaReducer.js"
 
 export const store = configureStore({
     reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
         interface: interfaceSlice,
         auth: authSlice,
         notifier: notifierReducer,
-        webSocket: wsReducer
+        webSocket: wsReducer,
+        markirovka: markirovkaReducer,
     },
 })
 

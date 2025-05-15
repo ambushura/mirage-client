@@ -1,6 +1,6 @@
 import {Box, Button, Typography} from "@mui/material"
-import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
+import {markirovka_cdn_info} from "../../service/fetch_service.js"
 
 const MarkHosts = () => {
 
@@ -8,6 +8,7 @@ const MarkHosts = () => {
 
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
+    const hosts = useSelector(state => state.markirovka.hosts || [])
 
     return (
         <Box component="form"
@@ -15,17 +16,19 @@ const MarkHosts = () => {
              autoComplete="off"
              onSubmit={(e) => {
                  e.preventDefault()
-
-                 dispatch(closeModal())
              }}>
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Настройки системы &#34;Честный знак&#34;
             </Typography>
             <Box>
-
+                {hosts.map(host => {
+                    return <Box key={`${host.host}${host.avgTimeMs}`}>{host.host} {host.avgTimeMs}</Box>
+                })}
             </Box>
             <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
-                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}}>Обновить список CDN-площадок</Button>
+                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}} onClick={() => {
+                    dispatch(markirovka_cdn_info(filial, wp))
+                }}>Обновить список CDN-площадок</Button>
             </Box>
         </Box>
     )

@@ -27,6 +27,7 @@ import {
     ROUTE_HORECA_POSITION_COOK,
     ROUTE_HORECA_POSITION_COURSE, ROUTE_MARKIROVKA_CDN_INFO
 } from "./fetch_routes.js"
+import {fillHosts} from "../redux/markirovkaReducer.js";
 
 export const TIMEOUT = 10000
 
@@ -222,4 +223,4 @@ export const markirovka_cdn_info = (filial, wp) => async (dispatch) => makeReque
     params: {},
     wp,
     filial
-}, data => dispatch(setCurrentHorder(data)))
+}, data => dispatch(fillHosts(data)))
