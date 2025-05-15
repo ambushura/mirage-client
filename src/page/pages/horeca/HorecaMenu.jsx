@@ -12,19 +12,28 @@ const HorecaMenu = () => {
     return (
         <Box id="top-menu" style={{justifyContent: 'flex-start'}}>
             <ButtonGroup>
-                <Button variant='contained' color='secondary' size='large' sx={{marginLeft: '5px'}} startIcon={<QrCodeScannerIcon/>}
+                <Button variant='contained' color='secondary' size='large' sx={{marginLeft: '5px'}}
+                        startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark', props: {}}))
                         }}>ЧЗ</Button>
-                <Button variant='contained' color='secondary' size='small' sx={{marginLeft: '5px'}} startIcon={<SettingsIcon/>}
+                <Button variant='contained' color='secondary' size='small' sx={{marginLeft: '5px'}}
+                        endIcon={<SettingsIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark_hosts', props: {}}))
-                        }}>Настройки ЧЗ</Button>
+                        }}>Настройки</Button>
             </ButtonGroup>
-            <Button variant='contained' color='secondary' sx={{marginLeft: '5px'}} startIcon={<QrCodeScannerIcon/>}
-                    onClick={() => {
-                        dispatch(openModal({type: 'egais', props: {}}))
-                    }}>ЕГАИС</Button>
+            <ButtonGroup>
+                <Button variant='contained' color='secondary' sx={{marginLeft: '5px'}} startIcon={<QrCodeScannerIcon/>}
+                        onClick={() => {
+                            dispatch(openModal({type: 'egais', props: {}}))
+                        }}>ЕГАИС</Button>
+                <Button variant='contained' color='secondary' size='small' sx={{marginLeft: '5px'}}
+                        endIcon={<SettingsIcon/>}
+                        onClick={() => {
+                            dispatch(openModal({type: 'egais_settings', props: {}}))
+                        }}>УТМ ЕГАИС</Button>
+            </ButtonGroup>
             <Button variant='contained' color='secondary' sx={{marginLeft: '5px'}}
                     startIcon={<QrCode2Icon/>}>Штрихкод</Button>
         </Box>

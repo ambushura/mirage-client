@@ -181,3 +181,36 @@ export const Theme = createTheme({
         },
     }
 })
+
+export const EMPTY_TABLE_STYLE = {
+    // Убираем фон строки при наведении
+    '& .MuiDataGrid-row:hover': {
+        backgroundColor: 'inherit !important',
+    },
+    // Убираем фон выбранной строки
+    '& .MuiDataGrid-row.Mui-selected': {
+        backgroundColor: 'inherit !important',
+    },
+    '& .MuiDataGrid-row.Mui-selected:hover': {
+        backgroundColor: 'inherit !important',
+    },
+    // Убираем фокус (рамку) ячейки
+    '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
+        outline: 'none',
+    },
+    // Убираем фокус (рамку) заголовка
+    '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
+        outline: 'none',
+    },
+    // Запрещаем выделение текста мышкой
+    '& .MuiDataGrid-cell': {
+        userSelect: 'none',
+    },
+    // Убираем выделение текста даже при drag (в некоторых браузерах)
+    '& .MuiDataGrid-root': {
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+        userSelect: 'none',
+    }
+}

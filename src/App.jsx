@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import {useMemo} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {Box, Modal} from "@mui/material"
 import {Navigate, Route, Routes} from "react-router-dom"
@@ -8,6 +8,19 @@ import Footer from "./page/footer/Footer.jsx"
 import NotFound from "./page/pages/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
 
+import {
+    Quantity,
+    CommentOrder,
+    CommentPosition,
+    Calc,
+    Discounts,
+    Contact,
+    Mark,
+    MarkHosts,
+    EgaisSettings,
+    Egais
+} from "./components/forms/"
+
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
 import {useSetTopMenu} from "./hooks/interface/useSetTopMenu.js"
@@ -15,15 +28,6 @@ import {useSetWS} from "./hooks/common/useSetWS.js"
 import {useReset} from "./hooks/common/useReset.js"
 
 import {closeModal} from "./redux/interfaceReducer.js"
-import Quantity from "./components/forms/Quantity.jsx"
-import CommentOrder from "./components/forms/CommentOrder.jsx"
-import Calc from "./components/forms/Calc.jsx"
-import Discounts from "./components/forms/Discounts.jsx"
-import Contact from "./components/forms/Contact.jsx"
-import CommentPosition from "./components/forms/CommentPosition.jsx"
-import Mark from "./components/forms/Mark.jsx"
-import EGAIS from "./components/forms/EGAIS.jsx"
-import MarkHosts from "./components/forms/MarkHosts.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -38,51 +42,35 @@ function App() {
     const {cities} = useSelector(state => state.data)
     const {modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
     const param_date = useSelector(state => state.interface.params.param_date)
-    const [modalContent, setModalContent] = useState(null)
 
-    useEffect(() => {
-        switch (modal_type) {
-            case 'quantity':
-                setModalContent(<Quantity props={modal_props}/>)
-                break
-            case 'comment_order':
-                setModalContent(<CommentOrder props={modal_props}/>)
-                break
-            case 'comment_position':
-                setModalContent(<CommentPosition props={modal_props}/>)
-                break
-            case 'calc':
-                setModalContent(<Calc/>)
-                break
-            case 'discounts':
-                setModalContent(<Discounts props={modal_props}/>)
-                break
-            case 'add_contact':
-                setModalContent(<Contact props={modal_props}/>)
-                break
-            case 'mark':
-                setModalContent(<Mark props={modal_props}/>)
-                break
-            case 'mark_hosts':
-                setModalContent(<MarkHosts props={modal_props}/>)
-                break
-            case 'egais':
-                setModalContent(<EGAIS props={modal_props}/>)
-                break
-            default:
-                setModalContent(null)
-        }
+    const modalComponents = {
+        quantity: Quantity,
+        comment_order: CommentOrder,
+        comment_position: CommentPosition,
+        calc: Calc,
+        discounts: Discounts,
+        add_contact: Contact,
+        mark: Mark,
+        mark_hosts: MarkHosts,
+        egais: Egais,
+        egais_settings: EgaisSettings,
+    }
+
+    const ModalContent = useMemo(() => {
+        const Component = modalComponents[modal_type]
+        return Component ? <Component props={modal_props}/> : null
     }, [modal_type, modal_props])
 
-    const defaultRedirect = cities.length > 0
+    const defaultRedirect = cities.length
         ? `/films/${cities[0].code}/all/${param_date}/`
-        : `/`
+        : "/"
 
     return (
         <Box id="app">
             <Header/>
             <Routes>
                 <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
+
                 <Route path="/films/:param_city/:param_filial/:param_date" element={<AppRoutes current_page="films"/>}/>
                 <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
                        element={<AppRoutes current_page="film"/>}/>
@@ -93,8 +81,14 @@ function App() {
                 <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirect}/>}/>
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
-                <Route path="/menu/:param_city/:param_filial/"
-                       element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
+                <Route path="/kitchen/:param_city/:param_filial/" element={<AppRoutes current_page="kitchen"/>}/>
+
+                <Route path="/menu/:param_city/:param_filial/" element={
+                    permissions.includes(0)
+                        ? <AppRoutes current_page="menu"/>
+                        : <NotFound/>
+                }/>
+
                 <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/orders/cinema"/>}/>
                 <Route path="/admin/orders/horeca/:param_city/:param_filial/:param_date_admin/"
@@ -105,14 +99,12 @@ function App() {
                        element={<AppRoutes current_page="admin/halls"/>}/>
                 <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/equipment"/>}/>
-                <Route path="/kitchen/:param_city/:param_filial/" element={<AppRoutes current_page="kitchen"/>}/>
+
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>
             <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
-                <Box id="modal">
-                    {modalContent}
-                </Box>
+                <Box id="modal">{ModalContent}</Box>
             </Modal>
         </Box>
     )

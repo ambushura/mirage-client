@@ -5,6 +5,7 @@ import {DataGrid} from "@mui/x-data-grid"
 import {useEffect, useState} from "react"
 import dayjs from "dayjs"
 import {fillHosts} from "../../redux/markirovkaReducer.js"
+import {EMPTY_TABLE_STYLE} from "../../ui/ThemeContext.jsx"
 
 const MarkHosts = () => {
 
@@ -64,9 +65,7 @@ const MarkHosts = () => {
                  e.preventDefault()
              }}
              sx={{width: `${cdn_columns_wight.reduce((a, b) => a + b, 0) + 2}px`}}>
-            <Typography variant="h6" color="textSecondary" margin={1}>
-                Настройки системы &#34;Честный знак&#34;
-            </Typography>
+            <Typography variant="h6" color="textSecondary" margin={1}>Доступность площадок ГИСМТ &#34;Честный знак&#34;</Typography>
             <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
                 <DataGrid
                     disableSelectionOnClick
@@ -75,6 +74,7 @@ const MarkHosts = () => {
                     columns={cdn_columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
+                    sx={EMPTY_TABLE_STYLE}
                 />
             </Box>
             <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
