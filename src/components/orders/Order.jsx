@@ -147,7 +147,7 @@ const OrderPanel = ({
                         <Box className="order-box-panel-adv">
                             <Button variant="contained" color="secondary" onClick={() => {
                                 dispatch(markirovka_km_check(filial, wp, order.uid))
-                            }}>Проверить</Button>
+                            }}>Проверить ЧЗ</Button>
                         </Box>
                         <Box className="order-box-panel-3">
                             {[1, 2, 3, 0].map(state => (
