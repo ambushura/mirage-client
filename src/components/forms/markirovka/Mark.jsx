@@ -1,8 +1,8 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {useState} from "react"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import {closeModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
-import {horeca_position_add_mark} from "../../service/fetch_service.js"
+import {horeca_position_add_mark} from "../../../service/fetch_service.js"
 
 const Mark = (props) => {
 

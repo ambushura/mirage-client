@@ -1,9 +1,5 @@
 import axios from "axios"
-import {
-    NEW_EMPTY_ORDER,
-    setCurrentHorder,
-    setCurrentPreOrder
-} from "../redux/ordersReducer.js"
+import {NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
@@ -21,11 +17,15 @@ import {
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
-    ROUTE_HORECA_POSITION_ADD_COMMENT, ROUTE_HORECA_POSITION_ADD_MARK,
+    ROUTE_HORECA_POSITION_ADD_COMMENT,
+    ROUTE_HORECA_POSITION_ADD_MARK,
     ROUTE_HORECA_POSITION_ADD_QUANTITY,
     ROUTE_HORECA_POSITION_AWAY,
     ROUTE_HORECA_POSITION_COOK,
-    ROUTE_HORECA_POSITION_COURSE, ROUTE_MARKIROVKA_CDN_INFO_GET, ROUTE_MARKIROVKA_CDN_INFO_UPDATE
+    ROUTE_HORECA_POSITION_COURSE,
+    ROUTE_MARKIROVKA_CDN_INFO_GET,
+    ROUTE_MARKIROVKA_CDN_INFO_UPDATE,
+    ROUTE_MARKIROVKA_KM_CHECK
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
 
@@ -232,3 +232,11 @@ export const markirovka_cdn_info_update = (filial, wp) => async (dispatch) => ma
     wp,
     filial
 }, data => dispatch(fillHosts(data)))
+
+export const markirovka_km_check = (filial, wp, uid_order) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_KM_CHECK}`,
+    params: {uid_order: uid_order},
+    wp,
+    filial
+}, data => dispatch(setCurrentHorder(data)))

@@ -8,13 +8,11 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {
-    common_position_add_comment,
-    horeca_position_change_state
-} from "../../../service/fetch_service.js"
+import {common_position_add_comment, horeca_position_change_state} from "../../../service/fetch_service.js"
 import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
 
 const HorecaItem = (props) => {
 
@@ -77,9 +75,14 @@ const HorecaItem = (props) => {
                     }))
                 }}><QrCode2Icon sx={{color: 'white'}}/></button>
                 <Box
-                    className='order-box-horeca-item-2-2'>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
-                <button className='order-box-horeca-item-2-1'><CheckCircleOutlineIcon
-                    sx={{color: props.item.mark.value === '' ? 'red' : 'orange'}}/></button>
+                    className='order-box-horeca-item-2-2' onClick={() => dispatch(openModal({
+                    type: 'mark_info',
+                    props: {item: props.item}
+                }))}>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
+                <button className='order-box-horeca-item-2-1'>
+                    {props.item.mark.value === '' ? <QuestionMarkIcon/> :
+                        <CheckCircleOutlineIcon sx={{color: props.item.mark.realizable ? 'green' : 'red'}}/>}
+                </button>
             </Box> : <></>}
             {props.item.egais.type_code !== '' ? <Box className='order-box-horeca-item-3'>
                 <button className='order-box-horeca-item-3-3'><QrCode2Icon sx={{color: 'white'}}/></button>

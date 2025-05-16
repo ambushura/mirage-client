@@ -21,7 +21,12 @@ import {
     setHorderPaying,
     setPreOrderPaying
 } from "../../redux/ordersReducer.js"
-import {cinema_order_delete, cinema_order_fetch, horeca_order_fetch} from "../../service/fetch_service.js"
+import {
+    cinema_order_delete,
+    cinema_order_fetch,
+    horeca_order_fetch,
+    markirovka_km_check
+} from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
@@ -41,7 +46,9 @@ const OrderPanel = ({
                         addContact,
                         dispatch,
                         uid_selected,
-                        set_uid_selected
+                        set_uid_selected,
+                        filial,
+                        wp
                     }) => (
     <Box className="order-box" style={{height: height}}>
         {paying ? <Payment type={type}/> : (
@@ -65,10 +72,14 @@ const OrderPanel = ({
                 {type === 'cinema' && (
                     <>
                         <Box className="order-box-panel-2">
-                            <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
+                            <Button variant="contained" color="secondary"
+                                    onClick={addContact}><ContactMailIcon/></Button>
                             <ButtonGroup size='large' sx={{marginLeft: '4px'}}>
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(openModal({type: 'comment_order', props: {order_type: 'cinema', action_type: 'order', order: order}}))
+                                    dispatch(openModal({
+                                        type: 'comment_order',
+                                        props: {order_type: 'cinema', action_type: 'order', order: order}
+                                    }))
                                 }}><BorderColorIcon/></Button>
                                 <Button variant="contained" color="secondary"><DeleteIcon/></Button>
                             </ButtonGroup>
@@ -106,11 +117,15 @@ const OrderPanel = ({
                 {type === 'horeca' && (
                     <>
                         <Box className="order-box-panel-2">
-                            <Button variant="contained" color="secondary" onClick={addContact}><ContactMailIcon/></Button>
+                            <Button variant="contained" color="secondary"
+                                    onClick={addContact}><ContactMailIcon/></Button>
                             <ButtonGroup sx={{marginLeft: '4px', marginBottom: '4px'}} size='small'>
                                 <ButtonGroup sx={{marginRight: '4px'}} size='large'>
                                     <Button variant="contained" color="secondary" onClick={() => {
-                                        dispatch(openModal({type: 'comment_order', props: {order_type: 'horeca', action_type: 'order', order: order}}))
+                                        dispatch(openModal({
+                                            type: 'comment_order',
+                                            props: {order_type: 'horeca', action_type: 'order', order: order}
+                                        }))
                                     }}><BorderColorIcon/></Button>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                     }}><DeleteIcon/></Button>
@@ -130,9 +145,9 @@ const OrderPanel = ({
                             </ButtonGroup>
                         </Box>
                         <Box className="order-box-panel-adv">
-                            <ButtonGroup sx={{marginBottom: '4px'}} size='small'>
-                                <Button variant="contained" color="secondary" onClick={() => {}}>Проверить марки</Button>
-                            </ButtonGroup>
+                            <Button variant="contained" color="secondary" onClick={() => {
+                                dispatch(markirovka_km_check(filial, wp, order.uid))
+                            }}>Проверить</Button>
                         </Box>
                         <Box className="order-box-panel-3">
                             {[1, 2, 3, 0].map(state => (
@@ -207,6 +222,8 @@ const Order = () => {
                     dispatch={dispatch}
                     uid_selected={uid_cinema_selected}
                     set_uid_selected={set_uid_cinema_selected}
+                    filial={filial}
+                    wp={wp}
                 />
             ) : null}
             {horder.in_base ? (
@@ -224,6 +241,8 @@ const Order = () => {
                     addContact={() => {
                         dispatch(openModal({type: 'add_contact', props: {order_type: 'horeca', order: horder}}))
                     }}
+                    filial={filial}
+                    wp={wp}
                 />
             ) : null}
         </Box>

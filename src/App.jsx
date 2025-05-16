@@ -9,16 +9,16 @@ import NotFound from "./page/pages/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
 
 import {
-    Quantity,
+    Calc,
     CommentOrder,
     CommentPosition,
-    Calc,
-    Discounts,
     Contact,
+    Discounts,
+    Egais,
+    EgaisSettings,
     Mark,
     MarkHosts,
-    EgaisSettings,
-    Egais
+    Quantity
 } from "./components/forms/"
 
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
@@ -28,6 +28,7 @@ import {useSetWS} from "./hooks/common/useSetWS.js"
 import {useReset} from "./hooks/common/useReset.js"
 
 import {closeModal} from "./redux/interfaceReducer.js"
+import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 
 function App() {
     const dispatch = useDispatch()
@@ -52,6 +53,7 @@ function App() {
         add_contact: Contact,
         mark: Mark,
         mark_hosts: MarkHosts,
+        mark_info: MarkInfo,
         egais: Egais,
         egais_settings: EgaisSettings,
     }
