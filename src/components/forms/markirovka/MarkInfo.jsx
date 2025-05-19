@@ -32,24 +32,23 @@ const MarkInfo = (props) => {
                 <Box className='mark-info-row'><Box>Марка</Box><Box
                     sx={{fontWeight: 'bold'}}>{item.mark.value}</Box></Box>
                 <Box className='mark-info-row'><Box>GTIN</Box><Box>{item.mark.gtin}</Box></Box>
-                <Box className='mark-info-row'><Box>КМ успешно найдена в ЧЗ</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>1. КМ успешно найдена в ЧЗ</Box><Box><RadioButtonCheckedIcon
                     sx={{color: item.mark.found ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ валидна</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>2. КМ валидна</Box><Box><RadioButtonCheckedIcon
                     sx={{color: item.mark.valid ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ успешно проверена в ЧЗ</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>3. КМ успешно проверена в ЧЗ</Box><Box><RadioButtonCheckedIcon
                     sx={{color: item.mark.verified ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ введена в оборот</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>4. КМ введена в оборот</Box><Box><RadioButtonCheckedIcon
                     sx={{color: item.mark.realizable ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ нанесена на упаковку</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>5. КМ нанесена на упаковку</Box><Box><RadioButtonCheckedIcon
                     sx={{color: item.mark.utilised ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ заблокирована</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>6. КМ заблокирована</Box><Box><RadioButtonCheckedIcon
                     sx={{color: !item.mark.isblocked ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ принадлежит вашему юр.лицу</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>7. КМ принадлежит вашему юр.лицу</Box><Box><RadioButtonCheckedIcon
                     sx={{color: item.mark.isowner ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ уже реализована</Box><Box><RadioButtonCheckedIcon
+                <Box className='mark-info-row'><Box>8. КМ уже реализована</Box><Box><RadioButtonCheckedIcon
                     sx={{color: !item.mark.sold ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>КМ
-                    прослеживается</Box><Box>{item.mark.istracking ? 'Да' : 'Нет'}</Box></Box>
+                <Box className='mark-info-row'><Box>9. КМ прослеживается</Box><Box>{item.mark.istracking ? 'Да' : 'Нет'}</Box></Box>
                 <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Номер запроса
                     ЧЗ</Box><Box>{item.mark.reqId}</Box></Box>
                 <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Ошибки

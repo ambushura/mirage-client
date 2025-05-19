@@ -1,7 +1,7 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
-import {common_order_add_comment} from "../../service/fetch_service.js"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import {common_order_add_comment} from "../../../service/fetch_service.js"
+import {closeModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 
 const CommentOrder = (props) => {

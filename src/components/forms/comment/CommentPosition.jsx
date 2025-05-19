@@ -1,12 +1,14 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
-import {common_position_add_comment} from "../../service/fetch_service.js"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import {common_position_add_comment} from "../../../service/fetch_service.js"
+import {closeModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 
 const CommentPosition = (props) => {
 
     const dispatch = useDispatch()
+    const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
 
     const [comment, set_comment] = useState(null)
     const filial = useSelector(state => state.data.filial)
@@ -20,6 +22,18 @@ const CommentPosition = (props) => {
     useEffect(() => {
         set_comment(current_comment)
     }, [current_comment])
+
+    useEffect(() => {
+        if (props.props.order_type === 'cinema') {
+            if (!pre_order.in_base) {
+                dispatch(closeModal())
+            }
+        } else if (props.props.order_type === 'horeca') {
+            if (!horder.in_base) {
+                dispatch(closeModal())
+            }
+        }
+    }, [dispatch, props.props.order_type, pre_order, horder])
 
     return (
         <Box component="form"
