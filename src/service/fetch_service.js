@@ -23,6 +23,7 @@ import {
     ROUTE_HORECA_POSITION_AWAY,
     ROUTE_HORECA_POSITION_COOK,
     ROUTE_HORECA_POSITION_COURSE,
+    ROUTE_HORECA_POSITION_DELETE,
     ROUTE_MARKIROVKA_CDN_INFO_GET,
     ROUTE_MARKIROVKA_CDN_INFO_UPDATE,
     ROUTE_MARKIROVKA_KM_CHECK
@@ -237,6 +238,14 @@ export const markirovka_km_check = (filial, wp, uid_order) => async (dispatch) =
     method: 'get',
     url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_KM_CHECK}`,
     params: {uid_order: uid_order},
+    wp,
+    filial
+}, data => dispatch(setCurrentHorder(data)))
+
+export const horeca_position_delete = (filial, wp, uid_order, uid_position) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_DELETE}`,
+    params: {uid_order: uid_order, uid_position: uid_position},
     wp,
     filial
 }, data => dispatch(setCurrentHorder(data)))
