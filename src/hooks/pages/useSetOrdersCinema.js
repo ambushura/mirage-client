@@ -17,7 +17,7 @@ export function useSetOrdersCinema(update) {
     const fetch_data_schedule = useFetchingArray(urls_schedule)
 
     // Заказы филиал-сеанс
-    const [url_orders, set_url_orders] = useState('')
+    const [url_orders, set_url_orders] = useState(undefined)
     const [fetch_data_orders, error_orders, loadind_orders] = useFetching(url_orders)
 
     const {current_filial, current_uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)

@@ -17,8 +17,8 @@ const OrdersCinema = (props) => {
     useSetOrdersCinema(props.update_cinema)
 
     const order_cinema_schedule = useSelector(state => state.orders.orders_cinema_schedule)
-    const orders_cinema = useSelector(state => state.orders.orders_cinema)
-    const {current_filial, current_uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
+    const orders_cinema = useSelector(state => state.orders.orders_cinema || [])
+    const {current_filial, current_uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance || [])
     const wp = useSelector(state => state.interface.wp)
 
     const pre_order = useSelector(state => state.orders.pre_order)
