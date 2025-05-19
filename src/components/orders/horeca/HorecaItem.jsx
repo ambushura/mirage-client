@@ -13,6 +13,7 @@ import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
+import {addNotification} from "../../../redux/notifierReducer.js"
 
 const HorecaItem = (props) => {
 
@@ -26,6 +27,26 @@ const HorecaItem = (props) => {
         <Looks3Icon sx={{color: 'black'}} key='2'/>,
         <Looks4Icon sx={{color: 'black'}} key='3'/>
     ]
+
+    const markirovka_status = (item) => {
+        const result = true
+        if (!item.mark.valid) {
+            return false
+        } else if (!item.mark.verified) {
+            return false
+        } else if (!item.mark.found) {
+            return false
+        } else if (item.mark.realizable) {
+            return false
+        } else if (item.mark.isBlocked) {
+            return false
+        } else if (item.mark.sold) {
+            return false
+        } else if (!item.mark.isowner) {
+            return false
+        }
+        return result
+    }
 
     return (
         <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-selected' : ''}`}>
@@ -75,13 +96,23 @@ const HorecaItem = (props) => {
                     }))
                 }}><QrCode2Icon sx={{color: 'white'}}/></button>
                 <Box
-                    className='order-box-horeca-item-2-2' onClick={() => dispatch(openModal({
-                    type: 'mark_info',
-                    props: {item: props.item}
-                }))}>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
+                    className='order-box-horeca-item-2-2' onClick={() => {
+                    if (props.item.mark.value !== '') {
+                        dispatch(openModal({
+                            type: 'mark_info',
+                            props: {item: props.item}
+                        }))
+                    } else {
+                        dispatch(addNotification({
+                            message: 'Отсканируйте марку для просмотра информации',
+                            severity: 'info',
+                            autoHide: true
+                        }))
+                    }
+                }}>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
                 <button className='order-box-horeca-item-2-1'>
                     {props.item.mark.value === '' ? <QuestionMarkIcon/> :
-                        <CheckCircleOutlineIcon sx={{color: props.item.mark.realizable ? 'green' : 'red'}}/>}
+                        <CheckCircleOutlineIcon sx={{color: markirovka_status(props.item) ? 'green' : 'red'}}/>}
                 </button>
             </Box> : <></>}
             {props.item.egais.type_code !== '' ? <Box className='order-box-horeca-item-3'>
