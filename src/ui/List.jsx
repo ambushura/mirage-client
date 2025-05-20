@@ -18,6 +18,9 @@ import ChairIcon from "@mui/icons-material/Chair"
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
 import TerminalIcon from '@mui/icons-material/Terminal'
+import LiquorIcon from '@mui/icons-material/Liquor'
+import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
+import {WhiteMenuItem} from "./ThemeContext.jsx"
 
 const List = (props) => {
 
@@ -96,49 +99,49 @@ const List = (props) => {
                                         }
                                         if (props.type === 'staff') {
                                             return (
-                                                <MenuItem key={props.type}>
+                                                <WhiteMenuItem key={props.type}>
                                                     {el.name}
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                         if (props.type === 'state') {
                                             return (
-                                                <MenuItem key={el.uid}>
+                                                <WhiteMenuItem key={el.uid}>
                                                     {el.name}
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                         if (props.type === 'halls') {
                                             return (
-                                                <MenuItem key={el.uid}>
+                                                <WhiteMenuItem key={el.uid}>
                                                     {el.name}
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                         if (props.type === 'workplaces') {
                                             return (
-                                                <MenuItem key={el.uid}>
+                                                <WhiteMenuItem key={el.uid}>
                                                     {el.name}
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                         if (props.type === 'kitchen_points') {
                                             return (
-                                                <MenuItem key={el.uid}>
+                                                <WhiteMenuItem key={el.uid}>
                                                     {el.name}
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                         if (props.type === 'kitchen_status') {
                                             return (
-                                                <MenuItem key={el.uid}>
+                                                <WhiteMenuItem key={el.uid}>
                                                     {el.name}
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                         if (props.type === 'admin') {
                                             return (
-                                                <MenuItem key={el.id} onClick={() => {
+                                                <WhiteMenuItem key={el.id} onClick={() => {
                                                     navigate(el.path)
                                                     handleClose()
                                                 }}>
@@ -147,16 +150,20 @@ const List = (props) => {
                                                             {el.id === 'admin/orders/cinema' ?
                                                                 <ConfirmationNumberIcon/> :
                                                                 el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
-                                                                    el.id === 'admin/total' ? <EqualizerIcon/> :
-                                                                        el.id === 'admin/halls' ? <ChairIcon/> :
-                                                                            el.id === 'admin/equipment' ?
-                                                                                <TerminalIcon/> : null}
+                                                                    el.id === 'admin/zbooks' ? <EqualizerIcon/> :
+                                                                        el.id === 'admin/operations' ?
+                                                                            <CurrencyRubleIcon/> :
+                                                                            el.id === 'admin/halls' ? <ChairIcon/> :
+                                                                                el.id === 'admin/equipment' ?
+                                                                                    <TerminalIcon/> :
+                                                                                    el.id === 'admin/egais' ?
+                                                                                        <LiquorIcon/> : null}
                                                         </ListItemIcon>
                                                         <ListItemText>
                                                             {el.name}
                                                         </ListItemText>
                                                     </>
-                                                </MenuItem>
+                                                </WhiteMenuItem>
                                             )
                                         }
                                     })}

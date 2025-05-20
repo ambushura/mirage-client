@@ -45,9 +45,11 @@ const AppRoutes = ({current_page}) => {
         menu: isAdmin ? <PageHoreca/> : null,
         "admin/orders/cinema": isAdmin ? <PageAdmin/> : null,
         "admin/orders/horeca": isAdmin ? <PageAdmin/> : null,
-        "admin/total": isAdmin ? <PageAdmin/> : null,
+        "admin/zbooks": isAdmin ? <PageAdmin/> : null,
+        "admin/operations": isAdmin ? <PageAdmin/> : null,
         "admin/halls": isAdmin ? <PageAdmin/> : null,
         "admin/equipment": isAdmin ? <PageAdmin/> : null,
+        "admin/egais": isAdmin ? <PageAdmin/> : null,
         kitchen: <PageKitchen/>
     }
 

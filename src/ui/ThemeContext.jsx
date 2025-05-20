@@ -1,6 +1,6 @@
 import {createContext, useEffect, useState} from 'react'
 import {useSelector} from "react-redux"
-import {createTheme} from "@mui/material"
+import {createTheme, MenuItem, styled} from "@mui/material"
 import {useFullScreen} from "../hooks/interface/useFullScreen.js"
 
 const ThemeContext = createContext()
@@ -65,7 +65,7 @@ export const ThemeBlackWhite = ({children}) => {
     useEffect(() => {
         setUiState(preValue => ({
             ...preValue,
-            top_menu: ['films', 'film', 'schedule', 'menu', 'admin/orders/cinema', 'admin/orders/horeca'].find(el => el === current_page) !== undefined
+            top_menu: ['films', 'film', 'schedule', 'menu', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/egais', 'admin/zbooks', 'admin/operations'].find(el => el === current_page) !== undefined
         }))
 
     }, [current_page])
@@ -143,14 +143,6 @@ export const Theme = createTheme({
                 }
             }
         },
-        MuiMenuItem: {
-            styleOverrides: {
-                root: {
-                    color: 'white',
-                    fontWeight: 'bold',
-                }
-            }
-        },
         MuiLinearProgress: {
             styleOverrides: {
                 root: {
@@ -179,7 +171,7 @@ export const Theme = createTheme({
                 }
             }
         },
-    }
+    },
 })
 
 export const EMPTY_TABLE_STYLE = {
@@ -214,3 +206,8 @@ export const EMPTY_TABLE_STYLE = {
         userSelect: 'none',
     }
 }
+
+export const WhiteMenuItem = styled(MenuItem)({
+    color: 'white',
+    fontWeight: 'bold'
+})

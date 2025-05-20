@@ -2,8 +2,6 @@ import {Box, Typography} from "@mui/material"
 
 const Egais = (props) => {
 
-
-
     return (
         <Box component="form"
              noValidate

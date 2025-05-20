@@ -95,10 +95,14 @@ function App() {
                        element={<AppRoutes current_page="admin/orders/cinema"/>}/>
                 <Route path="/admin/orders/horeca/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/orders/horeca"/>}/>
-                <Route path="/admin/total/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/total"/>}/>
+                <Route path="/admin/zbooks/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/zbooks"/>}/>
+                <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/operations"/>}/>
                 <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/halls"/>}/>
+                <Route path="/admin/egais/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/egais"/>}/>
                 <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/equipment"/>}/>
 
