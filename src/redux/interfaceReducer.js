@@ -4,12 +4,10 @@ import {date_dayjs} from "../service/advanced.js"
 const current_date = date_dayjs(new Date())
 
 export const MOBILE_WIDTH = 1024
-export const ANIMATION_SPEED = 250
 export const HEADER_HEIGHT = [200, 70]
-export const TOP_MENU_HEIGHT = [65, 65]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule"]
-export const PARAM_DATA_ADMIN_SHIFT = ["admin/orders/cinema", "admin/orders/horeca", "admin/orders/egais", "admin/total", "admin/halls", "admin/equipment"]
+export const PARAM_DATA_ADMIN_SHIFT = ["admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/equipment"]
 
 const initialState = {
     app_width: undefined,
