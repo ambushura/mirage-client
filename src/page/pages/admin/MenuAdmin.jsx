@@ -89,11 +89,33 @@ const MenuAdmin = () => {
         }
     }
 
+    const show_egais_menu = () => {
+        if (current_page === 'admin/egais') {
+            return (
+                <Fade in={current_page === 'admin/egais'} timeout={TIMEOUT} unmountOnExit>
+                    <Box>
+                        <Button size='small' variant='contained' color='secondary'>Организации
+                            ЕГАИС</Button>
+                        <Button sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'>Алкогольная
+                            продукция ЕГАИС</Button>
+                        <Button sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'>Входящие
+                            ТТН</Button>
+                        <Button sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'>Акты
+                            списания ЕГАИС</Button>
+                        <Button sx={{marginLeft: '4px'}} size='small' variant='contained' color='secondary'>Чеки
+                            ЕГАИС</Button>
+                    </Box>
+                </Fade>
+            )
+        }
+    }
+
     return (
         <Box className='admin-panel'>
             {show_create_delete()}
             {show_date_param_admin()}
             {show_cinema_type()}
+            {show_egais_menu()}
         </Box>
     )
 }

@@ -31,6 +31,7 @@ import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 
 function App() {
+
     const dispatch = useDispatch()
 
     useSetWS()
@@ -97,12 +98,18 @@ function App() {
                        element={<AppRoutes current_page="admin/orders/horeca"/>}/>
                 <Route path="/admin/zbooks/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/zbooks"/>}/>
+                <Route path="/admin/zbooks/:param_city/all/:param_date_admin/"
+                       element={<NotFound/>}/>
                 <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/operations"/>}/>
+                <Route path="/admin/operations/:param_city/all/:param_date_admin/"
+                       element={<NotFound/>}/>
                 <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/halls"/>}/>
                 <Route path="/admin/egais/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/egais"/>}/>
+                <Route path="/admin/egais/:param_city/all/:param_date_admin/"
+                       element={<NotFound/>}/>
                 <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/equipment"/>}/>
 

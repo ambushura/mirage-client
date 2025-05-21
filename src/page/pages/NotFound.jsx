@@ -1,8 +1,10 @@
+import {Box} from "@mui/material"
+
 const NotFound = () => {
     return (
-        <div>
+        <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '200%'}}>
             Упс... Такой страницы не найдено.
-        </div>
+        </Box>
     )
 }
 export default NotFound
