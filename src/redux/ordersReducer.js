@@ -40,7 +40,16 @@ const initialState = {
     orders_cinema_schedule: [],
     orders_cinema: [],
     orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
-    orders_horeca: []
+    orders_horeca: [],
+    orders_horeca_filters_staff: [],
+    orders_horeca_filters_state: [
+        {uid: 0, title: 'Ожидают оплаты'},
+        {uid: 1, title: 'Пробить кассовый чек'},
+        {uid: 2, title: 'Успешно оплачены'},
+        {uid: 3, title: 'Отмененные'}],
+    orders_horeca_filters_halls: [],
+    orders_horeca_filters_workplaces: [],
+    orders_horeca_filters_kitchen_points: [],
 }
 
 export const ordersSlice = createSlice({
@@ -85,6 +94,18 @@ export const ordersSlice = createSlice({
         },
         setOrdersHoreca(state, {payload}) {
             state.orders_horeca = payload
+        },
+        setOrdersHorecaFiltersStaff(state, {payload}) {
+            state.orders_horeca_filters_staff = payload
+        },
+        setOrdersHorecaFiltersHalls(state, {payload}) {
+            state.orders_horeca_filters_halls = payload
+        },
+        setOrdersHorecaFiltersWorkPlaces(state, {payload}) {
+            state.orders_horeca_filters_workplaces = payload
+        },
+        setOrdersHorecaFiltersKitchenPoints(state, {payload}) {
+            state.orders_horeca_filters_kitchen_points = payload
         }
     },
 })
@@ -101,5 +122,9 @@ export const {
     setOrdersCinema,
     setOrdersCinemaFilialSeance,
     setOrdersHoreca,
+    setOrdersHorecaFiltersStaff,
+    setOrdersHorecaFiltersHalls,
+    setOrdersHorecaFiltersWorkPlaces,
+    setOrdersHorecaFiltersKitchenPoints,
 } = ordersSlice.actions
 export default ordersSlice.reducer

@@ -18,7 +18,8 @@
 }
 
 .admin-orders-cinema {
-    height: 100%;
+    height: calc(100% - 4px);
+    padding-top: 4px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -149,14 +150,9 @@
 
 
 
-
-
-.admin-orders-horeca-panel {
-    padding-top: 5px;
-}
-
 .admin-orders-horeca {
-    height: 100%;
+    height: calc(100% - 4px);
+    padding-top: 4px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -174,16 +170,6 @@
 }
 .admin-orders-horeca-filial-content {
     width: 100%;
-}
-.admin-orders-horeca-filial-name {
-    box-sizing: border-box;
-    padding: 8px 0 8px 10px;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    background: #f8f8f8;
-    z-index: 0;
-    text-align: center;
 }
 .admin-orders-horeca-filial-orders {
     width: 100%;

@@ -34,13 +34,10 @@ const PageAdmin = () => {
                 <Box id='content-wrap'>
                     <Box id='content'>
                         <Box id="page-admin">
-                            {current_page === 'admin/orders/cinema' || current_page === 'admin/orders/horeca' ?
-                                <Box sx={{height: '100%'}}>
-                                    {current_page === 'admin/orders/cinema' ?
-                                        <OrdersCinema update_cinema={update_cinema}/> : null}
-                                    {current_page === 'admin/orders/horeca' ?
-                                        <OrdersHoreca update_horeca={update_horeca}/> : null}
-                                </Box> : null}
+                            {current_page === 'admin/orders/cinema' ?
+                                <OrdersCinema update_cinema={update_cinema}/> : null}
+                            {current_page === 'admin/orders/horeca' ?
+                                <OrdersHoreca update_horeca={update_horeca}/> : null}
                             {current_page === 'admin/zbooks' ?
                                 <Zbooks/> : null}
                             {current_page === 'admin/operations' ?

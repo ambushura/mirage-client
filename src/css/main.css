@@ -279,7 +279,6 @@ body {
 /*              СКРОЛЛ            */
 /* ============================== */
 #content::-webkit-scrollbar,
-.admin-orders-horeca-panel::-webkit-scrollbar,
 .admin-orders-horeca-orders::-webkit-scrollbar,
 .order-box::-webkit-scrollbar {
     width: 50px;
@@ -288,7 +287,6 @@ body {
 }
 
 #content::-webkit-scrollbar-thumb,
-.admin-orders-horeca-panel::-webkit-scrollbar-thumb,
 .admin-orders-horeca-orders::-webkit-scrollbar-thumb,
 .order-box::-webkit-scrollbar-thumb {
     background: var(--bgr-scroll);
@@ -296,10 +294,8 @@ body {
 }
 
 #content::-webkit-scrollbar-track,
-.admin-orders-horeca-panel::-webkit-scrollbar-track,
 .admin-orders-horeca-orders::-webkit-scrollbar-track,
 #content::-webkit-scrollbar-corner,
-.admin-orders-horeca-panel::-webkit-scrollbar-corner,
 .admin-orders-horeca-orders::-webkit-scrollbar-corner,
 .order-box::-webkit-scrollbar-corner {
     background: transparent;
