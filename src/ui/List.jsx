@@ -5,7 +5,6 @@ import {
     Grow,
     ListItemIcon,
     ListItemText,
-    MenuItem,
     MenuList,
     Paper,
     Popper
@@ -21,6 +20,7 @@ import TerminalIcon from '@mui/icons-material/Terminal'
 import LiquorIcon from '@mui/icons-material/Liquor'
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
 import {WhiteMenuItem} from "./ThemeContext.jsx"
+import ContactMailIcon from '@mui/icons-material/ContactMail'
 
 const List = (props) => {
 
@@ -157,7 +157,9 @@ const List = (props) => {
                                                                                 el.id === 'admin/equipment' ?
                                                                                     <TerminalIcon/> :
                                                                                     el.id === 'admin/egais' ?
-                                                                                        <LiquorIcon/> : null}
+                                                                                        <LiquorIcon/> :
+                                                                                        el.id === 'admin/staff' ?
+                                                                                            <ContactMailIcon/> : null}
                                                         </ListItemIcon>
                                                         <ListItemText>
                                                             {el.name}

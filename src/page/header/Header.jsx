@@ -7,7 +7,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/forms/Auth.jsx"
 import {useEffect, useRef, useState} from "react"
-import {MOBILE_WIDTH, setAuthOpened} from "../../redux/interfaceReducer.js"
+import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -30,6 +30,7 @@ const Header = () => {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
+    const current_page = useSelector(state => state.interface.current_page)
     const cities_list_id = "cities-menu"
     const filials_list_id = "filials-menu"
     const cities_ref = useRef(null)
@@ -115,6 +116,17 @@ const Header = () => {
         }
     }
 
+    const [adv_page_name, set_adv_page_name] = useState('Кинокомплекс')
+    useEffect(() => {
+        const top_menu_admin = TOP_MENU[1].find(el => el.id === 'admin')
+        const page = top_menu_admin.path.find(el => el.id === current_page)
+        if (page !== undefined) {
+            set_adv_page_name(page.name)
+        } else {
+            set_adv_page_name('Кинокомплекс')
+        }
+    }, [current_page])
+
     return (
         <header id="header">
             <Box id="header-desktop">
@@ -144,7 +156,7 @@ const Header = () => {
                                         prev_open={prev_admin_open}
                                         id={admin_list_id}
                                         setOpen={set_admin_open}
-                                        button_text={app_width >= MOBILE_WIDTH ? 'Кинокомплекс' : null}
+                                        button_text={app_width >= MOBILE_WIDTH ? adv_page_name : null}
                                         list={el.path}
                                         startIcon={<AppsIcon/>}
                                         endIcon={<KeyboardArrowDownIcon/>}

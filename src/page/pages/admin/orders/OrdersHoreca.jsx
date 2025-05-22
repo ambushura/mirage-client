@@ -29,7 +29,7 @@ const OrdersHoreca = () => {
                 renderInput={(params) => (
                     <TextField variant='filled' {...params} label={label} placeholder={placeholder}/>
                 )}
-                sx={{width: `${width}px`}}
+                sx={{width: `${width}px`, marginBottom: '4px'}}
             />
         )
     }

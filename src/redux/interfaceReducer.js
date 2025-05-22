@@ -8,6 +8,32 @@ export const HEADER_HEIGHT = [200, 70]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule"]
 export const PARAM_DATA_ADMIN_SHIFT = ["admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/equipment"]
+export const TOP_MENU = [
+    [
+        {id: "films", name: "Фильмы", path: ""},
+        {id: "schedule", name: "Расписание", path: ""},
+        {id: "mkitchen", name: "Mkitchen", path: ""},
+    ],
+    [
+        {id: "films", name: "Фильмы", path: ""},
+        {id: "schedule", name: "Расписание", path: ""},
+        {id: "menu", name: "Меню", path: ""},
+        {id: "kitchen", name: "Кухня", path: ""},
+        {
+            id: "admin", name: "Кинокомплекс",
+            path: [
+                {id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""},
+                {id: "admin/orders/horeca", name: "Заказы (товары)", path: ""},
+                {id: "admin/egais", name: "ЕГАИС", path: ""},
+                {id: "admin/zbooks", name: "Кассовые книги", path: ""},
+                {id: "admin/operations", name: "Операции по кассам", path: ""},
+                {id: "admin/staff", name: "Табели", path: ""},
+                {id: "admin/halls", name: "Схемы залов", path: ""},
+                {id: "admin/equipment", name: "Оборудование", path: ""},
+            ]
+        },
+    ],
+]
 
 const initialState = {
     app_width: undefined,
@@ -27,31 +53,7 @@ const initialState = {
         uid_film: undefined,
         uid_seance: undefined,
     },
-    top_menu: [
-        [
-            {id: "films", name: "Фильмы", path: ""},
-            {id: "schedule", name: "Расписание", path: ""},
-            {id: "mkitchen", name: "Mkitchen", path: ""},
-        ],
-        [
-            {id: "films", name: "Фильмы", path: ""},
-            {id: "schedule", name: "Расписание", path: ""},
-            {id: "menu", name: "Меню", path: ""},
-            {id: "kitchen", name: "Кухня", path: ""},
-            {
-                id: "admin", name: "Кинокомплекс",
-                path: [
-                    {id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""},
-                    {id: "admin/orders/horeca", name: "Заказы (товары)", path: ""},
-                    {id: "admin/egais", name: "ЕГАИС", path: ""},
-                    {id: "admin/zbooks", name: "Кассовые книги", path: ""},
-                    {id: "admin/operations", name: "Операции по кассам", path: ""},
-                    {id: "admin/halls", name: "Схемы залов", path: ""},
-                    {id: "admin/equipment", name: "Оборудование", path: ""},
-                ]
-            },
-        ],
-    ],
+    top_menu: TOP_MENU
 }
 
 const interfaceSlice = createSlice({

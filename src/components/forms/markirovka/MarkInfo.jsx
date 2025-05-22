@@ -26,8 +26,8 @@ const MarkInfo = (props) => {
              onSubmit={(e) => {
                  e.preventDefault()
              }}>
-            <Typography variant="h6" color="textSecondary" margin={1}>Результат проверки ЧЗ (разрешительный
-                режим)</Typography>
+            <Typography variant="h6" color="textSecondary" margin={1}>Разрешительный
+                режим</Typography>
             <Box className='mark-info'>
                 <Box className='mark-info-row'><Box>Марка</Box><Box
                     sx={{fontWeight: 'bold'}}>{item.mark.value}</Box></Box>

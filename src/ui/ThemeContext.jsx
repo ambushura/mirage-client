@@ -100,10 +100,10 @@ export const Theme = createTheme({
                     borderRadius: '12px',
                     textTransform: 'none',
                     height: '60px',
-                    boxShadow: 'none',
-                    '&:hover': {
-                        boxShadow: 'none',
-                    },
+                    //boxShadow: 'none',
+                    //'&:hover': {
+                    //    boxShadow: 'none',
+                    //},
                 },
             }
         },
