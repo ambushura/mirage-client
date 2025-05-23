@@ -40,6 +40,7 @@ const initialState = {
     orders_cinema_schedule: [],
     orders_cinema: [],
     orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
+
     orders_horeca: [],
     orders_horeca_filters_staff: [],
     orders_horeca_filters_state: [
@@ -50,6 +51,18 @@ const initialState = {
     orders_horeca_filters_halls: [],
     orders_horeca_filters_workplaces: [],
     orders_horeca_filters_kitchen_points: [],
+    orders_horeca_filters_kitchen_state: [
+        {uid: 0, title: 'Готовить'},
+        {uid: 1, title: 'Готовится'},
+        {uid: 2, title: 'Готов'},
+    ],
+
+    orders_horeca_filters_staff_selected: [],
+    orders_horeca_filters_state_selected: [],
+    orders_horeca_filters_halls_selected: [],
+    orders_horeca_filters_workplaces_selected: [],
+    orders_horeca_filters_kitchen_points_selected: [],
+    orders_horeca_filters_kitchen_state_selected: [],
 }
 
 export const ordersSlice = createSlice({
@@ -106,6 +119,24 @@ export const ordersSlice = createSlice({
         },
         setOrdersHorecaFiltersKitchenPoints(state, {payload}) {
             state.orders_horeca_filters_kitchen_points = payload
+        },
+        setOrdersHorecaFiltersStateSelect(state, {payload}) {
+            state.orders_horeca_filters_state_selected = payload
+        },
+        setOrdersHorecaFiltersStaffSelect(state, {payload}) {
+            state.orders_horeca_filters_staff_selected = payload
+        },
+        setOrdersHorecaFiltersHallsSelect(state, {payload}) {
+            state.orders_horeca_filters_halls_selected = payload
+        },
+        setOrdersHorecaFiltersWorkPlacesSelect(state, {payload}) {
+            state.orders_horeca_filters_workplaces_selected = payload
+        },
+        setOrdersHorecaFiltersKitchenPointsSelect(state, {payload}) {
+            state.orders_horeca_filters_kitchen_points_selected = payload
+        },
+        setOrdersHorecaFiltersKitchenStateSelect(state, {payload}) {
+            state.orders_horeca_filters_kitchen_state_selected = payload
         }
     },
 })
@@ -126,5 +157,11 @@ export const {
     setOrdersHorecaFiltersHalls,
     setOrdersHorecaFiltersWorkPlaces,
     setOrdersHorecaFiltersKitchenPoints,
+    setOrdersHorecaFiltersStateSelect,
+    setOrdersHorecaFiltersStaffSelect,
+    setOrdersHorecaFiltersHallsSelect,
+    setOrdersHorecaFiltersWorkPlacesSelect,
+    setOrdersHorecaFiltersKitchenPointsSelect,
+    setOrdersHorecaFiltersKitchenStateSelect,
 } = ordersSlice.actions
 export default ordersSlice.reducer

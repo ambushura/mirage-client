@@ -1,12 +1,22 @@
 import {Autocomplete, Box, Pagination, TextField} from "@mui/material"
 import {useSetOrdersHoreca} from "../../../../hooks/pages/useSetOrdersHoreca.js"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import OrderFood from "./OrderFood.jsx"
 import {useSetOrdersHorecaFilters} from "../../../../hooks/pages/useSetOrdersHorecaFilters.jsx"
+import {
+    setOrdersHorecaFiltersHallsSelect,
+    setOrdersHorecaFiltersKitchenPointsSelect,
+    setOrdersHorecaFiltersKitchenStateSelect,
+    setOrdersHorecaFiltersStaffSelect,
+    setOrdersHorecaFiltersStateSelect,
+    setOrdersHorecaFiltersWorkPlacesSelect
+} from "../../../../redux/ordersReducer.js"
 
 const OrdersHoreca = () => {
 
-    useSetOrdersHoreca(false)
+    const dispatch = useDispatch()
+
+    useSetOrdersHoreca()
     useSetOrdersHorecaFilters()
 
     const orders = useSelector(state => state.orders.orders_horeca)
@@ -15,10 +25,43 @@ const OrdersHoreca = () => {
     const filters_halls = useSelector(state => state.orders.orders_horeca_filters_halls)
     const filters_workplaces = useSelector(state => state.orders.orders_horeca_filters_workplaces)
     const filters_kitchen_points = useSelector(state => state.orders.orders_horeca_filters_kitchen_points)
+    const filters_kitchen_state = useSelector(state => state.orders.orders_horeca_filters_kitchen_state)
 
-    const tags = (size, multiply, limit_tags, id, options, label, placeholder, width) => {
+    const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
+    const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
+    const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
+    const workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
+    const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
+    const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
+
+    const tags = (size, multiply, limit_tags, id, options, label, placeholder, width, selected_uid = []) => {
         return (
             <Autocomplete
+                onChange={(event, new_value) => {
+                    switch (id) {
+                        case 'orders-staff-tags':
+                            dispatch(setOrdersHorecaFiltersStaffSelect(new_value))
+                            break
+                        case 'orders-state-tags':
+                            dispatch(setOrdersHorecaFiltersStateSelect(new_value))
+                            break
+                        case 'orders-halls-tags':
+                            dispatch(setOrdersHorecaFiltersHallsSelect(new_value))
+                            break
+                        case 'orders-workplaces-tags':
+                            dispatch(setOrdersHorecaFiltersWorkPlacesSelect(new_value))
+                            break
+                        case 'orders-kitchen-points-tags':
+                            dispatch(setOrdersHorecaFiltersKitchenPointsSelect(new_value))
+                            break
+                        case 'orders-kitchen-state-tags':
+                            dispatch(setOrdersHorecaFiltersKitchenStateSelect(new_value))
+                            break
+                        default:
+                            break
+                    }
+                }}
+                value={selected_uid}
                 noOptionsText={'Нет подходящих опций'}
                 size={size}
                 multiple={multiply}
@@ -51,11 +94,12 @@ const OrdersHoreca = () => {
                                                 alignItems: 'flex-start',
                                                 flexDirection: 'column'
                                             }}>
-                                                <Box>{tags("large", true, 2, "orders-staff-tags", filters_staff, "Официанты", "Официанты", 300)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-state-tags", filters_state, "Статусы заказа", "Статус", 300)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-halls-tags", filters_halls, "Залы", "Зал", 300)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-workplaces-tags", filters_workplaces, "Рабочие места", "Рабочеем место", 300)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", 300)}</Box>
+                                                <Box>{tags("large", true, 2, "orders-staff-tags", filters_staff, "Официанты", "Официанты", 300, staff_selected)}</Box>
+                                                <Box>{tags("large", true, 2, "orders-state-tags", filters_state, "Статусы заказа", "Статус", 300, state_selected)}</Box>
+                                                <Box>{tags("large", true, 2, "orders-halls-tags", filters_halls, "Залы", "Зал", 300, halls_selected)}</Box>
+                                                <Box>{tags("large", true, 2, "orders-workplaces-tags", filters_workplaces, "Рабочие места", "Рабочеем место", 300, workplaces_selected)}</Box>
+                                                <Box>{tags("large", true, 2, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", 300, kitchen_points_selected)}</Box>
+                                                <Box>{tags("large", true, 2, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", 300, kitchen_state_selected)}</Box>
                                             </Box>
                                             <Box
                                                 className='admin-orders-horeca-filial-orders'>{filial_data.data.map(order => {
