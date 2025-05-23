@@ -9,7 +9,7 @@ import {
     setOrdersHorecaFiltersKitchenStateSelect,
     setOrdersHorecaFiltersStaffSelect,
     setOrdersHorecaFiltersStateSelect,
-    setOrdersHorecaFiltersWorkPlacesSelect
+    setOrdersHorecaFiltersWorkPlacesSelect, setOrdersHorecaOffset
 } from "../../../../redux/ordersReducer.js"
 
 const OrdersHoreca = () => {
@@ -33,6 +33,8 @@ const OrdersHoreca = () => {
     const workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
     const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
     const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
+
+    const offset = useSelector(state => state.orders.orders_horeca_offset)
 
     const tags = (size, multiply, limit_tags, id, options, label, placeholder, width, selected_uid = []) => {
         return (
@@ -113,7 +115,12 @@ const OrdersHoreca = () => {
                                                     backgroundColor: 'var(--bgr-color)',
                                                     padding: '10px 0',
                                                     width: '100%',
-                                                }} size={'large'} count={20} showFirstButton showLastButton/>
+                                                }}
+                                                            page={offset}
+                                                            onChange={(event, value) => dispatch(setOrdersHorecaOffset(value))}
+                                                            size={'large'}
+                                                            count={20}
+                                                            showFirstButton showLastButton/>
                                             </Box>
                                         </Box>
                                     </Box>

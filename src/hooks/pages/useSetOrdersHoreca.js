@@ -14,6 +14,7 @@ export function useSetOrdersHoreca() {
     const [urls_orders, set_urls_orders] = useState([])
     const fetch_data_orders = useFetchingArray(urls_orders)
 
+    const offset = useSelector(state => state.orders.orders_horeca_offset)
     const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
     const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
     const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
@@ -30,7 +31,7 @@ export function useSetOrdersHoreca() {
                     filial: filial,
                     url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_HORECA_ORDERS_GET}`,
                     params: {
-                        offset: 10,
+                        offset: offset,
                         date_shift: param_date_admin,
                         staff: staff_selected.map(({ uid }) => uid),
                         state: state_selected.map(({ uid }) => uid),
@@ -46,7 +47,7 @@ export function useSetOrdersHoreca() {
                 filial: filial,
                 url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}`,
                 params: {
-                    offset: 10,
+                    offset: offset,
                     date_shift: param_date_admin,
                     staff: staff_selected.map(({ uid }) => uid),
                     state: state_selected.map(({ uid }) => uid),
@@ -58,7 +59,7 @@ export function useSetOrdersHoreca() {
             })
         }
         set_urls_orders(urls_new)
-    }, [city, filial, param_date_admin, staff_selected, staff_selected, state_selected, halls_selected, workplaces_selected, kitchen_points_selected, kitchen_state_selected])
+    }, [city, filial, param_date_admin, staff_selected, staff_selected, state_selected, halls_selected, workplaces_selected, kitchen_points_selected, kitchen_state_selected, offset])
 
     useEffect(() => {
         if (fetch_data_orders.length > 0) {
