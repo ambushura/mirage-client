@@ -18,8 +18,8 @@ const OrderFood = (props) => {
         }}>
             <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}>
                 <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', flex: 1, height: '15%'}}>
-                    <Box sx={{flexGrow: 1}}>
-                        <CircleIcon/>
+                    <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <CircleIcon sx={{scale: 1.5, color: order.closed ? 'green' : order.canceled || order.deleted ? 'red' : 'gray'}}/>
                     </Box>
                     <Box sx={{flexGrow: 1}}>
                         <Box>{order.number}</Box>
@@ -44,7 +44,7 @@ const OrderFood = (props) => {
                     </Box>
                 </Box>
                 <Box className='admin-orders-horeca-order-body' sx={{height: '60%', flex: 1, overflowX: 'hidden', overflowY: 'auto'}}>
-                    {order.items.map((item, i) => {
+                    {order.items_grouped.map((item, i) => {
                             return (
                                 <Box key={i + order.ver}>
                                     <Box sx={{width: '10px'}}></Box>
@@ -64,7 +64,7 @@ const OrderFood = (props) => {
                         <Box>Телефон: {order.buyer_phone_number}</Box>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Box>{order.quantity}</Box>
+                        <Box>{order.quantity} товаров</Box>
                     </Box>
                 </Box>
             </Box>

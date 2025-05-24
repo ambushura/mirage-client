@@ -102,11 +102,7 @@ const OrdersHoreca = () => {
                                             <Box>{tags("large", true, 2, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", 300, kitchen_state_selected)}</Box>
                                         </Box>
                                         <Box className='admin-orders-horeca-filial-box'>
-                                            <Box className='admin-orders-horeca-filial-orders' sx={{
-                                                display: 'flex',
-                                                flexDirection: 'row',
-                                                flexWrap: 'wrap'
-                                            }}>{filial_data.data.orders.map(order => {
+                                            <Box className='admin-orders-horeca-filial-orders'>{filial_data.data.orders.map(order => {
                                                 return (
                                                     <OrderFood key={`${order.uid}${order.ver}`} order={order}/>
                                                 )
