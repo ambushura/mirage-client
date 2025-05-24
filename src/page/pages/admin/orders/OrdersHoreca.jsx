@@ -100,7 +100,7 @@ const OrdersHoreca = () => {
                                                 display: 'flex',
                                                 flexDirection: 'row',
                                                 flexWrap: 'wrap'
-                                            }}>{filial_data.data.map(order => {
+                                            }}>{filial_data.data.orders.map(order => {
                                                 return (
                                                     <OrderFood key={`${order.uid}${order.ver}`} order={order}/>
                                                 )
@@ -117,7 +117,7 @@ const OrdersHoreca = () => {
                                                         page={offset}
                                                         onChange={(event, value) => dispatch(setOrdersHorecaOffset(value))}
                                                         size={'large'}
-                                                        count={20}
+                                                        count={Math.ceil(filial_data.data.total_count / 10)}
                                                         showFirstButton showLastButton/>
                                         </Box>
                                     </Box>

@@ -2000,16 +2000,16 @@ body {
 
 .admin-orders-horeca-order {
     box-sizing: border-box;
-    width: 270px;
-    height: 270px;
+    width: calc(290px + 20px);
+    height: 290px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .admin-orders-horeca-order-content {
-    width: 266px;
-    height: 266px;
+    width: calc(286px + 20px);
+    height: 286px;
     background-color: #dfdfdf;
     border-radius: 12px;
 }

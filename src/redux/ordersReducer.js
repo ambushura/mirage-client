@@ -41,7 +41,7 @@ const initialState = {
     orders_cinema: [],
     orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
 
-    orders_horeca: [],
+    orders_horeca: {orders: [], total_count: 0},
     orders_horeca_offset: 1,
     orders_horeca_filters_staff: [],
     orders_horeca_filters_state: [

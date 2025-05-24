@@ -33,12 +33,12 @@ export function useSetOrdersHoreca() {
                     params: {
                         offset: offset,
                         date_shift: param_date_admin,
-                        staff: staff_selected.map(({ uid }) => uid),
-                        state: state_selected.map(({ uid }) => uid),
-                        halls: halls_selected.map(({ uid }) => uid),
-                        workplaces: workplaces_selected.map(({ uid }) => uid),
-                        kitchen_points: kitchen_points_selected.map(({ uid }) => uid),
-                        kitchen_state: kitchen_state_selected.map(({ uid }) => uid)
+                        staff: staff_selected.map(({uid}) => uid),
+                        state: state_selected.map(({uid}) => uid),
+                        halls: halls_selected.map(({uid}) => uid),
+                        workplaces: workplaces_selected.map(({uid}) => uid),
+                        kitchen_points: kitchen_points_selected.map(({uid}) => uid),
+                        kitchen_state: kitchen_state_selected.map(({uid}) => uid)
                     }
                 })
             })
@@ -49,12 +49,12 @@ export function useSetOrdersHoreca() {
                 params: {
                     offset: offset,
                     date_shift: param_date_admin,
-                    staff: staff_selected.map(({ uid }) => uid),
-                    state: state_selected.map(({ uid }) => uid),
-                    halls: halls_selected.map(({ uid }) => uid),
-                    workplaces: workplaces_selected.map(({ uid }) => uid),
-                    kitchen_points: kitchen_points_selected.map(({ uid }) => uid),
-                    kitchen_state: kitchen_state_selected.map(({ uid }) => uid)
+                    staff: staff_selected.map(({uid}) => uid),
+                    state: state_selected.map(({uid}) => uid),
+                    halls: halls_selected.map(({uid}) => uid),
+                    workplaces: workplaces_selected.map(({uid}) => uid),
+                    kitchen_points: kitchen_points_selected.map(({uid}) => uid),
+                    kitchen_state: kitchen_state_selected.map(({uid}) => uid)
                 }
             })
         }
