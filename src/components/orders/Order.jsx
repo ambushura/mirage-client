@@ -131,8 +131,6 @@ const OrderPanel = ({
                                 </ButtonGroup>
                                 <ButtonGroup sx={{marginRight: '4px'}} size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {
-                                    }}>Пречек</Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
                                     }}>Разделить</Button>
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>

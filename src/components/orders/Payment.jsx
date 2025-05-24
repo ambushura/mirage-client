@@ -43,6 +43,7 @@ const Payment = (props) => {
         } else {
             return (
                 <>
+                    {props.type === 'horeca' ? <Button color='info' variant='contained'>Пречек</Button> : null}
                     {payment_methods.list.map(pm => {
                         return (
                             <Button variant='contained'
