@@ -9,8 +9,9 @@ import {
     setOrdersHorecaFiltersKitchenStateSelect,
     setOrdersHorecaFiltersStaffSelect,
     setOrdersHorecaFiltersStateSelect,
-    setOrdersHorecaFiltersWorkPlacesSelect, setOrdersHorecaOffset
+    setOrdersHorecaFiltersWorkPlacesSelect, setOrdersHorecaPage
 } from "../../../../redux/ordersReducer.js"
+import {useEffect} from "react";
 
 const OrdersHoreca = () => {
 
@@ -27,6 +28,7 @@ const OrdersHoreca = () => {
     const filters_kitchen_points = useSelector(state => state.orders.orders_horeca_filters_kitchen_points)
     const filters_kitchen_state = useSelector(state => state.orders.orders_horeca_filters_kitchen_state)
 
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
     const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
     const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
@@ -34,7 +36,7 @@ const OrdersHoreca = () => {
     const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
     const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
 
-    const offset = useSelector(state => state.orders.orders_horeca_offset)
+    const page = useSelector(state => state.orders.orders_horeca_page)
 
     const tags = (size, multiply, limit_tags, id, options, label, placeholder, width, selected_uid = []) => {
         return (
@@ -79,6 +81,10 @@ const OrdersHoreca = () => {
         )
     }
 
+    useEffect(() => {
+        return () => dispatch(setOrdersHorecaPage(1))
+    }, [dispatch, param_date_admin])
+
     return (
         <Box className='admin-orders-horeca'>
             <Box className='admin-orders-horeca-orders'>
@@ -114,8 +120,8 @@ const OrdersHoreca = () => {
                                                 padding: '10px 0',
                                                 width: '100%',
                                             }}
-                                                        page={offset}
-                                                        onChange={(event, value) => dispatch(setOrdersHorecaOffset(value))}
+                                                        page={page}
+                                                        onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
                                                         size={'large'}
                                                         count={Math.ceil(filial_data.data.total_count / 10)}
                                                         showFirstButton showLastButton/>

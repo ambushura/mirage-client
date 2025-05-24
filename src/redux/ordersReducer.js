@@ -42,7 +42,7 @@ const initialState = {
     orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
 
     orders_horeca: {orders: [], total_count: 0},
-    orders_horeca_offset: 1,
+    orders_horeca_page: 1,
     orders_horeca_filters_staff: [],
     orders_horeca_filters_state: [
         {uid: 0, title: 'Ожидают оплаты'},
@@ -109,8 +109,8 @@ export const ordersSlice = createSlice({
         setOrdersHoreca(state, {payload}) {
             state.orders_horeca = payload
         },
-        setOrdersHorecaOffset(state, {payload}) {
-            state.orders_horeca_offset = payload
+        setOrdersHorecaPage(state, {payload}) {
+            state.orders_horeca_page = payload
         },
         setOrdersHorecaFiltersStaff(state, {payload}) {
             state.orders_horeca_filters_staff = payload
@@ -167,6 +167,6 @@ export const {
     setOrdersHorecaFiltersWorkPlacesSelect,
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
-    setOrdersHorecaOffset,
+    setOrdersHorecaPage,
 } = ordersSlice.actions
 export default ordersSlice.reducer
