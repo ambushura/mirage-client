@@ -87,41 +87,38 @@ const OrdersHoreca = () => {
                             if (filial_data.data !== null) {
                                 return (
                                     <Box className='admin-orders-horeca-filial-content' key={filial_data.filial.uid}>
-                                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
-                                            <Box sx={{
-                                                position: 'sticky',
-                                                top: 0,
-                                                backgroundColor: 'var(--bgr-color)',
+                                        <Box className='admin-orders-horeca-filial-filters'>
+                                            <Box>{tags("large", true, 2, "orders-staff-tags", filters_staff, "Официанты", "Официанты", 300, staff_selected)}</Box>
+                                            <Box>{tags("large", true, 2, "orders-state-tags", filters_state, "Статусы заказа", "Статус", 300, state_selected)}</Box>
+                                            <Box>{tags("large", true, 2, "orders-halls-tags", filters_halls, "Залы", "Зал", 300, halls_selected)}</Box>
+                                            <Box>{tags("large", true, 2, "orders-workplaces-tags", filters_workplaces, "Рабочие места", "Рабочеем место", 300, workplaces_selected)}</Box>
+                                            <Box>{tags("large", true, 2, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", 300, kitchen_points_selected)}</Box>
+                                            <Box>{tags("large", true, 2, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", 300, kitchen_state_selected)}</Box>
+                                        </Box>
+                                        <Box className='admin-orders-horeca-filial-box'>
+                                            <Box className='admin-orders-horeca-filial-orders' sx={{
                                                 display: 'flex',
-                                                alignItems: 'flex-start',
-                                                flexDirection: 'column'
-                                            }}>
-                                                <Box>{tags("large", true, 2, "orders-staff-tags", filters_staff, "Официанты", "Официанты", 300, staff_selected)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-state-tags", filters_state, "Статусы заказа", "Статус", 300, state_selected)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-halls-tags", filters_halls, "Залы", "Зал", 300, halls_selected)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-workplaces-tags", filters_workplaces, "Рабочие места", "Рабочеем место", 300, workplaces_selected)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", 300, kitchen_points_selected)}</Box>
-                                                <Box>{tags("large", true, 2, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", 300, kitchen_state_selected)}</Box>
-                                            </Box>
-                                            <Box
-                                                className='admin-orders-horeca-filial-orders'>{filial_data.data.map(order => {
+                                                flexDirection: 'row',
+                                                flexWrap: 'wrap'
+                                            }}>{filial_data.data.map(order => {
                                                 return (
                                                     <OrderFood key={`${order.uid}${order.ver}`} order={order}/>
                                                 )
                                             })}
-                                                <Pagination sx={{
-                                                    position: 'sticky',
-                                                    bottom: 0,
-                                                    backgroundColor: 'var(--bgr-color)',
-                                                    padding: '10px 0',
-                                                    width: '100%',
-                                                }}
-                                                            page={offset}
-                                                            onChange={(event, value) => dispatch(setOrdersHorecaOffset(value))}
-                                                            size={'large'}
-                                                            count={20}
-                                                            showFirstButton showLastButton/>
                                             </Box>
+                                            <Pagination sx={{
+                                                position: 'sticky',
+                                                bottom: 0,
+                                                top: 'calc(100% - 60px)',
+                                                backgroundColor: 'var(--bgr-color)',
+                                                padding: '10px 0',
+                                                width: '100%',
+                                            }}
+                                                        page={offset}
+                                                        onChange={(event, value) => dispatch(setOrdersHorecaOffset(value))}
+                                                        size={'large'}
+                                                        count={20}
+                                                        showFirstButton showLastButton/>
                                         </Box>
                                     </Box>
                                 )

@@ -280,7 +280,11 @@ body {
 /* ============================== */
 #content::-webkit-scrollbar,
 .admin-orders-horeca-orders::-webkit-scrollbar,
-.order-box::-webkit-scrollbar {
+.order-box::-webkit-scrollbar,
+.admin-orders-horeca-filial-filters::-webkit-scrollbar,
+.admin-orders-horeca-filial-box::-webkit-scrollbar,
+.order-box::-webkit-scrollbar,
+.admin-orders-schedule::-webkit-scrollbar {
     width: 50px;
     height: 50px;
     background-color: transparent;
@@ -288,7 +292,11 @@ body {
 
 #content::-webkit-scrollbar-thumb,
 .admin-orders-horeca-orders::-webkit-scrollbar-thumb,
-.order-box::-webkit-scrollbar-thumb {
+.order-box::-webkit-scrollbar-thumb,
+.admin-orders-horeca-filial-filters::-webkit-scrollbar-thumb,
+.admin-orders-horeca-filial-box::-webkit-scrollbar-thumb,
+.order-box::-webkit-scrollbar-thumb,
+.admin-orders-schedule::-webkit-scrollbar-thumb {
     background: var(--bgr-scroll);
     border-radius: 12px;
 }
@@ -297,7 +305,11 @@ body {
 .admin-orders-horeca-orders::-webkit-scrollbar-track,
 #content::-webkit-scrollbar-corner,
 .admin-orders-horeca-orders::-webkit-scrollbar-corner,
-.order-box::-webkit-scrollbar-corner {
+.order-box::-webkit-scrollbar-corner,
+.admin-orders-horeca-filial-filters::-webkit-scrollbar-corner,
+.admin-orders-horeca-filial-box::-webkit-scrollbar-track,
+.order-box::-webkit-scrollbar-thumb,
+.admin-orders-schedule::-webkit-scrollbar-thumb {
     background: transparent;
 }
 
@@ -1222,4 +1234,786 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #d3d3d3;
+}
+
+
+
+
+
+/* ========================== */
+/*    ПРАВАЯ ПАНЕЛЬ ЗАКАЗА    */
+/* ========================== */
+.order-box > div {
+    width: 100%;
+}
+
+.order-booking {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #f8f8f8;
+}
+
+.order-booking-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    vertical-align: center;
+    margin: 0 4px 4px 0;
+    cursor: pointer;
+    width: 180px;
+}
+
+.order-booking-item-button {
+    transition: background-color 0.3s;
+    background-color: #1C1F23;
+    border-radius: 12px;
+    color: white;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.order-booking-item-description {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 14px;
+    background-color: #EEEEEE;
+}
+
+.order-booking-item-comment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80%;
+    color: #8B919B;
+    padding: 0 12px;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.order-booking-item-discount {
+    overflow: hidden;
+    margin-top: 2px;
+    font-size: 70%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #8B919B;
+}
+
+.order-booking-item-numbers {
+    font-weight: bold;
+    margin-right: 5px;
+    color: black;
+}
+
+.order-booking-item-labels {
+    color: #8B919B;
+    margin-right: 5px;
+}
+
+.order-box-panel-cinema-1,
+.order-box-panel-cinema-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 0 5px 0;
+    background-color: var(--bgr-color);
+}
+
+.order-box-panel-cinema-1 {
+    position: sticky;
+    top: 0;
+    height: 60px;
+    z-index: 4;
+}
+
+.order-box-panel-cinema-2 {
+    height: 60px;
+    position: sticky;
+    z-index: 3;
+    top: 0;
+}
+
+.order-box-panel-cinema-3 {
+    height: fit-content;
+    position: sticky;
+    top: 65px;
+    z-index: 2;
+    background-color: var(--bgr-color);
+}
+
+.order-box-panel-cinema-4 {
+    height: 120px;
+    z-index: 1;
+}
+
+.order-box-panel-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: var(--bgr-color);
+    padding: 0 0 4px 0;
+}
+
+.order-box-panel-1-sum-number {
+    width: calc(460px - 360px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 65%;
+    font-weight: bold;
+    color: #8B919B;
+}
+
+.order-box-panel-1-sum {
+    font-size: 150%;
+    color: var(--txt-color);
+}
+
+.order-box-panel-2, .order-box-panel-adv {
+    width: 100%;
+    position: sticky;
+    top: 64px;
+    z-index: 1;
+    background-color: var(--bgr-color);
+    display: flex;
+}
+
+.order-box-panel-3 {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 64px;
+    padding: 5px 0;
+    z-index: 2;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.order-box-panel-3-title-mark {
+
+}
+
+.order-box-panel-3-list-mark {
+
+}
+
+.order-box-panel-3-title-for-kitchen {
+
+}
+
+.order-box-panel-3-list-for-kitchen {
+
+}
+
+.order-box-panel-3-title-kitchen {
+
+}
+
+.order-box-panel-3-list-kitchen {
+
+}
+
+.order-box-panel-3-title-kitchen-ready {
+
+}
+
+.order-box-panel-3-list-kitchen-ready {
+
+}
+
+.order-box-panel-3-title-others {
+
+}
+
+.order-box-panel-3-list-others {
+
+}
+
+.order-box-panel-3-title-mark,
+.order-box-panel-3-title-for-kitchen,
+.order-box-panel-3-title-kitchen,
+.order-box-panel-3-title-others,
+.order-box-panel-3-title-kitchen-ready {
+    font-weight: bold;
+    font-size: 16px;
+    color: #8B919B;
+    text-align: left;
+    padding: 5px 0;
+    position: sticky;
+    top: 64px;
+    background-color: #f8f8f8;
+}
+
+.order-box-horeca-item {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #EEEEEE;
+}
+
+.order-box-horeca-item > div {
+    margin-bottom: 2px;
+}
+
+.order-box-horeca-item-1-calc,
+.order-box-horeca-item-1,
+.order-box-horeca-item-2,
+.order-box-horeca-item-3,
+.order-box-horeca-item-4,
+.order-box-horeca-item-5 {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.order-box-horeca-item-1-calc,
+.order-box-horeca-item-1-1,
+.order-box-horeca-item-1-2,
+.order-box-horeca-item-1-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.order-box-horeca-item-1-calc {
+    width: 50px;
+}
+
+.order-box-horeca-item-1-calc {
+    background-color: #1C1F23;
+    border-radius: 12px;
+    color: white;
+}
+
+.order-box-horeca-item-1-1 {
+    width: calc(460px - 50px - 50px - 100px - 50px);
+    font-weight: bold;
+    font-size: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.position-selected {
+    background-color: #BDBDBD !important;
+}
+
+.order-box-horeca-item-1-1 > div {
+    text-align: center;
+}
+
+.order-box-horeca-item-1-1-sum {
+    width: 100px;
+    font-weight: bold;
+    font-size: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.order-box-horeca-item-1-2 {
+    min-width: 50px;
+    background-color: #1C1F23;
+    border-radius: 12px 0 0 12px;
+}
+
+.order-box-horeca-item-1-3 {
+    min-width: 50px;
+    background-color: #1C1F23;
+    border-radius: 0 12px 12px 0;
+}
+
+.order-box-horeca-item-2-1,
+.order-box-horeca-item-2-2,
+.order-box-horeca-item-2-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.order-box-horeca-item-2-1 {
+    min-width: 50px;
+}
+
+.order-box-horeca-item-2-2 {
+    width: calc(460px - 50px - 50px);
+}
+
+.order-box-horeca-item-2-3 {
+    min-width: 50px;
+    background-color: #1C1F23;
+    cursor: pointer;
+}
+
+.order-box-horeca-item-3-1,
+.order-box-horeca-item-3-2,
+.order-box-horeca-item-3-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.order-box-horeca-item-3-1 {
+    min-width: 50px;
+}
+
+.order-box-horeca-item-3-2 {
+    width: calc(460px - 50px - 50px);
+}
+
+.order-box-horeca-item-3-3 {
+    min-width: 50px;
+    background-color: #1C1F23;
+}
+
+.order-box-horeca-item-4-1,
+.order-box-horeca-item-4-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.order-box-horeca-item-4-1 {
+    box-sizing: border-box;
+    width: calc(460px - 50px);
+    overflow: hidden;
+}
+
+.order-box-horeca-item-4-2 {
+    min-width: 50px;
+    background-color: #1C1F23;
+}
+
+.order-box-horeca-item-5-1,
+.order-box-horeca-item-5-3,
+.order-box-horeca-item-5-4,
+.order-box-horeca-item-5-5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.order-box-horeca-item-5-1 {
+    min-width: 50px;
+    background-color: #1C1F23;
+    border-radius: 12px 0 0 12px;
+}
+
+.order-box-horeca-item-5-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 50px;
+    background-color: #1C1F23;
+    cursor: pointer;
+}
+
+.order-box-horeca-item-5-3 {
+    width: 110px;
+    font-weight: bold;
+    background-color: #1C1F23;
+    border-radius: 0 12px 12px 0;
+    color: white;
+}
+
+.order-box-horeca-item-5-4 {
+    min-width: 50px;
+}
+
+.order-box-horeca-item-5-5 {
+    width: calc(460px - 50px - 50px - 110px - 50px);
+    font-weight: bold;
+}
+
+.order-box-horeca-item-1-calc:hover,
+.order-box-horeca-item-1-2:hover,
+.order-box-horeca-item-1-3:hover,
+.order-box-horeca-item-1-4:hover,
+.order-box-horeca-item-1-5:hover,
+.order-box-horeca-item-2-3:hover,
+.order-box-horeca-item-3-3:hover,
+.order-box-horeca-item-4-2:hover,
+.order-box-horeca-item-5-1:hover,
+.order-box-horeca-item-5-2:hover,
+.order-box-horeca-item-5-3:hover {
+    transition: background-color 0.3s;
+    background-color: #000000;
+}
+
+
+
+
+
+
+/* ========================== */
+/*   ПАНЕЛЬ ОПЛАТЫ В КИОСКЕ   */
+/* ========================== */
+.payment-total {
+    width: 100%;
+    height: 64px;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f8f8f8;
+}
+
+.payment-total-div {
+    box-sizing: border-box;
+    display: flex;
+    background-color: #ececec;
+    border-radius: 12px;
+    height: 60px;
+}
+
+.payment-total-div > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 120%;
+    color: black;
+    align-items: center;
+}
+
+.payment-total-title {
+    font-size: 70%;
+}
+
+.payment-total-sum {
+    font-size: 70%;
+}
+
+.payment-total-title, .payment-total-sum {
+    text-align: center;
+}
+
+.payment-types {
+    padding: 4px 0;
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 64px;
+    z-index: 2;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+    height: 70px;
+}
+
+.payment-types > button {
+    margin: 0 4px 0 0;
+}
+
+.payment-items {
+    display: flex;
+    flex-direction: row;
+}
+
+.payment-items-group {
+    width: 100%;
+}
+
+.payment-items-group-title {
+    box-sizing: border-box;
+    padding: 10px;
+    height: 42px;
+    width: 100%;
+    font-weight: bold;
+    position: sticky;
+    top: 134px;
+    z-index: 2;
+    background-color: #e4e2e2;
+}
+
+.payment-items-group-title-name {
+    height: 42px;
+    width: 100%;
+    font-weight: bold;
+    color: #0E0F11;
+    position: sticky;
+    top: calc(144px + 32px);
+    z-index: 2;
+    background-color: #ececec;
+}
+
+.payment-items-group-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-items-group-item-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    border-bottom: 1px dashed #b6b5b5;
+    align-items: center;
+}
+
+.payment-items-group-item-0,
+.payment-items-group-item-1,
+.payment-items-group-item-2,
+.payment-items-group-item-3 {
+    overflow: hidden;
+    padding: 4px 8px;
+}
+
+.payment-items-group-item-0 {
+    width: 200px;
+    text-align: left;
+}
+
+.payment-items-group-item-1 {
+    width: 62px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.payment-items-group-item-2 {
+    width: calc(100px - 32px);
+    text-align: right;
+}
+
+.payment-items-group-item-3 {
+    width: 100px;
+    font-weight: bold;
+    text-align: right;
+}
+
+
+
+
+
+/* ============================= */
+/*  СТРАНИЦА ЗАКАЗОВ КИНО АДМИН  */
+/* ============================= */
+#page-admin {
+    box-sizing: border-box;
+    padding: 0 5px 5px 5px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.admin-panel {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 4px;
+}
+
+.admin-orders-cinema {
+    height: calc(100% - 4px);
+    padding-top: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.admin-orders-schedule {
+    min-width: 400px;
+    max-width: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.admin-orders-cinema-seances {
+    width: 100%;
+}
+
+.admin-orders-list {
+    overflow-x: auto;
+    padding: 0 0 0 10px;
+}
+
+.admin-orders-list-content {
+    width: calc(40px + 100px + 80px + 80px + 60px + 60px + 60px + 60px + 60px + 100px + 100px + 100px + 100px + 150px);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-orders-list-content-order-header {
+    font-weight: bold;
+    position: sticky;
+    top: 35px;
+    z-index: 3;
+    background-color: #f8f8f8;
+    color: #8b919b;
+}
+
+.admin-orders-list-content-order, .admin-orders-list-content-order-header {
+    display: grid;
+    grid-template-columns: 40px 100px 80px 80px 60px 60px 60px 60px 60px 100px 100px 100px 100px 150px;
+    gap: 8px;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+}
+
+.admin-orders-list-content-order:hover {
+    background-color: #dfdfdf;
+}
+
+.admin-orders-list-content-order>div, .admin-orders-list-content-order-header>div {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-orders-cinema-filial {
+    z-index: 1;
+    width: 350px;
+}
+
+.admin-orders-cinema-filial-name {
+    box-sizing: border-box;
+    padding: 8px 0 8px 10px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background: #f8f8f8;
+    z-index: 6;
+    text-align: center;
+}
+
+.admin-orders-cinema-filial-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-orders-cinema-seance {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px solid #efefef;
+    border-radius: 6px;
+}
+.admin-orders-cinema-seance:hover {
+    background-color: #dfdfdf;
+}
+
+.admin-orders-cinema-schedule {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/* ============================= */
+/* СТРАНИЦА ЗАКАЗОВ ХОРЕКА АДМИН */
+/* ============================= */
+.admin-orders-horeca {
+    height: calc(100% - 4px);
+    padding-top: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.admin-orders-horeca-orders {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.admin-orders-horeca-orders-content {
+    width: 100%;
+    height: 100%;
+}
+.admin-orders-horeca-filial-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.admin-orders-horeca-filial-filters {
+    width: 350px;
+    position: static;
+    top: 0;
+    background-color: var(--bgr-color);
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.admin-orders-horeca-filial-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.admin-orders-horeca-filial-orders {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    height: calc(100% - 60px);
+}
+
+.admin-orders-horeca-order {
+    box-sizing: border-box;
+    width: 270px;
+    height: 270px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-orders-horeca-order-content {
+    width: 266px;
+    height: 266px;
+    background-color: #dfdfdf;
+    border-radius: 12px;
 }
