@@ -2001,7 +2001,7 @@ body {
 
 .admin-orders-horeca-order {
     box-sizing: border-box;
-    width: calc(290px + 20px);
+    width: 310px;
     max-height: 290px;
     display: flex;
     align-items: center;
@@ -2010,7 +2010,7 @@ body {
 }
 
 .admin-orders-horeca-order-content {
-    width: calc(286px + 20px);
+    width: 310px;
     max-height: 100%;
     background-color: #dfdfdf;
     border-radius: 12px;

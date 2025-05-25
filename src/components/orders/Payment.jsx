@@ -6,7 +6,14 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {useEffect, useMemo, useState} from "react"
 import Loader from "../elements/Loader.jsx"
 import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
-import {openModal} from "../../redux/interfaceReducer.js"
+import {
+    ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
+    ITEMS_TYPE_SERVICE,
+    openModal,
+    PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
+    PAYMENT_STATE_SUCCESS,
+    PAYMENT_STATE_WAITING
+} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {common_order_pay} from "../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
@@ -317,23 +324,22 @@ const Payment = (props) => {
                 </Box>
                 <Box className='payment-items'>
                     <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
-                        <Box className='payment-items-group-title'>Списали деньги с карты, но не пробили
-                            чек</Box>
-                        {table('slip_without_receipt.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                        {table('slip_without_receipt.horeca_items', 'Товары')}
-                        {table('slip_without_receipt.cinema_items', 'Услуги')}
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}</Box>
+                        {table('slip_without_receipt.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
+                        {table('slip_without_receipt.horeca_items', ITEMS_TYPE_ITEMS)}
+                        {table('slip_without_receipt.cinema_items', ITEMS_TYPE_SERVICE)}
                     </Box>
                     <Box sx={{display: waiting ? 'block' : 'none'}} className='payment-items-group'>
-                        <Box className='payment-items-group-title'>Ожидает оплаты</Box>
-                        {table('waiting.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                        {table('waiting.horeca_items', 'Товары')}
-                        {table('waiting.cinema_items', 'Услуги')}
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_WAITING}</Box>
+                        {table('waiting.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
+                        {table('waiting.horeca_items', ITEMS_TYPE_ITEMS)}
+                        {table('waiting.cinema_items', ITEMS_TYPE_SERVICE)}
                     </Box>
                     <Box sx={{display: success ? 'block' : 'none'}} className='payment-items-group'>
-                        <Box className='payment-items-group-title'>Успешно оплачено</Box>
-                        {table('success.mark_egais_items', 'Товары ЧЗ, ЕГАИС')}
-                        {table('success.horeca_items', 'Товары')}
-                        {table('success.cinema_items', 'Услуги')}
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SUCCESS}</Box>
+                        {table('success.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
+                        {table('success.horeca_items', ITEMS_TYPE_ITEMS)}
+                        {table('success.cinema_items', ITEMS_TYPE_SERVICE)}
                     </Box>
                 </Box>
             </Box>

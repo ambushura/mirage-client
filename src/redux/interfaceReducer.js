@@ -3,6 +3,12 @@ import {date_dayjs} from "../service/advanced.js"
 
 const current_date = date_dayjs(new Date())
 
+export const PAYMENT_STATE_WAITING = 'Ожидает оплаты'
+export const PAYMENT_STATE_SLIP_WITHOUT_RECEIPT = 'Списали деньги с карты, но не пробили'
+export const PAYMENT_STATE_SUCCESS = 'Успешно оплачено'
+export const ITEMS_TYPE_ITEMS = 'Товары'
+export const ITEMS_TYPE_SERVICE = 'Услуги'
+export const ITEMS_TYPE_MARK_EGAIS = 'Товары ЧЗ, ЕГАИС'
 export const MOBILE_WIDTH = 1024
 export const HEADER_HEIGHT = [200, 70]
 export const FOOTER_HEIGHT = [50, 50]
