@@ -9,67 +9,70 @@ import {
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
     PAYMENT_STATE_SUCCESS,
     PAYMENT_STATE_WAITING
-} from "../../../../redux/interfaceReducer.js";
+} from "../../../../redux/interfaceReducer.js"
 
-const OrderFood = (props) => {
+const groupItems = (items_grouped, payment_state) => {
+    const items = [], mark_egais = []
+    items_grouped
+        .filter(el => el.payment_state === payment_state)
+        .forEach(el => el.mark_egais ? items.push(el) : mark_egais.push(el))
+    return {items, mark_egais}
+}
 
+const RenderGroup = ({label, group, ver}) => {
+    if (!group.items.length && !group.mark_egais.length) return null
+    const renderItems = (items, typeLabel) => items.length > 0 && (
+        <>
+            <Box>{typeLabel}</Box>
+            {items.map((item, i) => (
+                <Box key={i + ver} sx={{display: 'flex'}}>
+                    <Box sx={{width: '10px'}}/>
+                    <Box sx={{width: '10px'}}/>
+                    <Box><Box>{item.name}</Box></Box>
+                </Box>
+            ))}
+        </>
+    )
+    return (
+        <>
+            <Box>{label}</Box>
+            {renderItems(group.items, ITEMS_TYPE_ITEMS)}
+            {renderItems(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
+        </>
+    )
+}
+
+const OrderFood = ({order}) => {
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
 
-    const order = props.order
-    const [waiting_group, set_waiting_group] = useState({items: [], mark_egais: []})
-    const [slip_without_receipt_group, set_slip_without_receipt_group] = useState({items: [], mark_egais: []})
-    const [success_group, set_success_group] = useState({items: [], mark_egais: []})
+    const [groups, setGroups] = useState({
+        waiting: {items: [], mark_egais: []},
+        slip: {items: [], mark_egais: []},
+        success: {items: [], mark_egais: []}
+    })
 
     useEffect(() => {
-
-        const current_waiting_group_array = order.items_grouped.filter(el => el.payment_state === 'waiting')
-        const current_waiting_group = {items: [], mark_egais: []}
-        current_waiting_group_array.forEach(el => {
-            if (el.mark_egais) {
-                current_waiting_group.items.push(el)
-            } else {
-                current_waiting_group.mark_egais.push(el)
-            }
+        setGroups({
+            waiting: groupItems(order.items_grouped, 'waiting'),
+            slip: groupItems(order.items_grouped, 'slip_without_receipt'),
+            success: groupItems(order.items_grouped, 'success')
         })
-        set_waiting_group(current_waiting_group)
-
-        const current_slip_without_receipt_group_array = order.items_grouped.filter(el => el.payment_state === 'slip_without_receipt')
-        const current_slip_without_receipt_group = {items: [], mark_egais: []}
-        current_slip_without_receipt_group_array.forEach(el => {
-            if (el.mark_egais) {
-                current_slip_without_receipt_group.items.push(el)
-            } else {
-                current_slip_without_receipt_group.mark_egais.push(el)
-            }
-        })
-        set_slip_without_receipt_group(current_slip_without_receipt_group)
-
-        const current_success_group_array = order.items_grouped.filter(el => el.payment_state === 'success')
-        const current_success_group = {items: [], mark_egais: []}
-        current_success_group_array.forEach(el => {
-            if (el.mark_egais) {
-                current_success_group.items.push(el)
-            } else {
-                current_success_group.mark_egais.push(el)
-            }
-        })
-        set_success_group(current_success_group)
-
     }, [order])
 
+    const getCircleColor = () =>
+        order.closed ? '#50DB92' :
+            order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
+
     return (
-        <Box key={order.uid} className='admin-orders-horeca-order' onClick={() => {
+        <Box key={order.uid} className='admin-orders-horeca-order' onClick={() =>
             dispatch(horeca_order_fetch(filial, wp, order.uid))
-        }}>
+        }>
             <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}>
-                <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', flex: 1, height: '15%'}}>
+                <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '15%'}}>
                     <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <CircleIcon sx={{
-                            scale: 1.5,
-                            color: order.closed ? 'green' : order.canceled || order.deleted ? 'red' : 'gray'
-                        }}/>
+                        <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
                     </Box>
                     <Box sx={{flexGrow: 1}}>
                         <Box>{order.number}</Box>
@@ -86,131 +89,27 @@ const OrderFood = (props) => {
                                 <Box>{dayjs(order.date_change).format("HH:mm")}</Box>
                             </Box>
                         </Box>
-                        <Box>
-                            Зал 1, место 2
-                            {order.name_hall}
-                            {order.name_place}
-                        </Box>
+                        <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
                     </Box>
                 </Box>
-                <Box className='admin-orders-horeca-order-body' sx={{height: '60%', flex: 1, overflowX: 'hidden', overflowY: 'scroll'}}>
-                    {slip_without_receipt_group.items.length > 0 || slip_without_receipt_group.mark_egais.length > 0 ?
-                        <>
-                            <Box>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}</Box>
-                            {slip_without_receipt_group.items.length > 0 ? <>
-                                <Box>{ITEMS_TYPE_ITEMS}</Box>
-                                {slip_without_receipt_group.items.map((item, i) => {
-                                        return (
-                                            <Box key={i + order.ver}>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box>
-                                                    <Box>{item.name}</Box>
-                                                </Box>
-                                            </Box>
-                                        )
-                                    }
-                                )} </> : null}
-                            {slip_without_receipt_group.mark_egais.length > 0 ? <>
-                                <Box>{ITEMS_TYPE_MARK_EGAIS}</Box>
-                                {slip_without_receipt_group.mark_egais.map((item, i) => {
-                                        return (
-                                            <Box key={i + order.ver}>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box>
-                                                    <Box>{item.name}</Box>
-                                                </Box>
-                                            </Box>
-                                        )
-                                    }
-                                )} </> : null}
-                        </>
-                        : null}
-                    {waiting_group.items.length > 0 || waiting_group.mark_egais.length > 0 ?
-                        <>
-                            <Box>{PAYMENT_STATE_WAITING}</Box>
-                            {waiting_group.items.length > 0 ? <>
-                                <Box>{ITEMS_TYPE_ITEMS}</Box>
-                                {waiting_group.items.map((item, i) => {
-                                        return (
-                                            <Box key={i + order.ver}>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box>
-                                                    <Box>{item.name}</Box>
-                                                </Box>
-                                            </Box>
-                                        )
-                                    }
-                                )}
-                            </> : null}
-                            {waiting_group.mark_egais.length > 0 ? <>
-                                <Box>{ITEMS_TYPE_MARK_EGAIS}</Box>
-                                {waiting_group.mark_egais.map((item, i) => {
-                                        return (
-                                            <Box key={i + order.ver}>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box>
-                                                    <Box>{item.name}</Box>
-                                                </Box>
-                                            </Box>
-                                        )
-                                    }
-                                )}
-                            </> : null}
-                        </>
-                        : null}
-                    {success_group.items.length > 0 || success_group.mark_egais.length > 0 ?
-                        <>
-                            <Box>{PAYMENT_STATE_SUCCESS}</Box>
-                        {success_group.items.length > 0 ? <>
-                            <Box>{ITEMS_TYPE_ITEMS}</Box>
-                            {success_group.items.map((item, i) => {
-                                    return (
-                                        <Box key={i + order.ver}>
-                                            <Box sx={{width: '10px'}}></Box>
-                                            <Box sx={{width: '10px'}}></Box>
-                                            <Box>
-                                                <Box>{item.name}</Box>
-                                            </Box>
-                                        </Box>
-                                    )
-                                }
-                            )}
-                        </> : null}
-                            {success_group.mark_egais.length > 0 ? <>
-                                <Box>{ITEMS_TYPE_MARK_EGAIS}</Box>
-                                {success_group.mark_egais.map((item, i) => {
-                                        return (
-                                            <Box key={i + order.ver}>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box sx={{width: '10px'}}></Box>
-                                                <Box>
-                                                    <Box>{item.name}</Box>
-                                                </Box>
-                                            </Box>
-                                        )
-                                    }
-                                )}
-                            </> : null}
-                        </>
-                        : null}
+
+                <Box className='admin-orders-horeca-order-body' sx={{height: '60%', overflowY: 'scroll'}}>
+                    <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
+                    <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
+                    <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
                 </Box>
-                <Box className='admin-orders-horeca-order-footer' sx={{height: '25%', flex: 1,}}>
+
+                <Box className='admin-orders-horeca-order-footer' sx={{height: '25%'}}>
                     <Box>{order.comment}</Box>
-                    <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{display: 'flex'}}>
                         <Box>e-mail: {order.buyer_email}</Box>
                         <Box>Телефон: {order.buyer_phone_number}</Box>
                     </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Box>{order.quantity} товаров</Box>
-                    </Box>
+                    <Box>{order.quantity} товаров</Box>
                 </Box>
             </Box>
         </Box>
     )
-    }
+}
 
 export default OrderFood
