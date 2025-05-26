@@ -15,7 +15,7 @@ const groupItems = (items_grouped, payment_state) => {
     const items = [], mark_egais = []
     items_grouped
         .filter(el => el.payment_state === payment_state)
-        .forEach(el => el.mark_egais ? items.push(el) : mark_egais.push(el))
+        .forEach(el => el.mark_egais_state ? mark_egais.push(el) : items.push(el))
     return {items, mark_egais}
 }
 
@@ -23,26 +23,48 @@ const RenderGroup = ({label, group, ver}) => {
     if (!group.items.length && !group.mark_egais.length) return null
     const renderItems = (items, typeLabel) => items.length > 0 && (
         <>
-            <Box>{typeLabel}</Box>
+            <Box sx={{
+                height: '25px',
+                fontWeight: 'bold',
+                backgroundColor: '#ececec',
+                padding: '4px 4px 4px 8px',
+                position: 'sticky',
+                top: '25px'
+            }}>{typeLabel}</Box>
             {items.map((item, i) => (
-                <Box key={i + ver} sx={{display: 'flex'}}>
-                    <Box sx={{width: '10px'}}/>
-                    <Box sx={{width: '10px'}}/>
-                    <Box><Box>{item.name}</Box></Box>
+                <Box key={i + ver}
+                     sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#f4f4f4', borderBottom: '1px dashed #b6b5b5'}}>
+                    <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                        <Box sx={{width: '10px'}}/>
+                        <Box sx={{width: '10px'}}/>
+                        <Box sx={{flex: 1}}>{item.name}</Box>
+                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>{item.quantity} {item.unit_name}</Box>
+                    </Box>
+                    <Box sx={{fontWeight: 'bold'}}>
+                        {item.comment}
+                    </Box>
                 </Box>
             ))}
         </>
     )
     return (
         <>
-            <Box>{label}</Box>
-            {renderItems(group.items, ITEMS_TYPE_ITEMS)}
+            <Box sx={{
+                height: '25px',
+                fontWeight: 'bold',
+                backgroundColor: '#e4e2e2',
+                padding: '4px',
+                position: 'sticky',
+                top: 0
+            }}>{label}</Box>
             {renderItems(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
+            {renderItems(group.items, ITEMS_TYPE_ITEMS)}
         </>
     )
 }
 
 const OrderFood = ({order}) => {
+
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
@@ -70,42 +92,42 @@ const OrderFood = ({order}) => {
             dispatch(horeca_order_fetch(filial, wp, order.uid))
         }>
             <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}>
-                <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '15%'}}>
+
+                <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '45px'}}>
                     <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
                     </Box>
                     <Box sx={{flexGrow: 1}}>
-                        <Box>{order.number}</Box>
+                        <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
                         <Box>{order.name_creator}</Box>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-                        <Box sx={{display: 'flex'}}>
-                            <Box>
-                                <Box>Создан</Box>
-                                <Box>{dayjs(order.date_create).format("DD.MM HH:mm")}</Box>
-                            </Box>
-                            <Box>
-                                <Box>Изменен</Box>
-                                <Box>{dayjs(order.date_change).format("HH:mm")}</Box>
-                            </Box>
+                        <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <Box sx={{fontWeight: 'bold'}}>{dayjs(order.date_create).format("DD.MM HH:mm")}</Box>
+                            <Box>{dayjs(order.date_change).format("HH:mm")}</Box>
                         </Box>
                         <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
                     </Box>
                 </Box>
 
-                <Box className='admin-orders-horeca-order-body' sx={{height: '60%', overflowY: 'scroll'}}>
+                <Box className='admin-orders-horeca-order-body'
+                     sx={{overflowY: 'scroll'}}>
                     <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
                     <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
                     <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
                 </Box>
 
-                <Box className='admin-orders-horeca-order-footer' sx={{height: '25%'}}>
-                    <Box>{order.comment}</Box>
-                    <Box sx={{display: 'flex'}}>
-                        <Box>e-mail: {order.buyer_email}</Box>
-                        <Box>Телефон: {order.buyer_phone_number}</Box>
+                <Box className='admin-orders-horeca-order-footer'>
+                    {order.comment !== null ? <Box sx={{padding: '4px 0'}}>Комментарий: {order.comment}</Box> : null}
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}
+                        {order.buyer_phone_number !== '' ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
                     </Box>
-                    <Box>{order.quantity} товаров</Box>
+                    <Box sx={{display: 'flex', flexDirection: 'row', fontWeight: 'bold', justifyContent: 'space-between', paddingBottom: '16px'}}>
+                        <Box>{order.quantity} товаров</Box>
+                        <Box>{order.sum_discount} р</Box>
+                        <Box>{order.sum} р</Box>
+                    </Box>
                 </Box>
             </Box>
         </Box>

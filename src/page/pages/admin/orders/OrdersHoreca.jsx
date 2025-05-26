@@ -110,8 +110,8 @@ const OrdersHoreca = () => {
                                             </Box>
                                             <Pagination sx={{
                                                 position: 'sticky',
-                                                bottom: 0,
-                                                top: 'calc(100% - 60px)',
+                                                left: 0,
+                                                height: '60px',
                                                 backgroundColor: 'var(--bgr-color)',
                                                 padding: '10px 0',
                                                 width: '100%',
