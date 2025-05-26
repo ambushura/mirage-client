@@ -133,8 +133,13 @@ const OrderHoreca = ({order}) => {
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
                         <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                            <Box sx={{fontWeight: 'bold'}}>{dayjs(order.date_create).format("DD.MM HH:mm")}</Box>
-                            <Box>{dayjs(order.date_change).format("HH:mm")}</Box>
+                            <Box sx={{fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100px'}}>
+                                <span style={{color: '#8B919B'}}>{dayjs(order.date_create).format("DD.MM")}</span>
+                                <span>{dayjs(order.date_create).format("HH:mm")}</span>
+                            </Box>
+                            <Box style={{color: '#8B919B'}}>
+                                {dayjs(order.date_change).format("HH:mm")}
+                            </Box>
                         </Box>
                         <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
                     </Box>
