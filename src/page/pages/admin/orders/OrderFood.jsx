@@ -123,7 +123,13 @@ const OrderFood = ({order}) => {
                         {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}
                         {order.buyer_phone_number !== '' ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
                     </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'row', fontWeight: 'bold', justifyContent: 'space-between', paddingBottom: '16px'}}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        fontWeight: 'bold',
+                        justifyContent: 'space-between',
+                        paddingBottom: '16px'
+                    }}>
                         <Box>{order.quantity} товаров</Box>
                         <Box>{order.sum_discount} р</Box>
                         <Box>{order.sum} р</Box>
