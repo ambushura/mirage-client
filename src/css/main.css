@@ -1566,6 +1566,7 @@ body {
 
 .order-box-horeca-item-2-2 {
     width: calc(460px - 50px - 50px);
+    padding: 4px;
 }
 
 .order-box-horeca-item-2-3 {

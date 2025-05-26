@@ -128,7 +128,7 @@ const OrderFood = ({order}) => {
                         flexDirection: 'row',
                         fontWeight: 'bold',
                         justifyContent: 'space-between',
-                        paddingBottom: '16px'
+                        padding: '10px'
                     }}>
                         <Box>{order.quantity} товаров</Box>
                         <Box>{order.sum_discount} р</Box>
