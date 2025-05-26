@@ -17,6 +17,7 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {common_order_pay} from "../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
+import DotsAnimation from "../../ui/DotsAnimation.jsx";
 
 const Payment = (props) => {
 
@@ -324,13 +325,13 @@ const Payment = (props) => {
                 </Box>
                 <Box className='payment-items'>
                     <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
-                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}</Box>
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/></Box>
                         {table('slip_without_receipt.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
                         {table('slip_without_receipt.horeca_items', ITEMS_TYPE_ITEMS)}
                         {table('slip_without_receipt.cinema_items', ITEMS_TYPE_SERVICE)}
                     </Box>
                     <Box sx={{display: waiting ? 'block' : 'none'}} className='payment-items-group'>
-                        <Box className='payment-items-group-title'>{PAYMENT_STATE_WAITING}</Box>
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_WAITING}<DotsAnimation/></Box>
                         {table('waiting.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
                         {table('waiting.horeca_items', ITEMS_TYPE_ITEMS)}
                         {table('waiting.cinema_items', ITEMS_TYPE_SERVICE)}

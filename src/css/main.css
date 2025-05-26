@@ -1517,6 +1517,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 4px;
 }
 
 .position-selected {
@@ -2031,8 +2032,9 @@ body {
 }
 
 .admin-orders-horeca-order-body {
-
+    max-height: 350px;
 }
+
 .admin-orders-horeca-order-footer {
     padding-top: 4px;
     border-bottom: 3px solid #2e3239;

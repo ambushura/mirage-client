@@ -1,7 +1,7 @@
 import {Autocomplete, Box, Pagination, TextField} from "@mui/material"
 import {useSetOrdersHoreca} from "../../../../hooks/pages/useSetOrdersHoreca.js"
 import {useDispatch, useSelector} from "react-redux"
-import OrderFood from "./OrderFood.jsx"
+import OrderHoreca from "./OrderHoreca.jsx"
 import {useSetOrdersHorecaFilters} from "../../../../hooks/pages/useSetOrdersHorecaFilters.jsx"
 import {
     setOrdersHorecaFiltersHallsSelect,
@@ -105,7 +105,7 @@ const OrdersHoreca = () => {
                                             <Box
                                                 className='admin-orders-horeca-filial-orders'>{filial_data.data.orders.map(order => {
                                                 return (
-                                                    <OrderFood key={`${order.uid}${order.ver}`} order={order}/>
+                                                    <OrderHoreca key={`${order.uid}${order.ver}`} order={order}/>
                                                 )
                                             })}
                                             </Box>

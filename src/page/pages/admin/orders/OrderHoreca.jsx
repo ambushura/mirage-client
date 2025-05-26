@@ -10,6 +10,7 @@ import {
     PAYMENT_STATE_SUCCESS,
     PAYMENT_STATE_WAITING
 } from "../../../../redux/interfaceReducer.js"
+import DotsAnimation from "../../../../ui/DotsAnimation.jsx";
 
 const groupItems = (items_grouped, payment_state) => {
     const items = [], mark_egais = []
@@ -29,20 +30,48 @@ const RenderGroup = ({label, group, ver}) => {
                 backgroundColor: '#ececec',
                 padding: '4px 4px 4px 8px',
                 position: 'sticky',
-                top: '25px'
+                top: '25px',
+                zIndex: 1,
             }}>{typeLabel}</Box>
             {items.map((item, i) => (
                 <Box key={i + ver}
-                     sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#f4f4f4', borderBottom: '1px dashed #b6b5b5'}}>
+                     sx={{
+                         display: 'flex',
+                         flexDirection: 'column',
+                         backgroundColor: '#f4f4f4',
+                         borderBottom: '1px dashed #b6b5b5'
+                     }}>
                     <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                        <Box sx={{width: '10px'}}/>
-                        <Box sx={{width: '10px'}}/>
+                        <Box sx={{width: '20px'}}/>
                         <Box sx={{flex: 1}}>{item.name}</Box>
                         <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>{item.quantity} {item.unit_name}</Box>
                     </Box>
-                    <Box sx={{fontWeight: 'bold'}}>
-                        {item.comment}
+                    <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
+                        <Box sx={{width: '20px'}}/>
+                        <Box sx={{flex: 1}}>{item.comment}</Box>
                     </Box>
+                    {item.egais_type_code !== '' ?
+                        <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
+                            <Box sx={{width: '96px'}}>Акцизная марка: </Box>
+                            <Box sx={{
+                                flex: 1,
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis'
+                            }}>{item.egais_type_value}</Box>
+                        </Box> : null}
+                    {item.mark_type !== '' ?
+                        <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <Box sx={{width: '20px', color: '#e3000b'}}><CircleIcon sx={{scale: 0.5}}/></Box>
+                            <Box sx={{width: '45px'}}>ЧЗ КМ: </Box>
+                            <Box sx={{
+                                flex: 1,
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis'
+                            }}>{item.mark_value}</Box>
+                        </Box> : null}
                 </Box>
             ))}
         </>
@@ -55,15 +84,16 @@ const RenderGroup = ({label, group, ver}) => {
                 backgroundColor: '#e4e2e2',
                 padding: '4px',
                 position: 'sticky',
-                top: 0
-            }}>{label}</Box>
+                top: 0,
+                zIndex: 1,
+            }}>{label}<DotsAnimation/></Box>
             {renderItems(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
             {renderItems(group.items, ITEMS_TYPE_ITEMS)}
         </>
     )
 }
 
-const OrderFood = ({order}) => {
+const OrderHoreca = ({order}) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
@@ -102,7 +132,7 @@ const OrderFood = ({order}) => {
                         <Box>{order.name_creator}</Box>
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-                        <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
                             <Box sx={{fontWeight: 'bold'}}>{dayjs(order.date_create).format("DD.MM HH:mm")}</Box>
                             <Box>{dayjs(order.date_change).format("HH:mm")}</Box>
                         </Box>
@@ -131,7 +161,7 @@ const OrderFood = ({order}) => {
                         padding: '10px'
                     }}>
                         <Box>{order.quantity} товаров</Box>
-                        <Box>{order.sum_discount} р</Box>
+                        <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
                         <Box>{order.sum} р</Box>
                     </Box>
                 </Box>
@@ -140,4 +170,4 @@ const OrderFood = ({order}) => {
     )
 }
 
-export default OrderFood
+export default OrderHoreca
