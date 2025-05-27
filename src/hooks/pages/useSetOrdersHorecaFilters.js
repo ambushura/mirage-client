@@ -7,8 +7,8 @@ import {
     setOrdersHorecaFiltersStaff, setOrdersHorecaFiltersWorkPlaces
 } from "../../redux/ordersReducer.js"
 import {
-    ROUTE_HORECA_ORDERS_FILTERS_HALLS_GET, ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET,
-    ROUTE_HORECA_ORDERS_FILTERS_STAFF_GET, ROUTE_HORECA_ORDERS_FILTERS_WORKPLACES_GET
+    ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET, ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET,
+    ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET, ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET
 } from "../../service/fetch_routes.js"
 
 export function useSetOrdersHorecaFilters() {
@@ -30,19 +30,19 @@ export function useSetOrdersHorecaFilters() {
     useEffect(() => {
         if (filial !== undefined) {
             set_url_staff({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_FILTERS_STAFF_GET}`,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET}`,
                     uid_filial: filial.uid,
                     params: {}
                 }
             )
             set_url_halls({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_FILTERS_HALLS_GET}`,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET}`,
                     uid_filial: filial.uid,
                     params: {}
                 }
             )
             set_url_workplaces({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_FILTERS_WORKPLACES_GET}`,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET}`,
                     uid_filial: filial.uid,
                     params: {}
                 }

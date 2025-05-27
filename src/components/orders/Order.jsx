@@ -31,7 +31,6 @@ import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DotsAnimation from "../../ui/DotsAnimation.jsx";
 
 const OrderPanel = ({
                         height,

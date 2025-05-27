@@ -2,7 +2,6 @@ import {Box, Pagination} from "@mui/material"
 import {useSetOrdersHoreca} from "../../../../hooks/pages/useSetOrdersHoreca.js"
 import {useDispatch, useSelector} from "react-redux"
 import OrderHoreca from "./OrderHoreca.jsx"
-import {useSetOrdersHorecaFilters} from "../../../../hooks/pages/useSetOrdersHorecaFilters.jsx"
 import {setOrdersHorecaPage} from "../../../../redux/ordersReducer.js"
 import {useEffect} from "react"
 
@@ -11,7 +10,6 @@ const OrdersHoreca = () => {
     const dispatch = useDispatch()
 
     useSetOrdersHoreca()
-    useSetOrdersHorecaFilters()
 
     const orders = useSelector(state => state.orders.orders_horeca)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)

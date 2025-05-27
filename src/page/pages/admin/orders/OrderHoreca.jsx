@@ -135,7 +135,13 @@ const OrderHoreca = ({order}) => {
                     </Box>
                     <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
                         <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                            <Box sx={{fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100px'}}>
+                            <Box sx={{
+                                fontWeight: 'bold',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                                width: '100px'
+                            }}>
                                 <span style={{color: '#8B919B'}}>{dayjs(order.date_create).format("DD.MM")}</span>
                                 <span>{dayjs(order.date_create).format("HH:mm")}</span>
                             </Box>
@@ -154,7 +160,8 @@ const OrderHoreca = ({order}) => {
                     <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
                 </Box>
 
-                <Box className='admin-orders-horeca-order-footer' sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
+                <Box className='admin-orders-horeca-order-footer'
+                     sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
                     {order.comment !== null ? <Box sx={{padding: '4px 0'}}>Комментарий: {order.comment}</Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}

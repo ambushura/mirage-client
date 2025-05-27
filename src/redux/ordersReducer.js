@@ -38,11 +38,34 @@ const initialState = {
     pre_order_paying: false,
     horder_paying: false,
     orders_cinema_schedule: [],
+
+    // Заказы кино
     orders_cinema: [],
     orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
+    orders_cinema_page: 1,
+    // Фильтры кино (загруженные)
+    orders_cinema_filters_staff: [],
+    orders_cinema_filters_state: [
+        {uid: 0, title: 'Ожидают оплаты'},
+        {uid: 1, title: 'Пробить кассовый чек'},
+        {uid: 2, title: 'Успешно оплачены'},
+        {uid: 3, title: 'Отмененные'}],
+    orders_cinema_filters_seances: [],
+    orders_cinema_filters_halls: [],
+    orders_cinema_filters_workplaces: [],
+    // Фильтры кино (выбранные)
+    orders_cinema_filters_staff_selected: [],
+    orders_cinema_filters_state_selected: [],
+    orders_cinema_filters_seances_selected: [],
+    orders_cinema_filters_halls_selected: [],
+    orders_cinema_filters_workplaces_selected: [],
+    orders_cinema_filters_buyer_emails_selected: '',
+    orders_cinema_filters_buyer_phone_numbers_selected: '',
 
+    // Заказы общепита
     orders_horeca: {orders: [], total_count: 0},
     orders_horeca_page: 1,
+    // Фильтры общепит (загруженные)
     orders_horeca_filters_staff: [],
     orders_horeca_filters_state: [
         {uid: 0, title: 'Ожидают оплаты'},
@@ -57,7 +80,7 @@ const initialState = {
         {uid: 1, title: 'Готовится'},
         {uid: 2, title: 'Готов'},
     ],
-
+    // Фильтры общепит (выбранные)
     orders_horeca_filters_staff_selected: [],
     orders_horeca_filters_state_selected: [],
     orders_horeca_filters_halls_selected: [],
@@ -112,6 +135,7 @@ export const ordersSlice = createSlice({
         setOrdersHorecaPage(state, {payload}) {
             state.orders_horeca_page = payload
         },
+        // Фильтры общепит (загрузка)
         setOrdersHorecaFiltersStaff(state, {payload}) {
             state.orders_horeca_filters_staff = payload
         },
@@ -124,6 +148,7 @@ export const ordersSlice = createSlice({
         setOrdersHorecaFiltersKitchenPoints(state, {payload}) {
             state.orders_horeca_filters_kitchen_points = payload
         },
+        // Фильтры общепит (выбор)
         setOrdersHorecaFiltersStateSelect(state, {payload}) {
             state.orders_horeca_filters_state_selected = payload
         },
@@ -141,7 +166,48 @@ export const ordersSlice = createSlice({
         },
         setOrdersHorecaFiltersKitchenStateSelect(state, {payload}) {
             state.orders_horeca_filters_kitchen_state_selected = payload
-        }
+        },
+        // Фильтры кино (загрузка)
+        setOrdersCinemaFiltersStaff(state, {payload}) {
+            state.orders_cinema_filters_staff = payload
+        },
+        setOrdersCinemaFiltersSeances(state, {payload}) {
+            state.orders_cinema_filters_seances = payload
+        },
+        setOrdersCinemaFiltersHalls(state, {payload}) {
+            state.orders_cinema_filters_halls = payload
+        },
+        setOrdersCinemaFiltersWorkplaces(state, {payload}) {
+            state.orders_cinema_filters_workplaces = payload
+        },
+        setOrdersCinemaFiltersBuyerEmails(state, {payload}) {
+            state.orders_cinema_filters_buyer_emails = payload
+        },
+        setOrdersCinemaFiltersBuyerPhoneNumbers(state, {payload}) {
+            state.orders_cinema_filters_buyer_phone_numbers = payload
+        },
+        // Фильтры кино (выбор)
+        setOrdersCinemaFiltersStaffSelect(state, {payload}) {
+            state.orders_cinema_filters_staff_selected = payload
+        },
+        setOrdersCinemaFiltersStateSelect(state, {payload}) {
+            state.orders_cinema_filters_state_selected = payload
+        },
+        setOrdersCinemaFiltersSeancesSelect(state, {payload}) {
+            state.orders_cinema_filters_seances_selected = payload
+        },
+        setOrdersCinemaFiltersHallsSelect(state, {payload}) {
+            state.orders_cinema_filters_halls_selected = payload
+        },
+        setOrdersCinemaFiltersWorkplacesSelect(state, {payload}) {
+            state.orders_cinema_filters_workplaces_selected = payload
+        },
+        setOrdersCinemaFiltersBuyerEmailsSelect(state, {payload}) {
+            state.orders_cinema_filters_buyer_emails_selected = payload
+        },
+        setOrdersCinemaFiltersBuyerPhoneNumbersSelect(state, {payload}) {
+            state.orders_cinema_filters_buyer_phone_numbers_selected = payload
+        },
     },
 })
 
@@ -168,5 +234,18 @@ export const {
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
     setOrdersHorecaPage,
+    setOrdersCinemaFiltersStaff,
+    setOrdersCinemaFiltersSeances,
+    setOrdersCinemaFiltersHalls,
+    setOrdersCinemaFiltersWorkplaces,
+    setOrdersCinemaFiltersBuyerEmails,
+    setOrdersCinemaFiltersBuyerPhoneNumbers,
+    setOrdersCinemaFiltersStaffSelect,
+    setOrdersCinemaFiltersStateSelect,
+    setOrdersCinemaFiltersSeancesSelect,
+    setOrdersCinemaFiltersHallsSelect,
+    setOrdersCinemaFiltersWorkplacesSelect,
+    setOrdersCinemaFiltersBuyerEmailsSelect,
+    setOrdersCinemaFiltersBuyerPhoneNumbersSelect
 } = ordersSlice.actions
 export default ordersSlice.reducer

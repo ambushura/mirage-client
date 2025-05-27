@@ -3,7 +3,10 @@ import dayjs from "dayjs"
 import {
     NEW_EMPTY_ORDER,
     setCurrentPreOrder,
-    setOrdersCinemaFilialSeance,
+    setOrdersCinemaFilialSeance, setOrdersCinemaFiltersBuyerEmailsSelect, setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
+    setOrdersCinemaFiltersHallsSelect,
+    setOrdersCinemaFiltersSeancesSelect,
+    setOrdersCinemaFiltersStaffSelect, setOrdersCinemaFiltersStateSelect, setOrdersCinemaFiltersWorkplacesSelect,
     setOrdersHorecaFiltersHallsSelect,
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
@@ -35,12 +38,20 @@ const MenuAdmin = () => {
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
-    const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
-    const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
-    const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
-    const workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
-    const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
-    const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
+    const horeca_staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
+    const horeca_state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
+    const horeca_halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
+    const horeca_workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
+    const horeca_kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
+    const horeca_kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
+
+    const cinema_staff_selected = useSelector(state => state.orders.orders_cinema_filters_staff_selected)
+    const cinema_state_selected = useSelector(state => state.orders.orders_cinema_filters_state_selected)
+    const cinema_seances_selected = useSelector(state => state.orders.orders_cinema_filters_seances_selected)
+    const cinema_halls_selected = useSelector(state => state.orders.orders_cinema_filters_halls_selected)
+    const cinema_workplaces_selected = useSelector(state => state.orders.orders_cinema_filters_workplaces_selected)
+    const cinema_buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
+    const cinema_buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
 
     const show_create_delete = () => {
         if (['admin/operations', 'admin/zbooks'].find(el => el === current_page) !== undefined) {
@@ -129,21 +140,51 @@ const MenuAdmin = () => {
     }
 
     const show_filters = () => {
-        return (
-            <ButtonGroup>
-                <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
-                        onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
-                {staff_selected.length > 0 || state_selected.length > 0 || halls_selected.length > 0 || workplaces_selected.length > 0 || kitchen_points_selected.length > 0 || kitchen_state_selected.length > 0 ?
-                    <Button variant='contained' color='secondary' onClick={() => {
-                        dispatch(setOrdersHorecaFiltersStaffSelect([]))
-                        dispatch(setOrdersHorecaFiltersStateSelect([]))
-                        dispatch(setOrdersHorecaFiltersHallsSelect([]))
-                        dispatch(setOrdersHorecaFiltersWorkPlacesSelect([]))
-                        dispatch(setOrdersHorecaFiltersKitchenPointsSelect([]))
-                        dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
-                    }}><FilterAltOffIcon/></Button> : null}
-            </ButtonGroup>
-        )
+        if (current_page === 'admin/orders/horeca') {
+            return (
+                <ButtonGroup>
+                    <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
+                            onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
+                    {horeca_staff_selected.length > 0 ||
+                    horeca_state_selected.length > 0 ||
+                    horeca_halls_selected.length > 0 ||
+                    horeca_workplaces_selected.length > 0 ||
+                    horeca_kitchen_points_selected.length > 0 ||
+                    horeca_kitchen_state_selected.length > 0 ?
+                        <Button variant='contained' color='primary' onClick={() => {
+                            dispatch(setOrdersHorecaFiltersStaffSelect([]))
+                            dispatch(setOrdersHorecaFiltersStateSelect([]))
+                            dispatch(setOrdersHorecaFiltersHallsSelect([]))
+                            dispatch(setOrdersHorecaFiltersWorkPlacesSelect([]))
+                            dispatch(setOrdersHorecaFiltersKitchenPointsSelect([]))
+                            dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
+                        }}><FilterAltOffIcon/></Button> : null}
+                </ButtonGroup>
+            )
+        } else if (current_page === 'admin/orders/cinema') {
+            return (
+                <ButtonGroup>
+                    <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
+                            onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}>Фильтры</Button>
+                    {cinema_staff_selected.length > 0 ||
+                    cinema_state_selected.length > 0 ||
+                    cinema_seances_selected.length > 0 ||
+                    cinema_halls_selected.length > 0 ||
+                    cinema_workplaces_selected.length > 0 ||
+                    cinema_buyer_emails_selected !== '' ||
+                    cinema_buyer_phone_numbers_selected !== '' ?
+                        <Button variant='contained' color='primary' onClick={() => {
+                            dispatch(setOrdersCinemaFiltersStaffSelect([]))
+                            dispatch(setOrdersCinemaFiltersStateSelect([]))
+                            dispatch(setOrdersCinemaFiltersSeancesSelect([]))
+                            dispatch(setOrdersCinemaFiltersHallsSelect([]))
+                            dispatch(setOrdersCinemaFiltersWorkplacesSelect([]))
+                            dispatch(setOrdersCinemaFiltersBuyerEmailsSelect(''))
+                            dispatch(setOrdersCinemaFiltersBuyerPhoneNumbersSelect(''))
+                        }}><FilterAltOffIcon/></Button> : null}
+                </ButtonGroup>
+            )
+        }
     }
 
     return (

@@ -1,4 +1,4 @@
-import {Autocomplete, Box, TextField} from "@mui/material"
+import {Autocomplete, Box, Button, TextField} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {
     setOrdersHorecaFiltersHallsSelect,
@@ -8,17 +8,14 @@ import {
     setOrdersHorecaFiltersStateSelect,
     setOrdersHorecaFiltersWorkPlacesSelect
 } from "../../../redux/ordersReducer.js"
+import {closeModal} from "../../../redux/interfaceReducer.js"
+import {useSetOrdersHorecaFilters} from "../../../hooks/pages/useSetOrdersHorecaFilters.js"
 
 const HorecaFilters = () => {
 
-    const dispatch = useDispatch()
+    useSetOrdersHorecaFilters()
 
-    const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
-    const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
-    const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
-    const workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
-    const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
-    const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
+    const dispatch = useDispatch()
 
     const filters_staff = useSelector(state => state.orders.orders_horeca_filters_staff)
     const filters_state = useSelector(state => state.orders.orders_horeca_filters_state)
@@ -26,6 +23,13 @@ const HorecaFilters = () => {
     const filters_workplaces = useSelector(state => state.orders.orders_horeca_filters_workplaces)
     const filters_kitchen_points = useSelector(state => state.orders.orders_horeca_filters_kitchen_points)
     const filters_kitchen_state = useSelector(state => state.orders.orders_horeca_filters_kitchen_state)
+
+    const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
+    const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
+    const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
+    const workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
+    const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
+    const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
 
     const tags = (size, multiply, limit_tags, id, options, label, placeholder, selected_uid = []) => {
         return (
@@ -66,6 +70,7 @@ const HorecaFilters = () => {
                     <TextField sx={{width: '100%'}} variant='filled' {...params} label={label}
                                placeholder={placeholder}/>
                 )}
+                isOptionEqualToValue={(option, value) => option.uid === value.uid}
                 sx={{width: '100%', marginBottom: '4px'}}
             />
         )
@@ -73,12 +78,15 @@ const HorecaFilters = () => {
 
     return (
         <Box className='admin-orders-horeca-filial-filters'>
-            {tags("large", true, 2, "orders-staff-tags", filters_staff, "Официанты", "Официанты", staff_selected)}
-            {tags("large", true, 2, "orders-state-tags", filters_state, "Статусы заказа", "Статус", state_selected)}
-            {tags("large", true, 2, "orders-halls-tags", filters_halls, "Залы", "Зал", halls_selected)}
-            {tags("large", true, 2, "orders-workplaces-tags", filters_workplaces, "Рабочие места", "Рабочеем место", workplaces_selected)}
-            {tags("large", true, 2, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", kitchen_points_selected)}
-            {tags("large", true, 2, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", kitchen_state_selected)}
+            {tags("large", true, 4, "orders-staff-tags", filters_staff, "Официанты", "Официанты", staff_selected)}
+            {tags("large", true, 4, "orders-state-tags", filters_state, "Статусы заказа", "Статус", state_selected)}
+            {tags("large", true, 4, "orders-halls-tags", filters_halls, "Залы", "Зал", halls_selected)}
+            {tags("large", true, 4, "orders-workplaces-tags", filters_workplaces, "Рабочие места", "Рабочеем место", workplaces_selected)}
+            {tags("large", true, 4, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", kitchen_points_selected)}
+            {tags("large", true, 4, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", kitchen_state_selected)}
+            <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}} onClick={() => {
+                dispatch(closeModal(true))
+            }}><Button variant='contained' color='secondary'>Закрыть</Button></Box>
         </Box>
     )
 }

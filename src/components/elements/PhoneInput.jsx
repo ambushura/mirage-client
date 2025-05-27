@@ -1,6 +1,7 @@
-import {TextField} from "@mui/material"
+import {IconButton, InputAdornment, TextField} from "@mui/material"
 import {IMaskInput} from "react-imask"
 import React from "react"
+import CloseIcon from "@mui/icons-material/Close"
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     const {onChange, ...other} = props
@@ -16,7 +17,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     )
 })
 
-export default function PhoneInput({value, set_value}) {
+export default function PhoneInput({value, set_value, clear_value}) {
     return (
         <TextField
             label="Телефон"
@@ -24,8 +25,16 @@ export default function PhoneInput({value, set_value}) {
             fullWidth
             value={value}
             onChange={(event) => set_value(event.target.value)}
+            sx={{marginBottom: '4px'}}
             InputProps={{
-                inputComponent: TextMaskCustom
+                inputComponent: TextMaskCustom,
+                endAdornment: value && (
+                    <InputAdornment position="end">
+                        <IconButton onClick={clear_value} edge="end">
+                            <CloseIcon/>
+                        </IconButton>
+                    </InputAdornment>
+                )
             }}
         />
     )

@@ -283,6 +283,7 @@ body {
 .admin-orders-horeca-orders::-webkit-scrollbar,
 .order-box::-webkit-scrollbar,
 .admin-orders-horeca-filial-filters::-webkit-scrollbar,
+.admin-orders-cinema-filial-filters::-webkit-scrollbar,
 .admin-orders-horeca-filial-box::-webkit-scrollbar,
 .order-box::-webkit-scrollbar,
 .admin-orders-schedule::-webkit-scrollbar,
@@ -296,6 +297,7 @@ body {
 .admin-orders-horeca-orders::-webkit-scrollbar-thumb,
 .order-box::-webkit-scrollbar-thumb,
 .admin-orders-horeca-filial-filters::-webkit-scrollbar-thumb,
+.admin-orders-cinema-filial-filters::-webkit-scrollbar-thumb,
 .admin-orders-horeca-filial-box::-webkit-scrollbar-thumb,
 .order-box::-webkit-scrollbar-thumb,
 .admin-orders-schedule::-webkit-scrollbar-thumb,
@@ -308,6 +310,7 @@ body {
 .admin-orders-horeca-orders::-webkit-scrollbar-track,
 .order-box::-webkit-scrollbar-track,
 .admin-orders-horeca-filial-filters::-webkit-scrollbar-track,
+.admin-orders-cinema-filial-filters::-webkit-scrollbar-track,
 .admin-orders-horeca-filial-box::-webkit-scrollbar-track,
 .admin-orders-schedule::-webkit-scrollbar-track,
 .admin-orders-horeca-order-body::-webkit-scrollbar-track,
@@ -315,6 +318,7 @@ body {
 .admin-orders-horeca-orders::-webkit-scrollbar-corner,
 .order-box::-webkit-scrollbar-corner,
 .admin-orders-horeca-filial-filters::-webkit-scrollbar-corner,
+.admin-orders-cinema-filial-filters::-webkit-scrollbar-corner,
 .admin-orders-horeca-filial-box::-webkit-scrollbar-corner,
 .admin-orders-schedule::-webkit-scrollbar-corner,
 .admin-orders-horeca-order-body::-webkit-scrollbar-corner {
@@ -1978,8 +1982,8 @@ body {
     display: flex;
 }
 
-.admin-orders-horeca-filial-filters {
-    width: 350px;
+.admin-orders-horeca-filial-filters, .admin-orders-cinema-filial-filters {
+    width: 500px;
     position: static;
     top: 0;
     background-color: var(--bgr-color);
@@ -2017,6 +2021,7 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 30px 30px 0;
+    cursor: pointer;
 }
 
 .admin-orders-horeca-order-content {
