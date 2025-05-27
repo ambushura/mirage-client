@@ -112,16 +112,16 @@ const MenuAdmin = () => {
 
     const show_filters = () => {
         return (
-            <Button variant='contained' color='secondary' sx={{marginRight: '4px'}}
+            <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
                     onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
         )
     }
 
     return (
         <Box className='admin-panel'>
-            {show_filters()}
             {show_create_delete()}
             {show_date_param_admin()}
+            {show_filters()}
             {show_cinema_type()}
             {show_egais_menu()}
         </Box>

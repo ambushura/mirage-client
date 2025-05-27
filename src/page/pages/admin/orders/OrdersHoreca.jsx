@@ -26,8 +26,9 @@ const OrdersHoreca = () => {
             <Box className='admin-orders-horeca-orders'>
                 <Box className='admin-orders-horeca-orders-content'>
                     {orders.length > 0 ? orders.map(filial_data => {
-                            if (filial_data.data !== null) {
-                                return (
+                            const pages = filial_data.data !== null ? Math.ceil(filial_data.data.total_count / 20) : 0
+                            return (
+                                <>{filial_data.data !== null ?
                                     <Box className='admin-orders-horeca-filial-content' key={filial_data.filial.uid}>
                                         <Box className='admin-orders-horeca-filial-box'>
                                             <Box
@@ -37,25 +38,24 @@ const OrdersHoreca = () => {
                                                 )
                                             })}
                                             </Box>
-                                            <Pagination sx={{
-                                                position: 'sticky',
-                                                left: 0,
-                                                height: '60px',
-                                                backgroundColor: 'var(--bgr-color)',
-                                                padding: '10px 0',
-                                                width: '100%',
-                                            }}
-                                                        page={page}
-                                                        onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
-                                                        size={'large'}
-                                                        count={Math.ceil(filial_data.data.total_count / 20)}
-                                                        showFirstButton showLastButton/>
+                                            {pages > 1 ? <Pagination sx={{
+                                                    position: 'sticky',
+                                                    left: 0,
+                                                    height: '60px',
+                                                    backgroundColor: 'var(--bgr-color)',
+                                                    padding: '10px 0',
+                                                    width: '100%',
+                                                }}
+                                                                     page={page}
+                                                                     onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
+                                                                     size={'large'}
+                                                                     count={pages}
+                                                                     showFirstButton showLastButton/>
+                                                : null}
                                         </Box>
-                                    </Box>
-                                )
-                            } else {
-                                return null
-                            }
+                                    </Box> : null}
+                                </>
+                            )
                         })
                         : null}
                 </Box>
