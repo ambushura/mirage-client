@@ -1,6 +1,16 @@
 import {Box, Button, ButtonGroup, Fade} from "@mui/material"
 import dayjs from "dayjs"
-import {NEW_EMPTY_ORDER, setCurrentPreOrder, setOrdersCinemaFilialSeance} from "../../../redux/ordersReducer.js"
+import {
+    NEW_EMPTY_ORDER,
+    setCurrentPreOrder,
+    setOrdersCinemaFilialSeance,
+    setOrdersHorecaFiltersHallsSelect,
+    setOrdersHorecaFiltersKitchenPointsSelect,
+    setOrdersHorecaFiltersKitchenStateSelect,
+    setOrdersHorecaFiltersStaffSelect,
+    setOrdersHorecaFiltersStateSelect,
+    setOrdersHorecaFiltersWorkPlacesSelect
+} from "../../../redux/ordersReducer.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import {to_str_DAY} from "../../../service/advanced.js"
@@ -13,6 +23,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 
 const MenuAdmin = () => {
 
@@ -23,6 +34,13 @@ const MenuAdmin = () => {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+
+    const staff_selected = useSelector(state => state.orders.orders_horeca_filters_staff_selected)
+    const state_selected = useSelector(state => state.orders.orders_horeca_filters_state_selected)
+    const halls_selected = useSelector(state => state.orders.orders_horeca_filters_halls_selected)
+    const workplaces_selected = useSelector(state => state.orders.orders_horeca_filters_workplaces_selected)
+    const kitchen_points_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_points_selected)
+    const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
 
     const show_create_delete = () => {
         if (['admin/operations', 'admin/zbooks'].find(el => el === current_page) !== undefined) {
@@ -112,8 +130,19 @@ const MenuAdmin = () => {
 
     const show_filters = () => {
         return (
-            <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
-                    onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
+            <ButtonGroup>
+                <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
+                        onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
+                {staff_selected.length > 0 || state_selected.length > 0 || halls_selected.length > 0 || workplaces_selected.length > 0 || kitchen_points_selected.length > 0 || kitchen_state_selected.length > 0 ?
+                    <Button variant='contained' color='secondary' onClick={() => {
+                        dispatch(setOrdersHorecaFiltersStaffSelect([]))
+                        dispatch(setOrdersHorecaFiltersStateSelect([]))
+                        dispatch(setOrdersHorecaFiltersHallsSelect([]))
+                        dispatch(setOrdersHorecaFiltersWorkPlacesSelect([]))
+                        dispatch(setOrdersHorecaFiltersKitchenPointsSelect([]))
+                        dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
+                    }}><FilterAltOffIcon/></Button> : null}
+            </ButtonGroup>
         )
     }
 
