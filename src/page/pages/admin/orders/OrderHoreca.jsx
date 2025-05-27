@@ -10,7 +10,7 @@ import {
     PAYMENT_STATE_SUCCESS,
     PAYMENT_STATE_WAITING
 } from "../../../../redux/interfaceReducer.js"
-import DotsAnimation from "../../../../ui/DotsAnimation.jsx";
+import DotsAnimation from "../../../../ui/DotsAnimation.jsx"
 
 const groupItems = (items_grouped, payment_state) => {
     const items = [], mark_egais = []
@@ -117,6 +117,8 @@ const OrderHoreca = ({order}) => {
         order.closed ? '#50DB92' :
             order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
 
+    const horder = useSelector(state => state.orders.horder)
+
     return (
         <Box key={order.uid} className='admin-orders-horeca-order' onClick={() =>
             dispatch(horeca_order_fetch(filial, wp, order.uid))
@@ -152,7 +154,7 @@ const OrderHoreca = ({order}) => {
                     <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
                 </Box>
 
-                <Box className='admin-orders-horeca-order-footer'>
+                <Box className='admin-orders-horeca-order-footer' sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
                     {order.comment !== null ? <Box sx={{padding: '4px 0'}}>Комментарий: {order.comment}</Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}

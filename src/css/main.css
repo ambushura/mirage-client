@@ -1987,7 +1987,7 @@ body {
     align-items: flex-start;
     flex-direction: column;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .admin-orders-horeca-filial-box {
@@ -2037,5 +2037,4 @@ body {
 
 .admin-orders-horeca-order-footer {
     padding-top: 4px;
-    border-bottom: 3px solid #2e3239;
 }

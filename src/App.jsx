@@ -29,6 +29,7 @@ import {useReset} from "./hooks/common/useReset.js"
 
 import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
+import HorecaFilters from "./components/forms/filters/HorecaFilters.jsx"
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
         mark_info: MarkInfo,
         egais: Egais,
         egais_settings: EgaisSettings,
+        horeca_filters: HorecaFilters,
     }
 
     const ModalContent = useMemo(() => {

@@ -5,7 +5,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import {to_str_DAY} from "../../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
-import {TIMEOUT} from "../../../redux/interfaceReducer.js"
+import {openModal, TIMEOUT} from "../../../redux/interfaceReducer.js"
 import LaptopIcon from "@mui/icons-material/Laptop"
 import DockIcon from "@mui/icons-material/Dock"
 import LanguageIcon from "@mui/icons-material/Language"
@@ -110,8 +110,16 @@ const MenuAdmin = () => {
         }
     }
 
+    const show_filters = () => {
+        return (
+            <Button variant='contained' color='secondary' sx={{marginRight: '4px'}}
+                    onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
+        )
+    }
+
     return (
         <Box className='admin-panel'>
+            {show_filters()}
             {show_create_delete()}
             {show_date_param_admin()}
             {show_cinema_type()}
