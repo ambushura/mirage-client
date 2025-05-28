@@ -75,9 +75,10 @@ const initialState = {
     orders_horeca_filters_workplaces: [],
     orders_horeca_filters_kitchen_points: [],
     orders_horeca_filters_kitchen_state: [
-        {uid: 0, title: 'Готовить'},
-        {uid: 1, title: 'Готовится'},
-        {uid: 2, title: 'Готов'},
+        {uid: 0, title: 'Без кухни'},
+        {uid: 1, title: 'Готовить'},
+        {uid: 2, title: 'Готовится'},
+        {uid: 3, title: 'Готов'},
     ],
     // Фильтры общепит (выбранные)
     orders_horeca_filters_staff_selected: [],
