@@ -98,6 +98,7 @@ const OrderHoreca = ({order}) => {
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
+    const horder = useSelector(state => state.orders.horder)
 
     const [groups, setGroups] = useState({
         waiting: {items: [], mark_egais: []},
@@ -116,8 +117,6 @@ const OrderHoreca = ({order}) => {
     const getCircleColor = () =>
         order.closed ? '#50DB92' :
             order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
-
-    const horder = useSelector(state => state.orders.horder)
 
     return (
         <Box key={order.uid} className='admin-orders-horeca-order' onClick={() =>
@@ -162,7 +161,7 @@ const OrderHoreca = ({order}) => {
 
                 <Box className='admin-orders-horeca-order-footer'
                      sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
-                    {order.comment !== null ? <Box sx={{padding: '4px 0'}}>Комментарий: {order.comment}</Box> : null}
+                    {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'}}>Комментарий: {order.comment}</Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}
                         {order.buyer_phone_number !== '' ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
@@ -179,6 +178,7 @@ const OrderHoreca = ({order}) => {
                         <Box>{order.sum} р</Box>
                     </Box>
                 </Box>
+
             </Box>
         </Box>
     )

@@ -11,7 +11,7 @@ const OrdersHoreca = () => {
 
     useSetOrdersHoreca()
 
-    const orders = useSelector(state => state.orders.orders_horeca)
+    const orders = useSelector(state => state.orders.orders_horeca || [])
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const page = useSelector(state => state.orders.orders_horeca_page)
 

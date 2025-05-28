@@ -73,18 +73,10 @@ const MenuAdmin = () => {
                                 className='admin-panel-period'>
                 <Button sx={{padding: '0 20px'}} onClick={() => {
                     const date = dayjs(new Date()).format('YYYY-MM-DD')
-                    dispatch(setOrdersCinemaFilialSeance({
-                        current_filial: filial,
-                        current_uid_seance: null
-                    }))
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
                 }}>сегодня</Button>
                 <Button sx={{padding: '0 20px'}} onClick={() => {
-                    dispatch(setOrdersCinemaFilialSeance({
-                        current_filial: filial,
-                        current_uid_seance: null
-                    }))
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
                     navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
@@ -92,10 +84,6 @@ const MenuAdmin = () => {
                 <Button sx={{padding: '0 30px'}} endIcon={
                     <KeyboardArrowDownIcon/>}>Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}</Button>
                 <Button sx={{padding: '0 20px'}} onClick={() => {
-                    dispatch(setOrdersCinemaFilialSeance({
-                        current_filial: filial,
-                        current_uid_seance: null
-                    }))
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     const date = dayjs(param_date_admin).subtract(-1, 'day').format('YYYY-MM-DD')
                     navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)

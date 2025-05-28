@@ -1,75 +1,73 @@
 import {useEffect, useState} from "react"
 import {useFetchingArray} from "../common/useFetchingArray.js"
 import {useDispatch, useSelector} from "react-redux"
-import {useFetching} from "../common/useFetching.js"
-import {setOrdersCinema, setOrdersCinemaSchedule} from "../../redux/ordersReducer.js"
-import {ROUTE_CINEMA_ORDERS_GET, ROUTE_CINEMA_ORDERS_GET_SCHEDULE} from "../../service/fetch_routes.js"
+import {
+    ROUTE_CINEMA_ORDERS_GET
+} from "../../service/fetch_routes.js"
+import {setOrdersCinema} from "../../redux/ordersReducer.js"
 
-export function useSetOrdersCinema(update) {
+export function useSetOrdersCinema() {
 
     const dispatch = useDispatch()
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
-    // Расписание филиалы-дата смены
-    const [urls_schedule, set_urls_schedule] = useState([])
-    const fetch_data_schedule = useFetchingArray(urls_schedule)
+    const [urls_orders, set_urls_orders] = useState([])
+    const fetch_data_orders = useFetchingArray(urls_orders)
 
-    // Заказы филиал-сеанс
-    const [url_orders, set_url_orders] = useState(undefined)
-    const [fetch_data_orders, error_orders, loadind_orders] = useFetching(url_orders)
-
-    const {current_filial, current_uid_seance} = useSelector(state => state.orders.orders_cinema_filial_seance)
+    const page = useSelector(state => state.orders.orders_cinema_page)
+    const staff_selected = useSelector(state => state.orders.orders_cinema_filters_staff_selected)
+    const state_selected = useSelector(state => state.orders.orders_cinema_filters_state_selected)
+    const seances_selected = useSelector(state => state.orders.orders_cinema_filters_seances_selected)
+    const halls_selected = useSelector(state => state.orders.orders_cinema_filters_halls_selected)
+    const workplaces_selected = useSelector(state => state.orders.orders_cinema_filters_workplaces_selected)
+    const buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
+    const buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     useEffect(() => {
         let urls_new = []
         if (city !== undefined && filial === undefined && param_date_admin !== undefined) {
-            city.filials.forEach(filial => {
+            city.filials.forEach(current_filial => {
                 urls_new.push({
                     filial: filial,
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET_SCHEDULE}`,
+                    url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
                     params: {
+                        page: page,
                         date_shift: param_date_admin,
+                        staff: staff_selected.map(({uid}) => uid),
+                        state: state_selected.map(({uid}) => uid),
+                        halls: halls_selected.map(({uid}) => uid),
+                        seances: seances_selected.map(({uid}) => uid),
+                        workplaces: workplaces_selected.map(({uid}) => uid),
+                        buyer_phone_number: buyer_phone_numbers_selected,
+                        buyer_emails: buyer_emails_selected
                     }
                 })
             })
         } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
-                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET_SCHEDULE}`,
+                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
                 params: {
+                    page: page,
                     date_shift: param_date_admin,
+                    staff: staff_selected.map(({uid}) => uid),
+                    state: state_selected.map(({uid}) => uid),
+                    halls: halls_selected.map(({uid}) => uid),
+                    seances: seances_selected.map(({uid}) => uid),
+                    workplaces: workplaces_selected.map(({uid}) => uid),
+                    buyer_phone_number: buyer_phone_numbers_selected,
+                    buyer_emails: buyer_emails_selected
                 }
             })
         }
-        set_urls_schedule(urls_new)
-    }, [city, filial, param_date_admin, update])
+        set_urls_orders(urls_new)
+    }, [city, filial, param_date_admin, staff_selected, state_selected, seances_selected, halls_selected, workplaces_selected, page, buyer_phone_numbers_selected, buyer_emails_selected])
 
     useEffect(() => {
-        if (city !== undefined && current_filial !== null && current_uid_seance !== null) {
-            set_url_orders({
-                url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
-                uid_filial: current_filial.uid,
-                params: {
-                    uid_seance: current_uid_seance
-                }
-            })
-        }
-    }, [city, current_filial, current_uid_seance, update])
-
-    useEffect(() => {
-        if (fetch_data_schedule.length > 0) {
-            dispatch(setOrdersCinemaSchedule(fetch_data_schedule))
-        }
-        return () => {
-            dispatch(setOrdersCinemaSchedule([]))
-        }
-    }, [dispatch, fetch_data_schedule])
-
-    useEffect(() => {
-        if (fetch_data_orders !== null) {
+        if (fetch_data_orders.length > 0) {
             dispatch(setOrdersCinema(fetch_data_orders))
         }
         return () => {

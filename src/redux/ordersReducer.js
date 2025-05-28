@@ -40,8 +40,7 @@ const initialState = {
     orders_cinema_schedule: [],
 
     // Заказы кино
-    orders_cinema: [],
-    orders_cinema_filial_seance: {current_filial: null, current_uid_seance: null},
+    orders_cinema: {orders: [], total_count: 0},
     orders_cinema_page: 1,
     // Фильтры кино (загруженные)
     orders_cinema_filters_staff: [],
@@ -120,14 +119,11 @@ export const ordersSlice = createSlice({
         setHorderPaying(state, {payload}) {
             state.horder_paying = payload
         },
-        setOrdersCinemaSchedule(state, {payload}) {
-            state.orders_cinema_schedule = payload
-        },
         setOrdersCinema(state, {payload}) {
             state.orders_cinema = payload
         },
-        setOrdersCinemaFilialSeance(state, {payload}) {
-            state.orders_cinema_filial_seance = payload
+        setOrdersCinemaPage(state, {payload}) {
+            state.orders_cinema_page = payload
         },
         setOrdersHoreca(state, {payload}) {
             state.orders_horeca = payload
@@ -234,6 +230,7 @@ export const {
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
     setOrdersHorecaPage,
+    setOrdersCinemaPage,
     setOrdersCinemaFiltersStaff,
     setOrdersCinemaFiltersSeances,
     setOrdersCinemaFiltersHalls,
