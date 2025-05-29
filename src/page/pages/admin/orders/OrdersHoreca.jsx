@@ -20,28 +20,6 @@ const OrdersHoreca = () => {
         return () => dispatch(setOrdersHorecaPage(1))
     }, [dispatch, param_date_admin])
 
-    const containerVariants = {
-        hidden: {},
-        visible: {
-            transition: {
-                staggerChildren: 0.03,
-                delayChildren: 0.1
-            }
-        }
-    }
-
-    const itemVariants = {
-        hidden: {opacity: 0, y: 20},
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.4,
-                ease: "easeOut"
-            }
-        }
-    }
-
     return (
         <Box className='admin-orders-horeca'>
             <Box className='admin-orders-horeca-orders'>
@@ -98,3 +76,25 @@ const OrdersHoreca = () => {
 }
 
 export default OrdersHoreca
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+}

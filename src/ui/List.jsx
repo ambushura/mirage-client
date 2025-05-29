@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {Fragment, useEffect} from 'react'
 import {
     Button,
     ClickAwayListener,
@@ -97,74 +97,30 @@ const List = (props) => {
                                                     handleClose={handleClose}
                                                     filial={el}/>)
                                         }
-                                        if (props.type === 'staff') {
-                                            return (
-                                                <WhiteMenuItem key={props.type}>
-                                                    {el.name}
-                                                </WhiteMenuItem>
-                                            )
-                                        }
-                                        if (props.type === 'state') {
-                                            return (
-                                                <WhiteMenuItem key={el.uid}>
-                                                    {el.name}
-                                                </WhiteMenuItem>
-                                            )
-                                        }
-                                        if (props.type === 'halls') {
-                                            return (
-                                                <WhiteMenuItem key={el.uid}>
-                                                    {el.name}
-                                                </WhiteMenuItem>
-                                            )
-                                        }
-                                        if (props.type === 'workplaces') {
-                                            return (
-                                                <WhiteMenuItem key={el.uid}>
-                                                    {el.name}
-                                                </WhiteMenuItem>
-                                            )
-                                        }
-                                        if (props.type === 'kitchen_points') {
-                                            return (
-                                                <WhiteMenuItem key={el.uid}>
-                                                    {el.name}
-                                                </WhiteMenuItem>
-                                            )
-                                        }
-                                        if (props.type === 'kitchen_status') {
-                                            return (
-                                                <WhiteMenuItem key={el.uid}>
-                                                    {el.name}
-                                                </WhiteMenuItem>
-                                            )
-                                        }
                                         if (props.type === 'admin') {
                                             return (
-                                                <WhiteMenuItem key={el.id} onClick={() => {
+                                                <WhiteMenuItem key={el.id} onClick={(event) => {
+                                                    handleClose(event)
                                                     navigate(el.path)
-                                                    handleClose()
                                                 }}>
-                                                    <>
-                                                        <ListItemIcon sx={{color: 'white'}}>
-                                                            {el.id === 'admin/orders/cinema' ?
-                                                                <ConfirmationNumberIcon/> :
-                                                                el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
-                                                                    el.id === 'admin/zbooks' ? <EqualizerIcon/> :
-                                                                        el.id === 'admin/operations' ?
-                                                                            <CurrencyRubleIcon/> :
-                                                                            el.id === 'admin/halls' ? <ChairIcon/> :
-                                                                                el.id === 'admin/equipment' ?
-                                                                                    <TerminalIcon/> :
-                                                                                    el.id === 'admin/egais' ?
-                                                                                        <LiquorIcon/> :
-                                                                                        el.id === 'admin/staff' ?
-                                                                                            <ContactMailIcon/> : null}
-                                                        </ListItemIcon>
-                                                        <ListItemText>
-                                                            {el.name}
-                                                        </ListItemText>
-                                                    </>
+                                                    <ListItemIcon sx={{color: 'white'}}>
+                                                        {el.id === 'admin/orders/cinema' ?
+                                                            <ConfirmationNumberIcon/> :
+                                                            el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
+                                                                el.id === 'admin/zbooks' ? <EqualizerIcon/> :
+                                                                    el.id === 'admin/operations' ?
+                                                                        <CurrencyRubleIcon/> :
+                                                                        el.id === 'admin/halls' ? <ChairIcon/> :
+                                                                            el.id === 'admin/equipment' ?
+                                                                                <TerminalIcon/> :
+                                                                                el.id === 'admin/egais' ?
+                                                                                    <LiquorIcon/> :
+                                                                                    el.id === 'admin/staff' ?
+                                                                                        <ContactMailIcon/> : null}
+                                                    </ListItemIcon>
+                                                    <ListItemText>
+                                                        {el.name}
+                                                    </ListItemText>
                                                 </WhiteMenuItem>
                                             )
                                         }

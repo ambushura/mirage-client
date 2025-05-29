@@ -10,7 +10,7 @@ const SeanceCard = (props) => {
     const seance = props.seance
 
     return (
-        <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`} className='schedule-full-seance'>
+        <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`} className='schedule-full-seance-link'>
             <Box sx={{margin: '5px'}}>
                 <SeanceTitle
                     seance={seance}

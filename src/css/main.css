@@ -720,14 +720,18 @@ body {
 }
 
 .schedule-full-seance {
-    background-color: var(--bgr-seance-card);
-    color: var(--txt-color) !important;
     width: 210px;
     margin: 0 10px 15px 0;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+}
+
+.schedule-full-seance-link {
+    background-color: var(--bgr-seance-card);
+    color: var(--txt-color) !important;
 }
 
 .schedule-full-seance-title {

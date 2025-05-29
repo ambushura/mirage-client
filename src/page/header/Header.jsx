@@ -33,12 +33,16 @@ const Header = () => {
     const current_page = useSelector(state => state.interface.current_page)
     const cities_list_id = "cities-menu"
     const filials_list_id = "filials-menu"
+    const admin_list_id = "admin-menu"
     const cities_ref = useRef(null)
     const filials_ref = useRef(null)
+    const admin_ref = useRef(null)
     const [cities_open, set_cities_open] = useState(false)
     const [filials_open, set_filials_open] = useState(false)
+    const [admin_open, set_admin_open] = useState(false)
     const prev_cities_open = useRef(Boolean(cities_open))
     const prev_filials_open = useRef(Boolean(filials_open))
+    const prev_admin_open = useRef(Boolean(admin_open))
 
     const auth_opened = useSelector(state => state.interface.auth_opened)
     const app_width = useSelector(state => state.interface.app_width)
@@ -84,11 +88,6 @@ const Header = () => {
         }
         return up
     }
-
-    const admin_list_id = "admin-menu"
-    const admin_ref = useRef(null)
-    const [admin_opened, set_admin_open] = useState(false)
-    const prev_admin_open = useRef(Boolean(admin_opened))
 
     const main_button = (el) => {
         if (app_width > MOBILE_WIDTH || uid_user === null) {
@@ -151,7 +150,7 @@ const Header = () => {
                                     return <List
                                         key={el.id}
                                         size='small'
-                                        open={admin_opened}
+                                        open={admin_open}
                                         anchor={admin_ref}
                                         prev_open={prev_admin_open}
                                         id={admin_list_id}

@@ -7,6 +7,7 @@ import ScheduleMenu from "../../../components/cinema/ScheduleMenu.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import Loader from "../../../components/elements/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
+import {AnimatePresence, motion} from 'framer-motion'
 
 const PageSchedule = () => {
 
@@ -51,7 +52,7 @@ const PageSchedule = () => {
                                             </Box>
                                         </Box>
                                     )
-                                } else {
+                                } else if (filial_hall_seances.data.length > 0) {
                                     return (
                                         <Box key={filial_hall_seances.filial.uid}>
                                             <Box
@@ -83,22 +84,32 @@ const PageSchedule = () => {
                                                                                 color: 'var(--txt-color)'
                                                                             }}>Зал {hall.name_full_hall}</Button>
                                                                 </Box>
-                                                                <Box className='schedule-full-seances' style={{
-                                                                    position: 'sticky',
-                                                                    top: '130px',
-                                                                    zIndex: 98,
-                                                                }}>
-                                                                    {hall.seances.map(seance => {
-                                                                        return (
-                                                                            <SeanceCard
-                                                                                key={seance.uid}
-                                                                                city={city}
-                                                                                filial={filial_hall_seances.filial}
-                                                                                seance={seance}>
-                                                                            </SeanceCard>
-                                                                        )
-                                                                    })}
-                                                                </Box>
+                                                                <AnimatePresence>
+                                                                    {hall.seances.length > 0 && (
+                                                                        <motion.div className='schedule-full-seances'
+                                                                                    style={{
+                                                                                        position: 'sticky',
+                                                                                        top: '130px',
+                                                                                        zIndex: 98,
+                                                                                    }}
+                                                                                    initial="hidden"
+                                                                                    animate="visible"
+                                                                                    exit="hidden"
+                                                                                    variants={containerVariants}>
+                                                                            {hall.seances.map(seance =>
+                                                                                <motion.div
+                                                                                    className='schedule-full-seance'
+                                                                                    key={`${seance.uid}${seance.ver}`}
+                                                                                    variants={itemVariants}>
+                                                                                    <SeanceCard
+                                                                                        key={seance.uid}
+                                                                                        city={city}
+                                                                                        filial={filial_hall_seances.filial}
+                                                                                        seance={seance}>
+                                                                                    </SeanceCard>
+                                                                                </motion.div>)}
+                                                                        </motion.div>)}
+                                                                </AnimatePresence>
                                                             </Box>
                                                         </Fade>
                                                     )
@@ -106,6 +117,8 @@ const PageSchedule = () => {
                                             </Box>
                                         </Box>
                                     )
+                                } else {
+                                    return null
                                 }
                             })}
                         </Box>
@@ -118,3 +131,25 @@ const PageSchedule = () => {
 }
 
 export default PageSchedule
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+}

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {setOrdersCinemaPage} from "../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
-import {motion} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 
 const OrdersCinema = () => {
 
@@ -36,18 +36,26 @@ const OrdersCinema = () => {
                                 <>{filial_data.data !== null ?
                                     <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>
                                         <Box className='admin-orders-cinema-filial-box'>
-                                            <Box
-                                                className='admin-orders-cinema-filial-orders'>{filial_data.data.orders.map((order, i) => {
-                                                return (
-                                                    <motion.div key={filial_data.filial.uid}
-                                                                initial={{opacity: 0, y: 20}}
-                                                                animate={{opacity: 1, y: 0}}
-                                                                transition={{delay: i * 0.1, duration: 0.3}}>
-                                                        <OrderCinema key={`${order.uid}${order.ver}`} order={order}/>
-                                                    </motion.div>
-                                                )
-                                            })}
-                                            </Box>
+                                            <AnimatePresence>
+                                                {filial_data.data.orders.length > 0 && (
+                                                    <motion.div
+                                                        className='admin-orders-cinema-filial-orders'
+                                                        initial="hidden"
+                                                        animate="visible"
+                                                        exit="hidden"
+                                                        variants={containerVariants}>{filial_data.data.orders.map(order => {
+                                                        return (
+                                                            <motion.div
+                                                                className='admin-orders-horeca-order'
+                                                                key={`${order.uid}${order.ver}`}
+                                                                variants={itemVariants}>
+                                                                <OrderCinema key={`${order.uid}${order.ver}`}
+                                                                             order={order}/>
+                                                            </motion.div>
+                                                        )
+                                                    })}
+                                                    </motion.div>)}
+                                            </AnimatePresence>
                                             {pages > 1 ? <Pagination sx={{
                                                     position: 'sticky',
                                                     left: 0,
@@ -75,3 +83,25 @@ const OrdersCinema = () => {
 }
 
 export default OrdersCinema
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+}
