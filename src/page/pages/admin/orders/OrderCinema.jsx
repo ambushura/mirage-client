@@ -110,7 +110,7 @@ const OrderCinema = ({order}) => {
     }, [order])
 
     return (
-        <Box key={order.uid} className='admin-orders-cinema-order' onClick={() =>
+        <Box key={order.uid} onClick={() =>
             dispatch(cinema_order_fetch(filial, wp, order.uid))
         }>
             <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>

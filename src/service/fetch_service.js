@@ -1,5 +1,11 @@
 import axios from "axios"
-import {NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
+import {
+    NEW_EMPTY_ORDER,
+    setCurrentHorder,
+    setCurrentPreOrder,
+    setOrdersCinemaUpdate,
+    setOrdersHorecaUpdate
+} from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
@@ -103,7 +109,10 @@ export const cinema_order_delete = (filial, wp, uid_order) => async (dispatch) =
     params: {uid_order},
     wp,
     filial
-}, () => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER())))
+}, () => {
+    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+    dispatch(setOrdersCinemaUpdate())
+})
 
 export const cinema_position_add = (city, filial, wp, uid_seance, uid_order, uid_place, ver) => async (dispatch) => {
     const token = localStorage.getItem("token")
@@ -159,7 +168,10 @@ export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_g
     params: {uid_order, uid_discount, uid_group_discount, uid_positions, comment},
     wp,
     filial
-}, data => dispatch(setCurrentPreOrder(data)))
+}, data => {
+    dispatch(setCurrentPreOrder(data))
+    dispatch(setOrdersCinemaUpdate())
+})
 
 export const common_contact_add = (filial, wp, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
@@ -167,7 +179,10 @@ export const common_contact_add = (filial, wp, order_type, uid_order, buyer_s, b
     params: {order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email},
     wp,
     filial
-}, data => dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data)))
+}, data => {
+    dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+    dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+})
 
 export const common_order_add_comment = (filial, wp, order_type, uid_order, comment) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
@@ -175,7 +190,10 @@ export const common_order_add_comment = (filial, wp, order_type, uid_order, comm
     params: {uid_order, comment},
     wp,
     filial
-}, data => dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data)))
+}, data => {
+    dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+    dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+})
 
 export const common_position_add_comment = (filial, wp, order_type, uid_order, uid_position, comment) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
@@ -183,7 +201,10 @@ export const common_position_add_comment = (filial, wp, order_type, uid_order, u
     params: {uid_order, uid_position, comment},
     wp,
     filial
-}, data => dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data)))
+}, data => {
+    dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+    dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+})
 
 export const horeca_position_add_quantity = (filial, wp, uid_order, uid_position, quantity) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
@@ -191,7 +212,10 @@ export const horeca_position_add_quantity = (filial, wp, uid_order, uid_position
     params: {uid_order, uid_position, quantity},
     wp,
     filial
-}, data => dispatch(setCurrentHorder(data)))
+}, data => {
+    dispatch(setCurrentHorder(data))
+    dispatch(setOrdersHorecaUpdate())
+})
 
 export const horeca_position_change_state = (filial, wp, uid_order, uid_position, action) => async (dispatch) => {
     const routes = {
@@ -207,7 +231,10 @@ export const horeca_position_change_state = (filial, wp, uid_order, uid_position
         params: {uid_order, uid_position},
         wp,
         filial
-    }, data => dispatch(setCurrentHorder(data)))
+    }, data => {
+        dispatch(setCurrentHorder(data))
+        dispatch(setOrdersHorecaUpdate())
+    })
 }
 
 export const horeca_position_add_mark = (filial, wp, uid_order, uid_position, mark) => async (dispatch) => makeRequest(dispatch, {
@@ -216,7 +243,10 @@ export const horeca_position_add_mark = (filial, wp, uid_order, uid_position, ma
     params: {uid_order, uid_position, mark},
     wp,
     filial
-}, data => dispatch(setCurrentHorder(data)))
+}, data => {
+    dispatch(setCurrentHorder(data))
+    dispatch(setOrdersHorecaUpdate())
+})
 
 export const markirovka_cdn_info_get = (filial, wp) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
@@ -248,4 +278,7 @@ export const horeca_position_delete = (filial, wp, uid_order, uid_position) => a
     params: {uid_order: uid_order, uid_position: uid_position},
     wp,
     filial
-}, data => dispatch(setCurrentHorder(data)))
+}, data => {
+    dispatch(setCurrentHorder(data))
+    dispatch(setOrdersHorecaUpdate())
+})

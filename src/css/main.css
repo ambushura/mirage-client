@@ -1231,7 +1231,7 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: hidden;
-    padding-left: 4px;
+    padding: 4px 0 4px 4px;
 }
 
 .order-box {

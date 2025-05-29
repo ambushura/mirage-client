@@ -40,6 +40,7 @@ const initialState = {
     orders_cinema_schedule: [],
 
     // Заказы кино
+    orders_cinema_update: 0,
     orders_cinema: {orders: [], total_count: 0},
     orders_cinema_page: 1,
     // Фильтры кино (загруженные)
@@ -62,6 +63,7 @@ const initialState = {
     orders_cinema_filters_buyer_phone_numbers_selected: '',
 
     // Заказы общепита
+    orders_horeca_update: 0,
     orders_horeca: {orders: [], total_count: 0},
     orders_horeca_page: 1,
     // Фильтры общепит (загруженные)
@@ -205,6 +207,12 @@ export const ordersSlice = createSlice({
         setOrdersCinemaFiltersBuyerPhoneNumbersSelect(state, {payload}) {
             state.orders_cinema_filters_buyer_phone_numbers_selected = payload
         },
+        setOrdersCinemaUpdate(state) {
+            state.orders_cinema_update = state.orders_cinema_update + 1
+        },
+        setOrdersHorecaUpdate(state) {
+            state.orders_horeca_update = state.orders_horeca_update + 1
+        }
     },
 })
 
@@ -244,6 +252,8 @@ export const {
     setOrdersCinemaFiltersHallsSelect,
     setOrdersCinemaFiltersWorkplacesSelect,
     setOrdersCinemaFiltersBuyerEmailsSelect,
-    setOrdersCinemaFiltersBuyerPhoneNumbersSelect
+    setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
+    setOrdersCinemaUpdate,
+    setOrdersHorecaUpdate
 } = ordersSlice.actions
 export default ordersSlice.reducer

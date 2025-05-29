@@ -6,7 +6,7 @@ import {
 } from "../../service/fetch_routes.js"
 import {setOrdersCinema} from "../../redux/ordersReducer.js"
 
-export function useSetOrdersCinema({update}) {
+export function useSetOrdersCinema() {
 
     const dispatch = useDispatch()
 
@@ -25,6 +25,8 @@ export function useSetOrdersCinema({update}) {
     const buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
     const buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+
+    const update = useSelector(state => state.orders.orders_cinema_update)
 
     useEffect(() => {
         let urls_new = []
