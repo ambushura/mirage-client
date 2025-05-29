@@ -119,67 +119,70 @@ const OrderHoreca = ({order}) => {
             order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
 
     return (
-        <Box key={order.uid} className='admin-orders-horeca-order' onClick={() =>
+        <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}} onClick={() =>
             dispatch(horeca_order_fetch(filial, wp, order.uid))
         }>
-            <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}>
-
-                <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '45px'}}>
-                    <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
-                    </Box>
-                    <Box sx={{flexGrow: 1}}>
-                        <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
-                        <Box>{order.name_creator}</Box>
-                    </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-                        <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                            <Box sx={{
-                                fontWeight: 'bold',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                                width: '100px'
-                            }}>
-                                <span style={{color: '#8B919B'}}>{dayjs(order.date_create).format("DD.MM")}</span>
-                                <span>{dayjs(order.date_create).format("HH:mm")}</span>
-                            </Box>
-                            <Box style={{color: '#8B919B'}}>
-                                {dayjs(order.date_change).format("HH:mm")}
-                            </Box>
+            <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '45px'}}>
+                <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
+                </Box>
+                <Box sx={{flexGrow: 1}}>
+                    <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
+                    <Box>{order.name_creator}</Box>
+                </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
+                    <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                        <Box sx={{
+                            fontWeight: 'bold',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                            width: '100px'
+                        }}>
+                            <span style={{color: '#8B919B'}}>{dayjs(order.date_create).format("DD.MM")}</span>
+                            <span>{dayjs(order.date_create).format("HH:mm")}</span>
                         </Box>
-                        <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
+                        <Box style={{color: '#8B919B'}}>
+                            {dayjs(order.date_change).format("HH:mm")}
+                        </Box>
                     </Box>
+                    <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
                 </Box>
-
-                <Box className='admin-orders-horeca-order-body'
-                     sx={{overflowY: 'scroll'}}>
-                    <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
-                    <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
-                    <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
-                </Box>
-
-                <Box className='admin-orders-horeca-order-footer'
-                     sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
-                    {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'}}>Комментарий: {order.comment}</Box> : null}
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}
-                        {order.buyer_phone_number !== '' ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        fontWeight: 'bold',
-                        justifyContent: 'space-between',
-                        padding: '10px'
-                    }}>
-                        <Box>{order.quantity} товаров</Box>
-                        <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
-                        <Box>{order.sum} р</Box>
-                    </Box>
-                </Box>
-
             </Box>
+
+            <Box className='admin-orders-horeca-order-body'
+                 sx={{overflowY: 'scroll'}}>
+                <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
+                <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
+                <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
+            </Box>
+
+            <Box className='admin-orders-horeca-order-footer'
+                 sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
+                {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
+                    padding: '4px 0',
+                    maxHeight: '40px',
+                    overflowX: 'hidden',
+                    overflowY: 'auto',
+                    wordBreak: 'break-word'
+                }}>Комментарий: {order.comment}</Box> : null}
+                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                    {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}
+                    {order.buyer_phone_number !== '' ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontWeight: 'bold',
+                    justifyContent: 'space-between',
+                    padding: '10px'
+                }}>
+                    <Box>{order.quantity} товаров</Box>
+                    <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
+                    <Box>{order.sum} р</Box>
+                </Box>
+            </Box>
+
         </Box>
     )
 }

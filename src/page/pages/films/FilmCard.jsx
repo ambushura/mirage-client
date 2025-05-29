@@ -10,8 +10,8 @@ const FilmCard = (props) => {
     const param_date = useSelector(state => state.interface.params.param_date)
 
     return (
-        <NavLink className='film'
-                 to={`/film/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/${props.film.uid}/`}>
+        <NavLink
+            to={`/film/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/${props.film.uid}/`}>
             <Box className='film-poster'>
                 <img className='film-poster-img'
                      src={props.film.cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + props.film.cover_link}

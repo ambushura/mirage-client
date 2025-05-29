@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setOrdersCinemaPage} from "../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
+import {motion} from 'framer-motion'
 
 const OrdersCinema = () => {
 
@@ -30,9 +31,14 @@ const OrdersCinema = () => {
                                     <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>
                                         <Box className='admin-orders-cinema-filial-box'>
                                             <Box
-                                                className='admin-orders-cinema-filial-orders'>{filial_data.data.orders.map(order => {
+                                                className='admin-orders-cinema-filial-orders'>{filial_data.data.orders.map((order, i) => {
                                                 return (
-                                                    <OrderCinema key={`${order.uid}${order.ver}`} order={order}/>
+                                                    <motion.div key={filial_data.filial.uid}
+                                                                initial={{opacity: 0, y: 20}}
+                                                                animate={{opacity: 1, y: 0}}
+                                                                transition={{delay: i * 0.1, duration: 0.3}}>
+                                                        <OrderCinema key={`${order.uid}${order.ver}`} order={order}/>
+                                                    </motion.div>
                                                 )
                                             })}
                                             </Box>
