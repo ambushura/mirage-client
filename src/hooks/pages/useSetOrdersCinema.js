@@ -6,7 +6,7 @@ import {
 } from "../../service/fetch_routes.js"
 import {setOrdersCinema} from "../../redux/ordersReducer.js"
 
-export function useSetOrdersCinema() {
+export function useSetOrdersCinema({update}) {
 
     const dispatch = useDispatch()
 
@@ -64,7 +64,7 @@ export function useSetOrdersCinema() {
             })
         }
         set_urls_orders(urls_new)
-    }, [city, filial, param_date_admin, staff_selected, state_selected, seances_selected, halls_selected, workplaces_selected, page, buyer_phone_numbers_selected, buyer_emails_selected])
+    }, [city, filial, param_date_admin, staff_selected, state_selected, seances_selected, halls_selected, workplaces_selected, page, buyer_phone_numbers_selected, buyer_emails_selected, update])
 
     useEffect(() => {
         if (fetch_data_orders.length > 0) {

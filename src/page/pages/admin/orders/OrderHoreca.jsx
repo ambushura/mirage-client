@@ -11,6 +11,7 @@ import {
     PAYMENT_STATE_WAITING
 } from "../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../ui/DotsAnimation.jsx"
+import FunctionsIcon from "@mui/icons-material/Functions"
 
 const groupItems = (items_grouped, payment_state) => {
     const items = [], mark_egais = []
@@ -49,6 +50,14 @@ const RenderGroup = ({label, group, ver}) => {
                     <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
                         <Box sx={{width: '20px'}}/>
                         <Box sx={{flex: 1}}>{item.comment}</Box>
+                    </Box>
+                    <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                        <Box sx={{width: '20px'}}/>
+                        <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
+                        {item.uid_discount !== null ?
+                            <Box sx={{flex: 1, textAlign: 'right', color: '#ff9800', fontSize: '70%', fontWeight: 'bold', overflow: 'hidden'}}>{item.name_discount}</Box> : null}
+                        <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
+                            sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                     </Box>
                     {item.egais_type_code !== '' ?
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
@@ -150,8 +159,7 @@ const OrderHoreca = ({order}) => {
                 </Box>
             </Box>
 
-            <Box className='admin-orders-horeca-order-body'
-                 sx={{overflowY: 'scroll'}}>
+            <Box className='admin-orders-horeca-order-body'>
                 <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
                 <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
                 <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>

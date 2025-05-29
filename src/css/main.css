@@ -79,6 +79,7 @@ html, body {
     --bgr-seance-card: #E0E0E0;
     --bgr-seance-card-tariff: #EEEEEE;
     --bgr-scroll: #E0E0E0;
+    --bgr-footer-header: #2e3239;
 }
 
 /* ============================== */
@@ -90,6 +91,7 @@ html, body {
     --bgr-seance-card: #1C1F23;
     --bgr-seance-card-tariff: #2E3239;
     --bgr-scroll: #616161;
+    --bgr-footer-header: transparent;
 }
 
 /* --- Полный экран (НЕавторизован) --- */
@@ -158,6 +160,7 @@ body {
     display: var(--header-display);
     width: inherit;
     position: relative;
+    background-color: var(--bgr-footer-header);
 }
 
 #header-desktop {
@@ -232,11 +235,12 @@ body {
     justify-content: center;
     width: inherit;
     position: relative;
-    background-color: var(--bgr-color);
+    background-color: var(--bgr-footer-header);
     font-weight: bold;
     font-size: 14px;
     flex-direction: column;
     align-items: center;
+    color: #fff;
 }
 
 
@@ -288,7 +292,8 @@ body {
 .admin-orders-order-footer-comment::-webkit-scrollbar,
 .admin-orders-cinema-filial-box::-webkit-scrollbar,
 .order-box::-webkit-scrollbar,
-.admin-orders-horeca-order-body::-webkit-scrollbar {
+.admin-orders-horeca-order-body::-webkit-scrollbar,
+.admin-orders-cinema-order-body::-webkit-scrollbar {
     width: 50px;
     height: 50px;
     background-color: transparent;
@@ -303,7 +308,8 @@ body {
 .admin-orders-order-footer-comment::-webkit-scrollbar-thumb,
 .admin-orders-cinema-filial-box::-webkit-scrollbar-thumb,
 .order-box::-webkit-scrollbar-thumb,
-.admin-orders-horeca-order-body::-webkit-scrollbar-thumb {
+.admin-orders-horeca-order-body::-webkit-scrollbar-thumb,
+.admin-orders-cinema-order-body::-webkit-scrollbar-thumb {
     background-color: var(--bgr-scroll);
     border-radius: 12px;
 }
@@ -317,6 +323,7 @@ body {
 .admin-orders-order-footer-comment::-webkit-scrollbar-track,
 .admin-orders-cinema-filial-box::-webkit-scrollbar-track,
 .admin-orders-horeca-order-body::-webkit-scrollbar-track,
+.admin-orders-cinema-order-body::-webkit-scrollbar-track,
 #content::-webkit-scrollbar-corner,
 .admin-orders-horeca-orders::-webkit-scrollbar-corner,
 .order-box::-webkit-scrollbar-corner,
@@ -325,7 +332,8 @@ body {
 .admin-orders-horeca-filial-box::-webkit-scrollbar-corner,
 .admin-orders-order-footer-comment::-webkit-scrollbar-corner,
 .admin-orders-cinema-filial-box::-webkit-scrollbar-corner,
-.admin-orders-horeca-order-body::-webkit-scrollbar-corner {
+.admin-orders-horeca-order-body::-webkit-scrollbar-corner,
+.admin-orders-cinema-order-body::-webkit-scrollbar-corner {
     background: transparent;
 }
 
@@ -1935,6 +1943,8 @@ body {
 }
 
 .admin-orders-horeca-order-body, .admin-orders-cinema-order-body {
+    overflow-x: hidden;
+    overflow-y: auto;
     max-height: 350px;
 }
 

@@ -1,7 +1,7 @@
 import {Box, Pagination} from "@mui/material"
 import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {setOrdersCinemaPage} from "../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
 import {motion} from 'framer-motion'
@@ -10,15 +10,21 @@ const OrdersCinema = () => {
 
     const dispatch = useDispatch()
 
-    useSetOrdersCinema()
+    const [update, set_update] = useState(0)
+    useSetOrdersCinema(update)
 
     const orders = useSelector(state => state.orders.orders_cinema || [])
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const page = useSelector(state => state.orders.orders_cinema_page)
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     useEffect(() => {
         return () => dispatch(setOrdersCinemaPage(1))
     }, [dispatch, param_date_admin])
+
+    useEffect(() => {
+        set_update(prev_state => prev_state += 1)
+    }, [pre_order.ver])
 
     return (
         <Box className='admin-orders-cinema'>

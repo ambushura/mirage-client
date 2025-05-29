@@ -60,6 +60,9 @@ const Header = () => {
     const user_panel = () => {
         const up = []
         if (uid_user !== null) {
+            up.push(<Button size='medium' onClick={() => {
+                document.location.reload()
+            }}><CachedIcon/></Button>)
             up.push(<Button
                 key='3'>{timeRef.current.format('HH:mm')}</Button>)
             up.push(<Button key='2'>{name_user}</Button>)
@@ -133,9 +136,6 @@ const Header = () => {
                 {permissions.includes(0) ? <></> : <TopSlider/>}
                 <Box id="header-menu">
                     <ButtonGroup id="header-menu-list" variant="contained" size='small'>
-                        {uid_user !== null ? <Button size='medium' onClick={() => {
-                            document.location.reload()
-                        }}><CachedIcon/></Button> : null}
                         {uid_user === null ?
                             top_menu[0].map(el => {
                                 return <NavLink key={el.id} className='link' to={el.path}>

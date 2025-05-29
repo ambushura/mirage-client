@@ -11,6 +11,7 @@ import {
 } from "../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../ui/DotsAnimation.jsx"
 import {useEffect, useState} from "react"
+import FunctionsIcon from '@mui/icons-material/Functions'
 
 const OrderCinema = ({order}) => {
 
@@ -58,8 +59,17 @@ const OrderCinema = ({order}) => {
                             <Box sx={{flex: 1}}>Ряд {item.place_row} Место {item.place_number}</Box>
                             <Box sx={{
                                 display: 'flex',
-                                justifyContent: 'flex-start'
+                                justifyContent: 'flex-start',
+                                marginRight: '4px'
                             }}>1 шт</Box>
+                        </Box>
+                        <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                            <Box sx={{width: '20px'}}/>
+                            <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
+                            {item.uid_discount !== null ?
+                                <Box sx={{flex: 1, textAlign: 'right', color: '#ff9800', fontSize: '70%', fontWeight: 'bold', overflow: 'hidden'}}>{item.name_discount}</Box> : null}
+                            <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
+                                sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                         </Box>
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{width: '20px'}}/>
@@ -134,8 +144,7 @@ const OrderCinema = ({order}) => {
                     </Box>
                 </Box>
 
-                <Box className='admin-orders-cinema-order-body'
-                     sx={{overflowY: 'scroll'}}>
+                <Box className='admin-orders-cinema-order-body'>
                     <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
                     <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
                     <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
@@ -163,7 +172,7 @@ const OrderCinema = ({order}) => {
                     }}>
                         <Box>{order.quantity} услуг</Box>
                         <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
-                        <Box>{order.sum} р</Box>
+                        <Box><FunctionsIcon sx={{width: '15px', height: '15px'}}/>{order.sum} р</Box>
                     </Box>
                 </Box>
 

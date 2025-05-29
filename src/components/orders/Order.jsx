@@ -34,7 +34,6 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import {motion} from 'framer-motion'
 
 const OrderPanel = ({
-                        height,
                         type,
                         order,
                         paying,
@@ -50,7 +49,7 @@ const OrderPanel = ({
                         filial,
                         wp
                     }) => (
-    <Box className="order-box" style={{height: height}}>
+    <>
         {paying ? <Payment type={type}/> : (
             <>
                 <Box className="order-box-panel-1">
@@ -170,7 +169,7 @@ const OrderPanel = ({
                 )}
             </>
         )}
-    </Box>
+    </>
 )
 
 const Order = () => {
@@ -204,13 +203,13 @@ const Order = () => {
     return (
         <Box id='order'>
             {pre_order.in_base ? (
-                <motion.div key={pre_order.uid}
+                <motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
+                            key={pre_order.uid}
                             initial={{opacity: 0, y: 20}}
                             animate={{opacity: 1, y: 0}}
                             transition={{delay: 0.1, duration: 0.2}}
                             exit={{opacity: 0, y: 20}}>
                     <OrderPanel
-                        height={horder.in_base ? '50%' : '100%'}
                         type='cinema'
                         order={pre_order}
                         paying={pre_order_paying}
@@ -234,13 +233,13 @@ const Order = () => {
                 </motion.div>
             ) : null}
             {horder.in_base ? (
-                <motion.div key={horder.uid}
+                <motion.div className="order-box" style={{height: pre_order.in_base ? '50%' : '100%'}}
+                            key={horder.uid}
                             initial={{opacity: 0, y: 20}}
                             animate={{opacity: 1, y: 0}}
                             transition={{delay: 0.1, duration: 0.2}}
                             exit={{opacity: 0, y: 20}}>
                     <OrderPanel
-                        height={pre_order.in_base ? '50%' : '100%'}
                         type='horeca'
                         order={horder}
                         paying={horder_paying}
