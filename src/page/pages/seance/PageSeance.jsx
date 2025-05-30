@@ -25,7 +25,6 @@ const PageSeance = () => {
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const [authenticated, set_authenticated] = useState(0)
     const permissions = useSelector(state => state.auth.permissions)
     const seance = useSelector(state => state.schedule.seance)
     const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
@@ -44,6 +43,8 @@ const PageSeance = () => {
     const [time_remaining, set_time_remaining] = useState(100)
     const [count_book, set_count_book] = useState(0)
 
+    const uid_user = useSelector(state => state.auth.uid)
+
     useEffect(() => {
         if (filial !== undefined) {
             if (booking_data.length > 0) {
@@ -56,7 +57,7 @@ const PageSeance = () => {
     }, [dispatch, filial, booking_data, count_book])
 
     useEffect(() => {
-        if (!permissions.includes(0)) {
+        if (uid_user === null) {
             const timer = setInterval(() => {
                 set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
             }, ORDER_TIME_OUT)
@@ -67,7 +68,7 @@ const PageSeance = () => {
     }, [permissions])
 
     useEffect(() => {
-        if (!permissions.includes(0)) {
+        if (uid_user === null) {
             if (time_remaining <= 1) {
                 navigate(-1)
                 dispatch(cinema_order_delete(filial, wp, pre_order.uid))
@@ -76,12 +77,7 @@ const PageSeance = () => {
     }, [dispatch, filial, navigate, permissions, pre_order, time_remaining])
 
     useEffect(() => {
-        if (permissions.includes(0)) {
-            set_authenticated(1)
-        } else {
-            set_authenticated(0)
-        }
-        if (!authenticated) {
+        if (uid_user === null) {
             if (refTitle.current !== null) {
                 const {offsetHeight} = refTitle.current
                 set_hall_height(app_height - offsetHeight)
@@ -89,9 +85,7 @@ const PageSeance = () => {
         } else {
             set_hall_height(app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1])
         }
-    }, [app_height, authenticated, hall, permissions])
-
-    const uid_user = useSelector(state => state.auth.uid)
+    }, [app_height, uid_user, hall, permissions])
 
     if (seance !== undefined && hall !== undefined) {
         return (
@@ -102,7 +96,7 @@ const PageSeance = () => {
                         <Box id='content-wrap'>
                             <Box id='content'>
                                 <Box id='seance' style={{display: checkout ? 'none' : 'block', height: '100%'}}>
-                                    {authenticated === 0 ? <Box id='seance-title' ref={refTitle}>
+                                    {uid_user === null ? <Box id='seance-title' ref={refTitle}>
                                             <Box className='order-panel'>
                                                 <Button onClick={() => {
                                                     navigate(-1)
@@ -163,7 +157,7 @@ const PageSeance = () => {
                                             hall={hall}
                                             seance={seance}
                                             height={hall_height}
-                                            width={app_width - (authenticated === 1 ? 520 : 0)}
+                                            width={app_width - (uid_user !== null ? 520 : 0)}
                                             booking={booking}
                                             set_count_book={set_count_book}
                                             set_time_remaining={set_time_remaining}

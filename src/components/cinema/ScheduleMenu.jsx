@@ -58,7 +58,7 @@ const ScheduleMenu = () => {
                         const date = date_dayjs(new Date())
                         const current_param_date = from_dayjs_to_str(date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
-                    }}>сегодня</Button>
+                    }}>Сегодня</Button>
                     <Button size="large" onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)

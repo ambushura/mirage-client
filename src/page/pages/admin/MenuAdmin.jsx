@@ -94,7 +94,7 @@ const MenuAdmin = () => {
                         const date = dayjs(new Date()).format('YYYY-MM-DD')
                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                         navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
-                    }}>сегодня</Button>
+                    }}>Сегодня</Button>
                     <Button onClick={() => {
                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                         const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
