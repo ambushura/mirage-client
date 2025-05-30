@@ -30,7 +30,7 @@ import Calendar from "../../../components/forms/Calendar.jsx"
 import {useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
-const MenuAdmin = () => {
+const AdminMenu = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -228,4 +228,4 @@ const MenuAdmin = () => {
     )
 }
 
-export default MenuAdmin
+export default AdminMenu

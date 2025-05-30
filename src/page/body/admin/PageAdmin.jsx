@@ -2,7 +2,7 @@ import {Box} from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../../../redux/ordersReducer.js"
-import MenuAdmin from "./MenuAdmin.jsx"
+import AdminMenu from "../top-menu/AdminMenu.jsx"
 import OrdersCinema from "./orders/cinema/OrdersCinema.jsx"
 import OrdersHoreca from "./orders/horeca/OrdersHoreca.jsx"
 import Order from "../../right-panel/Order.jsx"
@@ -27,7 +27,7 @@ const PageAdmin = () => {
 
     return (
         <>
-            <MenuAdmin
+            <AdminMenu
                 set_update_cinema={set_update_cinema}
                 set_update_horeca={set_update_horeca}/>
             <Box id='content-box'>
