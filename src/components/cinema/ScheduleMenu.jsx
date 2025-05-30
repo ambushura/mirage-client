@@ -8,6 +8,8 @@ import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
 import Calendar from "../forms/Calendar.jsx"
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 
 const ScheduleMenu = () => {
 
@@ -95,6 +97,10 @@ const ScheduleMenu = () => {
                     <Button variant="contained" color="primary">Все фильмы</Button>
                     <Button variant="contained" color="secondary">ТоКино!</Button>
                     <Button variant="contained" color="secondary">Пушкарта</Button>
+                </ButtonGroup>
+                <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
+                    <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>
+                    <Button variant='contained' startIcon={<AddIcon/>}>Сводобное время</Button>
                 </ButtonGroup>
             </Box>
         </Box>

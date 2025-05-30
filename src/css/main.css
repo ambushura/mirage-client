@@ -402,6 +402,12 @@ body {
     justify-content: center;
 }
 
+#top-menu-schedule {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
 .film {
     margin: 0 0 0 16px;
     height: 340px;
