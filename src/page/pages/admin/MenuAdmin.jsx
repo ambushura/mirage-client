@@ -28,6 +28,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../../components/forms/Calendar.jsx"
 import {useState} from "react"
+import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 const MenuAdmin = () => {
 
@@ -171,7 +172,8 @@ const MenuAdmin = () => {
             return (
                 <ButtonGroup>
                     <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
-                            onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}>Фильтры</Button>
+                            onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
+                            startIcon={<FilterAltIcon/>}>Фильтры</Button>
                     {horeca_staff_selected.length > 0 ||
                     horeca_state_selected.length > 0 ||
                     horeca_halls_selected.length > 0 ||
@@ -192,7 +194,8 @@ const MenuAdmin = () => {
             return (
                 <ButtonGroup>
                     <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
-                            onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}>Фильтры</Button>
+                            onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
+                            startIcon={<FilterAltIcon/>}>Фильтры</Button>
                     {cinema_staff_selected.length > 0 ||
                     cinema_state_selected.length > 0 ||
                     cinema_seances_selected.length > 0 ||

@@ -9,7 +9,8 @@ import {useNavigate} from "react-router-dom"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
 import Calendar from "../forms/Calendar.jsx"
 import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
+import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
+import FilterAltIcon from '@mui/icons-material/FilterAlt'
 
 const ScheduleMenu = () => {
 
@@ -41,6 +42,8 @@ const ScheduleMenu = () => {
         const current_param_data = value.year() + '-' + (value.month() + 1) + '-' + (value.date())
         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
     }
+
+    const uid_user = useSelector(state => state.auth.uid)
 
     return (
         <Box id="top-menu">
@@ -98,10 +101,13 @@ const ScheduleMenu = () => {
                     <Button variant="contained" color="secondary">ТоКино!</Button>
                     <Button variant="contained" color="secondary">Пушкарта</Button>
                 </ButtonGroup>
-                <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
-                    <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>
-                    <Button variant='contained' startIcon={<AddIcon/>}>Сводобное время</Button>
-                </ButtonGroup>
+                {uid_user !== null ?
+                    <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
+                        <Button variant='contained' startIcon={<FilterAltIcon/>}>Фильтры</Button>
+                        <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>
+                        <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное время</Button>
+                    </ButtonGroup>
+                    : null}
             </Box>
         </Box>
     )
