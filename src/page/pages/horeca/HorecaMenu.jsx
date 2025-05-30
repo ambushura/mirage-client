@@ -11,30 +11,28 @@ const HorecaMenu = () => {
 
     return (
         <Box id="top-menu">
-            <ButtonGroup>
-                <Button variant='contained' color='secondary' size='large'
-                        startIcon={<QrCodeScannerIcon/>}
+            <ButtonGroup variant='contained' color='secondary' size='large' sx={{marginLeft: '4px'}}>
+                <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark', props: {}}))
                         }}>ЧЗ</Button>
-                <Button variant='contained' color='secondary' size='small' sx={{marginLeft: '5px'}}
-                        endIcon={<SettingsIcon/>}
+                <Button endIcon={<SettingsIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark_hosts', props: {}}))
                         }}>Настройки</Button>
             </ButtonGroup>
-            <ButtonGroup>
-                <Button variant='contained' color='secondary' sx={{marginLeft: '5px'}} startIcon={<QrCodeScannerIcon/>}
+            <ButtonGroup variant='contained' color='secondary' size='large' sx={{marginLeft: '4px'}}>
+                <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'egais', props: {}}))
                         }}>ЕГАИС</Button>
-                <Button variant='contained' color='secondary' size='small' sx={{marginLeft: '5px'}}
+                <Button size='small'
                         endIcon={<SettingsIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'egais_settings', props: {}}))
                         }}>УТМ ЕГАИС</Button>
             </ButtonGroup>
-            <Button variant='contained' color='secondary' sx={{marginLeft: '5px'}}
+            <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
                     startIcon={<QrCode2Icon/>}>Штрихкод</Button>
         </Box>
     )

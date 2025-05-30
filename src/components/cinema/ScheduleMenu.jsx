@@ -44,25 +44,26 @@ const ScheduleMenu = () => {
         <Box id="top-menu">
             <Box id="top-menu-schedule">
                 {current_page === 'film' && film !== undefined ?
-                    <Button variant="contained" color="secondary" onClick={() => {
+                    <Button variant="contained" color="secondary" size='small' onClick={() => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
-                    }}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
-                <ButtonGroup size='small'>
-                    <Button variant="contained" color="secondary" onClick={() => {
+                    }}
+                            sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
+                <ButtonGroup size='small' variant="contained" color="secondary">
+                    <Button onClick={() => {
                         const date = date_dayjs(new Date())
                         const current_param_date = from_dayjs_to_str(date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}>сегодня</Button>
-                    <Button variant="contained" color="secondary" size="large" onClick={() => {
+                    <Button size="large" onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}><KeyboardArrowLeftIcon/></Button>
-                    <Button aria-describedby={id} variant="contained" color="secondary" onClick={handleClick}
+                    <Button aria-describedby={id} onClick={handleClick}
                             endIcon={<KeyboardArrowDownIcon/>}>
                         Фильмы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}
                     </Button>
-                    <Button variant="contained" color="secondary" size="large" onClick={() => {
+                    <Button size="large" onClick={() => {
                         const current_date = dayjs(param_date).add(1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
@@ -90,7 +91,7 @@ const ScheduleMenu = () => {
                         handleOnChahge={handleOnChahge}
                     />
                 </Popover>
-                <ButtonGroup className='top-menu-content-types' size='small' sx={{marginLeft: '5px'}}>
+                <ButtonGroup className='top-menu-content-types' size='small' sx={{marginLeft: '4px'}}>
                     <Button variant="contained" color="primary">Все фильмы</Button>
                     <Button variant="contained" color="secondary">ТоКино!</Button>
                     <Button variant="contained" color="secondary">Пушкарта</Button>
