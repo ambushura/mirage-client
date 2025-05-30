@@ -42,9 +42,9 @@ const ScheduleMenu = () => {
 
     return (
         <Box id="top-menu">
-            <Box style={{width: 'inherit', display: 'flex'}} id="top-menu-schedule">
+            <Box id="top-menu-schedule">
                 {current_page === 'film' && film !== undefined ?
-                    <Button variant="contained" color="secondary" style={{marginRight: '5px'}} onClick={() => {
+                    <Button variant="contained" color="secondary" onClick={() => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
                     }}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
                 <ButtonGroup size='small'>

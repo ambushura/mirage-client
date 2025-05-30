@@ -7,6 +7,7 @@ import {useSelector} from "react-redux"
 import Loader from "../../../components/elements/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 import {useSetFilm} from "../../../hooks/pages/useSetFilm.js"
+import {motion, AnimatePresence} from 'framer-motion'
 
 const PageFilm = () => {
 
@@ -58,16 +59,28 @@ const PageFilm = () => {
                                                 <Box className='seances-body-filial'>
                                                     <Box
                                                         className='seances-body-filial-name'>{filial_seances.filial.name}</Box>
-                                                    <Box className='seances-body-seances'>
-                                                        {filial_seances.data.seances.map(seance => {
-                                                            return (<SeanceCard
-                                                                key={`${filial_seances.filial.uid}${seance.uid}`}
-                                                                seance={seance}
-                                                                city={city}
-                                                                filial={filial_seances.filial}
-                                                            />)
-                                                        })}
-                                                    </Box>
+                                                    <AnimatePresence>
+                                                        {filial_seances.data.seances.length > 0 && (
+                                                            <motion.div
+                                                                className='seances-body-seances'
+                                                                initial="hidden"
+                                                                animate="visible"
+                                                                exit="hidden"
+                                                                variants={containerVariants}>
+                                                                {filial_seances.data.seances.map(seance => {
+                                                                    return (
+                                                                        <motion.div
+                                                                            key={`${filial_seances.filial.uid}${seance.uid}`}
+                                                                            variants={itemVariants}>
+                                                                            <SeanceCard
+                                                                                seance={seance}
+                                                                                city={city}
+                                                                                filial={filial_seances.filial}/>
+                                                                        </motion.div>)
+                                                                })}
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
                                                 </Box>
                                             </Fade>
                                         )
@@ -84,3 +97,25 @@ const PageFilm = () => {
 }
 
 export default PageFilm
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+}

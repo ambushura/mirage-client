@@ -16,6 +16,7 @@ import Loader from "../../../components/elements/Loader.jsx"
 import Order from "../../../components/orders/Order.jsx"
 import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
 import {useSetSeance} from "../../../hooks/pages/useSetSeance.js"
+import SeanceMenu from "./SeanceMenu.jsx"
 
 const PageSeance = () => {
 
@@ -90,9 +91,12 @@ const PageSeance = () => {
         }
     }, [app_height, authenticated, hall, permissions])
 
+    const uid_user = useSelector(state => state.auth.uid)
+
     if (seance !== undefined && hall !== undefined) {
         return (
             <>
+                {uid_user !== null ? <SeanceMenu/> : null}
                 <Fade in={!checkout} unmountOnExit>
                     <Box id='content-box'>
                         <Box id='content-wrap'>

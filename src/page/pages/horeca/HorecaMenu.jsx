@@ -10,9 +10,9 @@ const HorecaMenu = () => {
     const dispatch = useDispatch()
 
     return (
-        <Box id="top-menu" style={{justifyContent: 'flex-start'}}>
+        <Box id="top-menu">
             <ButtonGroup>
-                <Button variant='contained' color='secondary' size='large' sx={{marginLeft: '5px'}}
+                <Button variant='contained' color='secondary' size='large'
                         startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark', props: {}}))

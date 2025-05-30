@@ -1,7 +1,7 @@
 import {Box, Pagination} from "@mui/material"
 import {useSetOrdersCinema} from "../../../../hooks/pages/useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect} from "react"
+import {Fragment, useEffect} from "react"
 import {setOrdersCinemaPage} from "../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
@@ -27,8 +27,8 @@ const OrdersCinema = () => {
                     {orders.length > 0 ? orders.map(filial_data => {
                             const pages = filial_data.data !== null ? Math.ceil(filial_data.data.total_count / 20) : 0
                             return (
-                                <>{filial_data.data !== null ?
-                                    <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>
+                                <Fragment key={filial_data.filial.uid}>{filial_data.data !== null ?
+                                    <Box className='admin-orders-cinema-filial-content'>
                                         <Box className='admin-orders-cinema-filial-box'>
                                             <AnimatePresence>
                                                 {filial_data.data.orders.length > 0 && (
@@ -66,7 +66,7 @@ const OrdersCinema = () => {
                                                 : null}
                                         </Box>
                                     </Box> : null}
-                                </>
+                                </Fragment>
                             )
                         })
                         : null}

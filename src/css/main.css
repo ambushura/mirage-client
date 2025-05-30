@@ -195,7 +195,8 @@ body {
     height: var(--top-menu-height);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 0 4px;
 }
 
 #content-box {

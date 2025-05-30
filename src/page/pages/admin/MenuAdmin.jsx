@@ -88,19 +88,19 @@ const MenuAdmin = () => {
         if (['admin/orders/cinema', 'admin/orders/horeca'].find(el => el === current_page) !== undefined) {
             return <><ButtonGroup size='small' variant='contained' color='secondary'
                                   className='admin-panel-period'>
-                <Button sx={{padding: '0 20px'}} onClick={() => {
+                <Button onClick={() => {
                     const date = dayjs(new Date()).format('YYYY-MM-DD')
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
                 }}>сегодня</Button>
-                <Button sx={{padding: '0 20px'}} onClick={() => {
+                <Button onClick={() => {
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
                     navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
                 }}><KeyboardArrowLeftIcon/></Button>
-                <Button sx={{padding: '0 30px'}} onClick={handleClick} endIcon={
+                <Button onClick={handleClick} endIcon={
                     <KeyboardArrowDownIcon/>}>Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}</Button>
-                <Button sx={{padding: '0 20px'}} onClick={() => {
+                <Button onClick={() => {
                     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     const date = dayjs(param_date_admin).subtract(-1, 'day').format('YYYY-MM-DD')
                     navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
