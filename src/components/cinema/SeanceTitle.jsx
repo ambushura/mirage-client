@@ -1,11 +1,13 @@
 import {Box} from "@mui/material"
 import dayjs from "dayjs"
+import utc from 'dayjs/plugin/utc'
+dayjs.extend(utc)
 
 const SeanceTitle = (props) => {
 
     const seance = props.seance
-    const beginning = dayjs(seance.beginning)
-    const ending = dayjs(seance.ending)
+    const beginning = dayjs.utc(seance.beginning)
+    const ending = dayjs.utc(seance.ending)
     const its_hall_map = props.its_hall_map ? '-x2' : ''
 
     return (

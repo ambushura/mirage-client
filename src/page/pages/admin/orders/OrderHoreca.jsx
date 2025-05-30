@@ -148,11 +148,11 @@ const OrderHoreca = ({order}) => {
                             justifyContent: 'space-around',
                             width: '100px'
                         }}>
-                            <span style={{color: '#8B919B'}}>{dayjs(order.date_create).format("DD.MM")}</span>
-                            <span>{dayjs(order.date_create).format("HH:mm")}</span>
+                            <span style={{color: '#8B919B'}}>{dayjs.utc(order.date_create).format("DD.MM")}</span>
+                            <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
                         </Box>
                         <Box style={{color: '#8B919B'}}>
-                            {dayjs(order.date_change).format("HH:mm")}
+                            {dayjs.utc(order.date_change).format("HH:mm")}
                         </Box>
                     </Box>
                     <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
