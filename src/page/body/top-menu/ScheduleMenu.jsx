@@ -55,7 +55,12 @@ const ScheduleMenu = () => {
                             sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
                 <ButtonGroup size='small' variant="contained" color="secondary">
                     <Button onClick={() => {
-                        const date = date_dayjs(new Date())
+                        const now = new Date()
+                        const date = date_dayjs(
+                            now.getHours() >= 0 && now.getHours() < 7
+                                ? new Date(now.setDate(now.getDate() - 1))
+                                : now
+                        )
                         const current_param_date = from_dayjs_to_str(date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}>Сегодня</Button>

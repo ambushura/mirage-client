@@ -1,7 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit"
 import {date_dayjs} from "../service/advanced.js"
 
-const current_date = date_dayjs(new Date())
+const now = new Date()
+const current_date = date_dayjs(
+    now.getHours() >= 0 && now.getHours() < 7
+        ? new Date(now.setDate(now.getDate() - 1))
+        : now
+)
 
 export const PAYMENT_STATE_WAITING = 'Ожидает оплаты'
 export const PAYMENT_STATE_SLIP_WITHOUT_RECEIPT = 'Списали деньги с карты, но не пробили'

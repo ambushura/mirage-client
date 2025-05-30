@@ -15,7 +15,7 @@ import {
 } from "../../../redux/ordersReducer.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import {to_str_DAY} from "../../../service/advanced.js"
+import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {openModal, TIMEOUT} from "../../../redux/interfaceReducer.js"
 import LaptopIcon from "@mui/icons-material/Laptop"
@@ -91,9 +91,15 @@ const AdminMenu = () => {
                 <ButtonGroup size='small' variant='contained' color='secondary'
                              className='admin-panel-period'>
                     <Button onClick={() => {
-                        const date = dayjs(new Date()).format('YYYY-MM-DD')
+                        const now = new Date()
+                        const date = date_dayjs(
+                            now.getHours() >= 0 && now.getHours() < 7
+                                ? new Date(now.setDate(now.getDate() - 1))
+                                : now
+                        )
+                        const current_param_date = from_dayjs_to_str(date)
                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                        navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                        navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
                     }}>Сегодня</Button>
                     <Button onClick={() => {
                         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
