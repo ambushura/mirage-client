@@ -92,7 +92,7 @@ const HorecaItem = (props) => {
                     sx={{color: 'white'}}/></button>
                 <button className='order-box-horeca-item-1-3' onClick={() => dispatch((horeca_position_delete(filial, wp, props.uid_order, props.item.uid)))}><DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
-            {props.item.mark.type_code !== '' ? <Box className='order-box-horeca-item-2'>
+            {props.item.mark.type !== '' ? <Box className='order-box-horeca-item-2'>
                 <button className='order-box-horeca-item-2-3' onClick={() =>
                     dispatch(openModal({
                         type: 'mark',

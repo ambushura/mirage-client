@@ -130,10 +130,6 @@ const OrderPanel = ({
                         <Button variant="contained" color="secondary" onClick={() => {
                         }}><DeleteIcon/></Button>
                     </ButtonGroup>
-                    <ButtonGroup sx={{marginRight: '4px'}} size='small'>
-                        <Button variant="contained" color="secondary" onClick={() => {
-                        }}>Разделить</Button>
-                    </ButtonGroup>
                     <ButtonGroup size='small'>
                         <Button variant="contained" color="secondary" onClick={() => {
                         }}>Стол</Button>
@@ -141,11 +137,17 @@ const OrderPanel = ({
                         }}><DeleteIcon/></Button>
                     </ButtonGroup>
                 </ButtonGroup>
+                <ButtonGroup size='small'>
+                    <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {}}>Скидки</Button>
+                    <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                </ButtonGroup>
             </Box>
             <Box className="order-box-panel-adv">
                 <Button variant="contained" color="secondary" onClick={() => {
                     dispatch(markirovka_km_check(filial, wp, order.uid))
                 }}>Проверить ЧЗ</Button>
+                <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
+                }}>Разделить</Button>
             </Box>
             <Box className="order-box-panel-3">
                 {[1, 2, 3, 0].map(state => (order.items.some(item => item.kitchen.state === state) && (
