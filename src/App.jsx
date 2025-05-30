@@ -5,7 +5,7 @@ import {Navigate, Route, Routes} from "react-router-dom"
 
 import Header from "./page/header/Header.jsx"
 import Footer from "./page/footer/Footer.jsx"
-import NotFound from "./page/pages/NotFound.jsx"
+import NotFound from "./page/body/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
 
 import {
@@ -29,8 +29,8 @@ import {useReset} from "./hooks/common/useReset.js"
 
 import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
-import HorecaFilters from "./components/forms/filters/HorecaFilters.jsx"
-import CinemaFilters from "./components/forms/filters/CinemaFilters.jsx"
+import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
+import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
 
 function App() {
 

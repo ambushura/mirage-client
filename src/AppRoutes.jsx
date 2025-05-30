@@ -5,13 +5,13 @@ import {Box, Fade} from "@mui/material"
 
 import {setCurrentPage, setParams, setSearchParams} from "./redux/interfaceReducer.js"
 
-import PageFilms from "./page/pages/films/PageFilms.jsx"
-import PageFilm from "./page/pages/film/PageFilm.jsx"
-import PageSeance from "./page/pages/seance/PageSeance.jsx"
-import PageAdmin from "./page/pages/admin/PageAdmin.jsx"
-import PageSchedule from "./page/pages/schedule/PageSchedule.jsx"
-import PageHoreca from "./page/pages/horeca/PageHoreca.jsx"
-import PageKitchen from "./page/pages/kitchen/PageKitchen.jsx"
+import PageFilms from "./page/body/films/PageFilms.jsx"
+import PageFilm from "./page/body/film/PageFilm.jsx"
+import PageSeance from "./page/body/seance/PageSeance.jsx"
+import PageAdmin from "./page/body/admin/PageAdmin.jsx"
+import PageSchedule from "./page/body/schedule/PageSchedule.jsx"
+import PageHoreca from "./page/body/horeca/PageHoreca.jsx"
+import PageKitchen from "./page/body/kitchen/PageKitchen.jsx"
 
 const AppRoutes = ({current_page}) => {
     const dispatch = useDispatch()

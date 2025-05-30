@@ -1,5 +1,5 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
-import PhoneInput from "../elements/PhoneInput.jsx"
+import PhoneInput from "../../ui/PhoneInput.jsx"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
