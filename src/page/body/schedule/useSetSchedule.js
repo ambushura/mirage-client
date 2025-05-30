@@ -40,7 +40,24 @@ export function useSetSchedule() {
     }, [city, filial, param_date])
 
     useEffect(() => {
-        dispatch(setSchedule(fetch_data))
+        const fetch_data_sorted = []
+        fetch_data.forEach((url) => {
+            const url_sorted = {...url}
+            if (url_sorted.data !== null) {
+                url_sorted.data = url_sorted.data.sort((a, b) => {
+                    const getSortKey = (s) => {
+                        const match = s.match(/^(\d+)/)
+                        return match ? parseInt(match[1]) : Number.MAX_SAFE_INTEGER
+                    }
+                    const aNum = getSortKey(a.name_full_hall)
+                    const bNum = getSortKey(b.name_full_hall)
+                    if (aNum !== bNum) return aNum - bNum
+                    return a.name_full_hall.localeCompare(b.name_full_hall)
+                })
+            }
+            fetch_data_sorted.push(url_sorted)
+        })
+        dispatch(setSchedule(fetch_data_sorted))
         return () => {
             dispatch(setSchedule([]))
         }

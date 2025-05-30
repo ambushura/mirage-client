@@ -109,8 +109,9 @@ const ScheduleMenu = () => {
                 {uid_user !== null ?
                     <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
                         <Button variant='contained' startIcon={<FilterAltIcon/>}>Фильтры</Button>
+                        {current_page === 'schedule' ? <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное
+                            время</Button> : null}
                         <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>
-                        <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное время</Button>
                     </ButtonGroup>
                     : null}
             </Box>
