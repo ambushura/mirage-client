@@ -37,7 +37,7 @@ const SeanceMenu = () => {
                         its_hall_map={true}
                         age={true}/>
                     <Box sx={{fontWeight: 'bold', margin: '0 8px', fontSize: '20px', overflow: 'hidden'}}>{seance.name_film}</Box>
-                    <Box sx={{margin: '0 16px', fontSize: '18px', fontWeight: 'bold', color: '#8B919B', overflow: 'hidden', display: 'flex', justifyContent: 'center'}}><LocationOnIcon/><span>Зал
+                    <Box sx={{margin: '0 16px', fontSize: '18px', fontWeight: 'bold', color: '#8B919B', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><LocationOnIcon/><span>Зал
                         №{seance.hall_full_name}</span></Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
