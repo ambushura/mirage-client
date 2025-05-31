@@ -116,7 +116,10 @@ function App() {
                        element={<NotFound/>}/>
                 <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/equipment"/>}/>
-
+                <Route path="/admin/staff/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/staff"/>}/>
+                <Route path="/admin/staff/:param_city/all/:param_date_admin/"
+                       element={<NotFound/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>

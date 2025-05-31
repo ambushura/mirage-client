@@ -24,6 +24,7 @@ import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import {motion} from 'framer-motion'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 const OrderPanel = ({
                         type,
@@ -89,7 +90,7 @@ const OrderPanel = ({
                         content_type: order.seance_content_type
                     }} content_type={true} day={true} its_hall_map={true} age={true}/>
                 <Box className='seance-title-film-name'>{order.film_name}</Box>
-                <Box className='seance-title-hall-name'>Зал {order.hall_full_name}</Box>
+                <Box className='seance-title-hall-name'><LocationOnIcon/><span>Зал {order.hall_full_name}</span></Box>
             </Box>
             <Box sx={{fontSize: '80%', marginBottom: '5px', fontWeight: 'bold'}}>
                 {order.buyer_s !== null || order.buyer_n !== null || order.buyer_o !== null || order.buyer_email !== "" || order.buyer_phone_number !== null ?

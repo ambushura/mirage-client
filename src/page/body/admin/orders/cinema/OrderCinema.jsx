@@ -21,6 +21,9 @@ const OrderCinema = ({order}) => {
     const wp = useSelector(state => state.interface.wp)
     const pre_order = useSelector(state => state.orders.pre_order)
 
+    const beginning = dayjs.utc(order.seance_beginning)
+    const ending = dayjs.utc(order.seance_ending)
+
     const groupItems = (items_grouped, payment_state) => {
         const items = [], mark_egais = []
         items_grouped
@@ -120,6 +123,7 @@ const OrderCinema = ({order}) => {
                     <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
                     </Box>
+
                     <Box sx={{flexGrow: 1}}>
                         <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
                         <Box>{order.name_creator}</Box>
@@ -142,6 +146,12 @@ const OrderCinema = ({order}) => {
                             </Box>
                         </Box>
                     </Box>
+
+                </Box>
+
+                <Box>
+                    <Box>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box>
+                    <Box>Зал {order.hall_full_name} {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
                 </Box>
 
                 <Box className='admin-orders-cinema-order-body'>

@@ -615,6 +615,8 @@ body {
     font-size: 18px;
     color: #8B919B;
     font-weight: bold;
+    display: flex;
+   align-items: center;
 }
 
 .seance-title-panel {

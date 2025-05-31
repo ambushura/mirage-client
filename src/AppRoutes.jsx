@@ -42,6 +42,7 @@ const AppRoutes = ({current_page}) => {
         films: <PageFilms/>,
         film: <PageFilm/>,
         seance: <PageSeance/>,
+        kitchen: <PageKitchen/>,
         menu: isAdmin ? <PageHoreca/> : null,
         "admin/orders/cinema": isAdmin ? <PageAdmin/> : null,
         "admin/orders/horeca": isAdmin ? <PageAdmin/> : null,
@@ -50,7 +51,7 @@ const AppRoutes = ({current_page}) => {
         "admin/halls": isAdmin ? <PageAdmin/> : null,
         "admin/equipment": isAdmin ? <PageAdmin/> : null,
         "admin/egais": isAdmin ? <PageAdmin/> : null,
-        kitchen: <PageKitchen/>
+        "admin/staff": isAdmin ? <PageAdmin/>: null,
     }
 
     return (

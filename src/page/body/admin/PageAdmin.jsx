@@ -9,6 +9,7 @@ import Order from "../../right-panel/Order.jsx"
 import Zbooks from "./total/Zbooks.jsx"
 import Operations from "./total/Operations.jsx"
 import Egais from "./egais/EGAIS.jsx"
+import PageStaff from "./staff/PageStaff.jsx"
 
 const PageAdmin = () => {
 
@@ -44,6 +45,8 @@ const PageAdmin = () => {
                                 <Operations/> : null}
                             {current_page === 'admin/egais' ?
                                 <Egais/> : null}
+                            {current_page === 'admin/staff' ?
+                                <PageStaff/> : null}
                         </Box>
                     </Box>
                 </Box>
