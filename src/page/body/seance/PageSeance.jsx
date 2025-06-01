@@ -65,7 +65,7 @@ const PageSeance = () => {
                 clearInterval(timer)
             }
         }
-    }, [permissions])
+    }, [permissions, uid_user])
 
     useEffect(() => {
         if (uid_user === null) {
