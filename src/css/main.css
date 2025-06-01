@@ -616,7 +616,7 @@ body {
     color: #8B919B;
     font-weight: bold;
     display: flex;
-   align-items: center;
+    align-items: center;
 }
 
 .seance-title-panel {
@@ -883,7 +883,7 @@ body {
 /*              МЕНЮ              */
 /* ============================== */
 #horeca-menu {
-    padding: 0 4px 4px 4px;
+    padding: 2px 4px 4px 4px;
 }
 
 .menu-breadcrumbs, .menu-folders, .menu-items {
