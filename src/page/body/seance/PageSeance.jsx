@@ -59,7 +59,7 @@ const PageSeance = () => {
     useEffect(() => {
         if (uid_user === null) {
             const timer = setInterval(() => {
-                //set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
+                set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
             }, ORDER_TIME_OUT)
             return () => {
                 clearInterval(timer)

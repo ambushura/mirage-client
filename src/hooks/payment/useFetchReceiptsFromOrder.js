@@ -28,7 +28,7 @@ export function useFetchReceiptsFromOrder(type) {
         } else {
             set_url(undefined)
         }
-    }, [filial, type, horder, pre_order])
+    }, [filial, type, horder.ver, pre_order.ver])
 
     useEffect(() => {
         if (fetch_data !== null) {
