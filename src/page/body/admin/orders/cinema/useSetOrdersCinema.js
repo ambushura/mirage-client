@@ -33,7 +33,7 @@ export function useSetOrdersCinema() {
         if (city !== undefined && filial === undefined && param_date_admin !== undefined) {
             city.filials.forEach(current_filial => {
                 urls_new.push({
-                    filial: filial,
+                    filial: current_filial,
                     url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
                     params: {
                         page: page,

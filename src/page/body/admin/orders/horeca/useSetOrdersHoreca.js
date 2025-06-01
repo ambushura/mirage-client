@@ -30,7 +30,7 @@ export function useSetOrdersHoreca() {
         if (city !== undefined && filial === undefined && param_date_admin !== undefined) {
             city.filials.forEach(current_filial => {
                 urls_new.push({
-                    filial: filial,
+                    filial: current_filial,
                     url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_HORECA_ORDERS_GET}`,
                     params: {
                         page: page,
@@ -61,7 +61,7 @@ export function useSetOrdersHoreca() {
             })
         }
         set_urls_orders(urls_new)
-    }, [city, filial, param_date_admin, staff_selected, staff_selected, state_selected, halls_selected, workplaces_selected, kitchen_points_selected, kitchen_state_selected, page, update])
+    }, [city, filial, param_date_admin, staff_selected, state_selected, halls_selected, workplaces_selected, kitchen_points_selected, kitchen_state_selected, page, update])
 
     useEffect(() => {
         if (fetch_data_orders.length > 0) {

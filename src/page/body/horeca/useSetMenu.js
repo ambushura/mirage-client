@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
-import {useFetching} from "../common/useFetching.js"
+import {useFetching} from "../../../hooks/common/useFetching.js"
 import {useSelector} from "react-redux"
-import {ROUTE_HORECA_MENU_GET} from "../../service/fetch_routes.js"
+import {ROUTE_HORECA_MENU_GET} from "../../../service/fetch_routes.js"
 
 export function useSetMenu(uid_folder) {
 
@@ -9,7 +9,7 @@ export function useSetMenu(uid_folder) {
     const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
     const [data, set_data] = useState(undefined)
 
-    const filial = useSelector(state => state.data.filial || undefined)
+    const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export function useSetMenu(uid_folder) {
         } else {
             set_url(undefined)
         }
-    }, [filial, uid_folder])
+    }, [filial, param_date_admin, uid_folder])
 
     useEffect(() => {
         if (fetch_data !== null) {

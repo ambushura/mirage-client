@@ -25,9 +25,9 @@ const OrdersHoreca = () => {
             <Box className='admin-orders-horeca-orders'>
                 <Box className='admin-orders-horeca-orders-content'>
                     {orders.length > 0 ? orders.map(filial_data => {
-                            const pages = filial_data.data !== null ? Math.ceil(filial_data.data.total_count / 20) : 0
-                            return (
-                                <>{filial_data.data !== null ?
+                            if (filial_data.error == null && !filial_data.loading && filial_data.data !== null) {
+                                const pages = Math.ceil(filial_data.data.total_count / 20)
+                                return (
                                     <Box className='admin-orders-horeca-filial-content' key={filial_data.filial.uid}>
                                         <Box className='admin-orders-horeca-filial-box'>
                                             <AnimatePresence>
@@ -37,14 +37,13 @@ const OrdersHoreca = () => {
                                                         initial="hidden"
                                                         animate="visible"
                                                         exit="hidden"
-                                                        variants={containerVariants}>
-                                                        {filial_data.data.orders.map(order =>
-                                                            <motion.div
-                                                                className='admin-orders-horeca-order'
-                                                                key={`${order.uid}${order.ver}`}
-                                                                variants={itemVariants}>
-                                                                <OrderHoreca order={order}/>
-                                                            </motion.div>)}
+                                                        variants={containerVariants}>{filial_data.data.orders.map(order =>
+                                                        <motion.div
+                                                            className='admin-orders-horeca-order'
+                                                            key={`${order.uid}${order.ver}`}
+                                                            variants={itemVariants}>
+                                                            <OrderHoreca order={order}/>
+                                                        </motion.div>)}
                                                     </motion.div>
                                                 )}
                                             </AnimatePresence>
@@ -64,9 +63,9 @@ const OrdersHoreca = () => {
                                                                         showFirstButton showLastButton/>
                                                     : null}
                                         </Box>
-                                    </Box> : null}
-                                </>
-                            )
+                                    </Box>
+                                )
+                            }
                         })
                         : null}
                 </Box>

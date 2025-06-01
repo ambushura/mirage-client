@@ -1,5 +1,5 @@
 import {Box} from "@mui/material"
-import {useSetMenu} from "../../../hooks/interface/useSetMenu.js"
+import {useSetMenu} from "./useSetMenu.js"
 import {useEffect, useState} from "react"
 import Folder from "./Folder.jsx"
 import Item from "./Item.jsx"

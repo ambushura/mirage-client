@@ -1,7 +1,7 @@
 import {Box, Pagination} from "@mui/material"
 import {useSetOrdersCinema} from "./useSetOrdersCinema.js"
 import {useDispatch, useSelector} from "react-redux"
-import {Fragment, useEffect} from "react"
+import {useEffect} from "react"
 import {setOrdersCinemaPage} from "../../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
@@ -25,10 +25,10 @@ const OrdersCinema = () => {
             <Box className='admin-orders-cinema-orders'>
                 <Box className='admin-orders-cinema-orders-content'>
                     {orders.length > 0 ? orders.map(filial_data => {
-                            const pages = filial_data.data !== null ? Math.ceil(filial_data.data.total_count / 20) : 0
-                            return (
-                                <Fragment key={filial_data.filial.uid}>{filial_data.data !== null ?
-                                    <Box className='admin-orders-cinema-filial-content'>
+                            if (filial_data.error == null && !filial_data.loading && filial_data.data !== null) {
+                                const pages = Math.ceil(filial_data.data.total_count / 20)
+                                return (
+                                    <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>
                                         <Box className='admin-orders-cinema-filial-box'>
                                             <AnimatePresence>
                                                 {filial_data.data.orders.length > 0 && (
@@ -37,17 +37,15 @@ const OrdersCinema = () => {
                                                         initial="hidden"
                                                         animate="visible"
                                                         exit="hidden"
-                                                        variants={containerVariants}>{filial_data.data.orders.map(order => {
-                                                        return (
-                                                            <motion.div
-                                                                className='admin-orders-horeca-order'
-                                                                key={`${order.uid}${order.ver}`}
-                                                                variants={itemVariants}>
-                                                                <OrderCinema key={`${order.uid}${order.ver}`}
-                                                                             order={order}/>
-                                                            </motion.div>
-                                                        )
-                                                    })}
+                                                        variants={containerVariants}>{filial_data.data.orders.map(order =>
+                                                        <motion.div
+                                                            className='admin-orders-horeca-order'
+                                                            key={`${order.uid}${order.ver}`}
+                                                            variants={itemVariants}>
+                                                            <OrderCinema key={`${order.uid}${order.ver}`}
+                                                                         order={order}/>
+                                                        </motion.div>
+                                                    )}
                                                     </motion.div>)}
                                             </AnimatePresence>
                                             {pages > 1 ? <Pagination sx={{
@@ -65,9 +63,13 @@ const OrdersCinema = () => {
                                                                      showFirstButton showLastButton/>
                                                 : null}
                                         </Box>
-                                    </Box> : null}
-                                </Fragment>
-                            )
+                                    </Box>
+                                )
+                            } else if (filial_data.loading) {
+                                // ДОПОЛНИТЬ ЗАГРУЖАЕТСЯ
+                            } else if (filial_data.error !== null) {
+                                // ДОПОЛНИТЬ ОШИБКА ЗАГРУЗКИ
+                            }
                         })
                         : null}
                 </Box>
