@@ -18,7 +18,7 @@ export function useSetFilm() {
 
     useEffect(() => {
         let urls_new = []
-        if (city !== undefined && filial === undefined) {
+        if (city !== undefined && filial === undefined && uid_film !== undefined) {
             city.filials.forEach(filial => {
                 urls_new.push({
                     filial: filial,
@@ -29,7 +29,7 @@ export function useSetFilm() {
                     }
                 })
             })
-        } else if (city !== undefined && filial !== undefined) {
+        } else if (city !== undefined && filial !== undefined && uid_film !== undefined) {
             urls_new.push({
                 filial: filial,
                 url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILM_GET_SEANCES}`,
