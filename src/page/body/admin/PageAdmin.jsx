@@ -50,7 +50,8 @@ const PageAdmin = () => {
                         </Box>
                     </Box>
                 </Box>
-                {pre_order.in_base || horder.in_base ? <Order/> : null}
+                {(current_page === 'admin/orders/cinema' || current_page === 'admin/orders/horeca') && (pre_order.in_base || horder.in_base) ?
+                    <Order/> : null}
             </Box>
         </>
     )
