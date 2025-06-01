@@ -59,7 +59,7 @@ const PageSeance = () => {
     useEffect(() => {
         if (uid_user === null) {
             const timer = setInterval(() => {
-                set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
+                //set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
             }, ORDER_TIME_OUT)
             return () => {
                 clearInterval(timer)
@@ -96,7 +96,8 @@ const PageSeance = () => {
                         <Box id='content-wrap'>
                             <Box id='content'>
                                 <Box id='seance' style={{display: checkout ? 'none' : 'block', height: '100%'}}>
-                                    {uid_user === null ? <Box id='seance-title' ref={refTitle}>
+                                    {uid_user === null ?
+                                        <Box id='seance-title' ref={refTitle}>
                                             <Box className='order-panel'>
                                                 <Button onClick={() => {
                                                     navigate(-1)
@@ -119,7 +120,8 @@ const PageSeance = () => {
                                                     its_hall_map={true}
                                                     age={false}/>
                                                 {pre_order.items.length > 0 ?
-                                                    <Button sx={{height: '48px', marginLeft: '10px'}} variant="contained"
+                                                    <Button sx={{height: '48px', marginLeft: '10px'}}
+                                                            variant="contained"
                                                             className='seance-title-preorder' onClick={() => {
                                                         set_check_out(true)
                                                     }}>
@@ -149,7 +151,7 @@ const PageSeance = () => {
                                             </Box>
                                         </Box>
                                         : <></>}
-                                    <Box style={{display: 'flex'}}>
+                                    <Box style={{display: 'flex', flex: 1}}>
                                         <Hall
                                             city={city}
                                             filial={filial}

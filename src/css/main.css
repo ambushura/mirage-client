@@ -202,10 +202,6 @@ body {
 }
 
 #content-box {
-
-}
-
-#content-box {
     width: inherit;
     height: calc(var(--page-height) - var(--top-menu-height));
     position: relative;

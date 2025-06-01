@@ -65,7 +65,7 @@ export const ThemeBlackWhite = ({children}) => {
     useEffect(() => {
         setUiState(preValue => ({
             ...preValue,
-            top_menu: ['films', 'film', 'schedule', 'seance', 'menu', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/egais', 'admin/zbooks', 'admin/operations'].find(el => el === current_page) !== undefined
+            top_menu: uid_user !== null || current_page !== 'seance'
         }))
 
     }, [current_page])
