@@ -10,7 +10,7 @@ import PageFilm from "./page/body/film/PageFilm.jsx"
 import PageSeance from "./page/body/seance/PageSeance.jsx"
 import PageAdmin from "./page/body/admin/PageAdmin.jsx"
 import PageSchedule from "./page/body/schedule/PageSchedule.jsx"
-import PageHoreca from "./page/body/horeca/PageHoreca.jsx"
+import PageHoreca from "./page/body/menu/PageHoreca.jsx"
 import PageKitchen from "./page/body/kitchen/PageKitchen.jsx"
 
 const AppRoutes = ({current_page}) => {

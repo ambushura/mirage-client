@@ -36,7 +36,7 @@ const Menu = () => {
                     className='menu-breadcrumbs'
                     initial="hidden"
                     animate="visible"
-                    exit="hidden"
+
                     variants={containerVariants}>{breadcrumbs}</motion.div>}
             </AnimatePresence>
             <AnimatePresence>
@@ -44,7 +44,7 @@ const Menu = () => {
                     className='menu-folders'
                     initial="hidden"
                     animate="visible"
-                    exit="hidden"
+
                     variants={containerVariants}>
                     {menu_data.items.map(item => {
                         if (item.its_folder) {
@@ -65,7 +65,7 @@ const Menu = () => {
                     className='menu-items'
                     initial="hidden"
                     animate="visible"
-                    exit="hidden"
+
                     variants={containerVariants}>
                     {menu_data.items.map(item => {
                         if (!item.its_folder) {
