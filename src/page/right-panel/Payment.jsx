@@ -17,7 +17,7 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {common_order_pay} from "../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
-import DotsAnimation from "../../ui/DotsAnimation.jsx";
+import DotsAnimation from "../../ui/DotsAnimation.jsx"
 
 const Payment = (props) => {
 

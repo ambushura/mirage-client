@@ -19,7 +19,7 @@ import {
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
-    ROUTE_COMMON_ORDER_ADD_CONTACT,
+    ROUTE_COMMON_ORDER_ADD_CONTACT, ROUTE_COMMON_ORDER_PAYMENT,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
@@ -146,7 +146,7 @@ export const horeca_position_add = (filial, wp, uid_order, ver, uid_menu) => asy
 
 export const common_order_pay = (filial, wp, pm, uid_order, ver, type, for_payment) => async (dispatch) => makeRequest(dispatch, {
     method: 'post',
-    url: `http://${filial.ip}:8081/api/payment-server/payment`,
+    url: `http://${filial.ip}:8081${ROUTE_COMMON_ORDER_PAYMENT}`,
     data: {
         uid_payment_type: pm.uid_payment_type,
         uid_kkt: pm.uid_kkt,

@@ -1,18 +1,20 @@
 import {useEffect, useState} from 'react'
 import axios from "axios"
 import {TIMEOUT} from "../../service/fetch_service.js"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {addNotification} from "../../redux/notifierReducer.js"
 
 export function useFetching(url) {
 
-    const ref_url = JSON.stringify(url)
+    const dispatch = useDispatch()
 
+    const ref_url = JSON.stringify(url)
     const token = useSelector(state => state.auth.token)
     const wp = useSelector(state => state.interface.wp)
 
-    const [data, setData] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [data, set_data] = useState(null)
+    const [error, set_error] = useState(null)
+    const [loading, set_loading] = useState(true)
 
     useEffect(() => {
         let isMounted = true
@@ -27,18 +29,25 @@ export function useFetching(url) {
                     },
                     params: url.params
                 })
-                if (isMounted) setData(response.data)
+                if (isMounted) set_data(response.data)
             } catch (err) {
-                if (isMounted) setError(err.message)
+                if (isMounted) {
+                    dispatch(addNotification({
+                        message: err?.response?.data || err.message,
+                        severity: 'error',
+                        autoHide: true
+                    }))
+                    set_error(err.message)
+                }
             } finally {
-                if (isMounted) setLoading(false)
+                if (isMounted) set_loading(false)
             }
         }
         if (url !== undefined && wp !== undefined && wp.length > 0) {
             fetchData().then()
         } else {
-            setData(null)
-            setLoading(false)
+            set_data(null)
+            set_loading(false)
         }
         return () => {
             isMounted = false

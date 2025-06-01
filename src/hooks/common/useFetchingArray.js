@@ -1,10 +1,12 @@
 import {useEffect, useState} from 'react'
 import axios from "axios"
 import {TIMEOUT} from "../../service/fetch_service.js"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {addNotification} from "../../redux/notifierReducer.js"
 
 export function useFetchingArray(urls) {
 
+    const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token)
     const wp = useSelector(state => state.interface.wp)
 
@@ -43,6 +45,11 @@ export function useFetchingArray(urls) {
                             params: url.params
                         }
                     } catch (err) {
+                        dispatch(addNotification({
+                            message: err?.response?.data || err.message,
+                            severity: 'error',
+                            autoHide: true
+                        }))
                         return {
                             url: url.url,
                             data: null,
