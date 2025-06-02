@@ -19,7 +19,7 @@ import {
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
-    ROUTE_COMMON_ORDER_ADD_CONTACT, ROUTE_COMMON_ORDER_PAYMENT,
+    ROUTE_COMMON_ORDER_ADD_CONTACT, ROUTE_COMMON_ORDER_PAYMENT, ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
@@ -282,3 +282,15 @@ export const horeca_position_delete = (filial, wp, uid_order, uid_position) => a
     dispatch(setCurrentHorder(data))
     dispatch(setOrdersHorecaUpdate())
 })
+
+export const horeca_kitchen_push = (filial, wp, uid_order, uid_position) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`,
+        params: {uid_order, uid_position},
+        wp,
+        filial
+    }, data => {
+
+    })
+}

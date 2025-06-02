@@ -89,6 +89,8 @@ const initialState = {
     orders_horeca_filters_workplaces_selected: [],
     orders_horeca_filters_kitchen_points_selected: [],
     orders_horeca_filters_kitchen_state_selected: [],
+    // Кухня
+    kitchen_orders: [],
 }
 
 export const ordersSlice = createSlice({
@@ -212,6 +214,10 @@ export const ordersSlice = createSlice({
         },
         setOrdersHorecaUpdate(state) {
             state.orders_horeca_update = state.orders_horeca_update + 1
+        },
+        // Кухня
+        setKitchenOrders(state, {payload}) {
+            state.kitchen_orders = payload
         }
     },
 })
@@ -254,6 +260,7 @@ export const {
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
     setOrdersCinemaUpdate,
-    setOrdersHorecaUpdate
+    setOrdersHorecaUpdate,
+    setKitchenOrders,
 } = ordersSlice.actions
 export default ordersSlice.reducer

@@ -83,7 +83,7 @@ const PageSeance = () => {
                 set_hall_height(app_height - offsetHeight)
             }
         } else {
-            set_hall_height(app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1])
+            set_hall_height(app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1] - 65)
         }
     }, [app_height, uid_user, hall, permissions])
 

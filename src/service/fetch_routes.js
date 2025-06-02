@@ -93,7 +93,8 @@ export const ROUTE_HORECA_POSITION_DELETE = "/api/horeca/position/delete"
 export const ROUTE_HORECA_POSITION_ADD_COMMENT = "/api/horeca/position/add/comment"
 
 // Кухня (состояния позиции)
+export const ROUTE_HORECA_KITCHEN_GET = "/api/horeca/kitchen/get"
+export const ROUTE_HORECA_KITCHEN_PUSH = "/api/horeca/kitchen/push"
 export const ROUTE_HORECA_POSITION_AWAY = "/api/horeca/position/away"
 export const ROUTE_HORECA_POSITION_COOK = "/api/horeca/position/cook"
 export const ROUTE_HORECA_POSITION_COURSE = "/api/horeca/position/course"
-export const ROUTE_HORECA_POSITION_READY = "/api/horeca/position/ready"

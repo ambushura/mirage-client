@@ -292,7 +292,8 @@ body {
 .admin-orders-cinema-filial-box::-webkit-scrollbar,
 .order-box::-webkit-scrollbar,
 .admin-orders-horeca-order-body::-webkit-scrollbar,
-.admin-orders-cinema-order-body::-webkit-scrollbar {
+.admin-orders-cinema-order-body::-webkit-scrollbar,
+.kitchen-order::-webkit-scrollbar {
     width: 50px;
     height: 50px;
     background-color: transparent;
@@ -308,7 +309,8 @@ body {
 .admin-orders-cinema-filial-box::-webkit-scrollbar-thumb,
 .order-box::-webkit-scrollbar-thumb,
 .admin-orders-horeca-order-body::-webkit-scrollbar-thumb,
-.admin-orders-cinema-order-body::-webkit-scrollbar-thumb {
+.admin-orders-cinema-order-body::-webkit-scrollbar-thumb,
+.kitchen-order::-webkit-scrollbar-thumb {
     background-color: var(--bgr-scroll);
     border-radius: 12px;
 }
@@ -323,6 +325,7 @@ body {
 .admin-orders-cinema-filial-box::-webkit-scrollbar-track,
 .admin-orders-horeca-order-body::-webkit-scrollbar-track,
 .admin-orders-cinema-order-body::-webkit-scrollbar-track,
+.kitchen-order::-webkit-scrollbar-track,
 #content::-webkit-scrollbar-corner,
 .admin-orders-horeca-orders::-webkit-scrollbar-corner,
 .order-box::-webkit-scrollbar-corner,
@@ -332,7 +335,8 @@ body {
 .admin-orders-order-footer-comment::-webkit-scrollbar-corner,
 .admin-orders-cinema-filial-box::-webkit-scrollbar-corner,
 .admin-orders-horeca-order-body::-webkit-scrollbar-corner,
-.admin-orders-cinema-order-body::-webkit-scrollbar-corner {
+.admin-orders-cinema-order-body::-webkit-scrollbar-corner,
+.kitchen-order::-webkit-scrollbar-corner {
     background: transparent;
 }
 
@@ -1962,4 +1966,102 @@ body {
 
 .admin-orders-horeca-order-footer, .admin-orders-cinema-order-footer {
     padding-top: 4px;
+}
+
+
+/* ============================= */
+/*         СТРАНИЦА КУХНЯ        */
+/* ============================= */
+
+#kitchen-page {
+    padding: 4px;
+    height: 100%;
+    font-size: 80%;
+}
+
+.kitchen-filial {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.kitchen-orders {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1;
+    margin-top: 10px;
+}
+
+.kitchen-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 10px 10px 0;
+    padding: 4px 4px 0 8px;
+    border-radius: 20px;
+    background-color: #EFEFEF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.kitchen-section-header {
+    display: flex;
+    font-weight: bold;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 0 8px 8px;
+}
+
+.kitchen-section-orders {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.kitchen-order {
+    background-color: #ededed;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
+    margin: 0 8px 8px 0;
+    max-height: 280px;
+    width: 270px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.kitchen-order-header {
+    padding: 8px 16px 4px 16px;
+    font-size: 100%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.kitchen-order-body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 0 0 4px;
+}
+
+.kitchen-position {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 0 4px 0;
+}
+
+.kitchen-position > div {
+    margin: 0 4px 0 8px;
+}
+
+.kitchen-button {
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 16px;
+    cursor: pointer;
+    background-color: #50DB92;
 }
