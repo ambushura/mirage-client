@@ -1973,20 +1973,6 @@ body {
 /*         СТРАНИЦА КУХНЯ        */
 /* ============================= */
 
-#kitchen-page {
-    padding: 0 4px;
-    height: 100%;
-    font-size: 80%;
-}
-
-.kitchen-filial {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
 .kitchen-orders {
     display: flex;
     flex-direction: row;
@@ -2000,6 +1986,7 @@ body {
     flex: 1;
     margin: 0 10px 10px 0;
     padding: 4px 4px 0 8px;
+    font-size: 80%;
 }
 
 .kitchen-section-header {
@@ -2008,6 +1995,10 @@ body {
     justify-content: flex-start;
     align-items: center;
     padding: 8px 0 8px 8px;
+    position: sticky;
+    top: 68px;
+    background-color: #f8f8f8;
+    width: 100%;
 }
 
 .kitchen-section-orders {

@@ -5,8 +5,8 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
 import {horeca_kitchen_push} from "../../../service/fetch_service.js"
-import AdminMenu from "../top-menu/AdminMenu.jsx";
-import {Fragment} from "react";
+import AdminMenu from "../top-menu/AdminMenu.jsx"
+import {Fragment} from "react"
 
 const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
     <>
@@ -27,7 +27,12 @@ const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
                                     <CheckCircleOutlineIcon/>
                                 </button>
                             }
-                            <Box sx={{fontWeight: 'bold', maxWidth: '50px', minWidth: '50px', overflow: 'hidden'}}>{item.quantity} {item.unit_name}</Box>
+                            <Box sx={{
+                                fontWeight: 'bold',
+                                maxWidth: '50px',
+                                minWidth: '50px',
+                                overflow: 'hidden'
+                            }}>{item.quantity} {item.unit_name}</Box>
                             <Box sx={{ml: '4px', overflow: 'hidden'}}>{item.name}</Box>
                             <Box>{item.comment}</Box>
                         </Box>
@@ -38,9 +43,8 @@ const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
     </>
 )
 
-const KitchenSection = ({title, orders, showButtons = true, dispatch, wp, filial}) => (
+const KitchenSection = ({orders, showButtons = true, dispatch, wp, filial}) => (
     <Box className='kitchen-section'>
-        <Box className='kitchen-section-header'>{title}</Box>
         <Box className='kitchen-section-orders'>
             <KitchenOrderList orders={orders}
                               showButtons={showButtons}
@@ -63,35 +67,53 @@ const PageKitchen = () => {
     return (
         <>
             <AdminMenu/>
-            <Box id='kitchen-page'>
-                {filials_orders.map(filial_orders => (
-                    <Fragment key={filial_orders.filial.uid}>
-                        {filial_orders.data !== null && (filial_orders.data.waiting.length > 0 || filial_orders.data.cooking.length > 0 || filial_orders.data.completed.length > 0) ?
-                            <Box key={filial_orders.filial.uid} className='kitchen-filial'>
-                                <Box><Button variant='contained' color='primary'
-                                             size='small'>{filial_orders.filial.name}</Button></Box>
-                                <Box className='kitchen-orders'>
-                                    <KitchenSection title="Начните готовить"
-                                                    orders={filial_orders.data.waiting}
-                                                    dispatch={dispatch}
-                                                    wp={wp}
-                                                    filial={filial_orders.filial}/>
-                                    <KitchenSection title="Готовятся"
-                                                    orders={filial_orders.data.cooking}
-                                                    dispatch={dispatch}
-                                                    wp={wp}
-                                                    filial={filial_orders.filial}/>
-                                    <KitchenSection title="Готовы" orders={filial_orders.data.completed}
-                                                    dispatch={dispatch}
-                                                    wp={wp}
-                                                    filial={filial_orders.filial}
-                                                    showButtons={false}/>
-                                </Box>
-                            </Box>
-                            : null
-                        }
-                    </Fragment>
-                ))}
+            <Box id='content-box'>
+                <Box id='content-wrap'>
+                    <Box id='content'>
+                        {filials_orders.map(filial_orders => (
+                            <Fragment key={filial_orders.filial.uid}>
+                                {filial_orders.data !== null && (filial_orders.data.waiting.length > 0 || filial_orders.data.cooking.length > 0 || filial_orders.data.completed.length > 0) ?
+                                    <>
+                                        <Box sx={{
+                                            position: 'sticky',
+                                            top: 0,
+                                            marginLeft: '4px',
+                                            backgroundColor: '#f8f8f8',
+                                            zIndex: 1,
+                                            padding: '4px 0'
+                                        }}><Button variant='contained' color='primary'
+                                                   size='small'>{filial_orders.filial.name}</Button></Box>
+                                        <Box className='kitchen-orders'>
+                                            <Box sx={{flex: 1}}>
+                                                <Box className='kitchen-section-header'>Начните готовить</Box>
+                                                <KitchenSection orders={filial_orders.data.waiting}
+                                                                dispatch={dispatch}
+                                                                wp={wp}
+                                                                filial={filial_orders.filial}/>
+                                            </Box>
+                                            <Box sx={{flex: 1}}>
+                                                <Box className='kitchen-section-header'>Готовятся</Box>
+                                                <KitchenSection orders={filial_orders.data.cooking}
+                                                                dispatch={dispatch}
+                                                                wp={wp}
+                                                                filial={filial_orders.filial}/>
+                                            </Box>
+                                            <Box sx={{flex: 1}}>
+                                                <Box className='kitchen-section-header'>Готовы</Box>
+                                                <KitchenSection orders={filial_orders.data.completed}
+                                                                dispatch={dispatch}
+                                                                wp={wp}
+                                                                filial={filial_orders.filial}
+                                                                showButtons={false}/>
+                                            </Box>
+                                        </Box>
+                                    </>
+                                    : null
+                                }
+                            </Fragment>
+                        ))}
+                    </Box>
+                </Box>
             </Box>
         </>
     )
