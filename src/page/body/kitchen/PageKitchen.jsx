@@ -52,18 +52,22 @@ const KitchenSection = ({
                         }) => (
     <Box className='kitchen-section'>
         <AnimatePresence>
-            <motion.div
-                className='kitchen-section-orders'
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={containerVariants}>
-                <KitchenOrderList orders={orders}
-                                  showButtons={showButtons}
-                                  dispatch={dispatch}
-                                  wp={wp}
-                                  filial={filial}/>
-            </motion.div>
+            {
+                orders.length > 0 && (
+                    <motion.div
+                        className='kitchen-section-orders'
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={containerVariants}>
+                        <KitchenOrderList orders={orders}
+                                          showButtons={showButtons}
+                                          dispatch={dispatch}
+                                          wp={wp}
+                                          filial={filial}/>
+                    </motion.div>
+                )
+            }
         </AnimatePresence>
     </Box>
 )
