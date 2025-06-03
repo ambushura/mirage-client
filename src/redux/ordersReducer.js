@@ -218,7 +218,7 @@ export const ordersSlice = createSlice({
         // Кухня
         setKitchenOrders(state, {payload}) {
             state.kitchen_orders = payload
-        }
+        },
     },
 })
 

@@ -88,7 +88,8 @@ function App() {
                 <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirect}/>}/>
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
-                <Route path="/kitchen/:param_city/:param_filial/" element={<AppRoutes current_page="kitchen"/>}/>
+                <Route path="/kitchen/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="kitchen"/>}/>
 
                 <Route path="/menu/:param_city/:param_filial/" element={
                     permissions.includes(0)

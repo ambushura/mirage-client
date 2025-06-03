@@ -86,7 +86,7 @@ const AdminMenu = () => {
     }
 
     const show_date_param_admin = () => {
-        if (['admin/orders/cinema', 'admin/orders/horeca'].find(el => el === current_page) !== undefined) {
+        if (['admin/orders/cinema', 'admin/orders/horeca', 'kitchen'].find(el => el === current_page) !== undefined) {
             return <>
                 <ButtonGroup size='small' variant='contained' color='secondary'
                              className='admin-panel-period'>

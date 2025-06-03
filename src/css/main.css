@@ -1974,7 +1974,7 @@ body {
 /* ============================= */
 
 #kitchen-page {
-    padding: 4px;
+    padding: 0 4px;
     height: 100%;
     font-size: 80%;
 }
@@ -1992,7 +1992,6 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     flex: 1;
-    margin-top: 10px;
 }
 
 .kitchen-section {
@@ -2001,9 +2000,6 @@ body {
     flex: 1;
     margin: 0 10px 10px 0;
     padding: 4px 4px 0 8px;
-    border-radius: 20px;
-    background-color: #EFEFEF;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .kitchen-section-header {
@@ -2023,7 +2019,7 @@ body {
 .kitchen-order {
     background-color: #ededed;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    border-radius: 18px;
+    border-radius: 12px;
     margin: 0 8px 8px 0;
     max-height: 280px;
     width: 270px;

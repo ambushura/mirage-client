@@ -26,6 +26,8 @@ export function useSetTopMenu() {
                             new_option.path.forEach(el => {
                                 el.path = `/${el.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
                             })
+                        } else if (new_option.id === 'kitchen') {
+                            new_option.path = `/${new_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
                         } else {
                             new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/`
                         }

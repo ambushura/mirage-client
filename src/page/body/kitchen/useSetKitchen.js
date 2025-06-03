@@ -3,7 +3,6 @@ import {useEffect, useState} from "react"
 import {useFetchingArray} from "../../../hooks/common/useFetchingArray.js"
 import {ROUTE_HORECA_KITCHEN_GET} from "../../../service/fetch_routes.js"
 import {setKitchenOrders} from "../../../redux/ordersReducer.js"
-import {date_dayjs} from "../../../service/advanced.js"
 
 export function useSetKitchen() {
 
@@ -14,36 +13,31 @@ export function useSetKitchen() {
 
     const [urls_orders, set_urls_orders] = useState([])
     const fetch_data_orders = useFetchingArray(urls_orders)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     useEffect(() => {
-        const now = new Date()
-        const date_shift = date_dayjs(
-            now.getHours() >= 0 && now.getHours() < 7
-                ? new Date(now.setDate(now.getDate() - 1))
-                : now
-        )
         let urls_new = []
-        if (city !== undefined && filial === undefined && date_shift !== undefined) {
+        if (city !== undefined && filial === undefined && param_date_admin !== undefined) {
             city.filials.forEach(current_filial => {
                 urls_new.push({
                     filial: current_filial,
                     url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_HORECA_KITCHEN_GET}`,
                     params: {
-                        date_shift: date_shift.format('YYYY-MM-DD'),
+                        date_shift: param_date_admin,
                     }
                 })
             })
-        } else if (city !== undefined && filial !== null && date_shift !== undefined) {
+        } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
                 url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_GET}`,
                 params: {
-                    date_shift: date_shift.format('YYYY-MM-DD'),
+                    date_shift: param_date_admin,
                 }
             })
         }
         set_urls_orders(urls_new)
-    }, [city, filial])
+    }, [city, filial, param_date_admin])
 
     useEffect(() => {
         if (fetch_data_orders.length > 0) {
