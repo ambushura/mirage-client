@@ -1,6 +1,6 @@
 import axios from "axios"
 import {
-    NEW_EMPTY_ORDER,
+    NEW_EMPTY_ORDER, pushKitchenPositions,
     setCurrentHorder,
     setCurrentPreOrder,
     setOrdersCinemaUpdate,
@@ -291,6 +291,6 @@ export const horeca_kitchen_push = (filial, wp, uid_order, uid_position) => asyn
         wp,
         filial
     }, data => {
-
+        dispatch(pushKitchenPositions(data))
     })
 }

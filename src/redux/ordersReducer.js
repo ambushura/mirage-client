@@ -217,8 +217,50 @@ export const ordersSlice = createSlice({
         },
         // Кухня
         setKitchenOrders(state, {payload}) {
-            state.kitchen_orders = payload
+            const kitchen_orders_copied = JSON.parse(JSON.stringify(payload))
+            kitchen_orders_copied.forEach((filial_data, i) => {
+                if (kitchen_orders_copied[i].data !== null) {
+                    kitchen_orders_copied[i].data.waiting.sort((a, b) => {
+                        return new Date(a.date_create) - new Date(b.date_create)
+                    })
+                    kitchen_orders_copied[i].data.cooking.sort((a, b) => {
+                        return new Date(a.date_create) - new Date(b.date_create)
+                    })
+                    kitchen_orders_copied[i].data.completed.sort((a, b) => {
+                        return new Date(a.date_create) - new Date(b.date_create)
+                    })
+                }
+            })
+            state.kitchen_orders = kitchen_orders_copied
         },
+        pushKitchenPositions(state, {payload}) {
+            const kitchen_orders_copied = JSON.parse(JSON.stringify(state.kitchen_orders))
+            kitchen_orders_copied.forEach((filial_data, i) => {
+                if (filial_data.data.uid_filial === payload.uid_filial) {
+                    if (kitchen_orders_copied[i].data !== null) {
+                        const waiting = JSON.parse(JSON.stringify(kitchen_orders_copied[i].data.waiting)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
+                        const cooking = JSON.parse(JSON.stringify(kitchen_orders_copied[i].data.cooking)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
+                        const completed = JSON.parse(JSON.stringify(kitchen_orders_copied[i].data.completed)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
+                        payload.waiting.length > 0 ? waiting.push(payload.waiting[0]) : null
+                        payload.cooking.length > 0 ? cooking.push(payload.cooking[0]) : null
+                        payload.completed.length > 0 ? completed.push(payload.completed[0]) : null
+                        kitchen_orders_copied[i].data.waiting = waiting
+                        kitchen_orders_copied[i].data.cooking = cooking
+                        kitchen_orders_copied[i].data.completed = completed
+                        kitchen_orders_copied[i].data.waiting.sort((a, b) => {
+                            return new Date(a.date_create) - new Date(b.date_create)
+                        })
+                        kitchen_orders_copied[i].data.cooking.sort((a, b) => {
+                            return new Date(a.date_create) - new Date(b.date_create)
+                        })
+                        kitchen_orders_copied[i].data.completed.sort((a, b) => {
+                            return new Date(a.date_create) - new Date(b.date_create)
+                        })
+                    }
+                }
+            })
+            state.kitchen_orders = kitchen_orders_copied
+        }
     },
 })
 
@@ -262,5 +304,6 @@ export const {
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setKitchenOrders,
+    pushKitchenPositions,
 } = ordersSlice.actions
 export default ordersSlice.reducer

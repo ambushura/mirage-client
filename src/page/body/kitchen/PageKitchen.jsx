@@ -6,6 +6,7 @@ import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
 import {horeca_kitchen_push} from "../../../service/fetch_service.js"
 import AdminMenu from "../top-menu/AdminMenu.jsx";
+import {Fragment} from "react";
 
 const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
     <>
@@ -26,8 +27,8 @@ const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
                                     <CheckCircleOutlineIcon/>
                                 </button>
                             }
-                            <Box sx={{fontWeight: 'bold'}}>{item.quantity} {item.unit_name}</Box>
-                            <Box sx={{ml: '4px'}}>{item.name}</Box>
+                            <Box sx={{fontWeight: 'bold', maxWidth: '50px', minWidth: '50px', overflow: 'hidden'}}>{item.quantity} {item.unit_name}</Box>
+                            <Box sx={{ml: '4px', overflow: 'hidden'}}>{item.name}</Box>
                             <Box>{item.comment}</Box>
                         </Box>
                     ))}
@@ -64,7 +65,7 @@ const PageKitchen = () => {
             <AdminMenu/>
             <Box id='kitchen-page'>
                 {filials_orders.map(filial_orders => (
-                    <>
+                    <Fragment key={filial_orders.filial.uid}>
                         {filial_orders.data !== null && (filial_orders.data.waiting.length > 0 || filial_orders.data.cooking.length > 0 || filial_orders.data.completed.length > 0) ?
                             <Box key={filial_orders.filial.uid} className='kitchen-filial'>
                                 <Box><Button variant='contained' color='primary'
@@ -89,7 +90,7 @@ const PageKitchen = () => {
                             </Box>
                             : null
                         }
-                    </>
+                    </Fragment>
                 ))}
             </Box>
         </>
