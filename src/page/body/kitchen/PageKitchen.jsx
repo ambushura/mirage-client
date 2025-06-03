@@ -7,11 +7,15 @@ import dayjs from "dayjs"
 import {horeca_kitchen_push} from "../../../service/fetch_service.js"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
 import {Fragment} from "react"
+import {motion, AnimatePresence} from "framer-motion"
 
 const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
     <>
         {orders.map(order => (
-            <Box className='kitchen-order' key={`${order.uid}${order.ver}`}>
+            <motion.div
+                className='kitchen-order'
+                key={`${order.uid}${order.ver}`}
+                variants={itemVariants}>
                 <Box className='kitchen-order-header'>
                     <CircleIcon sx={{color: '#d1d1d1'}}/>
                     <Box sx={{ml: '4px'}}>{order.number}</Box>
@@ -38,20 +42,29 @@ const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
                         </Box>
                     ))}
                 </Box>
-            </Box>
+            </motion.div>
         ))}
     </>
 )
 
-const KitchenSection = ({orders, showButtons = true, dispatch, wp, filial}) => (
+const KitchenSection = ({
+                            orders, showButtons = true, dispatch, wp, filial
+                        }) => (
     <Box className='kitchen-section'>
-        <Box className='kitchen-section-orders'>
-            <KitchenOrderList orders={orders}
-                              showButtons={showButtons}
-                              dispatch={dispatch}
-                              wp={wp}
-                              filial={filial}/>
-        </Box>
+        <AnimatePresence>
+            <motion.div
+                className='kitchen-section-orders'
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={containerVariants}>
+                <KitchenOrderList orders={orders}
+                                  showButtons={showButtons}
+                                  dispatch={dispatch}
+                                  wp={wp}
+                                  filial={filial}/>
+            </motion.div>
+        </AnimatePresence>
     </Box>
 )
 
@@ -120,3 +133,25 @@ const PageKitchen = () => {
 }
 
 export default PageKitchen
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+}
