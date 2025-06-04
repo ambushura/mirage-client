@@ -1,4 +1,4 @@
-import {Box, Button} from "@mui/material"
+import {Autocomplete, Box, Button, TextField} from "@mui/material"
 import {useSetKitchen} from "./useSetKitchen.js"
 import {useDispatch, useSelector} from "react-redux"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
@@ -72,6 +72,35 @@ const KitchenSection = ({
     </Box>
 )
 
+const show_kitchen_filters = () => {
+    return <Box sx={{width: '400px', marginRight: '4px'}}>
+        {tags("large", true, 4, "orders-seances-tags", [], "Цеха", "Цех", [])}
+    </Box>
+}
+
+const tags = (size, multiply, limit_tags, id, options, label, placeholder, selected_uid = []) => {
+    return (
+        <Autocomplete
+            onChange={(event, new_value) => {
+            }}
+            value={selected_uid}
+            noOptionsText={'Нет подходящих опций'}
+            size={size}
+            multiple={multiply}
+            limitTags={limit_tags}
+            id={id}
+            options={options}
+            getOptionLabel={(option) => option.title}
+            renderInput={(params) => (
+                <TextField sx={{width: '100%'}} variant='filled' {...params} label={label}
+                           placeholder={placeholder}/>
+            )}
+            sx={{width: '100%', marginBottom: 0}}
+            isOptionEqualToValue={(option, value) => option.uid === value.uid}
+        />
+    )
+}
+
 const PageKitchen = () => {
 
     const dispatch = useDispatch()
@@ -97,9 +126,13 @@ const PageKitchen = () => {
                                             marginLeft: '4px',
                                             backgroundColor: '#f8f8f8',
                                             zIndex: 1,
-                                            padding: '4px 0'
-                                        }}><Button variant='contained' color='primary'
-                                                   size='small'>{filial_orders.filial.name}</Button></Box>
+                                            padding: '4px 0',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                        }}>{show_kitchen_filters()}
+                                            <Button variant='contained' color='primary'
+                                                    size='small'>{filial_orders.filial.name}</Button>
+                                        </Box>
                                         <Box className='kitchen-orders'>
                                             <Box sx={{flex: 1}}>
                                                 <Box className='kitchen-section-header'>Начните готовить</Box>
