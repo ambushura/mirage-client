@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Box, Button, ButtonGroup, Popover} from "@mui/material"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
@@ -11,11 +11,13 @@ import Calendar from "../../../components/forms/Calendar.jsx"
 import AddIcon from '@mui/icons-material/Add'
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
+import {openModal} from "../../../redux/interfaceReducer.js"
 
 const ScheduleMenu = () => {
 
     // Служебные функции
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     // Данные из хранилища
     const city = useSelector(state => state.data.city)
@@ -108,7 +110,10 @@ const ScheduleMenu = () => {
                 </ButtonGroup>
                 {uid_user !== null ?
                     <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
-                        <Button variant='contained' startIcon={<FilterAltIcon/>}>Фильтры</Button>
+                        <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
+                            type: 'schedule_filters',
+                            props: {}
+                        }))}>Фильтры</Button>
                         {current_page === 'schedule' ? <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное
                             время</Button> : null}
                         <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>

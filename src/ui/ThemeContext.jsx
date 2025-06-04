@@ -2,6 +2,8 @@ import {createContext, useEffect, useState} from 'react'
 import {useSelector} from "react-redux"
 import {createTheme, MenuItem, styled} from "@mui/material"
 import {useFullScreen} from "../hooks/interface/useFullScreen.js"
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked'
 
 const ThemeContext = createContext()
 
@@ -100,10 +102,6 @@ export const Theme = createTheme({
                     borderRadius: '12px',
                     textTransform: 'none',
                     height: '60px',
-                    //boxShadow: 'none',
-                    //'&:hover': {
-                    //    boxShadow: 'none',
-                    //},
                 },
             }
         },
@@ -171,6 +169,12 @@ export const Theme = createTheme({
                 }
             }
         },
+        MuiCheckbox: {
+            defaultProps: {
+                icon: <RadioButtonUncheckedIcon/>,
+                checkedIcon: <RadioButtonCheckedIcon/>,
+            },
+        }
     },
 })
 

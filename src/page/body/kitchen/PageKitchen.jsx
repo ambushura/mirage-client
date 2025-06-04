@@ -1,13 +1,13 @@
 import {Autocomplete, Box, Button, TextField} from "@mui/material"
 import {useSetKitchen} from "./useSetKitchen.js"
 import {useDispatch, useSelector} from "react-redux"
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
 import {horeca_kitchen_push} from "../../../service/fetch_service.js"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
 import {Fragment} from "react"
 import {motion, AnimatePresence} from "framer-motion"
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite'
 
 const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
     <>
@@ -28,7 +28,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
                             {showButtons &&
                                 <button className='kitchen-button'
                                         onClick={() => dispatch(horeca_kitchen_push(filial, wp, order.uid, item.uid))}>
-                                    <CheckCircleOutlineIcon/>
+                                    <PlayCircleFilledWhiteIcon/>
                                 </button>
                             }
                             <Box sx={{

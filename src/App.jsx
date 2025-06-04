@@ -31,6 +31,7 @@ import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
+import ScheduleFilters from "./components/forms/ScheduleFilters.jsx"
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
         egais_settings: EgaisSettings,
         horeca_filters: HorecaFilters,
         cinema_filters: CinemaFilters,
+        schedule_filters: ScheduleFilters
     }
 
     const ModalContent = useMemo(() => {
