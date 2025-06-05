@@ -110,10 +110,10 @@ const ScheduleMenu = () => {
                 </ButtonGroup>
                 {uid_user !== null ?
                     <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
-                        <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
+                        {filial !== undefined ? <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
                             type: 'schedule_filters',
                             props: {}
-                        }))}>Фильтры</Button>
+                        }))}>Фильтры</Button> : null}
                         {current_page === 'schedule' ? <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное
                             время</Button> : null}
                         <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>

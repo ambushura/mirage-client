@@ -9,8 +9,8 @@ const initialState = {
 
     // Фильтры расписания (загруженные)
     schedule_filters_films: [],
-    schedule_filters_film_types: ['mirage', 'toKino', 'pushkarta'],
-    schedule_filters_film_copy_types: ['2D', '3D'],
+    schedule_filters_film_types: [{uid: 'mirage', title: 'Мираж Синема'}, {uid: 'toKino', title: 'То Кино!'}, {uid: 'pushkarta', title: 'Пушкинская карта'}],
+    schedule_filters_film_copy_types: [{uid: '2D', title: '2D'}, {uid: '3D', title: '3D'}],
     schedule_filters_halls: [],
 
     // Фильтры расписания (загруженные)

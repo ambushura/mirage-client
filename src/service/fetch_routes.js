@@ -63,6 +63,7 @@ export const ROUTE_CINEMA_FILMS_GET = "/api/cinema/films/get"
 export const ROUTE_CINEMA_FILM_GET_SEANCES = "/api/cinema/film/get_seances"
 export const ROUTE_CINEMA_SCHEDULE_GET_HALLS = "/api/cinema/schedule/get_halls"
 export const ROUTE_CINEMA_HALL_GET = "/api/cinema/hall/get"
+export const ROUTE_CINEMA_FILTERS_FILMS_GET = "/api/cinema/filters/films/get"
 
 // === ХОРЕКА ===
 // Заказы

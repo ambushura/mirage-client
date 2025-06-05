@@ -31,7 +31,7 @@ import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
-import ScheduleFilters from "./components/forms/ScheduleFilters.jsx"
+import ScheduleFilters from "./components/forms/schedule_filters/ScheduleFilters.jsx"
 
 function App() {
 
