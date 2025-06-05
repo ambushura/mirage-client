@@ -28,7 +28,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch, wp, filial}) => (
                             {showButtons &&
                                 <button className='kitchen-button'
                                         onClick={() => dispatch(horeca_kitchen_push(filial, wp, order.uid, item.uid))}>
-                                    <PlayCircleFilledWhiteIcon/>
+                                    <PlayCircleFilledWhiteIcon sx={{color: 'white'}}/>
                                 </button>
                             }
                             <Box sx={{

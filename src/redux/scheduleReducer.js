@@ -9,25 +9,43 @@ const initialState = {
 
     // Фильтры расписания (загруженные)
     schedule_filters_films: [],
-    schedule_filters_film_types: [{uid: 'mirage', title: 'Мираж Синема'}, {uid: 'toKino', title: 'То Кино!'}, {uid: 'pushkarta', title: 'Пушкинская карта'}],
-    schedule_filters_film_copy_types: [{uid: '2D', title: '2D'}, {uid: '3D', title: '3D'}],
     schedule_filters_halls: [],
+    schedule_filters_film_types: [
+        {uid: 'mirage', title: 'Мираж Синема'},
+        {uid: 'toKino', title: 'То Кино!'},
+        {uid: 'pushkarta', title: 'Пушкинская карта'}
+    ],
+    schedule_filters_film_copy_types: [
+        {uid: '2D', title: '2D'},
+        {uid: '3D', title: '3D'}
+    ],
 
     // Фильтры расписания (загруженные)
+    // Состояние сеансов
     schedule_filters_seance_closed: false,
     schedule_filters_seance_canceled: false,
     schedule_filters_seance_opened: true,
-    schedule_filters_films_selected: [],
-    schedule_filters_film_types_selected: [],
+
     schedule_filters_film_copy_types_selected: [],
-    schedule_filters_film_age: 0,
+
+    schedule_filters_films_selected: [],
     schedule_filters_halls_selected: [],
+
+    // Тип залов
     schedule_filters_hall_type_vip: true,
     schedule_filters_hall_type_regular: true,
-    schedule_filters_beginning: undefined,
-    schedule_filters_ending: undefined,
-    schedule_filters_price_from: 0,
-    schedule_filters_price_to: 100000,
+
+    // Внешний отбор
+    schedule_filters_film_types_selected: [
+        {uid: 'mirage', title: 'Мираж Синема'},
+        {uid: 'toKino', title: 'То Кино!'},
+        {uid: 'pushkarta', title: 'Пушкинская карта'}
+    ],
+
+    // Ползунки
+    schedule_filters_film_age: [0, 100],
+    schedule_filters_time: [0, 100],
+    schedule_filters_price: [0, 100000],
 }
 
 export const scheduleSlice = createSlice({
@@ -72,7 +90,10 @@ export const scheduleSlice = createSlice({
             state.schedule_filters_films_selected = action.payload
         },
         setScheduleFiltersFilmTypesSelect: (state, action) => {
-            state.schedule_filters_film_types_selected = action.payload
+            const exists = state.schedule_filters_film_types_selected.find(el => el.uid === action.payload.uid)
+            state.schedule_filters_film_types_selected = exists
+                ? state.schedule_filters_film_types_selected.filter(el => el.uid !== action.payload.uid)
+                : [...state.schedule_filters_film_types_selected, action.payload]
         },
         setScheduleFiltersFilmAgeSelect: (state, action) => {
             state.schedule_filters_film_age = action.payload
@@ -86,18 +107,15 @@ export const scheduleSlice = createSlice({
         setScheduleFiltersHallTypeRegular: (state, action) => {
             state.schedule_filters_hall_type_regular = action.payload
         },
-        setScheduleFiltersBeginning: (state, action) => {
-            state.schedule_filters_beginning = action.payload
+        setScheduleFiltersTime: (state, action) => {
+            state.schedule_filters_time = action.payload
         },
-        setScheduleFiltersEnding: (state, action) => {
-            state.schedule_filters_ending = action.payload
+        setScheduleFiltersPrice: (state, action) => {
+            state.schedule_filters_price = action.payload
         },
-        setScheduleFiltersPriceFrom: (state, action) => {
-            state.schedule_filters_price_from = action.payload
-        },
-        setScheduleFiltersPriceTo: (state, action) => {
-            state.schedule_filters_price_to = action.payload
-        },
+        setScheduleFiltersFilmCopyTypes: (state, action) => {
+            state.schedule_filters_film_copy_types_selected = action.payload
+        }
     },
 })
 
@@ -118,9 +136,8 @@ export const {
     setScheduleFiltersHallsSelect,
     setScheduleFiltersHallTypeVip,
     setScheduleFiltersHallTypeRegular,
-    setScheduleFiltersBeginning,
-    setScheduleFiltersEnding,
-    setScheduleFiltersPriceFrom,
-    setScheduleFiltersPriceTo,
+    setScheduleFiltersTime,
+    setScheduleFiltersPrice,
+    setScheduleFiltersFilmCopyTypes,
 } = scheduleSlice.actions
 export default scheduleSlice.reducer

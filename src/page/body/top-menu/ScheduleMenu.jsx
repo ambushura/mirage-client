@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add'
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {openModal} from "../../../redux/interfaceReducer.js"
+import {setScheduleFiltersFilmTypesSelect} from "../../../redux/scheduleReducer.js"
 
 const ScheduleMenu = () => {
 
@@ -26,6 +27,9 @@ const ScheduleMenu = () => {
 
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
+
+    const schedule_filters_film_types = useSelector(state => state.schedule.schedule_filters_film_types)
+    const schedule_filters_film_types_selected = useSelector(state => state.schedule.schedule_filters_film_types_selected)
 
     // Календарь
     const [schedule_calendar_open, set_schedule_calendar_open] = useState(null)
@@ -104,16 +108,22 @@ const ScheduleMenu = () => {
                     />
                 </Popover>
                 <ButtonGroup className='top-menu-content-types' size='small' sx={{marginLeft: '4px'}}>
-                    <Button variant="contained" color="primary">Все фильмы</Button>
-                    <Button variant="contained" color="secondary">ТоКино!</Button>
-                    <Button variant="contained" color="secondary">Пушкарта</Button>
+                    {schedule_filters_film_types.map(type => {
+                        return <Button variant="contained"
+                                       color={schedule_filters_film_types_selected.find(el => el.uid === type.uid) !== undefined ? 'primary' : 'secondary'}
+                                       key={type.uid}
+                                       onClick={() => {
+                                           dispatch(setScheduleFiltersFilmTypesSelect(type))
+                                       }}>{type.title}</Button>
+                    })}
                 </ButtonGroup>
                 {uid_user !== null ?
                     <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
-                        {filial !== undefined ? <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
-                            type: 'schedule_filters',
-                            props: {}
-                        }))}>Фильтры</Button> : null}
+                        {filial !== undefined ?
+                            <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
+                                type: 'schedule_filters',
+                                props: {}
+                            }))}>Фильтры</Button> : null}
                         {current_page === 'schedule' ? <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное
                             время</Button> : null}
                         <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>
