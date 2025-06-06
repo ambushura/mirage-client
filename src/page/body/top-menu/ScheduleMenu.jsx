@@ -170,7 +170,7 @@ const ScheduleMenu = () => {
                         seance_time[1] !== 100 ||
                         seance_price[0] !== 0 ||
                         seance_price[1] !== 10000 ?
-                            <Button variant='contained' color='primary' onClick={() => {
+                            <Button variant='contained' color='primary' size='large' onClick={() => {
                                 dispatch(setScheduleFiltersSeanceClosed(false))
                                 dispatch(setScheduleFiltersSeanceCanceled(false))
                                 dispatch(setScheduleFiltersSeanceOpened(true))
