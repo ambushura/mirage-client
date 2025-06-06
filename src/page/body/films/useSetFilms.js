@@ -15,6 +15,19 @@ export function useSetFilms() {
     const filial = useSelector(state => state.data.filial)
     const param_date = useSelector(state => state.interface.params.param_date)
 
+    // Фильтры
+    const seance_closed = useSelector(state => state.schedule.schedule_filters_seance_closed)
+    const seance_canceled = useSelector(state => state.schedule.schedule_filters_seance_canceled)
+    const seance_opened = useSelector(state => state.schedule.schedule_filters_seance_opened)
+    const films_selected = useSelector(state => state.schedule.schedule_filters_films_selected)
+    const film_copy_types_selected = useSelector(state => state.schedule.schedule_filters_film_copy_types_selected)
+    const film_age = useSelector(state => state.schedule.schedule_filters_film_age)
+    const halls_selected = useSelector(state => state.schedule.schedule_filters_halls_selected)
+    const hall_type_vip = useSelector(state => state.schedule.schedule_filters_hall_type_vip)
+    const hall_type_regular = useSelector(state => state.schedule.schedule_filters_hall_type_regular)
+    const seance_time = useSelector(state => state.schedule.schedule_filters_time)
+    const seance_price = useSelector(state => state.schedule.schedule_filters_price)
+
     useEffect(() => {
         let urls_new = []
         if (city !== undefined && filial === undefined) {
@@ -24,6 +37,17 @@ export function useSetFilms() {
                     url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_FILMS_GET}`,
                     params: {
                         date_shift: param_date,
+                        closed: seance_closed,
+                        canceled: seance_canceled,
+                        opened: seance_opened,
+                        films: films_selected,
+                        copy_types: film_copy_types_selected,
+                        age: film_age,
+                        halls: halls_selected,
+                        hall_type_vip: hall_type_vip,
+                        hall_type_regular: hall_type_regular,
+                        time: seance_time,
+                        price: seance_price,
                     }
                 })
             })
@@ -33,13 +57,24 @@ export function useSetFilms() {
                 url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}`,
                 params: {
                     date_shift: param_date,
+                    closed: seance_closed,
+                    canceled: seance_canceled,
+                    opened: seance_opened,
+                    films: films_selected,
+                    copy_types: film_copy_types_selected,
+                    age: film_age,
+                    halls: halls_selected,
+                    hall_type_vip: hall_type_vip,
+                    hall_type_regular: hall_type_regular,
+                    time: seance_time,
+                    price: seance_price,
                 }
             })
         }
         if (urls_new.length > 0) {
             set_urls(urls_new)
         }
-    }, [city, filial, param_date])
+    }, [city, filial, film_age, film_copy_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])
 
     useEffect(() => {
         if (fetch_data.length !== 0) {

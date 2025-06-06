@@ -105,7 +105,7 @@ const ScheduleFilters = () => {
                             onChange={(event) => dispatch(setScheduleFiltersSeanceCanceled(event.target.checked))}/>
                         <FormControlLabel
                             control={<Checkbox size='large'/>}
-                            label="открытые"
+                            label="в продаже"
                             checked={seance_opened}
                             onChange={(event) => dispatch(setScheduleFiltersSeanceOpened(event.target.checked))}/>
                     </FormGroup>
