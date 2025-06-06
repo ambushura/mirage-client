@@ -40,10 +40,10 @@ export function useSetSchedule() {
                         closed: seance_closed,
                         canceled: seance_canceled,
                         opened: seance_opened,
-                        films: films_selected,
-                        copy_types: film_copy_types_selected,
+                        films: films_selected.map(f => f.uid),
+                        copy_types: film_copy_types_selected.map(f => f.uid),
                         age: film_age,
-                        halls: halls_selected,
+                        halls: halls_selected.map(f => f.uid),
                         hall_type_vip: hall_type_vip,
                         hall_type_regular: hall_type_regular,
                         time: seance_time,
@@ -60,10 +60,10 @@ export function useSetSchedule() {
                     closed: seance_closed,
                     canceled: seance_canceled,
                     opened: seance_opened,
-                    films: films_selected,
-                    copy_types: film_copy_types_selected,
+                    films: films_selected.map(f => f.uid),
+                    copy_types: film_copy_types_selected.map(f => f.uid),
                     age: film_age,
-                    halls: halls_selected,
+                    halls: halls_selected.map(f => f.uid),
                     hall_type_vip: hall_type_vip,
                     hall_type_regular: hall_type_regular,
                     time: seance_time,
@@ -72,7 +72,7 @@ export function useSetSchedule() {
             })
         }
         set_urls(urls_new)
-    }, [city, filial, param_date, seance_closed, seance_canceled, seance_opened, hall_type_vip, hall_type_regular])
+    }, [city, filial, param_date, seance_closed, seance_canceled, seance_opened, hall_type_vip, hall_type_regular, films_selected, film_copy_types_selected, film_age, halls_selected, seance_time, seance_price])
 
     useEffect(() => {
         const fetch_data_sorted = []

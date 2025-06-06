@@ -12,7 +12,26 @@ import AddIcon from '@mui/icons-material/Add'
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {openModal} from "../../../redux/interfaceReducer.js"
-import {setScheduleFiltersFilmTypesSelect} from "../../../redux/scheduleReducer.js"
+import {
+    setScheduleFiltersFilmAgeSelect,
+    setScheduleFiltersFilmCopyTypes,
+    setScheduleFiltersFilmsSelect,
+    setScheduleFiltersFilmTypesSelect,
+    setScheduleFiltersHallsSelect,
+    setScheduleFiltersHallTypeRegular,
+    setScheduleFiltersHallTypeVip, setScheduleFiltersPrice,
+    setScheduleFiltersSeanceCanceled,
+    setScheduleFiltersSeanceClosed,
+    setScheduleFiltersSeanceOpened, setScheduleFiltersTime
+} from "../../../redux/scheduleReducer.js"
+import {
+    setOrdersCinemaFiltersBuyerEmailsSelect, setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
+    setOrdersCinemaFiltersHallsSelect,
+    setOrdersCinemaFiltersSeancesSelect,
+    setOrdersCinemaFiltersStaffSelect,
+    setOrdersCinemaFiltersStateSelect, setOrdersCinemaFiltersWorkplacesSelect
+} from "../../../redux/ordersReducer.js";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 
 const ScheduleMenu = () => {
 
@@ -48,6 +67,19 @@ const ScheduleMenu = () => {
         const current_param_data = value.year() + '-' + (value.month() + 1) + '-' + (value.date())
         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
     }
+
+    // Фильтры кино
+    const seance_closed = useSelector(state => state.schedule.schedule_filters_seance_closed)
+    const seance_canceled = useSelector(state => state.schedule.schedule_filters_seance_canceled)
+    const seance_opened = useSelector(state => state.schedule.schedule_filters_seance_opened)
+    const films_selected = useSelector(state => state.schedule.schedule_filters_films_selected)
+    const film_copy_types_selected = useSelector(state => state.schedule.schedule_filters_film_copy_types_selected)
+    const film_age = useSelector(state => state.schedule.schedule_filters_film_age)
+    const halls_selected = useSelector(state => state.schedule.schedule_filters_halls_selected)
+    const hall_type_vip = useSelector(state => state.schedule.schedule_filters_hall_type_vip)
+    const hall_type_regular = useSelector(state => state.schedule.schedule_filters_hall_type_regular)
+    const seance_time = useSelector(state => state.schedule.schedule_filters_time)
+    const seance_price = useSelector(state => state.schedule.schedule_filters_price)
 
     const uid_user = useSelector(state => state.auth.uid)
 
@@ -124,6 +156,33 @@ const ScheduleMenu = () => {
                                 type: 'schedule_filters',
                                 props: {}
                             }))}>Фильтры</Button> : null}
+                        {seance_closed ||
+                        seance_canceled ||
+                        !seance_opened ||
+                        films_selected.length > 0 ||
+                        film_copy_types_selected.length > 0 ||
+                        film_age[0] !== 0 ||
+                        film_age[1] !== 100 ||
+                        halls_selected.length > 0 ||
+                        !hall_type_vip ||
+                        !hall_type_regular ||
+                        seance_time[0] !== 0 ||
+                        seance_time[1] !== 100 ||
+                        seance_price[0] !== 0 ||
+                        seance_price[1] !== 10000 ?
+                            <Button variant='contained' color='primary' onClick={() => {
+                                dispatch(setScheduleFiltersSeanceClosed(false))
+                                dispatch(setScheduleFiltersSeanceCanceled(false))
+                                dispatch(setScheduleFiltersSeanceOpened(true))
+                                dispatch(setScheduleFiltersFilmsSelect([]))
+                                dispatch(setScheduleFiltersFilmCopyTypes([]))
+                                dispatch(setScheduleFiltersFilmAgeSelect([0, 100]))
+                                dispatch(setScheduleFiltersHallsSelect([]))
+                                dispatch(setScheduleFiltersHallTypeVip(true))
+                                dispatch(setScheduleFiltersHallTypeRegular(true))
+                                dispatch(setScheduleFiltersTime([0, 100]))
+                                dispatch(setScheduleFiltersPrice([0, 10000]))
+                            }}><FilterAltOffIcon/></Button> : null}
                         {current_page === 'schedule' ? <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное
                             время</Button> : null}
                         <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>

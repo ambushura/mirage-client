@@ -45,7 +45,7 @@ const initialState = {
     // Ползунки
     schedule_filters_film_age: [0, 100],
     schedule_filters_time: [0, 100],
-    schedule_filters_price: [0, 100000],
+    schedule_filters_price: [0, 10000],
 }
 
 export const scheduleSlice = createSlice({
