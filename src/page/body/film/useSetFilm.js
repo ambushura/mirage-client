@@ -28,7 +28,7 @@ export function useSetFilm() {
     const hall_type_regular = useSelector(state => state.schedule.schedule_filters_hall_type_regular)
     const seance_time = useSelector(state => state.schedule.schedule_filters_time)
     const seance_price = useSelector(state => state.schedule.schedule_filters_price)
-
+    const film_types_selected = useSelector(state => state.schedule.schedule_filters_film_types_selected)
 
     useEffect(() => {
         let urls_new = []
@@ -51,6 +51,7 @@ export function useSetFilm() {
                         hall_type_regular: hall_type_regular,
                         time: seance_time,
                         price: seance_price,
+                        film_types: film_types_selected.map(f => f.uid),
                     }
                 })
             })
@@ -72,11 +73,27 @@ export function useSetFilm() {
                     hall_type_regular: hall_type_regular,
                     time: seance_time,
                     price: seance_price,
+                    film_types: film_types_selected.map(f => f.uid),
                 }
             })
         }
         set_urls(urls_new)
-    }, [city, filial, film_age, film_copy_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time, uid_film])
+    }, [city,
+        filial,
+        film_age,
+        film_copy_types_selected,
+        film_types_selected,
+        films_selected,
+        hall_type_regular,
+        hall_type_vip,
+        halls_selected,
+        param_date,
+        seance_canceled,
+        seance_closed,
+        seance_opened,
+        seance_price,
+        seance_time,
+        uid_film])
 
     useEffect(() => {
         let film_new = undefined
