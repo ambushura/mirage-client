@@ -59,7 +59,7 @@ const RenderGroup = ({label, group, ver}) => {
                         <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
                             sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                     </Box>
-                    {item.egais_type_code !== '' ?
+                    {item.egais_type_code !== null ?
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
                             <Box sx={{width: '96px'}}>Акцизная марка: </Box>
@@ -70,7 +70,7 @@ const RenderGroup = ({label, group, ver}) => {
                                 textOverflow: 'ellipsis'
                             }}>{item.egais_type_value}</Box>
                         </Box> : null}
-                    {item.mark_type !== '' ?
+                    {item.mark_type !== null ?
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <Box sx={{width: '20px', color: '#e3000b'}}><CircleIcon sx={{scale: 0.5}}/></Box>
                             <Box sx={{width: '45px'}}>ЧЗ КМ: </Box>
