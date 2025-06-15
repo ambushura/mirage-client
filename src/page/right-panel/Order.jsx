@@ -152,12 +152,25 @@ const OrderPanel = ({
                 }}>Разделить</Button>
             </Box>
             <Box className="order-box-panel-3">
-                {[1, 2, 3, 0].map(state => (order.items.some(item => item.kitchen.state === state) && (
+                {(order.items.filter(item => item.kitchen !== null) && (
+                    <>
+                        <Box className={`order-box-panel-3-title-others`}>Не готовить</Box>
+                        <ul className={`order-box-panel-3-list-others`}>
+                            {order.items.filter(item => item.kitchen === null).map(item =>
+                                <HorecaItem
+                                    uid_order={order.uid}
+                                    key={`${item.uid}${order.ver}`}
+                                    item={item}
+                                    uid_selected={uid_selected}
+                                    set_uid_selected={set_uid_selected}/>)}
+                        </ul>
+                    </>))}
+                {[1, 2, 3].map(state => (order.items.filter(item => item.kitchen !== null).some(item => item.kitchen.state === state) && (
                     <Fragment key={`${state}`}>
                         <Box
-                            className={`order-box-panel-3-title-${['others', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['Без кухни', 'Отправить на кухню', 'На кухне', 'Приготовлено'][state]}</Box>
-                        <ul className={`order-box-panel-3-list-${['others', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>
-                            {order.items.filter(item => item.kitchen.state === state).map(item =>
+                            className={`order-box-panel-3-title-${['for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['Отправить на кухню', 'На кухне', 'Приготовлено'][state]}</Box>
+                        <ul className={`order-box-panel-3-list-${['for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>
+                            {order.items.filter(item => item.kitchen !== null).filter(item => item.kitchen.state === state).map(item =>
                                 <HorecaItem
                                     uid_order={order.uid}
                                     key={`${item.uid}${order.ver}`}

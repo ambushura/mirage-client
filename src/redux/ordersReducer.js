@@ -77,7 +77,7 @@ const initialState = {
     orders_horeca_filters_workplaces: [],
     orders_horeca_filters_kitchen_points: [],
     orders_horeca_filters_kitchen_state: [
-        {uid: 0, title: 'Без кухни'},
+        {uid: 0, title: 'Не готовить'},
         {uid: 1, title: 'Готовить'},
         {uid: 2, title: 'Готовится'},
         {uid: 3, title: 'Готов'},
