@@ -51,7 +51,6 @@ const Payment = (props) => {
         } else {
             return (
                 <>
-                    {props.type === 'horeca' ? <Button color='info' variant='contained'>Пречек</Button> : null}
                     {payment_methods.list.map(pm => {
                         return (
                             <Button variant='contained'
@@ -170,7 +169,7 @@ const Payment = (props) => {
             })
             set_for_payment(for_payment_new)
         }
-    }, [data, pre_order, horder, props.type])
+    }, [data, pre_order, horder, props.type, for_payment.waiting])
 
     function groupAndSum(data, groupByFields, sumFields) {
         return Object.values(

@@ -45,7 +45,8 @@ const OrderPanel = ({
     {paying ? <Payment type={type}/> : (<>
         <Box className="order-box-panel-1">
             <ButtonGroup size='large'>
-                <Button variant="contained" color="info" onClick={() => setPaying(true)}><ReceiptIcon/></Button>
+                <Button variant="contained" color="info" onClick={() =>
+                {setPaying(true); if (type === 'horeca') {dispatch(markirovka_km_check(filial, wp, order.uid))}}}><ReceiptIcon/></Button>
                 <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
                 <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
                 <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
@@ -147,7 +148,7 @@ const OrderPanel = ({
             <Box className="order-box-panel-adv">
                 <Button variant="contained" color="secondary" onClick={() => {
                     dispatch(markirovka_km_check(filial, wp, order.uid))
-                }}>Проверить ЧЗ</Button>
+                }}>Разрешительный режим</Button>
                 <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
                 }}>Разделить</Button>
             </Box>
