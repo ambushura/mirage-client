@@ -27,7 +27,6 @@ export const ROUTE_EQUIPMENT_WORKPLACE_TURN_ON = "/api/equipment/workplace/turn_
 // === МАРКИРОВКА ===
 export const ROUTE_MARKIROVKA_CDN_INFO_GET = "/api/markirovka/cdn/info/get"
 export const ROUTE_MARKIROVKA_CDN_INFO_UPDATE = "/api/markirovka/cdn/info/update"
-export const ROUTE_MARKIROVKA_KM_CHECK = "/api/markirovka/km/check"
 
 // === КИНО ===
 // Скидки

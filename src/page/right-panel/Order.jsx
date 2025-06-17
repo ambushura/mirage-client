@@ -16,7 +16,7 @@ import {
     NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
 import {
-    cinema_order_delete, cinema_order_fetch, horeca_order_fetch, markirovka_km_check
+    cinema_order_delete, cinema_order_fetch, horeca_order_fetch
 } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
@@ -45,8 +45,12 @@ const OrderPanel = ({
     {paying ? <Payment type={type}/> : (<>
         <Box className="order-box-panel-1">
             <ButtonGroup size='large'>
-                <Button variant="contained" color="info" onClick={() =>
-                {setPaying(true); if (type === 'horeca') {dispatch(markirovka_km_check(filial, wp, order.uid))}}}><ReceiptIcon/></Button>
+                <Button variant="contained" color="info" onClick={() => {
+                    setPaying(true);
+                    if (type === 'horeca') {
+                        dispatch(markirovka_km_check(filial, wp, order.uid))
+                    }
+                }}><ReceiptIcon/></Button>
                 <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
                 <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
                 <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
@@ -146,9 +150,6 @@ const OrderPanel = ({
                 </ButtonGroup>
             </Box>
             <Box className="order-box-panel-adv">
-                <Button variant="contained" color="secondary" onClick={() => {
-                    dispatch(markirovka_km_check(filial, wp, order.uid))
-                }}>Разрешительный режим</Button>
                 <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
                 }}>Разделить</Button>
             </Box>
