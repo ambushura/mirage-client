@@ -32,26 +32,6 @@ const HorecaItem = (props) => {
         <Looks4Icon sx={{color: 'black'}} key='3'/>
     ]
 
-    const markirovka_status = (item) => {
-        const result = true
-        if (!item.mark.valid) {
-            return false
-        } else if (!item.mark.verified) {
-            return false
-        } else if (!item.mark.found) {
-            return false
-        } else if (item.mark.realizable) {
-            return false
-        } else if (item.mark.isBlocked) {
-            return false
-        } else if (item.mark.sold) {
-            return false
-        } else if (!item.mark.isowner) {
-            return false
-        }
-        return result
-    }
-
     return (
         <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-selected' : ''}`}>
             <Box
@@ -116,7 +96,7 @@ const HorecaItem = (props) => {
                 }}>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
                 <button className='order-box-horeca-item-2-1'>
                     {props.item.mark.value === '' ? <QuestionMarkIcon/> :
-                        <CheckCircleOutlineIcon sx={{color: markirovka_status(props.item) ? 'green' : 'red'}}/>}
+                        <CheckCircleOutlineIcon sx={{color: props.item.mark_payment_available ? 'green' : 'red'}}/>}
                 </button>
             </Box> : <></>}
             {props.item.egais !== null ? <Box className='order-box-horeca-item-3'>

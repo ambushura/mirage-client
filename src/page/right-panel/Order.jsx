@@ -46,10 +46,7 @@ const OrderPanel = ({
         <Box className="order-box-panel-1">
             <ButtonGroup size='large'>
                 <Button variant="contained" color="info" onClick={() => {
-                    setPaying(true);
-                    if (type === 'horeca') {
-                        dispatch(markirovka_km_check(filial, wp, order.uid))
-                    }
+                    setPaying(true)
                 }}><ReceiptIcon/></Button>
                 <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
                 <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
@@ -150,7 +147,7 @@ const OrderPanel = ({
                 </ButtonGroup>
             </Box>
             <Box className="order-box-panel-adv">
-                <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
+                <Button variant="contained" color="secondary" onClick={() => {
                 }}>Разделить</Button>
             </Box>
             <Box className="order-box-panel-3">
