@@ -16,7 +16,7 @@ import {
     NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
 import {
-    cinema_order_delete, cinema_order_fetch, horeca_order_fetch
+    cinema_order_delete, cinema_order_fetch, common_orders_receipts_get, horeca_order_fetch
 } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
@@ -26,22 +26,22 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import {motion} from 'framer-motion'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 
-const OrderPanel = ({
-                        type,
-                        order,
-                        paying,
-                        setPaying,
-                        emptyOrder,
-                        fetchOrder,
-                        deleteOrder,
-                        navigateTo,
-                        addContact,
-                        dispatch,
-                        uid_selected,
-                        set_uid_selected,
-                        filial,
-                        wp
-                    }) => (<>
+const OrderBody = ({
+                       type,
+                       order,
+                       paying,
+                       setPaying,
+                       emptyOrder,
+                       fetchOrder,
+                       deleteOrder,
+                       navigateTo,
+                       addContact,
+                       dispatch,
+                       uid_selected,
+                       set_uid_selected,
+                       filial,
+                       wp
+                   }) => (<>
     {paying ? <Payment type={type}/> : (<>
         <Box className="order-box-panel-1">
             <ButtonGroup size='large'>
@@ -157,7 +157,7 @@ const OrderPanel = ({
                         <ul className={`order-box-panel-3-list-others`}>
                             {order.items.filter(item => item.kitchen === null).map(item =>
                                 <HorecaItem
-                                    uid_order={order.uid}
+                                    order={order}
                                     key={`${item.uid}${order.ver}`}
                                     item={item}
                                     uid_selected={uid_selected}
@@ -171,7 +171,7 @@ const OrderPanel = ({
                         <ul className={`order-box-panel-3-list-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>
                             {order.items.filter(item => item.kitchen !== null).filter(item => item.kitchen.state === state).map(item =>
                                 <HorecaItem
-                                    uid_order={order.uid}
+                                    order={order}
                                     key={`${item.uid}${order.ver}`}
                                     item={item}
                                     uid_selected={uid_selected}
@@ -213,16 +213,21 @@ const Order = () => {
 
     return (<Box id='order'>
         {pre_order.in_base ? (<motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
-                                          key={pre_order.uid}
+                                          key={`${pre_order.uid}`}
                                           initial={{opacity: 0, y: 20}}
                                           animate={{opacity: 1, y: 0}}
                                           transition={{delay: 0.1, duration: 0.2}}
                                           exit={{opacity: 0, y: 20}}>
-            <OrderPanel
+            <OrderBody
+                key={pre_order.ver}
                 type='cinema'
                 order={pre_order}
                 paying={pre_order_paying}
-                setPaying={value => dispatch(setPreOrderPaying(value))}
+                setPaying={async (value) => {
+                    await dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))
+                    await dispatch(setPreOrderPaying(value))
+                }
+                }
                 emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
                 fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
                 deleteOrder={() => dispatch(cinema_order_delete(filial, wp, pre_order.uid))}
@@ -240,16 +245,20 @@ const Order = () => {
             />
         </motion.div>) : null}
         {horder.in_base ? (<motion.div className="order-box" style={{height: pre_order.in_base ? '50%' : '100%'}}
-                                       key={horder.uid}
+                                       key={`${horder.uid}`}
                                        initial={{opacity: 0, y: 20}}
                                        animate={{opacity: 1, y: 0}}
                                        transition={{delay: 0.1, duration: 0.2}}
                                        exit={{opacity: 0, y: 20}}>
-            <OrderPanel
+            <OrderBody
+                key={horder.ver}
                 type='horeca'
                 order={horder}
                 paying={horder_paying}
-                setPaying={value => dispatch(setHorderPaying(value))}
+                setPaying={async (value) => {
+                    await dispatch(setHorderPaying(value))
+                    await dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))
+                }}
                 emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                 fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
                 dispatch={dispatch}

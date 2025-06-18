@@ -48,7 +48,8 @@ const MarkInfo = (props) => {
                     sx={{color: item.mark.isowner ? 'green' : 'red'}}/></Box></Box>
                 <Box className='mark-info-row'><Box>8. КМ уже реализована</Box><Box><RadioButtonCheckedIcon
                     sx={{color: !item.mark.sold ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>9. КМ прослеживается</Box><Box>{item.mark.istracking ? 'Да' : 'Нет'}</Box></Box>
+                <Box className='mark-info-row'><Box>9. КМ
+                    прослеживается</Box><Box>{item.mark.istracking ? 'Да' : 'Нет'}</Box></Box>
                 <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Номер запроса
                     ЧЗ</Box><Box>{item.mark.reqId}</Box></Box>
                 <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Ошибки

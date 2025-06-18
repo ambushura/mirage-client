@@ -21,7 +21,7 @@ import {
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
     ROUTE_COMMON_ORDER_ADD_CONTACT,
-    ROUTE_COMMON_ORDER_PAYMENT,
+    ROUTE_COMMON_ORDER_PAYMENT, ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_GET,
@@ -88,6 +88,20 @@ export const cinema_order_fetch = (filial, wp, uid_order) => async (dispatch) =>
 export const horeca_order_fetch = (filial, wp, uid_order) => async (dispatch) => makeRequest(dispatch, {
     method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_GET}`, params: {uid_order}, wp, filial
 }, data => dispatch(setCurrentHorder(data)))
+
+export const common_orders_receipts_get = (filial, wp, type, uid_order) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_GET_RECEIPTS}`,
+    params: {uid_order: uid_order, type: type},
+    wp,
+    filial
+}, data => {
+    if (type === 'cinema') {
+        dispatch(setCurrentPreOrder(data))
+    } else if (type === 'horeca') {
+        dispatch(setCurrentHorder(data))
+    }
+})
 
 export const cinema_order_delete = (filial, wp, uid_order) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
