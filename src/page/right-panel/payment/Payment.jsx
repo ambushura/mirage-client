@@ -1,10 +1,10 @@
 import {Box, Button} from "@mui/material"
-import {useSetPaymentMethods} from "../../hooks/payment/useSetPaymentMethods.js"
+import {useSetPaymentMethods} from "./useSetPaymentMethods.js"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {useEffect, useState} from "react"
-import Loader from "../../ui/Loader.jsx"
-import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../redux/ordersReducer.js"
+import Loader from "../../../ui/Loader.jsx"
+import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../../redux/ordersReducer.js"
 import {
     ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
     ITEMS_TYPE_SERVICE,
@@ -12,11 +12,11 @@ import {
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
     PAYMENT_STATE_SUCCESS,
     PAYMENT_STATE_WAITING
-} from "../../redux/interfaceReducer.js"
+} from "../../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import {common_order_pay} from "../../service/fetch_service.js"
+import {common_order_pay} from "../../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
-import DotsAnimation from "../../ui/DotsAnimation.jsx"
+import DotsAnimation from "../../../ui/DotsAnimation.jsx"
 
 const Payment = (props) => {
 

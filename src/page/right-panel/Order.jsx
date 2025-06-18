@@ -11,7 +11,7 @@ import SeanceTitle from "../../components/cinema/SeanceTitle.jsx"
 import BookingItem from "./cinema/BookingItem.jsx"
 import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useNavigate} from "react-router-dom"
-import Payment from "./Payment.jsx"
+import Payment from "./payment/Payment.jsx"
 import {
     NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
