@@ -57,7 +57,8 @@ const MarkInfo = (props) => {
                     <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Время запроса
                         (мс)</Box><Box>{item.mark.reqTimestamp}</Box></Box>
                     <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Ошибки
-                        проверки</Box><Box sx={{textAlign: 'end'}}>{error_code[item.mark.errorCode]}</Box></Box>
+                        проверки</Box><Box
+                        sx={{textAlign: 'end'}}>{item.mark.errorCode < error_code.length ? error_code[item.mark.errorCode] : 'Неклассифицируемая ошибка'}</Box></Box>
                     <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Сообщение ЧЗ</Box><Box
                         sx={{textAlign: 'end'}}>{item.mark.message}</Box></Box>
                 </Box>
