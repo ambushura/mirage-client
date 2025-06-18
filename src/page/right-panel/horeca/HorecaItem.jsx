@@ -83,21 +83,15 @@ const HorecaItem = (props) => {
                 }><QrCode2Icon sx={{color: 'white'}}/></button>
                 <Box
                     className='order-box-horeca-item-2-2' onClick={() => {
-                    if (props.item.mark.value !== '') {
+                    if (props.item.mark.value !== null) {
                         dispatch(openModal({
                             type: 'mark_info',
                             props: {item: props.item}
                         }))
-                    } else {
-                        dispatch(addNotification({
-                            message: 'Отсканируйте марку для просмотра информации',
-                            severity: 'info',
-                            autoHide: true
-                        }))
                     }
-                }}>{props.item.mark.value === '' ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
+                }}>{props.item.mark.value === null ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
                 <button className='order-box-horeca-item-2-1'>
-                    {props.item.mark.value === '' ? <QuestionMarkIcon/> :
+                    {props.item.mark.value === null ? <QuestionMarkIcon/> :
                         <CheckCircleOutlineIcon
                             sx={{color: props.item.mark_payment_available ? 'green' : 'red'}}/>}
                 </button>

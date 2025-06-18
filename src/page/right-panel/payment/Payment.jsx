@@ -292,7 +292,7 @@ const Payment = (props) => {
                             {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
                         </Box>
                         <Box className='payment-total-sum'>
-                            {total !== cash ? Math.abs(change) : <></>}
+                            {total !== cash ? Math.abs(change).toLocaleString('ru-RU') : <></>}
                         </Box>
                     </Box>
                 </Box>
