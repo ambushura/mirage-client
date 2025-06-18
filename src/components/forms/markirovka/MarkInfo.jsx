@@ -19,46 +19,53 @@ const MarkInfo = (props) => {
         'КМ не найден в трансгране'
     ]
 
-    return (
-        <Box component="form"
-             noValidate
-             autoComplete="off"
-             onSubmit={(e) => {
-                 e.preventDefault()
-             }}>
-            <Typography variant="h6" color="textSecondary" margin={1}>Разрешительный
-                режим</Typography>
-            <Box className='mark-info'>
-                <Box className='mark-info-row'><Box>Марка</Box><Box
-                    sx={{fontWeight: 'bold'}}>{item.mark.value}</Box></Box>
-                <Box className='mark-info-row'><Box>GTIN</Box><Box>{item.mark.gtin}</Box></Box>
-                <Box className='mark-info-row'><Box>1. КМ успешно найдена в ЧЗ</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: item.mark.found ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>2. КМ валидна</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: item.mark.valid ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>3. КМ успешно проверена в ЧЗ</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: item.mark.verified ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>4. КМ введена в оборот</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: item.mark.realizable ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>5. КМ нанесена на упаковку</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: item.mark.utilised ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>6. КМ заблокирована</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: !item.mark.isblocked ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>7. КМ принадлежит вашему юр.лицу</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: item.mark.isowner ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>8. КМ уже реализована</Box><Box><RadioButtonCheckedIcon
-                    sx={{color: !item.mark.sold ? 'green' : 'red'}}/></Box></Box>
-                <Box className='mark-info-row'><Box>9. КМ
-                    прослеживается</Box><Box>{item.mark.istracking ? 'Да' : 'Нет'}</Box></Box>
-                <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Номер запроса
-                    ЧЗ</Box><Box>{item.mark.reqId}</Box></Box>
-                <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Ошибки
-                    проверки</Box><Box sx={{textAlign: 'end'}}>{error_code[item.mark.errorCode]}</Box></Box>
-                <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Сообщение ЧЗ</Box><Box
-                    sx={{textAlign: 'end'}}>{item.mark.message}</Box></Box>
+    if (item.mark !== null) {
+        return (
+            <Box component="form"
+                 noValidate
+                 autoComplete="off"
+                 onSubmit={(e) => {
+                     e.preventDefault()
+                 }}>
+                <Typography variant="h6" color="textSecondary" margin={1}>Разрешительный
+                    режим</Typography>
+                <Box className='mark-info'>
+                    <Box className='mark-info-row'><Box>Марка</Box><Box
+                        sx={{fontWeight: 'bold'}}>{item.mark.value}</Box></Box>
+                    <Box className='mark-info-row'><Box>GTIN</Box><Box>{item.mark.gtin}</Box></Box>
+                    <Box className='mark-info-row'><Box>1. КМ успешно найдена в ЧЗ</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: item.mark.found ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>2. КМ валидна</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: item.mark.valid ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>3. КМ успешно проверена в ЧЗ</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: item.mark.verified ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>4. КМ введена в оборот</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: item.mark.realizable ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>5. КМ нанесена на упаковку</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: item.mark.utilised ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>6. КМ заблокирована</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: !item.mark.isblocked ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>7. КМ принадлежит вашему
+                        юр.лицу</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: item.mark.isowner ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>8. КМ уже реализована</Box><Box><RadioButtonCheckedIcon
+                        sx={{color: !item.mark.sold ? 'green' : 'red'}}/></Box></Box>
+                    <Box className='mark-info-row'><Box>9. КМ
+                        прослеживается</Box><Box>{item.mark.istracking ? 'Да' : 'Нет'}</Box></Box>
+                    <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Номер запроса
+                        ЧЗ</Box><Box>{item.mark.reqId}</Box></Box>
+                    <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Время запроса
+                        (мс)</Box><Box>{item.mark.reqTimestamp}</Box></Box>
+                    <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Ошибки
+                        проверки</Box><Box sx={{textAlign: 'end'}}>{error_code[item.mark.errorCode]}</Box></Box>
+                    <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Сообщение ЧЗ</Box><Box
+                        sx={{textAlign: 'end'}}>{item.mark.message}</Box></Box>
+                </Box>
             </Box>
-        </Box>
-    )
+        )
+    } else {
+        return <></>
+    }
 }
 
 export default MarkInfo
