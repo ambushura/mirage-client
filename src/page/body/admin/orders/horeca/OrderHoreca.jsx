@@ -72,7 +72,7 @@ const RenderGroup = ({label, group, ver}) => {
                         </Box> : null}
                     {item.mark_type !== null ?
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <Box sx={{width: '20px', color: '#e3000b'}}><CircleIcon sx={{scale: 0.5}}/></Box>
+                            <Box sx={{width: '20px', color: item.mark_payment_available ? '#50DB92' : '#e3000b'}}><CircleIcon sx={{scale: 0.5}}/></Box>
                             <Box sx={{width: '45px'}}>ЧЗ КМ: </Box>
                             <Box sx={{
                                 flex: 1,
