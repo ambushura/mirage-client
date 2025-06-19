@@ -55,7 +55,14 @@ const RenderGroup = ({label, group, ver}) => {
                         <Box sx={{width: '20px'}}/>
                         <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
                         {item.uid_discount !== null ?
-                            <Box sx={{flex: 1, textAlign: 'right', color: '#ff9800', fontSize: '70%', fontWeight: 'bold', overflow: 'hidden'}}>{item.name_discount}</Box> : null}
+                            <Box sx={{
+                                flex: 1,
+                                textAlign: 'right',
+                                color: '#ff9800',
+                                fontSize: '70%',
+                                fontWeight: 'bold',
+                                overflow: 'hidden'
+                            }}>{item.name_discount}</Box> : null}
                         <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
                             sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                     </Box>
@@ -72,7 +79,10 @@ const RenderGroup = ({label, group, ver}) => {
                         </Box> : null}
                     {item.mark_type !== null ?
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <Box sx={{width: '20px', color: item.mark_payment_available ? '#50DB92' : '#e3000b'}}><CircleIcon sx={{scale: 0.5}}/></Box>
+                            <Box sx={{
+                                width: '20px',
+                                color: item.mark_payment_available ? '#50DB92' : '#e3000b'
+                            }}><CircleIcon sx={{scale: 0.5}}/></Box>
                             <Box sx={{width: '45px'}}>ЧЗ КМ: </Box>
                             <Box sx={{
                                 flex: 1,
