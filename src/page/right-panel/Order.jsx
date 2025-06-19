@@ -224,70 +224,72 @@ const Order = () => {
     }, [pre_order.ver])
 
     return (<Box id='order'>
-        {pre_order.in_base ? (<motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
-                                          key={`${pre_order.uid}`}
-                                          initial={{opacity: 0, y: 20}}
-                                          animate={{opacity: 1, y: 0}}
-                                          transition={{delay: 0.1, duration: 0.2}}
-                                          exit={{opacity: 0, y: 20}}>
-            <OrderBody
-                key={pre_order.ver}
-                type='cinema'
-                order={pre_order}
-                paying={pre_order_paying}
-                setPaying={
-                    async (value) => {
-                        await dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))
-                        await dispatch(setPreOrderPaying(value))
+        {pre_order.in_base ?
+            <motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
+                        key={`${pre_order.uid}`}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 0.1, duration: 0.2}}
+                        exit={{opacity: 0, y: 20}}>
+                <OrderBody
+                    key={pre_order.ver}
+                    type='cinema'
+                    order={pre_order}
+                    paying={pre_order_paying}
+                    setPaying={
+                        async (value) => {
+                            await dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))
+                            await dispatch(setPreOrderPaying(value))
+                        }
                     }
-                }
-                emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
-                fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
-                deleteOrder={() => dispatch(cinema_order_delete(filial, wp, pre_order.uid))}
-                navigateTo={() => navigate(seance_link())}
-                addContact={() => {
-                    dispatch(openModal({
-                        type: 'add_contact', props: {order_type: 'cinema', order: pre_order}
-                    }))
-                }}
-                dispatch={dispatch}
-                uid_selected={uid_cinema_selected}
-                set_uid_selected={set_uid_cinema_selected}
-                filial={filial}
-                wp={wp}
-            />
-        </motion.div>) : null}
-        {horder.in_base ? (<motion.div className="order-box" style={{height: pre_order.in_base ? '50%' : '100%'}}
-                                       key={`${horder.uid}`}
-                                       initial={{opacity: 0, y: 20}}
-                                       animate={{opacity: 1, y: 0}}
-                                       transition={{delay: 0.1, duration: 0.2}}
-                                       exit={{opacity: 0, y: 20}}>
-            <OrderBody
-                key={horder.ver}
-                type='horeca'
-                order={horder}
-                paying={horder_paying}
-                setPaying={
-                    async (value) => {
-                        await dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))
-                        await dispatch(setHorderPaying(value))
+                    emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
+                    fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
+                    deleteOrder={() => dispatch(cinema_order_delete(filial, wp, pre_order.uid))}
+                    navigateTo={() => navigate(seance_link())}
+                    addContact={() => {
+                        dispatch(openModal({
+                            type: 'add_contact', props: {order_type: 'cinema', order: pre_order}
+                        }))
+                    }}
+                    dispatch={dispatch}
+                    uid_selected={uid_cinema_selected}
+                    set_uid_selected={set_uid_cinema_selected}
+                    filial={filial}
+                    wp={wp}
+                />
+            </motion.div> : null}
+        {horder.in_base ?
+            <motion.div className="order-box" style={{height: pre_order.in_base ? '50%' : '100%'}}
+                        key={`${horder.uid}`}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{delay: 0.1, duration: 0.2}}
+                        exit={{opacity: 0, y: 20}}>
+                <OrderBody
+                    key={horder.ver}
+                    type='horeca'
+                    order={horder}
+                    paying={horder_paying}
+                    setPaying={
+                        async (value) => {
+                            await dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))
+                            await dispatch(setHorderPaying(value))
+                        }
                     }
-                }
-                emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
-                fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
-                dispatch={dispatch}
-                uid_selected={uid_horeca_selected}
-                set_uid_selected={set_uid_horeca_selected}
-                addContact={() => {
-                    dispatch(openModal({
-                        type: 'add_contact', props: {order_type: 'horeca', order: horder}
-                    }))
-                }}
-                filial={filial}
-                wp={wp}
-            />
-        </motion.div>) : null}
+                    emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
+                    fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
+                    dispatch={dispatch}
+                    uid_selected={uid_horeca_selected}
+                    set_uid_selected={set_uid_horeca_selected}
+                    addContact={() => {
+                        dispatch(openModal({
+                            type: 'add_contact', props: {order_type: 'horeca', order: horder}
+                        }))
+                    }}
+                    filial={filial}
+                    wp={wp}
+                />
+            </motion.div> : null}
     </Box>)
 }
 
