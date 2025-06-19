@@ -1,4 +1,4 @@
-import {Box, Button} from "@mui/material"
+import {Box, Button, Fade} from "@mui/material"
 import {useSetPaymentMethods} from "./useSetPaymentMethods.js"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
@@ -17,6 +17,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import {common_order_pay} from "../../../service/fetch_service.js"
 import Checkbox from '@mui/material/Checkbox'
 import DotsAnimation from "../../../ui/DotsAnimation.jsx"
+import {AnimatePresence, motion} from "framer-motion"
 
 const Payment = (props) => {
 
@@ -148,7 +149,7 @@ const Payment = (props) => {
             })
             set_for_payment(for_payment_new)
         }
-    }, [pre_order.for_payment, horder.for_payment, props.type])
+    }, [props.order, props.type])
 
     function groupAndSum(data, groupByFields, sumFields) {
         return Object.values(
@@ -199,9 +200,9 @@ const Payment = (props) => {
         const chapter = table_name.split(".")[0]
         const table = table_name.split(".")[1]
         if (for_payment !== null) {
-            if (for_payment[chapter][table].length > 0) {
-                return (
-                    <>
+            return (
+                <Fade in={for_payment[chapter][table].length > 0} timeout={1000} unmountOnExit>
+                    <Box>
                         <Box className='payment-items-group-title-name'><Checkbox
                             checked={
                                 `${chapter}.${table}` === 'waiting.mark_egais_items' ? waiting_mark_egais_items :
@@ -226,21 +227,29 @@ const Payment = (props) => {
                                 set_slip_without_receipt_cinema_items(prev_value => !prev_value)
                             }
                         }}/>{title}</Box>
-                        <Box className='payment-items-group-item'>
-                            {for_payment[chapter][table].map((item) => (
-                                <Box key={item.id} className='payment-items-group-item-row'>
-                                    <Box className='payment-items-group-item-0'>{item.name}</Box>
-                                    <Box className='payment-items-group-item-1'>{item.quantity}</Box>
-                                    <Box className='payment-items-group-item-2'>{item.price}</Box>
-                                    <Box className='payment-items-group-item-3'>{item.sum}</Box>
-                                </Box>
-                            ))}
-                        </Box>
-                    </>
-                )
-            }
-        } else {
-            return (<></>)
+                        <AnimatePresence>
+                            {for_payment[chapter][table].length > 0 && (
+                                <motion.div className='payment-items-group-item'
+                                            initial="hidden"
+                                            animate="visible"
+                                            exit="hidden"
+                                            variants={containerVariants}>
+                                    {for_payment[chapter][table].map((item) => (
+                                        <motion.div
+                                            className='payment-items-group-item-row'
+                                            key={item.uid}
+                                            variants={itemVariants}>
+                                            <Box className='payment-items-group-item-0'>{item.name}</Box>
+                                            <Box className='payment-items-group-item-1'>{item.quantity}</Box>
+                                            <Box className='payment-items-group-item-2'>{item.price}</Box>
+                                            <Box className='payment-items-group-item-3'>{item.sum}</Box>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>)}
+                        </AnimatePresence>
+                    </Box>
+                </Fade>
+            )
         }
     }
 
@@ -301,28 +310,55 @@ const Payment = (props) => {
                 {paymentMethodsArray()}
             </Box>
             <Box className='payment-items'>
-                <Box sx={{display: slip_without_receipt ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box
-                        className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/></Box>
-                    {table('slip_without_receipt.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
-                    {table('slip_without_receipt.horeca_items', ITEMS_TYPE_ITEMS)}
-                    {table('slip_without_receipt.cinema_items', ITEMS_TYPE_SERVICE)}
-                </Box>
-                <Box sx={{display: waiting ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box className='payment-items-group-title'>{PAYMENT_STATE_WAITING}<DotsAnimation/></Box>
-                    {table('waiting.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
-                    {table('waiting.horeca_items', ITEMS_TYPE_ITEMS)}
-                    {table('waiting.cinema_items', ITEMS_TYPE_SERVICE)}
-                </Box>
-                <Box sx={{display: success ? 'block' : 'none'}} className='payment-items-group'>
-                    <Box className='payment-items-group-title'>{PAYMENT_STATE_SUCCESS}</Box>
-                    {table('success.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
-                    {table('success.horeca_items', ITEMS_TYPE_ITEMS)}
-                    {table('success.cinema_items', ITEMS_TYPE_SERVICE)}
-                </Box>
+                <Fade in={slip_without_receipt} timeout={500} unmountOnExit>
+                    <Box className='payment-items-group'>
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/></Box>
+                        {table('slip_without_receipt.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
+                        {table('slip_without_receipt.horeca_items', ITEMS_TYPE_ITEMS)}
+                        {table('slip_without_receipt.cinema_items', ITEMS_TYPE_SERVICE)}
+                    </Box>
+                </Fade>
+                <Fade in={waiting} timeout={500} unmountOnExit>
+                    <Box className='payment-items-group'>
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_WAITING}<DotsAnimation/></Box>
+                        {table('waiting.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
+                        {table('waiting.horeca_items', ITEMS_TYPE_ITEMS)}
+                        {table('waiting.cinema_items', ITEMS_TYPE_SERVICE)}
+                    </Box>
+                </Fade>
+                <Fade in={success} timeout={500} unmountOnExit>
+                    <Box className='payment-items-group'>
+                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SUCCESS}</Box>
+                        {table('success.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
+                        {table('success.horeca_items', ITEMS_TYPE_ITEMS)}
+                        {table('success.cinema_items', ITEMS_TYPE_SERVICE)}
+                    </Box>
+                </Fade>
             </Box>
         </Box>
     )
 }
 
 export default Payment
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.03,
+            delayChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {opacity: 0, y: 20},
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    }
+}

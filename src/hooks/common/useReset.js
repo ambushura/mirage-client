@@ -34,6 +34,7 @@ export function useReset() {
         dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
     }, [dispatch, clear])
 
+    // При изменении текущего заказа убираем режим оплаты
     useEffect(() => {
         if (horder_paying) {
             dispatch(setHorderPaying(false))
