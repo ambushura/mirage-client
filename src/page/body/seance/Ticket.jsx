@@ -25,8 +25,8 @@ const Ticket = (props) => {
                             key={pre_order.uid_seance}
                             seance={{
                                 uid: pre_order.seance_uid,
-                                beginning: pre_order.beginning,
-                                ending: pre_order.ending,
+                                beginning: pre_order.seance_beginning,
+                                ending: pre_order.seance_ending,
                                 copy_type: pre_order.film_copy_type,
                                 rate_age: pre_order.film_rate_age
                             }}
