@@ -27,8 +27,8 @@ const OrderCinema = ({order}) => {
     const groupItems = (items_grouped, payment_state) => {
         const items = [], mark_egais = []
         items_grouped
-            .filter(el => el.payment_state === payment_state)
-            .forEach(el => el.mark_egais_state ? mark_egais.push(el) : items.push(el))
+            .filter(el => el.in_payment_group === payment_state)
+            .forEach(el => el.egais_type_code || el.mark_type ? mark_egais.push(el) : items.push(el))
         return {items, mark_egais}
     }
 

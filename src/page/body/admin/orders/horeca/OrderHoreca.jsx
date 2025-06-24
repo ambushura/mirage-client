@@ -13,17 +13,17 @@ import {
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import FunctionsIcon from "@mui/icons-material/Functions"
 
-const groupItems = (items_grouped, payment_state) => {
+const group_items = (items_grouped, payment_state) => {
     const items = [], mark_egais = []
     items_grouped
-        .filter(el => el.payment_state === payment_state)
-        .forEach(el => el.mark_egais_state ? mark_egais.push(el) : items.push(el))
+        .filter(el => el.in_payment_group === payment_state)
+        .forEach(el => el.egais_type_code || el.mark_type ? mark_egais.push(el) : items.push(el))
     return {items, mark_egais}
 }
 
 const RenderGroup = ({label, group, ver}) => {
     if (!group.items.length && !group.mark_egais.length) return null
-    const renderItems = (items, typeLabel) => items.length > 0 && (
+    const render_items = (items, typeLabel) => items.length > 0 && (
         <>
             <Box sx={{
                 height: '25px',
@@ -67,9 +67,9 @@ const RenderGroup = ({label, group, ver}) => {
                             sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                     </Box>
                     {item.egais_type_code !== null ?
-                        <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
-                            <Box sx={{width: '96px'}}>Акцизная марка: </Box>
+                            <Box sx={{width: '96px', fontStyle: 'italic'}}>Акцизная марка: </Box>
                             <Box sx={{
                                 flex: 1,
                                 overflow: 'hidden',
@@ -78,12 +78,12 @@ const RenderGroup = ({label, group, ver}) => {
                             }}>{item.egais_type_value}</Box>
                         </Box> : null}
                     {item.mark_type !== null ?
-                        <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <Box sx={{
                                 width: '20px',
                                 color: item.mark_payment_available ? '#50DB92' : '#e3000b'
                             }}><CircleIcon sx={{scale: 0.5}}/></Box>
-                            <Box sx={{width: '45px'}}>ЧЗ КМ: </Box>
+                            <Box sx={{width: '45px', fontStyle: 'italic'}}>ЧЗ КМ: </Box>
                             <Box sx={{
                                 flex: 1,
                                 overflow: 'hidden',
@@ -106,8 +106,8 @@ const RenderGroup = ({label, group, ver}) => {
                 top: 0,
                 zIndex: 1,
             }}>{label}<DotsAnimation/></Box>
-            {renderItems(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
-            {renderItems(group.items, ITEMS_TYPE_ITEMS)}
+            {render_items(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
+            {render_items(group.items, ITEMS_TYPE_ITEMS)}
         </>
     )
 }
@@ -127,9 +127,9 @@ const OrderHoreca = ({order}) => {
 
     useEffect(() => {
         setGroups({
-            waiting: groupItems(order.items_grouped, 'waiting'),
-            slip: groupItems(order.items_grouped, 'slip_without_receipt'),
-            success: groupItems(order.items_grouped, 'success')
+            waiting: group_items(order.items_grouped, 'waiting'),
+            slip: group_items(order.items_grouped, 'slip_without_receipt'),
+            success: group_items(order.items_grouped, 'success')
         })
     }, [order])
 
