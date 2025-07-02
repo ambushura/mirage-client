@@ -1,94 +1,47 @@
 import {Box, Button, Fade} from "@mui/material"
-import {useSetPaymentMethods} from "./useSetPaymentMethods.js"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import {useEffect, useState} from "react"
-import Loader from "../../../ui/Loader.jsx"
 import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../../redux/ordersReducer.js"
 import {
     ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
     ITEMS_TYPE_SERVICE,
     openModal,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    PAYMENT_STATE_SUCCESS,
-    PAYMENT_STATE_WAITING
+    PAYMENT_STATE_WAITING, RETURNING_STATE_SLIP_WITHOUT_RECEIPT, RETURNING_STATE_SUCCESS, RETURNING_STATE_WAITING
 } from "../../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import {common_order_pay} from "../../../service/fetch_service.js"
-import Checkbox from '@mui/material/Checkbox'
 import DotsAnimation from "../../../ui/DotsAnimation.jsx"
+import {useSetPaymentMethods} from "./useSetPaymentMethods.js"
+import Loader from "../../../ui/Loader.jsx"
+import {common_order_pay} from "../../../service/fetch_service.js"
+import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
+import Checkbox from "@mui/material/Checkbox"
 
 const Payment = (props) => {
 
     const dispatch = useDispatch()
 
     const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
+
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
     const total = useSelector(state => state.orders.total)
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
-    const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
-    const [waiting_mark_egais_items, set_waiting_mark_egais_items] = useState(true)
-    const [waiting_horeca_items, set_waiting_horeca_items] = useState(true)
-    const [waiting_cinema_items, set_waiting_cinema_items] = useState(true)
-
-    const [slip_without_receipt_mark_egais_items, set_slip_without_receipt_mark_egais_items] = useState(true)
-    const [slip_without_receipt_horeca_items, set_slip_without_receipt_horeca_items] = useState(true)
-    const [slip_without_receipt_cinema_items, set_slip_without_receipt_cinema_items] = useState(true)
-
-    const [for_payment, set_for_payment] = useState(null)
-
-    const paymentMethodsArray = () => {
-        if (payment_methods_loading) {
-            return <Loader/>
-        } else if (payment_methods_error !== null) {
-            return <Box>Ошибка загрузки маршрутов оплаты</Box>
-        } else if (payment_methods.list.length === 0) {
-            return <Box>Для этого рабочего места не найдено маршрутов оплаты</Box>
-        } else {
-            return (
-                <>
-                    {payment_methods.list.map(pm => {
-                        return (
-                            <Button variant='contained'
-                                    color='secondary'
-                                    key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
-                                    className='payment-path'
-                                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
-                                    onClick={() => {
-                                        dispatch(common_order_pay(
-                                            filial,
-                                            wp,
-                                            pm,
-                                            props.type === 'cinema' ? pre_order.uid : horder.uid,
-                                            props.type === 'cinema' ? pre_order.ver : horder.ver,
-                                            props.type,
-                                            {
-                                                waiting: {
-                                                    mark_egais_items: waiting_mark_egais_items,
-                                                    horeca_items: waiting_horeca_items,
-                                                    cinema_items: waiting_cinema_items,
-                                                },
-                                                slip_without_receipt: {
-                                                    mark_egais_items: slip_without_receipt_mark_egais_items,
-                                                    horeca_items: slip_without_receipt_horeca_items,
-                                                    cinema_items: slip_without_receipt_cinema_items,
-                                                }
-                                            }))
-                                    }}>
-                                <span>{pm.name}</span>
-                                <span
-                                    style={{fontSize: '70%'}}>kkt {pm.kkt.number.slice(-4)} {pm.pinpad !== null ? ` | pm ${pm.pinpad.number.slice(-4)}` : ''}</span>
-                            </Button>
-                        )
-                    })}
-                </>
-            )
-        }
+    const pay = (pm) => {
+        dispatch(common_order_pay(
+            filial,
+            wp,
+            pm,
+            props.type === 'cinema' ? props.order.uid : props.order.uid,
+            props.type === 'cinema' ? props.order.ver : props.order.ver,
+            props.type,
+            payment_group
+        ))
     }
 
     useEffect(() => {
@@ -96,162 +49,154 @@ const Payment = (props) => {
         dispatch(setCash(['clean', pre_order.sum + horder.sum]))
     }, [dispatch, horder.sum, pre_order.sum])
 
-    useEffect(() => {
-        let order = undefined
-        if (props.type === 'cinema') {
-            order = pre_order
-        } else {
-            order = horder
-        }
-        if (order.for_payment !== null) {
-            const for_payment_new = {
+    const [payment_group, set_payment_group] = useState(
+        {
+            for_payment: {
                 waiting: {
-                    mark_egais_items: [],
-                    horeca_items: [],
-                    cinema_items: []
+                    mark_egais_items: {count: 0, selected: true,},
+                    horeca_items: {count: 0, selected: true,},
+                    cinema_items: {count: 0, selected: true,},
+                    count: 0,
                 },
                 slip_without_receipt: {
-                    mark_egais_items: [],
-                    horeca_items: [],
-                    cinema_items: []
+                    mark_egais_items: {count: 0, selected: true,},
+                    horeca_items: {count: 0, selected: true,},
+                    cinema_items: {count: 0, selected: true,},
+                    count: 0,
                 },
                 success: {
-                    mark_egais_items: [],
-                    horeca_items: [],
-                    cinema_items: []
+                    mark_egais_items: {count: 0, selected: false,},
+                    horeca_items: {count: 0, selected: false,},
+                    cinema_items: {count: 0, selected: false,},
+                    count: 0,
+                }
+            },
+            for_returning: {
+                waiting: {
+                    mark_egais_items: {count: 0, selected: false,},
+                    horeca_items: {count: 0, selected: false,},
+                    cinema_items: {count: 0, selected: false,},
+                    count: 0,
+                },
+                slip_without_receipt: {
+                    mark_egais_items: {count: 0, selected: false,},
+                    horeca_items: {count: 0, selected: false,},
+                    cinema_items: {count: 0, selected: false,},
+                    count: 0,
+                },
+                success: {
+                    mark_egais_items: {count: 0, selected: false,},
+                    horeca_items: {count: 0, selected: false,},
+                    cinema_items: {count: 0, selected: false,},
+                    count: 0,
                 }
             }
-            const categories = ["mark_egais_items", "horeca_items", "cinema_items"]
-            categories.forEach((category) => {
-                order.for_payment.waiting[category].forEach((item) => {
-                    for_payment_new.waiting[category].push({
-                        name: item.name,
-                        unit_name: item.unit_name,
-                        price: item.price,
-                        discount: item.name_discount ?? "-",
-                        quantity: item.quantity,
-                        sum: item.sum,
-                    })
-                })
-                const groupedItems = groupAndSum(
-                    order.for_payment.waiting[category],
-                    ["name", "unit_name", "price", "discount"],
-                    ["quantity", "sum"]
+        }
+    )
+
+    const GroupedTable = ({group, title, chapter}) => {
+
+        const [chapter0, chapter1, chapter2] = chapter.split('.')
+
+        const has_mounted = useRef(false)
+        useEffect(() => {
+            has_mounted.current = true
+        }, [])
+
+        const grouped_items = useMemo(() => {
+            function groupAndSum(data, groupByFields, sumFields) {
+                return Object.values(
+                    data.reduce((acc, item) => {
+                        const key = groupByFields.map(field => item[field]).join('-')
+                        if (!acc[key]) {
+                            acc[key] = {...item}
+                        } else {
+                            sumFields.forEach(field => {
+                                acc[key][field] += item[field]
+                            })
+                        }
+                        return acc
+                    }, {})
                 )
-                for_payment_new.waiting[category] = groupedItems.map((item, i) => ({
-                    id: i,
-                    name: item.name,
-                    price: `${item.price.toLocaleString("ru-RU")} р`,
-                    discount: item.name_discount ?? "-",
-                    quantity: `${item.quantity.toFixed(3)} ${item.unit_name}`,
-                    sum: `${item.sum.toLocaleString("ru-RU")} р`,
-                }))
-            })
-            set_for_payment(for_payment_new)
-        }
-    }, [props.order, props.type])
-
-    function groupAndSum(data, groupByFields, sumFields) {
-        return Object.values(
-            data.reduce((acc, item) => {
-                const key = groupByFields.map(field => item[field]).join('-')
-                if (!acc[key]) {
-                    acc[key] = {...item}
-                } else {
-                    sumFields.forEach(field => {
-                        acc[key][field] += item[field]
-                    })
-                }
-                return acc
-            }, {})
-        )
-    }
-
-    const [slip_without_receipt, set_slip_without_receipt] = useState(false)
-    const [waiting, set_waiting] = useState(false)
-    const [success, set_success] = useState(false)
-    useEffect(() => {
-        if (for_payment !== null) {
-            if (for_payment.slip_without_receipt.mark_egais_items.length > 0 ||
-                for_payment.slip_without_receipt.horeca_items.length > 0 ||
-                for_payment.slip_without_receipt.cinema_items.length > 0) {
-                set_slip_without_receipt(true)
-            } else {
-                set_slip_without_receipt(false)
             }
-            if (for_payment.waiting.mark_egais_items.length > 0 ||
-                for_payment.waiting.horeca_items.length > 0 ||
-                for_payment.waiting.cinema_items.length > 0) {
-                set_waiting(true)
+            if (chapter0 === 'for_returning') {
+                return groupAndSum(group, ["uid", "name", "unit_name", "price", "discount"], ["quantity", "sum"])
             } else {
-                set_waiting(false)
+                return groupAndSum(group, ["name", "unit_name", "price", "discount"], ["quantity", "sum"])
             }
-            if (for_payment.success.mark_egais_items.length > 0 ||
-                for_payment.success.horeca_items.length > 0 ||
-                for_payment.success.cinema_items.length > 0) {
-                set_success(true)
-            } else {
-                set_success(false)
-            }
-        }
-    }, [for_payment])
+        }, [group])
 
-    const table = (table_name, title) => {
-        const chapter = table_name.split(".")[0]
-        const table = table_name.split(".")[1]
-        if (for_payment !== null) {
+        if (grouped_items.length > 0) {
             return (
-                <Fade in={for_payment[chapter][table].length > 0} timeout={1000} unmountOnExit>
-                    <Box>
-                        <Box className='payment-items-group-title-name'><Checkbox
-                            checked={
-                                `${chapter}.${table}` === 'waiting.mark_egais_items' ? waiting_mark_egais_items :
-                                    `${chapter}.${table}` === 'waiting.horeca_items' ? waiting_horeca_items :
-                                        `${chapter}.${table}` === 'waiting.cinema_items' ? waiting_cinema_items :
-                                            `${chapter}.${table}` === 'slip_without_receipt.mark_egais_items' ? slip_without_receipt_mark_egais_items :
-                                                `${chapter}.${table}` === 'slip_without_receipt.horeca_items' ? slip_without_receipt_horeca_items :
-                                                    `${chapter}.${table}` === 'slip_without_receipt.cinema_items' ? slip_without_receipt_cinema_items :
-                                                        false
-                            } onChange={() => {
-                            if (`${chapter}.${table}` === 'waiting.mark_egais_items') {
-                                set_waiting_mark_egais_items(prev_value => !prev_value)
-                            } else if (`${chapter}.${table}` === 'waiting.horeca_items') {
-                                set_waiting_horeca_items(prev_value => !prev_value)
-                            } else if (`${chapter}.${table}` === 'waiting.cinema_items') {
-                                set_waiting_cinema_items(prev_value => !prev_value)
-                            } else if (`${chapter}.${table}` === 'slip_without_receipt.mark_egais_items') {
-                                set_slip_without_receipt_mark_egais_items(prev_value => !prev_value)
-                            } else if (`${chapter}.${table}` === 'slip_without_receipt.horeca_items') {
-                                set_slip_without_receipt_horeca_items(prev_value => !prev_value)
-                            } else if (`${chapter}.${table}` === 'slip_without_receipt.cinema_items') {
-                                set_slip_without_receipt_cinema_items(prev_value => !prev_value)
-                            }
-                        }}/>{title}</Box>
-                        <AnimatePresence>
-                            {for_payment[chapter][table].length > 0 && (
-                                <motion.div className='payment-items-group-item'
-                                            initial="hidden"
-                                            animate="visible"
-                                            exit="hidden"
-                                            variants={containerVariants}>
-                                    {for_payment[chapter][table].map((item) => (
-                                        <motion.div
-                                            className='payment-items-group-item-row'
-                                            key={item.uid}
-                                            variants={itemVariants}>
-                                            <Box className='payment-items-group-item-0'>{item.name}</Box>
-                                            <Box className='payment-items-group-item-1'>{item.quantity}</Box>
-                                            <Box className='payment-items-group-item-2'>{item.price}</Box>
-                                            <Box className='payment-items-group-item-3'>{item.sum}</Box>
-                                        </motion.div>
-                                    ))}
-                                </motion.div>)}
-                        </AnimatePresence>
-                    </Box>
-                </Fade>
+                <Box>
+                    <Box className='payment-items-group-title-name'>
+                        <Checkbox checked={payment_group[chapter0][chapter1][chapter2].selected}
+                                  onChange={() => {
+                                      const group_selected_new = structuredClone(payment_group)
+                                      group_selected_new[chapter0][chapter1][chapter2].selected = !group_selected_new[chapter0][chapter1][chapter2].selected
+                                      set_payment_group(group_selected_new)
+                                  }}/>{title}</Box>
+                    <AnimatePresence>,
+                        {grouped_items.length > 0 && (
+                            <motion.div className='payment-items-group-item'
+                                        initial={!has_mounted.current}
+                                        animate="visible"
+                                        exit="hidden"
+                                        variants={containerVariants}>
+                                {grouped_items.map(item => (
+                                    <motion.div
+                                        className='payment-items-group-item-row'
+                                        key={item.uid}
+                                        variants={itemVariants}>
+                                        {chapter0 === 'for_returning' ? <Checkbox checked={false}/> : null}
+                                        <Box className='payment-items-group-item-0'>{item.name}</Box>
+                                        <Box className='payment-items-group-item-1'>{item.quantity}</Box>
+                                        <Box className='payment-items-group-item-2'>{item.price}</Box>
+                                        <Box className='payment-items-group-item-3'>{item.sum}</Box>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </Box>
             )
+        } else {
+            return null
         }
     }
+
+    useEffect(() => {
+
+        const payment_group_new = structuredClone(payment_group)
+
+        payment_group_new.for_payment.waiting.mark_egais_items.count = props.order.for_payment.waiting.mark_egais_items.length
+        payment_group_new.for_payment.waiting.horeca_items.count = props.order.for_payment.waiting.horeca_items.length
+        payment_group_new.for_payment.waiting.cinema_items.count = props.order.for_payment.waiting.cinema_items.length
+        payment_group_new.for_payment.waiting.count = payment_group_new.for_payment.waiting.mark_egais_items.count + payment_group_new.for_payment.waiting.horeca_items.count + payment_group_new.for_payment.waiting.cinema_items.count
+
+        payment_group_new.for_payment.slip_without_receipt.mark_egais_items.count = props.order.for_payment.slip_without_receipt.mark_egais_items.length
+        payment_group_new.for_payment.slip_without_receipt.horeca_items.count = props.order.for_payment.slip_without_receipt.horeca_items.length
+        payment_group_new.for_payment.slip_without_receipt.cinema_items.count = props.order.for_payment.slip_without_receipt.cinema_items.length
+        payment_group_new.for_payment.slip_without_receipt.count = payment_group_new.for_payment.slip_without_receipt.mark_egais_items.count + payment_group_new.for_payment.slip_without_receipt.horeca_items.count + payment_group_new.for_payment.slip_without_receipt.cinema_items.count
+
+        payment_group_new.for_returning.waiting.mark_egais_items.count = props.order.for_returning.waiting.mark_egais_items.length
+        payment_group_new.for_returning.waiting.horeca_items.count = props.order.for_returning.waiting.horeca_items.length
+        payment_group_new.for_returning.waiting.cinema_items.count = props.order.for_returning.waiting.cinema_items.length
+        payment_group_new.for_returning.waiting.count = payment_group_new.for_returning.waiting.mark_egais_items.count + payment_group_new.for_returning.waiting.horeca_items.count + payment_group_new.for_returning.waiting.cinema_items.count
+
+        payment_group_new.for_returning.slip_without_receipt.mark_egais_items.count = props.order.for_returning.slip_without_receipt.mark_egais_items.length
+        payment_group_new.for_returning.slip_without_receipt.horeca_items.count = props.order.for_returning.slip_without_receipt.horeca_items.length
+        payment_group_new.for_returning.slip_without_receipt.cinema_items.count = props.order.for_returning.slip_without_receipt.cinema_items.length
+        payment_group_new.for_returning.slip_without_receipt.count = payment_group_new.for_returning.slip_without_receipt.mark_egais_items.count + payment_group_new.for_returning.slip_without_receipt.horeca_items.count + payment_group_new.for_returning.slip_without_receipt.cinema_items.count
+
+        payment_group_new.for_returning.success.mark_egais_items.count = props.order.for_returning.success.mark_egais_items.length
+        payment_group_new.for_returning.success.horeca_items.count = props.order.for_returning.success.horeca_items.length
+        payment_group_new.for_returning.success.cinema_items.count = props.order.for_returning.success.cinema_items.length
+        payment_group_new.for_returning.success.count = payment_group_new.for_returning.success.mark_egais_items.count + payment_group_new.for_returning.success.horeca_items.count + payment_group_new.for_returning.success.cinema_items.count
+
+        set_payment_group(payment_group_new)
+
+    }, [props.order])
 
     return (
         <Box style={{backgroundColor: '#f8f8f8'}}>
@@ -265,7 +210,7 @@ const Payment = (props) => {
                             Кино
                         </Box>
                         <Box className='payment-total-sum'>
-                            {Math.round(pre_order.sum).toLocaleString('ru-RU')}
+                            {Math.round(props.order.sum).toLocaleString('ru-RU')}
                         </Box>
                     </Box>
                     <Box>
@@ -273,7 +218,7 @@ const Payment = (props) => {
                             Общепит
                         </Box>
                         <Box className='payment-total-sum'>
-                            {Math.round(horder.sum).toLocaleString('ru-RU')}
+                            {Math.round(props.order.sum).toLocaleString('ru-RU')}
                         </Box>
                     </Box>
                     <Box sx={{backgroundColor: '#e4e2e2'}}>
@@ -307,31 +252,116 @@ const Payment = (props) => {
                 </Box>
             </Box>
             <Box className='payment-types'>
-                {paymentMethodsArray()}
+                {payment_methods_loading ? <Loader/> :
+                    payment_methods_error !== null ? <Box>Ошибка загрузки маршрутов оплаты</Box> :
+                        payment_methods.list.length === 0 ?
+                            <Box>Для этого рабочего места не найдено маршрутов оплаты</Box> :
+                            payment_methods.list.map(pm => {
+                                return (
+                                    <Button variant='contained'
+                                            color='secondary'
+                                            key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
+                                            className='payment-path'
+                                            sx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center'
+                                            }}
+                                            onClick={() => {
+                                                pay(pm)
+                                            }}>
+                                        <span>{pm.name}</span>
+                                        <span
+                                            style={{fontSize: '70%'}}>
+                                                    ККТ {pm.kkt.number.slice(-4)} {pm.pinpad !== null ? ` | Пинпад ${pm.pinpad.number.slice(-4)}` : ''}
+                                                </span>
+                                    </Button>
+                                )
+                            })
+
+                }
             </Box>
             <Box className='payment-items'>
-                <Fade in={slip_without_receipt} timeout={500} unmountOnExit>
+                <Fade in={payment_group.for_payment.slip_without_receipt.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/></Box>
-                        {table('slip_without_receipt.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
-                        {table('slip_without_receipt.horeca_items', ITEMS_TYPE_ITEMS)}
-                        {table('slip_without_receipt.cinema_items', ITEMS_TYPE_SERVICE)}
+                        <Box
+                            className='payment-items-group-title'>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/></Box>
+                        <GroupedTable group={props.order.for_payment.slip_without_receipt.mark_egais_items}
+                                      title={ITEMS_TYPE_MARK_EGAIS}
+                                      chapter={'for_payment.slip_without_receipt.mark_egais_items'}/>
+                        <GroupedTable group={props.order.for_payment.slip_without_receipt.horeca_items}
+                                      title={ITEMS_TYPE_ITEMS}
+                                      chapter={'for_payment.slip_without_receipt.horeca_items'}/>
+                        <GroupedTable group={props.order.for_payment.slip_without_receipt.cinema_items}
+                                      title={ITEMS_TYPE_SERVICE}
+                                      chapter={'for_payment.slip_without_receipt.cinema_items'}/>
                     </Box>
                 </Fade>
-                <Fade in={waiting} timeout={500} unmountOnExit>
+                <Fade in={payment_group.for_payment.waiting.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title'>{PAYMENT_STATE_WAITING}<DotsAnimation/></Box>
-                        {table('waiting.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
-                        {table('waiting.horeca_items', ITEMS_TYPE_ITEMS)}
-                        {table('waiting.cinema_items', ITEMS_TYPE_SERVICE)}
+                        <Box className='payment-items-group-title'>
+                            {PAYMENT_STATE_WAITING}<DotsAnimation/>
+                        </Box>
+                        <GroupedTable group={props.order.for_payment.waiting.mark_egais_items}
+                                      title={ITEMS_TYPE_MARK_EGAIS}
+                                      chapter={'for_payment.waiting.mark_egais_items'}/>
+                        <GroupedTable group={props.order.for_payment.waiting.horeca_items}
+                                      title={ITEMS_TYPE_ITEMS}
+                                      chapter={'for_payment.waiting.horeca_items'}/>
+                        <GroupedTable group={props.order.for_payment.waiting.cinema_items}
+                                      title={ITEMS_TYPE_SERVICE}
+                                      chapter={'for_payment.waiting.cinema_items'}/>
                     </Box>
                 </Fade>
-                <Fade in={success} timeout={500} unmountOnExit>
+
+                <Fade in={payment_group.for_returning.slip_without_receipt.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title'>{PAYMENT_STATE_SUCCESS}</Box>
-                        {table('success.mark_egais_items', ITEMS_TYPE_MARK_EGAIS)}
-                        {table('success.horeca_items', ITEMS_TYPE_ITEMS)}
-                        {table('success.cinema_items', ITEMS_TYPE_SERVICE)}
+                        <Box className='payment-items-group-title'>
+                            {RETURNING_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/>
+                        </Box>
+                        <GroupedTable group={props.order.for_returning.slip_without_receipt.mark_egais_items}
+                                      title={ITEMS_TYPE_MARK_EGAIS}
+                                      chapter={'for_returning.slip_without_receipt.mark_egais_items'}/>
+                        <GroupedTable group={props.order.for_returning.slip_without_receipt.horeca_items}
+                                      title={ITEMS_TYPE_ITEMS}
+                                      chapter={'for_returning.slip_without_receipt.horeca_items'}/>
+                        <GroupedTable group={props.order.for_returning.slip_without_receipt.cinema_items}
+                                      title={ITEMS_TYPE_SERVICE}
+                                      chapter={'for_returning.slip_without_receipt.cinema_items'}/>
+                    </Box>
+                </Fade>
+
+                <Fade in={payment_group.for_returning.waiting.count > 0} timeout={500} unmountOnExit>
+                    <Box className='payment-items-group'>
+                        <Box className='payment-items-group-title'>
+                            {RETURNING_STATE_WAITING}<DotsAnimation/>
+                        </Box>
+                        <GroupedTable group={props.order.for_returning.waiting.mark_egais_items}
+                                      title={ITEMS_TYPE_MARK_EGAIS}
+                                      chapter={'for_returning.waiting.mark_egais_items'}/>
+                        <GroupedTable group={props.order.for_returning.waiting.horeca_items}
+                                      title={ITEMS_TYPE_ITEMS}
+                                      chapter={'for_returning.waiting.horeca_items'}/>
+                        <GroupedTable group={props.order.for_returning.waiting.cinema_items}
+                                      title={ITEMS_TYPE_SERVICE}
+                                      chapter={'for_returning.waiting.cinema_items'}/>
+                    </Box>
+                </Fade>
+
+                <Fade in={payment_group.for_returning.success.count > 0} timeout={500} unmountOnExit>
+                    <Box className='payment-items-group'>
+                        <Box className='payment-items-group-title'>
+                            {RETURNING_STATE_SUCCESS}
+                        </Box>
+                        <GroupedTable group={props.order.for_returning.success.mark_egais_items}
+                                      title={ITEMS_TYPE_MARK_EGAIS}
+                                      chapter={'for_returning.success.mark_egais_items'}/>
+                        <GroupedTable group={props.order.for_returning.success.horeca_items}
+                                      title={ITEMS_TYPE_ITEMS}
+                                      chapter={'for_returning.success.horeca_items'}/>
+                        <GroupedTable group={props.order.for_returning.success.cinema_items}
+                                      title={ITEMS_TYPE_SERVICE}
+                                      chapter={'for_returning.success.cinema_items'}/>
                     </Box>
                 </Fade>
             </Box>

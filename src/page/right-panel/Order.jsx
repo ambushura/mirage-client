@@ -43,8 +43,11 @@ const OrderBody = ({
                        wp
                    }) => (
     <>
-        {paying ?
-            <Payment type={type}/>
+        {paying && order.for_payment !== null && order.for_returning !== null ?
+            <Payment
+                type={type}
+                order={order}
+            />
             :
             <>
                 <Box className="order-box-panel-1">

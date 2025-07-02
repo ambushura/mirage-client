@@ -1777,7 +1777,7 @@ body {
 
 .payment-items {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .payment-items-group {

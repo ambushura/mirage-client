@@ -6,7 +6,7 @@ import dayjs from "dayjs"
 import {
     ITEMS_TYPE_SERVICE,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    PAYMENT_STATE_SUCCESS,
+    RETURNING_STATE_WAITING,
     PAYMENT_STATE_WAITING
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
@@ -70,8 +70,20 @@ const OrderCinema = ({order}) => {
                             <Box sx={{width: '20px'}}/>
                             <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
                             {item.uid_discount !== null ?
-                                <Box sx={{flex: 1, textAlign: 'right', color: '#ff9800', fontSize: '70%', fontWeight: 'bold', overflow: 'hidden'}}>{item.name_discount}</Box> : null}
-                            <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
+                                <Box sx={{
+                                    flex: 1,
+                                    textAlign: 'right',
+                                    color: '#ff9800',
+                                    fontSize: '70%',
+                                    fontWeight: 'bold',
+                                    overflow: 'hidden'
+                                }}>{item.name_discount}</Box> : null}
+                            <Box sx={{
+                                flex: 1,
+                                textAlign: 'right',
+                                fontWeight: 'bold',
+                                marginRight: '4px'
+                            }}><FunctionsIcon
                                 sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                         </Box>
                         <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
@@ -157,7 +169,7 @@ const OrderCinema = ({order}) => {
                 <Box className='admin-orders-cinema-order-body'>
                     <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
                     <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
-                    <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
+                    <RenderGroup label={RETURNING_STATE_WAITING} group={groups.success} ver={order.ver}/>
                 </Box>
 
                 <Box className='admin-orders-cinema-order-footer'

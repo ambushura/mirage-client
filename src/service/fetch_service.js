@@ -140,7 +140,7 @@ export const horeca_position_add = (filial, wp, uid_order, ver, uid_menu) => asy
     filial
 }, data => dispatch(setCurrentHorder(data)))
 
-export const common_order_pay = (filial, wp, pm, uid_order, ver, type, for_payment) => async (dispatch) => makeRequest(dispatch, {
+export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
     method: 'post', url: `http://${filial.ip}:8081${ROUTE_COMMON_ORDER_PAYMENT}`, data: {
         uid_payment_type: pm.uid_payment_type,
         uid_kkt: pm.uid_kkt,
@@ -152,8 +152,14 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, for_payme
         uid_order,
         type,
         ver,
-        for_payment
+        payment_group
     }, timeout: TIMEOUT * 2, wp, filial
+}, data => {
+    if (type === 'cinema') {
+        dispatch(setCurrentPreOrder(data))
+    } else if (type === 'horeca') {
+        dispatch(setCurrentHorder(data))
+    }
 })
 
 export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch) => makeRequest(dispatch, {

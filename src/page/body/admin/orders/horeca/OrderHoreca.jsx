@@ -7,8 +7,8 @@ import {useEffect, useState} from "react"
 import {
     ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    PAYMENT_STATE_SUCCESS,
-    PAYMENT_STATE_WAITING
+    PAYMENT_STATE_WAITING,
+    RETURNING_STATE_WAITING
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import FunctionsIcon from "@mui/icons-material/Functions"
@@ -172,7 +172,7 @@ const OrderHoreca = ({order}) => {
             <Box className='admin-orders-horeca-order-body'>
                 <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
                 <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
-                <RenderGroup label={PAYMENT_STATE_SUCCESS} group={groups.success} ver={order.ver}/>
+                <RenderGroup label={RETURNING_STATE_WAITING} group={groups.success} ver={order.ver}/>
             </Box>
 
             <Box className='admin-orders-horeca-order-footer'

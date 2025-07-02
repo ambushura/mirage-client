@@ -24,13 +24,6 @@ import {
     setScheduleFiltersSeanceClosed,
     setScheduleFiltersSeanceOpened, setScheduleFiltersTime
 } from "../../../redux/scheduleReducer.js"
-import {
-    setOrdersCinemaFiltersBuyerEmailsSelect, setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
-    setOrdersCinemaFiltersHallsSelect,
-    setOrdersCinemaFiltersSeancesSelect,
-    setOrdersCinemaFiltersStaffSelect,
-    setOrdersCinemaFiltersStateSelect, setOrdersCinemaFiltersWorkplacesSelect
-} from "../../../redux/ordersReducer.js";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 
 const ScheduleMenu = () => {
