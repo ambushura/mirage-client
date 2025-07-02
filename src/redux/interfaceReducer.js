@@ -10,7 +10,7 @@ const current_date = date_dayjs(
 
 export const PAYMENT_STATE_WAITING = 'Ожидает оплаты'
 export const PAYMENT_STATE_SLIP_WITHOUT_RECEIPT = 'Списали деньги с карты, но не пробили кассовый чек'
-export const RETURNING_STATE_WAITING = 'Успешно оплачено, можно вернуть'
+export const RETURNING_STATE_WAITING = 'Успешно оплачено, можно оформить возврат'
 export const RETURNING_STATE_SLIP_WITHOUT_RECEIPT = 'Вернули деньги на карту, но не пробили кассовый чек'
 export const RETURNING_STATE_SUCCESS = 'Успешно оформлен возврат'
 export const ITEMS_TYPE_ITEMS = 'Товары'

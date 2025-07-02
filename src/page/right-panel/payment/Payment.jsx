@@ -119,6 +119,7 @@ const Payment = (props) => {
                     }, {})
                 )
             }
+
             if (chapter0 === 'for_returning') {
                 return groupAndSum(group, ["uid", "name", "unit_name", "price", "discount"], ["quantity", "sum"])
             } else {
@@ -210,7 +211,7 @@ const Payment = (props) => {
                             Кино
                         </Box>
                         <Box className='payment-total-sum'>
-                            {Math.round(props.order.sum).toLocaleString('ru-RU')}
+                            {Math.round(pre_order.sum).toLocaleString('ru-RU')}
                         </Box>
                     </Box>
                     <Box>
@@ -218,7 +219,7 @@ const Payment = (props) => {
                             Общепит
                         </Box>
                         <Box className='payment-total-sum'>
-                            {Math.round(props.order.sum).toLocaleString('ru-RU')}
+                            {Math.round(horder.sum).toLocaleString('ru-RU')}
                         </Box>
                     </Box>
                     <Box sx={{backgroundColor: '#e4e2e2'}}>
@@ -333,8 +334,8 @@ const Payment = (props) => {
 
                 <Fade in={payment_group.for_returning.waiting.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title'>
-                            {RETURNING_STATE_WAITING}<DotsAnimation/>
+                        <Box className='payment-items-group-title' sx={{backgroundColor: '#50DB92'}}>
+                            {RETURNING_STATE_WAITING}
                         </Box>
                         <GroupedTable group={props.order.for_returning.waiting.mark_egais_items}
                                       title={ITEMS_TYPE_MARK_EGAIS}
@@ -350,7 +351,7 @@ const Payment = (props) => {
 
                 <Fade in={payment_group.for_returning.success.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title'>
+                        <Box className='payment-items-group-title' sx={{backgroundColor: '#50DB92'}}>
                             {RETURNING_STATE_SUCCESS}
                         </Box>
                         <GroupedTable group={props.order.for_returning.success.mark_egais_items}
