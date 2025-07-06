@@ -22,7 +22,7 @@ const Payment = (props) => {
 
     const dispatch = useDispatch()
 
-    const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods()
+    const [payment_methods, payment_methods_error, payment_methods_loading] = useSetPaymentMethods(props.order.uid, props.type)
 
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
@@ -53,43 +53,43 @@ const Payment = (props) => {
         {
             for_payment: {
                 waiting: {
-                    mark_egais_items: {count: 0, selected: true,},
-                    horeca_items: {count: 0, selected: true,},
-                    cinema_items: {count: 0, selected: true,},
+                    mark_egais_items: {count: 0, selected: true, items: []},
+                    horeca_items: {count: 0, selected: true, items: []},
+                    cinema_items: {count: 0, selected: true, items: []},
                     count: 0,
                 },
                 slip_without_receipt: {
-                    mark_egais_items: {count: 0, selected: true,},
-                    horeca_items: {count: 0, selected: true,},
-                    cinema_items: {count: 0, selected: true,},
+                    mark_egais_items: {count: 0, selected: true, items: []},
+                    horeca_items: {count: 0, selected: true, items: []},
+                    cinema_items: {count: 0, selected: true, items: []},
                     count: 0,
                 },
                 success: {
-                    mark_egais_items: {count: 0, selected: false,},
-                    horeca_items: {count: 0, selected: false,},
-                    cinema_items: {count: 0, selected: false,},
+                    mark_egais_items: {count: 0, selected: false, items: []},
+                    horeca_items: {count: 0, selected: false, items: []},
+                    cinema_items: {count: 0, selected: false, items: []},
                     count: 0,
-                }
+                },
             },
             for_returning: {
                 waiting: {
-                    mark_egais_items: {count: 0, selected: false,},
-                    horeca_items: {count: 0, selected: false,},
-                    cinema_items: {count: 0, selected: false,},
+                    mark_egais_items: {count: 0, selected: false, items: []},
+                    horeca_items: {count: 0, selected: false, items: []},
+                    cinema_items: {count: 0, selected: false, items: []},
                     count: 0,
                 },
                 slip_without_receipt: {
-                    mark_egais_items: {count: 0, selected: false,},
-                    horeca_items: {count: 0, selected: false,},
-                    cinema_items: {count: 0, selected: false,},
+                    mark_egais_items: {count: 0, selected: false, items: []},
+                    horeca_items: {count: 0, selected: false, items: []},
+                    cinema_items: {count: 0, selected: false, items: []},
                     count: 0,
                 },
                 success: {
-                    mark_egais_items: {count: 0, selected: false,},
-                    horeca_items: {count: 0, selected: false,},
-                    cinema_items: {count: 0, selected: false,},
+                    mark_egais_items: {count: 0, selected: false, items: []},
+                    horeca_items: {count: 0, selected: false, items: []},
+                    cinema_items: {count: 0, selected: false, items: []},
                     count: 0,
-                }
+                },
             }
         }
     )
@@ -120,10 +120,11 @@ const Payment = (props) => {
                 )
             }
 
-            if (chapter0 === 'for_returning') {
-                return groupAndSum(group, ["uid", "name", "unit_name", "price", "discount"], ["quantity", "sum"])
-            } else {
-                return groupAndSum(group, ["name", "unit_name", "price", "discount"], ["quantity", "sum"])
+            switch (chapter0) {
+                case 'for_payment':
+                    return groupAndSum(group, ["name", "unit_name", "price", "discount"], ["quantity", "sum"])
+                case 'for_returning':
+                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "discount"], ["quantity", "sum"])
             }
         }, [group])
 
@@ -133,9 +134,15 @@ const Payment = (props) => {
                     <Box className='payment-items-group-title-name'>
                         <Checkbox checked={payment_group[chapter0][chapter1][chapter2].selected}
                                   onChange={() => {
-                                      const group_selected_new = structuredClone(payment_group)
-                                      group_selected_new[chapter0][chapter1][chapter2].selected = !group_selected_new[chapter0][chapter1][chapter2].selected
-                                      set_payment_group(group_selected_new)
+                                      const payment_group_new = structuredClone(payment_group)
+                                      const action = !payment_group_new[chapter0][chapter1][chapter2].selected
+                                      payment_group_new[chapter0][chapter1][chapter2].selected = action
+                                      if (action) {
+                                          grouped_items.map(item => (payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)))
+                                      } else {
+                                          payment_group_new[chapter0][chapter1][chapter2].items = []
+                                      }
+                                      set_payment_group(payment_group_new)
                                   }}/>{title}</Box>
                     <AnimatePresence>,
                         {grouped_items.length > 0 && (
@@ -149,7 +156,22 @@ const Payment = (props) => {
                                         className='payment-items-group-item-row'
                                         key={item.uid}
                                         variants={itemVariants}>
-                                        {chapter0 === 'for_returning' ? <Checkbox checked={false}/> : null}
+                                        {chapter0 === 'for_returning' ? <Checkbox
+                                            checked={payment_group[chapter0][chapter1][chapter2].items.find(el => el === item.uid) !== undefined}
+                                            onChange={() => {
+                                                let payment_group_new = structuredClone(payment_group)
+                                                if (payment_group_new[chapter0][chapter1][chapter2].items.find(el => el === item.uid) === undefined) {
+                                                    payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)
+                                                } else {
+                                                    payment_group_new[chapter0][chapter1][chapter2].items = payment_group_new[chapter0][chapter1][chapter2].items.filter(el => el !== item.uid)
+                                                }
+                                                if (payment_group_new[chapter0][chapter1][chapter2].items.length === 0) {
+                                                    payment_group_new[chapter0][chapter1][chapter2].selected = false
+                                                } else if (payment_group_new[chapter0][chapter1][chapter2].items.length === grouped_items.length) {
+                                                    payment_group_new[chapter0][chapter1][chapter2].selected = true
+                                                }
+                                                set_payment_group(payment_group_new)
+                                            }}/> : null}
                                         <Box className='payment-items-group-item-0'>{item.name}</Box>
                                         <Box className='payment-items-group-item-1'>{item.quantity}</Box>
                                         <Box className='payment-items-group-item-2'>{item.price}</Box>

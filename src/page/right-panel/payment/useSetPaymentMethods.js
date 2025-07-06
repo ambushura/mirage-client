@@ -3,7 +3,7 @@ import {useEffect, useState} from "react"
 import {useFetching} from "../../../hooks/common/useFetching.js"
 import {ROUTE_COMMON_PAYMENT_METHODS_GET} from "../../../service/fetch_routes.js"
 
-export function useSetPaymentMethods() {
+export function useSetPaymentMethods(uid_order, type) {
 
     const [url, set_url] = useState(undefined)
     const [fetch_data, fetch_errors, fetch_loading] = useFetching(url)
@@ -17,7 +17,10 @@ export function useSetPaymentMethods() {
             set_url({
                 url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}`,
                 uid_filial: filial.uid,
-                params: {}
+                params: {
+                    uid_order: uid_order,
+                    type: type
+                }
             })
         } else {
             set_url(undefined)

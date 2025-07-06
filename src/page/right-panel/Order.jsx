@@ -1,11 +1,9 @@
 import {Box, Button, ButtonGroup} from "@mui/material"
-import {
-    Cached as CachedIcon,
-    Close as CloseIcon,
-    Delete as DeleteIcon,
-    DeleteForever as DeleteForeverIcon,
-    Receipt as ReceiptIcon
-} from '@mui/icons-material'
+import CachedIcon from '@mui/icons-material/Cached'
+import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import ReceiptIcon from '@mui/icons-material/Receipt'
+import CloseIcon from '@mui/icons-material/Close'
 import {useDispatch, useSelector} from "react-redux"
 import SeanceTitle from "../../components/cinema/SeanceTitle.jsx"
 import BookingItem from "./cinema/BookingItem.jsx"
