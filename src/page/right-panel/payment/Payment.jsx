@@ -31,6 +31,7 @@ const Payment = (props) => {
     const total = useSelector(state => state.orders.total)
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
+    const [show_payment_types, set_show_payment_types] = useState(false)
 
     const pay = (pm) => {
         dispatch(common_order_pay(
@@ -93,6 +94,28 @@ const Payment = (props) => {
             }
         }
     )
+
+    useEffect(() => {
+            if (
+                (payment_group.for_payment.waiting.mark_egais_items.count > 0 && (payment_group.for_payment.waiting.mark_egais_items.selected || payment_group.for_payment.waiting.mark_egais_items.items.length > 0)) ||
+                (payment_group.for_payment.waiting.horeca_items.count > 0 && (payment_group.for_payment.waiting.horeca_items.selected || payment_group.for_payment.waiting.horeca_items.items > 0)) ||
+                (payment_group.for_payment.waiting.cinema_items.count > 0 && (payment_group.for_payment.waiting.cinema_items.selected || payment_group.for_payment.waiting.cinema_items.items > 0)) ||
+                (payment_group.for_payment.slip_without_receipt.mark_egais_items.count > 0 && (payment_group.for_payment.slip_without_receipt.mark_egais_items.selected || payment_group.for_payment.waiting.mark_egais_items.items.length > 0)) ||
+                (payment_group.for_payment.slip_without_receipt.horeca_items.count > 0 && (payment_group.for_payment.slip_without_receipt.horeca_items.selected || payment_group.for_payment.waiting.horeca_items.items > 0)) ||
+                (payment_group.for_payment.slip_without_receipt.cinema_items.count > 0 && (payment_group.for_payment.slip_without_receipt.cinema_items.selected || payment_group.for_payment.waiting.cinema_items.items > 0)) ||
+                (payment_group.for_returning.waiting.mark_egais_items.count > 0 && (payment_group.for_returning.waiting.mark_egais_items.selected || payment_group.for_returning.waiting.mark_egais_items.items.length > 0)) ||
+                (payment_group.for_returning.waiting.horeca_items.count > 0 && (payment_group.for_returning.waiting.horeca_items.selected || payment_group.for_returning.waiting.horeca_items.items > 0)) ||
+                (payment_group.for_returning.waiting.cinema_items.count > 0 && (payment_group.for_returning.waiting.cinema_items.selected || payment_group.for_returning.waiting.cinema_items.items > 0)) ||
+                (payment_group.for_returning.slip_without_receipt.mark_egais_items.count > 0 && (payment_group.for_returning.slip_without_receipt.mark_egais_items.selected || payment_group.for_returning.slip_without_receipt.mark_egais_items.items.length > 0)) ||
+                (payment_group.for_returning.slip_without_receipt.horeca_items.count > 0 && (payment_group.for_returning.slip_without_receipt.horeca_items.selected || payment_group.for_returning.slip_without_receipt.horeca_items.items > 0)) ||
+                (payment_group.for_returning.slip_without_receipt.cinema_items.count > 0 && (payment_group.for_returning.slip_without_receipt.cinema_items.selected || payment_group.for_returning.slip_without_receipt.cinema_items.items > 0))
+            ) {
+                set_show_payment_types(true)
+            } else {
+                set_show_payment_types(false)
+            }
+        }
+        , [payment_group])
 
     const GroupedTable = ({group, title, chapter}) => {
 
@@ -277,34 +300,35 @@ const Payment = (props) => {
                 </Box>
             </Box>
             <Box className='payment-types'>
-                {payment_methods_loading ? <Loader/> :
-                    payment_methods_error !== null ? <Box>Ошибка загрузки маршрутов оплаты</Box> :
-                        payment_methods.list.length === 0 ?
-                            <Box>Для этого рабочего места не найдено маршрутов оплаты</Box> :
-                            payment_methods.list.map(pm => {
-                                return (
-                                    <Button variant='contained'
-                                            color='secondary'
-                                            key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
-                                            className='payment-path'
-                                            sx={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                alignItems: 'center'
-                                            }}
-                                            onClick={() => {
-                                                pay(pm)
-                                            }}>
-                                        <span>{pm.name}</span>
-                                        <span
-                                            style={{fontSize: '70%'}}>
-                                            <div>ККТ {pm.kkt.number.slice(-4)}</div>
-                                            {pm.pinpad !== null ?
-                                                <div>Пинпад {pm.pinpad.number.slice(-4)}</div> : null}
+                {!show_payment_types ? <Box>Выберите позиции для платежной операции</Box> :
+                    payment_methods_loading ? <Loader/> :
+                        payment_methods_error !== null ? <Box>Ошибка загрузки маршрутов оплаты</Box> :
+                            payment_methods.list.length === 0 ?
+                                <Box>Для этого рабочего места не найдено маршрутов оплаты</Box> :
+                                payment_methods.list.map(pm => {
+                                    return (
+                                        <Button variant='contained'
+                                                color='secondary'
+                                                key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
+                                                className='payment-path'
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'center'
+                                                }}
+                                                onClick={() => {
+                                                    pay(pm)
+                                                }}>
+                                            <span>{pm.name}</span>
+                                            <span
+                                                style={{fontSize: '70%'}}>
+                                            <div>ККТ ...{pm.kkt.number.slice(-4)}</div>
+                                                {pm.pinpad !== null ?
+                                                    <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
                                                 </span>
-                                    </Button>
-                                )
-                            })
+                                        </Button>
+                                    )
+                                })
 
                 }
             </Box>
