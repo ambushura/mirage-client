@@ -167,7 +167,9 @@ const Payment = (props) => {
                                                 }
                                                 if (payment_group_new[chapter0][chapter1][chapter2].items.length === 0) {
                                                     payment_group_new[chapter0][chapter1][chapter2].selected = false
-                                                } else if (payment_group_new[chapter0][chapter1][chapter2].items.length === grouped_items.length) {
+                                                } else if (payment_group_new[chapter0][chapter1][chapter2].items.length !== grouped_items.length) {
+                                                    payment_group_new[chapter0][chapter1][chapter2].selected = false
+                                                } else {
                                                     payment_group_new[chapter0][chapter1][chapter2].selected = true
                                                 }
                                                 set_payment_group(payment_group_new)
@@ -296,7 +298,9 @@ const Payment = (props) => {
                                         <span>{pm.name}</span>
                                         <span
                                             style={{fontSize: '70%'}}>
-                                                    ККТ {pm.kkt.number.slice(-4)} {pm.pinpad !== null ? ` | Пинпад ${pm.pinpad.number.slice(-4)}` : ''}
+                                            <div>ККТ {pm.kkt.number.slice(-4)}</div>
+                                            {pm.pinpad !== null ?
+                                                <div>Пинпад {pm.pinpad.number.slice(-4)}</div> : null}
                                                 </span>
                                     </Button>
                                 )
