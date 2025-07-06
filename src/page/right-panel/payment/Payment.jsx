@@ -96,24 +96,22 @@ const Payment = (props) => {
     )
 
     useEffect(() => {
-            if (
-                (payment_group.for_payment.waiting.mark_egais_items.count > 0 && (payment_group.for_payment.waiting.mark_egais_items.selected || payment_group.for_payment.waiting.mark_egais_items.items.length > 0)) ||
-                (payment_group.for_payment.waiting.horeca_items.count > 0 && (payment_group.for_payment.waiting.horeca_items.selected || payment_group.for_payment.waiting.horeca_items.items > 0)) ||
-                (payment_group.for_payment.waiting.cinema_items.count > 0 && (payment_group.for_payment.waiting.cinema_items.selected || payment_group.for_payment.waiting.cinema_items.items > 0)) ||
-                (payment_group.for_payment.slip_without_receipt.mark_egais_items.count > 0 && (payment_group.for_payment.slip_without_receipt.mark_egais_items.selected || payment_group.for_payment.waiting.mark_egais_items.items.length > 0)) ||
-                (payment_group.for_payment.slip_without_receipt.horeca_items.count > 0 && (payment_group.for_payment.slip_without_receipt.horeca_items.selected || payment_group.for_payment.waiting.horeca_items.items > 0)) ||
-                (payment_group.for_payment.slip_without_receipt.cinema_items.count > 0 && (payment_group.for_payment.slip_without_receipt.cinema_items.selected || payment_group.for_payment.waiting.cinema_items.items > 0)) ||
-                (payment_group.for_returning.waiting.mark_egais_items.count > 0 && (payment_group.for_returning.waiting.mark_egais_items.selected || payment_group.for_returning.waiting.mark_egais_items.items.length > 0)) ||
-                (payment_group.for_returning.waiting.horeca_items.count > 0 && (payment_group.for_returning.waiting.horeca_items.selected || payment_group.for_returning.waiting.horeca_items.items > 0)) ||
-                (payment_group.for_returning.waiting.cinema_items.count > 0 && (payment_group.for_returning.waiting.cinema_items.selected || payment_group.for_returning.waiting.cinema_items.items > 0)) ||
-                (payment_group.for_returning.slip_without_receipt.mark_egais_items.count > 0 && (payment_group.for_returning.slip_without_receipt.mark_egais_items.selected || payment_group.for_returning.slip_without_receipt.mark_egais_items.items.length > 0)) ||
-                (payment_group.for_returning.slip_without_receipt.horeca_items.count > 0 && (payment_group.for_returning.slip_without_receipt.horeca_items.selected || payment_group.for_returning.slip_without_receipt.horeca_items.items > 0)) ||
-                (payment_group.for_returning.slip_without_receipt.cinema_items.count > 0 && (payment_group.for_returning.slip_without_receipt.cinema_items.selected || payment_group.for_returning.slip_without_receipt.cinema_items.items > 0))
-            ) {
-                set_show_payment_types(true)
-            } else {
-                set_show_payment_types(false)
-            }
+
+            const chapter0_array = ['for_payment', 'for_returning']
+            const chapter1_array = ['waiting', 'slip_without_receipt']
+            const chapter2_array = ['mark_egais_items', 'horeca_items', 'cinema_items']
+
+            let show = false
+            chapter0_array.forEach(chapter0 => {
+                chapter1_array.forEach(chapter1 => {
+                    chapter2_array.forEach(chapter2 => {
+                        if (payment_group[chapter0][chapter1][chapter2].count > 0 && payment_group[chapter0][chapter1][chapter2].items.length > 0) {
+                            show = true
+                        }
+                    })
+                })
+            })
+            set_show_payment_types(show)
         }
         , [payment_group])
 
@@ -222,10 +220,38 @@ const Payment = (props) => {
         payment_group_new.for_payment.waiting.cinema_items.count = props.order.for_payment.waiting.cinema_items.length
         payment_group_new.for_payment.waiting.count = payment_group_new.for_payment.waiting.mark_egais_items.count + payment_group_new.for_payment.waiting.horeca_items.count + payment_group_new.for_payment.waiting.cinema_items.count
 
+        props.order.for_payment.waiting.mark_egais_items.forEach(item => {
+            payment_group_new.for_payment.waiting.mark_egais_items.items.push(item.uid)
+        })
+        props.order.for_payment.waiting.horeca_items.forEach(item => {
+            payment_group_new.for_payment.waiting.horeca_items.items.push(item.uid)
+        })
+        props.order.for_payment.waiting.cinema_items.forEach(item => {
+            payment_group_new.for_payment.waiting.cinema_items.items.push(item.uid)
+        })
+
+        payment_group_new.for_payment.waiting.mark_egais_items.selected = true
+        payment_group_new.for_payment.waiting.horeca_items.selected = true
+        payment_group_new.for_payment.waiting.cinema_items.selected = true
+
         payment_group_new.for_payment.slip_without_receipt.mark_egais_items.count = props.order.for_payment.slip_without_receipt.mark_egais_items.length
         payment_group_new.for_payment.slip_without_receipt.horeca_items.count = props.order.for_payment.slip_without_receipt.horeca_items.length
         payment_group_new.for_payment.slip_without_receipt.cinema_items.count = props.order.for_payment.slip_without_receipt.cinema_items.length
         payment_group_new.for_payment.slip_without_receipt.count = payment_group_new.for_payment.slip_without_receipt.mark_egais_items.count + payment_group_new.for_payment.slip_without_receipt.horeca_items.count + payment_group_new.for_payment.slip_without_receipt.cinema_items.count
+
+        props.order.for_payment.slip_without_receipt.mark_egais_items.forEach(item => {
+            payment_group_new.for_payment.slip_without_receipt.mark_egais_items.items.push(item.uid)
+        })
+        props.order.for_payment.slip_without_receipt.horeca_items.forEach(item => {
+            payment_group_new.for_payment.slip_without_receipt.horeca_items.items.push(item.uid)
+        })
+        props.order.for_payment.slip_without_receipt.cinema_items.forEach(item => {
+            payment_group_new.for_payment.slip_without_receipt.cinema_items.items.push(item.uid)
+        })
+
+        payment_group_new.for_payment.slip_without_receipt.mark_egais_items.selected = true
+        payment_group_new.for_payment.slip_without_receipt.horeca_items.selected = true
+        payment_group_new.for_payment.slip_without_receipt.cinema_items.selected = true
 
         payment_group_new.for_returning.waiting.mark_egais_items.count = props.order.for_returning.waiting.mark_egais_items.length
         payment_group_new.for_returning.waiting.horeca_items.count = props.order.for_returning.waiting.horeca_items.length
@@ -300,34 +326,50 @@ const Payment = (props) => {
                 </Box>
             </Box>
             <Box className='payment-types'>
-                {!show_payment_types ? <Box>Выберите позиции для платежной операции</Box> :
+                {!show_payment_types ? <Box sx={{fontWeight: 'bold'}}>Выберите позиции для платежной операции</Box> :
                     payment_methods_loading ? <Loader/> :
-                        payment_methods_error !== null ? <Box>Ошибка загрузки маршрутов оплаты</Box> :
+                        payment_methods_error !== null ?
+                            <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов оплаты</Box> :
                             payment_methods.list.length === 0 ?
-                                <Box>Для этого рабочего места не найдено маршрутов оплаты</Box> :
+                                <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Для этого рабочего места не найдено
+                                    маршрутов оплаты, обратитесь в учетный отдел</Box> :
                                 payment_methods.list.map(pm => {
-                                    return (
-                                        <Button variant='contained'
-                                                color='secondary'
-                                                key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
-                                                className='payment-path'
-                                                sx={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'center'
-                                                }}
-                                                onClick={() => {
-                                                    pay(pm)
-                                                }}>
-                                            <span>{pm.name}</span>
-                                            <span
-                                                style={{fontSize: '70%'}}>
+                                    const chapter1_array = ['waiting', 'slip_without_receipt']
+                                    const chapter2_array = ['mark_egais_items', 'horeca_items', 'cinema_items']
+                                    let ok = true
+                                    chapter1_array.forEach(chapter1 => {
+                                        chapter2_array.forEach(chapter2 => {
+                                            props.order.for_returning[chapter1][chapter2].forEach(item => {
+                                                if (item.name_payment_type !== pm.name && payment_group.for_returning[chapter1][chapter2].items.includes(item.uid)) {
+                                                    ok = false
+                                                }
+                                            })
+                                        })
+                                    })
+                                    if (ok) {
+                                        return (
+                                            <Button variant='contained'
+                                                    color='secondary'
+                                                    key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
+                                                    className='payment-path'
+                                                    sx={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        alignItems: 'center'
+                                                    }}
+                                                    onClick={() => {
+                                                        pay(pm)
+                                                    }}>
+                                                <span>{pm.name}</span>
+                                                <span
+                                                    style={{fontSize: '70%'}}>
                                             <div>ККТ ...{pm.kkt.number.slice(-4)}</div>
-                                                {pm.pinpad !== null ?
-                                                    <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
+                                                    {pm.pinpad !== null ?
+                                                        <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
                                                 </span>
-                                        </Button>
-                                    )
+                                            </Button>
+                                        )
+                                    }
                                 })
 
                 }

@@ -1733,7 +1733,7 @@ body {
     display: flex;
     background-color: #ececec;
     border-radius: 12px;
-    height: 60px;
+    height: 100%;
 }
 
 .payment-total-div > div {
@@ -1760,7 +1760,6 @@ body {
 }
 
 .payment-types {
-    padding: 4px 0;
     display: flex;
     flex-direction: row;
     position: sticky;
@@ -1768,7 +1767,9 @@ body {
     z-index: 2;
     background-color: #f8f8f8;
     box-sizing: border-box;
-    height: 70px;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
 }
 
 .payment-types > button {
