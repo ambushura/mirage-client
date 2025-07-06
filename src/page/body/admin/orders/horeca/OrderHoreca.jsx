@@ -187,8 +187,8 @@ const OrderHoreca = ({order}) => {
                     wordBreak: 'break-word'
                 }}>Комментарий: {order.comment}</Box> : null}
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                    {order.buyer_email !== '' ? <Box>e-mail: {order.buyer_email}</Box> : null}
-                    {order.buyer_phone_number !== '' ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
+                    {order.buyer_email !== null ? <Box>e-mail: {order.buyer_email}</Box> : null}
+                    {order.buyer_phone_number !== null ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
                 </Box>
                 <Box sx={{
                     display: 'flex',
