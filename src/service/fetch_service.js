@@ -148,7 +148,6 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
         uid_work_place: pm.uid_work_place,
         uid_printer: pm.uid_printer,
         uid_printer_kkt: pm.uid_printer_kkt,
-        operation: 1,
         uid_order,
         type,
         ver,
