@@ -153,18 +153,20 @@ const Payment = (props) => {
             return (
                 <Box>
                     <Box className='payment-items-group-title-name'>
-                        <Checkbox checked={payment_group[chapter0][chapter1][chapter2].selected}
-                                  onChange={() => {
-                                      const payment_group_new = structuredClone(payment_group)
-                                      const action = !payment_group_new[chapter0][chapter1][chapter2].selected
-                                      payment_group_new[chapter0][chapter1][chapter2].selected = action
-                                      if (action) {
-                                          grouped_items.map(item => (payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)))
-                                      } else {
-                                          payment_group_new[chapter0][chapter1][chapter2].items = []
-                                      }
-                                      set_payment_group(payment_group_new)
-                                  }}/>{title}</Box>
+                        {chapter1 !== 'success' ?
+                            <Checkbox checked={payment_group[chapter0][chapter1][chapter2].selected}
+                                      onChange={() => {
+                                          const payment_group_new = structuredClone(payment_group)
+                                          const action = !payment_group_new[chapter0][chapter1][chapter2].selected
+                                          payment_group_new[chapter0][chapter1][chapter2].selected = action
+                                          if (action) {
+                                              grouped_items.map(item => (payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)))
+                                          } else {
+                                              payment_group_new[chapter0][chapter1][chapter2].items = []
+                                          }
+                                          set_payment_group(payment_group_new)
+                                      }}/> : <Box sx={{width: '10px'}}></Box>
+                        }{title}</Box>
                     <AnimatePresence>,
                         {grouped_items.length > 0 && (
                             <motion.div className='payment-items-group-item'
@@ -177,7 +179,7 @@ const Payment = (props) => {
                                         className='payment-items-group-item-row'
                                         key={item.uid}
                                         variants={itemVariants}>
-                                        {chapter0 === 'for_returning' ? <Checkbox
+                                        {chapter1 !== 'success' ? <Checkbox
                                             checked={payment_group[chapter0][chapter1][chapter2].items.find(el => el === item.uid) !== undefined}
                                             onChange={() => {
                                                 let payment_group_new = structuredClone(payment_group)

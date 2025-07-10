@@ -1806,6 +1806,8 @@ body {
     top: calc(144px + 32px);
     z-index: 2;
     background-color: #ececec;
+    display: flex;
+    align-items: center;
 }
 
 .payment-items-group-item {
