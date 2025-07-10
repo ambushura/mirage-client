@@ -7,16 +7,16 @@ import {useEffect, useState} from "react"
 import {
     ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    PAYMENT_STATE_WAITING,
+    PAYMENT_STATE_WAITING, RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import FunctionsIcon from "@mui/icons-material/Functions"
 
-const group_items = (items_grouped, payment_state) => {
+const group_items = (items_grouped, payment_group, payment_state) => {
     const items = [], mark_egais = []
     items_grouped
-        .filter(el => el.in_payment_group === payment_state)
+        .filter(el => payment_group === 'for_payment' ? el.in_payment_group === payment_state : el.out_payment_group === payment_state)
         .forEach(el => el.egais_type_code || el.mark_type ? mark_egais.push(el) : items.push(el))
     return {items, mark_egais}
 }
@@ -122,16 +122,20 @@ const OrderHoreca = ({order}) => {
     const horder = useSelector(state => state.orders.horder)
 
     const [groups, setGroups] = useState({
-        waiting: {items: [], mark_egais: []},
-        slip: {items: [], mark_egais: []},
-        success: {items: [], mark_egais: []}
+        for_payment_waiting: {items: [], mark_egais: []},
+        for_payment_slip: {items: [], mark_egais: []},
+        for_returning_waiting: {items: [], mark_egais: []},
+        for_returning_slip_without_receipt: {items: [], mark_egais: []},
+        for_returning_success: {items: [], mark_egais: []}
     })
 
     useEffect(() => {
         setGroups({
-            waiting: group_items(order.items_grouped, 'waiting'),
-            slip: group_items(order.items_grouped, 'slip_without_receipt'),
-            success: group_items(order.items_grouped, 'success')
+            for_payment_waiting: group_items(order.items_grouped, 'for_payment', 'waiting'),
+            for_payment_slip: group_items(order.items_grouped, 'for_payment', 'slip_without_receipt'),
+            for_returning_waiting: group_items(order.items_grouped, 'for_returning', 'waiting'),
+            for_returning_slip_without_receipt: group_items(order.items_grouped, 'for_returning', 'slip_without_receipt'),
+            for_returning_success: group_items(order.items_grouped, 'for_returning', 'success')
         })
     }, [order])
 
@@ -172,9 +176,11 @@ const OrderHoreca = ({order}) => {
             </Box>
 
             <Box className='admin-orders-horeca-order-body'>
-                <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
-                <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
-                <RenderGroup label={RETURNING_STATE_WAITING} group={groups.success} ver={order.ver}/>
+                <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.for_payment_slip}
+                             ver={order.ver}/>
+                <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.for_payment_waiting} ver={order.ver}/>
+                <RenderGroup label={RETURNING_STATE_WAITING} group={groups.for_returning_waiting} ver={order.ver}/>
+                <RenderGroup label={RETURNING_STATE_SUCCESS} group={groups.for_returning_success} ver={order.ver}/>
             </Box>
 
             <Box className='admin-orders-horeca-order-footer'
