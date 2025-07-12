@@ -1829,7 +1829,7 @@ body {
 .payment-items-group-item-2,
 .payment-items-group-item-3 {
     overflow: hidden;
-    padding: 4px 8px;
+    padding: 4px 0;
 }
 
 .payment-items-group-item-0 {

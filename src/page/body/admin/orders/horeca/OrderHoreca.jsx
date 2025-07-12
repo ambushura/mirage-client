@@ -7,7 +7,7 @@ import {useEffect, useState} from "react"
 import {
     ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    PAYMENT_STATE_WAITING, RETURNING_STATE_SUCCESS,
+    PAYMENT_STATE_WAITING, RETURNING_STATE_SLIP_WITHOUT_RECEIPT, RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
@@ -21,7 +21,7 @@ const group_items = (items_grouped, payment_group, payment_state) => {
     return {items, mark_egais}
 }
 
-const RenderGroup = ({label, group, ver}) => {
+const RenderGroup = ({chapter1, label, group, ver}) => {
     if (!group.items.length && !group.mark_egais.length) return null
     const render_items = (items, typeLabel) => items.length > 0 && (
         <>
@@ -40,7 +40,7 @@ const RenderGroup = ({label, group, ver}) => {
                          display: 'flex',
                          flexDirection: 'column',
                          backgroundColor: '#f4f4f4',
-                         borderBottom: '1px dashed #b6b5b5'
+                         borderBottom: '1px dashed #b6b5b5',
                      }}>
                     <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                         <Box sx={{width: '20px'}}/>
@@ -100,11 +100,12 @@ const RenderGroup = ({label, group, ver}) => {
             <Box sx={{
                 height: '25px',
                 fontWeight: 'bold',
-                backgroundColor: '#e4e2e2',
+                backgroundColor: chapter1 === 'success' ? '#50db92' : '#e4e2e2',
                 padding: '4px',
                 position: 'sticky',
                 top: 0,
                 zIndex: 1,
+                fontSize: '90%',
             }}>{label}
                 {label === PAYMENT_STATE_SLIP_WITHOUT_RECEIPT || label === PAYMENT_STATE_WAITING ?
                     <DotsAnimation/> : null}</Box>
@@ -176,11 +177,12 @@ const OrderHoreca = ({order}) => {
             </Box>
 
             <Box className='admin-orders-horeca-order-body'>
-                <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.for_payment_slip}
+                <RenderGroup chapter1={'slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.for_payment_slip}
                              ver={order.ver}/>
-                <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.for_payment_waiting} ver={order.ver}/>
-                <RenderGroup label={RETURNING_STATE_WAITING} group={groups.for_returning_waiting} ver={order.ver}/>
-                <RenderGroup label={RETURNING_STATE_SUCCESS} group={groups.for_returning_success} ver={order.ver}/>
+                <RenderGroup chapter1={'waiting'} label={PAYMENT_STATE_WAITING} group={groups.for_payment_waiting} ver={order.ver}/>
+                <RenderGroup chapter1={'slip_without_receipt'} label={RETURNING_STATE_SLIP_WITHOUT_RECEIPT} group={groups.for_returning_slip_without_receipt} ver={order.ver}/>
+                <RenderGroup chapter1={'waiting'} label={RETURNING_STATE_WAITING} group={groups.for_returning_waiting} ver={order.ver}/>
+                <RenderGroup chapter1={'success'} label={RETURNING_STATE_SUCCESS} group={groups.for_returning_success} ver={order.ver}/>
             </Box>
 
             <Box className='admin-orders-horeca-order-footer'
