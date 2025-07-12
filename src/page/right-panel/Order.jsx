@@ -114,7 +114,7 @@ const OrderBody = ({
                                 </> : null}
                             {order.comment !== null ? <>
                                 <Box sx={{color: '#8B919B'}}>Комментарий к заказу:</Box>
-                                <Box>order.comment</Box>
+                                <Box>{order.comment}</Box>
                             </> : null}
                         </Box>
                         <Box className="order-box-panel-4">
