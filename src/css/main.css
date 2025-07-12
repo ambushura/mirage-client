@@ -1724,7 +1724,7 @@ body {
     overflow: hidden;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 4;
     background-color: #f8f8f8;
 }
 
@@ -1764,7 +1764,7 @@ body {
     flex-direction: row;
     position: sticky;
     top: 64px;
-    z-index: 2;
+    z-index: 3;
     background-color: #f8f8f8;
     box-sizing: border-box;
     justify-content: center;
@@ -1779,6 +1779,7 @@ body {
 .payment-items {
     display: flex;
     flex-direction: column;
+    z-index: 1;
 }
 
 .payment-items-group {
@@ -1804,7 +1805,6 @@ body {
     color: #0E0F11;
     position: sticky;
     top: calc(144px + 32px);
-    z-index: 2;
     background-color: #ececec;
     display: flex;
     align-items: center;
