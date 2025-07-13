@@ -61,7 +61,11 @@ const PageSchedule = () => {
                                             }}>
                                                 <Button variant='contained'
                                                         color='primary'
-                                                        sx={{minWidth: '210px', position: 'sticky', left: '4px'}}>{filial_hall_seances.filial.name}
+                                                        sx={{
+                                                            minWidth: '210px',
+                                                            position: 'sticky',
+                                                            left: '4px'
+                                                        }}>{filial_hall_seances.filial.name}
                                                 </Button>
                                             </Box>
                                             <Box className="schedule-full-filial"

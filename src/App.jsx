@@ -79,8 +79,8 @@ function App() {
             <Header/>
             <Routes>
                 <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
-
-                <Route path="/films/:param_city/:param_filial/:param_date" element={<AppRoutes current_page="films"/>}/>
+                <Route path="/films/:param_city/:param_filial/:param_date"
+                       element={<AppRoutes current_page="films"/>}/>
                 <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
                        element={<AppRoutes current_page="film"/>}/>
                 <Route path="/schedule/:param_city/:param_filial/:param_date"

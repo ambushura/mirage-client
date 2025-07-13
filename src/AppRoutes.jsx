@@ -1,7 +1,7 @@
 import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {useParams, useSearchParams} from "react-router-dom"
-import {Box, Fade} from "@mui/material"
+import {Box} from "@mui/material"
 
 import {setCurrentPage, setParams, setSearchParams} from "./redux/interfaceReducer.js"
 
@@ -51,15 +51,13 @@ const AppRoutes = ({current_page}) => {
         "admin/halls": isAdmin ? <PageAdmin/> : null,
         "admin/equipment": isAdmin ? <PageAdmin/> : null,
         "admin/egais": isAdmin ? <PageAdmin/> : null,
-        "admin/staff": isAdmin ? <PageAdmin/>: null,
+        "admin/staff": isAdmin ? <PageAdmin/> : null,
     }
 
     return (
-        <Fade in={!!pages[current_page]} unmountOnExit>
-            <Box id='page'>
-                {pages[current_page] || null}
-            </Box>
-        </Fade>
+        <Box id='page'>
+            {pages[current_page] || null}
+        </Box>
     )
 }
 
