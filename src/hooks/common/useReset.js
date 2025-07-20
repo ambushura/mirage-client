@@ -7,6 +7,7 @@ import {
     setCurrentPreOrder,
     setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
+import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
 
 export function useReset() {
 
@@ -43,4 +44,9 @@ export function useReset() {
             dispatch(setPreOrderPaying(false))
         }
     }, [pre_order.uid, horder.uid, pre_order.in_base, horder.in_base, dispatch])
+
+    useEffect(() => {
+        dispatch(setShowFreeSpace(false))
+    }, [dispatch, uid_user])
+
 }

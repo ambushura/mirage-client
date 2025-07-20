@@ -9,7 +9,7 @@ const NewSeance = ({beginning, ending}) => {
                 startIcon={<AddCircleOutlineIcon/>}
                 variant="contained"
                 sx={{
-                    backgroundColor: 'var(--bgr-seance-card)',
+                    backgroundColor: '#1EC7D3',
                     color: 'black'
                 }}>{beginning !== null ? beginning.format('HH:mm') : '07:00'}-{ending !== null ? ending.format('HH:mm') : '07:00'}</Button>
 
