@@ -115,6 +115,8 @@ const PageSchedule = () => {
                                                                                                     variants={itemVariants}>
                                                                                                     <NewSeance
                                                                                                         key={i}
+                                                                                                        uid_hall={hall.uid_hall}
+                                                                                                        name_hall={hall.name_full_hall}
                                                                                                         beginning={null}
                                                                                                         ending={dayjs.utc(hall.seances[i].beginning).add(-1, 'minute')}
                                                                                                     />
@@ -137,6 +139,8 @@ const PageSchedule = () => {
                                                                                                     variants={itemVariants}>
                                                                                                     <NewSeance
                                                                                                         key={i}
+                                                                                                        uid_hall={hall.uid_hall}
+                                                                                                        name_hall={hall.name_full_hall}
                                                                                                         beginning={dayjs.utc(hall.seances[i].ending).add(1, 'minute')}
                                                                                                         ending={dayjs.utc(hall.seances[i + 1].beginning).add(-1, 'minute')}
                                                                                                     />
@@ -148,6 +152,8 @@ const PageSchedule = () => {
                                                                                                     variants={itemVariants}>
                                                                                                     <NewSeance
                                                                                                         key={i}
+                                                                                                        uid_hall={hall.uid_hall}
+                                                                                                        name_hall={hall.name_full_hall}
                                                                                                         beginning={dayjs.utc(hall.seances[hall.seances.length - 1].ending).add(-1, 'minute')}
                                                                                                         ending={null}
                                                                                                     />

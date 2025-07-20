@@ -32,6 +32,7 @@ import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
 import ScheduleFilters from "./components/forms/schedule_filters/ScheduleFilters.jsx"
+import SeanceSettings from "./components/forms/SeanceSettings.jsx"
 
 function App() {
 
@@ -62,7 +63,8 @@ function App() {
         egais_settings: EgaisSettings,
         horeca_filters: HorecaFilters,
         cinema_filters: CinemaFilters,
-        schedule_filters: ScheduleFilters
+        schedule_filters: ScheduleFilters,
+        seance_settings: SeanceSettings,
     }
 
     const ModalContent = useMemo(() => {
