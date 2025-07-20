@@ -159,7 +159,7 @@ const AdminMenu = () => {
             return (
                 <Fade in={current_page === 'admin/egais'} timeout={TIMEOUT} unmountOnExit>
                     <Box>
-                        <Button variant='contained' color='secondary'>Организации</Button>
+                        <Button variant='contained' color='secondary'>Контрагенты</Button>
                         <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Алкогольная
                             продукция</Button>
                         <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Входящие

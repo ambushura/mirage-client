@@ -46,6 +46,9 @@ const initialState = {
     schedule_filters_film_age: [0, 100],
     schedule_filters_time: [0, 100],
     schedule_filters_price: [0, 10000],
+
+    // Дополнительные
+    show_free_space: false
 }
 
 export const scheduleSlice = createSlice({
@@ -115,6 +118,10 @@ export const scheduleSlice = createSlice({
         },
         setScheduleFiltersFilmCopyTypes: (state, action) => {
             state.schedule_filters_film_copy_types_selected = action.payload
+        },
+        // Дополнительные
+        setShowFreeSpace: (state, action) => {
+            state.show_free_space = action.payload
         }
     },
 })
@@ -139,5 +146,6 @@ export const {
     setScheduleFiltersTime,
     setScheduleFiltersPrice,
     setScheduleFiltersFilmCopyTypes,
+    setShowFreeSpace,
 } = scheduleSlice.actions
 export default scheduleSlice.reducer

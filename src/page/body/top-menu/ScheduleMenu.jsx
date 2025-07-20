@@ -8,7 +8,6 @@ import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../../service/advanced.js"
 import Calendar from "../../../components/forms/Calendar.jsx"
-import AddIcon from '@mui/icons-material/Add'
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {openModal} from "../../../redux/interfaceReducer.js"
@@ -22,7 +21,7 @@ import {
     setScheduleFiltersHallTypeVip, setScheduleFiltersPrice,
     setScheduleFiltersSeanceCanceled,
     setScheduleFiltersSeanceClosed,
-    setScheduleFiltersSeanceOpened, setScheduleFiltersTime
+    setScheduleFiltersSeanceOpened, setScheduleFiltersTime, setShowFreeSpace
 } from "../../../redux/scheduleReducer.js"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 
@@ -42,6 +41,8 @@ const ScheduleMenu = () => {
 
     const schedule_filters_film_types = useSelector(state => state.schedule.schedule_filters_film_types)
     const schedule_filters_film_types_selected = useSelector(state => state.schedule.schedule_filters_film_types_selected)
+
+    const show_free_space = useSelector(state => state.schedule.show_free_space)
 
     // Календарь
     const [schedule_calendar_open, set_schedule_calendar_open] = useState(null)
@@ -176,9 +177,12 @@ const ScheduleMenu = () => {
                                 dispatch(setScheduleFiltersTime([0, 100]))
                                 dispatch(setScheduleFiltersPrice([0, 10000]))
                             }}><FilterAltOffIcon/></Button> : null}
-                        {current_page === 'schedule' ? <Button variant='contained' startIcon={<FormatLineSpacingIcon/>}>Сводобное
-                            время</Button> : null}
-                        <Button variant='contained' startIcon={<AddIcon/>}>Новый сеанс</Button>
+                        {current_page === 'schedule' ?
+                            <Button variant='contained' color={show_free_space ? 'primary' : 'secondary'}
+                                    startIcon={<FormatLineSpacingIcon/>} onClick={() => {
+                                dispatch(setShowFreeSpace(!show_free_space))
+                            }}>Сводобное
+                                время</Button> : null}
                     </ButtonGroup>
                     : null}
             </Box>

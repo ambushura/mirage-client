@@ -2,12 +2,14 @@ import {useSetSchedule} from "./useSetSchedule.js"
 import {Box, Button, Fade} from "@mui/material"
 import SeanceCard from "./SeanceCard.jsx"
 import {useSelector} from "react-redux"
-import {useEffect, useRef, useState} from "react"
+import {Fragment, useEffect, useRef, useState} from "react"
 import ScheduleMenu from "../top-menu/ScheduleMenu.jsx"
 import Order from "../../right-panel/Order.jsx"
 import Loader from "../../../ui/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
 import {AnimatePresence, motion} from 'framer-motion'
+import NewSeance from "./NewSeance.jsx"
+import dayjs from "dayjs"
 
 const PageSchedule = () => {
 
@@ -24,6 +26,8 @@ const PageSchedule = () => {
         const widths = Array.from(elementsRef.current.values()).map(el => el?.getBoundingClientRect().width || 0)
         set_content_width(Math.max(...widths))
     }, [schedule])
+
+    const show_free_space = useSelector(state => state.schedule.show_free_space)
 
     return (
         <>
@@ -100,18 +104,73 @@ const PageSchedule = () => {
                                                                                     animate="visible"
                                                                                     exit="hidden"
                                                                                     variants={containerVariants}>
-                                                                            {hall.seances.map(seance =>
-                                                                                <motion.div
-                                                                                    className='schedule-full-seance'
-                                                                                    key={`${seance.uid}${seance.ver}`}
-                                                                                    variants={itemVariants}>
-                                                                                    <SeanceCard
-                                                                                        key={seance.uid}
-                                                                                        city={city}
-                                                                                        filial={filial_hall_seances.filial}
-                                                                                        seance={seance}>
-                                                                                    </SeanceCard>
-                                                                                </motion.div>)}
+                                                                            {hall.seances.map((seance, i) => {
+                                                                                if (show_free_space) {
+                                                                                    return (
+                                                                                        <Fragment key={i}>
+                                                                                            {i === 0 ?
+                                                                                                <motion.div
+                                                                                                    className='schedule-full-seance'
+                                                                                                    key={'first'}
+                                                                                                    variants={itemVariants}>
+                                                                                                    <NewSeance
+                                                                                                        key={i}
+                                                                                                        beginning={null}
+                                                                                                        ending={dayjs.utc(hall.seances[i].beginning).add(-1, 'minute')}
+                                                                                                    />
+                                                                                                </motion.div> : null}
+                                                                                            <motion.div
+                                                                                                className='schedule-full-seance'
+                                                                                                key={`${seance.uid}${seance.ver}`}
+                                                                                                variants={itemVariants}>
+                                                                                                <SeanceCard
+                                                                                                    key={seance.uid}
+                                                                                                    city={city}
+                                                                                                    filial={filial_hall_seances.filial}
+                                                                                                    seance={seance}>
+                                                                                                </SeanceCard>
+                                                                                            </motion.div>
+                                                                                            {i !== hall.seances.length - 1 ?
+                                                                                                <motion.div
+                                                                                                    className='schedule-full-seance'
+                                                                                                    key={`${hall.seances[i]}-last`}
+                                                                                                    variants={itemVariants}>
+                                                                                                    <NewSeance
+                                                                                                        key={i}
+                                                                                                        beginning={dayjs.utc(hall.seances[i].ending).add(1, 'minute')}
+                                                                                                        ending={dayjs.utc(hall.seances[i + 1].beginning).add(-1, 'minute')}
+                                                                                                    />
+                                                                                                </motion.div> : null}
+                                                                                            {i === hall.seances.length - 1 ?
+                                                                                                <motion.div
+                                                                                                    className='schedule-full-seance'
+                                                                                                    key={'last'}
+                                                                                                    variants={itemVariants}>
+                                                                                                    <NewSeance
+                                                                                                        key={i}
+                                                                                                        beginning={dayjs.utc(hall.seances[hall.seances.length - 1].ending).add(-1, 'minute')}
+                                                                                                        ending={null}
+                                                                                                    />
+                                                                                                </motion.div> : null}
+                                                                                        </Fragment>
+                                                                                    )
+                                                                                } else {
+                                                                                    return (
+                                                                                        <motion.div
+                                                                                            className='schedule-full-seance'
+                                                                                            key={`${seance.uid}${seance.ver}`}
+                                                                                            variants={itemVariants}>
+                                                                                            <SeanceCard
+                                                                                                key={seance.uid}
+                                                                                                city={city}
+                                                                                                filial={filial_hall_seances.filial}
+                                                                                                seance={seance}>
+                                                                                            </SeanceCard>
+                                                                                        </motion.div>
+                                                                                    )
+                                                                                }
+                                                                            })
+                                                                            }
                                                                         </motion.div>)}
                                                                 </AnimatePresence>
                                                             </Box>
