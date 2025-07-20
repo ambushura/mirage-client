@@ -181,8 +181,7 @@ const ScheduleMenu = () => {
                             <Button variant='contained' color={show_free_space ? 'primary' : 'secondary'}
                                     startIcon={<FormatLineSpacingIcon/>} onClick={() => {
                                 dispatch(setShowFreeSpace(!show_free_space))
-                            }}>Сводобное
-                                время</Button> : null}
+                            }}>Сводобные слоты</Button> : null}
                     </ButtonGroup>
                     : null}
             </Box>
