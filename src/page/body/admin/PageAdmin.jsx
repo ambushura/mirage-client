@@ -10,6 +10,7 @@ import Zbooks from "./total/Zbooks.jsx"
 import Operations from "./total/Operations.jsx"
 import Egais from "./egais/EGAIS.jsx"
 import PageStaff from "./staff/PageStaff.jsx"
+import PageHalls from "./halls/PageHalls.jsx"
 
 const PageAdmin = () => {
 
@@ -47,6 +48,8 @@ const PageAdmin = () => {
                                 <Egais/> : null}
                             {current_page === 'admin/staff' ?
                                 <PageStaff/> : null}
+                            {current_page === 'admin/halls' ?
+                                <PageHalls/> : null}
                         </Box>
                     </Box>
                 </Box>
