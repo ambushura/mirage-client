@@ -1,4 +1,5 @@
 import dayjs from "dayjs"
+import duration from 'dayjs/plugin/duration'
 
 export function to_str_DAY(date) {
     let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ']
@@ -24,4 +25,28 @@ export const ticket_count = (count) => {
     } else {
         return (`${count} билетов`)
     }
+}
+
+dayjs.extend(duration)
+
+export function duration_title(beginning, ending) {
+    if (beginning !== null && ending !== null) {
+        const diffMs = dayjs(ending).diff(dayjs(beginning))
+        const dur = dayjs.duration(diffMs)
+        const hours = dur.hours()
+        const minutes = dur.minutes()
+        if (hours === 0) {
+            return `${minutes} мин`
+        }
+        return `${hours} ${pluralize(hours, 'час', 'часа', 'часов')}, ${minutes} мин)`
+    } else {
+        return null
+    }
+}
+
+// Вспомогательная функция для склонения
+function pluralize(n, one, few, many) {
+    if (n % 10 === 1 && n % 100 !== 11) return one
+    if ([2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100)) return few
+    return many
 }

@@ -2,6 +2,7 @@ import {Button} from "@mui/material"
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import {openModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
+import {duration_title} from "../../../service/advanced.js"
 
 const NewSeance = ({beginning, ending, uid_hall, name_hall}) => {
 
@@ -14,7 +15,8 @@ const NewSeance = ({beginning, ending, uid_hall, name_hall}) => {
                 variant="contained"
                 sx={{
                     backgroundColor: '#1EC7D3',
-                    color: 'black'
+                    color: 'black',
+                    fontSize: '12px',
                 }}
                 onClick={() => {
                     dispatch(openModal({
@@ -26,7 +28,9 @@ const NewSeance = ({beginning, ending, uid_hall, name_hall}) => {
                             name_hall: name_hall,
                         }
                     }))
-                }}>{beginning !== null ? beginning.format('HH:mm') : '07:00'}-{ending !== null ? ending.format('HH:mm') : '07:00'}</Button>
+                }}>{beginning !== null ? beginning.format('HH:mm') : '...'}-{ending !== null ? ending.format('HH:mm') : '...'}
+                <span
+                    style={{fontWeight: '400', paddingLeft: '4px'}}>{duration_title(beginning, ending)}</span></Button>
 
         )
     }
