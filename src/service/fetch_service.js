@@ -15,7 +15,7 @@ import {
     ROUTE_CINEMA_KIOSK_POSITION_ADD,
     ROUTE_CINEMA_ORDER_ADD_COMMENT,
     ROUTE_CINEMA_ORDER_DELETE,
-    ROUTE_CINEMA_ORDER_GET,
+    ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_PLACE_BLOCK,
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
@@ -37,6 +37,9 @@ import {
     ROUTE_MARKIROVKA_CDN_INFO_UPDATE
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
+import {setHall, setUidHall} from "../redux/hallsReducer.js";
+import {useSelector} from "react-redux";
+import place from "../components/halls/Place.jsx";
 
 export const TIMEOUT = 10000
 
@@ -233,7 +236,7 @@ export const horeca_position_change_state = (filial, wp, uid_order, uid_position
 export const horeca_position_add_mark = (filial, wp, uid_order, uid_position, mark) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
     url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_MARK}`,
-    params: {uid_order, uid_position, mark},
+    params: {uid_order: uid_order, uid_position: uid_position, mark: mark},
     wp,
     filial
 }, data => {
@@ -264,10 +267,35 @@ export const horeca_kitchen_push = (filial, wp, uid_order, uid_position) => asyn
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`,
-        params: {uid_order, uid_position},
+        params: {
+            uid_order: uid_order,
+            uid_position: uid_position
+        },
         wp,
         filial
     }, data => {
         dispatch(pushKitchenPositions(data))
     })
 }
+
+export const cinema_place_block = (filial, wp, hall, uid_place) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_PLACE_BLOCK}`,
+    params: {
+        uid_hall: hall.uid,
+        uid_place: uid_place
+    },
+    wp,
+    filial
+}, data => {
+    const hallN = JSON.parse(JSON.stringify(hall))
+    hallN.rows.forEach(row => {
+        row.places.forEach(place => {
+            if (place.uid === data.uid) {
+                place.broken = data.broken
+                place.ver = data.ver
+            }
+        })
+    })
+    dispatch(setHall(hallN))
+})

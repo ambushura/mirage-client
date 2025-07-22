@@ -95,7 +95,7 @@ const Hall = (props) => {
                                     {row.places.map(place => {
                                         let state = 0
                                         if (place.deleted) {
-                                            return (<></>)
+                                            return null
                                         }
                                         if (place.broken) {
                                             state = 1
@@ -107,12 +107,14 @@ const Hall = (props) => {
                                             })
                                         }
                                         return (<Place
+                                            hall={props.hall}
+                                            mode={props.mode}
                                             set_count_book={props.set_count_book}
                                             city={props.city}
                                             filial={props.filial}
                                             pre_order={props.pre_order}
                                             seance={props.seance}
-                                            key={place.uid + place.ver}
+                                            key={`${place.uid}${place.ver}${place.state}`}
                                             description={{
                                                 uid: place.uid,
                                                 heads: place.heads,
@@ -122,7 +124,8 @@ const Hall = (props) => {
                                                 x: (place.x - props.hall.min_x),
                                                 y: (place.y - props.hall.min_y),
                                                 width: place.width,
-                                                height: place.height
+                                                height: place.height,
+                                                ver: place.ver,
                                             }}
                                             set_time_remaining={props.set_time_remaining}/>)
                                     })}

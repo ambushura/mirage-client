@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux"
-import {cinema_position_add} from "../../service/fetch_service.js"
+import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
 
 const Place = (props) => {
 
@@ -9,7 +9,6 @@ const Place = (props) => {
 
     const heads = props.description.heads
     const label = props.description.label
-    const state = props.description.state
     const type = props.description.type
     const place_width = 24
     const place_height = [24, 4, 22, 18] // высота внешнего блока, высота кресла, высота внутреннего блока,
@@ -33,7 +32,7 @@ const Place = (props) => {
                         <div key={`${props.description.uid}${head}`}
                              style={{
                                  position: 'absolute',
-                                 backgroundColor: place_color[state].handler,
+                                 backgroundColor: place_color[props.description.state].handler,
                                  width: (place_width / 2) - 2 + 'px',
                                  height: place_height[1] + 'px',
                                  border: '1px solid black',
@@ -55,10 +54,19 @@ const Place = (props) => {
     return (
         <button
             onClick={() => {
-                if (props.set_time_remaining !== undefined) {
-                    props.set_time_remaining(100)
+                switch (props.mode) {
+                    case 'booking':
+                        if (props.set_time_remaining !== undefined) {
+                            props.set_time_remaining(100)
+                        }
+                        dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
+                        break
+                    case 'block':
+                        dispatch(cinema_place_block(props.filial, wp, props.hall, props.description.uid))
+                        break
+                    default:
                 }
-                dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
+
             }}
             style={{
                 background: 'transparent',
@@ -74,7 +82,7 @@ const Place = (props) => {
                 position: 'absolute',
                 width: place_width * heads + 'px',
                 height: place_height[2] + 'px',
-                background: place_color[state].body,
+                background: place_color[props.description.state].body,
                 transition: 'background 1s ease',
                 borderRadius: '4px',
                 bottom: 0,
