@@ -2,10 +2,14 @@ import {Box, Button, ButtonGroup, Fade, FormControl, InputLabel, MenuItem, Popov
 import dayjs from "dayjs"
 import {
     NEW_EMPTY_ORDER,
-    setCurrentPreOrder, setOrdersCinemaFiltersBuyerEmailsSelect, setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
+    setCurrentPreOrder,
+    setOrdersCinemaFiltersBuyerEmailsSelect,
+    setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
     setOrdersCinemaFiltersHallsSelect,
     setOrdersCinemaFiltersSeancesSelect,
-    setOrdersCinemaFiltersStaffSelect, setOrdersCinemaFiltersStateSelect, setOrdersCinemaFiltersWorkplacesSelect,
+    setOrdersCinemaFiltersStaffSelect,
+    setOrdersCinemaFiltersStateSelect,
+    setOrdersCinemaFiltersWorkplacesSelect,
     setOrdersHorecaFiltersHallsSelect,
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
@@ -29,29 +33,33 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../../components/forms/Calendar.jsx"
 import {useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
+import {useSetHalls} from "../admin/halls/useSetHalls.js"
+import {setUidHall} from "../../../redux/hallsReducer.js"
 
 export function AdminHallsList() {
 
+    const dispatch = useDispatch()
+    const halls = useSetHalls()
+
     const current_page = useSelector(state => state.interface.current_page)
-    const [uid_hall, set_uid_hall] = useState(null)
+    const uid_hall = useSelector(state => state.halls.uid_hall)
 
     if (current_page !== 'admin/halls') return null
 
-    const halls = [{uid: '1', name: 'Зал 1'}]
     return <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
-        <InputLabel id="discounts-group-select-label">Зал</InputLabel>
+        <InputLabel id="halls-select-label">Текущий зал</InputLabel>
         <Select
             onChange={(event) => {
-                set_uid_hall(event.target.value)
+                dispatch(setUidHall(event.target.value))
             }}
-            labelId="discounts-group-select-label"
-            id="discounts-group-select"
-            value={uid_hall}
-            label="Группа скидок"
+            labelId="halls-select-label"
+            id="halls-select"
+            value={uid_hall !== null ? uid_hall : null}
+            label="Залы"
             variant='filled'>
-            {halls.length > 0 ? halls.map(hall => <MenuItem
+            {halls !== null ? halls.map(hall => <MenuItem
                 sx={{color: 'black'}} key={hall.uid}
-                value={hall.uid}>{hall.name}</MenuItem>) : null}
+                value={hall.uid}>{hall.title}</MenuItem>) : null}
         </Select>
     </FormControl>
 }
@@ -278,7 +286,7 @@ export function CreateDeleteButtons() {
     )
 }
 
-const AdminMenu = () => {
+export default function AdminMenu() {
     return (
         <Box className='admin-panel'>
             <CreateDeleteButtons/>
@@ -290,5 +298,3 @@ const AdminMenu = () => {
         </Box>
     )
 }
-
-export default AdminMenu

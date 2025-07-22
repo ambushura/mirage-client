@@ -8,6 +8,7 @@ import {
     setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
+import {setUidHall} from "../../redux/hallsReducer.js";
 
 export function useReset() {
 
@@ -49,4 +50,7 @@ export function useReset() {
         dispatch(setShowFreeSpace(false))
     }, [dispatch, uid_user])
 
+    useEffect(() => {
+        dispatch(setUidHall(null))
+    }, [dispatch, filial])
 }

@@ -50,8 +50,8 @@ export default function SeanceSettings({props}) {
             dateAdapter={AdapterDayjs}
             adapterLocale="ru"
             localeText={{
-                cancelButtonLabel: 'Отмена',
-                okButtonLabel: 'Ок',
+                cancelButtonLabel: 'ОТМЕНА',
+                okButtonLabel: 'ОК',
                 clearButtonLabel: 'Очистить',
                 todayButtonLabel: 'Сегодня',
                 timePickerToolbarTitle: 'Укажите время сеанса'

@@ -1,7 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
-    halls: []
+    halls: [],
+    uid_hall: null,
+    hall: null,
 }
 
 export const hallsSlice = createSlice({
@@ -13,8 +15,14 @@ export const hallsSlice = createSlice({
                 state.halls.push(payload)
             }
         },
+        setUidHall: (state, {payload}) => {
+            state.uid_hall = payload
+        },
+        setHall: (state, {payload}) => {
+            state.hall = payload
+        }
     },
 })
 
-export const {addHall} = hallsSlice.actions
+export const {addHall, setUidHall, setHall} = hallsSlice.actions
 export default hallsSlice.reducer
