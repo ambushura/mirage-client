@@ -31,10 +31,10 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../../components/forms/Calendar.jsx"
-import {useState} from "react"
+import {Fragment, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
-import {setUidHall} from "../../../redux/hallsReducer.js"
+import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
 
 export function AdminHallsList() {
 
@@ -43,25 +43,36 @@ export function AdminHallsList() {
 
     const current_page = useSelector(state => state.interface.current_page)
     const uid_hall = useSelector(state => state.halls.uid_hall)
+    const mode = useSelector(state => state.halls.mode)
 
     if (current_page !== 'admin/halls') return null
 
-    return <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
-        <InputLabel id="halls-select-label">Текущий зал</InputLabel>
-        <Select
-            onChange={(event) => {
-                dispatch(setUidHall(event.target.value))
-            }}
-            labelId="halls-select-label"
-            id="halls-select"
-            value={uid_hall !== null ? uid_hall : null}
-            label="Залы"
-            variant='filled'>
-            {halls !== null ? halls.map(hall => <MenuItem
-                sx={{color: 'black'}} key={hall.uid}
-                value={hall.uid}>{hall.title}</MenuItem>) : null}
-        </Select>
-    </FormControl>
+    return <Fragment>
+        <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
+            <InputLabel id="halls-select-label">Текущий зал</InputLabel>
+            <Select
+                onChange={(event) => {
+                    dispatch(setUidHall(event.target.value))
+                }}
+                labelId="halls-select-label"
+                id="halls-select"
+                value={uid_hall !== null ? uid_hall : null}
+                label="Залы"
+                variant='filled'>
+                {halls !== null ? halls.map(hall => <MenuItem
+                    sx={{color: 'black'}} key={hall.uid}
+                    value={hall.uid}>{hall.title}</MenuItem>) : null}
+            </Select>
+        </FormControl>
+        <ButtonGroup>
+            <Button variant='contained' color={mode === 'block' ? 'primary' : 'secondary'} onClick={() => {
+                dispatch(setMode('block'))
+            }}>Режим блокировки</Button>
+            <Button variant='contained' color={mode === 'view' ? 'primary' : 'secondary'} onClick={() => {
+                dispatch(setMode('view'))
+            }}>Режим просмотра</Button>
+        </ButtonGroup>
+    </Fragment>
 }
 
 export function ShowFilters() {

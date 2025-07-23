@@ -7,6 +7,9 @@ const Place = (props) => {
     const dispatch = useDispatch()
     const wp = useSelector(state => state.interface.wp)
 
+    const mode = useSelector(state => state.halls.mode)
+    const current_page = useSelector(state => state.interface.current_page)
+
     const heads = props.description.heads
     const label = props.description.label
     const type = props.description.type
@@ -54,19 +57,16 @@ const Place = (props) => {
     return (
         <button
             onClick={() => {
-                switch (props.mode) {
-                    case 'booking':
-                        if (props.set_time_remaining !== undefined) {
-                            props.set_time_remaining(100)
-                        }
-                        dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
-                        break
-                    case 'block':
+                if (current_page === 'seance') {
+                    if (props.set_time_remaining !== undefined) {
+                        props.set_time_remaining(100)
+                    }
+                    dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, props.description.uid, props.pre_order.ver))
+                } else {
+                    if (mode === 'block') {
                         dispatch(cinema_place_block(props.filial, wp, props.hall, props.description.uid))
-                        break
-                    default:
+                    }
                 }
-
             }}
             style={{
                 background: 'transparent',

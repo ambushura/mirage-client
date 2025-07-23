@@ -4,6 +4,7 @@ const initialState = {
     halls: [],
     uid_hall: null,
     hall: null,
+    mode: 'block',
 }
 
 export const hallsSlice = createSlice({
@@ -20,9 +21,12 @@ export const hallsSlice = createSlice({
         },
         setHall: (state, {payload}) => {
             state.hall = payload
+        },
+        setMode: (state, {payload}) => {
+            state.mode = payload
         }
     },
 })
 
-export const {addHall, setUidHall, setHall} = hallsSlice.actions
+export const {addHall, setUidHall, setHall, setMode} = hallsSlice.actions
 export default hallsSlice.reducer

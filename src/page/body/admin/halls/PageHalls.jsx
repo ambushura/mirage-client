@@ -31,7 +31,6 @@ const PageHalls = () => {
             {hall !== null ?
                 <Hall
                     uid_hall={hall.uid}
-                    mode={'block'}
                     city={city}
                     filial={filial}
                     pre_order={null}

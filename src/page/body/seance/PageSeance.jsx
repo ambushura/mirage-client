@@ -153,7 +153,6 @@ const PageSeance = () => {
                                         : <></>}
                                     <Box style={{display: 'flex', flex: 1}}>
                                         <Hall
-                                            mode={'booking'}
                                             city={city}
                                             filial={filial}
                                             pre_order={pre_order}
