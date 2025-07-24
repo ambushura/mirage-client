@@ -8,7 +8,6 @@ export const PinpadNode = ({data}) => {
                 type="target"
                 position={Position.Bottom}
                 style={{pointerEvents: 'all'}}/>
-            <strong>{data.label}</strong>
             <Box>
                 <Box>
                     <svg width="100" height="150" viewBox="0 0 150 200" xmlns="http://www.w3.org/2000/svg">
@@ -33,6 +32,7 @@ export const PinpadNode = ({data}) => {
                     </svg>
                 </Box>
             </Box>
+            <Box><span>ID </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box>
             <Handle
                 type="source"
                 position={Position.Top}

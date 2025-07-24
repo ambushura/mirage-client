@@ -8,7 +8,6 @@ export const KKTNode = ({data}) => {
                 type="target"
                 position={Position.Bottom}
                 style={{pointerEvents: 'all'}}/>
-            <strong>{data.label}</strong>
             <Box>
                 <Box>
                     <svg width="150" height="130" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
@@ -28,6 +27,7 @@ export const KKTNode = ({data}) => {
                     </svg>
                 </Box>
             </Box>
+            <Box><span>ЗН </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box>
             <Handle
                 type="source"
                 position={Position.Top}

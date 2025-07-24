@@ -8,7 +8,6 @@ export const WorkplaceNode = ({data}) => {
                 type="target"
                 position={Position.Bottom}
                 style={{pointerEvents: 'all'}}/>
-            <strong>{data.label}</strong>
             <Box>
                 <Box>
                     <svg width="200" height="180" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
@@ -24,6 +23,7 @@ export const WorkplaceNode = ({data}) => {
                     </svg>
                 </Box>
             </Box>
+            <Box><span>Имя </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box>
             <Handle
                 type="source"
                 position={Position.Top}
