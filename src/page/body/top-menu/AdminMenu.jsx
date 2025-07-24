@@ -216,66 +216,64 @@ export function DateParamAdmin() {
     const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen'].includes(current_page)
     if (!isPageMatch) return null
 
-    return (
-        <>
-            <ButtonGroup size='small' variant='contained' color='secondary' className='admin-panel-period'>
-                <Button onClick={() => {
-                    const now = new Date()
-                    const date = date_dayjs(
-                        now.getHours() >= 0 && now.getHours() < 7
-                            ? new Date(now.setDate(now.getDate() - 1))
-                            : now
-                    )
-                    const current_param_date = from_dayjs_to_str(date)
-                    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                    navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
-                }}>
-                    Сегодня
-                </Button>
-                <Button onClick={() => {
-                    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                    const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
-                    navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
-                }}>
-                    <KeyboardArrowLeftIcon/>
-                </Button>
-                <Button onClick={handleClick} endIcon={<KeyboardArrowDownIcon/>}>
-                    Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}
-                </Button>
-                <Button onClick={() => {
-                    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                    const date = dayjs(param_date_admin).add(1, 'day').format('YYYY-MM-DD')
-                    navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
-                }}>
-                    <KeyboardArrowRightIcon/>
-                </Button>
-            </ButtonGroup>
+    return <>
+        <ButtonGroup size='small' variant='contained' color='secondary' className='admin-panel-period'>
+            <Button onClick={() => {
+                const now = new Date()
+                const date = date_dayjs(
+                    now.getHours() >= 0 && now.getHours() < 7
+                        ? new Date(now.setDate(now.getDate() - 1))
+                        : now
+                )
+                const current_param_date = from_dayjs_to_str(date)
+                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
+            }}>
+                Сегодня
+            </Button>
+            <Button onClick={() => {
+                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
+                navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+            }}>
+                <KeyboardArrowLeftIcon/>
+            </Button>
+            <Button onClick={handleClick} endIcon={<KeyboardArrowDownIcon/>}>
+                Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}
+            </Button>
+            <Button onClick={() => {
+                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                const date = dayjs(param_date_admin).add(1, 'day').format('YYYY-MM-DD')
+                navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+            }}>
+                <KeyboardArrowRightIcon/>
+            </Button>
+        </ButtonGroup>
 
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={orders_date_calendar_open}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                slotProps={{
-                    paper: {
-                        sx: {
-                            borderRadius: '12px',
-                            backgroundColor: '#393a3b'
-                        }
+        <Popover
+            id={id}
+            open={open}
+            anchorEl={orders_date_calendar_open}
+            onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+            }}
+            slotProps={{
+                paper: {
+                    sx: {
+                        borderRadius: '12px',
+                        backgroundColor: '#393a3b'
                     }
-                }}
-            >
-                <Calendar
-                    value={dayjs(param_date_admin)}
-                    handleOnChahge={handleOnChange}
-                />
-            </Popover>
-        </>
-    )
+                }
+            }}
+        >
+            <Calendar
+                value={dayjs(param_date_admin)}
+                handleOnChahge={handleOnChange}
+            />
+        </Popover>
+    </>
 }
 
 export function CreateDeleteButtons() {
@@ -287,14 +285,22 @@ export function CreateDeleteButtons() {
 
     if (!isVisible) return null
 
-    return (
-        <Fade in={isVisible} timeout={TIMEOUT} unmountOnExit>
-            <ButtonGroup sx={{marginRight: '4px'}} size='medium' variant='contained' color='secondary'>
-                <Button variant='contained' startIcon={<AddIcon/>}>Создать</Button>
-                <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
-            </ButtonGroup>
-        </Fade>
-    )
+    return <Fade in={isVisible} timeout={TIMEOUT} unmountOnExit>
+        <ButtonGroup sx={{marginRight: '4px'}} size='medium' variant='contained' color='secondary'>
+            <Button variant='contained' startIcon={<AddIcon/>}>Создать</Button>
+            <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
+        </ButtonGroup>
+    </Fade>
+}
+
+export function Equipment() {
+
+    const current_page = useSelector(state => state.interface.current_page)
+
+    if (current_page !== 'admin/equipment') return null
+
+    return <Button variant='contained' startIcon={<AddIcon/>}>Кнопка</Button>
+
 }
 
 export default function AdminMenu() {
@@ -306,6 +312,7 @@ export default function AdminMenu() {
             <ShowFilters/>
             <EGAISMenu/>
             <AdminHallsList/>
+            <Equipment/>
         </Box>
     )
 }

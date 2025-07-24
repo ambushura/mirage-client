@@ -10,6 +10,7 @@ export const ROUTE_COMMON_PAYMENT_METHODS_GET = "/api/common/payment_methods/get
 export const ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET = "/api/common/orders/filters/staff/get"
 export const ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET = "/api/common/orders/filters/halls/get"
 export const ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET = "/api/common/orders/filters/workplaces/get"
+export const ROUTE_COMMON_PAYMENT_MAP_GET = "/api/common/payment_map/get"
 
 // === ОПЛАТА ===
 export const ROUTE_COMMON_ORDER_PAYMENT = "/api/common/order/payment"
