@@ -15,15 +15,8 @@ import {WorkplaceNode} from "./WorkplaceNode.jsx"
 const PageEquipment = () => {
 
     const payment_map = useSetPaymentMap()
-    const [initial_nodes, set_initial_nodes] = useState([])
-    const [initial_edges, set_initial_edges] = useState([])
-
-    useEffect(() => {
-        if (payment_map !== null) {
-            set_initial_nodes(payment_map.nodes)
-            set_initial_edges(payment_map.edges)
-        }
-    }, [payment_map])
+    const [nodes, setNodes, onNodesChange] = useNodesState([])
+    const [edges, setEdges, onEdgesChange] = useEdgesState([])
 
     useEffect(() => {
         if (payment_map !== null) {
@@ -38,9 +31,6 @@ const PageEquipment = () => {
         workplace: WorkplaceNode,
         filial: FilialNode,
     }
-
-    const [nodes, setNodes, onNodesChange] = useNodesState([])
-    const [edges, setEdges, onEdgesChange] = useEdgesState([])
 
     const onConnect = useCallback(
         (params) => setEdges(addEdge(params, edges)),
@@ -86,14 +76,13 @@ const PageEquipment = () => {
                 onConnect={onConnect}
                 fitView
                 attributionPosition="top-right"
-                nodeTypes={nodeTypes}
-            >
+                nodeTypes={nodeTypes}>
                 <Controls/>
                 <MiniMap/>
                 <Background/>
             </ReactFlow>
         </div>
     )
-}
+    }
 
 export default PageEquipment

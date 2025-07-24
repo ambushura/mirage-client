@@ -299,7 +299,7 @@ export function Equipment() {
 
     if (current_page !== 'admin/equipment') return null
 
-    return <Button variant='contained' startIcon={<AddIcon/>}>Кнопка</Button>
+    return <></>
 
 }
 
