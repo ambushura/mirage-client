@@ -80,7 +80,6 @@ const Hall = (props) => {
                 zoomOnPinch={uid_user !== null}
                 zoomOnDoubleClick={uid_user !== null}>
                 {uid_user !== null ? <Controls/> : null}
-                {uid_user !== null ? <MiniMap/> : null}
             </ReactFlow>
         </Box>
     )
