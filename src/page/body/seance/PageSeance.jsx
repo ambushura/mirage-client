@@ -95,7 +95,7 @@ const PageSeance = () => {
                     <Box id='content-box'>
                         <Box id='content-wrap'>
                             <Box id='content'>
-                                <Box id='seance' style={{display: checkout ? 'none' : 'block', height: '100%'}}>
+                                <Box id='seance' style={{display: checkout ? 'none' : 'flex', alignItems: 'flex-start', height: '100%'}}>
                                     {uid_user === null ?
                                         <Box id='seance-title' ref={refTitle}>
                                             <Box className='order-panel'>

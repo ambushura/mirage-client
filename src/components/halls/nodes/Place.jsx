@@ -18,7 +18,7 @@ export function Place({data}) {
                         <div key={`$${head}`}
                              style={{
                                  backgroundColor: place_color[data.state].handler,
-                                 width: '18px',
+                                 width: '16px',
                                  height: '6px',
                                  border: '1px solid black',
                                  borderRadius: '4px',
