@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react"
+import {useCallback, useEffect} from "react"
 import {
     ReactFlow,
     addEdge,
@@ -11,6 +11,7 @@ import {FilialNode} from "./FilialNode.jsx"
 import {KKTNode} from "./KKTNode.jsx"
 import {PinpadNode} from "./PinpadNode.jsx"
 import {WorkplaceNode} from "./WorkplaceNode.jsx"
+import {Box} from "@mui/material"
 
 const PageEquipment = () => {
 
@@ -37,41 +38,12 @@ const PageEquipment = () => {
         [edges],
     )
 
-    const onNodesDelete = useCallback(
-        (deleted) => {
-            setEdges(
-                deleted.reduce((acc, node) => {
-
-                    const incomers = getIncomers(node, nodes, edges);
-                    const outgoers = getOutgoers(node, nodes, edges);
-                    const connectedEdges = getConnectedEdges([node], edges);
-
-                    const remainingEdges = acc.filter(
-                        (edge) => !connectedEdges.includes(edge),
-                    )
-
-                    const createdEdges = incomers.flatMap(({id: source}) =>
-                        outgoers.map(({id: target}) => ({
-                            id: `${source}->${target}`,
-                            source,
-                            target,
-                        })),
-                    )
-
-                    return [...remainingEdges, ...createdEdges];
-                }, edges),
-            )
-        },
-        [nodes, edges],
-    )
-
     return (
-        <div style={{width: '100vw', height: '100vh'}}>
+        <Box style={{width: '100vw', height: '100vh'}}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
-                onNodesDelete={onNodesDelete}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 fitView
@@ -81,8 +53,8 @@ const PageEquipment = () => {
                 <MiniMap/>
                 <Background/>
             </ReactFlow>
-        </div>
+        </Box>
     )
-    }
+}
 
 export default PageEquipment

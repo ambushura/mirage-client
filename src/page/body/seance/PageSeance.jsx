@@ -151,7 +151,7 @@ const PageSeance = () => {
                                             </Box>
                                         </Box>
                                         : <></>}
-                                    <Box style={{display: 'flex', flex: 1}}>
+                                    <Box style={{display: 'flex', flex: 1, height: 'inherit'}}>
                                         <Hall
                                             city={city}
                                             filial={filial}
@@ -162,8 +162,7 @@ const PageSeance = () => {
                                             width={app_width - (uid_user !== null ? 520 : 0)}
                                             booking={booking}
                                             set_count_book={set_count_book}
-                                            set_time_remaining={set_time_remaining}
-                                        />
+                                            set_time_remaining={set_time_remaining}/>
                                     </Box>
                                 </Box>
                             </Box>

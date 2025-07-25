@@ -1,140 +1,83 @@
-import {useEffect, useState} from 'react'
-import Place from "./Place.jsx"
-import {Box, Fade} from "@mui/material"
-import screen from "../../images/screen.svg"
+import {Box} from "@mui/material"
+import {addEdge, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState} from "@xyflow/react"
+import {useCallback, useEffect} from "react"
+import {Place} from "./nodes/Place.jsx"
+import {useDispatch, useSelector} from "react-redux"
+import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
 
 const Hall = (props) => {
 
-    const [position, setPosition] = useState({x: 0, y: 0}) // позиция схемы зала текущая
-    const [offset, setOffset] = useState({x: 0, y: 0}) // позиция схемы зала перемещенная
-    const [isDragging, setIsDragging] = useState(false) // схема зала зажата/отпущена мышью
-    const [hall_scale, set_hall_scale] = useState(1) // масштаб схемы зала
-    const [hall_left, set_hall_left] = useState(0)
-    const [hall_left_applied, set_hall_left_applied] = useState(false)
+    const dispatch = useDispatch()
+    const uid_user = useSelector(state => state.auth.uid)
+    const wp = useSelector(state => state.interface.wp)
+    const current_page = useSelector(state => state.interface.current_page)
+    const mode = useSelector(state => state.halls.mode)
+
+    const [nodes, setNodes, onNodesChange] = useNodesState([])
+    const [edges, setEdges, onEdgesChange] = useEdgesState([])
+
+    const onConnect = useCallback(
+        (params) => setEdges(addEdge(params, edges)),
+        [edges],
+    )
 
     useEffect(() => {
-        if (props.height > 0 && props.width > 0) {
-            const k_w = props.width / (props.hall.max_x - props.hall.min_x + 24 * 3 * 2)
-            const k_h = (props.height) / (props.hall.max_y - props.hall.min_y + 80)
-            const new_scale = Math.min(k_w, k_h)
-            const k = props.width / 2 - ((props.hall.max_x - props.hall.min_x) / 2)
-            set_hall_left(k > 0 ? k : 0)
-            set_hall_scale(new_scale)
-            set_hall_left_applied(true)
+        if (props.hall !== null) {
+            const nodesWithBooking = props.hall.nodes.map(node => {
+                const bookingForNode = props.booking.find(b => b.uid_place === node.id) || null
+                const updated_data = {
+                    ...node.data,
+                    state: bookingForNode?.state ?? node.data.state,
+                    city: props.city,
+                    filial: props.filial,
+                }
+                return {
+                    ...node,
+                    data: updated_data,
+                }
+            })
+            setNodes(nodesWithBooking)
+            setEdges(props.hall.edges)
         }
-        const box = document.querySelector('.hall-places')
-        const handleWheel = (event) => {
-            event.preventDefault()
-            const delta = event.deltaY > 0 ? -0.05 : 0.05
-            set_hall_scale((prevScale) => Math.max(0.5, Math.min(prevScale + delta, 1.5)))
+    }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial])
+
+    const nodeTypes = {
+        "place": Place,
+    }
+
+    const handleNodeClick = (node) => {
+        if (current_page === 'seance') {
+            if (props.set_time_remaining !== undefined) {
+                props.set_time_remaining(100)
+            }
+            dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
+        } else {
+            if (mode === 'block') {
+                dispatch(cinema_place_block(props.filial, wp, props.hall, node.id))
+            }
         }
-        box.addEventListener('wheel', handleWheel, {passive: false})
-        return () => {
-            box.removeEventListener('wheel', handleWheel)
-        }
-    }, [props.height, props.width, props.hall.max_y, props.hall.max_x, props.hall.min_x, props.hall.min_y])
+    }
 
     return (
-        <Fade in={hall_left_applied} timeout={100}>
-            <Box id='hall' style={{height: `${props.height}px`}}>
-                <div onMouseDown={(e) => {
-                    setIsDragging(true)
-                    setOffset({
-                        x: e.clientX - position.x,
-                        y: e.clientY - position.y,
-                    })
-                }}
-                     style={{
-                         position: 'absolute',
-                         height: props.hall.max_y - props.hall.min_y + 'px',
-                         width: props.hall.max_x - props.hall.min_x + 'px',
-                         top: '0px',
-                         left: hall_left + 'px'
-                     }}>
-                    <div
-                        className='hall-places'
-                        onMouseMove={(e) => {
-                            if (isDragging) {
-                                setPosition({
-                                    x: e.clientX - offset.x,
-                                    y: e.clientY - offset.y,
-                                })
-                            }
-                        }}
-                        onMouseUp={() => {
-                            setIsDragging(false)
-                        }}
-                        onMouseLeave={() => {
-                            setIsDragging(false)
-                        }}
-                        style={{
-                            height: props.hall.max_y - props.hall.min_y + 'px',
-                            width: props.hall.max_x - props.hall.min_x + 'px',
-                            top: position.y + 'px',
-                            left: position.x + 'px',
-                            transform: `scale(${hall_scale})`,
-                            cursor: 'grab',
-                            transition: 'transform 0.5s ease',
-                            transformOrigin: 'top center'
-                        }}>
-                        {props.hall.rows.map(row => {
-                            return (
-                                <div key={row.name}>
-                                    <div className='hall-row' style={{
-                                        left: -24 * 3 + 'px',
-                                        top: row.label_y - props.hall.min_y + 'px'
-                                    }}>
-                                        <div>{row.name}</div>
-                                    </div>
-                                    <div className='hall-row' style={{
-                                        right: -24 * 3 + 'px',
-                                        top: row.label_y - props.hall.min_y + 'px'
-                                    }}>
-                                        <div>{row.name}</div>
-                                    </div>
-                                    {row.places.map(place => {
-                                        let state = 0
-                                        if (place.deleted) {
-                                            return null
-                                        }
-                                        if (place.broken) {
-                                            state = 1
-                                        } else {
-                                            props.booking.find(booking => {
-                                                if (booking.uid_place === place.uid) {
-                                                    state = booking.state
-                                                }
-                                            })
-                                        }
-                                        return (<Place
-                                            hall={props.hall}
-                                            set_count_book={props.set_count_book}
-                                            city={props.city}
-                                            filial={props.filial}
-                                            pre_order={props.pre_order}
-                                            seance={props.seance}
-                                            key={`${place.uid}${place.ver}${place.state}`}
-                                            description={{
-                                                uid: place.uid,
-                                                heads: place.heads,
-                                                label: place.number,
-                                                type: 1,
-                                                state: state,
-                                                x: (place.x - props.hall.min_x),
-                                                y: (place.y - props.hall.min_y),
-                                                width: place.width,
-                                                height: place.height,
-                                                ver: place.ver,
-                                            }}
-                                            set_time_remaining={props.set_time_remaining}/>)
-                                    })}
-                                </div>)
-                        })}
-                        <img className='hall-screen' src={screen} alt='экран'/>
-                    </div>
-                </div>
-            </Box>
-        </Fade>
+        <Box style={{width: `${props.width}px`, height: `100%`}}>
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                fitView
+                attributionPosition="top-left"
+                nodeTypes={nodeTypes}
+                proOptions={{hideAttribution: true}}
+                nodesDraggable={false}
+                onNodeClick={(event, node) => {
+                    handleNodeClick(node)
+                }}>
+                {uid_user !== null ? <Controls/> : null}
+                <MiniMap/>
+            </ReactFlow>
+        </Box>
     )
 }
 

@@ -1,10 +1,8 @@
-import {Box, Button, ButtonGroup} from "@mui/material"
+import {Box, Button} from "@mui/material"
 import {useSelector} from "react-redux"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import {useNavigate} from "react-router-dom"
-import ZoomInIcon from '@mui/icons-material/ZoomIn'
-import ZoomOutIcon from '@mui/icons-material/ZoomOut'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 const SeanceMenu = () => {
@@ -26,10 +24,6 @@ const SeanceMenu = () => {
                             onClick={() => {
                                 navigate(-1)
                             }}><KeyboardArrowLeftIcon/>Назад</Button>
-                    <ButtonGroup size='large' variant='contained' color='secondary' sx={{marginRight: '4px'}}>
-                        <Button><ZoomInIcon/></Button>
-                        <Button><ZoomOutIcon/></Button>
-                    </ButtonGroup>
                     <SeanceTitle
                         seance={seance}
                         content_type={true}

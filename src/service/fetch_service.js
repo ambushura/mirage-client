@@ -37,9 +37,7 @@ import {
     ROUTE_MARKIROVKA_CDN_INFO_UPDATE
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
-import {setHall, setUidHall} from "../redux/hallsReducer.js";
-import {useSelector} from "react-redux";
-import place from "../components/halls/Place.jsx";
+import {setHall} from "../redux/hallsReducer.js"
 
 export const TIMEOUT = 10000
 
@@ -289,13 +287,13 @@ export const cinema_place_block = (filial, wp, hall, uid_place) => async (dispat
     filial
 }, data => {
     const hallN = JSON.parse(JSON.stringify(hall))
-    hallN.rows.forEach(row => {
-        row.places.forEach(place => {
-            if (place.uid === data.uid) {
-                place.broken = data.broken
-                place.ver = data.ver
+    hallN.nodes = hallN.nodes.map(node => {
+        if (node.id === data.id) {
+            return {
+                ...data,
             }
-        })
+        }
+        return node
     })
     dispatch(setHall(hallN))
 })
