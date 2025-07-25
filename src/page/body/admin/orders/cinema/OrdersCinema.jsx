@@ -39,7 +39,7 @@ const OrdersCinema = () => {
                                                         exit="hidden"
                                                         variants={containerVariants}>{filial_data.data.orders.map(order =>
                                                         <motion.div
-                                                            className='admin-orders-horeca-order'
+                                                            className='admin-orders-cinema-order'
                                                             key={`${order.uid}${order.ver}`}
                                                             variants={itemVariants}>
                                                             <OrderCinema key={`${order.uid}${order.ver}`}

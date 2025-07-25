@@ -33,6 +33,7 @@ import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
 import ScheduleFilters from "./components/forms/schedule_filters/ScheduleFilters.jsx"
 import SeanceSettings from "./components/forms/SeanceSettings.jsx"
+import KKTForm from "./page/body/admin/equipment/kkt_form/KKTForm.jsx";
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
         cinema_filters: CinemaFilters,
         schedule_filters: ScheduleFilters,
         seance_settings: SeanceSettings,
+        equipment_kkt: KKTForm,
     }
 
     const ModalContent = useMemo(() => {

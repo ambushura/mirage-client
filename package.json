@@ -35,6 +35,7 @@
     "react-router-dom": "^7.1.5",
     "react-simple-keyboard": "^3.8.41",
     "react-use-websocket": "^4.13.0",
+    "react-window": "^1.8.11",
     "uuid": "^11.0.5"
   },
   "devDependencies": {

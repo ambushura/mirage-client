@@ -73,9 +73,14 @@ const Hall = (props) => {
                 nodesDraggable={false}
                 onNodeClick={(event, node) => {
                     handleNodeClick(node)
-                }}>
+                }}
+                panOnDrag={uid_user !== null}
+                panOnScroll={uid_user !== null}
+                zoomOnScroll={uid_user !== null}
+                zoomOnPinch={uid_user !== null}
+                zoomOnDoubleClick={uid_user !== null}>
                 {uid_user !== null ? <Controls/> : null}
-                <MiniMap/>
+                {uid_user !== null ? <MiniMap/> : null}
             </ReactFlow>
         </Box>
     )

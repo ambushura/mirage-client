@@ -61,7 +61,7 @@ html, body {
     --order-width: 520px;
     --grad-line: 10px;
     --bg-menu-item: #efefef;
-    --admin-order-height: 500px;
+    --admin-order-height: 400px;
 }
 
 /* ============================== */
@@ -1999,7 +1999,7 @@ body {
 .admin-orders-horeca-order-body, .admin-orders-cinema-order-body {
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 350px;
+    max-height: 250px;
 }
 
 .admin-orders-horeca-order-footer, .admin-orders-cinema-order-footer {

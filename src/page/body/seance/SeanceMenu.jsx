@@ -20,7 +20,7 @@ const SeanceMenu = () => {
                 justifyContent: 'space-between'
             }}>
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Button variant="contained" color="secondary" size='small' sx={{marginRight: '4px'}}
+                    <Button variant="contained" color="secondary" size='large' sx={{marginRight: '4px'}}
                             onClick={() => {
                                 navigate(-1)
                             }}><KeyboardArrowLeftIcon/>Назад</Button>

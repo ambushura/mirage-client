@@ -1,9 +1,16 @@
 import {Handle, Position} from "@xyflow/react"
 import {Box} from "@mui/material"
+import {openModal} from "../../../../redux/interfaceReducer.js";
+import {useDispatch} from "react-redux";
 
 export const KKTNode = ({data}) => {
+
+    const dispatch = useDispatch()
+
     return (
-        <Box className='equipment-box'>
+        <Box className='equipment-box' onClick={() => {
+            dispatch(openModal({type: 'equipment_kkt', props: {uid_kkt: data.id}}))
+        }}>
             <Handle
                 type="target"
                 position={Position.Bottom}

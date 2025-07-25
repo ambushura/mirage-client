@@ -81,7 +81,7 @@ const ScheduleMenu = () => {
         <Box id="top-menu">
             <Box id="top-menu-schedule">
                 {current_page === 'film' && film !== undefined ?
-                    <Button variant="contained" color="secondary" size='small' onClick={() => {
+                    <Button variant="contained" color="secondary" size='large' onClick={() => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
                     }}
                             sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
