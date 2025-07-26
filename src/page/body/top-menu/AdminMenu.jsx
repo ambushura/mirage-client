@@ -35,6 +35,7 @@ import {Fragment, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
+import {KKT} from '../admin/equipment/svg/KKT.jsx'
 
 export function AdminHallsList() {
 
@@ -299,7 +300,7 @@ export function Equipment() {
 
     if (current_page !== 'admin/equipment') return null
 
-    return <></>
+    return null
 
 }
 

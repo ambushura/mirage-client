@@ -3,7 +3,7 @@ import {
     ReactFlow,
     addEdge,
     Controls,
-    MiniMap, useNodesState, getIncomers, getOutgoers, getConnectedEdges, useEdgesState, Background
+    MiniMap, useNodesState, useEdgesState, Background
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {useSetPaymentMap} from "./useSetPaymentMap.js"
@@ -39,21 +39,23 @@ const PageEquipment = () => {
     )
 
     return (
-        <Box style={{width: '100vw', height: '100vh'}}>
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                fitView
-                attributionPosition="top-right"
-                nodeTypes={nodeTypes}>
-                <Controls/>
-                <MiniMap/>
-                <Background/>
-            </ReactFlow>
-        </Box>
+        <>
+            <Box style={{width: '100vw', height: '100vh'}}>
+                <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                    fitView
+                    attributionPosition="top-right"
+                    nodeTypes={nodeTypes}>
+                    <Controls/>
+                    <MiniMap/>
+                    <Background/>
+                </ReactFlow>
+            </Box>
+        </>
     )
 }
 

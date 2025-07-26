@@ -46,15 +46,10 @@ export default function KKTForm(props) {
     return (
         <Box>
             <Typography variant="h6" color="textSecondary" margin={1}>
-                Касса
+                Касса ЗН {props.props.label}
             </Typography>
             <Stack sx={{display: 'flex', flexDirection: 'row'}}>
                 <Box>
-                    <Box>
-                        <Box><span>ЗН ККТ: </span><span style={{fontWeight: 'bold'}}>453534535345345</span></Box>
-                        <Box><span>IP-адрес: </span><span style={{fontWeight: 'bold'}}>10.101.3.3:5555</span></Box>
-                        <Box><span>MAC-адрес: </span><span style={{fontWeight: 'bold'}}>5555:rt4r:fgfg</span></Box>
-                    </Box>
                     <FormControl variant='filled' sx={{m: 1, minWidth: '200px', width: '100%'}}>
                         <InputLabel id="discounts-group-select-label">Раздел</InputLabel>
                         <Select
