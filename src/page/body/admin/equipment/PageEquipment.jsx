@@ -12,6 +12,7 @@ import {KKTNode} from "./KKTNode.jsx"
 import {PinpadNode} from "./PinpadNode.jsx"
 import {WorkplaceNode} from "./WorkplaceNode.jsx"
 import {Box} from "@mui/material"
+import {KitchenPointNode} from "./KitchenPointNode.jsx"
 
 const PageEquipment = () => {
 
@@ -31,6 +32,7 @@ const PageEquipment = () => {
         pinpad: PinpadNode,
         workplace: WorkplaceNode,
         filial: FilialNode,
+        kitchen_point: KitchenPointNode,
     }
 
     const onConnect = useCallback(

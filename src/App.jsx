@@ -33,7 +33,8 @@ import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
 import ScheduleFilters from "./components/forms/schedule_filters/ScheduleFilters.jsx"
 import SeanceSettings from "./components/forms/SeanceSettings.jsx"
-import KKTForm from "./page/body/admin/equipment/kkt_form/KKTForm.jsx";
+import KKTForm from "./page/body/admin/equipment/forms/KKTForm.jsx";
+import PinpadForm from "./page/body/admin/equipment/forms/PinpadForm.jsx";
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
         schedule_filters: ScheduleFilters,
         seance_settings: SeanceSettings,
         equipment_kkt: KKTForm,
+        equipment_pinpad: PinpadForm,
     }
 
     const ModalContent = useMemo(() => {
