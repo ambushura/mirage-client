@@ -35,7 +35,7 @@ import {Fragment, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
-import {KKT} from '../admin/equipment/svg/KKT.jsx'
+import {KKTSVG} from '../admin/equipment/svg/KKTSVG.jsx'
 
 export function AdminHallsList() {
 

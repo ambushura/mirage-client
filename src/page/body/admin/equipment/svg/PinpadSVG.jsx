@@ -1,4 +1,4 @@
-export function Pinpad() {
+export function PinpadSVG() {
     return <svg width="100" height="150" viewBox="0 0 150 200" xmlns="http://www.w3.org/2000/svg">
         <rect x="20" y="40" width="110" height="140" rx="10" ry="10" fill="#444" stroke="#000"
               strokeWidth="2"/>

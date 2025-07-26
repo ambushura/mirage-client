@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import {useState} from "react"
 
-export default function KKTForm(props) {
+export default function KKTForm({props}) {
 
     const fast_commands = [
         {id: 0, name: 'Суточный отчет'},
@@ -56,7 +56,7 @@ export default function KKTForm(props) {
 
     return <Box>
         <Typography variant="h6" color="textSecondary" margin={1}>
-            Касса ЗН {props.props.label}
+            Касса <strong>{props.label}</strong>
         </Typography>
         <Stack sx={{display: 'flex', flexDirection: 'row'}}>
             <Box sx={{flex: 1, marginRight: '5px'}}>

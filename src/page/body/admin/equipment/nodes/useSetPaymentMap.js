@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {useFetching} from "../../../../hooks/common/useFetching.js"
-import {ROUTE_COMMON_PAYMENT_MAP_GET} from "../../../../service/fetch_routes.js"
+import {useFetching} from "../../../../../hooks/common/useFetching.js"
+import {ROUTE_COMMON_PAYMENT_MAP_GET} from "../../../../../service/fetch_routes.js"
 
 export function useSetPaymentMap() {
 

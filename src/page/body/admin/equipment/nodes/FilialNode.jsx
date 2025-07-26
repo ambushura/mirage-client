@@ -1,23 +1,24 @@
-import {Box} from "@mui/material"
-import {openModal} from "../../../../redux/interfaceReducer.js"
 import {Handle, Position} from "@xyflow/react"
+import {Box} from "@mui/material"
+import {FilialSVG} from "../svg/FilialSVG.jsx"
+import {openModal} from "../../../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
-import {KitchenPoint} from "./svg/KitchenPoint.jsx"
 
-export function KitchenPointNode({data}) {
+export const FilialNode = ({data}) => {
 
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_kitchen_point', props: {uid_kkt: data.id, label: data.label}}))
+        dispatch(openModal({type: 'equipment_filial', props: {uid_filial: data.id, label: data.label}}))
     }}>
         <Handle
             type="target"
             position={Position.Bottom}
             style={{pointerEvents: 'all'}}/>
         <Box>
-            <Box>Чековый принтер</Box>
-            <Box><KitchenPoint/></Box>
+            <Box>Филиал</Box>
+            <Box><FilialSVG/></Box>
+            {data.label ? <Box><span style={{fontWeight: 'bold'}}>{data.label}</span></Box> : null}
         </Box>
         <Handle
             type="source"

@@ -1,4 +1,4 @@
-export function Filial() {
+export function FilialSVG() {
     return <svg width="200" height="180" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
         <rect x="30" y="50" width="140" height="100" rx="6" ry="6" fill="#444" stroke="#222"
               strokeWidth="2"/>

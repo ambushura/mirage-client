@@ -1,9 +1,9 @@
 import {Box, Typography} from "@mui/material"
 
-export default function PinpadForm(props) {
+export default function PinpadForm({props}) {
     return <Box>
         <Typography variant="h6" color="textSecondary" margin={1}>
-            Пинпад ID {props.props.label}
+            Пинпад <strong>{props.label}</strong>
         </Typography>
     </Box>
 }

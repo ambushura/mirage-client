@@ -1,16 +1,23 @@
 import {Handle, Position} from "@xyflow/react"
 import {Box} from "@mui/material"
-import {Workplace} from "./svg/Workplace.jsx"
+import {WorkplaceSVG} from "../svg/WorkplaceSVG.jsx"
+import {openModal} from "../../../../../redux/interfaceReducer.js"
+import {useDispatch} from "react-redux"
 
 export const WorkplaceNode = ({data}) => {
-    return <Box className='equipment-box'>
+
+    const dispatch = useDispatch()
+
+    return <Box className='equipment-box' onClick={() => {
+        dispatch(openModal({type: 'equipment_workplace', props: {uid_workplace: data.id, label: data.label}}))
+    }}>
         <Handle
             type="target"
             position={Position.Bottom}
             style={{pointerEvents: 'all'}}/>
         <Box>
             <Box>Рабочее место</Box>
-            <Box><Workplace/></Box>
+            <Box><WorkplaceSVG/></Box>
         </Box>
         <Box><span>Имя </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box>
         <Handle

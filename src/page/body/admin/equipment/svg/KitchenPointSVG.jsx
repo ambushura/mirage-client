@@ -1,4 +1,4 @@
-export function KitchenPoint() {
+export function KitchenPointSVG() {
     return <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <rect x="40" y="70" width="120" height="80" rx="8" ry="8" fill="#333" stroke="#111"
               strokeWidth="2"/>

@@ -1,8 +1,8 @@
 import {Handle, Position} from "@xyflow/react"
 import {Box} from "@mui/material"
-import {openModal} from "../../../../redux/interfaceReducer.js"
+import {openModal} from "../../../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
-import {Pinpad} from "./svg/Pinpad.jsx"
+import {PinpadSVG} from "../svg/PinpadSVG.jsx"
 
 export const PinpadNode = ({data}) => {
 
@@ -17,7 +17,7 @@ export const PinpadNode = ({data}) => {
             style={{pointerEvents: 'all'}}/>
         <Box>
             <Box>Пинпад</Box>
-            <Box><Pinpad/></Box>
+            <Box><PinpadSVG/></Box>
         </Box>
         <Box><span>ID </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box>
         <Handle

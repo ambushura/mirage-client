@@ -1,4 +1,4 @@
-export function KKT() {
+export function KKTSVG() {
     return <svg width="150" height="130" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
         <rect x="70" y="30" width="60" height="30" rx="4" ry="4" fill="#eee" stroke="#bbb"
               strokeWidth="1"/>

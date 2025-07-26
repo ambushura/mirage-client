@@ -1,4 +1,4 @@
-export function BilletCheck() {
+export function BilletCheckSVG() {
     return <svg width="200" height="160" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="screenGradient" x1="0" y1="0" x2="0" y2="1">
