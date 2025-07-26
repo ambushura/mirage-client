@@ -300,7 +300,7 @@ export function Equipment() {
 
     if (current_page !== 'admin/equipment') return null
 
-    return null
+    return <Button variant='contained' color='secondary' startIcon={<AddIcon/>}>Создать</Button>
 
 }
 

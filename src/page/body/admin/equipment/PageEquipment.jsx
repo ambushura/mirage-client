@@ -7,13 +7,13 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {useSetPaymentMap} from "./useSetPaymentMap.js"
-import {FilialNode} from "./FilialNode.jsx"
-import {KKTNode} from "./KKTNode.jsx"
-import {PinpadNode} from "./PinpadNode.jsx"
-import {WorkplaceNode} from "./WorkplaceNode.jsx"
+import {FilialNode} from "./nodes/FilialNode.jsx"
+import {KKTNode} from "./nodes/KKTNode.jsx"
+import {PinpadNode} from "./nodes/PinpadNode.jsx"
+import {WorkplaceNode} from "./nodes/WorkplaceNode.jsx"
 import {Box} from "@mui/material"
-import {KitchenPointNode} from "./KitchenPointNode.jsx"
-import {BilletCheckNode} from "./BilletCheckNode.jsx"
+import {KitchenPointNode} from "./nodes/KitchenPointNode.jsx"
+import {BilletCheckNode} from "./nodes/BilletCheckNode.jsx"
 
 const PageEquipment = () => {
 
@@ -51,7 +51,9 @@ const PageEquipment = () => {
             onConnect={onConnect}
             fitView
             attributionPosition="top-right"
-            nodeTypes={nodeTypes}>
+            nodeTypes={nodeTypes}
+            minZoom={0.3}
+            maxZoom={2}>
             <Controls/>
             <MiniMap/>
             <Background/>

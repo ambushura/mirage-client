@@ -11,7 +11,7 @@ import Operations from "./total/Operations.jsx"
 import Egais from "./egais/EGAIS.jsx"
 import PageStaff from "./staff/PageStaff.jsx"
 import PageHalls from "./halls/PageHalls.jsx"
-import PageEquipment from "./equipment/nodes/PageEquipment.jsx"
+import PageEquipment from "./equipment/PageEquipment.jsx"
 
 const PageAdmin = () => {
 
