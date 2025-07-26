@@ -13,6 +13,7 @@ import {PinpadNode} from "./PinpadNode.jsx"
 import {WorkplaceNode} from "./WorkplaceNode.jsx"
 import {Box} from "@mui/material"
 import {KitchenPointNode} from "./KitchenPointNode.jsx"
+import {BilletCheckNode} from "./BilletCheckNode.jsx"
 
 const PageEquipment = () => {
 
@@ -33,6 +34,7 @@ const PageEquipment = () => {
         workplace: WorkplaceNode,
         filial: FilialNode,
         kitchen_point: KitchenPointNode,
+        billet_check: BilletCheckNode,
     }
 
     const onConnect = useCallback(
@@ -40,25 +42,21 @@ const PageEquipment = () => {
         [edges],
     )
 
-    return (
-        <>
-            <Box style={{width: '100vw', height: '100vh'}}>
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    onNodesChange={onNodesChange}
-                    onEdgesChange={onEdgesChange}
-                    onConnect={onConnect}
-                    fitView
-                    attributionPosition="top-right"
-                    nodeTypes={nodeTypes}>
-                    <Controls/>
-                    <MiniMap/>
-                    <Background/>
-                </ReactFlow>
-            </Box>
-        </>
-    )
+    return <Box style={{width: '100vw', height: '100vh'}}>
+        <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            fitView
+            attributionPosition="top-right"
+            nodeTypes={nodeTypes}>
+            <Controls/>
+            <MiniMap/>
+            <Background/>
+        </ReactFlow>
+    </Box>
 }
 
 export default PageEquipment

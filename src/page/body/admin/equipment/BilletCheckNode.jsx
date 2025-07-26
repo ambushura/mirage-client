@@ -1,25 +1,25 @@
-import {Handle, Position} from "@xyflow/react"
 import {Box} from "@mui/material"
 import {openModal} from "../../../../redux/interfaceReducer.js"
+import {Handle, Position} from "@xyflow/react"
 import {useDispatch} from "react-redux"
-import {KKT} from "./svg/KKT.jsx"
+import {BilletCheck} from "./svg/BilletCheck.jsx"
 
-export const KKTNode = ({data}) => {
+export function BilletCheckNode({data}) {
 
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_kkt', props: {uid_kkt: data.id, label: data.label}}))
+        dispatch(openModal({type: 'equipment_billet_check', props: {uid_billet_check: data.id, label: data.label}}))
     }}>
         <Handle
             type="target"
             position={Position.Bottom}
             style={{pointerEvents: 'all'}}/>
         <Box>
-            <Box>Касса</Box>
-            <Box><KKT/></Box>
+            <Box>Билетный контролер</Box>
+            <Box><BilletCheck/></Box>
         </Box>
-        {data.label ? <Box><span>ЗН </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box> : null}
+        {data.label ? <Box><span>Имя </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box> : null}
         {data.port && data.port ?
             <Box><span>IP </span><span style={{fontWeight: 'bold'}}>{data.ip}:{data.port}</span></Box> : null}
         {data.mac ? <Box><span>MAC </span><span style={{fontWeight: 'bold'}}>{data.mac}</span></Box> : null}
