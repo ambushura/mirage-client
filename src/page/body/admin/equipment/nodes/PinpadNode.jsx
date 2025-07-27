@@ -19,7 +19,10 @@ export const PinpadNode = ({data}) => {
             <Box>Пинпад</Box>
             <Box><PinpadSVG/></Box>
         </Box>
-        <Box><span>ID </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box>
+        {data.label ? <Box><span>ID </span><span style={{fontWeight: 'bold'}}>{data.label}</span></Box> : null}
+        {data.port && data.port ?
+            <Box><span>IP </span><span style={{fontWeight: 'bold'}}>{data.ip}:{data.port}</span></Box> : null}
+        {data.mac ? <Box><span>MAC </span><span style={{fontWeight: 'bold'}}>{data.mac}</span></Box> : null}
         <Handle
             type="source"
             position={Position.Top}
