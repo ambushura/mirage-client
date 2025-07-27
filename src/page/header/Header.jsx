@@ -15,10 +15,10 @@ import dayjs from "dayjs"
 import {addNotification} from "../../redux/notifierReducer.js"
 import AppsIcon from '@mui/icons-material/Apps'
 import CachedIcon from '@mui/icons-material/Cached'
-import TheatersIcon from '@mui/icons-material/Theaters'
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
-import MenuBookIcon from '@mui/icons-material/MenuBook'
-import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
+import GroupWorkIcon from '@mui/icons-material/GroupWork'
+import FastfoodIcon from '@mui/icons-material/Fastfood'
+import MicrowaveIcon from '@mui/icons-material/Microwave'
 
 const Header = () => {
 
@@ -98,7 +98,7 @@ const Header = () => {
             switch (el.id) {
                 case 'films':
                     return (
-                        <Button><TheatersIcon/></Button>
+                        <Button><GroupWorkIcon/></Button>
                     )
                 case 'schedule':
                     return (
@@ -106,11 +106,11 @@ const Header = () => {
                     )
                 case 'menu':
                     return (
-                        <Button><MenuBookIcon/></Button>
+                        <Button><FastfoodIcon/></Button>
                     )
                 case 'kitchen':
                     return (
-                        <Button><SoupKitchenIcon/></Button>
+                        <Button><MicrowaveIcon/></Button>
                     )
                 default:
                     el.name

@@ -1,4 +1,4 @@
-import {Fragment, useEffect} from 'react'
+import {useEffect} from 'react'
 import {
     Button,
     ClickAwayListener,
@@ -15,12 +15,13 @@ import {useNavigate} from "react-router-dom"
 import EqualizerIcon from "@mui/icons-material/Equalizer"
 import ChairIcon from "@mui/icons-material/Chair"
 import FastfoodIcon from '@mui/icons-material/Fastfood'
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
 import TerminalIcon from '@mui/icons-material/Terminal'
 import LiquorIcon from '@mui/icons-material/Liquor'
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
 import {WhiteMenuItem} from "./ThemeContext.jsx"
 import ContactMailIcon from '@mui/icons-material/ContactMail'
+import GroupWorkIcon from '@mui/icons-material/GroupWork'
+import ConstructionIcon from '@mui/icons-material/Construction'
 
 const List = (props) => {
 
@@ -105,14 +106,14 @@ const List = (props) => {
                                                 }}>
                                                     <ListItemIcon sx={{color: 'white'}}>
                                                         {el.id === 'admin/orders/cinema' ?
-                                                            <ConfirmationNumberIcon/> :
+                                                            <GroupWorkIcon/> :
                                                             el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
                                                                 el.id === 'admin/zbooks' ? <EqualizerIcon/> :
                                                                     el.id === 'admin/operations' ?
                                                                         <CurrencyRubleIcon/> :
                                                                         el.id === 'admin/halls' ? <ChairIcon/> :
                                                                             el.id === 'admin/equipment' ?
-                                                                                <TerminalIcon/> :
+                                                                                <ConstructionIcon/> :
                                                                                 el.id === 'admin/egais' ?
                                                                                     <LiquorIcon/> :
                                                                                     el.id === 'admin/staff' ?
