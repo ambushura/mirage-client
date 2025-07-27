@@ -1,9 +1,9 @@
 import {
     Box, Button, ButtonGroup,
-    FormControl,
+    FormControl, FormControlLabel, FormGroup,
     InputLabel,
     MenuItem,
-    Select, Stack,
+    Select, Switch,
     TextField, Typography
 } from "@mui/material"
 import {useState} from "react"
@@ -56,12 +56,27 @@ export default function KKTForm({props}) {
 
     return <Box>
         <Typography variant="h6" color="textSecondary" margin={1}>
-            Касса <strong>{props.label}</strong>
+            Касса
         </Typography>
-        <Stack sx={{display: 'flex', flexDirection: 'row'}}>
-            <Box sx={{flex: 1, marginRight: '5px'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{flex: 1, marginRight: '5px', width: '350px'}}>
+                <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
+                    <TextField variant='filled' label='Заводской номер' value={props.label} sx={{marginBottom: 1}}/>
+                    <Box sx={{marginBottom: 1, width: 'inherit', display: 'flex', justifyContent: 'space-between'}}>
+                        <TextField variant='filled' sx={{flex: 3}} label='IP'/>
+                        <TextField variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>
+                    </Box>
+                    <TextField variant='filled' label='MAC' sx={{marginBottom: 1}}/>
+                    <FormGroup sx={{display: 'flex', flexDirection: 'row', width: 'inherit'}}>
+                        <FormControlLabel control={<Switch/>} label="То кино!"/>
+                        <FormControlLabel control={<Switch/>} label="Общепит"/>
+                        <FormControlLabel control={<Switch/>} label="Мираж Синема"/>
+                        <FormControlLabel control={<Switch/>} label="Пушкинская карта"/>
+                        <FormControlLabel control={<Switch/>} label="Аренда"/>
+                    </FormGroup>
+                </FormGroup>
                 <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: '350px'}}>
-                    <InputLabel id="equipment-chapter-label">Раздел</InputLabel>
+                    <InputLabel id="equipment-chapter-label">Функции драйвера</InputLabel>
                     <Select
                         onChange={(event) => {
                             set_chapter_value(event.target.value)
@@ -76,7 +91,7 @@ export default function KKTForm({props}) {
                     </Select>
                 </FormControl>
                 {chapter_value === 0 ?
-                    <Box sx={{width: '350px', marginBottom: 1}}>
+                    <Box sx={{width: '350px', marginBottom: 1, display: 'flex', flexDirection: 'column'}}>
                         <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: 'inherit'}}>
                             <InputLabel id="equipment-chapter-1-label">Тип запроса</InputLabel>
                             <Select
@@ -93,7 +108,7 @@ export default function KKTForm({props}) {
                                                                                    value={discount_group.id}>{discount_group.name}</MenuItem>)}
                             </Select>
                         </FormControl>
-                        <TextField multiline sx={{marginBottom: 1, width: 'inherit'}}/>
+                        <TextField multiline sx={{marginBottom: 1, width: 'inherit', flex: 1}}/>
                         <Button sx={{width: 'inherit'}} variant='contained' color='secondary' onClick={() => {
                         }}>Прочитать</Button>
                     </Box>
@@ -128,11 +143,13 @@ export default function KKTForm({props}) {
                     : null}
             </Box>
             <Box sx={{flex: 1, marginLeft: '5px'}}>
-                <ButtonGroup size='small' sx={{height: 'fit-content', width: '100%'}} variant='outlined'
+                <ButtonGroup size='small' sx={{height: 'fit-content', width: '100%', marginBottom: 1}}
+                             variant='outlined'
                              color='secondary' orientation='vertical'>
                     {fast_commands.map(el => <Button key={el.id}>{el.name}</Button>)}
                 </ButtonGroup>
+                <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
             </Box>
-        </Stack>
+        </Box>
     </Box>
 }

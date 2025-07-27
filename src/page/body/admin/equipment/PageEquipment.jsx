@@ -52,7 +52,7 @@ const PageEquipment = () => {
             fitView
             attributionPosition="top-right"
             nodeTypes={nodeTypes}
-            minZoom={0.3}
+            minZoom={0.4}
             maxZoom={2}>
             <Controls/>
             <MiniMap/>
