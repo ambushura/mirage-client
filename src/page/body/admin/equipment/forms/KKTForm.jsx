@@ -6,9 +6,13 @@ import {
     Select, Switch,
     TextField, Typography
 } from "@mui/material"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 
 export default function KKTForm({props}) {
+
+    useEffect(() => {
+
+    }, [])
 
     const fast_commands = [
         {id: 0, name: 'Суточный отчет'},
