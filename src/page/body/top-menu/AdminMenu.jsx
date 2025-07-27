@@ -315,7 +315,7 @@ export function Equipment() {
 
     return <>
         <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
-            Новое оборудование
+            Новый объект
         </Button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem onClick={() => handleSelect('Рабочее место')}>Рабочее место</MenuItem>

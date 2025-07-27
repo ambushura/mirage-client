@@ -194,7 +194,10 @@ export default function KKTForm({props}) {
                     </ButtonGroup>
                 </Box>
             </Box>
-            <Button fullWidth variant='contained' color='success'>Сохранить</Button>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Button fullWidth variant='contained' color='success'>Сохранить</Button>
+                <Button fullWidth variant='contained' color='error' sx={{marginLeft: 1}}>Удалить</Button>
+            </Box>
         </Box>
     </Box>
 }
