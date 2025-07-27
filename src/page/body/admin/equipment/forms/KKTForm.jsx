@@ -1,5 +1,5 @@
 import {
-    Box, Button, ButtonGroup,
+    Box, Button, ButtonGroup, Fade,
     FormControl, FormControlLabel, FormGroup,
     InputLabel,
     MenuItem,
@@ -50,6 +50,7 @@ export default function KKTForm({props}) {
         {id: 12, name: '12 - Печать итогов регистрации/перерегистрации ККТ'},
     ]
 
+    const [page, set_page] = useState(0)
     const [request_type_value, set_request_type_value] = useState(0)
     const [chapter_value, set_chapter_value] = useState(0)
     const [report_value, set_report_value] = useState(0)
@@ -58,98 +59,136 @@ export default function KKTForm({props}) {
         <Typography variant="h6" color="textSecondary" margin={1}>
             Касса
         </Typography>
-        <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Box sx={{flex: 1, marginRight: '5px', width: '350px'}}>
-                <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
-                    <TextField variant='filled' label='Заводской номер' value={props.label} sx={{marginBottom: 1}}/>
-                    <Box sx={{marginBottom: 1, width: 'inherit', display: 'flex', justifyContent: 'space-between'}}>
-                        <TextField variant='filled' sx={{flex: 3}} label='IP'/>
-                        <TextField variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>
+        <Box sx={{width: '700px', display: 'flex', flexDirection: 'column'}}>
+            <Box sx={{width: 'inherit', display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{flex: 3, marginRight: '5px'}}>
+                    <ButtonGroup color='secondary' variant='contained' sx={{marginBottom: 1}}>
+                        <Button color={page === 0 ? 'primary' : 'secondary'}
+                                onClick={() => set_page(0)}>Информация</Button>
+                        <Button color={page === 1 ? 'primary' : 'secondary'}
+                                onClick={() => set_page(1)}>Ограничения</Button>
+                        <Button color={page === 2 ? 'primary' : 'secondary'}
+                                onClick={() => set_page(2)}>Драйвер</Button>
+                    </ButtonGroup>
+                    <Box sx={{display: page === 0 ? 'block' : 'none', width: 'inherit'}}>
+                        <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
+                            <TextField variant='filled' label='Заводской номер' value={props.label}
+                                       sx={{marginBottom: 1}}/>
+                            <Box sx={{
+                                marginBottom: 1,
+                                width: 'inherit',
+                                display: 'flex',
+                                justifyContent: 'space-between'
+                            }}>
+                                <TextField variant='filled' sx={{flex: 3}} label='IP'/>
+                                <TextField variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>
+                            </Box>
+                            <TextField variant='filled' label='MAC' sx={{marginBottom: 1}}/>
+                            <FormGroup sx={{marginBottom: 1, display: 'flex', flexDirection: 'row', width: 'inherit'}}>
+                                <FormControlLabel control={<Switch/>} label="То кино!"/>
+                                <FormControlLabel control={<Switch/>} label="Общепит"/>
+                                <FormControlLabel control={<Switch/>} label="Мираж Синема"/>
+                                <FormControlLabel control={<Switch/>} label="Пушкинская карта"/>
+                                <FormControlLabel control={<Switch/>} label="Аренда"/>
+                            </FormGroup>
+                            <TextField variant='filled' label='Организация' sx={{marginBottom: 1}}/>
+                        </FormGroup>
                     </Box>
-                    <TextField variant='filled' label='MAC' sx={{marginBottom: 1}}/>
-                    <FormGroup sx={{display: 'flex', flexDirection: 'row', width: 'inherit'}}>
-                        <FormControlLabel control={<Switch/>} label="То кино!"/>
-                        <FormControlLabel control={<Switch/>} label="Общепит"/>
-                        <FormControlLabel control={<Switch/>} label="Мираж Синема"/>
-                        <FormControlLabel control={<Switch/>} label="Пушкинская карта"/>
-                        <FormControlLabel control={<Switch/>} label="Аренда"/>
-                    </FormGroup>
-                </FormGroup>
-                <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: '350px'}}>
-                    <InputLabel id="equipment-chapter-label">Функции драйвера</InputLabel>
-                    <Select
-                        onChange={(event) => {
-                            set_chapter_value(event.target.value)
-                        }}
-                        labelId="equipment-chapter-label"
-                        id="equipment-chapter-select"
-                        value={chapter_value}
-                        label="Раздел"
-                        variant='filled'>
-                        {chapter_list.map(discount_group => <MenuItem sx={{color: 'black'}} key={discount_group.id}
-                                                                      value={discount_group.id}>{discount_group.name}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                {chapter_value === 0 ?
-                    <Box sx={{width: '350px', marginBottom: 1, display: 'flex', flexDirection: 'column'}}>
-                        <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: 'inherit'}}>
-                            <InputLabel id="equipment-chapter-1-label">Тип запроса</InputLabel>
-                            <Select
-                                onChange={(event) => {
-                                    set_request_type_value(event.target.value)
-                                }}
-                                labelId="equipment-chapter-1-label"
-                                id="equipment-chapter-1-select"
-                                value={request_type_value}
-                                label={chapter_list[chapter_value]}
-                                variant='filled'>
-                                {request_type_list.map(discount_group => <MenuItem sx={{color: 'black'}}
-                                                                                   key={discount_group.id}
-                                                                                   value={discount_group.id}>{discount_group.name}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                        <TextField multiline sx={{marginBottom: 1, width: 'inherit', flex: 1}}/>
-                        <Button sx={{width: 'inherit'}} variant='contained' color='secondary' onClick={() => {
-                        }}>Прочитать</Button>
+                    <Box sx={{display: page === 1 ? 'block' : 'none', width: 'inherit'}}>
+                        <Box>
+                            Ограничения работы кассы
+                        </Box>
                     </Box>
-                    : null}
-                {chapter_value === 1 ?
-                    <Box></Box>
-                    : null}
-                {chapter_value === 2 ?
-                    <Box></Box>
-                    : null}
-                {chapter_value === 3 ?
-                    <Box sx={{width: '350px', marginBottom: 1}}>
-                        <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: 'inherit'}}>
-                            <InputLabel id="discounts-group-select-label">Тип отчета</InputLabel>
-                            <Select
-                                onChange={(event) => {
-                                    set_report_value(event.target.value)
-                                }}
-                                labelId="discounts-group-select-label"
-                                id="discounts-group-select"
-                                value={report_value}
-                                label="Группа скидок"
-                                variant='filled'>
-                                {report_list.map(discount_group => <MenuItem sx={{color: 'black'}}
-                                                                             key={discount_group.id}
-                                                                             value={discount_group.id}>{discount_group.name}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                        <Button sx={{width: 'inherit'}} variant='contained' color='secondary' onClick={() => {
-                        }}>Сформировать отчет</Button>
+                    <Box sx={{display: page === 2 ? 'block' : 'none', width: 'inherit'}}>
+                        <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
+                            <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: 'inherit'}}>
+                                <InputLabel id="equipment-chapter-label">Функции драйвера</InputLabel>
+                                <Select
+                                    onChange={(event) => {
+                                        set_chapter_value(event.target.value)
+                                    }}
+                                    labelId="equipment-chapter-label"
+                                    id="equipment-chapter-select"
+                                    value={chapter_value}
+                                    label="Раздел"
+                                    variant='filled'>
+                                    {chapter_list.map(discount_group => <MenuItem sx={{color: 'black'}}
+                                                                                  key={discount_group.id}
+                                                                                  value={discount_group.id}>{discount_group.name}</MenuItem>)}
+                                </Select>
+                            </FormControl>
+                            <Box sx={{
+                                display: chapter_value === 0 ? 'flex' : 'none',
+                                width: 'inherit',
+                                flexDirection: 'column'
+                            }}>
+                                <Box sx={{width: 'inherit', marginBottom: 1, display: 'flex', flexDirection: 'column'}}>
+                                    <FormControl variant='filled' color='secondary'
+                                                 sx={{marginBottom: 1, width: 'inherit'}}>
+                                        <InputLabel sx={{width: 'inherit'}} id="equipment-chapter-1-label">Тип
+                                            запроса</InputLabel>
+                                        <Select
+                                            onChange={(event) => {
+                                                set_request_type_value(event.target.value)
+                                            }}
+                                            labelId="equipment-chapter-1-label"
+                                            id="equipment-chapter-1-select"
+                                            value={request_type_value}
+                                            label={chapter_list[chapter_value]}
+                                            variant='filled'>
+                                            {request_type_list.map(discount_group => <MenuItem sx={{color: 'black'}}
+                                                                                               key={discount_group.id}
+                                                                                               value={discount_group.id}>{discount_group.name}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <TextField multiline sx={{width: 'inherit', marginBottom: 1, flex: 1}}/>
+                                    <Button sx={{width: 'inherit'}} variant='contained' color='secondary'
+                                            onClick={() => {
+                                            }}>Прочитать</Button>
+                                </Box>
+                            </Box>
+                            <Box sx={{display: chapter_value === 1 ? 'flex' : 'none', width: 'inherit'}}>
+                                <Box></Box>
+                            </Box>
+                            <Box sx={{display: chapter_value === 2 ? 'flex' : 'none', width: 'inherit'}}>
+                                <Box></Box>
+                            </Box>
+                            <Fade in={chapter_value === 3} unmountOnExit>
+                                <Box sx={{marginBottom: 1, width: 'inherit', display: 'flex'}}>
+                                    <FormControl variant='filled' color='secondary'
+                                                 sx={{marginBottom: 1}}>
+                                        <InputLabel id="discounts-group-select-label">Тип отчета</InputLabel>
+                                        <Select
+                                            onChange={(event) => {
+                                                set_report_value(event.target.value)
+                                            }}
+                                            labelId="discounts-group-select-label"
+                                            id="discounts-group-select"
+                                            value={report_value}
+                                            label="Группа скидок"
+                                            variant='filled'>
+                                            {report_list.map(discount_group => <MenuItem sx={{color: 'black'}}
+                                                                                         key={discount_group.id}
+                                                                                         value={discount_group.id}>{discount_group.name}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <Button variant='contained' color='secondary'
+                                            onClick={() => {
+                                            }}>Сформировать отчет</Button>
+                                </Box>
+                            </Fade>
+                        </FormGroup>
                     </Box>
-                    : null}
+                </Box>
+                <Box sx={{flex: 1, marginLeft: '5px'}}>
+                    <ButtonGroup size='small' sx={{height: 'fit-content', width: '100%', marginBottom: 1}}
+                                 variant='outlined'
+                                 color='secondary' orientation='vertical'>
+                        {fast_commands.map(el => <Button key={el.id}>{el.name}</Button>)}
+                    </ButtonGroup>
+                </Box>
             </Box>
-            <Box sx={{flex: 1, marginLeft: '5px'}}>
-                <ButtonGroup size='small' sx={{height: 'fit-content', width: '100%', marginBottom: 1}}
-                             variant='outlined'
-                             color='secondary' orientation='vertical'>
-                    {fast_commands.map(el => <Button key={el.id}>{el.name}</Button>)}
-                </ButtonGroup>
-                <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
-            </Box>
+            <Button fullWidth variant='contained' color='success'>Сохранить</Button>
         </Box>
     </Box>
 }
