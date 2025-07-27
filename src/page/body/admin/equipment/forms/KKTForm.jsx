@@ -153,30 +153,32 @@ export default function KKTForm({props}) {
                             <Box sx={{display: chapter_value === 2 ? 'flex' : 'none', width: 'inherit'}}>
                                 <Box></Box>
                             </Box>
-                            <Fade in={chapter_value === 3} unmountOnExit>
-                                <Box sx={{marginBottom: 1, width: 'inherit', display: 'flex'}}>
-                                    <FormControl variant='filled' color='secondary'
-                                                 sx={{marginBottom: 1}}>
-                                        <InputLabel id="discounts-group-select-label">Тип отчета</InputLabel>
-                                        <Select
-                                            onChange={(event) => {
-                                                set_report_value(event.target.value)
-                                            }}
-                                            labelId="discounts-group-select-label"
-                                            id="discounts-group-select"
-                                            value={report_value}
-                                            label="Группа скидок"
-                                            variant='filled'>
-                                            {report_list.map(discount_group => <MenuItem sx={{color: 'black'}}
-                                                                                         key={discount_group.id}
-                                                                                         value={discount_group.id}>{discount_group.name}</MenuItem>)}
-                                        </Select>
-                                    </FormControl>
-                                    <Button variant='contained' color='secondary'
-                                            onClick={() => {
-                                            }}>Сформировать отчет</Button>
-                                </Box>
-                            </Fade>
+                            <Box sx={{
+                                display: chapter_value === 3 ? 'flex' : 'none',
+                                width: 'inherit',
+                                flexDirection: 'column'
+                            }}>
+                                <FormControl variant='filled' color='secondary'
+                                             sx={{marginBottom: 1, width: 'inherit'}}>
+                                    <InputLabel id="discounts-group-select-label">Тип отчета</InputLabel>
+                                    <Select
+                                        onChange={(event) => {
+                                            set_report_value(event.target.value)
+                                        }}
+                                        labelId="discounts-group-select-label"
+                                        id="discounts-group-select"
+                                        value={report_value}
+                                        label="Группа скидок"
+                                        variant='filled'>
+                                        {report_list.map(discount_group => <MenuItem sx={{color: 'black'}}
+                                                                                     key={discount_group.id}
+                                                                                     value={discount_group.id}>{discount_group.name}</MenuItem>)}
+                                    </Select>
+                                </FormControl>
+                                <Button fullWidth variant='contained' color='secondary'
+                                        onClick={() => {
+                                        }}>Сформировать отчет</Button>
+                            </Box>
                         </FormGroup>
                     </Box>
                 </Box>
