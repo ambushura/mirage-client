@@ -8,11 +8,14 @@ const PageHalls = () => {
 
     const dispatch = useDispatch()
 
-    const hallN = useSetHall()
+    const uid_hall = useSelector(state => state.halls.uid_hall)
+
     const hall = useSelector(state => state.halls.hall)
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const app_width = useSelector(state => state.interface.app_width)
+
+    const hallN = useSetHall(uid_hall)
 
     useEffect(() => {
         dispatch(setHall(hallN))

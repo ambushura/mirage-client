@@ -1,4 +1,4 @@
-import {Box, Button, ButtonGroup, Fade, FormControl, InputLabel, MenuItem, Popover, Select} from "@mui/material"
+import {Box, Button, ButtonGroup, Fade, FormControl, InputLabel, Menu, MenuItem, Popover, Select} from "@mui/material"
 import dayjs from "dayjs"
 import {
     NEW_EMPTY_ORDER,
@@ -31,11 +31,10 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../../components/forms/Calendar.jsx"
-import {Fragment, useState} from "react"
+import {useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
-import {KKTSVG} from '../admin/equipment/svg/KKTSVG.jsx'
 
 export function AdminHallsList() {
 
@@ -48,7 +47,7 @@ export function AdminHallsList() {
 
     if (current_page !== 'admin/halls') return null
 
-    return <Fragment>
+    return <>
         <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
             <InputLabel id="halls-select-label">Текущий зал</InputLabel>
             <Select
@@ -73,7 +72,7 @@ export function AdminHallsList() {
                 dispatch(setMode('view'))
             }}>Режим просмотра</Button>
         </ButtonGroup>
-    </Fragment>
+    </>
 }
 
 export function ShowFilters() {
@@ -297,10 +296,35 @@ export function CreateDeleteButtons() {
 export function Equipment() {
 
     const current_page = useSelector(state => state.interface.current_page)
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
 
     if (current_page !== 'admin/equipment') return null
 
-    return <Button variant='contained' color='secondary' startIcon={<AddIcon/>}>Создать</Button>
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
+
+    const handleSelect = (type) => {
+        handleClose()
+    }
+
+    return <>
+        <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
+            Новое оборудование
+        </Button>
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <MenuItem onClick={() => handleSelect('Рабочее место')}>Рабочее место</MenuItem>
+            <MenuItem onClick={() => handleSelect('Кассу')}>Кассу</MenuItem>
+            <MenuItem onClick={() => handleSelect('Пинпад')}>Пинпад</MenuItem>
+            <MenuItem onClick={() => handleSelect('Чековый принтер')}>Чековый принтер</MenuItem>
+            <MenuItem onClick={() => handleSelect('Билетный контролер')}>Билетный контролер</MenuItem>
+        </Menu>
+    </>
 
 }
 

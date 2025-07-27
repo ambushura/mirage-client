@@ -3,10 +3,9 @@ import {useEffect, useState} from "react"
 import {ROUTE_CINEMA_HALL_GET} from "../../../../service/fetch_routes.js"
 import {useFetching} from "../../../../hooks/common/useFetching.js"
 
-export function useSetHall() {
+export function useSetHall(uid_hall) {
 
     const filial = useSelector(state => state.data.filial)
-    const uid_hall = useSelector(state => state.halls.uid_hall)
 
     const [url_hall, set_url_hall] = useState(undefined)
 

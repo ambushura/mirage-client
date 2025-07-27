@@ -1,11 +1,18 @@
 import {Box} from "@mui/material"
-import {addEdge, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState} from "@xyflow/react"
+import {
+    addEdge,
+    Controls,
+    ReactFlow, ReactFlowProvider,
+    useEdgesState,
+    useNodesState,
+    useReactFlow
+} from "@xyflow/react"
 import {useCallback, useEffect} from "react"
 import {Place} from "./nodes/Place.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
 
-const Hall = (props) => {
+const HallMap = (props) => {
 
     const dispatch = useDispatch()
     const uid_user = useSelector(state => state.auth.uid)
@@ -20,6 +27,8 @@ const Hall = (props) => {
         (params) => setEdges(addEdge(params, edges)),
         [edges],
     )
+
+    const {fitView} = useReactFlow()
 
     useEffect(() => {
         if (props.hall !== null) {
@@ -38,11 +47,15 @@ const Hall = (props) => {
             })
             setNodes(nodesWithBooking)
             setEdges(props.hall.edges)
+
+            setTimeout(() => {
+                fitView({padding: 0.2})
+            }, 0)
         }
-    }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial])
+    }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial, fitView])
 
     const nodeTypes = {
-        "place": Place,
+        place: Place,
     }
 
     const handleNodeClick = (node) => {
@@ -66,23 +79,27 @@ const Hall = (props) => {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
-                fitView
                 attributionPosition="top-left"
                 nodeTypes={nodeTypes}
                 proOptions={{hideAttribution: true}}
                 nodesDraggable={false}
-                onNodeClick={(event, node) => {
-                    handleNodeClick(node)
-                }}
+                onNodeClick={(event, node) => handleNodeClick(node)}
                 panOnDrag={uid_user !== null}
                 panOnScroll={uid_user !== null}
                 zoomOnScroll={uid_user !== null}
                 zoomOnPinch={uid_user !== null}
-                zoomOnDoubleClick={uid_user !== null}>
+                zoomOnDoubleClick={uid_user !== null}
+            >
                 {uid_user !== null ? <Controls/> : null}
             </ReactFlow>
         </Box>
     )
 }
 
-export default Hall
+const HallWithProvider = (props) => (
+    <ReactFlowProvider>
+        <HallMap {...props}/>
+    </ReactFlowProvider>
+)
+
+export default HallWithProvider

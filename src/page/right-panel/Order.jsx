@@ -144,7 +144,11 @@ const OrderBody = ({
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {
-                                    }}>Стол</Button>
+                                        dispatch(openModal({
+                                            type: 'table_options',
+                                            props: {uid_order: order.uid}
+                                        }))
+                                    }}>Место</Button>
                                     <Button variant="contained" color="secondary" onClick={() => {
                                     }}><DeleteIcon/></Button>
                                 </ButtonGroup>

@@ -1,5 +1,5 @@
 import {
-    Box, Button, ButtonGroup, Fade,
+    Box, Button, ButtonGroup,
     FormControl, FormControlLabel, FormGroup,
     InputLabel,
     MenuItem,

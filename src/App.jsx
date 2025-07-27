@@ -38,6 +38,7 @@ import {FilialForm} from "./page/body/admin/equipment/forms/FilialForm.jsx"
 import {KitchenPointForm} from "./page/body/admin/equipment/forms/KitchenPointForm.jsx"
 import {BilletCheckForm} from "./page/body/admin/equipment/forms/BilletCheckForm.jsx"
 import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx"
+import TableOptions from "./components/forms/TableOptions.jsx"
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
     const param_date = useSelector(state => state.interface.params.param_date)
 
     const modalComponents = {
+        table_options: TableOptions,
         quantity: Quantity,
         comment_order: CommentOrder,
         comment_position: CommentPosition,
