@@ -70,7 +70,7 @@ export default function KKTForm({props}) {
                         <Button color={page === 0 ? 'primary' : 'secondary'}
                                 onClick={() => set_page(0)}>Информация</Button>
                         <Button color={page === 1 ? 'primary' : 'secondary'}
-                                onClick={() => set_page(1)}>Ограничения</Button>
+                                onClick={() => set_page(1)}>Обслуживание</Button>
                         <Button color={page === 2 ? 'primary' : 'secondary'}
                                 onClick={() => set_page(2)}>Драйвер</Button>
                     </ButtonGroup>

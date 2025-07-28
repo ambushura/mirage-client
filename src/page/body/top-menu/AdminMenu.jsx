@@ -70,7 +70,7 @@ export function AdminHallsList() {
             }}>Режим блокировки</Button>
             <Button variant='contained' color={mode === 'view' ? 'primary' : 'secondary'} onClick={() => {
                 dispatch(setMode('view'))
-            }}>Режим просмотра</Button>
+            }}>Режим редактирования</Button>
         </ButtonGroup>
     </>
 }
