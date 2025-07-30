@@ -5,40 +5,30 @@ import {ruRU} from "@mui/x-data-grid/locales"
 const Zbooks = () => {
 
     const columns = [
-        {field: 'id', headerName: 'ID', width: 90},
-        {field: 'number_kkt', headerName: 'Номер ККТ'},
-        {field: 'date_ofd', headerName: 'Дата ОФД'},
-        {field: 'last_fd', headerName: 'Номер последнего ФД'},
-        {field: 'date_shift', headerName: 'Дата смены'},
-        {field: 'number_shift', headerName: 'Номер смены'},
-        {field: 'sum_in_cash', headerName: 'Наличные (приход)', type: 'number'},
-        {field: 'sum_in_electron', headerName: 'Безналичные (приход)', type: 'number'},
-        {field: 'sum_out_cash', headerName: 'Наличные (расход)', type: 'number'},
-        {field: 'sum_out_electron', headerName: 'Безналичные (расход)', type: 'number'},
-        {field: 'sum_nds', headerName: 'НДС', type: 'number'},
-        {field: 'sum_collection', headerName: 'Инкассация', type: 'number'},
-        {field: 'sum_electron', headerName: 'Безналичные (итог)', type: 'number'},
-        {field: 'revenue', headerName: 'Выручка (итог)', type: 'number'},
-        {field: 'sum_total_of_income', headerName: 'Приход (сменный итог)', type: 'number'},
-        {
-            field: 'sum_non_zero_total_of_income',
-            headerName: 'НСП',
-            type: 'number',
-            width: 240
-        },
-        {
-            field: 'sum_non_zero_total_of_outcome',
-            headerName: 'НСВ',
-            type: 'number',
-            width: 240
-        },
-        {field: 'sum_electron_pinpad', headerName: 'Безналичные (терминал)', type: 'number', width: 200}
+        {field: 'id', headerName: 'ID', width: 10},
+        {field: 'number_kkt', headerName: 'ЗН ККТ', width: 130},
+        {field: 'date_ofd', headerName: 'ОФД', width: 90},
+        {field: 'last_fd', headerName: 'ФД', width: 70},
+        {field: 'date_shift', headerName: 'Смена', width: 90},
+        {field: 'number_shift', headerName: '№', width: 60},
+        {field: 'sum_in_cash', headerName: 'Н +', type: 'number', width: 90},
+        {field: 'sum_in_electron', headerName: 'БН +', type: 'number', width: 90},
+        {field: 'sum_out_cash', headerName: 'Н -', type: 'number', width: 90},
+        {field: 'sum_out_electron', headerName: 'БН -', type: 'number', width: 90},
+        {field: 'sum_nds', headerName: 'НДС', type: 'number', width: 90},
+        {field: 'sum_collection', headerName: 'Инкассация', type: 'number', width: 90},
+        {field: 'sum_electron', headerName: 'Б ∑', type: 'number', width: 90},
+        {field: 'revenue', headerName: 'В ∑', type: 'number', width: 90},
+        {field: 'sum_total_of_income', headerName: 'П смены', type: 'number', width: 100},
+        {field: 'sum_non_zero_total_of_income', headerName: 'НСП', type: 'number', width: 90},
+        {field: 'sum_non_zero_total_of_outcome', headerName: 'НСВ', type: 'number', width: 90},
+        {field: 'sum_electron_pinpad', headerName: 'БН Т', type: 'number', width: 90}
     ]
 
     const rows = [
         {
             id: 0,
-            number_kkt: '000123456789',
+            number_kkt: '00106905027521',
             date_ofd: '2025-05-20',
             last_fd: 456,
             date_shift: '2025-05-20',
