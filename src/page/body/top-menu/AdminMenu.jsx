@@ -315,7 +315,7 @@ export function Equipment() {
 
     return <>
         <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
-            Новый объект
+            Добавить устройство
         </Button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem onClick={() => handleSelect('Рабочее место')}>Рабочее место</MenuItem>
