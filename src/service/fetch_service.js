@@ -14,16 +14,16 @@ import {
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_KIOSK_POSITION_ADD,
     ROUTE_CINEMA_ORDER_ADD_COMMENT,
-    ROUTE_CINEMA_ORDER_DELETE,
+    ROUTE_CINEMA_ORDER_DELETE, ROUTE_CINEMA_ORDER_DELETE_COMMENT,
     ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_PLACE_BLOCK,
     ROUTE_CINEMA_POSITION_ADD,
-    ROUTE_CINEMA_POSITION_ADD_COMMENT,
+    ROUTE_CINEMA_POSITION_ADD_COMMENT, ROUTE_CINEMA_POSITION_DELETE_COMMENT,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
     ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_COMMON_ORDER_PAYMENT, ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_HORECA_KITCHEN_PUSH,
-    ROUTE_HORECA_ORDER_ADD_COMMENT,
+    ROUTE_HORECA_ORDER_ADD_COMMENT, ROUTE_HORECA_ORDER_DELETE_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
     ROUTE_HORECA_POSITION_ADD_COMMENT,
@@ -32,7 +32,7 @@ import {
     ROUTE_HORECA_POSITION_AWAY,
     ROUTE_HORECA_POSITION_COOK,
     ROUTE_HORECA_POSITION_COURSE,
-    ROUTE_HORECA_POSITION_DELETE,
+    ROUTE_HORECA_POSITION_DELETE, ROUTE_HORECA_POSITION_DELETE_COMMENT,
     ROUTE_MARKIROVKA_CDN_INFO_GET,
     ROUTE_MARKIROVKA_CDN_INFO_UPDATE
 } from "./fetch_routes.js"
@@ -195,10 +195,32 @@ export const common_order_add_comment = (filial, wp, order_type, uid_order, comm
     dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
 })
 
+export const common_order_delete_comment = (filial, wp, order_type, uid_order) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_ORDER_DELETE_COMMENT : ROUTE_HORECA_ORDER_DELETE_COMMENT}`,
+    params: {uid_order},
+    wp,
+    filial
+}, data => {
+    dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+    dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+})
+
 export const common_position_add_comment = (filial, wp, order_type, uid_order, uid_position, comment) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
     url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_ADD_COMMENT : ROUTE_HORECA_POSITION_ADD_COMMENT}`,
     params: {uid_order, uid_position, comment},
+    wp,
+    filial
+}, data => {
+    dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+    dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+})
+
+export const common_position_delete_comment = (filial, wp, order_type, uid_order, uid_position) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_DELETE_COMMENT : ROUTE_HORECA_POSITION_DELETE_COMMENT}`,
+    params: {uid_order, uid_position},
     wp,
     filial
 }, data => {

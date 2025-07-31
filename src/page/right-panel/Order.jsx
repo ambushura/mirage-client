@@ -14,7 +14,7 @@ import {
     NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
 import {
-    cinema_order_delete, cinema_order_fetch, common_orders_receipts_get, horeca_order_fetch
+    cinema_order_delete, cinema_order_fetch, common_order_delete_comment, common_orders_receipts_get, horeca_order_fetch
 } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
@@ -80,7 +80,7 @@ const OrderBody = ({
                                 }}><BorderColorIcon/></Button>
                                 {order.comment !== null ?
                                     <Button variant="contained" color="secondary" onClick={() => {
-
+                                        dispatch(common_order_delete_comment(filial, wp, 'cinema', order.uid))
                                     }}><DeleteIcon/></Button> : null}
                             </ButtonGroup>
                             <ButtonGroup size='small'>
@@ -144,7 +144,7 @@ const OrderBody = ({
                                     }}><BorderColorIcon/></Button>
                                     {order.comment !== null ?
                                         <Button variant="contained" color="secondary" onClick={() => {
-
+                                            dispatch(common_order_delete_comment(filial, wp, 'horeca', order.uid))
                                         }}><DeleteIcon/></Button> : null}
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>

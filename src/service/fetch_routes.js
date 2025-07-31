@@ -41,6 +41,7 @@ export const ROUTE_CINEMA_ORDERS_GET_SCHEDULE = "/api/cinema/orders/get_schedule
 export const ROUTE_CINEMA_ORDER_GET = "/api/cinema/order/get"
 export const ROUTE_CINEMA_ORDER_DELETE = "/api/cinema/order/delete"
 export const ROUTE_CINEMA_ORDER_ADD_COMMENT = "/api/cinema/order/add/comment"
+export const ROUTE_CINEMA_ORDER_DELETE_COMMENT = "/api/cinema/order/delete/comment"
 export const ROUTE_CINEMA_ORDERS_FILTERS_STAFF_GET = "/api/cinema/orders/filters/schedule/get"
 
 // Сеансы
@@ -54,6 +55,7 @@ export const ROUTE_CINEMA_PLACE_BLOCK = "/api/cinema/place/block"
 export const ROUTE_CINEMA_POSITION_ADD = "/api/cinema/position/add"
 export const ROUTE_CINEMA_POSITION_ADD_DISCOUNT = "/api/cinema/position/add_discount"
 export const ROUTE_CINEMA_POSITION_ADD_COMMENT = "/api/cinema/position/add/comment"
+export const ROUTE_CINEMA_POSITION_DELETE_COMMENT = "/api/cinema/position/delete/comment"
 
 // Киоск
 export const ROUTE_CINEMA_KIOSK_POSITION_ADD = "/api/cinema/kiosk/position/add"
@@ -75,6 +77,7 @@ export const ROUTE_HORECA_ORDER_DELETE_PLACE = "/api/horeca/order/delete_place"
 export const ROUTE_HORECA_ORDER_SEPARATE = "/api/horeca/order/separate"
 export const ROUTE_HORECA_ORDER_CHECK = "/api/horeca/order/check"
 export const ROUTE_HORECA_ORDER_ADD_COMMENT = "/api/horeca/order/add/comment"
+export const ROUTE_HORECA_ORDER_DELETE_COMMENT = "/api/horeca/order/delete/comment"
 export const ROUTE_HORECA_ORDERS_GET_STAFF = "/api/horeca/orders/get_staff"
 
 // Прочие фильтры
@@ -92,6 +95,7 @@ export const ROUTE_HORECA_POSITION_ADD_MARK = "/api/horeca/position/add/mark"
 export const ROUTE_HORECA_POSITION_ADD_MODIFICATION = "/api/horeca/position/add_modification"
 export const ROUTE_HORECA_POSITION_DELETE = "/api/horeca/position/delete"
 export const ROUTE_HORECA_POSITION_ADD_COMMENT = "/api/horeca/position/add/comment"
+export const ROUTE_HORECA_POSITION_DELETE_COMMENT = "/api/horeca/position/delete/comment"
 
 // Кухня (состояния позиции)
 export const ROUTE_HORECA_KITCHEN_GET = "/api/horeca/kitchen/get"
