@@ -78,7 +78,10 @@ const OrderBody = ({
                                         props: {order_type: 'cinema', action_type: 'order', order: order}
                                     }))
                                 }}><BorderColorIcon/></Button>
-                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                                {order.comment !== null ?
+                                    <Button variant="contained" color="secondary" onClick={() => {
+
+                                    }}><DeleteIcon/></Button> : null}
                             </ButtonGroup>
                             <ButtonGroup size='small'>
                                 <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
@@ -139,8 +142,10 @@ const OrderBody = ({
                                             props: {order_type: 'horeca', action_type: 'order', order: order}
                                         }))
                                     }}><BorderColorIcon/></Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><DeleteIcon/></Button>
+                                    {order.comment !== null ?
+                                        <Button variant="contained" color="secondary" onClick={() => {
+
+                                        }}><DeleteIcon/></Button> : null}
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>
                                     <Button variant="contained" color="secondary" onClick={() => {

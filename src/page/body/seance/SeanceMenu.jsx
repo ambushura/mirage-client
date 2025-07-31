@@ -35,7 +35,7 @@ const SeanceMenu = () => {
                         №{seance.hall_full_name}</span></Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Button variant='contained' color='primary'>Закрыть сеанс</Button>
+                    <Button variant='contained' color='primary'>Отменить сеанс</Button>
                 </Box>
             </Box>
         </Box>
