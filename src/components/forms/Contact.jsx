@@ -1,9 +1,10 @@
-import {Box, Button, TextField, Typography} from "@mui/material"
+import {Box, Button, InputAdornment, TextField, Typography} from "@mui/material"
 import PhoneInput from "../../ui/PhoneInput.jsx"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {common_contact_add} from "../../service/fetch_service.js"
+import QrCodeIcon from '@mui/icons-material/QrCode'
 
 const Contact = (props) => {
 
@@ -17,6 +18,7 @@ const Contact = (props) => {
     const [buyer_o, set_buyer_o] = useState('')
     const [buyer_email, set_buyer_email] = useState('')
     const [buyer_phone_number, set_buyer_phone_number] = useState('')
+    const [qr, set_qr] = useState('')
 
     useEffect(() => {
         set_buyer_s(props.props.order.buyer_s)
@@ -59,10 +61,24 @@ const Contact = (props) => {
                                    set_buyer_email(event.target.value)
                                }}/>
                     <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number}/>
+                    <TextField
+                        slotProps={{
+                            input: {
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <QrCodeIcon/>
+                                    </InputAdornment>
+                                ),
+                            },
+                        }}
+                        variant='outlined' label='Код ПЛ' margin="dense" value={qr} onChange={(event) => {
+                        set_qr(event.target.value)
+                    }}/>
                 </Box>
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
-                <Button variant='contained' color='secondary' type="submit">Сохранить</Button>
+                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '10px'}}>Сохранить</Button>
+                <Button variant='contained' color='secondary' type="submit">Заполнить по коду ПЛ</Button>
             </Box>
         </Box>
     )

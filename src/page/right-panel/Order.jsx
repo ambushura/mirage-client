@@ -158,15 +158,10 @@ const OrderBody = ({
                                     }}><DeleteIcon/></Button>
                                 </ButtonGroup>
                             </ButtonGroup>
-                            <ButtonGroup size='small'>
-                                <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
-                                }}>Скидки</Button>
-                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
-                            </ButtonGroup>
+                            <Button sx={{marginLeft: '4px'}} variant="contained" color="secondary" onClick={() => {
+                            }}>Разделить</Button>
                         </Box>
                         <Box className="order-box-panel-adv">
-                            <Button variant="contained" color="secondary" onClick={() => {
-                            }}>Разделить</Button>
                         </Box>
                         <Box className="order-box-panel-3">
                             {(order.items.filter(item => item.kitchen === null).length > 0 && (
