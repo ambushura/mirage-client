@@ -8,7 +8,7 @@ import {
     setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
-import {setUidHall} from "../../redux/hallsReducer.js";
+import {setUidHall} from "../../redux/hallsReducer.js"
 
 export function useReset() {
 
