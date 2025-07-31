@@ -135,21 +135,21 @@ const PageKitchen = () => {
                                         </Box>
                                         <Box className='kitchen-orders'>
                                             <Box sx={{flex: 1}}>
-                                                <Box className='kitchen-section-header'>Начните готовить</Box>
+                                                <Box className='kitchen-section-header'>Создан заказ</Box>
                                                 <KitchenSection orders={filial_orders.data.waiting}
                                                                 dispatch={dispatch}
                                                                 wp={wp}
                                                                 filial={filial_orders.filial}/>
                                             </Box>
                                             <Box sx={{flex: 1}}>
-                                                <Box className='kitchen-section-header'>Готовятся</Box>
+                                                <Box className='kitchen-section-header'>Начните готовить</Box>
                                                 <KitchenSection orders={filial_orders.data.cooking}
                                                                 dispatch={dispatch}
                                                                 wp={wp}
                                                                 filial={filial_orders.filial}/>
                                             </Box>
                                             <Box sx={{flex: 1}}>
-                                                <Box className='kitchen-section-header'>Готовы</Box>
+                                                <Box className='kitchen-section-header'>Готово</Box>
                                                 <KitchenSection orders={filial_orders.data.completed}
                                                                 dispatch={dispatch}
                                                                 wp={wp}
