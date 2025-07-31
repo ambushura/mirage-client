@@ -217,7 +217,7 @@ export function DateParamAdmin() {
     if (!isPageMatch) return null
 
     return <>
-        <ButtonGroup size='small' variant='contained' color='secondary' className='admin-panel-period'>
+        <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'>
             <Button onClick={() => {
                 const now = new Date()
                 const date = date_dayjs(
