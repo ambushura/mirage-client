@@ -2,7 +2,7 @@ import {Box} from "@mui/material"
 import Menu from "./Menu.jsx"
 import Order from "../../right-panel/Order.jsx"
 import {useSelector} from "react-redux"
-import HorecaMenu from "./HorecaMenu.jsx"
+import HorecaMenu from "../top-menu/HorecaMenu.jsx"
 
 const PageHoreca = () => {
 

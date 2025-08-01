@@ -249,7 +249,6 @@ export function DateParamAdmin() {
                 <KeyboardArrowRightIcon/>
             </Button>
         </ButtonGroup>
-
         <Popover
             id={id}
             open={open}

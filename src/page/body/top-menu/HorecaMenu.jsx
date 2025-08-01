@@ -11,7 +11,7 @@ const HorecaMenu = () => {
 
     return (
         <Box id="top-menu">
-            <ButtonGroup variant='contained' color='secondary' size='large'>
+            <ButtonGroup variant='contained' color='secondary' size='medium'>
                 <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark', props: {}}))

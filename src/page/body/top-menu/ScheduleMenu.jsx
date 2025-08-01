@@ -85,7 +85,7 @@ const ScheduleMenu = () => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
                     }}
                             sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
-                <ButtonGroup size='small' variant="contained" color="secondary">
+                <ButtonGroup size='medium' variant="contained" color="secondary">
                     <Button onClick={() => {
                         const now = new Date()
                         const date = date_dayjs(
@@ -96,7 +96,7 @@ const ScheduleMenu = () => {
                         const current_param_date = from_dayjs_to_str(date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}>Сегодня</Button>
-                    <Button size="large" onClick={() => {
+                    <Button onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
@@ -105,7 +105,7 @@ const ScheduleMenu = () => {
                             endIcon={<KeyboardArrowDownIcon/>}>
                         Фильмы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}
                     </Button>
-                    <Button size="large" onClick={() => {
+                    <Button onClick={() => {
                         const current_date = dayjs(param_date).add(1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
