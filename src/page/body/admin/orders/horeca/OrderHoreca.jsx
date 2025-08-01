@@ -100,12 +100,12 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
             <Box sx={{
                 height: '25px',
                 fontWeight: 'bold',
-                backgroundColor: chapter1 === 'success' ? '#50db92' : '#e4e2e2',
+                backgroundColor: chapter1 === 'returning_waiting' ? '#50db92' : chapter1 === 'returning_success' ? '#414650' : '#e4e2e2',
+                color: chapter1 === 'returning_waiting' ? 'black' : chapter1 === 'returning_success' ? 'white' : 'black',
                 padding: '4px',
                 position: 'sticky',
                 top: 0,
                 zIndex: 1,
-                fontSize: '90%',
             }}>{label}
                 {label === PAYMENT_STATE_SLIP_WITHOUT_RECEIPT || label === PAYMENT_STATE_WAITING ?
                     <DotsAnimation/> : null}</Box>
@@ -124,7 +124,7 @@ const OrderHoreca = ({order}) => {
 
     const [groups, setGroups] = useState({
         for_payment_waiting: {items: [], mark_egais: []},
-        for_payment_slip: {items: [], mark_egais: []},
+        for_payment_slip_without_receipt: {items: [], mark_egais: []},
         for_returning_waiting: {items: [], mark_egais: []},
         for_returning_slip_without_receipt: {items: [], mark_egais: []},
         for_returning_success: {items: [], mark_egais: []}
@@ -133,7 +133,7 @@ const OrderHoreca = ({order}) => {
     useEffect(() => {
         setGroups({
             for_payment_waiting: group_items(order.items_grouped, 'for_payment', 'waiting'),
-            for_payment_slip: group_items(order.items_grouped, 'for_payment', 'slip_without_receipt'),
+            for_payment_slip_without_receipt: group_items(order.items_grouped, 'for_payment', 'slip_without_receipt'),
             for_returning_waiting: group_items(order.items_grouped, 'for_returning', 'waiting'),
             for_returning_slip_without_receipt: group_items(order.items_grouped, 'for_returning', 'slip_without_receipt'),
             for_returning_success: group_items(order.items_grouped, 'for_returning', 'success')
@@ -177,12 +177,17 @@ const OrderHoreca = ({order}) => {
             </Box>
 
             <Box className='admin-orders-horeca-order-body'>
-                <RenderGroup chapter1={'slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.for_payment_slip}
+                <RenderGroup chapter1={'payment_slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}
+                             group={groups.for_payment_slip_without_receipt}
                              ver={order.ver}/>
-                <RenderGroup chapter1={'waiting'} label={PAYMENT_STATE_WAITING} group={groups.for_payment_waiting} ver={order.ver}/>
-                <RenderGroup chapter1={'slip_without_receipt'} label={RETURNING_STATE_SLIP_WITHOUT_RECEIPT} group={groups.for_returning_slip_without_receipt} ver={order.ver}/>
-                <RenderGroup chapter1={'waiting'} label={RETURNING_STATE_WAITING} group={groups.for_returning_waiting} ver={order.ver}/>
-                <RenderGroup chapter1={'success'} label={RETURNING_STATE_SUCCESS} group={groups.for_returning_success} ver={order.ver}/>
+                <RenderGroup chapter1={'payment_waiting'} label={PAYMENT_STATE_WAITING}
+                             group={groups.for_payment_waiting} ver={order.ver}/>
+                <RenderGroup chapter1={'returning_slip_without_receipt'} label={RETURNING_STATE_SLIP_WITHOUT_RECEIPT}
+                             group={groups.for_returning_slip_without_receipt} ver={order.ver}/>
+                <RenderGroup chapter1={'returning_waiting'} label={RETURNING_STATE_WAITING}
+                             group={groups.for_returning_waiting} ver={order.ver}/>
+                <RenderGroup chapter1={'returning_success'} label={RETURNING_STATE_SUCCESS}
+                             group={groups.for_returning_success} ver={order.ver}/>
             </Box>
 
             <Box className='admin-orders-horeca-order-footer'

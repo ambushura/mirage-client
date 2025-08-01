@@ -7,7 +7,7 @@ import {
     ITEMS_TYPE_SERVICE,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
     RETURNING_STATE_WAITING,
-    PAYMENT_STATE_WAITING
+    PAYMENT_STATE_WAITING, RETURNING_STATE_SUCCESS
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import {useEffect, useState} from "react"
@@ -24,20 +24,20 @@ const OrderCinema = ({order}) => {
     const beginning = dayjs.utc(order.seance_beginning)
     const ending = dayjs.utc(order.seance_ending)
 
-    const groupItems = (items_grouped, payment_state) => {
-        const items = [], mark_egais = []
+    const group_items = (items_grouped, payment_group, payment_state) => {
+        const items = []
         items_grouped
-            .filter(el => el.in_payment_group === payment_state)
-            .forEach(el => el.egais_type_code || el.mark_type ? mark_egais.push(el) : items.push(el))
-        return {items, mark_egais}
+            .filter(el => payment_group === 'for_payment' ? el.in_payment_group === payment_state : el.out_payment_group === payment_state)
+            .forEach(el => items.push(el))
+        return {items}
     }
 
     const getCircleColor = () =>
         order.closed ? '#50DB92' :
             order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
 
-    const RenderGroup = ({label, group, ver}) => {
-        if (!group.items.length && !group.mark_egais.length) return null
+    const RenderGroup = ({chapter1, label, group, ver}) => {
+        if (!group.items.length) return null
         const renderItems = (items, typeLabel) => items.length > 0 && (
             <>
                 <Box sx={{
@@ -99,7 +99,8 @@ const OrderCinema = ({order}) => {
                 <Box sx={{
                     height: '25px',
                     fontWeight: 'bold',
-                    backgroundColor: '#e4e2e2',
+                    backgroundColor: chapter1 === 'returning_waiting' ? '#50db92' : chapter1 === 'returning_success' ? '#414650' : '#e4e2e2',
+                    color: chapter1 === 'returning_waiting' ? 'black' : chapter1 === 'returning_success' ? 'white' : 'black',
                     padding: '4px',
                     position: 'sticky',
                     top: 0,
@@ -111,16 +112,20 @@ const OrderCinema = ({order}) => {
     }
 
     const [groups, setGroups] = useState({
-        waiting: {items: [], mark_egais: []},
-        slip: {items: [], mark_egais: []},
-        success: {items: [], mark_egais: []}
+        for_payment_waiting: {items: []},
+        for_payment_slip_without_receipt: {items: []},
+        for_returning_waiting: {items: []},
+        for_returning_slip_without_receipt: {items: []},
+        for_returning_success: {items: []}
     })
 
     useEffect(() => {
         setGroups({
-            waiting: groupItems(order.items, 'waiting'),
-            slip: groupItems(order.items, 'slip_without_receipt'),
-            success: groupItems(order.items, 'success')
+            for_payment_waiting: group_items(order.items, 'for_payment', 'waiting'),
+            for_payment_slip_without_receipt: group_items(order.items, 'for_payment', 'slip_without_receipt'),
+            for_returning_waiting: group_items(order.items, 'for_returning', 'waiting'),
+            for_returning_slip_without_receipt: group_items(order.items, 'for_returning', 'slip_without_receipt'),
+            for_returning_success: group_items(order.items, 'for_returning', 'success')
         })
     }, [order])
 
@@ -167,9 +172,16 @@ const OrderCinema = ({order}) => {
                 </Box>
 
                 <Box className='admin-orders-cinema-order-body'>
-                    <RenderGroup label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT} group={groups.slip} ver={order.ver}/>
-                    <RenderGroup label={PAYMENT_STATE_WAITING} group={groups.waiting} ver={order.ver}/>
-                    <RenderGroup label={RETURNING_STATE_WAITING} group={groups.success} ver={order.ver}/>
+                    <RenderGroup chapter1={'payment_slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}
+                                 group={groups.for_payment_slip_without_receipt} ver={order.ver}/>
+                    <RenderGroup chapter1={'payment_waiting'} label={PAYMENT_STATE_WAITING}
+                                 group={groups.for_payment_waiting} ver={order.ver}/>
+                    <RenderGroup chapter1={'returning_slip_without_receipt'} label={PAYMENT_STATE_WAITING}
+                                 group={groups.for_returning_slip_without_receipt} ver={order.ver}/>
+                    <RenderGroup chapter1={'returning_waiting'} label={RETURNING_STATE_WAITING}
+                                 group={groups.for_returning_waiting} ver={order.ver}/>
+                    <RenderGroup chapter1={'returning_success'} label={RETURNING_STATE_SUCCESS}
+                                 group={groups.for_returning_success} ver={order.ver}/>
                 </Box>
 
                 <Box className='admin-orders-cinema-order-footer'

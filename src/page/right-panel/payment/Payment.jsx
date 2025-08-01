@@ -445,7 +445,7 @@ const Payment = (props) => {
 
                 <Fade in={payment_group.for_returning.success.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title' sx={{backgroundColor: '#50DB92'}}>
+                        <Box className='payment-items-group-title' sx={{backgroundColor: '#414650', color: 'white'}}>
                             {RETURNING_STATE_SUCCESS}
                         </Box>
                         <GroupedTable group={props.order.for_returning.success.mark_egais_items}
