@@ -135,7 +135,7 @@ const PageKitchen = () => {
                                         </Box>
                                         <Box className='kitchen-orders'>
                                             <Box sx={{flex: 1}}>
-                                                <Box className='kitchen-section-header'>Создан заказ</Box>
+                                                <Box className='kitchen-section-header'>Ожидайте</Box>
                                                 <KitchenSection orders={filial_orders.data.waiting}
                                                                 dispatch={dispatch}
                                                                 wp={wp}
@@ -149,7 +149,7 @@ const PageKitchen = () => {
                                                                 filial={filial_orders.filial}/>
                                             </Box>
                                             <Box sx={{flex: 1}}>
-                                                <Box className='kitchen-section-header'>Готово</Box>
+                                                <Box className='kitchen-section-header'>Отдайте официанту</Box>
                                                 <KitchenSection orders={filial_orders.data.completed}
                                                                 dispatch={dispatch}
                                                                 wp={wp}

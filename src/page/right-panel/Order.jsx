@@ -180,7 +180,7 @@ const OrderBody = ({
                             {[1, 2, 3].map(state => (order.items.filter(item => item.kitchen !== null).some(item => item.kitchen.state === state) && (
                                 <Fragment key={`${state}`}>
                                     <Box
-                                        className={`order-box-panel-3-title-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['', 'Отправить на кухню', 'На кухне', 'Приготовлено'][state]}</Box>
+                                        className={`order-box-panel-3-title-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['', 'Сообщить повару', 'Повар готовит', 'Приготовлено'][state]}</Box>
                                     <ul className={`order-box-panel-3-list-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>
                                         {order.items.filter(item => item.kitchen !== null).filter(item => item.kitchen.state === state).map(item =>
                                             <HorecaItem

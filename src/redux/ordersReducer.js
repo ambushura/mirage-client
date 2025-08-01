@@ -80,7 +80,7 @@ const initialState = {
         {uid: 0, title: 'Не готовить'},
         {uid: 1, title: 'Готовить'},
         {uid: 2, title: 'Готовится'},
-        {uid: 3, title: 'Готов'},
+        {uid: 3, title: 'Отдать гостю'},
     ],
     // Фильтры общепит (выбранные)
     orders_horeca_filters_staff_selected: [],

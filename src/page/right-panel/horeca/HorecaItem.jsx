@@ -17,14 +17,13 @@ import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
-import {addNotification} from "../../../redux/notifierReducer.js"
 
 const HorecaItem = (props) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
-    const state = [<></>, <Box key='1'>Готовить</Box>, <Box key='2'>Готовится</Box>, <Box key='3'>Готов</Box>]
+    const state = [<></>, <Box key='1'>На кухню</Box>, <Box key='2'>Закончить готовку</Box>, <Box key='3'>Отдать гостю</Box>]
     const course = [
         <LooksOneIcon sx={{color: 'white'}} key='0'/>,
         <LooksTwoIcon sx={{color: 'black'}} key='1'/>,
