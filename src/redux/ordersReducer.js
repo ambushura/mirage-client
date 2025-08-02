@@ -1,6 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit"
 import {date_dayjs} from "../service/advanced.js"
 import {v4} from "uuid"
+import {
+    PAYMENT_STATE_CANCELED,
+    PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
+    PAYMENT_STATE_WAITING, RETURNING_STATE_SLIP_WITHOUT_RECEIPT, RETURNING_STATE_SUCCESS,
+    RETURNING_STATE_WAITING
+} from "./interfaceReducer.js";
 
 export const NEW_EMPTY_ORDER = () => ({
     in_base: false,
@@ -46,10 +52,12 @@ const initialState = {
     // Фильтры кино (загруженные)
     orders_cinema_filters_staff: [],
     orders_cinema_filters_state: [
-        {uid: 0, title: 'Ожидают оплаты'},
-        {uid: 1, title: 'Пробить кассовый чек'},
-        {uid: 2, title: 'Успешно оплачены'},
-        {uid: 3, title: 'Отмененные'}],
+        {uid: 0, title: PAYMENT_STATE_WAITING},
+        {uid: 1, title: PAYMENT_STATE_SLIP_WITHOUT_RECEIPT},
+        {uid: 2, title: RETURNING_STATE_WAITING},
+        {uid: 3, title: RETURNING_STATE_SLIP_WITHOUT_RECEIPT},
+        {uid: 4, title: RETURNING_STATE_SUCCESS},
+        {uid: 5, title: PAYMENT_STATE_CANCELED}],
     orders_cinema_filters_seances: [],
     orders_cinema_filters_halls: [],
     orders_cinema_filters_workplaces: [],
@@ -69,10 +77,12 @@ const initialState = {
     // Фильтры общепит (загруженные)
     orders_horeca_filters_staff: [],
     orders_horeca_filters_state: [
-        {uid: 0, title: 'Ожидают оплаты'},
-        {uid: 1, title: 'Пробить кассовый чек'},
-        {uid: 2, title: 'Успешно оплачены'},
-        {uid: 3, title: 'Отмененные'}],
+        {uid: 0, title: PAYMENT_STATE_WAITING},
+        {uid: 1, title: PAYMENT_STATE_SLIP_WITHOUT_RECEIPT},
+        {uid: 2, title: RETURNING_STATE_WAITING},
+        {uid: 3, title: RETURNING_STATE_SLIP_WITHOUT_RECEIPT},
+        {uid: 4, title: RETURNING_STATE_SUCCESS},
+        {uid: 5, title: PAYMENT_STATE_CANCELED}],
     orders_horeca_filters_halls: [],
     orders_horeca_filters_workplaces: [],
     orders_horeca_filters_kitchen_points: [],

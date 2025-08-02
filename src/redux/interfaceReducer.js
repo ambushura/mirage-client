@@ -8,6 +8,7 @@ const current_date = date_dayjs(
         : now
 )
 
+export const PAYMENT_STATE_CANCELED = 'Заказ отменен'
 export const PAYMENT_STATE_WAITING = 'Ожидает оплаты'
 export const PAYMENT_STATE_SLIP_WITHOUT_RECEIPT = 'Списали деньги с карты, но не пробили чек'
 export const RETURNING_STATE_WAITING = 'Успешно оплачено, можно оформить возврат'
