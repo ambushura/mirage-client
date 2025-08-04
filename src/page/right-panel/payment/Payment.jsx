@@ -381,7 +381,7 @@ const Payment = (props) => {
                     <Box className='payment-items-group'>
                         <Box
                             className='payment-items-group-title' sx={{
-                            backgroundColor: '#ff1a25',
+                            backgroundColor: '#f74b53',
                             color: 'white'
                         }}>{PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/></Box>
                         <GroupedTable group={props.order.for_payment.slip_without_receipt.mark_egais_items}
@@ -414,7 +414,7 @@ const Payment = (props) => {
 
                 <Fade in={payment_group.for_returning.slip_without_receipt.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title' sx={{backgroundColor: '#ff1a25', color: 'white'}}>
+                        <Box className='payment-items-group-title' sx={{backgroundColor: '#f74b53', color: 'white'}}>
                             {RETURNING_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/>
                         </Box>
                         <GroupedTable group={props.order.for_returning.slip_without_receipt.mark_egais_items}

@@ -99,7 +99,7 @@ const OrderCinema = ({order}) => {
                 <Box sx={{
                     height: '25px',
                     fontWeight: 'bold',
-                    backgroundColor: chapter1 === 'returning_waiting' ? '#50db92' : chapter1 === 'returning_success' ? '#414650' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? '#ff1a25' : '#e4e2e2',
+                    backgroundColor: chapter1 === 'returning_waiting' ? '#50db92' : chapter1 === 'returning_success' ? '#414650' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? '#f74b53' : '#e4e2e2',
                     color: chapter1 === 'returning_waiting' ? 'black' : chapter1 === 'returning_success' ? 'white' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? 'white' : 'black',
                     padding: '4px',
                     position: 'sticky',
