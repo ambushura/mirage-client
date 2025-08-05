@@ -18,7 +18,8 @@ import {
     EgaisSettings,
     Mark,
     MarkHosts,
-    Quantity
+    Quantity,
+    SeanceCancellation
 } from "./components/forms/"
 
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
@@ -78,6 +79,7 @@ function App() {
         equipment_kkt: KKTForm,
         equipment_pinpad: PinpadForm,
         equipment_workplace: WorkplaceForm,
+        seance_cancellation: SeanceCancellation,
     }
 
     const ModalContent = useMemo(() => {

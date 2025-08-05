@@ -47,6 +47,7 @@ export const ROUTE_CINEMA_ORDERS_FILTERS_STAFF_GET = "/api/cinema/orders/filters
 // Сеансы
 export const ROUTE_CINEMA_SEANCE_ADD = "/api/cinema/seance/add"
 export const ROUTE_CINEMA_SEANCE_CLOSE = "/api/cinema/seance/close"
+
 export const ROUTE_CINEMA_SEANCE_GET = "/api/cinema/seance/get"
 export const ROUTE_CINEMA_SEANCE_GET_BOOKING = "/api/cinema/seance/get_booking"
 
