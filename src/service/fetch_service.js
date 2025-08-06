@@ -1,5 +1,6 @@
 import axios from "axios"
 import {
+    NEW_EMPTY_HORDER,
     NEW_EMPTY_ORDER,
     pushKitchenPositions,
     setCurrentHorder,
@@ -23,7 +24,7 @@ import {
     ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_COMMON_ORDER_PAYMENT, ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_HORECA_KITCHEN_PUSH,
-    ROUTE_HORECA_ORDER_ADD_COMMENT, ROUTE_HORECA_ORDER_DELETE_COMMENT,
+    ROUTE_HORECA_ORDER_ADD_COMMENT, ROUTE_HORECA_ORDER_DELETE, ROUTE_HORECA_ORDER_DELETE_COMMENT,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_POSITION_ADD,
     ROUTE_HORECA_POSITION_ADD_COMMENT,
@@ -113,6 +114,17 @@ export const cinema_order_delete = (filial, wp, uid_order) => async (dispatch) =
 }, () => {
     dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
     dispatch(setOrdersCinemaUpdate())
+})
+
+export const horeca_order_delete = (filial, wp, uid_order) => async (dispatch) => makeRequest(dispatch, {
+    method: 'get',
+    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE}`,
+    params: {uid_order},
+    wp,
+    filial
+}, () => {
+    dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+    dispatch(setOrdersHorecaUpdate())
 })
 
 export const cinema_position_add = (city, filial, wp, uid_seance, uid_order, uid_place, ver) => async (dispatch) => {

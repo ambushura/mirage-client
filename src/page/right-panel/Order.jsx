@@ -14,7 +14,12 @@ import {
     NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying
 } from "../../redux/ordersReducer.js"
 import {
-    cinema_order_delete, cinema_order_fetch, common_order_delete_comment, common_orders_receipts_get, horeca_order_fetch
+    cinema_order_delete,
+    cinema_order_fetch,
+    common_order_delete_comment,
+    common_orders_receipts_get,
+    horeca_order_delete,
+    horeca_order_fetch
 } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
@@ -283,6 +288,7 @@ const Order = () => {
                     }
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                     fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
+                    deleteOrder={() => dispatch(horeca_order_delete(filial, wp, horder.uid))}
                     dispatch={dispatch}
                     uid_selected={uid_horeca_selected}
                     set_uid_selected={set_uid_horeca_selected}
