@@ -49,12 +49,14 @@ const OrdersCinema = () => {
                                                     </motion.div>)}
                                             </AnimatePresence>
                                             {pages > 1 ? <Pagination sx={{
-                                                    position: 'sticky',
+                                                    position: 'absolute',
                                                     left: 0,
+                                                    bottom: 0,
                                                     height: '60px',
                                                     backgroundColor: 'var(--bgr-color)',
                                                     padding: '10px 0',
                                                     width: '100%',
+                                                    zIndex: 1,
                                                 }}
                                                                      page={page}
                                                                      onChange={(event, value) => dispatch(setOrdersCinemaPage(value))}

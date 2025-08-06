@@ -143,9 +143,9 @@ const Payment = (props) => {
 
             switch (chapter0) {
                 case 'for_payment':
-                    return groupAndSum(group, ["name", "unit_name", "price", "discount"], ["quantity", "sum"])
+                    return groupAndSum(group, ["name", "unit_name", "price", "sum_discount", "uid_discount"], ["quantity", "sum"])
                 case 'for_returning':
-                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "discount"], ["quantity", "sum"])
+                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "sum_discount", "uid_discount"], ["quantity", "sum"])
             }
         }, [group])
 

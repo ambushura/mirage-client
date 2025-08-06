@@ -75,7 +75,7 @@ const HorecaItem = (props) => {
                     <DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
             {props.item.price.uid_discount !== null ?
-                <Box className="order-booking-item-discount">
+                <Box className="order-horeca-item-discount">
                     <div>{props.item.price.name_discount}</div>
                     <div style={{marginLeft: '4px'}}>{props.item.price.sum_discount} р</div>
                 </Box>
