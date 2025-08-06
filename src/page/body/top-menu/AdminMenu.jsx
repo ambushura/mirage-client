@@ -1,4 +1,16 @@
-import {Box, Button, ButtonGroup, Fade, FormControl, InputLabel, Menu, MenuItem, Popover, Select} from "@mui/material"
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Fade,
+    FormControl,
+    InputLabel,
+    Menu,
+    MenuItem,
+    Popover,
+    Select,
+    TextField
+} from "@mui/material"
 import dayjs from "dayjs"
 import {
     NEW_EMPTY_ORDER,
@@ -35,6 +47,7 @@ import {useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
+import SearchIcon from '@mui/icons-material/Search'
 
 export function AdminHallsList() {
 
@@ -73,6 +86,33 @@ export function AdminHallsList() {
             }}>Режим редактирования</Button>
         </ButtonGroup>
     </>
+}
+
+export function ShowFastSearch() {
+
+    const current_page = useSelector(state => state.interface.current_page)
+
+    const [uid, set_uid] = useState(null)
+
+    if (current_page !== 'admin/orders/horeca' && current_page !== 'admin/orders/cinema') return null
+
+    return (
+        <Box sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: 'center',
+            padding: '2px 0',
+            marginLeft: '5px'
+        }}>
+            <TextField label='Идентификатор' sx={{minWidth: '400px'}} variant='filled' color="textSecondary"
+                       multiline value={uid} onChange={(event) => {
+                set_uid(event.target.value)
+            }}/>
+            <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '5px'}}
+                    startIcon={<SearchIcon/>}>Найти</Button>
+        </Box>
+    )
+
 }
 
 export function ShowFilters() {
@@ -334,6 +374,7 @@ export default function AdminMenu() {
             <DateParamAdmin/>
             <CinemaType/>
             <ShowFilters/>
+            <ShowFastSearch/>
             <EGAISMenu/>
             <AdminHallsList/>
             <Equipment/>
