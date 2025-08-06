@@ -1879,7 +1879,7 @@ body {
 }
 
 .payment-items-group-item-2 {
-    width: calc(100px - 32px);
+    width: calc(100px - 30px);
     text-align: right;
 }
 
@@ -1887,6 +1887,9 @@ body {
     width: 100px;
     font-weight: bold;
     text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 

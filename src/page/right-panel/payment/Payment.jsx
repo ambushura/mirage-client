@@ -17,6 +17,7 @@ import {common_order_pay} from "../../../service/fetch_service.js"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
+import FunctionsIcon from "@mui/icons-material/Functions"
 
 const Payment = (props) => {
 
@@ -199,8 +200,8 @@ const Payment = (props) => {
                                             }}/> : null}
                                         <Box className='payment-items-group-item-0'>{item.name}</Box>
                                         <Box className='payment-items-group-item-1'>{item.quantity}</Box>
-                                        <Box className='payment-items-group-item-2'>{item.price}</Box>
-                                        <Box className='payment-items-group-item-3'>{item.sum}</Box>
+                                        <Box className='payment-items-group-item-2'>{item.price} р</Box>
+                                        <Box className='payment-items-group-item-3'><FunctionsIcon/>{item.sum} р</Box>
                                     </motion.div>
                                 ))}
                             </motion.div>
