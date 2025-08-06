@@ -3,10 +3,10 @@ import PhoneInput from "../../ui/PhoneInput.jsx"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_contact_add} from "../../service/fetch_service.js"
+import {common_contact_add, pl_estimate_discounts} from "../../service/fetch_service.js"
 import QrCodeIcon from '@mui/icons-material/QrCode'
 
-const Contact = (props) => {
+const Contact = ({props}) => {
 
     const dispatch = useDispatch()
 
@@ -21,11 +21,11 @@ const Contact = (props) => {
     const [qr, set_qr] = useState('')
 
     useEffect(() => {
-        set_buyer_s(props.props.order.buyer_s)
-        set_buyer_n(props.props.order.buyer_n)
-        set_buyer_o(props.props.order.buyer_o)
-        set_buyer_email(props.props.order.buyer_email)
-        set_buyer_phone_number(props.props.order.buyer_phone_number)
+        set_buyer_s(props.order.buyer_s)
+        set_buyer_n(props.order.buyer_n)
+        set_buyer_o(props.order.buyer_o)
+        set_buyer_email(props.order.buyer_email)
+        set_buyer_phone_number(props.order.buyer_phone_number)
     }, [])
 
     return (
@@ -34,7 +34,16 @@ const Contact = (props) => {
              noValidate
              onSubmit={(e) => {
                  e.preventDefault()
-                 dispatch(common_contact_add(filial, wp, props.props.order_type, props.props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
+                 const submitter = e.nativeEvent.submitter
+                 const action = submitter?.getAttribute('data-action')
+                 switch (action) {
+                     case 'common':
+                         dispatch(common_contact_add(filial, wp, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
+                         break
+                     case 'pl':
+                         dispatch(pl_estimate_discounts(filial, wp, props.order.uid, props.order_type, qr))
+                         break
+                 }
                  dispatch(closeModal())
              }}
         >
@@ -77,8 +86,10 @@ const Contact = (props) => {
                 </Box>
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
-                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '10px'}}>Сохранить</Button>
-                <Button variant='contained' color='secondary' type="submit">Заполнить по коду ПЛ</Button>
+                <Button variant='contained' color='secondary' type="submit" data-action="common"
+                        sx={{marginLeft: '10px'}}>Сохранить</Button>
+                <Button variant='contained' color='secondary' type="submit" data-action="pl">Заполнить по коду
+                    ПЛ</Button>
             </Box>
         </Box>
     )

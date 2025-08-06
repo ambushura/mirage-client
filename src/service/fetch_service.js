@@ -34,7 +34,7 @@ import {
     ROUTE_HORECA_POSITION_COURSE,
     ROUTE_HORECA_POSITION_DELETE, ROUTE_HORECA_POSITION_DELETE_COMMENT,
     ROUTE_MARKIROVKA_CDN_INFO_GET,
-    ROUTE_MARKIROVKA_CDN_INFO_UPDATE
+    ROUTE_MARKIROVKA_CDN_INFO_UPDATE, ROUTE_PL_ESTIMATE_DISCOUNTS
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
@@ -320,3 +320,20 @@ export const cinema_place_block = (filial, wp, hall, uid_place) => async (dispat
     })
     dispatch(setHall(hallN))
 })
+
+export const pl_estimate_discounts = (filial, wp, uid_order, order_type, card) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_PL_ESTIMATE_DISCOUNTS}`,
+        params: {
+            uid_order: uid_order,
+            type: order_type,
+            card: card,
+        },
+        wp,
+        filial
+    }, data => {
+        dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+        dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+    })
+}

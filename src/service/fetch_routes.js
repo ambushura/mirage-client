@@ -107,3 +107,5 @@ export const ROUTE_HORECA_POSITION_COURSE = "/api/horeca/position/course"
 
 // Получить объект
 export const ROUTE_COMMON_CATALOG_GET = "/api/common/catalog/get"
+
+export const ROUTE_PL_ESTIMATE_DISCOUNTS = "/api/pl/estimate_discounts"

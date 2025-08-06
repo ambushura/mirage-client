@@ -54,9 +54,10 @@ const HorecaItem = (props) => {
                             : [...prev, props.item.uid]
                     )
                 }}><Box>{props.item.name}</Box></Box>
-                <Box
-                    className='order-box-horeca-item-1-1-sum'><Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box><Box
-                    sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}</Box></Box>
+                <Box className='order-box-horeca-item-1-1-sum'>
+                    <Box sx={{color: '#8B919B'}}>{props.item.quantity.toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}</Box>
+                    <Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box>
+                </Box>
                 <button className='order-box-horeca-item-1-2'
                         onClick={() => dispatch(openModal({
                             type: 'comment_position',
@@ -73,6 +74,12 @@ const HorecaItem = (props) => {
                         onClick={() => dispatch((horeca_position_delete(filial, wp, props.order.uid, props.item.uid)))}>
                     <DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
+            {props.item.price.uid_discount !== null ?
+                <Box className="order-booking-item-discount">
+                    <div>{props.item.price.name_discount}</div>
+                    <div style={{marginLeft: '4px'}}>{props.item.price.sum_discount} р</div>
+                </Box>
+                : null}
             {props.item.mark !== null ? <Box className='order-box-horeca-item-2'>
                 <button className='order-box-horeca-item-2-3' onClick={() =>
                     dispatch(openModal({
