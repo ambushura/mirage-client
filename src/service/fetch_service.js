@@ -168,11 +168,8 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
         payment_group
     }, timeout: TIMEOUT * 100, wp, filial
 }, data => {
-    if (type === 'cinema') {
-        dispatch(setCurrentPreOrder(data))
-    } else if (type === 'horeca') {
-        dispatch(setCurrentHorder(data))
-    }
+    dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+    dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
 })
 
 export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch) => makeRequest(dispatch, {
