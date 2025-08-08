@@ -1,4 +1,4 @@
-export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: '8080', uid: ''}
+export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: '60000', uid: ''}
 
 // === ОБЩЕЕ ===
 export const ROUTE_COMMON_LOGIN = "/api/common/login"
