@@ -191,7 +191,7 @@ const OrderHoreca = ({order}) => {
             </Box>
 
             <Box className='admin-orders-horeca-order-footer'
-                 sx={{borderBottom: `3px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
+                 sx={{borderBottom: `4px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
                 {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
                     padding: '4px 0',
                     maxHeight: '40px',

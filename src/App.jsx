@@ -40,6 +40,7 @@ import {KitchenPointForm} from "./page/body/admin/equipment/forms/KitchenPointFo
 import {BilletCheckForm} from "./page/body/admin/equipment/forms/BilletCheckForm.jsx"
 import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx"
 import TableOptions from "./components/forms/TableOptions.jsx"
+import Dialog from "./components/forms/Dialog.jsx"
 
 function App() {
 
@@ -80,6 +81,7 @@ function App() {
         equipment_pinpad: PinpadForm,
         equipment_workplace: WorkplaceForm,
         seance_cancellation: SeanceCancellation,
+        dialog_delete_order: Dialog,
     }
 
     const ModalContent = useMemo(() => {

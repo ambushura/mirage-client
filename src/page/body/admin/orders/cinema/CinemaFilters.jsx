@@ -112,7 +112,7 @@ const CinemaFilters = () => {
                            )
                        }}/>
             <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}}
-                 onClick={() => dispatch(closeModal(true))}>
+                 onClick={() => dispatch(closeModal())}>
                 <Button variant='contained' color='secondary'>Закрыть</Button>
             </Box>
         </Box>

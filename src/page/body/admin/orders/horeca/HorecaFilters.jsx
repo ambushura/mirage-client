@@ -85,7 +85,7 @@ const HorecaFilters = () => {
             {tags("large", true, 4, "orders-kitchen-points-tags", filters_kitchen_points, "Кухня", "Цех", kitchen_points_selected)}
             {tags("large", true, 4, "orders-kitchen-state-tags", filters_kitchen_state, "Готовность", "Статус", kitchen_state_selected)}
             <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}} onClick={() => {
-                dispatch(closeModal(true))
+                dispatch(closeModal())
             }}><Button variant='contained' color='secondary'>Закрыть</Button></Box>
         </Box>
     )

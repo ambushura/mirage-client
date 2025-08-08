@@ -21,7 +21,7 @@ import {
     horeca_order_delete,
     horeca_order_fetch
 } from "../../service/fetch_service.js"
-import {openModal} from "../../redux/interfaceReducer.js"
+import {closeModal, openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
@@ -254,7 +254,19 @@ const Order = () => {
                     }
                     emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
                     fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
-                    deleteOrder={() => dispatch(cinema_order_delete(filial, wp, pre_order.uid))}
+                    deleteOrder={() => dispatch(openModal({
+                        type: 'dialog_delete_order',
+                        props: {
+                            type: 'YesNo',
+                            action: 'cinema_order_delete',
+                            question: 'Вы уверены, что хотите удалить этот заказ?',
+                            payload: {
+                                filial: filial,
+                                wp: wp,
+                                uid: pre_order.uid
+                            },
+                        }
+                    }))}
                     navigateTo={() => navigate(seance_link())}
                     addContact={() => {
                         dispatch(openModal({
@@ -288,7 +300,19 @@ const Order = () => {
                     }
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                     fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
-                    deleteOrder={() => dispatch(horeca_order_delete(filial, wp, horder.uid))}
+                    deleteOrder={() => dispatch(openModal({
+                        type: 'dialog_delete_order',
+                        props: {
+                            type: 'YesNo',
+                            action: 'horeca_order_delete',
+                            question: 'Вы уверены, что хотите удалить этот заказ?',
+                            payload: {
+                                filial: filial,
+                                wp: wp,
+                                uid: horder.uid
+                            },
+                        }
+                    }))}
                     dispatch={dispatch}
                     uid_selected={uid_horeca_selected}
                     set_uid_selected={set_uid_horeca_selected}
