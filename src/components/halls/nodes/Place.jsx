@@ -13,9 +13,9 @@ export function Place({data}) {
         const heads_array = new Array(data.heads).fill(0)
         return (
             <>
-                {heads_array.map(head => {
+                {heads_array.map((head, i) => {
                     return (
-                        <div key={`$${head}`}
+                        <div key={`${data.uid}${i}`}
                              style={{
                                  backgroundColor: place_color[data.state].handler,
                                  width: '16px',
@@ -31,6 +31,7 @@ export function Place({data}) {
     }
 
     return <Box
+        key={data.uid}
         className='place'
         sx={{
             width: `${data.width}px`,

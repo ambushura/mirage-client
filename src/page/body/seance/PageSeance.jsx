@@ -36,7 +36,7 @@ const PageSeance = () => {
     const hall = useSetSeance()
 
     const refTitle = useRef(null)
-    const [checkout, set_check_out] = useState(false)
+    const [checkout, set_check_out] = useState(0)
     const app_width = useSelector(state => state.interface.app_width)
     const app_height = useSelector(state => state.interface.app_height)
     const [hall_height, set_hall_height] = useState(0)
@@ -91,7 +91,7 @@ const PageSeance = () => {
         return (
             <>
                 {uid_user !== null ? <SeanceMenu/> : null}
-                <Fade in={!checkout} unmountOnExit>
+                <Fade in={checkout === 0} unmountOnExit>
                     <Box id='content-box'>
                         <Box id='content-wrap'>
                             <Box id='content'>
@@ -123,7 +123,7 @@ const PageSeance = () => {
                                                     <Button sx={{height: '48px', marginLeft: '10px'}}
                                                             variant="contained"
                                                             className='seance-title-preorder' onClick={() => {
-                                                        set_check_out(true)
+                                                        set_check_out(1)
                                                     }}>
                                                         <Box
                                                             style={{
@@ -170,7 +170,7 @@ const PageSeance = () => {
                         {pre_order.in_base || horder.in_base ? <Order/> : null}
                     </Box>
                 </Fade>
-                <Fade in={checkout} unmountOnExit>
+                <Fade in={checkout === 1} unmountOnExit>
                     <Box style={{display: checkout ? 'block' : 'none', height: '100%'}}>
                         <CheckOut
                             set_check_out={set_check_out}
