@@ -14,6 +14,7 @@ export const ROUTE_COMMON_PAYMENT_MAP_GET = "/api/common/payment_map/get"
 
 // === ОПЛАТА ===
 export const ROUTE_COMMON_ORDER_PAYMENT = "/api/common/order/payment"
+export const ROUTE_COMMON_ORDER_PAYMENT_KIOSK = "/api/common/order/payment_kiosk"
 
 // === ОБОРУДОВАНИЕ ===
 export const ROUTE_EQUIPMENT_KKT_OPEN_BOX = "/api/equipment/kkt/open_box"

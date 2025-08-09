@@ -2,7 +2,9 @@ import {useDispatch, useSelector} from "react-redux"
 import {Box, Button, LinearProgress} from "@mui/material"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import Ticket from "./Ticket.jsx"
-import {common_order_pay} from "../../../service/fetch_service.js"
+import {common_order_pay_kiosk, common_orders_receipts_get} from "../../../service/fetch_service.js"
+import {useSetPaymentGroups} from "../../../hooks/common/useSetPaymentGroups.js"
+import {useEffect} from "react";
 
 const CheckOut = (props) => {
 
@@ -10,7 +12,12 @@ const CheckOut = (props) => {
 
     const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
-    const wp = useSelector(state => state.data.wp)
+    const wp = useSelector(state => state.interface.wp)
+    const [payment_group,] = useSetPaymentGroups(pre_order)
+
+    useEffect(() => {
+        dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))
+    }, [])
 
     return (
         <Box id='checkout'>
@@ -49,7 +56,7 @@ const CheckOut = (props) => {
                         </Box>
                     </Box>
                     <Button onClick={() => {
-                        dispatch(common_order_pay(filial, pre_order.uid, wp))
+                        dispatch(common_order_pay_kiosk(filial, wp, pre_order.uid, pre_order.ver, 'cinema', payment_group))
                     }} variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}>Оплатить</Button>
                 </Box>
             </Box>

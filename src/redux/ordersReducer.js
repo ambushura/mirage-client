@@ -17,7 +17,9 @@ export const NEW_EMPTY_ORDER = () => ({
     quantity: 0,
     sum: 0,
     sum_discount: 0,
-    items: []
+    items: [],
+    for_payment: null,
+    for_returning: null,
 })
 
 export const NEW_EMPTY_HORDER = () => ({
@@ -29,7 +31,9 @@ export const NEW_EMPTY_HORDER = () => ({
     quantity: 0,
     sum: 0,
     sum_discount: 0,
-    items: []
+    items: [],
+    for_payment: null,
+    for_returning: null,
 })
 
 export const ORDER_TIME_OUT = 1000

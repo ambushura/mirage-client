@@ -1,4 +1,4 @@
-import {useMemo} from "react"
+import {useEffect, useMemo} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {Box, Modal} from "@mui/material"
 import {Navigate, Route, Routes} from "react-router-dom"
@@ -27,7 +27,7 @@ import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
 import {useSetTopMenu} from "./hooks/interface/useSetTopMenu.js"
 import {useSetWS} from "./hooks/common/useSetWS.js"
 import {useReset} from "./hooks/common/useReset.js"
-import {closeModal} from "./redux/interfaceReducer.js"
+import {closeModal, setKiosk} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
@@ -45,6 +45,10 @@ import Dialog from "./components/forms/Dialog.jsx"
 function App() {
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setKiosk(false))
+    }, [dispatch])
 
     useSetWS()
     useSetCityAndFilial()

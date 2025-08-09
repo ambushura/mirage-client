@@ -18,6 +18,7 @@ import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
+import {useSetPaymentGroups} from "../../../hooks/common/useSetPaymentGroups.js"
 
 const Payment = (props) => {
 
@@ -27,12 +28,25 @@ const Payment = (props) => {
 
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
+    const [order, set_order] = useState(null)
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
     const total = useSelector(state => state.orders.total)
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
     const [show_payment_types, set_show_payment_types] = useState(false)
+
+    const [payment_group, set_payment_group] = useSetPaymentGroups(order)
+    useEffect(() => {
+        switch (props.type) {
+            case 'cinema':
+                set_order(pre_order)
+                break
+            case 'horeca':
+                set_order(horder)
+                break
+        }
+    }, [horder, pre_order, props.type])
 
     const pay = (pm) => {
         dispatch(common_order_pay(
@@ -50,51 +64,6 @@ const Payment = (props) => {
         dispatch(setTotal(pre_order.sum + horder.sum))
         dispatch(setCash(['clean', pre_order.sum + horder.sum]))
     }, [dispatch, horder.sum, pre_order.sum])
-
-    const [payment_group, set_payment_group] = useState(
-        {
-            for_payment: {
-                waiting: {
-                    mark_egais_items: {count: 0, selected: true, items: []},
-                    horeca_items: {count: 0, selected: true, items: []},
-                    cinema_items: {count: 0, selected: true, items: []},
-                    count: 0,
-                },
-                slip_without_receipt: {
-                    mark_egais_items: {count: 0, selected: true, items: []},
-                    horeca_items: {count: 0, selected: true, items: []},
-                    cinema_items: {count: 0, selected: true, items: []},
-                    count: 0,
-                },
-                success: {
-                    mark_egais_items: {count: 0, selected: false, items: []},
-                    horeca_items: {count: 0, selected: false, items: []},
-                    cinema_items: {count: 0, selected: false, items: []},
-                    count: 0,
-                },
-            },
-            for_returning: {
-                waiting: {
-                    mark_egais_items: {count: 0, selected: false, items: []},
-                    horeca_items: {count: 0, selected: false, items: []},
-                    cinema_items: {count: 0, selected: false, items: []},
-                    count: 0,
-                },
-                slip_without_receipt: {
-                    mark_egais_items: {count: 0, selected: false, items: []},
-                    horeca_items: {count: 0, selected: false, items: []},
-                    cinema_items: {count: 0, selected: false, items: []},
-                    count: 0,
-                },
-                success: {
-                    mark_egais_items: {count: 0, selected: false, items: []},
-                    horeca_items: {count: 0, selected: false, items: []},
-                    cinema_items: {count: 0, selected: false, items: []},
-                    count: 0,
-                },
-            }
-        }
-    )
 
     useEffect(() => {
 
@@ -213,67 +182,6 @@ const Payment = (props) => {
             return null
         }
     }
-
-    useEffect(() => {
-
-        const payment_group_new = structuredClone(payment_group)
-
-        payment_group_new.for_payment.waiting.mark_egais_items.count = props.order.for_payment.waiting.mark_egais_items.length
-        payment_group_new.for_payment.waiting.horeca_items.count = props.order.for_payment.waiting.horeca_items.length
-        payment_group_new.for_payment.waiting.cinema_items.count = props.order.for_payment.waiting.cinema_items.length
-        payment_group_new.for_payment.waiting.count = payment_group_new.for_payment.waiting.mark_egais_items.count + payment_group_new.for_payment.waiting.horeca_items.count + payment_group_new.for_payment.waiting.cinema_items.count
-
-        props.order.for_payment.waiting.mark_egais_items.forEach(item => {
-            payment_group_new.for_payment.waiting.mark_egais_items.items.push(item.uid)
-        })
-        props.order.for_payment.waiting.horeca_items.forEach(item => {
-            payment_group_new.for_payment.waiting.horeca_items.items.push(item.uid)
-        })
-        props.order.for_payment.waiting.cinema_items.forEach(item => {
-            payment_group_new.for_payment.waiting.cinema_items.items.push(item.uid)
-        })
-
-        payment_group_new.for_payment.waiting.mark_egais_items.selected = true
-        payment_group_new.for_payment.waiting.horeca_items.selected = true
-        payment_group_new.for_payment.waiting.cinema_items.selected = true
-
-        payment_group_new.for_payment.slip_without_receipt.mark_egais_items.count = props.order.for_payment.slip_without_receipt.mark_egais_items.length
-        payment_group_new.for_payment.slip_without_receipt.horeca_items.count = props.order.for_payment.slip_without_receipt.horeca_items.length
-        payment_group_new.for_payment.slip_without_receipt.cinema_items.count = props.order.for_payment.slip_without_receipt.cinema_items.length
-        payment_group_new.for_payment.slip_without_receipt.count = payment_group_new.for_payment.slip_without_receipt.mark_egais_items.count + payment_group_new.for_payment.slip_without_receipt.horeca_items.count + payment_group_new.for_payment.slip_without_receipt.cinema_items.count
-
-        props.order.for_payment.slip_without_receipt.mark_egais_items.forEach(item => {
-            payment_group_new.for_payment.slip_without_receipt.mark_egais_items.items.push(item.uid)
-        })
-        props.order.for_payment.slip_without_receipt.horeca_items.forEach(item => {
-            payment_group_new.for_payment.slip_without_receipt.horeca_items.items.push(item.uid)
-        })
-        props.order.for_payment.slip_without_receipt.cinema_items.forEach(item => {
-            payment_group_new.for_payment.slip_without_receipt.cinema_items.items.push(item.uid)
-        })
-
-        payment_group_new.for_payment.slip_without_receipt.mark_egais_items.selected = true
-        payment_group_new.for_payment.slip_without_receipt.horeca_items.selected = true
-        payment_group_new.for_payment.slip_without_receipt.cinema_items.selected = true
-
-        payment_group_new.for_returning.waiting.mark_egais_items.count = props.order.for_returning.waiting.mark_egais_items.length
-        payment_group_new.for_returning.waiting.horeca_items.count = props.order.for_returning.waiting.horeca_items.length
-        payment_group_new.for_returning.waiting.cinema_items.count = props.order.for_returning.waiting.cinema_items.length
-        payment_group_new.for_returning.waiting.count = payment_group_new.for_returning.waiting.mark_egais_items.count + payment_group_new.for_returning.waiting.horeca_items.count + payment_group_new.for_returning.waiting.cinema_items.count
-
-        payment_group_new.for_returning.slip_without_receipt.mark_egais_items.count = props.order.for_returning.slip_without_receipt.mark_egais_items.length
-        payment_group_new.for_returning.slip_without_receipt.horeca_items.count = props.order.for_returning.slip_without_receipt.horeca_items.length
-        payment_group_new.for_returning.slip_without_receipt.cinema_items.count = props.order.for_returning.slip_without_receipt.cinema_items.length
-        payment_group_new.for_returning.slip_without_receipt.count = payment_group_new.for_returning.slip_without_receipt.mark_egais_items.count + payment_group_new.for_returning.slip_without_receipt.horeca_items.count + payment_group_new.for_returning.slip_without_receipt.cinema_items.count
-
-        payment_group_new.for_returning.success.mark_egais_items.count = props.order.for_returning.success.mark_egais_items.length
-        payment_group_new.for_returning.success.horeca_items.count = props.order.for_returning.success.horeca_items.length
-        payment_group_new.for_returning.success.cinema_items.count = props.order.for_returning.success.cinema_items.length
-        payment_group_new.for_returning.success.count = payment_group_new.for_returning.success.mark_egais_items.count + payment_group_new.for_returning.success.horeca_items.count + payment_group_new.for_returning.success.cinema_items.count
-
-        set_payment_group(payment_group_new)
-
-    }, [props.order])
 
     return (
         <Box style={{backgroundColor: '#f8f8f8'}}>

@@ -24,6 +24,8 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
+    const kiosk = useSelector(state => state.interface.kiosk)
+
     const permissions = useSelector(state => state.auth.permissions)
     const top_menu = useSelector(state => state.interface.top_menu)
     const cities = useSelector(state => state.data.cities)
@@ -134,7 +136,8 @@ const Header = () => {
             <Box id="header-desktop">
                 {permissions.includes(0) ? <></> : <TopSlider/>}
                 <Box id="header-menu">
-                    <ButtonGroup id="header-menu-list" variant="contained" size='small' sx={{marginLeft: '5px'}}>
+                    <ButtonGroup id="header-menu-list" variant="contained" size='small'
+                                 sx={{marginLeft: '5px'}}>
                         {uid_user === null ?
                             top_menu[0].map(el => {
                                 return <NavLink key={el.id} className='link' to={el.path}>
@@ -165,49 +168,55 @@ const Header = () => {
                             })
                         }
                     </ButtonGroup>
-                    <Box sx={{display: 'flex', flexDirection: 'row', marginRight: '5px'}}>
-                        <ButtonGroup id="top-menu-left" variant="contained" size='small' sx={{marginLeft: '5px'}}>
-                            <List
-                                size='small'
-                                open={cities_open}
-                                anchor={cities_ref}
-                                prev_open={prev_cities_open}
-                                id={cities_list_id}
-                                setOpen={set_cities_open}
-                                button_text={city !== undefined ? city.name : 'Все города'}
-                                list={cities}
-                                startIcon={<PlaceIcon/>}
-                                endIcon={<KeyboardArrowDownIcon/>}
-                                type="cities"
-                            />
-                            <List
-                                size='small'
-                                open={filials_open}
-                                anchor={filials_ref}
-                                prev_open={prev_filials_open}
-                                id={filials_list_id}
-                                setOpen={set_filials_open}
-                                button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
-                                list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
-                                endIcon={<KeyboardArrowDownIcon/>}
-                                type='filials'
-                            />
-                        </ButtonGroup>
-                        <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
-                            <ButtonGroup size="small" variant='contained' color='secondary' id="header-time-username">
-                                {user_panel()}
-                            </ButtonGroup>
-                            <Modal open={auth_opened}
-                                   keepMounted
-                                   onClose={() => dispatch(setAuthOpened(false))}
-                                   aria-labelledby="Страница авторизации"
-                                   aria-describedby="Введите пароль">
-                                <Box id="modal">
-                                    <Auth/>
+                    {!kiosk ?
+                        <>
+                            <Box sx={{display: 'flex', flexDirection: 'row', marginRight: '5px'}}>
+                                <ButtonGroup id="top-menu-left" variant="contained" size='small'
+                                             sx={{marginLeft: '5px'}}>
+                                    <List
+                                        size='small'
+                                        open={cities_open}
+                                        anchor={cities_ref}
+                                        prev_open={prev_cities_open}
+                                        id={cities_list_id}
+                                        setOpen={set_cities_open}
+                                        button_text={city !== undefined ? city.name : 'Все города'}
+                                        list={cities}
+                                        startIcon={<PlaceIcon/>}
+                                        endIcon={<KeyboardArrowDownIcon/>}
+                                        type="cities"
+                                    />
+                                    <List
+                                        size='small'
+                                        open={filials_open}
+                                        anchor={filials_ref}
+                                        prev_open={prev_filials_open}
+                                        id={filials_list_id}
+                                        setOpen={set_filials_open}
+                                        button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
+                                        list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
+                                        endIcon={<KeyboardArrowDownIcon/>}
+                                        type='filials'
+                                    />
+                                </ButtonGroup>
+                                <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
+                                    <ButtonGroup size="small" variant='contained' color='secondary'
+                                                 id="header-time-username">
+                                        {user_panel()}
+                                    </ButtonGroup>
+                                    <Modal open={auth_opened}
+                                           keepMounted
+                                           onClose={() => dispatch(setAuthOpened(false))}
+                                           aria-labelledby="Страница авторизации"
+                                           aria-describedby="Введите пароль">
+                                        <Box id="modal">
+                                            <Auth/>
+                                        </Box>
+                                    </Modal>
                                 </Box>
-                            </Modal>
-                        </Box>
-                    </Box>
+                            </Box>
+                        </>
+                        : null}
                 </Box>
             </Box>
         </header>

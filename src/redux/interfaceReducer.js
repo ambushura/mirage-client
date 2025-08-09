@@ -50,6 +50,7 @@ export const TOP_MENU = [
 ]
 
 const initialState = {
+    kiosk: true,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,
@@ -74,6 +75,9 @@ const interfaceSlice = createSlice({
     name: "interface",
     initialState,
     reducers: {
+        setKiosk: (state, action) => {
+            state.kiosk = action.payload
+        },
         setAppWidth: (state, {payload}) => {
             state.app_width = payload
         },
@@ -112,6 +116,7 @@ const interfaceSlice = createSlice({
 })
 
 export const {
+    setKiosk,
     setAppWidth,
     setAppHeight,
     setAuthOpened,
