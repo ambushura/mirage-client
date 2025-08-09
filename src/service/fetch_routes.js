@@ -1,4 +1,4 @@
-export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: '60000', uid: ''}
+export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: 60000, payment_port: 60001, uid: ''}
 
 // === ОБЩЕЕ ===
 export const ROUTE_COMMON_LOGIN = "/api/common/login"
@@ -54,7 +54,6 @@ export const ROUTE_CINEMA_SEANCE_GET_BOOKING = "/api/cinema/seance/get_booking"
 // Позиции заказа
 export const ROUTE_CINEMA_PLACE_BLOCK = "/api/cinema/place/block"
 export const ROUTE_CINEMA_POSITION_ADD = "/api/cinema/position/add"
-export const ROUTE_CINEMA_POSITION_ADD_DISCOUNT = "/api/cinema/position/add_discount"
 export const ROUTE_CINEMA_POSITION_ADD_COMMENT = "/api/cinema/position/add/comment"
 export const ROUTE_CINEMA_POSITION_DELETE_COMMENT = "/api/cinema/position/delete/comment"
 

@@ -4,7 +4,7 @@ import {common_position_add_comment} from "../../../service/fetch_service.js"
 import {closeModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 
-const CommentPosition = (props) => {
+const CommentPosition = ({props}) => {
 
     const dispatch = useDispatch()
     const pre_order = useSelector(state => state.orders.pre_order)
@@ -14,26 +14,32 @@ const CommentPosition = (props) => {
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
 
-    const order_type = props.props.order_type
-    const uid_order = props.props.uid_order
-    const uid_position = props.props.uid_position
-    const current_comment = props.props.comment
+    const order_type = props.order_type
+    const uid_order = props.uid_order
+    const uid_position = props.uid_position
+    const current_comment = props.comment
 
     useEffect(() => {
         set_comment(current_comment)
     }, [current_comment])
 
     useEffect(() => {
-        if (props.props.order_type === 'cinema') {
+        if (props.order_type === 'cinema') {
             if (!pre_order.in_base) {
                 dispatch(closeModal())
             }
-        } else if (props.props.order_type === 'horeca') {
+        } else if (props.order_type === 'horeca') {
             if (!horder.in_base) {
                 dispatch(closeModal())
             }
         }
-    }, [dispatch, props.props.order_type, pre_order, horder])
+    }, [dispatch, props.order_type, pre_order, horder])
+
+    useEffect(() => {
+        if (props.order_type === 'horeca') {
+
+        }
+    }, [props.order_type])
 
     return (
         <Box component="form"

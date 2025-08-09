@@ -33,7 +33,7 @@ import {
     ROUTE_HORECA_POSITION_AWAY,
     ROUTE_HORECA_POSITION_COOK,
     ROUTE_HORECA_POSITION_COURSE,
-    ROUTE_HORECA_POSITION_DELETE, ROUTE_HORECA_POSITION_DELETE_COMMENT,
+    ROUTE_HORECA_POSITION_DELETE, ROUTE_HORECA_POSITION_DELETE_COMMENT, ROUTE_MAIN_HOST,
     ROUTE_MARKIROVKA_CDN_INFO_GET,
     ROUTE_MARKIROVKA_CDN_INFO_UPDATE, ROUTE_PL_ESTIMATE_DISCOUNTS
 } from "./fetch_routes.js"
@@ -154,7 +154,7 @@ export const horeca_position_add = (filial, wp, uid_order, ver, uid_menu) => asy
 }, data => dispatch(setCurrentHorder(data)))
 
 export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
-    method: 'post', url: `http://${filial.ip}:8081${ROUTE_COMMON_ORDER_PAYMENT}`, data: {
+    method: 'post', url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT}`, data: {
         uid_filial: filial.uid,
         uid_payment_type: pm.uid_payment_type,
         uid_kkt: pm.uid_kkt,
@@ -168,8 +168,20 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
         payment_group
     }, timeout: TIMEOUT * 100, wp, filial
 }, data => {
-    dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
-    dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+    if (data.order !== null) {
+        if (data.errors.length === 0) {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        } else {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        }
+    }
+    data.errors.forEach(error => {
+        dispatch(addNotification({
+            message: error, severity: 'error', autoHide: true
+        }))
+    })
 })
 
 export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch) => makeRequest(dispatch, {
