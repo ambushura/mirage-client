@@ -11,17 +11,15 @@ import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useNavigate} from "react-router-dom"
 import Payment from "./payment/Payment.jsx"
 import {
-    NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder, setHorderPaying, setPreOrderPaying
+    NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder
 } from "../../redux/ordersReducer.js"
 import {
-    cinema_order_delete,
     cinema_order_fetch,
     common_order_delete_comment,
     common_orders_receipts_get,
-    horeca_order_delete,
     horeca_order_fetch
 } from "../../service/fetch_service.js"
-import {closeModal, openModal} from "../../redux/interfaceReducer.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
@@ -213,8 +211,8 @@ const Order = () => {
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
 
-    const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
-    const horder_paying = useSelector(state => state.orders.horder_paying)
+    const pre_order_preparing = useSelector(state => state.orders.pre_order_preparing)
+    const horder_preparing = useSelector(state => state.orders.horder_preparing)
 
     const [uid_horeca_selected, set_uid_horeca_selected] = useState([])
     const [uid_cinema_selected, set_uid_cinema_selected] = useState([])
@@ -245,13 +243,8 @@ const Order = () => {
                     key={pre_order.ver}
                     type='cinema'
                     order={pre_order}
-                    paying={pre_order_paying}
-                    setPaying={
-                        async (value) => {
-                            await dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))
-                            await dispatch(setPreOrderPaying(value))
-                        }
-                    }
+                    paying={pre_order_preparing}
+                    setPaying={() => dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))}
                     emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
                     fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
                     deleteOrder={() => dispatch(openModal({
@@ -291,13 +284,8 @@ const Order = () => {
                     key={horder.ver}
                     type='horeca'
                     order={horder}
-                    paying={horder_paying}
-                    setPaying={
-                        async (value) => {
-                            await dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))
-                            await dispatch(setHorderPaying(value))
-                        }
-                    }
+                    paying={horder_preparing}
+                    setPaying={() => dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))}
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                     fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
                     deleteOrder={() => dispatch(openModal({

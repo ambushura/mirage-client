@@ -5,7 +5,7 @@ import {
     NEW_EMPTY_ORDER,
     setCurrentHorder,
     setCurrentPreOrder,
-    setHorderPaying, setPreOrderPaying
+    setHorderPreparing, setPreOrderPreparing
 } from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
 import {setUidHall} from "../../redux/hallsReducer.js"
@@ -39,10 +39,10 @@ export function useReset() {
     // При изменении текущего заказа убираем режим оплаты
     useEffect(() => {
         if (horder_paying) {
-            dispatch(setHorderPaying(false))
+            dispatch(setHorderPreparing(false))
         }
         if (pre_order_paying) {
-            dispatch(setPreOrderPaying(false))
+            dispatch(setPreOrderPreparing(false))
         }
     }, [pre_order.uid, horder.uid, pre_order.in_base, horder.in_base, dispatch])
 

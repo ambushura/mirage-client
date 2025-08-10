@@ -4,9 +4,9 @@ import {
     NEW_EMPTY_ORDER,
     pushKitchenPositions,
     setCurrentHorder,
-    setCurrentPreOrder,
+    setCurrentPreOrder, setHorderPaying, setHorderPreparing,
     setOrdersCinemaUpdate,
-    setOrdersHorecaUpdate
+    setOrdersHorecaUpdate, setPreOrderPaying, setPreOrderPreparing
 } from "../redux/ordersReducer.js"
 import {setBooking} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
@@ -100,8 +100,10 @@ export const common_orders_receipts_get = (filial, wp, type, uid_order) => async
 }, data => {
     if (type === 'cinema') {
         dispatch(setCurrentPreOrder(data))
+        dispatch(setPreOrderPreparing(true))
     } else if (type === 'horeca') {
         dispatch(setCurrentHorder(data))
+        dispatch(setHorderPreparing(true))
     }
 })
 
@@ -183,6 +185,7 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
             message: error, severity: 'error', autoHide: true
         }))
     })
+    dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
 })
 
 export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
@@ -215,6 +218,7 @@ export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment
             message: error, severity: 'error', autoHide: true
         }))
     })
+    dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
 })
 
 export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch) => makeRequest(dispatch, {

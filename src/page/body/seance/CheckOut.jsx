@@ -3,7 +3,6 @@ import {
     Box,
     Button,
     Dialog as MuiDialog,
-    DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
@@ -13,7 +12,8 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import Ticket from "./Ticket.jsx"
 import {common_order_pay_kiosk, common_orders_receipts_get} from "../../../service/fetch_service.js"
 import {useSetPaymentGroups} from "../../../hooks/common/useSetPaymentGroups.js"
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
+import {setPreOrderPaying} from "../../../redux/ordersReducer.js"
 
 const CheckOut = (props) => {
 
@@ -23,7 +23,7 @@ const CheckOut = (props) => {
     const pre_order = useSelector(state => state.orders.pre_order)
     const wp = useSelector(state => state.interface.wp)
     const [payment_group,] = useSetPaymentGroups(pre_order)
-    const [paying, set_paying] = useState(0)
+    const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
 
     useEffect(() => {
         dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))
@@ -66,14 +66,14 @@ const CheckOut = (props) => {
                         </Box>
                     </Box>
                     <Button onClick={() => {
-                        set_paying(1)
+                        dispatch(setPreOrderPaying(true))
                         dispatch(common_order_pay_kiosk(filial, wp, pre_order.uid, pre_order.ver, 'cinema', payment_group))
                     }} variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}>Оплатить</Button>
                 </Box>
             </Box>
-            {paying ? <Box>
+            <Box>
                 <MuiDialog
-                    open={true}
+                    open={pre_order_paying}
                     onClose={() => {
                     }}
                     aria-labelledby="confirm-dialog-title"
@@ -86,7 +86,7 @@ const CheckOut = (props) => {
                         </DialogContentText>
                     </DialogContent>
                 </MuiDialog>
-            </Box> : null}
+            </Box>
         </Box>
     )
 }

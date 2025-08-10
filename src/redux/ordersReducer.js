@@ -45,6 +45,8 @@ const initialState = {
     total: 0,
     cash: 0,
     change: 0,
+    pre_order_preparing: false,
+    horder_preparing: false,
     pre_order_paying: false,
     horder_paying: false,
     orders_cinema_schedule: [],
@@ -131,6 +133,12 @@ export const ordersSlice = createSlice({
                 state.cash = parseFloat(`${state.cash}${payload[0]}`)
                 state.change = payload[1] - state.cash
             }
+        },
+        setPreOrderPreparing: (state, {payload}) => {
+            state.pre_order_preparing = payload
+        },
+        setHorderPreparing(state, {payload}) {
+            state.horder_preparing = payload
         },
         setPreOrderPaying: (state, {payload}) => {
             state.pre_order_paying = payload
@@ -286,6 +294,8 @@ export const {
     setCurrentHorder,
     setCash,
     setTotal,
+    setPreOrderPreparing,
+    setHorderPreparing,
     setPreOrderPaying,
     setHorderPaying,
     setOrdersCinemaSchedule,

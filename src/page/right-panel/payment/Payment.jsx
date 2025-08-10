@@ -1,7 +1,13 @@
 import {Box, Button, Fade} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import {setCash, setHorderPaying, setPreOrderPaying, setTotal} from "../../../redux/ordersReducer.js"
+import {
+    setCash, setHorderPaying,
+    setHorderPreparing,
+    setPreOrderPaying,
+    setPreOrderPreparing,
+    setTotal
+} from "../../../redux/ordersReducer.js"
 import {
     ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
     ITEMS_TYPE_SERVICE,
@@ -35,6 +41,9 @@ const Payment = (props) => {
     const cash = useSelector(state => state.orders.cash)
     const change = useSelector(state => state.orders.change)
     const [show_payment_types, set_show_payment_types] = useState(false)
+    const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
+    const horder_paying = useSelector(state => state.orders.horder_paying)
+
 
     const [payment_group, set_payment_group] = useSetPaymentGroups(order)
     useEffect(() => {
@@ -49,6 +58,7 @@ const Payment = (props) => {
     }, [horder, pre_order, props.type])
 
     const pay = (pm) => {
+        dispatch(props.type === 'cinema' ? setPreOrderPaying(true) : setHorderPaying(true))
         dispatch(common_order_pay(
             filial,
             wp,
@@ -182,13 +192,13 @@ const Payment = (props) => {
             return null
         }
     }
-
     return (
-        <Box style={{backgroundColor: '#f8f8f8'}}>
+        <Box style={{backgroundColor: '#f8f8f8'}}
+             className={(props.type === 'cinema' && pre_order_paying) || (props.type === 'horeca' && horder_paying) ? 'payment-paying' : null}>
             <Box className='payment-total'>
                 <Box className='payment-total-div'>
                     <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
-                        props.type === 'cinema' ? dispatch(setPreOrderPaying(false)) : dispatch(setHorderPaying(false))
+                        props.type === 'cinema' ? dispatch(setPreOrderPreparing(false)) : dispatch(setHorderPreparing(false))
                     }}><ArrowBackIosNewIcon/></Box>
                     <Box sx={{backgroundColor: '#e4e2e2'}}>
                         <Box className='payment-total-title'>
@@ -237,10 +247,12 @@ const Payment = (props) => {
                 </Box>
             </Box>
             <Box className='payment-types'>
-                {!show_payment_types ? <Box sx={{fontWeight: 'bold'}}>Выберите позиции для платежной операции</Box> :
+                {!show_payment_types ?
+                    <Box sx={{fontWeight: 'bold'}}>Выберите позиции для платежной операции</Box> :
                     payment_methods_loading ? <Loader/> :
                         payment_methods_error !== null ?
-                            <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов оплаты</Box> :
+                            <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов
+                                оплаты</Box> :
                             payment_methods.list.length === 0 ?
                                 <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Для этого рабочего места не найдено
                                     маршрутов оплаты, обратитесь в учетный отдел</Box> :
@@ -323,7 +335,8 @@ const Payment = (props) => {
 
                 <Fade in={payment_group.for_returning.slip_without_receipt.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title' sx={{backgroundColor: '#f74b53', color: 'white'}}>
+                        <Box className='payment-items-group-title'
+                             sx={{backgroundColor: '#f74b53', color: 'white'}}>
                             {RETURNING_STATE_SLIP_WITHOUT_RECEIPT}<DotsAnimation/>
                         </Box>
                         <GroupedTable group={props.order.for_returning.slip_without_receipt.mark_egais_items}
@@ -357,7 +370,8 @@ const Payment = (props) => {
 
                 <Fade in={payment_group.for_returning.success.count > 0} timeout={500} unmountOnExit>
                     <Box className='payment-items-group'>
-                        <Box className='payment-items-group-title' sx={{backgroundColor: '#414650', color: 'white'}}>
+                        <Box className='payment-items-group-title'
+                             sx={{backgroundColor: '#414650', color: 'white'}}>
                             {RETURNING_STATE_SUCCESS}
                         </Box>
                         <GroupedTable group={props.order.for_returning.success.mark_egais_items}
