@@ -190,37 +190,36 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
 })
 
 export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
-    method: 'post',
-    url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}`,
-    data: {
-        uid_filial: filial.uid,
-        uid_work_place: wp,
-        uid_order,
-        type,
-        ver,
-        payment_group,
-        kiosk: true
-    },
-    timeout: TIMEOUT * 60,
-    wp,
-    filial
-}, data => {
-    if (data.order !== null) {
-        if (data.errors.length === 0) {
-            dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
-            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-        } else {
-            dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
-            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        method: 'post',
+        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}`,
+        data: {
+            uid_filial: filial.uid,
+            uid_work_place: wp,
+            uid_order,
+            type,
+            ver,
+            payment_group,
+            kiosk: true
+        },
+        timeout: TIMEOUT * 60,
+        wp,
+        filial
+    }, data => {
+        if (data.order !== null) {
+            if (data.errors.length === 0) {
+                dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+            } else {
+                dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+            }
         }
+        data.errors.forEach(error => {
+            alert(error)
+        })
+        dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     }
-    data.errors.forEach(error => {
-        dispatch(addNotification({
-            message: error, severity: 'error', autoHide: true
-        }))
-    })
-    dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
-})
+)
 
 export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',

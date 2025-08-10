@@ -57,9 +57,9 @@ const Payment = (props) => {
         }
     }, [horder, pre_order, props.type])
 
-    const pay = (pm) => {
-        dispatch(props.type === 'cinema' ? setPreOrderPaying(true) : setHorderPaying(true))
-        dispatch(common_order_pay(
+    const pay = async (pm) => {
+        await dispatch(props.type === 'cinema' ? setPreOrderPaying(true) : setHorderPaying(true))
+        await dispatch(common_order_pay(
             filial,
             wp,
             pm,
@@ -68,6 +68,7 @@ const Payment = (props) => {
             props.type,
             payment_group
         ))
+        await dispatch(props.type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     }
 
     useEffect(() => {

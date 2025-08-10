@@ -65,16 +65,18 @@ const CheckOut = (props) => {
                             <span>{pre_order.price} P</span>
                         </Box>
                     </Box>
-                    <Button onClick={() => {
-                        dispatch(setPreOrderPaying(true))
-                        dispatch(common_order_pay_kiosk(filial, wp, pre_order.uid, pre_order.ver, 'cinema', payment_group))
+                    <Button onClick={async () => {
+                        await dispatch(setPreOrderPaying(true))
+                        await dispatch(common_order_pay_kiosk(filial, wp, pre_order.uid, pre_order.ver, 'cinema', payment_group))
+                        await dispatch(setPreOrderPaying(false))
                     }} variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}>Оплатить</Button>
                 </Box>
             </Box>
             <Box>
                 <MuiDialog
                     open={pre_order_paying}
-                    onClose={() => {}}
+                    onClose={() => {
+                    }}
                     aria-labelledby="paying-process"
                     maxWidth="xk"
                 >
