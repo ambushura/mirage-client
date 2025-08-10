@@ -74,7 +74,6 @@ export const login = (filial, wp, login_auth, pincode_auth, username, password) 
                 "Content-Type": "application/json", uid_filial: filial.uid, wp
             }
         })
-
         dispatch(loginSuccess(response.data))
     } catch (e) {
         dispatch(addNotification({
@@ -169,7 +168,9 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
         ver,
         payment_group,
         kiosk: false
-    }, timeout: TIMEOUT * 100, wp, filial
+    }, timeout: TIMEOUT * 60,
+    wp,
+    filial
 }, data => {
     if (data.order !== null) {
         if (data.errors.length === 0) {
@@ -200,7 +201,7 @@ export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment
         payment_group,
         kiosk: true
     },
-    timeout: TIMEOUT * 100,
+    timeout: TIMEOUT * 60,
     wp,
     filial
 }, data => {

@@ -74,12 +74,11 @@ const CheckOut = (props) => {
             <Box>
                 <MuiDialog
                     open={pre_order_paying}
-                    onClose={() => {
-                    }}
-                    aria-labelledby="confirm-dialog-title"
+                    onClose={() => {}}
+                    aria-labelledby="paying-process"
                     maxWidth="xk"
                 >
-                    <DialogTitle id="confirm-dialog-title">Оплата заказа</DialogTitle>
+                    <DialogTitle id="paying-process-title">Оплата заказа</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             Следуйте инструкциям на пинпаде
