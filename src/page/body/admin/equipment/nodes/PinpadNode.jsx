@@ -9,7 +9,7 @@ export const PinpadNode = ({data}) => {
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_pinpad', props: {uid_pinpad: data.id, label: data.label}}))
+        dispatch(openModal({type: 'equipment_pinpad', props: {uid_pinpad: data.uid, label: data.label}}))
     }}>
         <Handle
             type="target"

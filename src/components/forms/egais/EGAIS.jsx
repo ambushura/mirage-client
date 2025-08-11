@@ -1,14 +1,37 @@
-import {Box, Typography} from "@mui/material"
+import {Box, Button, TextField, Typography} from "@mui/material"
+import {closeModal} from "../../../redux/interfaceReducer.js"
+import {ruToEnLayout} from "../../../service/advanced.js"
+import {useDispatch} from "react-redux"
+import {useState} from "react"
 
 const Egais = (props) => {
+
+    const dispatch = useDispatch()
+    const [mark, set_mark] = useState(null)
 
     return (
         <Box component="form"
              noValidate
-             autoComplete="off">
+             autoComplete="off"
+             onSubmit={(e) => {
+                 e.preventDefault()
+                 //dispatch(horeca_position_add_mark(props.props.filial, props.props.wp, props.props.uid_order, props.props.uid_position, mark))
+                 dispatch(closeModal())
+             }}>
             <Typography variant="h6" color="textSecondary" margin={1}>
                 ЕГАИС
             </Typography>
+            <TextField autoFocus label='Акцизная марка' sx={{m: 1, minWidth: '400px'}} variant='filled'
+                       color="textSecondary"
+                       value={mark} onChange={(event) => {
+                const raw = event.target.value
+                const fixed = /[а-яё]/i.test(raw) ? ruToEnLayout(raw) : raw
+                set_mark(fixed)
+            }}/>
+            <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
+                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}}>Добавить в
+                    заказ</Button>
+            </Box>
         </Box>
     )
 }

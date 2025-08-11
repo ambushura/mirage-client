@@ -1,28 +1,18 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {useState} from "react"
 import {closeModal} from "../../../redux/interfaceReducer.js"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {horeca_position_add_mark} from "../../../service/fetch_service.js"
+import {ruToEnLayout} from "../../../service/advanced.js"
 
-const Mark = (props) => {
+const Mark = ({props}) => {
 
     const dispatch = useDispatch()
     const [mark, set_mark] = useState(null)
 
-    const ruToEnLayout = (text) => {
-        const layoutMap = {
-            'й': 'q', 'ц': 'w', 'у': 'e', 'к': 'r', 'е': 't', 'н': 'y', 'г': 'u', 'ш': 'i', 'щ': 'o', 'з': 'p',
-            'х': '[', 'ъ': ']', 'ф': 'a', 'ы': 's', 'в': 'd', 'а': 'f', 'п': 'g', 'р': 'h', 'о': 'j', 'л': 'k',
-            'д': 'l', 'ж': ';', 'э': '\'', 'я': 'z', 'ч': 'x', 'с': 'c', 'м': 'v', 'и': 'b', 'т': 'n', 'ь': 'm',
-            'б': ',', 'ю': '.', 'Ё': '~', 'ё': '`', '"': '@', '№': '#', ';': '$', '%': '^', ':': '&', '?': '?'
-        }
-        return text.split('').map(char => {
-            const lower = char.toLowerCase()
-            const isUpper = char !== lower
-            const replaced = layoutMap[lower] || char
-            return isUpper ? replaced.toUpperCase() : replaced
-        }).join('')
-    }
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+    const horder = useSelector(state => state.orders.horder)
 
     return (
         <Box component="form"
@@ -30,7 +20,11 @@ const Mark = (props) => {
              autoComplete="off"
              onSubmit={(e) => {
                  e.preventDefault()
-                 dispatch(horeca_position_add_mark(props.props.filial, props.props.wp, props.props.uid_order, props.props.uid_position, mark))
+                 if (props.add) {
+                     dispatch(horeca_position_add_mark(filial, wp, horder.uid, null, mark))
+                 } else {
+                     dispatch(horeca_position_add_mark(props.filial, props.wp, props.uid_order, props.uid_position, mark))
+                 }
                  dispatch(closeModal())
              }}>
             <Typography variant="h6" color="textSecondary" margin={1}>
@@ -43,7 +37,8 @@ const Mark = (props) => {
                 set_mark(fixed)
             }}/>
             <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
-                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}}>Сохранить</Button>
+                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}}>Добавить в
+                    заказ</Button>
             </Box>
         </Box>
     )

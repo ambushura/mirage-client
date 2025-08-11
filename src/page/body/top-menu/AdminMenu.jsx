@@ -13,7 +13,8 @@ import {
 } from "@mui/material"
 import dayjs from "dayjs"
 import {
-    NEW_EMPTY_ORDER,
+    NEW_EMPTY_HORDER,
+    NEW_EMPTY_ORDER, setCurrentHorder,
     setCurrentPreOrder,
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
@@ -234,31 +235,33 @@ export function DateParamAdmin() {
     const film = useSelector(state => state.schedule.film_seances.film)
 
     const handleClick = (event) => {
-        set_orders_date_calendar_open(event.currentTarget)
+        set_admin_calendar_open(event.currentTarget)
     }
     const handleClose = () => {
-        set_orders_date_calendar_open(null)
+        set_admin_calendar_open(null)
     }
-    const handleOnChange = (value) => {
-        set_orders_date_calendar_open(null)
+    const handleOnChange = async (value) => {
+        set_admin_calendar_open(null)
         const current_param_data = value.year() + '-' + (value.month() + 1) + '-' + (value.date())
-        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
+        await navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
+        await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+        await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
     }
 
     // Календарь
-    const [orders_date_calendar_open, set_orders_date_calendar_open] = useState(null)
-    const open = Boolean(orders_date_calendar_open)
-    const id = open ? 'orders-date-calendar' : null
+    const [admin_calendar_open, set_admin_calendar_open] = useState(null)
+    const open = Boolean(admin_calendar_open)
+    const id = open ? 'admin-date-calendar' : null
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
-    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen'].includes(current_page)
+    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment'].includes(current_page)
     if (!isPageMatch) return null
 
     return <>
         <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'>
-            <Button onClick={() => {
+            <Button onClick={async () => {
                 const now = new Date()
                 const date = date_dayjs(
                     now.getHours() >= 0 && now.getHours() < 7
@@ -266,25 +269,28 @@ export function DateParamAdmin() {
                         : now
                 )
                 const current_param_date = from_dayjs_to_str(date)
-                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-                navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
+                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
+                await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
             }}>
                 Сегодня
             </Button>
-            <Button onClick={() => {
-                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+            <Button onClick={async () => {
                 const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
-                navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
             }}>
                 <KeyboardArrowLeftIcon/>
             </Button>
             <Button onClick={handleClick} endIcon={<KeyboardArrowDownIcon/>}>
                 Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}
             </Button>
-            <Button onClick={() => {
-                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+            <Button onClick={async () => {
                 const date = dayjs(param_date_admin).add(1, 'day').format('YYYY-MM-DD')
-                navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
             }}>
                 <KeyboardArrowRightIcon/>
             </Button>
@@ -292,7 +298,7 @@ export function DateParamAdmin() {
         <Popover
             id={id}
             open={open}
-            anchorEl={orders_date_calendar_open}
+            anchorEl={admin_calendar_open}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'bottom',
@@ -353,7 +359,7 @@ export function Equipment() {
     }
 
     return <>
-        <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
+        <Button sx={{marginLeft: '5px'}} startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
             Добавить устройство
         </Button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

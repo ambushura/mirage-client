@@ -9,7 +9,7 @@ export const FilialNode = ({data}) => {
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_filial', props: {uid_filial: data.id, label: data.label}}))
+        dispatch(openModal({type: 'equipment_filial', props: {uid_filial: data.uid, label: data.label}}))
     }}>
         <Handle
             type="target"

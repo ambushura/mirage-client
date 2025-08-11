@@ -19,7 +19,7 @@ import {
     ROUTE_CINEMA_ORDER_GET, ROUTE_CINEMA_PLACE_BLOCK,
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT, ROUTE_CINEMA_POSITION_DELETE_COMMENT,
-    ROUTE_CINEMA_SEANCE_GET_BOOKING,
+    ROUTE_CINEMA_SEANCE_GET_BOOKING, ROUTE_COMMON_CATALOG_GET,
     ROUTE_COMMON_LOGIN,
     ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_COMMON_ORDER_PAYMENT, ROUTE_COMMON_ORDER_PAYMENT_KIOSK, ROUTE_COMMON_ORDERS_GET_RECEIPTS,
@@ -393,5 +393,21 @@ export const pl_estimate_discounts = (filial, wp, uid_order, order_type, card) =
     }, data => {
         dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+    })
+}
+
+
+export const common_catalog_get = (filial, wp, type, uid) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CATALOG_GET}`,
+        params: {
+            type: type,
+            uid: uid,
+        },
+        wp,
+        filial
+    }, data => {
+        return data
     })
 }

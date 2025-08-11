@@ -9,7 +9,7 @@ export function BilletCheckNode({data}) {
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_billet_check', props: {uid_billet_check: data.id, label: data.label}}))
+        dispatch(openModal({type: 'equipment_billet_check', props: {uid: data.uid, label: data.label}}))
     }}>
         <Handle
             type="target"

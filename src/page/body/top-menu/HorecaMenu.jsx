@@ -14,7 +14,7 @@ const HorecaMenu = () => {
             <ButtonGroup variant='contained' color='secondary' size='medium'>
                 <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
-                            dispatch(openModal({type: 'mark', props: {}}))
+                            dispatch(openModal({type: 'mark', props: {add: true}}))
                         }}>ЧЗ</Button>
                 <Button endIcon={<SettingsIcon/>}
                         onClick={() => {
@@ -24,7 +24,7 @@ const HorecaMenu = () => {
             <ButtonGroup variant='contained' color='secondary' size='large' sx={{marginLeft: '4px'}}>
                 <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
-                            dispatch(openModal({type: 'egais', props: {}}))
+                            dispatch(openModal({type: 'egais', props: {add: true}}))
                         }}>ЕГАИС</Button>
                 <Button size='small'
                         endIcon={<SettingsIcon/>}

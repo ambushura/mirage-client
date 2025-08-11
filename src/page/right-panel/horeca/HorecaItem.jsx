@@ -84,7 +84,7 @@ const HorecaItem = (props) => {
                 <button className='order-box-horeca-item-2-3' onClick={() =>
                     dispatch(openModal({
                         type: 'mark',
-                        props: {filial: filial, wp: wp, uid_order: props.order.uid, uid_position: props.item.uid}
+                        props: {filial: filial, wp: wp, uid_order: props.order.uid, uid_position: props.item.uid, add: false}
                     }))
                 }><QrCode2Icon sx={{color: 'white'}}/></button>
                 <Box
