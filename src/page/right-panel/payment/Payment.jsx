@@ -44,7 +44,6 @@ const Payment = (props) => {
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
 
-
     const [payment_group, set_payment_group] = useSetPaymentGroups(order)
     useEffect(() => {
         switch (props.type) {

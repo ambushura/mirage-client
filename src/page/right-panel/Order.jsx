@@ -30,8 +30,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 const OrderBody = ({
                        type,
                        order,
-                       paying,
-                       setPaying,
+                       preparing,
+                       set_preparing,
                        emptyOrder,
                        fetchOrder,
                        deleteOrder,
@@ -44,7 +44,7 @@ const OrderBody = ({
                        wp
                    }) => (
     <>
-        {paying && order.for_payment !== null && order.for_returning !== null ?
+        {preparing && order.for_payment !== null && order.for_returning !== null ?
             <Payment
                 type={type}
                 order={order}
@@ -54,7 +54,7 @@ const OrderBody = ({
                 <Box className="order-box-panel-1">
                     <ButtonGroup size='large'>
                         <Button variant="contained" color="info" onClick={() => {
-                            setPaying(true)
+                            set_preparing(true)
                         }}><ReceiptIcon/></Button>
                         <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
                         <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
@@ -243,8 +243,8 @@ const Order = () => {
                     key={pre_order.ver}
                     type='cinema'
                     order={pre_order}
-                    paying={pre_order_preparing}
-                    setPaying={() => dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))}
+                    preparing={pre_order_preparing}
+                    set_preparing={() => dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))}
                     emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
                     fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
                     deleteOrder={() => dispatch(openModal({
@@ -284,8 +284,8 @@ const Order = () => {
                     key={horder.ver}
                     type='horeca'
                     order={horder}
-                    paying={horder_preparing}
-                    setPaying={() => dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))}
+                    preparing={horder_preparing}
+                    set_preparing={() => dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))}
                     emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                     fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
                     deleteOrder={() => dispatch(openModal({

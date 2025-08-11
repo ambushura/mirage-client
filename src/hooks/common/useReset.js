@@ -5,7 +5,6 @@ import {
     NEW_EMPTY_ORDER,
     setCurrentHorder,
     setCurrentPreOrder,
-    setHorderPreparing, setPreOrderPreparing
 } from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
 import {setUidHall} from "../../redux/hallsReducer.js"
@@ -19,12 +18,6 @@ export function useReset() {
 
     const [clear, set_clear] = useState(0)
 
-    const pre_order = useSelector(state => state.orders.pre_order)
-    const horder = useSelector(state => state.orders.horder)
-
-    const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
-    const horder_paying = useSelector(state => state.orders.horder_paying)
-
     // Очищаем по старым реквизитам данные
     useEffect(() => {
         set_clear(prevState => prevState + 1)
@@ -36,15 +29,6 @@ export function useReset() {
         dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
     }, [dispatch, clear])
 
-    // При изменении текущего заказа убираем режим оплаты
-    useEffect(() => {
-        if (horder_paying) {
-            dispatch(setHorderPreparing(false))
-        }
-        if (pre_order_paying) {
-            dispatch(setPreOrderPreparing(false))
-        }
-    }, [pre_order.uid, horder.uid, pre_order.in_base, horder.in_base, dispatch])
 
     useEffect(() => {
         dispatch(setShowFreeSpace(false))
