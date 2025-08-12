@@ -101,10 +101,10 @@ export function useSetSchedule() {
                         const match = s.match(/^(\d+)/)
                         return match ? parseInt(match[1]) : Number.MAX_SAFE_INTEGER
                     }
-                    const aNum = getSortKey(a.name_full_hall)
-                    const bNum = getSortKey(b.name_full_hall)
+                    const aNum = getSortKey(a.hall.name_full)
+                    const bNum = getSortKey(b.hall.name_full)
                     if (aNum !== bNum) return aNum - bNum
-                    return a.name_full_hall.localeCompare(b.name_full_hall)
+                    return a.name_full_hall.localeCompare(b.hall.name_full)
                 })
             }
             fetch_data_sorted.push(url_sorted)

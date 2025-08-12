@@ -21,7 +21,7 @@ import {
     ROUTE_CINEMA_PLACE_BLOCK,
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
-    ROUTE_CINEMA_POSITION_DELETE_COMMENT,
+    ROUTE_CINEMA_POSITION_DELETE_COMMENT, ROUTE_CINEMA_SEANCE_CLOSE,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
     ROUTE_COMMON_ORDER_ADD_CONTACT,
@@ -417,6 +417,20 @@ export const equipment_action = (filial, wp, route, params) => async (dispatch) 
         method: 'get',
         url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${route}`,
         params: params,
+        wp,
+        filial
+    })
+}
+
+export const cinema_seance_close = (filial, wp, uid_seance, reason, comment) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_CLOSE}`,
+        params: {
+            uid_seance: uid_seance,
+            reason: reason,
+            comment: comment
+        },
         wp,
         filial
     })

@@ -1,11 +1,16 @@
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material"
 import {closeModal} from "../../redux/interfaceReducer.js"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {useState} from "react"
+import {cinema_seance_close} from "../../service/fetch_service.js"
 
-export default function SeanceCancellation() {
+export default function SeanceCancellation({props}) {
 
     const dispatch = useDispatch()
+
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+
     const [cancellation_reasons, set_cancellation_reasons] = useState([
         {uid: 0, name: '1 - Нет проданных билетов'},
         {uid: 1, name: '2 - Зрители не пришли'},
@@ -24,10 +29,10 @@ export default function SeanceCancellation() {
         <Box component="form"
              autoComplete="off"
              noValidate
-             onSubmit={(e) => {
+             onSubmit={async (e) => {
                  e.preventDefault()
-                 //dispatch(common_contact_add(filial, wp, props.props.order_type, props.props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
-                 dispatch(closeModal())
+                 await dispatch(cinema_seance_close(filial, wp, props.uid_seance, current_cancellation_reason, comment))
+                 await dispatch(closeModal())
              }}
              sx={{
                  display: 'flex',
