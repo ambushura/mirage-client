@@ -8,7 +8,7 @@ import {
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate, setPreOrderPaying, setPreOrderPreparing
 } from "../redux/ordersReducer.js"
-import {setBooking} from "../redux/scheduleReducer.js"
+import {setBooking, setSeance} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess} from "../redux/authReducer.js"
 import {
@@ -433,5 +433,7 @@ export const cinema_seance_close = (filial, wp, uid_seance, reason, comment) => 
         },
         wp,
         filial
+    }, data => {
+        dispatch(setSeance(data))
     })
 }

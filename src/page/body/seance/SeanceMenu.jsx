@@ -50,13 +50,14 @@ const SeanceMenu = () => {
                     }}><LocationOnIcon/><span>Зал
                         №{seance.hall_full_name}</span></Box>
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Button variant='contained' color='primary' onClick={() => {
-                        dispatch(openModal({
-                            type: 'seance_cancellation', props: {uid_seance: seance.uid}
-                        }))
-                    }}>Отменить сеанс</Button>
-                </Box>
+                {!seance.canceled && !seance.closed ?
+                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Button variant='contained' color='primary' onClick={() => {
+                            dispatch(openModal({
+                                type: 'seance_cancellation', props: {uid_seance: seance.uid}
+                            }))
+                        }}>Отменить сеанс</Button>
+                    </Box> : null}
             </Box>
         </Box>
     )

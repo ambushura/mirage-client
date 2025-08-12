@@ -95,7 +95,11 @@ const PageSeance = () => {
                     <Box id='content-box'>
                         <Box id='content-wrap'>
                             <Box id='content'>
-                                <Box id='seance' style={{display: checkout ? 'none' : 'flex', alignItems: 'flex-start', height: '100%'}}>
+                                <Box id='seance' sx={{
+                                    display: checkout ? 'none' : 'flex',
+                                    alignItems: 'flex-start',
+                                    height: '100%',
+                                }}>
                                     {uid_user === null ?
                                         <Box id='seance-title' ref={refTitle}>
                                             <Box className='order-panel'>
@@ -151,7 +155,20 @@ const PageSeance = () => {
                                             </Box>
                                         </Box>
                                         : <></>}
-                                    <Box style={{display: 'flex', flex: 1, height: 'inherit'}}>
+                                    <Box
+                                        className={seance.canceled ? 'seance-canceled' : seance.closed ? 'seance-closed' : null}
+                                        sx={{
+                                            width: '100%',
+                                            position: 'relative',
+                                            flex: 1,
+                                            height: 'inherit',
+                                            '--seance-state': seance.canceled
+                                                ? '"Сеанс отменен"'
+                                                : seance.closed
+                                                    ? '"Сеанс закрыт"'
+                                                    : '""'
+                                        }}
+                                    >
                                         <Hall
                                             city={city}
                                             filial={filial}
