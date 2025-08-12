@@ -43,21 +43,24 @@ const PageEquipment = () => {
     )
 
     return <Box style={{width: '100vw', height: '100vh'}}>
-        <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            fitView
-            attributionPosition="top-right"
-            nodeTypes={nodeTypes}
-            minZoom={0.4}
-            maxZoom={2}>
-            <Controls/>
-            <MiniMap/>
-            <Background/>
-        </ReactFlow>
+        {payment_map !== null ?
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                fitView
+                attributionPosition="top-right"
+                nodeTypes={nodeTypes}
+                minZoom={0.4}
+                maxZoom={2}>
+                <Controls/>
+                <MiniMap/>
+                <Background/>
+            </ReactFlow>
+            : null
+        }
     </Box>
 }
 

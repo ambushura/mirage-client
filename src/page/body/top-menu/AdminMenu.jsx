@@ -61,10 +61,11 @@ export function AdminHallsList() {
 
     if (current_page !== 'admin/halls') return null
 
-    return <Box sx={{marginRight: '5px'}}>
-        <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
+    return <Box sx={{marginRight: '5px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <FormControl variant='filled' sx={{minWidth: '200px'}}>
             <InputLabel id="halls-select-label">Текущий зал</InputLabel>
             <Select
+                sx={{marginRight: '5px'}}
                 onChange={(event) => {
                     dispatch(setUidHall(event.target.value))
                 }}
