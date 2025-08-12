@@ -7,13 +7,21 @@ import {
     TextField, Typography
 } from "@mui/material"
 import {useEffect, useState} from "react"
-import {useSelector} from "react-redux";
-import {useFetching} from "../../../../../hooks/common/useFetching.js";
-import {ROUTE_COMMON_CATALOG_GET} from "../../../../../service/fetch_routes.js";
+import {useDispatch, useSelector} from "react-redux"
+import {useFetching} from "../../../../../hooks/common/useFetching.js"
+import {
+    ROUTE_COMMON_CATALOG_GET,
+    ROUTE_EQUIPMENT_KKT_OPEN_BOX, ROUTE_EQUIPMENT_KKT_REBOOT,
+    ROUTE_EQUIPMENT_KKT_X, ROUTE_EQUIPMENT_KKT_Z
+} from "../../../../../service/fetch_routes.js"
+import {equipment_action} from "../../../../../service/fetch_service.js"
 
 export default function KKTForm({props}) {
 
+    const dispatch = useDispatch()
+
     const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
     const param_date = useSelector(state => state.interface.params.param_date)
 
     const [values, set_values] = useState({
@@ -75,16 +83,29 @@ export default function KKTForm({props}) {
         }
     }, [fetch_data])
 
-    const fast_commands = [
-        {id: 0, name: 'Суточный отчет'},
-        {id: 1, name: 'Х-отчет'},
-        {id: 2, name: 'Отчет о закрытии смены'},
-        {id: 3, name: 'Открыть денежный ящик'},
-        {id: 4, name: 'Тест связи с ККТ'},
-        {id: 5, name: 'Тест связи с ОФД'},
-        {id: 6, name: 'Синхронизировать время с сервером'},
-        {id: 7, name: 'Перезагрузка'},
-    ]
+    const [fast_commands, set_fast_commands] = useState([
+        {id: 0, name: 'Суточный отчет', route: '', param: {}},
+        {id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {}},
+        {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {}},
+        {id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {}},
+        {id: 4, name: 'Тест связи с ККТ', route: '', param: {}},
+        {id: 5, name: 'Тест связи с ОФД', route: '', param: {}},
+        {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}},
+        {id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {}},
+    ])
+
+    useEffect(() => {
+        set_fast_commands([
+            {id: 0, name: 'Суточный отчет', route: '', param: {}},
+            {id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: values.uid}},
+            {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: values.uid}},
+            {id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: values.uid}},
+            {id: 4, name: 'Тест связи с ККТ', route: '', param: {}},
+            {id: 5, name: 'Тест связи с ОФД', route: '', param: {}},
+            {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}},
+            {id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: values.uid}},
+        ])
+    }, [values])
 
     const chapter_list = [
         {id: 0, name: 'Информация о ККТ'},
@@ -146,7 +167,8 @@ export default function KKTForm({props}) {
                                 justifyContent: 'space-between'
                             }}>
                                 <TextField value={values.ip} variant='filled' sx={{flex: 3}} label='IP'/>
-                                <TextField value={values.port} variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>
+                                <TextField value={values.port} variant='filled' sx={{flex: 1, marginLeft: 1}}
+                                           label='PORT'/>
                             </Box>
                             <TextField value={values.mac} variant='filled' label='MAC' sx={{marginBottom: 1}}/>
                             <FormGroup sx={{marginBottom: 1, display: 'flex', flexDirection: 'row', width: 'inherit'}}>
@@ -253,7 +275,13 @@ export default function KKTForm({props}) {
                     <ButtonGroup size='small' sx={{height: 'fit-content', width: '100%', marginBottom: 1}}
                                  variant='outlined'
                                  color='secondary' orientation='vertical'>
-                        {fast_commands.map(el => <Button key={el.id}>{el.name}</Button>)}
+                        {fast_commands.map(el => {
+                            return (
+                                <Button key={el.id} onClick={() => {
+                                    dispatch(equipment_action(filial, wp, el.route, el.param))
+                                }}>{el.name}</Button>
+                            )
+                        })}
                     </ButtonGroup>
                 </Box>
             </Box>

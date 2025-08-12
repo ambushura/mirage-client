@@ -25,6 +25,7 @@ export const ROUTE_EQUIPMENT_PINPAD_Z = "/api/equipment/pinpad/z"
 export const ROUTE_EQUIPMENT_WORKPLACE_RESET = "/api/equipment/workplace/reset"
 export const ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF = "/api/equipment/workplace/turn_off"
 export const ROUTE_EQUIPMENT_WORKPLACE_TURN_ON = "/api/equipment/workplace/turn_on"
+export const ROUTE_EQUIPMENT_KKT_REBOOT = "/api/equipment/kkt/reboot"
 
 // === МАРКИРОВКА ===
 export const ROUTE_MARKIROVKA_CDN_INFO_GET = "/api/markirovka/cdn/info/get"

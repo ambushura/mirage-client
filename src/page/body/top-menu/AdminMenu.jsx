@@ -61,7 +61,7 @@ export function AdminHallsList() {
 
     if (current_page !== 'admin/halls') return null
 
-    return <>
+    return <Box sx={{marginRight: '5px'}}>
         <FormControl variant='filled' sx={{m: 1, minWidth: '200px'}}>
             <InputLabel id="halls-select-label">Текущий зал</InputLabel>
             <Select
@@ -86,7 +86,7 @@ export function AdminHallsList() {
                 dispatch(setMode('view'))
             }}>Режим редактирования</Button>
         </ButtonGroup>
-    </>
+    </Box>
 }
 
 export function ShowFastSearch() {
@@ -103,7 +103,7 @@ export function ShowFastSearch() {
             justifyContent: "flex-end",
             alignItems: 'center',
             padding: '2px 0',
-            marginLeft: '5px'
+            marginRight: '5px'
         }}>
             <TextField label='Идентификатор' sx={{minWidth: '400px'}} variant='filled' color="textSecondary"
                        multiline value={uid} onChange={(event) => {
@@ -140,8 +140,8 @@ export function ShowFilters() {
 
     if (current_page === 'admin/orders/horeca') {
         return (
-            <ButtonGroup>
-                <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
+            <ButtonGroup sx={{marginRight: '5px'}}>
+                <Button variant='contained' color='secondary'
                         onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
                         startIcon={<FilterAltIcon/>}>Фильтры</Button>
                 {horeca_staff_selected.length > 0 ||
@@ -162,8 +162,8 @@ export function ShowFilters() {
         )
     } else if (current_page === 'admin/orders/cinema') {
         return (
-            <ButtonGroup>
-                <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
+            <ButtonGroup sx={{marginRight: '5px'}}>
+                <Button variant='contained' color='secondary'
                         onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
                         startIcon={<FilterAltIcon/>}>Фильтры</Button>
                 {cinema_staff_selected.length > 0 ||
@@ -197,7 +197,7 @@ export function EGAISMenu() {
 
     return (
         <Fade in={current_page === 'admin/egais'} timeout={TIMEOUT} unmountOnExit>
-            <Box>
+            <Box sx={{marginRight: '5px'}}>
                 <Button variant='contained' color='secondary'>Контрагенты</Button>
                 <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Алкогольная продукция</Button>
                 <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Входящие ТТН</Button>
@@ -216,7 +216,7 @@ export function CinemaType() {
 
     return (
         <Fade in={current_page === 'admin/orders/cinema'} timeout={TIMEOUT} unmountOnExit>
-            <ButtonGroup sx={{marginLeft: '4px'}} size='medium' variant='contained' color='secondary'>
+            <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
                 <Button variant='contained'><LaptopIcon/></Button>
                 <Button variant='contained'><DockIcon/></Button>
                 <Button variant='contained'><LanguageIcon/></Button>
@@ -256,11 +256,12 @@ export function DateParamAdmin() {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
-    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment'].includes(current_page)
+    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks'].includes(current_page)
     if (!isPageMatch) return null
 
     return <>
-        <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'>
+        <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'
+                     sx={{marginRight: '5px'}}>
             <Button onClick={async () => {
                 const now = new Date()
                 const date = date_dayjs(
@@ -331,7 +332,7 @@ export function CreateDeleteButtons() {
     if (!isVisible) return null
 
     return <Fade in={isVisible} timeout={TIMEOUT} unmountOnExit>
-        <ButtonGroup sx={{marginRight: '4px'}} size='medium' variant='contained' color='secondary'>
+        <ButtonGroup size='medium' variant='contained' color='secondary'>
             <Button variant='contained' startIcon={<AddIcon/>}>Создать</Button>
             <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
         </ButtonGroup>
@@ -359,7 +360,7 @@ export function Equipment() {
     }
 
     return <>
-        <Button sx={{marginLeft: '5px'}} startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
+        <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
             Добавить устройство
         </Button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
@@ -376,8 +377,8 @@ export function Equipment() {
 export default function AdminMenu() {
     return (
         <Box className='admin-panel'>
-            <CreateDeleteButtons/>
             <DateParamAdmin/>
+            <CreateDeleteButtons/>
             <CinemaType/>
             <ShowFilters/>
             <ShowFastSearch/>
