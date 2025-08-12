@@ -9,7 +9,7 @@ export function KitchenPointNode({data}) {
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_kitchen_point', props: {uid_kkt: data.uid, label: data.label}}))
+        dispatch(openModal({type: 'equipment_kitchen_point', props: {uid: data.uid, label: data.label}}))
     }}>
         <Handle
             type="target"

@@ -7,12 +7,73 @@ import {
     TextField, Typography
 } from "@mui/material"
 import {useEffect, useState} from "react"
+import {useSelector} from "react-redux";
+import {useFetching} from "../../../../../hooks/common/useFetching.js";
+import {ROUTE_COMMON_CATALOG_GET} from "../../../../../service/fetch_routes.js";
 
 export default function KKTForm({props}) {
 
-    useEffect(() => {
+    const filial = useSelector(state => state.data.filial)
+    const param_date = useSelector(state => state.interface.params.param_date)
 
-    }, [])
+    const [values, set_values] = useState({
+        uid: '',
+        uid_filial: '',
+        name: '',
+        type_to_kino: false,
+        type_pushkarta: false,
+        type_mirage: false,
+        type_rent: false,
+        type_horeca: false,
+        date_change: '',
+        date_create: '',
+        fn: '',
+        rn: '',
+        ip: '',
+        port: '',
+        location: '',
+        mac: '',
+        name_department: '',
+        name_store: '',
+        number: '',
+        uid_channel: '',
+        uid_department: '',
+        uid_organization: '',
+        uid_store: '',
+        uid_wallet: '',
+        ver: '',
+    })
+    const [showPassword, set_show_password] = useState(false)
+    const [errors, set_errors] = useState({})
+
+    const [fetch_data, fetch_errors, fetch_loading] = useFetching(
+        {
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CATALOG_GET}`,
+            uid_filial: filial.uid,
+            params: {
+                type: 'kkt',
+                uid: props.uid,
+                date_shift: param_date,
+            }
+        }
+    )
+
+    useEffect(() => {
+        if (fetch_data !== null) {
+            set_values({
+                uid: fetch_data.uid,
+                name: fetch_data.name,
+                type_to_kino: fetch_data.type_to_kino,
+                type_pushkarta: fetch_data.type_pushkarta,
+                type_mirage: fetch_data.type_mirage,
+                type_rent: fetch_data.type_rent,
+                type_horeca: fetch_data.type_horeca,
+                mac: fetch_data.mac,
+                ip: fetch_data.ip,
+                port: fetch_data.port,
+            })
+        }
+    }, [fetch_data])
 
     const fast_commands = [
         {id: 0, name: 'Суточный отчет'},
@@ -84,16 +145,18 @@ export default function KKTForm({props}) {
                                 display: 'flex',
                                 justifyContent: 'space-between'
                             }}>
-                                <TextField variant='filled' sx={{flex: 3}} label='IP'/>
-                                <TextField variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>
+                                <TextField value={values.ip} variant='filled' sx={{flex: 3}} label='IP'/>
+                                <TextField value={values.port} variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>
                             </Box>
-                            <TextField variant='filled' label='MAC' sx={{marginBottom: 1}}/>
+                            <TextField value={values.mac} variant='filled' label='MAC' sx={{marginBottom: 1}}/>
                             <FormGroup sx={{marginBottom: 1, display: 'flex', flexDirection: 'row', width: 'inherit'}}>
-                                <FormControlLabel control={<Switch/>} label="То кино!"/>
-                                <FormControlLabel control={<Switch/>} label="Общепит"/>
-                                <FormControlLabel control={<Switch/>} label="Мираж Синема"/>
-                                <FormControlLabel control={<Switch/>} label="Пушкинская карта"/>
-                                <FormControlLabel control={<Switch/>} label="Аренда"/>
+                                <FormControlLabel checked={values.type_to_kino} control={<Switch/>} label="То кино!"/>
+                                <FormControlLabel checked={values.type_horeca} control={<Switch/>} label="Общепит"/>
+                                <FormControlLabel checked={values.type_mirage} control={<Switch/>}
+                                                  label="Мираж Синема"/>
+                                <FormControlLabel checked={values.type_pushkarta} control={<Switch/>}
+                                                  label="Пушкинская карта"/>
+                                <FormControlLabel checked={values.type_rent} control={<Switch/>} label="Аренда"/>
                             </FormGroup>
                             <TextField variant='filled' label='Организация' sx={{marginBottom: 1}}/>
                         </FormGroup>
@@ -174,9 +237,9 @@ export default function KKTForm({props}) {
                                         value={report_value}
                                         label="Группа скидок"
                                         variant='filled'>
-                                        {report_list.map(discount_group => <MenuItem sx={{color: 'black'}}
-                                                                                     key={discount_group.id}
-                                                                                     value={discount_group.id}>{discount_group.name}</MenuItem>)}
+                                        {report_list.map(option => <MenuItem sx={{color: 'black'}}
+                                                                             key={option.id}
+                                                                             value={option.id}>{option.name}</MenuItem>)}
                                     </Select>
                                 </FormControl>
                                 <Button fullWidth variant='contained' color='secondary'

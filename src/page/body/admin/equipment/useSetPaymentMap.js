@@ -16,7 +16,9 @@ export function useSetPaymentMap() {
             set_url_payment_map({
                     url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_MAP_GET}`,
                     uid_filial: filial.uid,
-                    date_shift: param_date,
+                    params: {
+                        date_shift: param_date,
+                    }
                 }
             )
         } else {

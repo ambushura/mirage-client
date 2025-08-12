@@ -56,7 +56,7 @@ export function BilletCheckForm({props}) {
             noValidate
             autoComplete="off"
         >
-            <Typography variant="h6" color="textSecondary" margin={1}>
+            <Typography variant="h6" color="textSecondary">
                 Билетный контролер <strong>{values.name}</strong>
             </Typography>
 
@@ -66,7 +66,7 @@ export function BilletCheckForm({props}) {
                 label="Наименование"
                 value={values.name}
                 onChange={handleChange('name')}
-                margin="normal"
+                margin="dense"
                 error={!!errors.name}
                 helperText={errors.name}
                 autoFocus
@@ -80,7 +80,7 @@ export function BilletCheckForm({props}) {
                 type={showPassword ? 'text' : 'password'}
                 value={values.password}
                 onChange={handleChange('password')}
-                margin="normal"
+                margin="dense"
                 error={!!errors.password}
                 helperText={errors.password}
                 inputProps={{"aria-label": "password"}}
@@ -113,6 +113,7 @@ export function BilletCheckForm({props}) {
                     )
                 })}
             </Box>
+
         </Box>
 
     } else {

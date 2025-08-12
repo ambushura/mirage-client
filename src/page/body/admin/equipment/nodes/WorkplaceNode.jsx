@@ -9,7 +9,7 @@ export const WorkplaceNode = ({data}) => {
     const dispatch = useDispatch()
 
     return <Box className='equipment-box' onClick={() => {
-        dispatch(openModal({type: 'equipment_workplace', props: {uid_workplace: data.uid, label: data.label}}))
+        dispatch(openModal({type: 'equipment_workplace', props: {uid: data.uid, label: data.label}}))
     }}>
         <Handle
             type="target"
