@@ -1,137 +1,128 @@
-import {Box} from "@mui/material"
+import {Box, Typography} from "@mui/material"
 import {DataGrid} from "@mui/x-data-grid"
-import {ruRU} from "@mui/x-data-grid/locales"
-import {useState} from "react"
+import {useSetOperations} from "./useSetOperations.js"
+import Loader from "../../../../ui/Loader.jsx";
 
 const Operations = () => {
 
-    const columns = [
-        {
-            field: 'operation_date',
-            headerName: 'Дата операции',
-            type: 'dateTime',
-            flex: 1,
-            valueGetter: ({value}) => value && new Date(value)
-        },
-        {
-            field: 'shift_date',
-            headerName: 'Дата смены',
-            type: 'dateTime',
-            flex: 1,
-            valueGetter: ({value}) => value && new Date(value)
-        },
-        {field: 'cash_income', headerName: 'Касса (приход)', flex: 1},
-        {field: 'kkt_income', headerName: 'ККТ (приход)', flex: 1},
-        {
-            field: 'amount_income',
-            headerName: 'Сумма (приход)',
-            type: 'number',
-            flex: 1,
-            valueFormatter: ({value}) => value?.toFixed(2)
-        },
-        {
-            field: 'total_income',
-            headerName: 'Итог',
-            type: 'number',
-            flex: 1,
-            valueFormatter: ({value}) => value?.toFixed(2)
-        },
-        {field: 'cash_expense', headerName: 'Касса (расход)', flex: 1},
-        {field: 'kkt_expense', headerName: 'ККТ (расход)', flex: 1},
-        {
-            field: 'amount_expense',
-            headerName: 'Сумма (расход)',
-            type: 'number',
-            flex: 1,
-            valueFormatter: ({value}) => value?.toFixed(2)
-        },
-        {
-            field: 'total_expense',
-            headerName: 'Итог',
-            type: 'number',
-            flex: 1,
-            valueFormatter: ({value}) => value?.toFixed(2)
-        },
-        {field: 'comment', headerName: 'Комментарий', flex: 2}
-    ]
+    const [fetch_data_operations, fetch_errors_operations, fetch_loading_operations] = useSetOperations()
 
-    const rows = [
-        {
-            id: 1,
-            operation_date: '2025-05-20T10:30:00Z',
-            shift_date: '2025-05-20T00:00:00Z',
-            kkt_income: 'ККТ-1',
-            kkt_expense: 'ККТ-2',
-            cash_income: 'Касса-1',
-            cash_expense: 'Касса-2',
-            amount_income: 1500.5,
-            amount_expense: 500.75,
-            total_income: 10000.5,
-            total_expense: 2000.75,
-            comment: 'Комментарий к операции'
-        },
-        {
-            id: 2,
-            operation_date: '2025-05-20T10:30:00Z',
-            shift_date: '2025-05-20T00:00:00Z',
-            kkt_income: 'ККТ-1',
-            kkt_expense: 'ККТ-2',
-            cash_income: 'Касса-1',
-            cash_expense: 'Касса-2',
-            amount_income: 1500.5,
-            amount_expense: 500.75,
-            total_income: 10000.5,
-            total_expense: 2000.75,
-            comment: 'Комментарий к операции'
-        },
-        {
-            id: 3,
-            operation_date: '2025-05-20T10:30:00Z',
-            shift_date: '2025-05-20T00:00:00Z',
-            kkt_income: 'ККТ-1',
-            kkt_expense: 'ККТ-2',
-            cash_income: 'Касса-1',
-            cash_expense: 'Касса-2',
-            amount_income: 1500.5,
-            amount_expense: 500.75,
-            total_income: 10000.5,
-            total_expense: 2000.75,
-            comment: 'Комментарий к операции'
-        },
-        {
-            id: 4,
-            operation_date: '2025-05-20T10:30:00Z',
-            shift_date: '2025-05-20T00:00:00Z',
-            kkt_income: 'ККТ-1',
-            kkt_expense: 'ККТ-2',
-            cash_income: 'Касса-1',
-            cash_expense: 'Касса-2',
-            amount_income: 1500.5,
-            amount_expense: 500.75,
-            total_income: 10000.5,
-            total_expense: 2000.75,
-            comment: 'Комментарий к операции'
-        }
-    ]
+    // const columns = [
+    //     {field: 'date', headerName: 'Дата', width: 80},
+    //     {field: 'kino_sum', headerName: 'Сумма', width: 120},
+    //     {field: 'kino_comment', headerName: 'Комментарий', width: 200},
+    //     {field: 'tokino_sum', headerName: 'Сумма', width: 120},
+    //     {field: 'tokino_comment', headerName: 'Комментарий', width: 200},
+    //     {field: 'horeca_sum', headerName: 'Сумма', width: 120},
+    //     {field: 'horeca_comment', headerName: 'Комментарий', width: 200},
+    //     {field: 'hoz_sum', headerName: 'Сумма', width: 120},
+    //     {field: 'hoz_comment', headerName: 'Комментарий', width: 200},
+    // ]
+    //
+    // const rows = [
+    //     {
+    //         id: 'total-01.01.2025',
+    //         isTotalRow: true,
+    //         date: '01.01.2025',
+    //         kino_sum: 'Остаток: 500',
+    //         tokino_sum: 'Остаток: 0',
+    //         horeca_sum: 'Остаток: 0',
+    //         hoz_sum: 'Остаток: 0'
+    //     },
+    //     {id: 1, date: '01.01.2025', kino_sum: '+500', kino_comment: '', tokino_sum: '', horeca_sum: '', hoz_sum: ''},
+    //     {
+    //         id: 2,
+    //         date: '01.01.2025',
+    //         kino_sum: '-100',
+    //         kino_comment: 'Закупка',
+    //         tokino_sum: '',
+    //         horeca_sum: '',
+    //         hoz_sum: ''
+    //     },
+    //     {
+    //         id: 3,
+    //         date: '01.01.2025',
+    //         kino_sum: '',
+    //         kino_comment: '',
+    //         tokino_sum: '',
+    //         horeca_sum: '',
+    //         hoz_sum: '+100',
+    //         hoz_comment: 'Мелочь'
+    //     },
+    //
+    //     {
+    //         id: 'total-02.01.2025',
+    //         isTotalRow: true,
+    //         date: '02.01.2025',
+    //         kino_sum: 'Остаток: 400',
+    //         tokino_sum: 'Остаток: 1000',
+    //         horeca_sum: 'Остаток: 1000',
+    //         hoz_sum: 'Остаток: 100'
+    //     },
+    //     {
+    //         id: 4,
+    //         date: '02.01.2025',
+    //         kino_sum: '',
+    //         tokino_sum: '',
+    //         horeca_sum: '+1000',
+    //         horeca_comment: 'Выручка',
+    //         hoz_sum: ''
+    //     },
+    //     {id: 5, date: '02.01.2025', kino_sum: '', tokino_sum: '+1000', horeca_sum: '', hoz_sum: ''},
+    // ]
 
-    const [selectedRows, setSelectedRows] = useState([])
 
-    return (
-        <Box sx={{height: '100%', width: '100%'}}>
-            <DataGrid
-                checkboxSelection
-                rows={rows}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10, 25, 50]}
-                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                onRowSelectionModelChange={(newSelection) => {
-                    setSelectedRows(newSelection)
-                }}
-                rowSelectionModel={selectedRows}
-            />
-        </Box>
-    )
+    if (fetch_data_operations !== null) {
+        return (
+            <>
+                <Box sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '80px repeat(4, 420px)',
+                    borderBottom: '1px solid #ccc'
+                }}><Box/>
+                    {fetch_data_operations.wallets.map((wallet) => {
+                        return (
+                            <Box key={wallet} sx={{
+                                textAlign: 'center',
+                                borderLeft: '1px solid #ccc',
+                                borderRight: '1px solid #ccc'
+                            }}>
+                                <Typography variant="subtitle2">{wallet}</Typography>
+                            </Box>
+                        )
+                    })}
+                </Box>
+
+                <DataGrid
+                    rows={fetch_data_operations.rows}
+                    columns={fetch_data_operations.columns}
+                    hideFooter
+                    rowHeight={24} // высота строки
+                    headerHeight={28} // высота заголовка
+                    getRowClassName={(params) =>
+                        params.row.isTotalRow ? 'total-row' : ''
+                    }
+                    sx={{
+                        '& .total-row': {
+                            backgroundColor: '#f0f0f0',
+                            fontWeight: 'bold',
+                        },
+                        '& .MuiDataGrid-cell': {
+                            padding: '0 4px', // меньше отступов
+                            fontSize: '0.8rem', // уменьшенный шрифт
+                        },
+                        '& .MuiDataGrid-columnHeaderTitle': {
+                            fontSize: '0.8rem',
+                        },
+                    }}
+                />
+            </>
+        )
+    } else {
+        return (
+            <Loader/>
+        )
+    }
 }
 
 export default Operations

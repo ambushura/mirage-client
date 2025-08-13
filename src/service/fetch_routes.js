@@ -113,3 +113,4 @@ export const ROUTE_PL_ESTIMATE_DISCOUNTS = "/api/pl/estimate_discounts"
 
 // Документы
 export const ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET = "/api/common/documents/zbooks/get"
+export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET = "/api/common/documents/operations/get"

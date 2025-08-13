@@ -257,7 +257,7 @@ export function DateParamAdmin() {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
-    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks'].includes(current_page)
+    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/operations'].includes(current_page)
     if (!isPageMatch) return null
 
     return <>
