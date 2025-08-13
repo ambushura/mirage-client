@@ -8,6 +8,7 @@ import authSlice from "./authReducer.js"
 import notifierReducer from "./notifierReducer.js"
 import wsReducer from "./wsReducer.js"
 import markirovkaReducer from "./markirovkaReducer.js"
+import documentsReducer from "./documentsReducer.js"
 
 export const store = configureStore({
     reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
         notifier: notifierReducer,
         webSocket: wsReducer,
         markirovka: markirovkaReducer,
+        documents: documentsReducer,
     },
 })
 

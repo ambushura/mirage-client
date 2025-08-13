@@ -44,9 +44,19 @@ export function useFetchingArray(urls) {
                             error: null,
                             params: url.params
                         }
-                    } catch (err) {
+                    } catch (e) {
+                        let message
+                        if (e.code === 'ERR_NETWORK') {
+                            message = 'Сервер не отвечает'
+                        } else if (e.code === 'ECONNABORTED') {
+                            message = 'Превышено время ожидания ответа от сервера'
+                        } else if (e.response?.data) {
+                            message = e.response.data
+                        } else {
+                            message = e.message
+                        }
                         dispatch(addNotification({
-                            message: err?.response?.data || err.message,
+                            message,
                             severity: 'error',
                             autoHide: true
                         }))
@@ -55,7 +65,7 @@ export function useFetchingArray(urls) {
                             data: null,
                             filial: url.filial,
                             loading: false,
-                            error: err.message,
+                            error: e.message,
                             params: url.params
                         }
                     }

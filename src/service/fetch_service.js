@@ -22,18 +22,12 @@ import {
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_POSITION_DELETE_COMMENT, ROUTE_CINEMA_SEANCE_CLOSE,
-    ROUTE_CINEMA_SEANCE_GET_BOOKING,
+    ROUTE_CINEMA_SEANCE_GET_BOOKING, ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET,
     ROUTE_COMMON_LOGIN,
     ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_COMMON_ORDER_PAYMENT,
     ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
-    ROUTE_EQUIPMENT_KKT_OPEN_BOX,
-    ROUTE_EQUIPMENT_KKT_X,
-    ROUTE_EQUIPMENT_KKT_Z,
-    ROUTE_EQUIPMENT_PINPAD_X,
-    ROUTE_EQUIPMENT_PINPAD_Z,
-    ROUTE_EQUIPMENT_WORKPLACE_RESET, ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF, ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_DELETE,
@@ -55,6 +49,7 @@ import {
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
+import {setZBooks} from "../redux/documentsReducer.js";
 
 export const TIMEOUT = 10000
 
@@ -71,8 +66,20 @@ const makeRequest = async (dispatch, config, onSuccess) => {
         })
         if (onSuccess) onSuccess(res.data)
     } catch (e) {
+        let message
+        if (e.code === 'ERR_NETWORK') {
+            message = 'Сервер не отвечает'
+        } else if (e.code === 'ECONNABORTED') {
+            message = 'Превышено время ожидания ответа от сервера'
+        } else if (e.response?.data) {
+            message = e.response.data
+        } else {
+            message = e.message
+        }
         dispatch(addNotification({
-            message: e?.response?.data || e.message, severity: 'error', autoHide: true
+            message,
+            severity: 'error',
+            autoHide: true
         }))
     }
 }

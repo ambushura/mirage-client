@@ -30,14 +30,24 @@ export function useFetching(url) {
                     params: url.params
                 })
                 if (isMounted) set_data(response.data)
-            } catch (err) {
+            } catch (e) {
                 if (isMounted) {
+                    let message
+                    if (e.code === 'ERR_NETWORK') {
+                        message = 'Сервер не отвечает'
+                    } else if (e.code === 'ECONNABORTED') {
+                        message = 'Превышено время ожидания ответа от сервера'
+                    } else if (e.response?.data) {
+                        message = e.response.data
+                    } else {
+                        message = e.message
+                    }
                     dispatch(addNotification({
-                        message: err?.response?.data || err.message,
+                        message,
                         severity: 'error',
                         autoHide: true
                     }))
-                    set_error(err.message)
+                    set_error(e.message)
                 }
             } finally {
                 if (isMounted) set_loading(false)
