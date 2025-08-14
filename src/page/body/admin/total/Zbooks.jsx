@@ -68,17 +68,32 @@ const Zbooks = () => {
     }, [fetch_data_zbooks])
 
     return (
-        <Box sx={{height: '100%', width: '100%'}}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={20}
-                rowsPerPageOptions={[10, 25, 50]}
-                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                columnVisibilityModel={columnVisibility}
-                loading={fetch_loading_zbooks}
-            />
-        </Box>
+        <DataGrid
+            hideFooter
+            checkboxSelection
+            rows={rows}
+            columns={columns}
+            pageSize={20}
+            pageSizeOptions={[10, 25, 50]}
+            rowHeight={26}
+            headerHeight={28}
+            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+            columnVisibilityModel={columnVisibility}
+            loading={fetch_loading_zbooks}
+            sx={{
+                '& .total-row': {
+                    backgroundColor: '#f0f0f0',
+                    fontWeight: 'bold',
+                },
+                '& .MuiDataGrid-cell': {
+                    padding: '0 4px',
+                    fontSize: '0.9rem',
+                },
+                '& .MuiDataGrid-columnHeaderTitle': {
+                    fontSize: '0.9rem',
+                },
+            }}
+        />
     )
 }
 

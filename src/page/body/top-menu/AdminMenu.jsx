@@ -259,7 +259,7 @@ export function DateParamAdmin() {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
-    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/operations'].includes(current_page)
+    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks'].includes(current_page)
     if (!isPageMatch) return null
 
     return <>
@@ -341,7 +341,7 @@ export function CreateDeleteButtons() {
     if (!isVisible) return null
 
     return <Fade in={isVisible} timeout={TIMEOUT} unmountOnExit>
-        <ButtonGroup size='medium' variant='contained' color='secondary'>
+        <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
             <Button variant='contained' startIcon={<AddIcon/>}>Создать</Button>
             <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
         </ButtonGroup>
@@ -383,11 +383,27 @@ export function Equipment() {
 
 }
 
+export function ShowDateOperations() {
+
+    const current_page = useSelector(state => state.interface.current_page)
+    const {date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
+
+    if (current_page !== 'admin/operations') return null
+
+    return (
+        <ButtonGroup color='secondary' variant='contained'>
+            <Button>с {date_shift_beginning}</Button>
+            <Button>по {date_shift_ending}</Button>
+        </ButtonGroup>
+    )
+}
+
 export default function AdminMenu() {
     return (
         <Box className='admin-panel'>
             <DateParamAdmin/>
             <CreateDeleteButtons/>
+            <ShowDateOperations/>
             <CinemaType/>
             <ShowFilters/>
             <ShowFastSearch/>

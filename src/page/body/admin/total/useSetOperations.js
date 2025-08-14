@@ -8,7 +8,7 @@ import {
 export function useSetOperations() {
 
     const filial = useSelector(state => state.data.filial)
-    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const page = useSelector(state => state.documents.operations.page)
     const [url_operations, set_url_operations] = useState(undefined)
 
     const [fetch_data_operations, fetch_errors_operations, fetch_loading_operations] = useFetching(url_operations)
@@ -19,14 +19,14 @@ export function useSetOperations() {
                     url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET}`,
                     uid_filial: filial.uid,
                     params: {
-                        date_shift: param_date_admin,
+                        page: page,
                     }
                 }
             )
         } else {
             set_url_operations(undefined)
         }
-    }, [filial, param_date_admin])
+    }, [filial, page])
 
     return [fetch_data_operations, fetch_errors_operations, fetch_loading_operations]
 }

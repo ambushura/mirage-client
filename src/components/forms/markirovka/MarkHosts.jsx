@@ -71,11 +71,11 @@ const MarkHosts = () => {
             <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
                 <DataGrid
                     disableSelectionOnClick
-                    hideFooter
+                    hideFooterPagination
                     rows={cdn_rows}
                     columns={cdn_columns}
                     pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    pageSizeOptions={[5]}
                     sx={EMPTY_TABLE_STYLE}
                     localeText={ruRU.localeText}
                 />
