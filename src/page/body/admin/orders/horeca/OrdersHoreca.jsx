@@ -3,7 +3,6 @@ import {useSetOrdersHoreca} from "./useSetOrdersHoreca.js"
 import {useDispatch, useSelector} from "react-redux"
 import OrderHoreca from "./OrderHoreca.jsx"
 import {setOrdersHorecaPage} from "../../../../../redux/ordersReducer.js"
-import {useEffect} from "react"
 import {AnimatePresence, motion} from 'framer-motion'
 
 const OrdersHoreca = () => {
@@ -13,12 +12,7 @@ const OrdersHoreca = () => {
     useSetOrdersHoreca()
 
     const orders = useSelector(state => state.orders.orders_horeca || [])
-    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const page = useSelector(state => state.orders.orders_horeca_page)
-
-    useEffect(() => {
-        return () => dispatch(setOrdersHorecaPage(1))
-    }, [dispatch, param_date_admin])
 
     return (
         <Box className='admin-orders-horeca'>

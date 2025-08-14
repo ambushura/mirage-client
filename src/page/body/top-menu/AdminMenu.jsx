@@ -22,13 +22,13 @@ import {
     setOrdersCinemaFiltersSeancesSelect,
     setOrdersCinemaFiltersStaffSelect,
     setOrdersCinemaFiltersStateSelect,
-    setOrdersCinemaFiltersWorkplacesSelect,
+    setOrdersCinemaFiltersWorkplacesSelect, setOrdersCinemaPage,
     setOrdersHorecaFiltersHallsSelect,
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
     setOrdersHorecaFiltersStaffSelect,
     setOrdersHorecaFiltersStateSelect,
-    setOrdersHorecaFiltersWorkPlacesSelect
+    setOrdersHorecaFiltersWorkPlacesSelect, setOrdersHorecaPage
 } from "../../../redux/ordersReducer.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
@@ -247,6 +247,8 @@ export function DateParamAdmin() {
         await navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
         await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
         await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+        dispatch(setOrdersHorecaPage(1))
+        dispatch(setOrdersCinemaPage(1))
     }
 
     // Календарь
@@ -274,6 +276,8 @@ export function DateParamAdmin() {
                 await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(setOrdersHorecaPage(1))
+                dispatch(setOrdersCinemaPage(1))
             }}>
                 Сегодня
             </Button>
@@ -282,6 +286,8 @@ export function DateParamAdmin() {
                 await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(setOrdersHorecaPage(1))
+                dispatch(setOrdersCinemaPage(1))
             }}>
                 <KeyboardArrowLeftIcon/>
             </Button>
@@ -293,6 +299,8 @@ export function DateParamAdmin() {
                 await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(setOrdersHorecaPage(1))
+                dispatch(setOrdersCinemaPage(1))
             }}>
                 <KeyboardArrowRightIcon/>
             </Button>
