@@ -15,7 +15,7 @@ import {useNavigate} from "react-router-dom"
 import EqualizerIcon from "@mui/icons-material/Equalizer"
 import ChairIcon from "@mui/icons-material/Chair"
 import FastfoodIcon from '@mui/icons-material/Fastfood'
-import TerminalIcon from '@mui/icons-material/Terminal'
+import PaymentsIcon from '@mui/icons-material/Payments'
 import LiquorIcon from '@mui/icons-material/Liquor'
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
 import {WhiteMenuItem} from "./ThemeContext.jsx"
@@ -116,8 +116,10 @@ const List = (props) => {
                                                                                 <ConstructionIcon/> :
                                                                                 el.id === 'admin/egais' ?
                                                                                     <LiquorIcon/> :
-                                                                                    el.id === 'admin/staff' ?
-                                                                                        <ContactMailIcon/> : null}
+                                                                                    el.id === 'admin/acquiring' ?
+                                                                                        <PaymentsIcon/> :
+                                                                                        el.id === 'admin/staff' ?
+                                                                                            <ContactMailIcon/> : null}
                                                     </ListItemIcon>
                                                     <ListItemText>
                                                         {el.name}

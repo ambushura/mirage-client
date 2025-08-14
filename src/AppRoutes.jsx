@@ -52,6 +52,7 @@ const AppRoutes = ({current_page}) => {
         "admin/equipment": isAdmin ? <PageAdmin/> : null,
         "admin/egais": isAdmin ? <PageAdmin/> : null,
         "admin/staff": isAdmin ? <PageAdmin/> : null,
+        "admin/acquiring": isAdmin ? <PageAdmin/> : null,
     }
 
     return (
