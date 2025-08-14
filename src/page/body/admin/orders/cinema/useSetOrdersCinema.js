@@ -30,25 +30,7 @@ export function useSetOrdersCinema() {
 
     useEffect(() => {
         let urls_new = []
-        if (city !== undefined && filial === undefined && param_date_admin !== undefined) {
-            city.filials.forEach(current_filial => {
-                urls_new.push({
-                    filial: current_filial,
-                    url: `http://${current_filial.ip}:${current_filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
-                    params: {
-                        page: page,
-                        date_shift: param_date_admin,
-                        staff: staff_selected.map(({uid}) => uid),
-                        state: state_selected.map(({uid}) => uid),
-                        halls: halls_selected.map(({uid}) => uid),
-                        seances: seances_selected.map(({uid}) => uid),
-                        workplaces: workplaces_selected.map(({uid}) => uid),
-                        buyer_phone_number: buyer_phone_numbers_selected,
-                        buyer_emails: buyer_emails_selected
-                    }
-                })
-            })
-        } else if (city !== undefined && filial !== null && param_date_admin !== undefined) {
+        if (city !== undefined && filial !== undefined && param_date_admin !== undefined) {
             urls_new.push({
                 filial: filial,
                 url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`,

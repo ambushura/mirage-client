@@ -124,28 +124,28 @@ function App() {
 
                 <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/orders/cinema"/>}/>
+
                 <Route path="/admin/orders/horeca/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/orders/horeca"/>}/>
+
                 <Route path="/admin/zbooks/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/zbooks"/>}/>
-                <Route path="/admin/zbooks/:param_city/all/:param_date_admin/"
-                       element={<NotFound/>}/>
+
                 <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/operations"/>}/>
-                <Route path="/admin/operations/:param_city/all/:param_date_admin/"
-                       element={<NotFound/>}/>
+
                 <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/halls"/>}/>
+
                 <Route path="/admin/egais/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/egais"/>}/>
-                <Route path="/admin/egais/:param_city/all/:param_date_admin/"
-                       element={<NotFound/>}/>
+
                 <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/equipment"/>}/>
+
                 <Route path="/admin/staff/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/staff"/>}/>
-                <Route path="/admin/staff/:param_city/all/:param_date_admin/"
-                       element={<NotFound/>}/>
+
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>

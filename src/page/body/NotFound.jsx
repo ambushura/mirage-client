@@ -2,7 +2,7 @@ import {Box} from "@mui/material"
 
 const NotFound = () => {
     return (
-        <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '200%'}}>
+        <Box className='empty-box'>
             Упс... Такой страницы не найдено.
         </Box>
     )

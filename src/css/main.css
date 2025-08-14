@@ -2144,3 +2144,19 @@ body {
     text-align: center;
     position: relative;
 }
+
+
+/* ============================= */
+/*         ДОПОЛНИТЕЛЬНО         */
+/* ============================= */
+.empty-box {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 500%;
+    font-weight: bold;
+    text-align: center;
+    color: #8B919B;
+}

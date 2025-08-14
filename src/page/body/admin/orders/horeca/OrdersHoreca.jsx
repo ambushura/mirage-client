@@ -8,21 +8,30 @@ import {AnimatePresence, motion} from 'framer-motion'
 const OrdersHoreca = () => {
 
     const dispatch = useDispatch()
+    const filial = useSelector(state => state.data.filial)
 
     useSetOrdersHoreca()
 
-    const orders = useSelector(state => state.orders.orders_horeca || [])
+    const data = useSelector(state => state.orders.orders_horeca || [])
     const page = useSelector(state => state.orders.orders_horeca_page)
 
-    return (
-        <Box className='admin-orders-horeca'>
+    if (filial === undefined) {
+        return <Box className='empty-box'>
+            Выберите филиал...
+        </Box>
+    } else {
+        return <Box className='admin-orders-horeca'>
             <Box className='admin-orders-horeca-orders'>
                 <Box className='admin-orders-horeca-orders-content'>
-                    {orders.length > 0 ? orders.map(filial_data => {
+                    {data.length > 0 ? data.map(filial_data => {
                             if (filial_data.error == null && !filial_data.loading && filial_data.data !== null) {
-                                const pages = Math.ceil(filial_data.data.total_count / 20)
-                                return (
-                                    <Box className='admin-orders-horeca-filial-content' key={filial_data.filial.uid}>
+                                if (filial_data.data.orders.length === 0) {
+                                    return <Box key='zero' className='empty-box' sx={{height: '100%'}}>Нет заказов в эту
+                                        смену...</Box>
+                                } else {
+                                    const pages = Math.ceil(filial_data.data.total_count / 20)
+                                    return <Box className='admin-orders-horeca-filial-content'
+                                                key={filial_data.filial.uid}>
                                         <Box className='admin-orders-horeca-filial-box'>
                                             <AnimatePresence>
                                                 {filial_data.data.orders.length > 0 && (
@@ -60,14 +69,14 @@ const OrdersHoreca = () => {
                                                     : null}
                                         </Box>
                                     </Box>
-                                )
+                                }
                             }
                         })
                         : null}
                 </Box>
             </Box>
         </Box>
-    )
+    }
 }
 
 export default OrdersHoreca

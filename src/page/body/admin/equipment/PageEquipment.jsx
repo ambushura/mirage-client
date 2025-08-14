@@ -14,9 +14,11 @@ import {WorkplaceNode} from "./nodes/WorkplaceNode.jsx"
 import {Box} from "@mui/material"
 import {KitchenPointNode} from "./nodes/KitchenPointNode.jsx"
 import {BilletCheckNode} from "./nodes/BilletCheckNode.jsx"
+import {useSelector} from "react-redux"
 
 const PageEquipment = () => {
 
+    const filial = useSelector(state => state.data.filial)
     const payment_map = useSetPaymentMap()
     const [nodes, setNodes, onNodesChange] = useNodesState([])
     const [edges, setEdges, onEdgesChange] = useEdgesState([])
@@ -26,7 +28,7 @@ const PageEquipment = () => {
             setNodes(payment_map.nodes)
             setEdges(payment_map.edges)
         }
-    }, [payment_map])
+    }, [payment_map, setEdges, setNodes])
 
     const nodeTypes = {
         kkt: KKTNode,
@@ -39,29 +41,35 @@ const PageEquipment = () => {
 
     const onConnect = useCallback(
         (params) => setEdges(addEdge(params, edges)),
-        [edges],
+        [edges, setEdges],
     )
 
-    return <Box style={{width: '100vw', height: '100vh'}}>
-        {payment_map !== null ?
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                fitView
-                attributionPosition="top-right"
-                nodeTypes={nodeTypes}
-                minZoom={0.4}
-                maxZoom={2}>
-                <Controls/>
-                <MiniMap/>
-                <Background/>
-            </ReactFlow>
-            : null
-        }
-    </Box>
+    if (filial === undefined) {
+        return <Box className='empty-box'>
+            Выберите филиал...
+        </Box>
+    } else {
+        return <Box style={{width: '100vw', height: '100vh'}}>
+            {payment_map !== null ?
+                <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                    fitView
+                    attributionPosition="top-right"
+                    nodeTypes={nodeTypes}
+                    minZoom={0.4}
+                    maxZoom={2}>
+                    <Controls/>
+                    <MiniMap/>
+                    <Background/>
+                </ReactFlow>
+                : null
+            }
+        </Box>
+    }
 }
 
 export default PageEquipment

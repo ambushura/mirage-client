@@ -3,6 +3,7 @@ import Hall from "../../../../components/halls/Hall.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {setHall} from "../../../../redux/hallsReducer.js"
+import {Box} from "@mui/material"
 
 const PageHalls = () => {
 
@@ -21,17 +22,26 @@ const PageHalls = () => {
         dispatch(setHall(hallN))
     }, [dispatch, hallN])
 
-    if (hall === null) return null
-    return <Hall
-        uid_hall={hall.uid}
-        city={city}
-        filial={filial}
-        pre_order={null}
-        hall={hall}
-        seance={null}
-        width={app_width}
-        booking={[]}
-    />
+    if (filial === undefined) {
+        return <Box className='empty-box'>
+            Выберите филиал...
+        </Box>
+    } else if (hall === null) {
+        return <Box className='empty-box'>
+            Выберите зал...
+        </Box>
+    } else {
+        return <Hall
+            uid_hall={hall.uid}
+            city={city}
+            filial={filial}
+            pre_order={null}
+            hall={hall}
+            seance={null}
+            width={app_width}
+            booking={[]}
+        />
+    }
 }
 
 export default PageHalls

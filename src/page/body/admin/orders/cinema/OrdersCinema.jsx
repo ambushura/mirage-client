@@ -9,20 +9,29 @@ const OrdersCinema = () => {
 
     const dispatch = useDispatch()
 
+    const filial = useSelector(state => state.data.filial)
+
     useSetOrdersCinema()
 
-    const orders = useSelector(state => state.orders.orders_cinema || [])
+    const data = useSelector(state => state.orders.orders_cinema || [])
     const page = useSelector(state => state.orders.orders_cinema_page)
 
-    return (
-        <Box className='admin-orders-cinema'>
+    if (filial === undefined) {
+        return <Box className='empty-box'>
+            Выберите филиал...
+        </Box>
+    } else {
+        return <Box className='admin-orders-cinema'>
             <Box className='admin-orders-cinema-orders'>
                 <Box className='admin-orders-cinema-orders-content'>
-                    {orders.length > 0 ? orders.map(filial_data => {
+                    {data.length > 0 ? data.map(filial_data => {
                             if (filial_data.error == null && !filial_data.loading && filial_data.data !== null) {
-                                const pages = Math.ceil(filial_data.data.total_count / 20)
-                                return (
-                                    <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>
+                                if (filial_data.data.orders.length === 0) {
+                                    return <Box key='zero' className='empty-box' sx={{height: '100%'}}>Нет заказов в эту
+                                        смену...</Box>
+                                } else {
+                                    const pages = Math.ceil(filial_data.data.total_count / 20)
+                                    return <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>
                                         <Box className='admin-orders-cinema-filial-box'>
                                             <AnimatePresence>
                                                 {filial_data.data.orders.length > 0 && (
@@ -60,7 +69,7 @@ const OrdersCinema = () => {
                                                 : null}
                                         </Box>
                                     </Box>
-                                )
+                                }
                             } else if (filial_data.loading) {
                                 // ДОПОЛНИТЬ ЗАГРУЖАЕТСЯ
                             } else if (filial_data.error !== null) {
@@ -71,7 +80,7 @@ const OrdersCinema = () => {
                 </Box>
             </Box>
         </Box>
-    )
+    }
 }
 
 export default OrdersCinema
