@@ -10,6 +10,7 @@ import {
 import {cinema_order_delete, horeca_order_delete} from "../../service/fetch_service.js"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
+import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../../redux/ordersReducer.js";
 
 const Dialog = ({props}) => {
 
@@ -30,6 +31,12 @@ const Dialog = ({props}) => {
                     props.payload.wp,
                     props.payload.uid
                 ))
+                break
+            case 'cinema_order_save':
+                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+                break
+            case 'horeca_order_save':
+                dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
                 break
             default:
                 break

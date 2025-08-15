@@ -392,8 +392,8 @@ export function ShowDateOperations() {
 
     return (
         <ButtonGroup color='secondary' variant='contained'>
-            <Button>с {date_shift_beginning}</Button>
-            <Button>по {date_shift_ending}</Button>
+            <Button>{date_shift_beginning}</Button>
+            <Button>{date_shift_ending}</Button>
         </ButtonGroup>
     )
 }

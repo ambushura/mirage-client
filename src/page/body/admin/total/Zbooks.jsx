@@ -1,4 +1,3 @@
-import {Box} from "@mui/material"
 import {DataGrid} from "@mui/x-data-grid"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {useSetZBooks} from "./useSetZBooks.js"
@@ -14,6 +13,8 @@ const Zbooks = () => {
 
     const columns = [
         {field: 'id', headerName: 'ID', width: 10},
+        {field: 'name_organization', headerName: 'Организация', width: 100},
+        {field: 'inn', headerName: 'ИНН', width: 100},
         {field: 'number_kkt', headerName: 'ЗН ККТ', width: 130},
         {field: 'date_ofd', headerName: 'ОФД', width: 130},
         {field: 'last_fd', headerName: 'ФД', width: 50},
@@ -42,6 +43,8 @@ const Zbooks = () => {
                 rows_new.push(
                     {
                         id: zbook.uid,
+                        inn: zbook.inn,
+                        name_organization: zbook.name_organization,
                         number_kkt: zbook.number_kkt,
                         date_ofd: dayjs(zbook.date_ofd).format('DD.MM.YYYY HH:mm'),
                         last_fd: zbook.last_fd,

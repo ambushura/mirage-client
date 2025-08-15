@@ -245,7 +245,6 @@ const Order = () => {
                     order={pre_order}
                     preparing={pre_order_preparing}
                     set_preparing={() => dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))}
-                    emptyOrder={() => dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))}
                     fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
                     deleteOrder={() => dispatch(openModal({
                         type: 'dialog_delete_order',
@@ -258,6 +257,14 @@ const Order = () => {
                                 wp: wp,
                                 uid: pre_order.uid
                             },
+                        }
+                    }))}
+                    emptyOrder={() => dispatch(openModal({
+                        type: 'dialog_save_order',
+                        props: {
+                            type: 'YesNo',
+                            action: 'cinema_order_save',
+                            question: 'Вы уверены, что хотите сохранить этот заказ?',
                         }
                     }))}
                     navigateTo={() => navigate(seance_link())}
@@ -286,7 +293,6 @@ const Order = () => {
                     order={horder}
                     preparing={horder_preparing}
                     set_preparing={() => dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))}
-                    emptyOrder={() => dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))}
                     fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
                     deleteOrder={() => dispatch(openModal({
                         type: 'dialog_delete_order',
@@ -299,6 +305,14 @@ const Order = () => {
                                 wp: wp,
                                 uid: horder.uid
                             },
+                        }
+                    }))}
+                    emptyOrder={() => dispatch(openModal({
+                        type: 'dialog_save_order',
+                        props: {
+                            type: 'YesNo',
+                            action: 'horeca_order_save',
+                            question: 'Вы уверены, что хотите сохранить этот заказ?',
                         }
                     }))}
                     dispatch={dispatch}

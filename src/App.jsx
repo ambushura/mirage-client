@@ -86,6 +86,7 @@ function App() {
         equipment_workplace: WorkplaceForm,
         seance_cancellation: SeanceCancellation,
         dialog_delete_order: Dialog,
+        dialog_save_order: Dialog,
     }
 
     const ModalContent = useMemo(() => {
