@@ -29,7 +29,7 @@ const Menu = () => {
         set_breadcrumbs(breadcrumbs_new)
     }, [menu_data])
 
-    return (<Box id="horeca-menu">
+    return <Box id="horeca-menu">
         {menu_data !== undefined ? <>
             <AnimatePresence>
                 {breadcrumbs.length > 0 && <motion.div
@@ -81,7 +81,7 @@ const Menu = () => {
                 </motion.div>}
             </AnimatePresence>
         </> : <></>}
-    </Box>)
+    </Box>
 }
 
 export default Menu

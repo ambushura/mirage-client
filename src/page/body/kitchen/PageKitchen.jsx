@@ -161,7 +161,8 @@ const PageKitchen = () => {
                                     : null
                                 }
                             </Fragment>
-                        ))}
+                        ))
+                        }
                     </Box>
                 </Box>
             </Box>

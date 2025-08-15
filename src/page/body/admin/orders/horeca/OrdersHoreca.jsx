@@ -26,8 +26,7 @@ const OrdersHoreca = () => {
                     {data.length > 0 ? data.map(filial_data => {
                             if (filial_data.error == null && !filial_data.loading && filial_data.data !== null) {
                                 if (filial_data.data.orders.length === 0) {
-                                    return <Box key='zero' className='empty-box' sx={{height: '100%'}}>Нет заказов в эту
-                                        смену...</Box>
+                                    return <Box key='zero' className='empty-box' sx={{height: '100%'}}>Нет заказов на эту дату...</Box>
                                 } else {
                                     const pages = Math.ceil(filial_data.data.total_count / 20)
                                     return <Box className='admin-orders-horeca-filial-content'
