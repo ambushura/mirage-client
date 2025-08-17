@@ -237,19 +237,24 @@ const Payment = (props) => {
                         color: total > cash ? 'white' : 'black',
                         borderRadius: '0 12px 12px 0'
                     }}>
-                        <Box className='payment-total-title'>
-                            {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
-                        </Box>
-                        <Box className='payment-total-sum'>
-                            {total !== cash ? Math.abs(change).toLocaleString('ru-RU') : <></>}
-                        </Box>
+                        {horder_paying ?
+                            <Loader size={0.5}/> :
+                            <>
+                                <Box className='payment-total-title'>
+                                    {total === cash ? <ThumbUpIcon/> : total > cash ? 'Получи' : 'Верни'}
+                                </Box>
+                                <Box className='payment-total-sum'>
+                                    {total !== cash ? Math.abs(change).toLocaleString('ru-RU') : <></>}
+                                </Box>
+                            </>
+                        }
                     </Box>
                 </Box>
             </Box>
             <Box className='payment-types'>
                 {!show_payment_types ?
                     <Box sx={{fontWeight: 'bold'}}>Выберите позиции для платежной операции</Box> :
-                    payment_methods_loading ? <Loader/> :
+                    payment_methods_loading ? <Loader size={2}/> :
                         payment_methods_error !== null ?
                             <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов
                                 оплаты</Box> :

@@ -4,7 +4,7 @@ import {
     NEW_EMPTY_ORDER,
     pushKitchenPositions,
     setCurrentHorder,
-    setCurrentPreOrder, setHorderPaying, setHorderPreparing,
+    setCurrentPreOrder, setHorderPaying, setHorderPreparing, setKioskPaymentError,
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate, setPreOrderPaying, setPreOrderPreparing
 } from "../redux/ordersReducer.js"
@@ -214,12 +214,12 @@ export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_g
             dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
             dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
         }
+        data.errors.forEach(error => {
+            dispatch(addNotification({
+                message: error, severity: 'error', autoHide: true
+            }))
+        })
     }
-    data.errors.forEach(error => {
-        dispatch(addNotification({
-            message: error, severity: 'error', autoHide: true
-        }))
-    })
     dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
 })
 
@@ -247,10 +247,10 @@ export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment
                 dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
                 dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
             }
+            data.errors.forEach(error => {
+                dispatch(setKioskPaymentError(error))
+            })
         }
-        data.errors.forEach(error => {
-            alert(error)
-        })
         dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     }
 )

@@ -111,6 +111,9 @@ const initialState = {
 
     // КУХНЯ
     kitchen_orders: [],
+
+    // КИОСК
+    kiosk_payment_error: null
 }
 
 export const ordersSlice = createSlice({
@@ -291,6 +294,9 @@ export const ordersSlice = createSlice({
         },
         setOrderSearchValue(state, {payload}) {
             state.order_search_value = payload
+        },
+        setKioskPaymentError(state, {payload}) {
+            state.kiosk_payment_error = payload
         }
     },
 })
@@ -339,5 +345,6 @@ export const {
     setKitchenOrders,
     pushKitchenPositions,
     setOrderSearchValue,
+    setKioskPaymentError,
 } = ordersSlice.actions
 export default ordersSlice.reducer

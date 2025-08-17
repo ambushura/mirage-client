@@ -118,7 +118,7 @@ export function BilletCheckForm({props}) {
 
     } else {
 
-        return <Box><Loader/></Box>
+        return <Box><Loader size={2}/></Box>
 
     }
 }

@@ -200,7 +200,7 @@ const PageSeance = () => {
             </>
         )
     } else {
-        return <Loader/>
+        return <Loader size={2}/>
     }
 }
 
