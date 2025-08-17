@@ -108,7 +108,7 @@ export function ShowFastSearch() {
             marginRight: '5px'
         }}>
             <TextField
-                label='Идентификатор'
+                label='QR, номер заказа, телефон'
                 sx={{minWidth: '400px'}}
                 variant='filled' color="textSecondary"
                 value={order_search_value ?? ""}
@@ -132,9 +132,6 @@ export function ShowFastSearch() {
                         </InputAdornment>
                     ),
                 }}/>
-            <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '5px'}}
-                    startIcon={<SearchIcon/>} onClick={() => {
-            }}>Найти</Button>
         </Box>
     )
 
