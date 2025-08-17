@@ -1140,13 +1140,14 @@ body {
     width: 100%;
     padding: 16px;
     border-radius: 12px;
-    min-height: 300px;
     background-color: #1c1f23;
     box-sizing: border-box;
 }
 
 .checkout-order-title-box {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     font-size: 24px;
     font-weight: bold;

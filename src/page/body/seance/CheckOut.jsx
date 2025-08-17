@@ -14,6 +14,7 @@ import {common_order_pay_kiosk, common_orders_receipts_get} from "../../../servi
 import {useSetPaymentGroups} from "../../../hooks/common/useSetPaymentGroups.js"
 import {useEffect} from "react"
 import {setPreOrderPaying} from "../../../redux/ordersReducer.js"
+import DotsAnimation from "../../../ui/DotsAnimation.jsx"
 
 const CheckOut = (props) => {
 
@@ -61,8 +62,8 @@ const CheckOut = (props) => {
                 <Box id="checkout-total">
                     <Box id='checkout-total-box'>
                         <Box className="checkout-order-title-box">
-                            <span>Ваш заказ</span>
-                            <span>{pre_order.price} P</span>
+                            <span style={{marginRight: '10px'}}>Сумма заказа:</span>
+                            <span>{pre_order.price} р</span>
                         </Box>
                     </Box>
                     <Button onClick={async () => {
@@ -78,12 +79,20 @@ const CheckOut = (props) => {
                     onClose={() => {
                     }}
                     aria-labelledby="paying-process"
-                    maxWidth="xk"
+                    PaperProps={{
+                        sx: {
+                            borderRadius: '30px',
+                            backgroundColor: '#EFEFEF',
+                            color: 'black',
+                            minWidth: '335px',
+                        }
+                    }}
                 >
-                    <DialogTitle id="paying-process-title">Оплата заказа</DialogTitle>
+                    <DialogTitle sx={{fontSize: '200%', textAlign: 'center', fontWeight: 900}}>Оплата
+                        заказа</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            Следуйте инструкциям на пинпаде
+                        <DialogContentText sx={{fontSize: '100%', textAlign: 'left', fontWeight: 900}}>
+                            Следуйте инструкциям на пинпаде<DotsAnimation/>
                         </DialogContentText>
                     </DialogContent>
                 </MuiDialog>

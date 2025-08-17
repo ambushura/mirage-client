@@ -44,6 +44,7 @@ const PageSeance = () => {
     const [count_book, set_count_book] = useState(0)
 
     const uid_user = useSelector(state => state.auth.uid)
+    const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
 
     useEffect(() => {
         if (filial !== undefined) {
@@ -59,13 +60,15 @@ const PageSeance = () => {
     useEffect(() => {
         if (uid_user === null) {
             const timer = setInterval(() => {
-                set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
+                if (!pre_order_paying) {
+                    set_time_remaining((prevTimeRemaining) => (prevTimeRemaining - 1))
+                }
             }, ORDER_TIME_OUT)
             return () => {
                 clearInterval(timer)
             }
         }
-    }, [permissions, uid_user])
+    }, [permissions, uid_user, pre_order_paying])
 
     useEffect(() => {
         if (uid_user === null) {
