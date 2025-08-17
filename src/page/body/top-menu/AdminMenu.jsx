@@ -160,7 +160,9 @@ export function ShowFilters() {
     const cinema_buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
     const cinema_buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
 
-    if (current_page !== 'admin/orders/horeca' && current_page !== 'admin/orders/cinema') return null
+    const order_search_value = useSelector(state => state.orders.order_search_value)
+
+    if ((current_page !== 'admin/orders/horeca' && current_page !== 'admin/orders/cinema') || order_search_value !== null) return null
 
     if (current_page === 'admin/orders/horeca') {
         return (
@@ -235,8 +237,9 @@ export function EGAISMenu() {
 export function CinemaType() {
 
     const current_page = useSelector(state => state.interface.current_page)
+    const order_search_value = useSelector(state => state.orders.order_search_value)
 
-    if (current_page !== 'admin/orders/cinema') return null
+    if (current_page !== 'admin/orders/cinema' || order_search_value !== null) return null
 
     return (
         <Fade in={current_page === 'admin/orders/cinema'} timeout={TIMEOUT} unmountOnExit>
