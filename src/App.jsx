@@ -41,6 +41,7 @@ import {BilletCheckForm} from "./page/body/admin/equipment/forms/BilletCheckForm
 import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx"
 import TableOptions from "./components/forms/TableOptions.jsx"
 import Dialog from "./components/forms/Dialog.jsx"
+import Operation from "./page/body/admin/total/Operation.jsx";
 
 function App() {
 
@@ -87,6 +88,7 @@ function App() {
         seance_cancellation: SeanceCancellation,
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,
+        documents_operation: Operation,
     }
 
     const ModalContent = useMemo(() => {

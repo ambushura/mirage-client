@@ -48,7 +48,6 @@ import {useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
-import SearchIcon from '@mui/icons-material/Search'
 import {ClearIcon} from "@mui/x-date-pickers"
 
 export function AdminHallsList() {
@@ -358,6 +357,7 @@ export function DateParamAdmin() {
 
 export function CreateDeleteButtons() {
 
+    const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
 
     const visiblePages = ['admin/operations', 'admin/zbooks']
@@ -367,7 +367,13 @@ export function CreateDeleteButtons() {
 
     return <Fade in={isVisible} timeout={TIMEOUT} unmountOnExit>
         <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-            <Button variant='contained' startIcon={<AddIcon/>}>Создать</Button>
+            <Button variant='contained' startIcon={<AddIcon/>} onClick={() => {
+                switch (current_page) {
+                    case 'admin/operations':
+                        dispatch(openModal({type: 'documents_operation', props: {}}))
+                        break
+                }
+            }}>Создать</Button>
             <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
         </ButtonGroup>
     </Fade>
