@@ -1,8 +1,8 @@
 export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: 60000, payment_port: 60001, uid: ''}
 
 // === ОБЩЕЕ ===
+export const ROUTE_COMMON_SETTINGS_GET = "/api/common/settings/get"
 export const ROUTE_COMMON_LOGIN = "/api/common/login"
-export const ROUTE_COMMON_EXCHANGE = "/api/exchange"
 export const ROUTE_COMMON_CITIES_GET = "/api/common/cities/get"
 export const ROUTE_COMMON_ORDER_ADD_CONTACT = "/api/common/order/add/contact"
 export const ROUTE_COMMON_ORDERS_GET_RECEIPTS = "/api/common/orders/get_receipts"
@@ -110,6 +110,7 @@ export const ROUTE_HORECA_POSITION_COURSE = "/api/horeca/position/course"
 // Получить объект
 export const ROUTE_COMMON_CATALOG_GET = "/api/common/catalog/get"
 
+// Программа лояльности
 export const ROUTE_PL_ESTIMATE_DISCOUNTS = "/api/pl/estimate_discounts"
 
 // Документы

@@ -4,8 +4,8 @@ import {
     NEW_EMPTY_ORDER,
     pushKitchenPositions,
     setCurrentHorder,
-    setCurrentPreOrder, setHorderPaying, setHorderPreparing, setOrdersCinema,
-    setOrdersCinemaUpdate, setOrdersHoreca,
+    setCurrentPreOrder, setHorderPaying, setHorderPreparing,
+    setOrdersCinemaUpdate,
     setOrdersHorecaUpdate, setPreOrderPaying, setPreOrderPreparing
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
@@ -24,10 +24,10 @@ import {
     ROUTE_CINEMA_POSITION_DELETE_COMMENT, ROUTE_CINEMA_SEANCE_CLOSE,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
-    ROUTE_COMMON_ORDER_ADD_CONTACT, ROUTE_COMMON_ORDER_FIND,
+    ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_COMMON_ORDER_PAYMENT,
     ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
-    ROUTE_COMMON_ORDERS_GET_RECEIPTS,
+    ROUTE_COMMON_ORDERS_GET_RECEIPTS, ROUTE_COMMON_SETTINGS_GET,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_DELETE,
@@ -49,6 +49,7 @@ import {
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
+import {setSettings} from "../redux/dataReducer.js"
 
 export const TIMEOUT = 10000
 
@@ -81,6 +82,17 @@ const makeRequest = async (dispatch, config, onSuccess) => {
             autoHide: true
         }))
     }
+}
+
+export const common_settings_get = (filial, wp) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_SETTINGS_GET}`,
+        wp,
+        filial
+    }, data => {
+        dispatch(setSettings(data))
+    })
 }
 
 export const login = (filial, wp, login_auth, pincode_auth, username, password) => async (dispatch) => {

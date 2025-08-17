@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useFetching} from "./useFetching.js"
 import {setCities, setCity, setFilial} from "../../redux/dataReducer.js"
 import {ROUTE_COMMON_CITIES_GET, ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"
+import {common_settings_get} from "../../service/fetch_service.js"
 
 export function useSetCityAndFilial() {
 
@@ -17,6 +18,8 @@ export function useSetCityAndFilial() {
     const cities = useSelector(state => state.data.cities)
     const param_city = useSelector(state => state.interface.params.param_city)
     const param_filial = useSelector(state => state.interface.params.param_filial)
+    const wp = useSelector(state => state.interface.wp)
+    const settings = useSelector(state => state.data.settings)
 
     useEffect(() => {
         if (fetch_data !== null && !loading && error !== null) {
@@ -43,4 +46,10 @@ export function useSetCityAndFilial() {
             dispatch(setFilial(undefined))
         }
     }, [dispatch, cities, param_city, param_filial])
+
+    useEffect(() => {
+        if (filial !== undefined && settings === null) {
+            dispatch(common_settings_get(filial, wp))
+        }
+    }, [dispatch, filial, wp])
 }
