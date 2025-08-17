@@ -15,6 +15,7 @@ const OrdersCinema = () => {
 
     const data = useSelector(state => state.orders.orders_cinema || [])
     const page = useSelector(state => state.orders.orders_cinema_page)
+    const order_search_value = useSelector(state => state.orders.order_search_value)
 
     if (filial === undefined) {
         return <Box className='empty-box'>
@@ -27,7 +28,8 @@ const OrdersCinema = () => {
                     {data.length > 0 ? data.map(filial_data => {
                             if (filial_data.error == null && !filial_data.loading && filial_data.data !== null) {
                                 if (filial_data.data.orders.length === 0) {
-                                    return <Box key='zero' className='empty-box' sx={{height: '100%'}}>Нет заказов на эту дату...</Box>
+                                    return <Box key='zero' className='empty-box'
+                                                sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
                                 } else {
                                     const pages = Math.ceil(filial_data.data.total_count / 20)
                                     return <Box className='admin-orders-cinema-filial-content' key={filial_data.filial.uid}>

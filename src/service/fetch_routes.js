@@ -11,6 +11,7 @@ export const ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET = "/api/common/orders/filters
 export const ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET = "/api/common/orders/filters/halls/get"
 export const ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET = "/api/common/orders/filters/workplaces/get"
 export const ROUTE_COMMON_PAYMENT_MAP_GET = "/api/common/payment_map/get"
+export const ROUTE_COMMON_ORDER_FIND = "/api/common/order/find"
 
 // === ОПЛАТА ===
 export const ROUTE_COMMON_ORDER_PAYMENT = "/api/common/order/payment"

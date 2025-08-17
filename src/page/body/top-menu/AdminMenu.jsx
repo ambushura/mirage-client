@@ -3,7 +3,7 @@ import {
     Button,
     ButtonGroup,
     Fade,
-    FormControl,
+    FormControl, IconButton, InputAdornment,
     InputLabel,
     Menu,
     MenuItem,
@@ -22,7 +22,7 @@ import {
     setOrdersCinemaFiltersSeancesSelect,
     setOrdersCinemaFiltersStaffSelect,
     setOrdersCinemaFiltersStateSelect,
-    setOrdersCinemaFiltersWorkplacesSelect, setOrdersCinemaPage,
+    setOrdersCinemaFiltersWorkplacesSelect, setOrdersCinemaPage, setOrderSearchValue,
     setOrdersHorecaFiltersHallsSelect,
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
@@ -49,6 +49,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
 import SearchIcon from '@mui/icons-material/Search'
+import {ClearIcon} from "@mui/x-date-pickers"
 
 export function AdminHallsList() {
 
@@ -92,9 +93,9 @@ export function AdminHallsList() {
 
 export function ShowFastSearch() {
 
+    const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
-
-    const [uid, set_uid] = useState(null)
+    const order_search_value = useSelector(state => state.orders.order_search_value)
 
     if (current_page !== 'admin/orders/horeca' && current_page !== 'admin/orders/cinema') return null
 
@@ -106,12 +107,34 @@ export function ShowFastSearch() {
             padding: '2px 0',
             marginRight: '5px'
         }}>
-            <TextField label='Идентификатор' sx={{minWidth: '400px'}} variant='filled' color="textSecondary"
-                       multiline value={uid} onChange={(event) => {
-                set_uid(event.target.value)
-            }}/>
+            <TextField
+                label='Идентификатор'
+                sx={{minWidth: '400px'}}
+                variant='filled' color="textSecondary"
+                value={order_search_value ?? ""}
+                onChange={(event) => {
+                    if (event.target.value === '') {
+                        dispatch(setOrderSearchValue(null))
+                    } else {
+                        dispatch(setOrderSearchValue(event.target.value))
+                    }
+                }}
+                InputProps={{
+                    endAdornment: order_search_value && (
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={() => dispatch(setOrderSearchValue(null))}
+                                edge="end"
+                                size="small"
+                            >
+                                <ClearIcon/>
+                            </IconButton>
+                        </InputAdornment>
+                    ),
+                }}/>
             <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '5px'}}
-                    startIcon={<SearchIcon/>}>Найти</Button>
+                    startIcon={<SearchIcon/>} onClick={() => {
+            }}>Найти</Button>
         </Box>
     )
 
@@ -231,9 +254,22 @@ export function DateParamAdmin() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
     const current_page = useSelector(state => state.interface.current_page)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const film = useSelector(state => state.schedule.film_seances.film)
+    const order_search_value = useSelector(state => state.orders.order_search_value)
+    const [admin_calendar_open, set_admin_calendar_open] = useState(null)
+
+    if (order_search_value !== null) return null
+
+    // Календарь
+    const open = Boolean(admin_calendar_open)
+    const id = open ? 'admin-date-calendar' : null
+
+    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page)
+    if (!isPageMatch) return null
 
     const handleClick = (event) => {
         set_admin_calendar_open(event.currentTarget)
@@ -250,17 +286,6 @@ export function DateParamAdmin() {
         dispatch(setOrdersHorecaPage(1))
         dispatch(setOrdersCinemaPage(1))
     }
-
-    // Календарь
-    const [admin_calendar_open, set_admin_calendar_open] = useState(null)
-    const open = Boolean(admin_calendar_open)
-    const id = open ? 'admin-date-calendar' : null
-
-    const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
-
-    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page)
-    if (!isPageMatch) return null
 
     return <>
         <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'

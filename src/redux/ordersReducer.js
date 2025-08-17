@@ -39,6 +39,7 @@ export const NEW_EMPTY_HORDER = () => ({
 export const ORDER_TIME_OUT = 1000
 
 const initialState = {
+
     date: JSON.stringify(date_dayjs(new Date())),
     pre_order: NEW_EMPTY_ORDER(),
     horder: NEW_EMPTY_HORDER(),
@@ -50,8 +51,9 @@ const initialState = {
     pre_order_paying: false,
     horder_paying: false,
     orders_cinema_schedule: [],
+    order_search_value: null,
 
-    // Заказы кино
+    // ЗАКАЗЫ КИНО
     orders_cinema_update: 0,
     orders_cinema: {orders: [], total_count: 0},
     orders_cinema_page: 1,
@@ -76,7 +78,7 @@ const initialState = {
     orders_cinema_filters_buyer_emails_selected: '',
     orders_cinema_filters_buyer_phone_numbers_selected: '',
 
-    // Заказы общепита
+    // ЗАКАЗЫ ОБЩЕПИТ
     orders_horeca_update: 0,
     orders_horeca: {orders: [], total_count: 0},
     orders_horeca_page: 1,
@@ -98,6 +100,7 @@ const initialState = {
         {uid: 2, title: 'Готовится'},
         {uid: 3, title: 'Отдать гостю'},
     ],
+
     // Фильтры общепит (выбранные)
     orders_horeca_filters_staff_selected: [],
     orders_horeca_filters_state_selected: [],
@@ -105,7 +108,8 @@ const initialState = {
     orders_horeca_filters_workplaces_selected: [],
     orders_horeca_filters_kitchen_points_selected: [],
     orders_horeca_filters_kitchen_state_selected: [],
-    // Кухня
+
+    // КУХНЯ
     kitchen_orders: [],
 }
 
@@ -284,6 +288,9 @@ export const ordersSlice = createSlice({
                 }
             })
             state.kitchen_orders = kitchen_orders_copied
+        },
+        setOrderSearchValue(state, {payload}) {
+            state.order_search_value = payload
         }
     },
 })
@@ -331,5 +338,6 @@ export const {
     setOrdersHorecaUpdate,
     setKitchenOrders,
     pushKitchenPositions,
+    setOrderSearchValue,
 } = ordersSlice.actions
 export default ordersSlice.reducer

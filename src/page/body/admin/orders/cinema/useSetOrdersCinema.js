@@ -2,7 +2,7 @@ import {useEffect, useState} from "react"
 import {useFetchingArray} from "../../../../../hooks/common/useFetchingArray.js"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    ROUTE_CINEMA_ORDERS_GET
+    ROUTE_CINEMA_ORDERS_GET, ROUTE_COMMON_ORDER_FIND
 } from "../../../../../service/fetch_routes.js"
 import {setOrdersCinema} from "../../../../../redux/ordersReducer.js"
 
@@ -25,30 +25,44 @@ export function useSetOrdersCinema() {
     const buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
     const buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const order_search_value = useSelector(state => state.orders.order_search_value)
 
     const update = useSelector(state => state.orders.orders_cinema_update)
 
     useEffect(() => {
         let urls_new = []
-        if (city !== undefined && filial !== undefined && param_date_admin !== undefined) {
-            urls_new.push({
-                filial: filial,
-                url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
-                params: {
-                    page: page,
-                    date_shift: param_date_admin,
-                    staff: staff_selected.map(({uid}) => uid),
-                    state: state_selected.map(({uid}) => uid),
-                    halls: halls_selected.map(({uid}) => uid),
-                    seances: seances_selected.map(({uid}) => uid),
-                    workplaces: workplaces_selected.map(({uid}) => uid),
-                    buyer_phone_number: buyer_phone_numbers_selected,
-                    buyer_emails: buyer_emails_selected
-                }
-            })
+        if (order_search_value === null) {
+            if (city !== undefined && filial !== undefined && param_date_admin !== undefined) {
+                urls_new.push({
+                    filial: filial,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
+                    params: {
+                        page: page,
+                        date_shift: param_date_admin,
+                        staff: staff_selected.map(({uid}) => uid),
+                        state: state_selected.map(({uid}) => uid),
+                        halls: halls_selected.map(({uid}) => uid),
+                        seances: seances_selected.map(({uid}) => uid),
+                        workplaces: workplaces_selected.map(({uid}) => uid),
+                        buyer_phone_number: buyer_phone_numbers_selected,
+                        buyer_emails: buyer_emails_selected
+                    }
+                })
+            }
+        } else {
+            if (city !== undefined && filial !== undefined) {
+                urls_new.push({
+                    filial: filial,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_FIND}`,
+                    params: {
+                        order_type: 'cinema',
+                        value: order_search_value,
+                    }
+                })
+            }
         }
         set_urls_orders(urls_new)
-    }, [city, filial, param_date_admin, staff_selected, state_selected, seances_selected, halls_selected, workplaces_selected, page, buyer_phone_numbers_selected, buyer_emails_selected, update])
+    }, [city, filial, param_date_admin, staff_selected, state_selected, seances_selected, halls_selected, workplaces_selected, page, buyer_phone_numbers_selected, buyer_emails_selected, update, order_search_value])
 
     useEffect(() => {
         if (fetch_data_orders.length > 0) {

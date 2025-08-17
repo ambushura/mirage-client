@@ -4,8 +4,8 @@ import {
     NEW_EMPTY_ORDER,
     pushKitchenPositions,
     setCurrentHorder,
-    setCurrentPreOrder, setHorderPaying, setHorderPreparing,
-    setOrdersCinemaUpdate,
+    setCurrentPreOrder, setHorderPaying, setHorderPreparing, setOrdersCinema,
+    setOrdersCinemaUpdate, setOrdersHoreca,
     setOrdersHorecaUpdate, setPreOrderPaying, setPreOrderPreparing
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
@@ -22,9 +22,9 @@ import {
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_POSITION_DELETE_COMMENT, ROUTE_CINEMA_SEANCE_CLOSE,
-    ROUTE_CINEMA_SEANCE_GET_BOOKING, ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET,
+    ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_LOGIN,
-    ROUTE_COMMON_ORDER_ADD_CONTACT,
+    ROUTE_COMMON_ORDER_ADD_CONTACT, ROUTE_COMMON_ORDER_FIND,
     ROUTE_COMMON_ORDER_PAYMENT,
     ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
@@ -49,7 +49,6 @@ import {
 } from "./fetch_routes.js"
 import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
-import {setZBooks} from "../redux/documentsReducer.js";
 
 export const TIMEOUT = 10000
 
