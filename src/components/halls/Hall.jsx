@@ -11,6 +11,8 @@ import {useCallback, useEffect} from "react"
 import {Place} from "./nodes/Place.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
+import RowLabel from "./nodes/RowLabel.jsx"
+import Screen from "./nodes/Screen.jsx"
 
 const HallMap = (props) => {
 
@@ -56,17 +58,21 @@ const HallMap = (props) => {
 
     const nodeTypes = {
         place: Place,
+        row_label: RowLabel,
+        screen: Screen,
     }
 
     const handleNodeClick = (node) => {
-        if (current_page === 'seance') {
-            if (props.set_time_remaining !== undefined) {
-                props.set_time_remaining(100)
-            }
-            dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
-        } else {
-            if (mode === 'block') {
-                dispatch(cinema_place_block(props.filial, wp, props.hall, node.id))
+        if (node.type === 'place') {
+            if (current_page === 'seance') {
+                if (props.set_time_remaining !== undefined) {
+                    props.set_time_remaining(100)
+                }
+                dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
+            } else {
+                if (mode === 'block') {
+                    dispatch(cinema_place_block(props.filial, wp, props.hall, node.id))
+                }
             }
         }
     }
