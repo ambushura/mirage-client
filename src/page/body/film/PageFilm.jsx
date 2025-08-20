@@ -18,6 +18,7 @@ const PageFilm = () => {
     const filials_seances = useSelector(state => state.schedule.film_seances.data || [])
     const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
     const horder = useSelector(state => state.orders.horder || {in_base: false})
+    const settings = useSelector(state => state.data.settings)
 
     return (
         <>
@@ -29,7 +30,7 @@ const PageFilm = () => {
                             {film !== undefined ?
                                 <Box className='seances-cover'>
                                     <img className='seances-cover-img'
-                                         src={film.cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + film.cover_link}
+                                         src={film.cover_link === '' ? cover : `http://${settings !== null ? settings.media_ip : ''}:${settings !== null ? settings.media_port : ''}` + film.cover_link}
                                          alt={film.name}/>
                                 </Box> : <></>}
                             <Box className='seances-body'>

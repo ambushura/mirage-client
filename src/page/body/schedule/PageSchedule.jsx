@@ -90,7 +90,7 @@ const PageSchedule = () => {
                                                                                 width: '100%',
                                                                                 backgroundColor: 'var(--bgr-seance-card)',
                                                                                 color: 'var(--txt-color)'
-                                                                            }}>Зал {hall.name_full_hall}</Button>
+                                                                            }}>Зал {hall.hall.name_full}</Button>
                                                                 </Box>
                                                                 <AnimatePresence>
                                                                     {hall.seances.length > 0 && (

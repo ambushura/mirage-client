@@ -67,14 +67,14 @@ const Dialog = ({props}) => {
                         <Button
                             sx={{minWidth: '70px'}}
                             onClick={handleYes}
-                            variant="outlined"
+                            variant="contained"
                             color="secondary">
                             Да
                         </Button>
                         <Button
                             sx={{minWidth: '70px'}}
                             onClick={handleNo}
-                            variant="outlined"
+                            variant="contained"
                             color="secondary">
                             Нет
                         </Button>

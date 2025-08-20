@@ -7,11 +7,14 @@ import {common_settings_get} from "../../service/fetch_service.js"
 
 export function useSetCityAndFilial() {
 
+    const origin = window.location.origin
+
     const dispatch = useDispatch()
 
     const filial = structuredClone(ROUTE_MAIN_HOST)
     const [fetch_data, loading, error] = useFetching({
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CITIES_GET}`,
+        //url: `${origin}${ROUTE_COMMON_CITIES_GET}`,
         uid_filial: filial.uid,
         params: {}
     })

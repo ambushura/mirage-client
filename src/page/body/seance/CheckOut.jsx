@@ -98,7 +98,8 @@ const CheckOut = (props) => {
                             borderRadius: '45px',
                             backgroundColor: '#EFEFEF',
                             color: 'black',
-                            minWidth: '500px',
+                            minWidth: '530px',
+                            minHeight: '120px',
                         }
                     }}
                 >

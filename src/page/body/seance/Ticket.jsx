@@ -6,6 +6,7 @@ import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 
 const Ticket = (props) => {
 
+    const settings = useSelector(state => state.data.settings)
     const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
     const ticket = props.ticket
@@ -18,7 +19,7 @@ const Ticket = (props) => {
                 </Box>
                 <Box className='checkout-order-ticket-body'>
                     <img className='checkout-order-ticket-body-cover'
-                         src={pre_order.seance_cover_link === '' ? cover : "http://msk-rst-media.cinema.mirage.ru" + pre_order.seance_cover_link}
+                         src={pre_order.seance_cover_link === '' ? cover : `http://${settings !== null ? settings.media_ip : ''}:${settings !== null ? settings.media_port : ''}`}
                          alt={pre_order.film_name}></img>
                     <Box className='checkout-order-ticket-body-2'>
                         <SeanceTitle
