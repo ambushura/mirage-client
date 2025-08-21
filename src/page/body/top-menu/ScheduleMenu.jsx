@@ -85,7 +85,7 @@ const ScheduleMenu = () => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
                     }}
                             sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
-                <ButtonGroup size='medium' variant="contained" color="secondary">
+                <ButtonGroup size='medium' variant="contained" color="secondary" sx={{marginRight: '5px'}}>
                     <Button onClick={() => {
                         const now = new Date()
                         const date = date_dayjs(
@@ -133,18 +133,19 @@ const ScheduleMenu = () => {
                         handleOnChahge={handleOnChahge}
                     />
                 </Popover>
-                <ButtonGroup className='top-menu-content-types' size='small' sx={{marginLeft: '4px'}}>
+                <Box className='top-menu-content-types' size='small'>
                     {schedule_filters_film_types.map(type => {
                         return <Button variant="contained"
                                        color={schedule_filters_film_types_selected.find(el => el.uid === type.uid) !== undefined ? 'primary' : 'secondary'}
                                        key={type.uid}
                                        onClick={() => {
                                            dispatch(setScheduleFiltersFilmTypesSelect(type))
-                                       }}>{type.title}</Button>
+                                       }}
+                                       sx={{marginRight: '4px'}}>{type.title}</Button>
                     })}
-                </ButtonGroup>
+                </Box>
                 {uid_user !== null ?
-                    <ButtonGroup variant='contained' color='secondary' size='small' sx={{marginLeft: '4px'}}>
+                    <ButtonGroup variant='contained' color='secondary' size='small'>
                         {filial !== undefined ?
                             <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
                                 type: 'schedule_filters',

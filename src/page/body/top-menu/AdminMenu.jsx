@@ -77,11 +77,11 @@ export function AdminHallsList() {
                     value={hall.uid}>{hall.title}</MenuItem>) : null}
             </Select>
         </FormControl>
-        <ButtonGroup>
-            <Button variant='contained' color={mode === 'block' ? 'primary' : 'secondary'} onClick={() => {
+        <ButtonGroup variant='outlined'>
+            <Button color={mode === 'block' ? 'primary' : 'secondary'} onClick={() => {
                 dispatch(setMode('block'))
             }}>Режим блокировки</Button>
-            <Button variant='contained' color={mode === 'view' ? 'primary' : 'secondary'} onClick={() => {
+            <Button color={mode === 'view' ? 'primary' : 'secondary'} onClick={() => {
                 dispatch(setMode('view'))
             }}>Режим редактирования</Button>
         </ButtonGroup>
@@ -154,7 +154,7 @@ export function ShowFilters() {
     if (current_page === 'admin/orders/horeca') {
         return (
             <ButtonGroup sx={{marginRight: '5px'}}>
-                <Button variant='contained' color='secondary'
+                <Button variant='outlined' color='secondary'
                         onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
                         startIcon={<FilterAltIcon/>}>Фильтры</Button>
                 {horeca_staff_selected.length > 0 ||
@@ -163,7 +163,7 @@ export function ShowFilters() {
                 horeca_workplaces_selected.length > 0 ||
                 horeca_kitchen_points_selected.length > 0 ||
                 horeca_kitchen_state_selected.length > 0 ?
-                    <Button variant='contained' color='primary' onClick={() => {
+                    <Button variant='contained' color='secondary' onClick={() => {
                         dispatch(setOrdersHorecaFiltersStaffSelect([]))
                         dispatch(setOrdersHorecaFiltersStateSelect([]))
                         dispatch(setOrdersHorecaFiltersHallsSelect([]))
@@ -176,7 +176,7 @@ export function ShowFilters() {
     } else if (current_page === 'admin/orders/cinema') {
         return (
             <ButtonGroup sx={{marginRight: '5px'}}>
-                <Button variant='contained' color='secondary'
+                <Button variant='outlined' color='secondary'
                         onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
                         startIcon={<FilterAltIcon/>}>Фильтры</Button>
                 {cinema_staff_selected.length > 0 ||
@@ -203,22 +203,21 @@ export function ShowFilters() {
 }
 
 export function EGAISMenu() {
-
-    return <Box sx={{marginRight: '5px'}}>
-        <Button variant='contained' color='secondary'>Контрагенты</Button>
-        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Алкогольная продукция</Button>
-        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Входящие ТТН</Button>
-        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Акты списания</Button>
-        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Чеки</Button>
-    </Box>
+    return <ButtonGroup variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
+        <Button>Контрагенты</Button>
+        <Button>Алкогольная продукция</Button>
+        <Button>Входящие ТТН</Button>
+        <Button>Акты списания</Button>
+        <Button>Чеки</Button>
+    </ButtonGroup>
 }
 
 export function CinemaType() {
 
-    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-        <Button variant='contained'><LaptopIcon/></Button>
-        <Button variant='contained'><DockIcon/></Button>
-        <Button variant='contained'><LanguageIcon/></Button>
+    return <ButtonGroup size='medium' variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
+        <Button><LaptopIcon/></Button>
+        <Button><DockIcon/></Button>
+        <Button><LanguageIcon/></Button>
     </ButtonGroup>
 }
 
@@ -258,7 +257,7 @@ export function DateParamAdmin() {
     }
 
     return <>
-        <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'
+        <ButtonGroup size='medium' variant='outlined' color='secondary' className='admin-panel-period'
                      sx={{marginRight: '5px'}}>
             <Button onClick={async () => {
                 const now = new Date()
@@ -331,15 +330,15 @@ export function CreateDeleteButtons() {
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
 
-    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-        <Button variant='contained' startIcon={<AddIcon/>} onClick={() => {
+    return <ButtonGroup size='medium' variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
+        <Button startIcon={<AddIcon/>} onClick={() => {
             switch (current_page) {
                 case 'admin/operations':
                     dispatch(openModal({type: 'documents_operation', props: {}}))
                     break
             }
         }}>Создать</Button>
-        <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
+        <Button startIcon={<RemoveIcon/>}>Удалить</Button>
     </ButtonGroup>
 }
 
@@ -361,7 +360,7 @@ export function Equipment() {
     }
 
     return <Box>
-        <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
+        <Button startIcon={<AddIcon/>} onClick={handleClick} variant="outlined" color='outlined'>
             Добавить устройство
         </Button>
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
@@ -380,7 +379,7 @@ export function ShowDateOperations() {
     const {date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
 
     return (
-        <ButtonGroup color='secondary' variant='contained'>
+        <ButtonGroup color='secondary' variant='outlined'>
             <Button>{date_shift_beginning}</Button>
             <Button>{date_shift_ending}</Button>
         </ButtonGroup>
@@ -406,10 +405,11 @@ export function CurrentKKT() {
                 current_value={uid_kkt_current}
                 width={230}
             />
-            <ButtonGroup color='secondary' variant='contained' sx={{marginLeft: '5px'}}>
+            <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
                 <Button>Суточный отчет</Button>
                 <Button>X-отчет</Button>
-                <Button>Закрыть смену</Button>
+                <Button>Открыть ДЯ</Button>
+                <Button variant='contained' color='primary'>Закрыть смену</Button>
             </ButtonGroup>
         </Box>
     )
@@ -434,8 +434,8 @@ export function CurrentPinpad() {
                 current_value={uid_pinpad_current}
                 width={230}
             />
-            <ButtonGroup color='secondary' variant='contained' sx={{marginLeft: '5px'}}>
-                <Button>Закрыть смену</Button>
+            <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
+                <Button variant='contained' color='primary'>Закрыть смену</Button>
             </ButtonGroup>
         </Box>
     )
