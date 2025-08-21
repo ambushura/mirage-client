@@ -195,73 +195,6 @@ export const horeca_position_add = (filial, wp, uid_order, ver, uid_menu) => asy
     filial
 }, data => dispatch(setCurrentHorder(data)))
 
-export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
-    method: 'post', url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT}`, data: {
-        uid_filial: filial.uid,
-        uid_payment_type: pm.uid_payment_type,
-        uid_kkt: pm.uid_kkt,
-        uid_pinpad: pm.uid_pinpad,
-        uid_work_place: pm.uid_work_place,
-        uid_printer: pm.uid_printer,
-        uid_printer_kkt: pm.uid_printer_kkt,
-        uid_order,
-        type,
-        ver,
-        payment_group,
-        kiosk: false
-    }, timeout: TIMEOUT * 60,
-    wp,
-    filial
-}, data => {
-    if (data.order !== null) {
-        if (data.errors.length === 0) {
-            dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
-            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-        } else {
-            dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
-            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-        }
-        data.errors.forEach(error => {
-            dispatch(addNotification({
-                message: error, severity: 'error', autoHide: true
-            }))
-        })
-    }
-    dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
-})
-
-export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
-        method: 'post',
-        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}`,
-        data: {
-            uid_filial: filial.uid,
-            uid_work_place: wp,
-            uid_order,
-            type,
-            ver,
-            payment_group,
-            kiosk: true
-        },
-        timeout: TIMEOUT * 60,
-        wp,
-        filial
-    }, data => {
-        if (data.order !== null) {
-            if (data.errors.length === 0) {
-                dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
-                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-            } else {
-                dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
-                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-            }
-            data.errors.forEach(error => {
-                dispatch(setKioskPaymentError(error))
-            })
-        }
-        dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
-    }
-)
-
 export const cinema_discount_apply = (filial, wp, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
     url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_APPLY}`,
@@ -437,21 +370,6 @@ export const pl_estimate_discounts = (filial, wp, uid_order, order_type, card) =
     })
 }
 
-export const equipment_action = (filial, wp, route, params) => async (dispatch) => {
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${route}`,
-        params: params,
-        wp,
-        filial
-    })
-    switch (route) {
-        case ROUTE_EQUIPMENT_KKT_Z:
-            dispatch(setZBooksUpdate())
-            break
-    }
-}
-
 export const cinema_seance_close = (filial, wp, uid_seance, reason, comment) => async (dispatch) => {
     await makeRequest(dispatch, {
         method: 'get',
@@ -488,4 +406,89 @@ export const common_list_get = (filial, wp, type) => async (dispatch) => {
                 break
         }
     })
+}
+
+
+// ОПЛАТА, ОБОРУДОВАНИЕ
+export const common_order_pay = (filial, wp, pm, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
+    method: 'post', url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT}`, data: {
+        uid_filial: filial.uid,
+        uid_payment_type: pm.uid_payment_type,
+        uid_kkt: pm.uid_kkt,
+        uid_pinpad: pm.uid_pinpad,
+        uid_work_place: pm.uid_work_place,
+        uid_printer: pm.uid_printer,
+        uid_printer_kkt: pm.uid_printer_kkt,
+        uid_order,
+        type,
+        ver,
+        payment_group,
+        kiosk: false
+    }, timeout: TIMEOUT * 6 * 3,
+    wp,
+    filial
+}, data => {
+    if (data.order !== null) {
+        if (data.errors.length === 0) {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        } else {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        }
+        data.errors.forEach(error => {
+            dispatch(addNotification({
+                message: error, severity: 'error', autoHide: true
+            }))
+        })
+    }
+    dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
+})
+
+export const common_order_pay_kiosk = (filial, wp, uid_order, ver, type, payment_group) => async (dispatch) => makeRequest(dispatch, {
+        method: 'post',
+        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}`,
+        data: {
+            uid_filial: filial.uid,
+            uid_work_place: wp,
+            uid_order,
+            type,
+            ver,
+            payment_group,
+            kiosk: true
+        },
+        timeout: TIMEOUT * 6 * 3,
+        wp,
+        filial
+    }, data => {
+        if (data.order !== null) {
+            if (data.errors.length === 0) {
+                dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+            } else {
+                dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+            }
+            data.errors.forEach(error => {
+                dispatch(setKioskPaymentError(error))
+            })
+        }
+        dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
+    }
+)
+
+export const equipment_action = (filial, wp, route, params) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${route}`,
+        params: params,
+        wp,
+        filial,
+        timeout: TIMEOUT * 6 * 3,
+    })
+    switch (route) {
+        case ROUTE_EQUIPMENT_KKT_Z:
+            dispatch(setZBooksUpdate())
+            break
+    }
 }

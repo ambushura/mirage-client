@@ -50,7 +50,11 @@ import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
 import {common_list_get, equipment_action} from "../../../service/fetch_service.js"
 import {SelectMenu} from "../../../ui/SelectMenu.jsx"
-import {ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_Z} from "../../../service/fetch_routes.js"
+import {
+    ROUTE_EQUIPMENT_KKT_Z,
+    ROUTE_EQUIPMENT_PINPAD_X,
+    ROUTE_EQUIPMENT_PINPAD_Z
+} from "../../../service/fetch_routes.js"
 import {setZBooksUpdate} from "../../../redux/documentsReducer.js"
 
 export function AdminHallsList() {
@@ -439,6 +443,9 @@ export function CurrentPinpad() {
                 width={230}
             />
             <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
+                <Button variant='outlined' color='secondary'
+                        onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_X, {uid: uid_pinpad_current}))}>Краткий
+                    отчет</Button>
                 <Button variant='contained' color='primary'
                         onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
                     смену</Button>
