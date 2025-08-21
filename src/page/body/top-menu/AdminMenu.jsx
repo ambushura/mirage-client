@@ -48,8 +48,10 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
-import {common_list_get} from "../../../service/fetch_service.js"
+import {common_list_get, equipment_action} from "../../../service/fetch_service.js"
 import {SelectMenu} from "../../../ui/SelectMenu.jsx"
+import {ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_Z} from "../../../service/fetch_routes.js"
+import {setZBooksUpdate} from "../../../redux/documentsReducer.js"
 
 export function AdminHallsList() {
 
@@ -409,7 +411,9 @@ export function CurrentKKT() {
                 <Button>Суточный отчет</Button>
                 <Button>X-отчет</Button>
                 <Button>Открыть ДЯ</Button>
-                <Button variant='contained' color='primary'>Закрыть смену</Button>
+                <Button variant='contained' color='primary'
+                        onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_KKT_Z, {uid: uid_kkt_current}))}>Закрыть
+                    смену</Button>
             </ButtonGroup>
         </Box>
     )
@@ -435,7 +439,9 @@ export function CurrentPinpad() {
                 width={230}
             />
             <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
-                <Button variant='contained' color='primary'>Закрыть смену</Button>
+                <Button variant='contained' color='primary'
+                        onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
+                    смену</Button>
             </ButtonGroup>
         </Box>
     )

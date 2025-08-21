@@ -8,6 +8,7 @@ const initialState = {
         pinpad_list: null,
         date_shift: '',
         z_books: [],
+        update: 0,
     },
     operations: {
         wallets: [],
@@ -17,6 +18,7 @@ const initialState = {
         page: 1,
         date_shift_beginning: undefined,
         date_shift_ending: undefined,
+        update: 0,
     }
 }
 
@@ -44,17 +46,20 @@ export const dataSlice = createSlice({
         },
         setOperationsPage: (state, {payload}) => {
             state.operations.page = payload
-        }
+        },
+        setZBooksUpdate(state) {
+            state.zbooks.update += 1
+        },
     },
 })
 
 export const {
-    setZBooks,
     setOperations,
     setOperationsPage,
     setCurrentKKT,
     setKKTList,
     setCurrentPinpad,
     setPinpadList,
+    setZBooksUpdate,
 } = dataSlice.actions
 export default dataSlice.reducer

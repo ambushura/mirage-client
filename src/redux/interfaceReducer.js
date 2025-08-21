@@ -69,7 +69,7 @@ const initialState = {
         uid_film: undefined,
         uid_seance: undefined,
     },
-    top_menu: TOP_MENU
+    top_menu: TOP_MENU,
 }
 
 const interfaceSlice = createSlice({
@@ -112,7 +112,7 @@ const interfaceSlice = createSlice({
         },
         setWP: (state, {payload}) => {
             state.wp = payload
-        }
+        },
     },
 })
 

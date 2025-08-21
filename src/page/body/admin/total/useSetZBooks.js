@@ -7,6 +7,7 @@ export function useSetZBooks() {
 
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const {update} = useSelector(state => state.documents.zbooks)
     const [url_zbooks, set_url_zbooks] = useState(undefined)
 
     const [fetch_data_zbooks, fetch_errors_zbooks, fetch_loading_zbooks] = useFetching(url_zbooks)
@@ -18,13 +19,14 @@ export function useSetZBooks() {
                     uid_filial: filial.uid,
                     params: {
                         date_shift: param_date_admin,
+                        update: update,
                     }
                 }
             )
         } else {
             set_url_zbooks(undefined)
         }
-    }, [filial, param_date_admin])
+    }, [filial, param_date_admin, update])
 
     return [fetch_data_zbooks, fetch_errors_zbooks, fetch_loading_zbooks]
 }

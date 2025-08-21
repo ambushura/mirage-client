@@ -31,7 +31,6 @@ const Zbooks = () => {
         {field: 'sum_total_of_income', headerName: 'П смены', type: 'number', width: 100},
         {field: 'sum_non_zero_total_of_income', headerName: 'НС +', type: 'number', width: 100},
         {field: 'sum_non_zero_total_of_outcome', headerName: 'НС -', type: 'number', width: 100},
-        {field: 'sum_electron_pinpad', headerName: 'БН Т', type: 'number', width: 100}
     ]
 
     const [rows, set_rows] = useState([])
@@ -61,7 +60,6 @@ const Zbooks = () => {
                         sum_total_of_income: zbook.sum_total_of_income,
                         sum_non_zero_total_of_income: zbook.sum_non_zero_total_of_income,
                         sum_non_zero_total_of_outcome: zbook.sum_non_zero_total_of_outcome,
-                        sum_electron_pinpad: zbook.sum_electron_pinpad,
                         hide: true
                     }
                 )

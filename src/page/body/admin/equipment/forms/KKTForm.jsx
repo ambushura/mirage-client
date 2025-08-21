@@ -257,7 +257,7 @@ export default function KKTForm({props}) {
                                         labelId="discounts-group-select-label"
                                         id="discounts-group-select"
                                         value={report_value}
-                                        label="Группа скидок"
+                                        label="Отчеты"
                                         variant='filled'>
                                         {report_list.map(option => <MenuItem sx={{color: 'black'}}
                                                                              key={option.id}
