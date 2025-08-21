@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     ButtonGroup,
-    Fade,
     FormControl, IconButton, InputAdornment,
     InputLabel,
     Menu,
@@ -34,7 +33,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
-import {openModal, TIMEOUT} from "../../../redux/interfaceReducer.js"
+import {openModal} from "../../../redux/interfaceReducer.js"
 import LaptopIcon from "@mui/icons-material/Laptop"
 import DockIcon from "@mui/icons-material/Dock"
 import LanguageIcon from "@mui/icons-material/Language"
@@ -44,22 +43,21 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../../components/forms/Calendar.jsx"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
+import {common_list_get} from "../../../service/fetch_service.js"
+import {SelectMenu} from "../../../ui/SelectMenu.jsx"
 
 export function AdminHallsList() {
 
     const dispatch = useDispatch()
     const halls = useSetHalls()
 
-    const current_page = useSelector(state => state.interface.current_page)
     const uid_hall = useSelector(state => state.halls.uid_hall)
     const mode = useSelector(state => state.halls.mode)
-
-    if (current_page !== 'admin/halls') return null
 
     return <Box sx={{marginRight: '5px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <FormControl variant='filled' sx={{minWidth: '200px'}}>
@@ -93,10 +91,7 @@ export function AdminHallsList() {
 export function ShowFastSearch() {
 
     const dispatch = useDispatch()
-    const current_page = useSelector(state => state.interface.current_page)
     const order_search_value = useSelector(state => state.orders.order_search_value)
-
-    if (current_page !== 'admin/orders/horeca' && current_page !== 'admin/orders/cinema') return null
 
     return (
         <Box sx={{
@@ -156,10 +151,6 @@ export function ShowFilters() {
     const cinema_buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
     const cinema_buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
 
-    const order_search_value = useSelector(state => state.orders.order_search_value)
-
-    if ((current_page !== 'admin/orders/horeca' && current_page !== 'admin/orders/cinema') || order_search_value !== null) return null
-
     if (current_page === 'admin/orders/horeca') {
         return (
             <ButtonGroup sx={{marginRight: '5px'}}>
@@ -213,39 +204,22 @@ export function ShowFilters() {
 
 export function EGAISMenu() {
 
-    const current_page = useSelector(state => state.interface.current_page)
-
-    if (current_page !== 'admin/egais') return null
-
-    return (
-        <Fade in={current_page === 'admin/egais'} timeout={TIMEOUT} unmountOnExit>
-            <Box sx={{marginRight: '5px'}}>
-                <Button variant='contained' color='secondary'>Контрагенты</Button>
-                <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Алкогольная продукция</Button>
-                <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Входящие ТТН</Button>
-                <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Акты списания</Button>
-                <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Чеки</Button>
-            </Box>
-        </Fade>
-    )
+    return <Box sx={{marginRight: '5px'}}>
+        <Button variant='contained' color='secondary'>Контрагенты</Button>
+        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Алкогольная продукция</Button>
+        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Входящие ТТН</Button>
+        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Акты списания</Button>
+        <Button sx={{marginLeft: '4px'}} variant='contained' color='secondary'>Чеки</Button>
+    </Box>
 }
 
 export function CinemaType() {
 
-    const current_page = useSelector(state => state.interface.current_page)
-    const order_search_value = useSelector(state => state.orders.order_search_value)
-
-    if (current_page !== 'admin/orders/cinema' || order_search_value !== null) return null
-
-    return (
-        <Fade in={current_page === 'admin/orders/cinema'} timeout={TIMEOUT} unmountOnExit>
-            <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-                <Button variant='contained'><LaptopIcon/></Button>
-                <Button variant='contained'><DockIcon/></Button>
-                <Button variant='contained'><LanguageIcon/></Button>
-            </ButtonGroup>
-        </Fade>
-    )
+    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
+        <Button variant='contained'><LaptopIcon/></Button>
+        <Button variant='contained'><DockIcon/></Button>
+        <Button variant='contained'><LanguageIcon/></Button>
+    </ButtonGroup>
 }
 
 export function DateParamAdmin() {
@@ -266,9 +240,6 @@ export function DateParamAdmin() {
     // Календарь
     const open = Boolean(admin_calendar_open)
     const id = open ? 'admin-date-calendar' : null
-
-    const isPageMatch = ['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page)
-    if (!isPageMatch) return null
 
     const handleClick = (event) => {
         set_admin_calendar_open(event.currentTarget)
@@ -360,32 +331,22 @@ export function CreateDeleteButtons() {
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
 
-    const visiblePages = ['admin/operations', 'admin/zbooks']
-    const isVisible = visiblePages.includes(current_page)
-
-    if (!isVisible) return null
-
-    return <Fade in={isVisible} timeout={TIMEOUT} unmountOnExit>
-        <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-            <Button variant='contained' startIcon={<AddIcon/>} onClick={() => {
-                switch (current_page) {
-                    case 'admin/operations':
-                        dispatch(openModal({type: 'documents_operation', props: {}}))
-                        break
-                }
-            }}>Создать</Button>
-            <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
-        </ButtonGroup>
-    </Fade>
+    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
+        <Button variant='contained' startIcon={<AddIcon/>} onClick={() => {
+            switch (current_page) {
+                case 'admin/operations':
+                    dispatch(openModal({type: 'documents_operation', props: {}}))
+                    break
+            }
+        }}>Создать</Button>
+        <Button variant='contained' startIcon={<RemoveIcon/>}>Удалить</Button>
+    </ButtonGroup>
 }
 
 export function Equipment() {
 
-    const current_page = useSelector(state => state.interface.current_page)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
-
-    if (current_page !== 'admin/equipment') return null
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -395,11 +356,11 @@ export function Equipment() {
         setAnchorEl(null)
     }
 
-    const handleSelect = (type) => {
+    const handleSelect = () => {
         handleClose()
     }
 
-    return <>
+    return <Box>
         <Button startIcon={<AddIcon/>} onClick={handleClick} variant="contained">
             Добавить устройство
         </Button>
@@ -410,16 +371,13 @@ export function Equipment() {
             <MenuItem onClick={() => handleSelect('Чековый принтер')}>Чековый принтер</MenuItem>
             <MenuItem onClick={() => handleSelect('Билетный контролер')}>Билетный контролер</MenuItem>
         </Menu>
-    </>
+    </Box>
 
 }
 
 export function ShowDateOperations() {
 
-    const current_page = useSelector(state => state.interface.current_page)
     const {date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
-
-    if (current_page !== 'admin/operations') return null
 
     return (
         <ButtonGroup color='secondary' variant='contained'>
@@ -429,18 +387,82 @@ export function ShowDateOperations() {
     )
 }
 
+export function CurrentKKT() {
+
+    const dispatch = useDispatch()
+    const {kkt_list, uid_kkt_current} = useSelector(state => state.documents.zbooks)
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+
+    useEffect(() => {
+        dispatch(common_list_get(filial, wp, 'kkt'))
+    }, [dispatch, filial, wp])
+
+    return (
+        <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
+            <SelectMenu
+                type={'zbooks-kkt'}
+                list={kkt_list}
+                current_value={uid_kkt_current}
+                width={230}
+            />
+            <ButtonGroup color='secondary' variant='contained' sx={{marginLeft: '5px'}}>
+                <Button>Суточный отчет</Button>
+                <Button>X-отчет</Button>
+                <Button>Закрыть смену</Button>
+            </ButtonGroup>
+        </Box>
+    )
+}
+
+export function CurrentPinpad() {
+
+    const dispatch = useDispatch()
+    const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents.zbooks)
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+
+    useEffect(() => {
+        dispatch(common_list_get(filial, wp, 'pinpad'))
+    }, [dispatch, filial, wp])
+
+    return (
+        <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
+            <SelectMenu
+                type={'zbooks-pinpad'}
+                list={pinpad_list}
+                current_value={uid_pinpad_current}
+                width={230}
+            />
+            <ButtonGroup color='secondary' variant='contained' sx={{marginLeft: '5px'}}>
+                <Button>Закрыть смену</Button>
+            </ButtonGroup>
+        </Box>
+    )
+}
+
 export default function AdminMenu() {
+
+    const current_page = useSelector(state => state.interface.current_page)
+    const order_search_value = useSelector(state => state.orders.order_search_value)
+
     return (
         <Box className='admin-panel'>
-            <DateParamAdmin/>
-            <CreateDeleteButtons/>
-            <ShowDateOperations/>
-            <CinemaType/>
-            <ShowFilters/>
-            <ShowFastSearch/>
-            <EGAISMenu/>
-            <AdminHallsList/>
-            <Equipment/>
+            {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
+                <DateParamAdmin/> : null}
+            {current_page === 'admin/zbooks' ? <CurrentKKT/> : null}
+            {current_page === 'admin/acquiring' ? <CurrentPinpad/> : null}
+            {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
+                <CreateDeleteButtons/> : null}
+            {current_page === 'admin/operations' ? <ShowDateOperations/> : null}
+            {current_page === 'admin/orders/cinema' && order_search_value === null ? <CinemaType/> : null}
+            {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null ?
+                <ShowFilters/> : null}
+            {current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema' ?
+                <ShowFastSearch/> : null}
+            {current_page === 'admin/egais' ? <EGAISMenu/> : null}
+            {current_page === 'admin/halls' ? <AdminHallsList/> : null}
+            {current_page === 'admin/equipment' ? <Equipment/> : null}
         </Box>
     )
 }

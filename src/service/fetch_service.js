@@ -4,7 +4,10 @@ import {
     NEW_EMPTY_ORDER,
     pushKitchenPositions,
     setCurrentHorder,
-    setCurrentPreOrder, setHorderPaying, setHorderPreparing, setKioskPaymentError,
+    setCurrentPreOrder,
+    setHorderPaying,
+    setHorderPreparing,
+    setKioskPaymentError,
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate, setPreOrderPaying, setPreOrderPreparing
 } from "../redux/ordersReducer.js"
@@ -21,13 +24,16 @@ import {
     ROUTE_CINEMA_PLACE_BLOCK,
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
-    ROUTE_CINEMA_POSITION_DELETE_COMMENT, ROUTE_CINEMA_SEANCE_CLOSE,
+    ROUTE_CINEMA_POSITION_DELETE_COMMENT,
+    ROUTE_CINEMA_SEANCE_CLOSE,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
+    ROUTE_COMMON_LIST_GET,
     ROUTE_COMMON_LOGIN,
     ROUTE_COMMON_ORDER_ADD_CONTACT,
     ROUTE_COMMON_ORDER_PAYMENT,
     ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
-    ROUTE_COMMON_ORDERS_GET_RECEIPTS, ROUTE_COMMON_SETTINGS_GET,
+    ROUTE_COMMON_ORDERS_GET_RECEIPTS,
+    ROUTE_COMMON_SETTINGS_GET,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_DELETE,
@@ -50,6 +56,7 @@ import {
 import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
 import {setSettings} from "../redux/dataReducer.js"
+import {setKKTList, setPinpadList} from "../redux/documentsReducer.js";
 
 export const TIMEOUT = 10000
 
@@ -453,5 +460,26 @@ export const cinema_seance_close = (filial, wp, uid_seance, reason, comment) => 
         filial
     }, data => {
         dispatch(setSeance(data))
+    })
+}
+
+export const common_list_get = (filial, wp, type) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
+        params: {
+            type: type,
+        },
+        wp,
+        filial
+    }, data => {
+        switch (type) {
+            case 'kkt':
+                dispatch(setKKTList(data))
+                break
+            case 'pinpad':
+                dispatch(setPinpadList(data))
+                break
+        }
     })
 }
