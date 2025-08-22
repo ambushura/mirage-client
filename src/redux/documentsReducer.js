@@ -4,10 +4,14 @@ const initialState = {
     zbooks: {
         uid_kkt_current: null,
         kkt_list: null,
-        uid_pinpad_current: null,
-        pinpad_list: null,
         date_shift: '',
         z_books: [],
+        update: 0,
+    },
+    zpinpads: {
+        uid_pinpad_current: null,
+        pinpad_list: null,
+        z_pinpads: [],
         update: 0,
     },
     operations: {
@@ -35,20 +39,23 @@ export const dataSlice = createSlice({
         setKKTList: (state, {payload}) => {
             state.zbooks.kkt_list = payload
         },
+        setZBooksUpdate(state) {
+            state.zbooks.update += 1
+        },
         setCurrentPinpad: (state, {payload}) => {
-            state.zbooks.uid_pinpad_current = payload
+            state.zpinpads.uid_pinpad_current = payload
         },
         setPinpadList: (state, {payload}) => {
-            state.zbooks.pinpad_list = payload
+            state.zpinpads.pinpad_list = payload
+        },
+        setZPinpadsUpdate(state) {
+            state.zpinpads.update += 1
         },
         setOperations: (state, {payload}) => {
             state.operations = {...state.operations, ...payload}
         },
         setOperationsPage: (state, {payload}) => {
             state.operations.page = payload
-        },
-        setZBooksUpdate(state) {
-            state.zbooks.update += 1
         },
     },
 })
@@ -61,5 +68,6 @@ export const {
     setCurrentPinpad,
     setPinpadList,
     setZBooksUpdate,
+    setZPinpadsUpdate,
 } = dataSlice.actions
 export default dataSlice.reducer

@@ -426,7 +426,7 @@ export function CurrentKKT() {
 export function CurrentPinpad() {
 
     const dispatch = useDispatch()
-    const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents.zbooks)
+    const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents.zpinpads)
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
 

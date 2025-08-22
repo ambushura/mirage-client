@@ -33,7 +33,7 @@ import {
     ROUTE_COMMON_ORDER_PAYMENT,
     ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
-    ROUTE_COMMON_SETTINGS_GET, ROUTE_EQUIPMENT_KKT_Z,
+    ROUTE_COMMON_SETTINGS_GET, ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_DELETE,
@@ -56,7 +56,7 @@ import {
 import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
 import {setSettings} from "../redux/dataReducer.js"
-import {setKKTList, setPinpadList, setZBooksUpdate} from "../redux/documentsReducer.js";
+import {setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate} from "../redux/documentsReducer.js"
 
 export const TIMEOUT = 10000
 
@@ -403,6 +403,7 @@ export const common_list_get = (filial, wp, type) => async (dispatch) => {
                 break
             case 'pinpad':
                 dispatch(setPinpadList(data))
+                dispatch(setZPinpadsUpdate())
                 break
         }
     })
@@ -490,5 +491,9 @@ export const equipment_action = (filial, wp, route, params) => async (dispatch) 
         case ROUTE_EQUIPMENT_KKT_Z:
             dispatch(setZBooksUpdate())
             break
+        case ROUTE_EQUIPMENT_PINPAD_X:
+            dispatch(setZPinpadsUpdate())
+        case ROUTE_EQUIPMENT_PINPAD_Z:
+            dispatch(setZPinpadsUpdate())
     }
 }

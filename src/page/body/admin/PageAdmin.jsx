@@ -12,7 +12,7 @@ import Egais from "./egais/EGAIS.jsx"
 import PageStaff from "./staff/PageStaff.jsx"
 import PageHalls from "./halls/PageHalls.jsx"
 import PageEquipment from "./equipment/PageEquipment.jsx"
-import PageAcquiring from "./acquiring/PageAcquiring.jsx";
+import ZPinpads from "./total/ZPinpads.jsx"
 
 const PageAdmin = () => {
 
@@ -55,7 +55,7 @@ const PageAdmin = () => {
                             {current_page === 'admin/equipment' ?
                                 <PageEquipment/> : null}
                             {current_page === 'admin/acquiring' ?
-                                <PageAcquiring/> : null}
+                                <ZPinpads/> : null}
                         </Box>
                     </Box>
                 </Box>

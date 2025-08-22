@@ -133,7 +133,7 @@ const ScheduleMenu = () => {
                         handleOnChahge={handleOnChahge}
                     />
                 </Popover>
-                <Box className='top-menu-content-types' size='small'>
+                <Box className='top-menu-content-types' size='small' sx={{display: 'flex', flexWrap: 'noWrap'}}>
                     {schedule_filters_film_types.map(type => {
                         return <Button variant="contained"
                                        color={schedule_filters_film_types_selected.find(el => el.uid === type.uid) !== undefined ? 'primary' : 'secondary'}
