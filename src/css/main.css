@@ -1712,6 +1712,7 @@ body {
     height: 100%;
     border-radius: 12px;
     overflow: hidden;
+    font-size: 80%;
 }
 
 .order-box-horeca-item-4-1 {
@@ -1789,6 +1790,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-top: 2px;
 }
 
 .modification {
