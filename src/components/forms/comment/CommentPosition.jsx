@@ -20,18 +20,20 @@ const CommentPosition = ({props}) => {
     const uid_position = props.uid_position
     const current_comment = props.comment
 
-    const modifications = useSetModifications(props.uid_menu)
+    const modifications = useSetModifications(props.uid_menu, order_type)
     const [selected_modifications, set_selected_modifications] = useState([])
 
     useEffect(() => {
-        const modifications_old = []
-        if (props.modifications !== null) {
-            props.modifications.forEach(modification => {
-                modifications_old.push(modification.uid)
-            })
-            set_selected_modifications(modifications_old)
+        if (order_type === 'horeca') {
+            const modifications_old = []
+            if (props.modifications !== null) {
+                props.modifications.forEach(modification => {
+                    modifications_old.push(modification.uid)
+                })
+                set_selected_modifications(modifications_old)
+            }
         }
-    }, [props.modifications])
+    }, [order_type, props.modifications])
 
     useEffect(() => {
         set_comment(current_comment)
