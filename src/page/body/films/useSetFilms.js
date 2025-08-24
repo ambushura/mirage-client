@@ -74,9 +74,7 @@ export function useSetFilms() {
                 }
             })
         }
-        if (urls_new.length > 0) {
-            set_urls(urls_new)
-        }
+        set_urls(urls_new)
     }, [city,
         filial,
         film_age,

@@ -4,8 +4,11 @@ import {useEffect, useState} from "react"
 import Folder from "./Folder.jsx"
 import Item from "./Item.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
+import {useSelector} from "react-redux";
 
 const Menu = () => {
+
+    const filial = useSelector(state => state.data.filial)
 
     const [uid_folder, set_uid_folder] = useState('Меню')
     const [menu_data, ,] = useSetMenu(uid_folder)
@@ -29,59 +32,63 @@ const Menu = () => {
         set_breadcrumbs(breadcrumbs_new)
     }, [menu_data])
 
-    return <Box id="horeca-menu">
-        {menu_data !== undefined ? <>
-            <AnimatePresence>
-                {breadcrumbs.length > 0 && <motion.div
-                    className='menu-breadcrumbs'
-                    initial="hidden"
-                    animate="visible"
+    if (filial === undefined) {
+        return <Box className='empty-box' sx={{height: '100%'}}>Выберите филиал...</Box>
+    } else {
+        return <Box id="horeca-menu">
+            {menu_data !== undefined ? <>
+                <AnimatePresence>
+                    {breadcrumbs.length > 0 && <motion.div
+                        className='menu-breadcrumbs'
+                        initial="hidden"
+                        animate="visible"
 
-                    variants={containerVariants}>{breadcrumbs}</motion.div>}
-            </AnimatePresence>
-            <AnimatePresence>
-                {menu_data.items.length > 0 && <motion.div
-                    className='menu-folders'
-                    initial="hidden"
-                    animate="visible"
+                        variants={containerVariants}>{breadcrumbs}</motion.div>}
+                </AnimatePresence>
+                <AnimatePresence>
+                    {menu_data.items.length > 0 && <motion.div
+                        className='menu-folders'
+                        initial="hidden"
+                        animate="visible"
 
-                    variants={containerVariants}>
-                    {menu_data.items.map(item => {
-                        if (item.its_folder) {
-                            return (<motion.div
-                                key={item.uid}
-                                variants={itemVariants}>
-                                <Folder
-                                    type="menu-folder"
-                                    set_uid_folder={set_uid_folder}
-                                    item={item}/>
-                            </motion.div>)
-                        }
-                    })}
-                </motion.div>}
-            </AnimatePresence>
-            <AnimatePresence>
-                {menu_data.items.length > 0 && <motion.div
-                    className='menu-items'
-                    initial="hidden"
-                    animate="visible"
-
-                    variants={containerVariants}>
-                    {menu_data.items.map(item => {
-                        if (!item.its_folder) {
-                            return (
-                                <motion.div
+                        variants={containerVariants}>
+                        {menu_data.items.map(item => {
+                            if (item.its_folder) {
+                                return (<motion.div
                                     key={item.uid}
                                     variants={itemVariants}>
-                                    <Item item={item}/>
-                                </motion.div>
-                            )
-                        }
-                    })}
-                </motion.div>}
-            </AnimatePresence>
-        </> : <></>}
-    </Box>
+                                    <Folder
+                                        type="menu-folder"
+                                        set_uid_folder={set_uid_folder}
+                                        item={item}/>
+                                </motion.div>)
+                            }
+                        })}
+                    </motion.div>}
+                </AnimatePresence>
+                <AnimatePresence>
+                    {menu_data.items.length > 0 && <motion.div
+                        className='menu-items'
+                        initial="hidden"
+                        animate="visible"
+
+                        variants={containerVariants}>
+                        {menu_data.items.map(item => {
+                            if (!item.its_folder) {
+                                return (
+                                    <motion.div
+                                        key={item.uid}
+                                        variants={itemVariants}>
+                                        <Item item={item}/>
+                                    </motion.div>
+                                )
+                            }
+                        })}
+                    </motion.div>}
+                </AnimatePresence>
+            </> : <></>}
+        </Box>
+    }
 }
 
 export default Menu
