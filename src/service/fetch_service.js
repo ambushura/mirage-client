@@ -34,7 +34,7 @@ import {
     ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_COMMON_SETTINGS_GET, ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z,
-    ROUTE_HORECA_KITCHEN_PUSH,
+    ROUTE_HORECA_KITCHEN_PUSH, ROUTE_HORECA_MODIFICATIONS_GET,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
     ROUTE_HORECA_ORDER_DELETE,
     ROUTE_HORECA_ORDER_DELETE_COMMENT,
@@ -239,10 +239,10 @@ export const common_order_delete_comment = (filial, wp, order_type, uid_order) =
     dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
 })
 
-export const common_position_add_comment = (filial, wp, order_type, uid_order, uid_position, comment) => async (dispatch) => makeRequest(dispatch, {
+export const common_position_add_comment = (filial, wp, order_type, uid_order, uid_position, comment, modifications) => async (dispatch) => makeRequest(dispatch, {
     method: 'get',
     url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_ADD_COMMENT : ROUTE_HORECA_POSITION_ADD_COMMENT}`,
-    params: {uid_order, uid_position, comment},
+    params: {uid_order, uid_position, comment, modifications: order_type === 'horeca' ? modifications : []},
     wp,
     filial
 }, data => {
@@ -496,4 +496,16 @@ export const equipment_action = (filial, wp, route, params) => async (dispatch) 
         case ROUTE_EQUIPMENT_PINPAD_Z:
             dispatch(setZPinpadsUpdate())
     }
+}
+
+export const common_horeca_modifications_get = (filial, wp, uid_menu) => async (dispatch) => {
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MODIFICATIONS_GET}`,
+        params: {uid_menu},
+        wp,
+        filial
+    }, data => {
+        return data
+    })
 }

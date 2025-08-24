@@ -1785,6 +1785,21 @@ body {
     background-color: #000000;
 }
 
+.modifications {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.modification {
+    background-color: #D7D7D7;
+    margin: 0 2px 2px 0;
+    border-radius: 16px;
+    padding: 8px 12px;
+    color: black;
+    font-size: 80%;
+    font-weight: bold;
+}
 
 /* ========================== */
 /*   ПАНЕЛЬ ОПЛАТЫ В КИОСКЕ   */

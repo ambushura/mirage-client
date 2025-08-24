@@ -30,7 +30,7 @@ const CommentOrder = (props) => {
              }}
              display="flex" flexDirection="column" sx={{alignItems: 'flex-start'}} id="modal-comment">
             <Typography variant="h6" color="textSecondary" margin={1}>Комментарий к заказу</Typography>
-            <TextField label='Комментарий' sx={{m: 1, minWidth: '400px'}} variant='filled' color="textSecondary"
+            <TextField label='Комментарий' sx={{m: 1, minWidth: '500px'}} variant='filled' color="textSecondary"
                        multiline value={comment} onChange={(event) => {
                 set_comment(event.target.value)
             }}/>
