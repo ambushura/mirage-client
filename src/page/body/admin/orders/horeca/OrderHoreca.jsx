@@ -15,6 +15,7 @@ import FunctionsIcon from "@mui/icons-material/Functions"
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import LocationOnIcon from "@mui/icons-material/LocationOn"
+import CommentIcon from "@mui/icons-material/Comment";
 
 const group_items = (items_grouped, payment_group, payment_state) => {
     const items = [], mark_egais = []
@@ -203,13 +204,15 @@ const OrderHoreca = ({order}) => {
                     overflowX: 'hidden',
                     overflowY: 'auto',
                     wordBreak: 'break-word'
-                }}>Комментарий: {order.comment}</Box> : null}
+                }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}</Box> : null}
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
                     {order.buyer_email !== null ?
-                        <Box><AlternateEmailIcon sx={{width: '15px', height: '15px'}}/> {order.buyer_email}
+                        <Box><AlternateEmailIcon
+                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
                         </Box> : null}
                     {order.buyer_phone_number !== null ?
-                        <Box><PhoneEnabledIcon sx={{width: '15px', height: '15px'}}/> {order.buyer_phone_number}
+                        <Box><PhoneEnabledIcon
+                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
                         </Box> : null}
                 </Box>
                 <Box sx={{
