@@ -30,7 +30,7 @@ const BookingItem = (props) => {
                     <span className="order-booking-item-numbers">{props.place_number}</span>
                     <span className="order-booking-item-labels">м</span>
                     <span className="order-booking-item-numbers"
-                          style={{color: props.uid_discount !== null ? '#FF9800' : 'black'}}>{props.sum.toLocaleString('ru-RU')} р</span>
+                          style={{color: props.uid_discount !== null ? '#1DB1BA' : 'black'}}>{props.sum.toLocaleString('ru-RU')} р</span>
                 </div>
                 <button className='order-booking-item-button' onClick={() => {
                     dispatch(openModal({type: 'comment_position', props: {order_type: 'cinema', action_type: 'position', uid_order: props.uid_order, uid_position: props.uid, comment: props.comment}}))

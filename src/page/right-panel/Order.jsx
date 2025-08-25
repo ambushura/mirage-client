@@ -11,9 +11,6 @@ import HorecaItem from "./horeca/HorecaItem.jsx"
 import {useNavigate} from "react-router-dom"
 import Payment from "./payment/Payment.jsx"
 import {
-    NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder
-} from "../../redux/ordersReducer.js"
-import {
     cinema_order_fetch,
     common_order_delete_comment,
     common_orders_receipts_get,
@@ -26,6 +23,8 @@ import ContactMailIcon from '@mui/icons-material/ContactMail'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import {motion} from 'framer-motion'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
+import ContentCutIcon from '@mui/icons-material/ContentCut'
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 
 const OrderBody = ({
                        type,
@@ -53,12 +52,12 @@ const OrderBody = ({
             <>
                 <Box className="order-box-panel-1">
                     <ButtonGroup size='large'>
-                        <Button variant="contained" color="info" onClick={() => {
+                        <Button variant="outlined" color="info" onClick={() => {
                             set_preparing(true)
                         }}><ReceiptIcon/></Button>
-                        <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
-                        <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
-                        <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
+                        <Button variant="outlined" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
+                        <Button variant="outlined" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
+                        <Button variant="outlined" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
                         {uid_selected.length > 0 ?
                             <Button variant="outlined" color="secondary" sx={{marginRight: '4px'}} onClick={() => {
                                 set_uid_selected([])
@@ -72,26 +71,26 @@ const OrderBody = ({
                 {type === 'cinema' &&
                     <>
                         <Box className="order-box-panel-2">
-                            <Button variant="contained" color="secondary"
+                            <Button variant="outlined" color="secondary"
                                     onClick={addContact}><ContactMailIcon/></Button>
                             <ButtonGroup size='large' sx={{marginLeft: '4px'}}>
-                                <Button variant="contained" color="secondary" onClick={() => {
+                                <Button variant="outlined" color="secondary" onClick={() => {
                                     dispatch(openModal({
                                         type: 'comment_order',
                                         props: {order_type: 'cinema', action_type: 'order', order: order}
                                     }))
                                 }}><BorderColorIcon/></Button>
                                 {order.comment !== null ?
-                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    <Button variant="outlined" color="secondary" onClick={() => {
                                         dispatch(common_order_delete_comment(filial, wp, 'cinema', order.uid))
                                     }}><DeleteIcon/></Button> : null}
                             </ButtonGroup>
                             <ButtonGroup size='small'>
-                                <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
+                                <Button variant="outlined" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
                                     dispatch(openModal({type: 'discounts', props: {uid_positions: uid_selected}}))
                                 }}>Скидки</Button>
                                 {order.sum_discount !== 0 ?
-                                    <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                                    <Button variant="outlined" color="secondary"><DeleteIcon/></Button>
                                     : null}
                             </ButtonGroup>
                         </Box>
@@ -137,34 +136,37 @@ const OrderBody = ({
                 {type === 'horeca' &&
                     <>
                         <Box className="order-box-panel-2">
-                            <Button variant="contained" color="secondary"
+                            <Button variant="outlined" color="secondary"
                                     onClick={addContact}><ContactMailIcon/></Button>
                             <ButtonGroup sx={{marginLeft: '4px', marginBottom: '4px'}} size='small'>
                                 <ButtonGroup sx={{marginRight: '4px'}} size='large'>
-                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    <Button variant="outlined" color="secondary" onClick={() => {
                                         dispatch(openModal({
                                             type: 'comment_order',
                                             props: {order_type: 'horeca', action_type: 'order', order: order}
                                         }))
                                     }}><BorderColorIcon/></Button>
                                     {order.comment !== null ?
-                                        <Button variant="contained" color="secondary" onClick={() => {
+                                        <Button variant="outlined" color="secondary" onClick={() => {
                                             dispatch(common_order_delete_comment(filial, wp, 'horeca', order.uid))
                                         }}><DeleteIcon/></Button> : null}
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>
-                                    <Button variant="contained" color="secondary" onClick={() => {
+                                    <Button variant="outlined" color="secondary" onClick={() => {
                                         dispatch(openModal({
                                             type: 'table_options',
                                             props: {uid_order: order.uid}
                                         }))
                                     }}>Место</Button>
-                                    <Button variant="contained" color="secondary" onClick={() => {
-                                    }}><DeleteIcon/></Button>
+                                    {order.name_hall !== null && order.name_place !== null ?
+                                        <Button variant="outlined" color="secondary" onClick={() => {
+                                        }}><DeleteIcon/></Button> : null}
                                 </ButtonGroup>
                             </ButtonGroup>
-                            <Button sx={{marginLeft: '4px'}} variant="contained" color="secondary" onClick={() => {
-                            }}>Разделить</Button>
+                            <Button sx={{marginLeft: '4px'}} variant="outlined" color="secondary" onClick={() => {
+                            }}><ContentCutIcon/></Button>
+                            <Button sx={{marginLeft: '4px'}} variant="outlined" color="secondary" onClick={() => {
+                            }}><PeopleOutlineIcon/></Button>
                         </Box>
                         <Box className="order-box-panel-adv">
                         </Box>

@@ -1411,7 +1411,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    color: #ff9800;
+    color: #1DB1BA;
 }
 
 .order-booking-item-numbers {
@@ -1890,6 +1890,8 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 1;
+    border-radius: 12px;
+    overflow: clip;
 }
 
 .payment-items-group {

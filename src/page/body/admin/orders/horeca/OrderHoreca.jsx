@@ -44,6 +44,7 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                          flexDirection: 'column',
                          backgroundColor: '#f4f4f4',
                          borderBottom: '1px dashed #b6b5b5',
+                         padding: '2px 0 2px 0',
                      }}>
                     <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                         <Box sx={{width: '20px'}}/>
@@ -61,7 +62,7 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                             <Box sx={{
                                 flex: 1,
                                 textAlign: 'right',
-                                color: '#ff9800',
+                                color: '#1DB1BA',
                                 fontSize: '70%',
                                 fontWeight: 'bold',
                                 overflow: 'hidden'
