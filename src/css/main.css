@@ -1870,6 +1870,7 @@ body {
 .payment-types {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     position: sticky;
     top: 64px;
     z-index: 3;
@@ -1878,10 +1879,11 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 70px;
+    padding: 4px 0 0 0;
 }
 
 .payment-types > button {
-    margin: 0 4px 0 0;
+    margin: 0 4px 4px 0;
 }
 
 .payment-items {
@@ -2039,24 +2041,20 @@ body {
 }
 
 .admin-orders-horeca-filial-orders, .admin-orders-cinema-filial-orders {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: flex-start;
-    align-items: baseline;
-    height: calc(100% - 60px);
+    column-width: 310px;       /* количество колонок */
+    column-gap: 15px;
+    width: 100%;
 }
 
 .admin-orders-horeca-order, .admin-orders-cinema-order {
     box-sizing: border-box;
-    width: 310px;
+    width: 100%;
     max-height: var(--admin-order-height);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 30px 30px 0;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .admin-orders-horeca-order-content, .admin-orders-cinema-order-content {
@@ -2079,7 +2077,7 @@ body {
 }
 
 .admin-orders-horeca-order-footer, .admin-orders-cinema-order-footer {
-    padding-top: 4px;
+    padding: 4px 4px 0 4px;
 }
 
 

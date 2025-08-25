@@ -276,7 +276,7 @@ const Payment = (props) => {
                                     })
                                     if (ok) {
                                         return (
-                                            <Button variant='contained'
+                                            <Button variant='outlined'
                                                     color='secondary'
                                                     key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
                                                     className='payment-path'

@@ -12,6 +12,8 @@ import {
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import {useEffect, useState} from "react"
 import FunctionsIcon from '@mui/icons-material/Functions'
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail"
+import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled"
 
 const OrderCinema = ({order}) => {
 
@@ -194,8 +196,12 @@ const OrderCinema = ({order}) => {
                         wordBreak: 'break-word'
                     }}>Комментарий: {order.comment}</Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        {order.buyer_email !== null ? <Box>e-mail: {order.buyer_email}</Box> : null}
-                        {order.buyer_phone_number !== null ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
+                        {order.buyer_email !== null ?
+                            <Box><AlternateEmailIcon sx={{width: '15px', height: '15px'}}/> {order.buyer_email}
+                            </Box> : null}
+                        {order.buyer_phone_number !== null ?
+                            <Box><PhoneEnabledIcon sx={{width: '15px', height: '15px'}}/> {order.buyer_phone_number}
+                            </Box> : null}
                     </Box>
                     <Box sx={{
                         display: 'flex',

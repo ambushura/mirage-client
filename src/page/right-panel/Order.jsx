@@ -90,7 +90,9 @@ const OrderBody = ({
                                 <Button variant="contained" color="secondary" sx={{marginLeft: '4px'}} onClick={() => {
                                     dispatch(openModal({type: 'discounts', props: {uid_positions: uid_selected}}))
                                 }}>Скидки</Button>
-                                <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                                {order.sum_discount !== 0 ?
+                                    <Button variant="contained" color="secondary"><DeleteIcon/></Button>
+                                    : null}
                             </ButtonGroup>
                         </Box>
                         <Box className="order-box-panel-3" onClick={navigateTo}>

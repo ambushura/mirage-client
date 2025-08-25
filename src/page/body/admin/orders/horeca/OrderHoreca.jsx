@@ -12,6 +12,9 @@ import {
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import FunctionsIcon from "@mui/icons-material/Functions"
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled'
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
+import LocationOnIcon from "@mui/icons-material/LocationOn"
 
 const group_items = (items_grouped, payment_group, payment_state) => {
     const items = [], mark_egais = []
@@ -154,7 +157,7 @@ const OrderHoreca = ({order}) => {
                 </Box>
                 <Box sx={{flexGrow: 1}}>
                     <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
-                    <Box>{order.name_creator}</Box>
+                    <Box sx={{overflow: 'hidden', fontSize: '80%', fontWeight: 'bold'}}>{order.name_creator}</Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
                     <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
@@ -172,7 +175,9 @@ const OrderHoreca = ({order}) => {
                             {dayjs.utc(order.date_change).format("HH:mm")}
                         </Box>
                     </Box>
-                    <Box>Зал 1, место 2 {order.name_hall} {order.name_place}</Box>
+                    {order.name_hall !== null && order.name_place !== null ?
+                        <Box><LocationOnIcon sx={{width: '15px', height: '15px'}}/>
+                            {order.name_hall} {order.name_place}</Box> : null}
                 </Box>
             </Box>
 
@@ -200,8 +205,12 @@ const OrderHoreca = ({order}) => {
                     wordBreak: 'break-word'
                 }}>Комментарий: {order.comment}</Box> : null}
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                    {order.buyer_email !== null ? <Box>e-mail: {order.buyer_email}</Box> : null}
-                    {order.buyer_phone_number !== null ? <Box>Телефон: {order.buyer_phone_number}</Box> : null}
+                    {order.buyer_email !== null ?
+                        <Box><AlternateEmailIcon sx={{width: '15px', height: '15px'}}/> {order.buyer_email}
+                        </Box> : null}
+                    {order.buyer_phone_number !== null ?
+                        <Box><PhoneEnabledIcon sx={{width: '15px', height: '15px'}}/> {order.buyer_phone_number}
+                        </Box> : null}
                 </Box>
                 <Box sx={{
                     display: 'flex',

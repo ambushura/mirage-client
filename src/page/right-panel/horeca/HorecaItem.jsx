@@ -139,7 +139,7 @@ const HorecaItem = (props) => {
                         onClick={() => dispatch(horeca_position_change_state(filial, wp, props.order.uid, props.item.uid, 'course'))}>{course[props.item.kitchen.course]}</button>
                 <button className='order-box-horeca-item-5-3'
                         onClick={() => dispatch(horeca_position_change_state(filial, wp, props.order.uid, props.item.uid, 'cook'))}
-                        style={{backgroundColor: '#45B97C', color: 'black'}}>{state[props.item.kitchen.state]}</button>
+                        style={{backgroundColor: '#45B97C', color: 'black', fontSize: '75%'}}>{state[props.item.kitchen.state]}</button>
                 <Box className='order-box-horeca-item-5-4'></Box>
                 {props.item.kitchen.uid_delivery_path !== null ?
                     <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box> : null}
