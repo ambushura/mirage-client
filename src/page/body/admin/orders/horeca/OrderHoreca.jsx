@@ -110,9 +110,8 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                 position: 'sticky',
                 top: 0,
                 zIndex: 1,
-            }}>{label}
-                {label === PAYMENT_STATE_SLIP_WITHOUT_RECEIPT || label === PAYMENT_STATE_WAITING ?
-                    <DotsAnimation/> : null}</Box>
+            }}>{label}{['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ?
+                <DotsAnimation/> : null}</Box>
             {render_items(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
             {render_items(group.items, ITEMS_TYPE_ITEMS)}
         </>

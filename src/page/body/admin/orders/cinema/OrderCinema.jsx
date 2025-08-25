@@ -108,7 +108,8 @@ const OrderCinema = ({order}) => {
                     position: 'sticky',
                     top: 0,
                     zIndex: 1,
-                }}>{label}<DotsAnimation/></Box>
+                }}>{label}{['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ?
+                    <DotsAnimation/> : null}</Box>
                 {renderItems(group.items, ITEMS_TYPE_SERVICE)}
             </>
         )
