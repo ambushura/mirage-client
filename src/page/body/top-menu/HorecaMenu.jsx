@@ -11,7 +11,7 @@ const HorecaMenu = () => {
 
     return (
         <Box id="top-menu">
-            <ButtonGroup variant='contained' color='secondary' size='medium'>
+            <ButtonGroup variant='outlined' color='secondary' size='medium'>
                 <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'mark', props: {add: true}}))
@@ -21,7 +21,7 @@ const HorecaMenu = () => {
                             dispatch(openModal({type: 'mark_hosts', props: {}}))
                         }}>Настройки</Button>
             </ButtonGroup>
-            <ButtonGroup variant='contained' color='secondary' size='large' sx={{marginLeft: '4px'}}>
+            <ButtonGroup variant='outlined' color='secondary' size='large' sx={{marginLeft: '4px'}}>
                 <Button startIcon={<QrCodeScannerIcon/>}
                         onClick={() => {
                             dispatch(openModal({type: 'egais', props: {add: true}}))
@@ -32,7 +32,7 @@ const HorecaMenu = () => {
                             dispatch(openModal({type: 'egais_settings', props: {}}))
                         }}>УТМ ЕГАИС</Button>
             </ButtonGroup>
-            <Button variant='contained' color='secondary' sx={{marginLeft: '4px'}}
+            <Button variant='outlined' color='secondary' sx={{marginLeft: '4px'}}
                     startIcon={<QrCode2Icon/>}>Штрихкод</Button>
         </Box>
     )
