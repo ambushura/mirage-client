@@ -15,6 +15,8 @@ import FunctionsIcon from '@mui/icons-material/Functions'
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail"
 import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled"
 import CommentIcon from '@mui/icons-material/Comment'
+import PrintIcon from '@mui/icons-material/Print'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 const OrderCinema = ({order}) => {
 
@@ -62,13 +64,28 @@ const OrderCinema = ({order}) => {
                              padding: '2px 0 2px 0',
                          }}>
                         <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                            <Box sx={{width: '20px'}}/>
+                            <Box sx={{
+                                width: '55px',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-around'
+                            }}>{item.ticket_printed ?
+                                <><PrintIcon sx={{
+                                    width: '15px',
+                                    height: '15px'
+                                }}/>{item.ticket_printed < 10 ? item.ticket_printed : '>9'}</> : null}
+                                {item.ticket_state !== 0 ?
+                                    <VisibilityIcon sx={{
+                                        width: '15px',
+                                        height: '15px',
+                                        color: item.ticket_state === -1 ? '#E3000B' : item.ticket_state === 1 ? '#FF9800' : item.ticket_state === 2 ? '#45B97C' : 'black'
+                                    }}/> : null}</Box>
                             <Box sx={{flex: 1}}>Ряд {item.place_row} Место {item.place_number}</Box>
                             <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'flex-start',
                                 marginRight: '4px'
-                            }}>1 шт</Box>
+                            }}></Box>
                         </Box>
                         <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{width: '20px'}}/>
@@ -197,13 +214,16 @@ const OrderCinema = ({order}) => {
                         overflowX: 'hidden',
                         overflowY: 'auto',
                         wordBreak: 'break-word'
-                    }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}</Box> : null}
+                    }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}
+                    </Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         {order.buyer_email !== null ?
-                            <Box><AlternateEmailIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+                            <Box><AlternateEmailIcon
+                                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
                             </Box> : null}
                         {order.buyer_phone_number !== null ?
-                            <Box><PhoneEnabledIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
+                            <Box><PhoneEnabledIcon
+                                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
                             </Box> : null}
                     </Box>
                     <Box sx={{
