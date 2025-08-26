@@ -1,7 +1,6 @@
 import {Box} from "@mui/material"
 import {cinema_order_fetch} from "../../../../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
-import CircleIcon from "@mui/icons-material/Circle"
 import dayjs from "dayjs"
 import {
     ITEMS_TYPE_SERVICE,
@@ -17,6 +16,9 @@ import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled"
 import CommentIcon from '@mui/icons-material/Comment'
 import PrintIcon from '@mui/icons-material/Print'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import LanguageIcon from '@mui/icons-material/Language'
+import LaptopWindowsIcon from '@mui/icons-material/LaptopWindows'
+import SmartphoneIcon from '@mui/icons-material/Smartphone'
 
 const OrderCinema = ({order}) => {
 
@@ -158,9 +160,19 @@ const OrderCinema = ({order}) => {
 
                 <Box className='admin-orders-cinema-order-header' sx={{display: 'flex', height: '45px'}}>
 
+                    <Box sx={{margin: '0 4px'}}>{order.from_site ?
+                        <LanguageIcon sx={{width: '20px', height: '20px'}}/> : order.from_wp ?
+                            <LaptopWindowsIcon sx={{width: '20px', height: '20px'}}/> : order.from.kiosk ?
+                                <SmartphoneIcon sx={{width: '20px', height: '20px'}}/> : null}</Box>
+
                     <Box sx={{flexGrow: 1}}>
                         <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
-                        <Box sx={{overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'}}>{order.name_creator}</Box>
+                        <Box sx={{
+                            overflow: 'hidden',
+                            marginLeft: '12px',
+                            fontSize: '80%',
+                            fontWeight: 'bold'
+                        }}>{order.name_creator}</Box>
                     </Box>
 
                     <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
@@ -183,7 +195,14 @@ const OrderCinema = ({order}) => {
 
                 </Box>
 
-                <Box sx={{display: 'flex', flexDirection: 'row', flexGrow: 1, flexWrap: 'wrap', justifyContent: 'center', padding: '4px 0'}}>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexGrow: 1,
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    padding: '4px 0'
+                }}>
                     <Box sx={{
                         fontWeight: 'bold',
                         marginRight: '10px'

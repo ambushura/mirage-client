@@ -55,7 +55,7 @@ import {
     ROUTE_EQUIPMENT_PINPAD_X,
     ROUTE_EQUIPMENT_PINPAD_Z
 } from "../../../service/fetch_routes.js"
-import {setZBooksUpdate} from "../../../redux/documentsReducer.js"
+import SmartphoneIcon from '@mui/icons-material/Smartphone'
 
 export function AdminHallsList() {
 
@@ -222,7 +222,7 @@ export function CinemaType() {
 
     return <ButtonGroup size='medium' variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
         <Button><LaptopIcon/></Button>
-        <Button><DockIcon/></Button>
+        <Button><SmartphoneIcon/></Button>
         <Button><LanguageIcon/></Button>
     </ButtonGroup>
 }
