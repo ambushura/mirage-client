@@ -158,9 +158,11 @@ const OrderCinema = ({order}) => {
         }>
             <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
 
-                <Box className='admin-orders-cinema-order-header' sx={{display: 'flex', height: '45px'}}>
+                <Box className='admin-orders-cinema-order-header' sx={{
+                    display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
+                }}>
 
-                    <Box sx={{margin: '0 4px'}}>{order.from_site ?
+                    <Box sx={{margin: '0 12px'}}>{order.from_site ?
                         <LanguageIcon sx={{width: '20px', height: '20px'}}/> : order.from_wp ?
                             <LaptopWindowsIcon sx={{width: '20px', height: '20px'}}/> : order.from.kiosk ?
                                 <SmartphoneIcon sx={{width: '20px', height: '20px'}}/> : null}</Box>
@@ -225,15 +227,14 @@ const OrderCinema = ({order}) => {
                                  group={groups.for_returning_success} ver={order.ver}/>
                 </Box>
 
-                <Box className='admin-orders-cinema-order-footer'
-                     sx={{borderBottom: `2px solid ${pre_order.uid === order.uid ? 'red' : '#d7d7d7'}`}}>
+                <Box className='admin-orders-cinema-order-footer'>
                     {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
                         padding: '4px 0',
                         maxHeight: '40px',
                         overflowX: 'hidden',
                         overflowY: 'auto',
                         wordBreak: 'break-word'
-                    }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}
+                    }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>{order.comment}
                     </Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         {order.buyer_email !== null ?

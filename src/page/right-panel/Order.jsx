@@ -25,6 +25,7 @@ import {motion} from 'framer-motion'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ContentCutIcon from '@mui/icons-material/ContentCut'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
+import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../../redux/ordersReducer.js";
 
 const OrderBody = ({
                        type,

@@ -15,7 +15,7 @@ import FunctionsIcon from "@mui/icons-material/Functions"
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import LocationOnIcon from "@mui/icons-material/LocationOn"
-import CommentIcon from "@mui/icons-material/Comment";
+import CommentIcon from "@mui/icons-material/Comment"
 
 const group_items = (items_grouped, payment_group, payment_state) => {
     const items = [], mark_egais = []
@@ -148,7 +148,11 @@ const OrderHoreca = ({order}) => {
         <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}} onClick={() =>
             dispatch(horeca_order_fetch(filial, wp, order.uid))
         }>
-            <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '45px'}}>
+            <Box className='admin-orders-horeca-order-header' sx={{
+                display: 'flex',
+                height: '45px',
+                backgroundColor: horder.uid === order.uid ? '#e4e2e2' : null
+            }}>
                 <Box sx={{flexGrow: 1}}>
                     <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
                     <Box sx={{
@@ -194,8 +198,7 @@ const OrderHoreca = ({order}) => {
                              group={groups.for_returning_success} ver={order.ver}/>
             </Box>
 
-            <Box className='admin-orders-horeca-order-footer'
-                 sx={{borderBottom: `2px solid ${horder.uid === order.uid ? 'red' : '#d7d7d7'}`}}>
+            <Box className='admin-orders-horeca-order-footer'>
                 {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
                     padding: '4px 0',
                     maxHeight: '40px',
