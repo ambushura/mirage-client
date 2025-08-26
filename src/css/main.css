@@ -1812,7 +1812,7 @@ body {
 
 .payment-paying::after {
     position: absolute;
-    content: 'Пытаюсь оплатить заказ...';
+    content: 'Дождитесь окончания транзакции...';
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
     pointer-events: all;
