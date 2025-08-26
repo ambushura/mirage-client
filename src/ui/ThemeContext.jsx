@@ -3,7 +3,6 @@ import {useSelector} from "react-redux"
 import {createTheme, MenuItem, styled} from "@mui/material"
 import {useFullScreen} from "../hooks/interface/useFullScreen.js"
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 const ThemeContext = createContext()

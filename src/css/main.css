@@ -590,7 +590,7 @@ body {
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
     pointer-events: all;
-    z-index: 10; /* выше всего */
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1932,7 +1932,6 @@ body {
     display: flex;
     flex-direction: row;
     flex: 1;
-    border-bottom: 1px dashed #b6b5b5;
     align-items: center;
 }
 
@@ -2043,7 +2042,7 @@ body {
 }
 
 .admin-orders-horeca-filial-orders, .admin-orders-cinema-filial-orders {
-    column-width: 310px;       /* количество колонок */
+    column-width: 310px; /* количество колонок */
     column-gap: 15px;
     width: 100%;
 }

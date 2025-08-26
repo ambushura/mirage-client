@@ -58,7 +58,7 @@ const OrderCinema = ({order}) => {
                              display: 'flex',
                              flexDirection: 'column',
                              backgroundColor: '#f4f4f4',
-                             borderBottom: '1px dashed #b6b5b5',
+                             borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
                              padding: '2px 0 2px 0',
                          }}>
                         <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>

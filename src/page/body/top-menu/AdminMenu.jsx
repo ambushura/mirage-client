@@ -35,7 +35,6 @@ import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../../service/advanc
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {openModal} from "../../../redux/interfaceReducer.js"
 import LaptopIcon from "@mui/icons-material/Laptop"
-import DockIcon from "@mui/icons-material/Dock"
 import LanguageIcon from "@mui/icons-material/Language"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"

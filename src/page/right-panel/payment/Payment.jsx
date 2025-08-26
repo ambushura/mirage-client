@@ -154,11 +154,12 @@ const Payment = (props) => {
                                         animate="visible"
                                         exit="hidden"
                                         variants={containerVariants}>
-                                {grouped_items.map(item => (
+                                {grouped_items.map((item, i) => (
                                     <motion.div
                                         className='payment-items-group-item-row'
                                         key={item.uid}
-                                        variants={itemVariants}>
+                                        variants={itemVariants}
+                                        style={{borderBottom: i !== grouped_items.length - 1 ? '1px dashed #b6b5b5' : null}}>
                                         {chapter1 !== 'success' ? <Checkbox
                                             checked={payment_group[chapter0][chapter1][chapter2].items.find(el => el === item.uid) !== undefined}
                                             onChange={() => {

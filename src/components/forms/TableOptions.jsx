@@ -5,7 +5,7 @@ import {useEffect, useState} from "react"
 import {Box, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material"
 import {useSetHalls} from "../../page/body/admin/halls/useSetHalls.js"
 
-export default function TableOptions({props}) {
+export default function TableOptions() {
 
     const dispatch = useDispatch()
 

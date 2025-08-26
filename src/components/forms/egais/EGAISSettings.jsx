@@ -1,6 +1,6 @@
 import {Box, Button, Typography} from "@mui/material"
 
-const EgaisSettings = (props) => {
+const EgaisSettings = () => {
     return (
         <Box component="form"
              noValidate

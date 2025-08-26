@@ -144,10 +144,6 @@ const OrderHoreca = ({order}) => {
         })
     }, [order])
 
-    const getCircleColor = () =>
-        order.closed ? '#50DB92' :
-            order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
-
     return (
         <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}} onClick={() =>
             dispatch(horeca_order_fetch(filial, wp, order.uid))

@@ -4,7 +4,7 @@ import {ruToEnLayout} from "../../../service/advanced.js"
 import {useDispatch} from "react-redux"
 import {useState} from "react"
 
-const Egais = (props) => {
+const Egais = () => {
 
     const dispatch = useDispatch()
     const [mark, set_mark] = useState(null)

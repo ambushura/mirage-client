@@ -8,8 +8,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {
-    common_position_add_comment, common_position_delete_comment,
+import {common_position_delete_comment,
     horeca_position_change_state,
     horeca_position_delete
 } from "../../../service/fetch_service.js"
