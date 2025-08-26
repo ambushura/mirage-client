@@ -153,12 +153,9 @@ const OrderHoreca = ({order}) => {
             dispatch(horeca_order_fetch(filial, wp, order.uid))
         }>
             <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '45px'}}>
-                <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
-                </Box>
                 <Box sx={{flexGrow: 1}}>
-                    <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
-                    <Box sx={{overflow: 'hidden', fontSize: '80%', fontWeight: 'bold'}}>{order.name_creator}</Box>
+                    <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
+                    <Box sx={{overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'}}>{order.name_creator}</Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
                     <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>

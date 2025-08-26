@@ -37,10 +37,6 @@ const OrderCinema = ({order}) => {
         return {items}
     }
 
-    const getCircleColor = () =>
-        order.closed ? '#50DB92' :
-            order.canceled || order.deleted ? '#9e0007' : '#d1d1d1'
-
     const RenderGroup = ({chapter1, label, group, ver}) => {
         if (!group.items.length) return null
         const renderItems = (items, typeLabel) => items.length > 0 && (
@@ -80,7 +76,10 @@ const OrderCinema = ({order}) => {
                                         height: '15px',
                                         color: item.ticket_state === -1 ? '#E3000B' : item.ticket_state === 1 ? '#FF9800' : item.ticket_state === 2 ? '#45B97C' : 'black'
                                     }}/> : null}</Box>
-                            <Box sx={{flex: 1}}>Ряд {item.place_row} Место {item.place_number}</Box>
+                            <Box sx={{
+                                flex: 1,
+                                overflow: 'hidden'
+                            }}>зал <b>{order.hall_full_name}</b> ряд <b>{item.place_row}</b> место <b>{item.place_number}</b></Box>
                             <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'flex-start',
@@ -159,13 +158,9 @@ const OrderCinema = ({order}) => {
 
                 <Box className='admin-orders-cinema-order-header' sx={{display: 'flex', height: '45px'}}>
 
-                    <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <CircleIcon sx={{scale: 1.5, color: getCircleColor()}}/>
-                    </Box>
-
                     <Box sx={{flexGrow: 1}}>
-                        <Box sx={{fontWeight: 'bold'}}>{order.number}</Box>
-                        <Box>{order.name_creator}</Box>
+                        <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
+                        <Box sx={{overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'}}>{order.name_creator}</Box>
                     </Box>
 
                     <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
@@ -188,9 +183,14 @@ const OrderCinema = ({order}) => {
 
                 </Box>
 
-                <Box>
-                    <Box>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box>
-                    <Box>Зал {order.hall_full_name} {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
+                <Box sx={{display: 'flex', flexDirection: 'row', flexGrow: 1, flexWrap: 'wrap', justifyContent: 'center', padding: '4px 0'}}>
+                    <Box sx={{
+                        fontWeight: 'bold',
+                        marginRight: '10px'
+                    }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box><Box sx={{
+                    fontWeight: 'bold',
+                    color: '#8B919B'
+                }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
                 </Box>
 
                 <Box className='admin-orders-cinema-order-body'>

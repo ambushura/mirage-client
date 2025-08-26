@@ -1,9 +1,6 @@
 import {Box} from "@mui/material"
 
 const Egais = () => {
-    return (
-        <Box sx={{height: '100%', width: '100%'}}>
-        </Box>
-    )
+    return <Box className='empty-box'>В разработке...</Box>
 }
 export default Egais
