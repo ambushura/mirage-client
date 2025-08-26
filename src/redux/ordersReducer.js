@@ -77,6 +77,9 @@ const initialState = {
     orders_cinema_filters_workplaces_selected: [],
     orders_cinema_filters_buyer_emails_selected: '',
     orders_cinema_filters_buyer_phone_numbers_selected: '',
+    orders_cinema_filters_from_site_selected: false,
+    orders_cinema_filters_from_kiosk_selected: true,
+    orders_cinema_filters_from_wp_selected: true,
 
     // ЗАКАЗЫ ОБЩЕПИТ
     orders_horeca_update: 0,
@@ -238,6 +241,15 @@ export const ordersSlice = createSlice({
         setOrdersCinemaFiltersBuyerPhoneNumbersSelect(state, {payload}) {
             state.orders_cinema_filters_buyer_phone_numbers_selected = payload
         },
+        setOrdersCinemaFiltersFromSiteSelect(state) {
+            state.orders_cinema_filters_from_site_selected = !state.orders_cinema_filters_from_site_selected
+        },
+        setOrdersCinemaFiltersFromKioskSelect(state) {
+            state.orders_cinema_filters_from_kiosk_selected = !state.orders_cinema_filters_from_kiosk_selected
+        },
+        setOrdersCinemaFiltersFromWPSelect(state) {
+            state.orders_cinema_filters_from_wp_selected = !state.orders_cinema_filters_from_wp_selected
+        },
         setOrdersCinemaUpdate(state) {
             state.orders_cinema_update = state.orders_cinema_update + 1
         },
@@ -340,6 +352,9 @@ export const {
     setOrdersCinemaFiltersWorkplacesSelect,
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
+    setOrdersCinemaFiltersFromSiteSelect,
+    setOrdersCinemaFiltersFromKioskSelect,
+    setOrdersCinemaFiltersFromWPSelect,
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setKitchenOrders,

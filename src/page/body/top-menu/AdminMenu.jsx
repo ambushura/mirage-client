@@ -13,21 +13,27 @@ import {
 import dayjs from "dayjs"
 import {
     NEW_EMPTY_HORDER,
-    NEW_EMPTY_ORDER, setCurrentHorder,
+    NEW_EMPTY_ORDER,
+    setCurrentHorder,
     setCurrentPreOrder,
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
+    setOrdersCinemaFiltersFromKioskSelect, setOrdersCinemaFiltersFromSiteSelect,
+    setOrdersCinemaFiltersFromWPSelect,
     setOrdersCinemaFiltersHallsSelect,
     setOrdersCinemaFiltersSeancesSelect,
     setOrdersCinemaFiltersStaffSelect,
     setOrdersCinemaFiltersStateSelect,
-    setOrdersCinemaFiltersWorkplacesSelect, setOrdersCinemaPage, setOrderSearchValue,
+    setOrdersCinemaFiltersWorkplacesSelect,
+    setOrdersCinemaPage,
+    setOrderSearchValue,
     setOrdersHorecaFiltersHallsSelect,
     setOrdersHorecaFiltersKitchenPointsSelect,
     setOrdersHorecaFiltersKitchenStateSelect,
     setOrdersHorecaFiltersStaffSelect,
     setOrdersHorecaFiltersStateSelect,
-    setOrdersHorecaFiltersWorkPlacesSelect, setOrdersHorecaPage
+    setOrdersHorecaFiltersWorkPlacesSelect,
+    setOrdersHorecaPage
 } from "../../../redux/ordersReducer.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
@@ -219,10 +225,18 @@ export function EGAISMenu() {
 
 export function CinemaType() {
 
-    return <ButtonGroup size='medium' variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
-        <Button><LaptopIcon/></Button>
-        <Button><SmartphoneIcon/></Button>
-        <Button><LanguageIcon/></Button>
+    const dispatch = useDispatch()
+    const orders_cinema_filters_from_site_selected = useSelector(state => state.orders.orders_cinema_filters_from_site_selected)
+    const orders_cinema_filters_from_kiosk_selected = useSelector(state => state.orders.orders_cinema_filters_from_kiosk_selected)
+    const orders_cinema_filters_from_wp_selected = useSelector(state => state.orders.orders_cinema_filters_from_wp_selected)
+
+    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
+        <Button color={orders_cinema_filters_from_wp_selected ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setOrdersCinemaFiltersFromWPSelect())}><LaptopIcon/></Button>
+        <Button color={orders_cinema_filters_from_kiosk_selected ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setOrdersCinemaFiltersFromKioskSelect())}><SmartphoneIcon/></Button>
+        <Button color={orders_cinema_filters_from_site_selected ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setOrdersCinemaFiltersFromSiteSelect())}><LanguageIcon/></Button>
     </ButtonGroup>
 }
 

@@ -24,6 +24,10 @@ export function useSetOrdersCinema() {
     const workplaces_selected = useSelector(state => state.orders.orders_cinema_filters_workplaces_selected)
     const buyer_emails_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_emails_selected)
     const buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
+    const from_site_selected = useSelector(state => state.orders.orders_cinema_filters_from_site_selected)
+    const from_kiosk_selected = useSelector(state => state.orders.orders_cinema_filters_from_kiosk_selected)
+    const from_wp_selected = useSelector(state => state.orders.orders_cinema_filters_from_wp_selected)
+
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const order_search_value = useSelector(state => state.orders.order_search_value)
 
@@ -45,7 +49,10 @@ export function useSetOrdersCinema() {
                         seances: seances_selected.map(({uid}) => uid),
                         workplaces: workplaces_selected.map(({uid}) => uid),
                         buyer_phone_number: buyer_phone_numbers_selected,
-                        buyer_emails: buyer_emails_selected
+                        buyer_emails: buyer_emails_selected,
+                        from_site: from_site_selected,
+                        from_kiosk: from_kiosk_selected,
+                        from_wp: from_wp_selected,
                     }
                 })
             }
@@ -62,7 +69,22 @@ export function useSetOrdersCinema() {
             }
         }
         set_urls_orders(urls_new)
-    }, [city, filial, param_date_admin, staff_selected, state_selected, seances_selected, halls_selected, workplaces_selected, page, buyer_phone_numbers_selected, buyer_emails_selected, update, order_search_value])
+    }, [city,
+        filial,
+        param_date_admin,
+        staff_selected,
+        state_selected,
+        seances_selected,
+        halls_selected,
+        workplaces_selected,
+        page,
+        buyer_phone_numbers_selected,
+        buyer_emails_selected,
+        update,
+        order_search_value,
+        from_site_selected,
+        from_kiosk_selected,
+        from_wp_selected])
 
     useEffect(() => {
         if (fetch_data_orders.length > 0) {
