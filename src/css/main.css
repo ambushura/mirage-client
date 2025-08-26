@@ -2045,6 +2045,7 @@ body {
     column-width: 310px; /* количество колонок */
     column-gap: 15px;
     width: 100%;
+    padding-top: 16px;
 }
 
 .admin-orders-horeca-order, .admin-orders-cinema-order {
@@ -2064,6 +2065,7 @@ body {
     background-color: #f4f4f4;
     border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .admin-orders-horeca-order-header, .admin-orders-cinema-order-header {

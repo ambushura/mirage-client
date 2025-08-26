@@ -151,7 +151,12 @@ const OrderHoreca = ({order}) => {
             <Box className='admin-orders-horeca-order-header' sx={{display: 'flex', height: '45px'}}>
                 <Box sx={{flexGrow: 1}}>
                     <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
-                    <Box sx={{overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'}}>{order.name_creator}</Box>
+                    <Box sx={{
+                        overflow: 'hidden',
+                        marginLeft: '12px',
+                        fontSize: '80%',
+                        fontWeight: 'bold'
+                    }}>{order.name_creator}</Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
                     <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
@@ -190,7 +195,7 @@ const OrderHoreca = ({order}) => {
             </Box>
 
             <Box className='admin-orders-horeca-order-footer'
-                 sx={{borderBottom: `4px solid ${horder.uid === order.uid ? 'red' : '#2e3239'}`}}>
+                 sx={{borderBottom: `2px solid ${horder.uid === order.uid ? 'red' : '#d7d7d7'}`}}>
                 {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
                     padding: '4px 0',
                     maxHeight: '40px',
