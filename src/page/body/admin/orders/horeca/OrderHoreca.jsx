@@ -154,7 +154,7 @@ const OrderHoreca = ({order}) => {
                 backgroundColor: horder.uid === order.uid ? '#e4e2e2' : null
             }}>
                 <Box sx={{flexGrow: 1}}>
-                    <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
+                    <Box sx={{fontWeight: 'bold', marginLeft: '12px', textDecoration: horder.uid === order.uid ? 'underline' : null}}>{order.number}</Box>
                     <Box sx={{
                         overflow: 'hidden',
                         marginLeft: '12px',

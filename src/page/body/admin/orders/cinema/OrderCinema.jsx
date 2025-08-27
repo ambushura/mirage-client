@@ -159,7 +159,9 @@ const OrderCinema = ({order}) => {
             <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
 
                 <Box className='admin-orders-cinema-order-header' sx={{
-                    display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
+                    display: 'flex',
+                    height: '45px',
+                    backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
                 }}>
 
                     <Box sx={{margin: '0 12px'}}>{order.from_site ?
@@ -168,7 +170,7 @@ const OrderCinema = ({order}) => {
                                 <SmartphoneIcon sx={{width: '20px', height: '20px'}}/> : null}</Box>
 
                     <Box sx={{flexGrow: 1}}>
-                        <Box sx={{fontWeight: 'bold', marginLeft: '12px'}}>{order.number}</Box>
+                        <Box sx={{fontWeight: 'bold', marginLeft: '12px', textDecoration: pre_order.uid === order.uid ? 'underline' : null}}>{order.number}</Box>
                         <Box sx={{
                             overflow: 'hidden',
                             marginLeft: '12px',

@@ -90,6 +90,7 @@ const initialState = {
     orders_horeca_filters_state: [
         {uid: 'payment_waiting', title: PAYMENT_STATE_WAITING},
         {uid: 'payment_slip_without_receipt', title: PAYMENT_STATE_SLIP_WITHOUT_RECEIPT},
+        {uid: 'returning_waiting', title: RETURNING_STATE_WAITING},
         {uid: 'returning_slip_without_receipt', title: RETURNING_STATE_SLIP_WITHOUT_RECEIPT},
         {uid: 'returning_success', title: RETURNING_STATE_SUCCESS},
         {uid: 'undefined', title: PAYMENT_STATE_CANCELED}],

@@ -197,7 +197,7 @@ export function ShowFilters() {
                 cinema_workplaces_selected.length > 0 ||
                 cinema_buyer_emails_selected !== '' ||
                 cinema_buyer_phone_numbers_selected !== '' ?
-                    <Button variant='contained' color='primary' onClick={() => {
+                    <Button variant='contained' color='secondary' onClick={() => {
                         dispatch(setOrdersCinemaFiltersStaffSelect([]))
                         dispatch(setOrdersCinemaFiltersStateSelect([]))
                         dispatch(setOrdersCinemaFiltersSeancesSelect([]))
