@@ -41,7 +41,7 @@ import {BilletCheckForm} from "./page/body/admin/equipment/forms/BilletCheckForm
 import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx"
 import TableOptions from "./components/forms/TableOptions.jsx"
 import Dialog from "./components/forms/Dialog.jsx"
-import Operation from "./page/body/admin/total/Operation.jsx";
+import Operation from "./page/body/admin/total/Operation.jsx"
 
 function App() {
 
@@ -94,7 +94,7 @@ function App() {
     const ModalContent = useMemo(() => {
         const Component = modalComponents[modal_type]
         return Component ? <Component props={modal_props}/> : null
-    }, [modal_type, modal_props])
+    }, [modalComponents, modal_type, modal_props])
 
     const defaultRedirect = cities.length
         ? `/films/${cities[0].code}/all/${param_date}/`
@@ -151,6 +151,9 @@ function App() {
 
                 <Route path="/admin/acquiring/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/acquiring"/>}/>
+
+                <Route path='/second_screen/:param_city/:param_filial/:param_date/'
+                       element={<AppRoutes current_page="second_screen"/>}/>
 
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

@@ -120,3 +120,6 @@ export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET = "/api/common/documents/oper
 
 // Списки
 export const ROUTE_COMMON_LIST_GET = "/api/common/list/get"
+
+// Второй экрна
+export const ROUTE_CINEMA_SECOND_SCREEN_GET = '/api/cinema/second_screen/get'

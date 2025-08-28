@@ -12,6 +12,7 @@ import PageAdmin from "./page/body/admin/PageAdmin.jsx"
 import PageSchedule from "./page/body/schedule/PageSchedule.jsx"
 import PageHoreca from "./page/body/menu/PageHoreca.jsx"
 import PageKitchen from "./page/body/kitchen/PageKitchen.jsx"
+import SecondScreen from "./page/body/second_screen/SecondScreen.jsx"
 
 const AppRoutes = ({current_page}) => {
     const dispatch = useDispatch()
@@ -53,6 +54,7 @@ const AppRoutes = ({current_page}) => {
         "admin/egais": isAdmin ? <PageAdmin/> : null,
         "admin/staff": isAdmin ? <PageAdmin/> : null,
         "admin/acquiring": isAdmin ? <PageAdmin/> : null,
+        second_screen: <SecondScreen/>,
     }
 
     return (

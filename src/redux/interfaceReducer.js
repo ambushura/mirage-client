@@ -20,7 +20,7 @@ export const ITEMS_TYPE_MARK_EGAIS = 'Товары ЧЗ, ЕГАИС'
 export const MOBILE_WIDTH = 1024
 export const HEADER_HEIGHT = [200, 70]
 export const FOOTER_HEIGHT = [50, 50]
-export const PARAM_DATE_SHIFT = ["films", "film", "schedule"]
+export const PARAM_DATE_SHIFT = ["films", "film", "schedule", "second_screen"]
 export const PARAM_DATA_ADMIN_SHIFT = ['kitchen', "admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/equipment", "admin/staff", "admin/acquiring"]
 export const TOP_MENU = [
     [

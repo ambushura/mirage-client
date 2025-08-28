@@ -220,6 +220,7 @@ body {
 #content {
     overflow: auto;
     width: 100%;
+    height: inherit;
 }
 
 #order {
@@ -2042,7 +2043,7 @@ body {
 }
 
 .admin-orders-horeca-filial-orders, .admin-orders-cinema-filial-orders {
-    column-width: 310px; /* количество колонок */
+    column-width: 310px;
     column-gap: 15px;
     width: 100%;
     padding-top: 16px;
@@ -2189,6 +2190,7 @@ body {
 /* ============================= */
 .empty-box {
     width: 100%;
+    height: inherit;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -2197,4 +2199,98 @@ body {
     font-weight: bold;
     text-align: center;
     color: #8B919B;
+}
+
+
+/* ============================= */
+/*         ВТОРОЙ ЭКРАН          */
+/* ============================= */
+
+.ss-background {
+    position: relative;
+    background: #1C1F23;
+    overflow: hidden;
+}
+
+.ss-film-box {
+    position: absolute;
+    display: flex;
+    padding: 4px;
+}
+
+.ss-film-box-motion {
+    width: 100%;
+    height: 100%;
+}
+
+.ss-film-box-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 22px;
+    overflow: hidden;
+    background-color: rgba(46, 50, 57, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ss-film-box-poster {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+}
+
+.ss-film-box-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 8px;
+    color: white;
+}
+
+.ss-film-box-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ss-film-box-sub-title {
+    font-weight: bold;
+    font-size: 80%;
+    color: #8B919B;
+}
+
+.ss-film-box-seances {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.ss-film-box-seance-box {
+    color: #ccc;
+    padding: 8px;
+    border-radius: 12px;
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(46, 50, 57, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
