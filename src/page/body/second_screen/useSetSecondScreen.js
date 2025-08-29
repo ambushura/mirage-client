@@ -1,30 +1,42 @@
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {ROUTE_CINEMA_SECOND_SCREEN_GET} from "../../../service/fetch_routes.js"
+import {
+    ROUTE_SECOND_SCREEN_SCHEDULE_GET
+} from "../../../service/fetch_routes.js"
 import {useFetching} from "../../../hooks/common/useFetching.js"
+import {setSSSchedule} from "../../../redux/secondScreenReducer.js"
 
 export function useSetSecondScreen() {
 
+    const dispatch = useDispatch()
+
     const filial = useSelector(state => state.data.filial)
-    const param_date = useSelector(state => state.interface.params.param_date)
+
+    const current_page = useSelector(state => state.second_screen.current_page)
+    const date_shift = useSelector(state => state.second_screen.date_shift)
 
     const [url_schedule, set_url_schedule] = useState(undefined)
-    const [fetch_data_schedule, fetch_errors_schedule, fetch_loading_schedule] = useFetching(url_schedule)
+    const [data_schedule, errors_schedule, loading_schedule] = useFetching(url_schedule)
 
     useEffect(() => {
-        if (filial !== undefined) {
+        if (filial !== undefined && !['seance'].includes(current_page)) {
             set_url_schedule({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SECOND_SCREEN_GET}`,
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_SCHEDULE_GET}`,
                     uid_filial: filial.uid,
                     params: {
-                        date_shift: param_date
+                        date_shift: date_shift
                     }
                 }
             )
         } else {
             set_url_schedule(undefined)
         }
-    }, [filial])
+    }, [filial, current_page, date_shift])
 
-    return fetch_data_schedule
+    useEffect(() => {
+        if (data_schedule !== null) {
+            dispatch(setSSSchedule(data_schedule))
+        }
+    }, [dispatch, data_schedule])
+
 }

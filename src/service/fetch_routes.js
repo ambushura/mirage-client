@@ -122,4 +122,4 @@ export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET = "/api/common/documents/oper
 export const ROUTE_COMMON_LIST_GET = "/api/common/list/get"
 
 // Второй экрна
-export const ROUTE_CINEMA_SECOND_SCREEN_GET = '/api/cinema/second_screen/get'
+export const ROUTE_SECOND_SCREEN_SCHEDULE_GET = '/api/second_screen/schedule/get'

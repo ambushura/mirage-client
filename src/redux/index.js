@@ -23,7 +23,7 @@ export const store = configureStore({
         webSocket: wsReducer,
         markirovka: markirovkaReducer,
         documents: documentsReducer,
-        secondScreen: secondScreen,
+        second_screen: secondScreen,
     },
 })
 

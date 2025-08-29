@@ -2,7 +2,6 @@ import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
-import {useSetSecondScreen} from "./useSetSecondScreen.js"
 import background from "../../../images/background.jpg"
 import {motion} from "framer-motion"
 import cover from "../../../images/cover.jpg"
@@ -43,12 +42,12 @@ const SsSchedule = () => {
     const [screen_width, set_screen_width] = useState(100)
     const [screen_height, set_screen_height] = useState(100)
 
+    const schedule = useSelector(state => state.second_screen.schedule)
+
     useEffect(() => {
         set_screen_width(app_width)
         set_screen_height(app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1])
     }, [app_height, app_width])
-
-    const schedule = useSetSecondScreen()
 
     if (!schedule) {
         return <Box>Расписание загружается</Box>
