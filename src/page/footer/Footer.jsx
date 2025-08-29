@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
         <footer id="footer">
-            <div>© «МИРАЖ СИНЕМА».</div>
+            <div>© «МИРАЖ СИНЕМА» 2026</div>
             <div>{wp}</div>
         </footer>
     )

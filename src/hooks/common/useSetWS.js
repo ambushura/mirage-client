@@ -1,17 +1,24 @@
-import {useEffect, useRef} from "react"
-import {v4} from "uuid"
+import {useEffect} from "react"
 import useWebSocket from "react-use-websocket"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 
 export function useSetWS() {
+
     const dispatch = useDispatch()
-    const uid_app = useRef(v4())
-    const {sendMessage, lastMessage} = useWebSocket(`ws://10.101.3.88:8082/ws?id=${uid_app.current}`, {
+    const wp = useSelector(state => state.interface.wp)
+    const its_second_screen = useSelector(state => state.interface.its_second_screen)
+
+    const {
+        sendMessage,
+        lastMessage
+    } = useWebSocket(`ws://10.101.3.88:60003/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
         shouldReconnect: () => true,
     })
+
     useEffect(() => {
         if (lastMessage) {
             dispatch(sendMessage(lastMessage))
         }
     }, [lastMessage, dispatch, sendMessage])
+
 }

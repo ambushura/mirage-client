@@ -70,6 +70,7 @@ const initialState = {
         uid_seance: undefined,
     },
     top_menu: TOP_MENU,
+    its_second_screen: false,
 }
 
 const interfaceSlice = createSlice({
@@ -113,6 +114,9 @@ const interfaceSlice = createSlice({
         setWP: (state, {payload}) => {
             state.wp = payload
         },
+        setSecondScreen: (state) => {
+            state.its_second_screen = true
+        }
     },
 })
 
@@ -128,6 +132,7 @@ export const {
     openModal,
     closeModal,
     setWP,
+    setSecondScreen,
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer
