@@ -11,6 +11,7 @@ export function useSetWS() {
 
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     const {
         sendMessage,
@@ -35,8 +36,9 @@ export function useSetWS() {
             second_screen: {
                 current_page: current_page,
                 date_shift: param_date,
+                uid_order: pre_order.uid,
             }
         }))
-    }, [current_page, param_date, sendMessage])
+    }, [current_page, param_date, sendMessage, pre_order.uid])
 
 }
