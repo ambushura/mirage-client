@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import Folder from "./Folder.jsx"
 import Item from "./Item.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
-import {useSelector} from "react-redux";
+import {useSelector} from "react-redux"
 
 const Menu = () => {
 

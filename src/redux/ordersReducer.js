@@ -6,7 +6,7 @@ import {
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
     PAYMENT_STATE_WAITING, RETURNING_STATE_SLIP_WITHOUT_RECEIPT, RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING
-} from "./interfaceReducer.js";
+} from "./interfaceReducer.js"
 
 export const NEW_EMPTY_ORDER = () => ({
     in_base: false,

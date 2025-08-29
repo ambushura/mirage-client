@@ -4,7 +4,7 @@ import {useSetOperations} from "./useSetOperations.js"
 import {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {setOperations, setOperationsPage} from "../../../../redux/documentsReducer.js"
-import {ruRU} from "@mui/x-data-grid/locales";
+import {ruRU} from "@mui/x-data-grid/locales"
 
 const Operations = () => {
 
