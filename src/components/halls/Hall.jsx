@@ -7,7 +7,7 @@ import {
     useNodesState,
     useReactFlow
 } from "@xyflow/react"
-import {useCallback, useEffect} from "react"
+import {useCallback, useEffect, useState} from "react"
 import {Place} from "./nodes/Place.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
@@ -16,7 +16,6 @@ import Screen from "./nodes/Screen.jsx"
 import background from "../../images/background.jpg"
 
 const HallMap = (props) => {
-
     const dispatch = useDispatch()
     const uid_user = useSelector(state => state.auth.uid)
     const wp = useSelector(state => state.interface.wp)
@@ -26,6 +25,7 @@ const HallMap = (props) => {
 
     const [nodes, setNodes, onNodesChange] = useNodesState([])
     const [edges, setEdges, onEdgesChange] = useEdgesState([])
+    const [ready, setReady] = useState(false) // состояние для fade-in
 
     const onConnect = useCallback(
         (params) => setEdges(addEdge(params, edges)),
@@ -54,6 +54,7 @@ const HallMap = (props) => {
 
             setTimeout(() => {
                 fitView({padding: 0.2})
+                setReady(true) // показываем после fitView
             }, 0)
         }
     }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial, fitView])
@@ -70,7 +71,17 @@ const HallMap = (props) => {
                 if (props.set_time_remaining !== undefined) {
                     props.set_time_remaining(100)
                 }
-                dispatch(cinema_position_add(props.city, props.filial, wp, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
+                dispatch(
+                    cinema_position_add(
+                        props.city,
+                        props.filial,
+                        wp,
+                        props.seance.uid,
+                        props.pre_order.uid,
+                        node.id,
+                        props.pre_order.ver
+                    )
+                )
             } else {
                 if (mode === 'block') {
                     dispatch(cinema_place_block(props.filial, wp, props.hall, node.id))
@@ -81,33 +92,41 @@ const HallMap = (props) => {
 
     return (
         <Box style={{
-            width: `${props.width}px`, height: `100%`,
+            width: `${props.width}px`,
+            height: `100%`,
             backgroundImage: its_second_screen
                 ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})`
                 : null,
             backgroundSize: "cover",
             backgroundPosition: "center",
         }}>
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                attributionPosition="top-left"
-                nodeTypes={nodeTypes}
-                proOptions={{hideAttribution: true}}
-                nodesDraggable={false}
-                onNodeClick={(event, node) => handleNodeClick(node)}
-                panOnDrag={uid_user !== null}
-                panOnScroll={uid_user !== null}
-                zoomOnScroll={uid_user !== null}
-                zoomOnPinch={uid_user !== null}
-                zoomOnDoubleClick={uid_user !== null}
-                style={{background: "transparent"}}
-            >
-                {uid_user !== null ? <Controls/> : null}
-            </ReactFlow>
+            <div style={{
+                width: "100%",
+                height: "100%",
+                opacity: ready ? 1 : 0,
+                transition: "opacity 0.5s ease-in-out"
+            }}>
+                <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                    attributionPosition="top-left"
+                    nodeTypes={nodeTypes}
+                    proOptions={{hideAttribution: true}}
+                    nodesDraggable={false}
+                    onNodeClick={(event, node) => handleNodeClick(node)}
+                    panOnDrag={uid_user !== null}
+                    panOnScroll={uid_user !== null}
+                    zoomOnScroll={uid_user !== null}
+                    zoomOnPinch={uid_user !== null}
+                    zoomOnDoubleClick={uid_user !== null}
+                    style={{background: "transparent"}}
+                >
+                    {uid_user !== null ? <Controls/> : null}
+                </ReactFlow>
+            </div>
         </Box>
     )
 }
