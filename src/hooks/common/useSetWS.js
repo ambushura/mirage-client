@@ -33,14 +33,16 @@ export function useSetWS() {
     }, [lastMessage, dispatch, sendMessage])
 
     useEffect(() => {
-        sendMessage(JSON.stringify({
-            second_screen: {
-                current_page: current_page,
-                date_shift: param_date,
-                uid_seance: seance === undefined ? null : seance.uid,
-                uid_order: pre_order.uid,
-            }
-        }))
+        if ((current_page === 'seance' && seance !== undefined) || current_page !== 'seance') {
+            sendMessage(JSON.stringify({
+                second_screen: {
+                    current_page: current_page,
+                    date_shift: param_date,
+                    uid_seance: seance !== undefined ? seance.uid : null,
+                    uid_order: pre_order.uid,
+                }
+            }))
+        }
     }, [current_page, param_date, sendMessage, pre_order.uid, seance])
 
 }

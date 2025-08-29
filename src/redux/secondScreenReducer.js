@@ -20,6 +20,8 @@ const initialState = {
     schedule: [],
     pre_order: null,
     seance: null,
+    hall: null,
+    booking: [],
 }
 
 export const secondScreenSlice = createSlice({
@@ -33,9 +35,12 @@ export const secondScreenSlice = createSlice({
             state.current_page = action.payload.current_page
             state.date_shift = action.payload.date_shift
             state.uid_order = action.payload.uid
+            state.uid_seance = action.payload.uid_seance
         },
         setSSSeance: (state, action) => {
-            state.seance = action.payload
+            state.seance = action.payload.seance
+            state.hall = action.payload.hall
+            state.booking = action.payload.booking
         },
         setSSPreOrder: (state, action) => {
             state.pre_order = action.payload

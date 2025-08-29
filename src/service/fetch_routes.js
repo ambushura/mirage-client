@@ -123,3 +123,4 @@ export const ROUTE_COMMON_LIST_GET = "/api/common/list/get"
 
 // Второй экрна
 export const ROUTE_SECOND_SCREEN_SCHEDULE_GET = '/api/second_screen/schedule/get'
+export const ROUTE_SECOND_SCREEN_SEANCE_GET = '/api/second_screen/seance/get'

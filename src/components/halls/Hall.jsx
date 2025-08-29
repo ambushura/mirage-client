@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
 import RowLabel from "./nodes/RowLabel.jsx"
 import Screen from "./nodes/Screen.jsx"
+import background from "../../images/background.jpg"
 
 const HallMap = (props) => {
 
@@ -21,6 +22,7 @@ const HallMap = (props) => {
     const wp = useSelector(state => state.interface.wp)
     const current_page = useSelector(state => state.interface.current_page)
     const mode = useSelector(state => state.halls.mode)
+    const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     const [nodes, setNodes, onNodesChange] = useNodesState([])
     const [edges, setEdges, onEdgesChange] = useEdgesState([])
@@ -78,7 +80,14 @@ const HallMap = (props) => {
     }
 
     return (
-        <Box style={{width: `${props.width}px`, height: `100%`}}>
+        <Box style={{
+            width: `${props.width}px`, height: `100%`,
+            backgroundImage: its_second_screen
+                ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})`
+                : null,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -95,6 +104,7 @@ const HallMap = (props) => {
                 zoomOnScroll={uid_user !== null}
                 zoomOnPinch={uid_user !== null}
                 zoomOnDoubleClick={uid_user !== null}
+                style={{background: "transparent"}}
             >
                 {uid_user !== null ? <Controls/> : null}
             </ReactFlow>
