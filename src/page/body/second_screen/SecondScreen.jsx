@@ -4,6 +4,10 @@ import {useDispatch, useSelector} from "react-redux"
 import {setSecondScreen} from "../../../redux/interfaceReducer.js"
 import {useSetSecondScreen} from "./useSetSecondScreen.js"
 
+function SSeance() {
+    return null;
+}
+
 export default function SecondScreen() {
 
     const dispatch = useDispatch()
@@ -17,6 +21,8 @@ export default function SecondScreen() {
 
     if (!['seance'].includes(current_page)) {
         return <SSSchedule/>
+    } else {
+        return (<SSeance/>)
     }
 
 }
