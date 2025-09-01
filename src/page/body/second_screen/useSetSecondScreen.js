@@ -115,14 +115,15 @@ export function useSetSecondScreen() {
                     uid_filial: filial.uid,
                     params: {
                         uid_seance: uid_seance,
-                        uid_order: uid_pre_order
+                        uid_order: uid_pre_order,
+                        ver: ver_pre_order,
                     }
                 }
             )
         } else {
             set_url_booking(undefined)
         }
-    }, [filial, uid_pre_order, uid_seance])
+    }, [filial, uid_pre_order, uid_seance, ver_pre_order])
 
     useEffect(() => {
         if (data_schedule !== null) {

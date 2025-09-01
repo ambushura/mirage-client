@@ -1,7 +1,7 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import dayjs from "dayjs";
+import dayjs from "dayjs"
 
 const SsOrder = () => {
 
@@ -50,11 +50,15 @@ const SsOrder = () => {
                         {pre_order && (pre_order.items.map(item => {
                                 return <Box key={item.uid}
                                             sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                                    <Box>Ряд {item.place_row} место {item.place_number}</Box>
+                                    <Box sx={{
+                                        flex: 1,
+                                        width: 'calc(100% - 100px)',
+                                        overflow: 'hidden'
+                                    }}>Ряд {item.place_row} место {item.place_number}</Box>
                                     <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                         <Box sx={{width: '40px', marginRight: '20px', textAlign: 'right'}}>1</Box>
                                         <Box
-                                            sx={{width: '40px', marginRight: '10px', textAlign: 'right'}}>{item.sum} р</Box>
+                                            sx={{width: '60px', marginRight: '10px', textAlign: 'right'}}>{item.sum} р</Box>
                                     </Box>
                                 </Box>
                             }
@@ -70,7 +74,7 @@ const SsOrder = () => {
                         {horder && (horder.items_grouped.map(item => {
                                 return <Box key={item.uid}
                                             sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                                    <Box sx={{flex: 1, width: 'calc(100% - 120px)'}}>{item.name}</Box>
+                                    <Box sx={{flex: 1, width: 'calc(100% - 100px)', overflow: 'hidden'}}>{item.name}</Box>
                                     <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                         <Box sx={{
                                             width: '40px',
@@ -78,7 +82,7 @@ const SsOrder = () => {
                                             textAlign: 'right'
                                         }}>{item.quantity}</Box>
                                         <Box
-                                            sx={{width: '50px', marginRight: '10px', textAlign: 'right'}}>{item.sum} р</Box>
+                                            sx={{width: '60px', marginRight: '10px', textAlign: 'right'}}>{item.sum} р</Box>
                                     </Box>
                                 </Box>
                             }
