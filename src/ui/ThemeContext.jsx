@@ -15,31 +15,33 @@ export const ThemeBlackWhite = ({children}) => {
     const horder = useSelector(state => state.orders.horder)
     const current_page = useSelector(state => state.interface.current_page)
 
-    const [uiState, setUiState] = useState({
+    const [ui_state, set_ui_state] = useState({
         authorized: false,
         is_full_screen: false,
         is_mobile: false,
         show_order: false,
         top_menu: false,
+        second_screen: false,
     })
 
     useEffect(() => {
-        document.documentElement.setAttribute('authorized', uiState.authorized)
-        document.documentElement.setAttribute('full-screen', String(uiState.is_full_screen))
-        document.documentElement.setAttribute('mobile', String(uiState.is_mobile))
-        document.documentElement.setAttribute('show-order', String(uiState.show_order))
-        document.documentElement.setAttribute('top-menu', String(uiState.top_menu))
-    }, [uiState])
+        document.documentElement.setAttribute('authorized', ui_state.authorized)
+        document.documentElement.setAttribute('full-screen', String(ui_state.is_full_screen))
+        document.documentElement.setAttribute('mobile', String(ui_state.is_mobile))
+        document.documentElement.setAttribute('show-order', String(ui_state.show_order))
+        document.documentElement.setAttribute('top-menu', String(ui_state.top_menu))
+        document.documentElement.setAttribute('second-screen', String(ui_state.second_screen))
+    }, [ui_state])
 
     useEffect(() => {
-        setUiState(preValue => ({
+        set_ui_state(preValue => ({
             ...preValue,
             authorized: uid_user !== null
         }))
     }, [uid_user])
 
     useEffect(() => {
-        setUiState(preValue => ({
+        set_ui_state(preValue => ({
             ...preValue,
             is_full_screen: is_full_screen
         }))
@@ -47,7 +49,7 @@ export const ThemeBlackWhite = ({children}) => {
 
     useEffect(() => {
         const handleResize = () => {
-            setUiState(preValue => ({
+            set_ui_state(preValue => ({
                 ...preValue,
                 is_mobile: window.innerWidth <= 768
             }))
@@ -58,22 +60,23 @@ export const ThemeBlackWhite = ({children}) => {
     }, [])
 
     useEffect(() => {
-        setUiState(preValue => ({
+        set_ui_state(preValue => ({
             ...preValue,
             show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null && !['kitchen', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/equipment', 'admin/egais', 'admin/staff'].includes(current_page),
         }))
     }, [pre_oder, horder, uid_user, current_page])
 
     useEffect(() => {
-        setUiState(preValue => ({
+        set_ui_state(preValue => ({
             ...preValue,
-            top_menu: uid_user !== null || current_page !== 'seance'
+            top_menu: uid_user !== null || current_page !== 'seance',
+            second_screen: current_page === 'second_screen',
         }))
 
-    }, [current_page])
+    }, [current_page, uid_user])
 
     return (
-        <ThemeContext.Provider value={{uiState, setUiState}}>
+        <ThemeContext.Provider value={{uiState: ui_state, setUiState: set_ui_state}}>
             {children}
         </ThemeContext.Provider>
     )

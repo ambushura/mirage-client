@@ -140,10 +140,16 @@ const Header = () => {
             <header id="header">
                 <Box id="header-desktop">
                     <Box id="header-menu">
-                        <Box sx={{fontSize: '200%', fontWeight: 'bold', color: 'white', padding: '0 10px'}}>Расписание
+                        <Box sx={{
+                            fontSize: 'clamp(14px, 2vw, 28px)',
+                            fontWeight: 'bold',
+                            color: 'white',
+                            padding: '0 10px'
+                        }}>Расписание
                             на {dayjs(date_shift).format('DD.MM')} · {dayjs(date_shift).format('dddd')}</Box>
                         <Box sx={{
-                            fontSize: '200%',
+                            overflowX: 'hidden',
+                            fontSize: 'clamp(14px, 2vw, 28px)',
                             fontWeight: 'bold',
                             color: 'white',
                             padding: '0 10px'

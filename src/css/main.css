@@ -70,7 +70,6 @@ html, body {
 :root[authorized="true"] {
     --bgr-color: #f8f8f8;
     --txt-color: black;
-    --header-height: 70px;
     --footer-height: 50px;
     --header-display: flex;
     --page-display: flex;
@@ -80,6 +79,14 @@ html, body {
     --bgr-scroll: #E0E0E0;
     --bgr-footer-header: #2e3239;
     --top-menu-justify-content: flex-start;
+}
+
+:root[authorized="true"] {
+    --header-height: 70px;
+}
+
+:root[authorized="true"][second-screen="true"] {
+    --header-height: 70px;
 }
 
 /* ============================== */
@@ -97,20 +104,34 @@ html, body {
 
 /* --- Полный экран (НЕавторизован) --- */
 :root[authorized="false"][full-screen="true"] {
-    --header-height: 0px;
     --footer-height: 0px;
     --header-display: none;
     --page-display: flex;
     --footer-display: none;
 }
 
+:root[authorized="false"][full-screen="true"][second-screen="false"] {
+    --header-height: 0px;
+}
+
+:root[authorized="false"][full-screen="true"][second-screen="true"] {
+    --header-height: 70px;
+}
+
 /* --- Обычный экран (НЕавторизован) --- */
 :root[authorized="false"][full-screen="false"] {
-    --header-height: 200px;
     --footer-height: 50px;
     --header-display: flex;
     --page-display: flex;
     --footer-display: flex;
+}
+
+:root[authorized="false"][full-screen="false"][second-screen="false"] {
+    --header-height: 200px;
+}
+
+:root[authorized="false"][full-screen="false"][second-screen="true"] {
+    --header-height: 70px;
 }
 
 /* ============================== */
