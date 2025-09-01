@@ -124,7 +124,7 @@ const HallMap = (props) => {
                     zoomOnDoubleClick={uid_user !== null}
                     style={{background: "transparent"}}
                 >
-                    {uid_user !== null ? <Controls/> : null}
+                    {uid_user !== null && current_page !== 'second_screen' ? <Controls/> : null}
                 </ReactFlow>
             </div>
         </Box>
