@@ -14,11 +14,13 @@ const initialState = {
     current_page: 'films',
     date_shift: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
     uid_seance: null,
-    uid_order: null,
+    uid_pre_order: null,
+    uid_horder: null,
 
     // Загружено
     schedule: [],
     pre_order: null,
+    horder: null,
     seance: null,
     hall: null,
     booking: [],
@@ -44,9 +46,22 @@ export const secondScreenSlice = createSlice({
         },
         setSSPreOrder: (state, action) => {
             state.pre_order = action.payload
+        },
+        setSSHorder: (state, action) => {
+            state.horder = action.payload
+        },
+        setSSBooking: (state, action) => {
+            state.booking = action.payload
         }
     },
 })
 
-export const {setSSSchedule, setSSState, setSSPreOrder, setSSSeance,} = secondScreenSlice.actions
+export const {
+    setSSSchedule,
+    setSSState,
+    setSSPreOrder,
+    setSSSeance,
+    setSSHorder,
+    setSSBooking
+} = secondScreenSlice.actions
 export default secondScreenSlice.reducer

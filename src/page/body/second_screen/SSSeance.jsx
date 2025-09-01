@@ -7,12 +7,14 @@ const SsSeance = () => {
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const pre_order = useSelector(state => state.second_screen.pre_order)
     const seance = useSelector(state => state.second_screen.seance)
     const hall = useSelector(state => state.second_screen.hall)
-    const booking = useSelector(state => state.second_screen.booking)
     const app_width = useSelector(state => state.interface.app_width)
     const app_height = useSelector(state => state.interface.app_height)
+
+    const booking = useSelector(state => state.second_screen.booking)
+    const pre_order = useSelector(state => state.second_screen.pre_order)
+    const horder = useSelector(state => state.second_screen.horder)
 
     return (
         <Box sx={{width: '100%', height: '100%'}}>

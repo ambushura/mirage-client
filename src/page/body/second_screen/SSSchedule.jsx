@@ -1,13 +1,10 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
-import {useEffect, useState} from "react"
-import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
-import background from "../../../images/background.jpg"
 import {motion} from "framer-motion"
 import cover from "../../../images/cover.jpg"
 import dayjs from "dayjs"
 
-const SsSchedule = () => {
+const SsSchedule = ({width, height}) => {
 
     function binPack(rects, binWidth, binHeight) {
         let spaces = [{x: 0, y: 0, w: binWidth, h: binHeight}]
@@ -34,18 +31,8 @@ const SsSchedule = () => {
         return result
     }
 
-    const settings = useSelector(state => state.data.settings)
-    const app_width = useSelector(state => state.interface.app_width)
-    const app_height = useSelector(state => state.interface.app_height)
     const schedule = useSelector(state => state.second_screen.schedule)
-
-    const [screen_width, set_screen_width] = useState(100)
-    const [screen_height, set_screen_height] = useState(100)
-
-    useEffect(() => {
-        set_screen_width(app_width)
-        set_screen_height(app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1])
-    }, [app_height, app_width])
+    const settings = useSelector(state => state.data.settings)
 
     if (!schedule) return <Box>Расписание загружается</Box>
 
@@ -60,7 +47,7 @@ const SsSchedule = () => {
 
     // 2. Масштабируем все карточки под экран
     const totalBaseArea = baseRects.reduce((acc, r) => acc + r.baseW * r.baseH, 0)
-    const screenArea = screen_width * screen_height
+    const screenArea = width * height
     const scale = Math.sqrt(screenArea / totalBaseArea) * 0.9
 
     let rects = baseRects.map(r => ({
@@ -70,7 +57,7 @@ const SsSchedule = () => {
     }))
 
     rects.sort((a, b) => (b.w * b.h) - (a.w * a.h))
-    const packed = binPack(rects, screen_width, screen_height)
+    const packed = binPack(rects, width, height)
 
     // 3. Находим максимальную высоту карточки
     const maxCardHeight = Math.max(...packed.map(r => r.h))
@@ -81,15 +68,11 @@ const SsSchedule = () => {
         time: maxCardHeight * 0.08
     }
 
+    const pre_order = useSelector(state => state.second_screen.pre_order)
+    const horder = useSelector(state => state.second_screen.horder)
+
     return (
-        <Box
-            className='ss-background'
-            sx={{
-                width: `${screen_width}px`,
-                height: `${screen_height}px`,
-                backgroundImage: `url(${background})`
-            }}
-        >
+        <>
             {packed.map((r, idx) => {
                 // масштаб для текущей карточки
                 const scaleFactor = Math.min(1, r.h / maxCardHeight)
@@ -152,7 +135,7 @@ const SsSchedule = () => {
                     </Box>
                 )
             })}
-        </Box>
+        </>
     )
 }
 
