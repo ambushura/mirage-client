@@ -94,11 +94,6 @@ const HallMap = (props) => {
         <Box style={{
             width: `${props.width}px`,
             height: `100%`,
-            backgroundImage: its_second_screen
-                ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})`
-                : null,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
         }}>
             <div style={{
                 width: "100%",

@@ -68,9 +68,6 @@ const SsSchedule = ({width, height}) => {
         time: maxCardHeight * 0.08
     }
 
-    const pre_order = useSelector(state => state.second_screen.pre_order)
-    const horder = useSelector(state => state.second_screen.horder)
-
     return (
         <>
             {packed.map((r, idx) => {

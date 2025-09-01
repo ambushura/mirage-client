@@ -26,6 +26,10 @@ export function useSetSecondScreen() {
     const uid_seance = useSelector(state => state.second_screen.uid_seance)
     const uid_pre_order = useSelector(state => state.second_screen.uid_pre_order)
     const uid_horder = useSelector(state => state.second_screen.uid_horder)
+    const show_pre_order = useSelector(state => state.second_screen.show_pre_order)
+    const show_horder = useSelector(state => state.second_screen.show_horder)
+    const ver_pre_order = useSelector(state => state.second_screen.ver_pre_order)
+    const ver_horder = useSelector(state => state.second_screen.ver_horder)
 
     const [url_schedule, set_url_schedule] = useState(undefined)
     const [data_schedule, errors_schedule, loading_schedule] = useFetching(url_schedule)
@@ -73,34 +77,36 @@ export function useSetSecondScreen() {
     }, [filial, current_page, uid_seance])
 
     useEffect(() => {
-        if (filial !== undefined && uid_pre_order !== null) {
+        if (filial !== undefined && uid_pre_order !== null && show_pre_order) {
             set_url_pre_order({
                     url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_PRE_ORDER_GET}`,
                     uid_filial: filial.uid,
                     params: {
-                        uid_order: uid_pre_order
+                        uid_order: uid_pre_order,
+                        ver: ver_pre_order,
                     }
                 }
             )
         } else {
             set_url_pre_order(undefined)
         }
-    }, [filial, uid_pre_order])
+    }, [filial, uid_pre_order, ver_pre_order])
 
     useEffect(() => {
-        if (filial !== undefined && uid_horder !== null) {
-            set_url_pre_order({
+        if (filial !== undefined && uid_horder !== null && show_horder) {
+            set_url_horder({
                     url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_HORDER_GET}`,
                     uid_filial: filial.uid,
                     params: {
-                        uid_order: uid_horder
+                        uid_order: uid_horder,
+                        ver: ver_horder,
                     }
                 }
             )
         } else {
-            set_url_pre_order(undefined)
+            set_url_horder(undefined)
         }
-    }, [filial, uid_horder])
+    }, [filial, uid_horder, ver_horder])
 
     useEffect(() => {
         if (filial !== undefined && uid_seance !== null) {

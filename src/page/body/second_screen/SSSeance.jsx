@@ -3,18 +3,15 @@ import {useSelector} from "react-redux"
 import Hall from "../../../components/halls/Hall.jsx"
 import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
 
-const SsSeance = () => {
+const SsSeance = ({width, height}) => {
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const seance = useSelector(state => state.second_screen.seance)
     const hall = useSelector(state => state.second_screen.hall)
-    const app_width = useSelector(state => state.interface.app_width)
-    const app_height = useSelector(state => state.interface.app_height)
 
     const booking = useSelector(state => state.second_screen.booking)
     const pre_order = useSelector(state => state.second_screen.pre_order)
-    const horder = useSelector(state => state.second_screen.horder)
 
     return (
         <Box sx={{width: '100%', height: '100%'}}>
@@ -24,8 +21,8 @@ const SsSeance = () => {
                 pre_order={pre_order}
                 hall={hall}
                 seance={seance}
-                height={app_height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1]}
-                width={app_width}
+                height={height - HEADER_HEIGHT[1] - FOOTER_HEIGHT[1]}
+                width={width}
                 booking={booking}
                 set_count_book={() => {
                 }}

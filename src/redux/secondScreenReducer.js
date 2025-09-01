@@ -16,6 +16,10 @@ const initialState = {
     uid_seance: null,
     uid_pre_order: null,
     uid_horder: null,
+    show_pre_order: false,
+    show_horder: false,
+    ver_pre_order: '',
+    ver_horder: '',
 
     // Загружено
     schedule: [],
@@ -36,8 +40,19 @@ export const secondScreenSlice = createSlice({
         setSSState: (state, action) => {
             state.current_page = action.payload.current_page
             state.date_shift = action.payload.date_shift
-            state.uid_order = action.payload.uid
+            state.uid_pre_order = action.payload.uid_pre_order
+            state.uid_horder = action.payload.uid_horder
             state.uid_seance = action.payload.uid_seance
+            state.show_pre_order = action.payload.show_pre_order
+            state.ver_pre_order = action.payload.ver_pre_order
+            state.ver_horder = action.payload.ver_horder
+            if (!action.payload.show_pre_order) {
+                state.pre_order = null
+            }
+            state.show_horder = action.payload.show_horder
+            if (!action.payload.show_horder) {
+                state.horder = null
+            }
         },
         setSSSeance: (state, action) => {
             state.seance = action.payload.seance

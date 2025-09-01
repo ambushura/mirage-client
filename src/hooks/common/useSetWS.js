@@ -12,6 +12,7 @@ export function useSetWS() {
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
     const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
     const seance = useSelector(state => state.schedule.seance)
 
     const {
@@ -39,10 +40,15 @@ export function useSetWS() {
                     current_page: current_page,
                     date_shift: param_date,
                     uid_seance: seance !== undefined ? seance.uid : null,
-                    uid_order: pre_order.uid,
+                    show_pre_order: pre_order.in_base,
+                    show_horder: horder.in_base,
+                    uid_pre_order: pre_order.uid,
+                    uid_horder: horder.uid,
+                    ver_pre_order: pre_order.ver,
+                    ver_horder: horder.ver,
                 }
             }))
         }
-    }, [current_page, param_date, sendMessage, pre_order.uid, seance])
+    }, [current_page, param_date, sendMessage, pre_order, horder, seance])
 
 }

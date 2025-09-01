@@ -6,6 +6,7 @@ import {useSetSecondScreen} from "./useSetSecondScreen.js"
 import SSSeance from "./SSSeance.jsx"
 import {Box} from "@mui/material"
 import background from "../../../images/background.jpg"
+import SSOrder from "./SSOrder.jsx"
 
 export default function SecondScreen() {
 
@@ -17,6 +18,11 @@ export default function SecondScreen() {
 
     const [screen_width, set_screen_width] = useState(100)
     const [screen_height, set_screen_height] = useState(100)
+    const [body_width, set_body_width] = useState(100)
+    const [order_width, set_order_width] = useState(100)
+
+    const show_pre_order = useSelector(state => state.second_screen.show_pre_order)
+    const show_horder = useSelector(state => state.second_screen.show_horder)
 
     useEffect(() => {
         set_screen_width(app_width)
@@ -29,15 +35,27 @@ export default function SecondScreen() {
         dispatch(setSecondScreen())
     })
 
+    useEffect(() => {
+        set_order_width(screen_width * 30 / 100)
+        set_body_width(screen_width * 70 / 100)
+    }, [screen_width, show_pre_order, show_horder])
+
     return <Box
         className='ss-background'
         sx={{
             width: `${screen_width}px`,
             height: `${screen_height}px`,
-            backgroundImage: `url(${background})`
+            backgroundImage: current_page === 'seance' ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})` : `url(${background})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
         }}>
-        {!['seance'].includes(current_page) && <SSSchedule width={screen_width} height={screen_height}/>}
-        {['seance'].includes(current_page) && <SSSeance/>}
+        <Box sx={{width: `${body_width}px`, height: '100%'}}>
+            {!['seance'].includes(current_page) && <SSSchedule width={body_width} height={screen_height}/>}
+            {['seance'].includes(current_page) && <SSSeance/>}
+        </Box>
+        {show_pre_order || show_horder ?
+            <Box sx={{width: `${order_width}px`, height: '100%'}}>
+                <SSOrder/>
+            </Box> : null}
     </Box>
-
 }
