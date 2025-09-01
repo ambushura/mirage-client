@@ -48,7 +48,7 @@ function App() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setKiosk(false))
+        dispatch(setKiosk(true))
     }, [dispatch])
 
     useSetWS()

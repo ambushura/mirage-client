@@ -1,12 +1,6 @@
 import {useDispatch, useSelector} from "react-redux"
 import {
-    Box,
-    Button,
-    Dialog as MuiDialog,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    LinearProgress
+    Box, Button, Dialog as MuiDialog, DialogContent, DialogContentText, DialogTitle, LinearProgress
 } from "@mui/material"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import Ticket from "./Ticket.jsx"
@@ -34,8 +28,7 @@ const CheckOut = (props) => {
         }
     }, [dispatch, filial, pre_order.uid, wp])
 
-    return (
-        <Box id='checkout'>
+    return (<Box id='checkout'>
             <Box>
                 <Box className='order-panel'>
                     <Button onClick={() => {
@@ -50,21 +43,17 @@ const CheckOut = (props) => {
             <Box id="checkout-order">
                 <Box>
                     <Box className="checkout-order-title">Ваши билеты</Box>
-                    {kiosk_payment_error !== null ?
-                        <Box className='checkout-order-payment-error'>
-                            <span>ОШИБКА ОПЛАТЫ</span>
-                            <span>{kiosk_payment_error}</span>
-                        </Box> : null
-                    }
+                    {kiosk_payment_error !== null ? <Box className='checkout-order-payment-error'>
+                        <span>ОШИБКА ОПЛАТЫ</span>
+                        <span>{kiosk_payment_error}</span>
+                    </Box> : null}
                     <Box className="checkout-order-tickets-box">
                         <Box className="checkout-order-tickets">
                             {pre_order.items.map(ticket => {
-                                return (
-                                    <Ticket
+                                return (<Ticket
                                         key={ticket.uid}
                                         ticket={ticket}
-                                    />
-                                )
+                                    />)
                             })}
                         </Box>
                     </Box>
@@ -82,8 +71,7 @@ const CheckOut = (props) => {
                         await dispatch(common_order_pay_kiosk(filial, wp, pre_order.uid, pre_order.ver, 'cinema', payment_group))
                         await dispatch(setPreOrderPaying(false))
                     }} variant='contained' color='primary' sx={{
-                        width: '100%',
-                        marginTop: '10px'
+                        width: '100%', marginTop: '10px'
                     }}>{kiosk_payment_error === null ? 'Оплатить' : 'Повторить оплату'}</Button>
                 </Box>
             </Box>
@@ -95,17 +83,13 @@ const CheckOut = (props) => {
                     aria-labelledby="paying-process"
                     PaperProps={{
                         sx: {
-                            borderRadius: '45px',
-                            backgroundColor: '#EFEFEF',
-                            color: 'black',
-                            minWidth: '530px',
-                            minHeight: '120px',
+                            borderRadius: '45px', backgroundColor: '#EFEFEF', color: 'black', minWidth: '530px',
                         }
                     }}
                 >
                     <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                         <Box>
-                            <Loader size={2}/>
+                            <Loader size={1.8}/>
                         </Box>
                         <Box>
                             <DialogTitle sx={{fontSize: '200%', fontWeight: 900, paddingBottom: 0}}>Оплата
@@ -119,8 +103,7 @@ const CheckOut = (props) => {
                     </Box>
                 </MuiDialog>
             </Box>
-        </Box>
-    )
+        </Box>)
 }
 
 export default CheckOut
