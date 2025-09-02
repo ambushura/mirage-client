@@ -159,7 +159,7 @@ const PageSeance = () => {
                                         </Box>
                                         : <></>}
                                     <Box
-                                        className={seance.canceled ? 'seance-canceled' : seance.closed ? 'seance-closed' : null}
+                                        className={seance.canceled ? 'seance-canceled' : !seance.opened ? 'seance-closed' : null}
                                         sx={{
                                             width: '100%',
                                             position: 'relative',
@@ -167,7 +167,7 @@ const PageSeance = () => {
                                             height: 'inherit',
                                             '--seance-state': seance.canceled
                                                 ? '"Сеанс отменен"'
-                                                : seance.closed
+                                                : !seance.opened
                                                     ? '"Сеанс закрыт"'
                                                     : '""'
                                         }}

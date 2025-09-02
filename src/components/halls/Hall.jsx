@@ -13,7 +13,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
 import RowLabel from "./nodes/RowLabel.jsx"
 import Screen from "./nodes/Screen.jsx"
-import background from "../../images/background.jpg"
 
 const HallMap = (props) => {
     const dispatch = useDispatch()
@@ -21,7 +20,6 @@ const HallMap = (props) => {
     const wp = useSelector(state => state.interface.wp)
     const current_page = useSelector(state => state.interface.current_page)
     const mode = useSelector(state => state.halls.mode)
-    const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     const [nodes, setNodes, onNodesChange] = useNodesState([])
     const [edges, setEdges, onEdgesChange] = useEdgesState([])

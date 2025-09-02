@@ -2,6 +2,7 @@ import {Box} from "@mui/material"
 import {NavLink} from "react-router-dom"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 import PlaceLabel from "./PlaceLabel.jsx"
+import dynamic_price from '../../../images/dynamic_price.svg'
 
 const SeanceCard = (props) => {
 
@@ -29,7 +30,10 @@ const SeanceCard = (props) => {
                         return (
                             <Box key={price.uid_place_type} className='schedule-full-tariff-place'>
                                 <PlaceLabel name={price.image_name}/>
-                                <div>{price.price} P</div>
+                                <Box
+                                    sx={{color: price.sum_dynamic !== null ? '#E3000B' : 'black'}}>{price.sum_dynamic !== null ?
+                                    <img src={dynamic_price} alt="экран" width='14px'
+                                         height='14px'/> : null} {price.price} P</Box>
                             </Box>
                         )
                     })}

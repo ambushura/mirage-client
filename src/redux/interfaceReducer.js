@@ -26,7 +26,6 @@ export const TOP_MENU = [
     [
         {id: "films", name: "Фильмы", path: ""},
         {id: "schedule", name: "Расписание", path: ""},
-        {id: "mkitchen", name: "Mkitchen", path: ""},
     ],
     [
         {id: "films", name: "Фильмы", path: ""},

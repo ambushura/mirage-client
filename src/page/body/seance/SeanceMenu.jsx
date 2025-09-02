@@ -50,7 +50,7 @@ const SeanceMenu = () => {
                     }}><LocationOnIcon/><span>Зал
                         №{seance.hall_full_name}</span></Box>
                 </Box>
-                {!seance.canceled && !seance.closed ?
+                {!seance.canceled && seance.opened ?
                     <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <Button variant='contained' color='primary' onClick={() => {
                             dispatch(openModal({
