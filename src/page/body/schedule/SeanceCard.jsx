@@ -30,10 +30,9 @@ const SeanceCard = (props) => {
                         return (
                             <Box key={price.uid_place_type} className='schedule-full-tariff-place'>
                                 <PlaceLabel name={price.image_name}/>
-                                <Box
-                                    sx={{color: price.sum_dynamic !== null ? '#E3000B' : 'black'}}>{price.sum_dynamic !== null ?
-                                    <img src={dynamic_price} alt="экран" width='14px'
-                                         height='14px'/> : null} {price.price} P</Box>
+                                <Box>{price.sum_dynamic !== null ?
+                                    <img src={dynamic_price} alt="экран" width='10px'
+                                         height='10px'/> : null} {price.price} P</Box>
                             </Box>
                         )
                     })}

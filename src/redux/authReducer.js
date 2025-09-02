@@ -24,6 +24,7 @@ const removeStorageItems = () => {
     localStorage.removeItem("login")
     localStorage.removeItem("tips")
     localStorage.removeItem("god")
+    localStorage.removeItem("alive")
     localStorage.removeItem("token")
     localStorage.removeItem("filials")
     localStorage.removeItem("permissions")
@@ -35,6 +36,7 @@ const initialState = {
     login: localStorage.getItem("login") || null,
     tips: localStorage.getItem("tips") || null,
     god: localStorage.getItem("god") || false,
+    alive: localStorage.getItem("alive") || false,
     token: localStorage.getItem("token") || null,
     filials: getStorageItem("filials", []),
     permissions: getStorageItem("permissions", []),
@@ -51,6 +53,7 @@ const authReducer = createSlice({
             state.login = decode.login
             state.tips = decode.tips
             state.god = decode.god
+            state.alive = decode.alive
             state.token = payload
             state.filials = decode.filials
             state.permissions = decode.permissions
@@ -60,6 +63,7 @@ const authReducer = createSlice({
             setStorageItem("login", decode.login)
             setStorageItem("tips", decode.tips)
             setStorageItem("god", decode.god)
+            setStorageItem("alive", decode.alive)
             setStorageItem("token", payload)
             setStorageItem("filials", decode.filials)
             setStorageItem("permissions", decode.permissions)
@@ -70,6 +74,7 @@ const authReducer = createSlice({
             state.login = null
             state.tips = null
             state.god = false
+            state.alive = false
             state.token = null
             state.filials = []
             state.permissions = []

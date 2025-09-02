@@ -13,7 +13,7 @@ import {
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
-import {loginSuccess} from "../redux/authReducer.js"
+import {loginSuccess, logout} from "../redux/authReducer.js"
 import {
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_KIOSK_POSITION_ADD,
@@ -74,7 +74,10 @@ const makeRequest = async (dispatch, config, onSuccess) => {
         if (onSuccess) onSuccess(res.data)
     } catch (e) {
         let message
-        if (e.code === 'ERR_NETWORK') {
+        if (e.status === 401) {
+            dispatch(logout())
+            message = e.response.data
+        } else if (e.code === 'ERR_NETWORK') {
             message = 'Сервер не отвечает'
         } else if (e.code === 'ECONNABORTED') {
             message = 'Превышено время ожидания ответа от сервера'
@@ -493,19 +496,9 @@ export const equipment_action = (filial, wp, route, params) => async (dispatch) 
             break
         case ROUTE_EQUIPMENT_PINPAD_X:
             dispatch(setZPinpadsUpdate())
+            break
         case ROUTE_EQUIPMENT_PINPAD_Z:
             dispatch(setZPinpadsUpdate())
+            break
     }
-}
-
-export const common_horeca_modifications_get = (filial, wp, uid_menu) => async (dispatch) => {
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MODIFICATIONS_GET}`,
-        params: {uid_menu},
-        wp,
-        filial
-    }, data => {
-        return data
-    })
 }

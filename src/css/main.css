@@ -916,7 +916,7 @@ body {
 
 .schedule-full-tariff-place {
     min-width: 80px;
-    font-size: 80%;
+    font-size: 70%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

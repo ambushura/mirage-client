@@ -5,6 +5,8 @@ import {setSSState} from "../../redux/secondScreenReducer.js"
 
 export function useSetWS() {
 
+    const origin = window.location.origin
+
     const dispatch = useDispatch()
     const wp = useSelector(state => state.interface.wp)
     const its_second_screen = useSelector(state => state.interface.its_second_screen)
@@ -18,9 +20,11 @@ export function useSetWS() {
     const {
         sendMessage,
         lastMessage
-    } = useWebSocket(`ws://10.101.3.88:60003/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
-        shouldReconnect: () => true,
-    })
+    } = useWebSocket(
+         `ws://10.101.3.88:60003/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
+        //`ws://${origin}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
+            shouldReconnect: () => true,
+        })
 
     useEffect(() => {
         if (lastMessage) {
