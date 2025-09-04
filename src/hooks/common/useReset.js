@@ -29,7 +29,6 @@ export function useReset() {
         dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
     }, [dispatch, clear])
 
-
     useEffect(() => {
         dispatch(setShowFreeSpace(false))
     }, [dispatch, uid_user])
@@ -37,4 +36,5 @@ export function useReset() {
     useEffect(() => {
         dispatch(setUidHall(null))
     }, [dispatch, filial])
+
 }

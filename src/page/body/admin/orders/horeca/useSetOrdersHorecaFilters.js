@@ -1,78 +1,62 @@
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect, useState} from "react"
-import {useFetching} from "../../../../../hooks/common/useFetching.js"
+import {useEffect} from "react"
+import {
+    common_orders_filters_halls_get,
+    common_orders_filters_staff_get,
+    common_orders_filters_workplace_get,
+    horeca_orders_filters_kitchen_points_get
+} from "../../../../../service/fetch_service.js"
 import {
     setOrdersHorecaFiltersHalls,
     setOrdersHorecaFiltersKitchenPoints,
-    setOrdersHorecaFiltersStaff, setOrdersHorecaFiltersWorkPlaces
+    setOrdersHorecaFiltersStaff,
+    setOrdersHorecaFiltersWorkPlaces
 } from "../../../../../redux/ordersReducer.js"
-import {
-    ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET, ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET,
-    ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET, ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET
-} from "../../../../../service/fetch_routes.js"
 
 export function useSetOrdersHorecaFilters() {
 
     const dispatch = useDispatch()
-
     const filial = useSelector(state => state.data.filial)
 
-    const [url_staff, set_url_staff] = useState(undefined)
-    const [url_halls, set_url_halls] = useState(undefined)
-    const [url_workplaces, set_url_workplaces] = useState(undefined)
-    const [url_kitchen_points, set_url_kitchen_points] = useState(undefined)
-
-    const [fetch_data_staff, fetch_errors_staff, fetch_loading_staff] = useFetching(url_staff)
-    const [fetch_data_halls, fetch_errors_halls, fetch_loading_halls] = useFetching(url_halls)
-    const [fetch_data_workplaces, fetch_errors_workplaces, fetch_loading_workplaces] = useFetching(url_workplaces)
-    const [fetch_data_kitchen_points, fetch_errors_kitchen_points, fetch_loading_kitchen_points] = useFetching(url_kitchen_points)
-
     useEffect(() => {
+        const fetch_staff = async () => {
+            const fetching_result = await dispatch(common_orders_filters_staff_get(filial))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                dispatch(setOrdersHorecaFiltersStaff(fetching_result.data))
+            }
+        }
+        const fetch_halls = async () => {
+            const fetching_result = await dispatch(common_orders_filters_halls_get(filial))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                dispatch(setOrdersHorecaFiltersHalls(fetching_result.data))
+            }
+        }
+        const fetch_workplace = async () => {
+            const fetching_result = await dispatch(common_orders_filters_workplace_get(filial))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                dispatch(setOrdersHorecaFiltersWorkPlaces(fetching_result.data))
+            }
+        }
+        const fetch_kitchen_points = async () => {
+            const fetching_result = await dispatch(horeca_orders_filters_kitchen_points_get(filial))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                dispatch(setOrdersHorecaFiltersKitchenPoints(fetching_result.data))
+            }
+        }
         if (filial !== undefined) {
-            set_url_staff({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET}`,
-                    uid_filial: filial.uid,
-                    params: {}
-                }
-            )
-            set_url_halls({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET}`,
-                    uid_filial: filial.uid,
-                    params: {}
-                }
-            )
-            set_url_workplaces({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET}`,
-                    uid_filial: filial.uid,
-                    params: {}
-                }
-            )
-            set_url_kitchen_points({
-                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET}`,
-                    uid_filial: filial.uid,
-                    params: {}
-                }
-            )
-        } else {
-            set_url_staff(undefined)
-            set_url_halls(undefined)
-            set_url_workplaces(undefined)
-            set_url_kitchen_points(undefined)
+            fetch_staff()
+            fetch_halls()
+            fetch_workplace()
+            fetch_kitchen_points()
         }
-    }, [filial])
+    }, [dispatch, filial])
 
-    useEffect(() => {
-        if (fetch_data_staff !== null) {
-            dispatch(setOrdersHorecaFiltersStaff(fetch_data_staff))
-        }
-        if (fetch_data_halls !== null) {
-            dispatch(setOrdersHorecaFiltersHalls(fetch_data_halls))
-        }
-        if (fetch_data_workplaces !== null) {
-            dispatch(setOrdersHorecaFiltersWorkPlaces(fetch_data_workplaces))
-        }
-        if (fetch_data_kitchen_points !== null) {
-            dispatch(setOrdersHorecaFiltersKitchenPoints(fetch_data_kitchen_points))
-        }
-    }, [dispatch, fetch_data_staff, fetch_data_halls, fetch_data_workplaces, fetch_data_kitchen_points])
 }

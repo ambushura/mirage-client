@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from "react"
+import {useMemo} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {Box, Modal} from "@mui/material"
 import {Navigate, Route, Routes} from "react-router-dom"
@@ -22,12 +22,11 @@ import {
     SeanceCancellation
 } from "./components/forms/"
 
-import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
 import {useSetTopMenu} from "./hooks/interface/useSetTopMenu.js"
 import {useSetWS} from "./hooks/common/useSetWS.js"
 import {useReset} from "./hooks/common/useReset.js"
-import {closeModal, setKiosk} from "./redux/interfaceReducer.js"
+import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
 import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
@@ -42,14 +41,11 @@ import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx
 import TableOptions from "./components/forms/TableOptions.jsx"
 import Dialog from "./components/forms/Dialog.jsx"
 import Operation from "./page/body/admin/total/Operation.jsx"
+import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 
 function App() {
 
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(setKiosk(false))
-    }, [dispatch])
 
     useSetWS()
     useSetCityAndFilial()

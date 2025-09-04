@@ -15,9 +15,9 @@ import RowLabel from "./nodes/RowLabel.jsx"
 import Screen from "./nodes/Screen.jsx"
 
 const HallMap = (props) => {
+
     const dispatch = useDispatch()
     const uid_user = useSelector(state => state.auth.uid)
-    const wp = useSelector(state => state.interface.wp)
     const current_page = useSelector(state => state.interface.current_page)
     const mode = useSelector(state => state.halls.mode)
 
@@ -73,7 +73,6 @@ const HallMap = (props) => {
                     cinema_position_add(
                         props.city,
                         props.filial,
-                        wp,
                         props.seance.uid,
                         props.pre_order.uid,
                         node.id,
@@ -82,7 +81,7 @@ const HallMap = (props) => {
                 )
             } else {
                 if (mode === 'block') {
-                    dispatch(cinema_place_block(props.filial, wp, props.hall, node.id))
+                    dispatch(cinema_place_block(props.filial, props.hall, node.id))
                 }
             }
         }

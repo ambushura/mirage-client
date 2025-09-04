@@ -1,27 +1,47 @@
 import Hall from "../halls/Hall.jsx"
-import {useSetHall} from "../../page/body/admin/halls/useSetHall.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {Box, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material"
-import {useSetHalls} from "../../page/body/admin/halls/useSetHalls.js"
+import {cinema_hall_get, common_orders_filters_halls_get} from "../../service/fetch_service.js"
 
 export default function TableOptions() {
 
     const dispatch = useDispatch()
 
-    const [uid_hall, set_uid_hall] = useState(null)
-    const [hall, set_hall] = useState(null)
-
-    const halls = useSetHalls()
-    const hallN = useSetHall(uid_hall)
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
 
+    const [halls, set_halls] = useState([])
+    const [uid_hall, set_uid_hall] = useState(null)
+    const [hall, set_hall] = useState(null)
+
     useEffect(() => {
-        if (hallN !== null) {
-            set_hall(hallN)
+        const fetch_halls = async () => {
+            const fetching_result = await dispatch(common_orders_filters_halls_get(filial))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                set_halls(fetching_result.data)
+            }
         }
-    }, [dispatch, hallN])
+        if (filial !== undefined) {
+            fetch_halls()
+        }
+    }, [dispatch, filial])
+
+    useEffect(() => {
+        const fetch_hall = async () => {
+            const fetching_result = await dispatch(cinema_hall_get(filial, uid_hall))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                set_hall(fetching_result.data)
+            }
+        }
+        if (filial !== undefined && uid_hall !== null) {
+            fetch_hall()
+        }
+    }, [dispatch, filial, uid_hall])
 
     return <Box sx={{display: "flex", flexDirection: "column"}}>
         <Typography variant="h6" color="textSecondary" margin={1}>

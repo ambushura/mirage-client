@@ -10,7 +10,6 @@ const CommentOrder = (props) => {
 
     const [comment, set_comment] = useState(null)
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     const order_type = props.props.order_type
     const order = props.props.order
@@ -25,7 +24,7 @@ const CommentOrder = (props) => {
              noValidate
              onSubmit={(e) => {
                  e.preventDefault()
-                 dispatch(common_order_add_comment(filial, wp, order_type, order.uid, comment))
+                 dispatch(common_order_add_comment(filial, order_type, order.uid, comment))
                  dispatch(closeModal())
              }}
              display="flex" flexDirection="column" sx={{alignItems: 'flex-start'}} id="modal-comment">

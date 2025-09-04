@@ -1,27 +1,40 @@
 import {Autocomplete, Box, Button, TextField, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
-import {common_position_add_comment} from "../../../service/fetch_service.js"
+import {
+    common_position_add_comment, horeca_modifications_get
+} from "../../../service/fetch_service.js"
 import {closeModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {useSetModifications} from "../../../page/right-panel/horeca/useSetModifications.js"
 
 const CommentPosition = ({props}) => {
 
     const dispatch = useDispatch()
+    const filial = useSelector(state => state.data.filial)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
 
+    const [modifications, set_modifications] = useState([])
+    const [selected_modifications, set_selected_modifications] = useState([])
     const [comment, set_comment] = useState(null)
-    const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     const order_type = props.order_type
     const uid_order = props.uid_order
     const uid_position = props.uid_position
     const current_comment = props.comment
 
-    const modifications = useSetModifications(props.uid_menu, order_type)
-    const [selected_modifications, set_selected_modifications] = useState([])
+    useEffect(() => {
+        const fetch = async () => {
+            const fetching_result = await dispatch(horeca_modifications_get(filial, props.uid_menu))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.data !== null) {
+                set_modifications(fetching_result.data)
+            }
+        }
+        if (filial !== undefined && order_type === 'horeca' && props.uid_menu !== undefined) {
+            fetch()
+        }
+    }, [dispatch, filial, order_type, props.uid_menu])
 
     useEffect(() => {
         if (order_type === 'horeca') {
@@ -51,48 +64,44 @@ const CommentPosition = ({props}) => {
         }
     }, [dispatch, props.order_type, pre_order, horder])
 
-    return (
-        <Box component="form"
-             autoComplete="off"
-             noValidate
-             onSubmit={(e) => {
-                 e.preventDefault()
-                 dispatch(common_position_add_comment(filial, wp, order_type, uid_order, uid_position, comment, selected_modifications))
-                 dispatch(closeModal())
-             }}
-             display="flex" flexDirection="column" sx={{alignItems: 'flex-start'}} id="modal-comment">
-            <Typography variant="h6" color="textSecondary" margin={1}>Комментарий к позиции заказа</Typography>
-            <TextField label='Комментарий' sx={{m: 1, minWidth: '500px'}} variant='filled' color="textSecondary"
-                       multiline value={comment} onChange={(event) => {
-                set_comment(event.target.value)
-            }}/>
-            {props.order_type === 'horeca' && modifications !== null ?
-                <Box sx={{minWidth: '500px', maxWidth: '500px', m: 1}}>
-                    <Autocomplete
-                        fullWidth
-                        multiple
-                        id='modifications'
-                        options={modifications}
-                        getOptionLabel={(option) => option.name}
-                        value={modifications.filter(m => selected_modifications.includes(m.uid))}
-                        onChange={(e, newValue) => {
-                            set_selected_modifications(newValue.map(m => m.uid))
-                        }}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                variant='outlined'
-                                label='Модификаторы'
-                                placeholder="добавить модификатор"
-                            />
-                        )}
-                    />
-                </Box> : null}
-            <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
-                <Button variant='contained' color='secondary' type="submit">Сохранить</Button>
-            </Box>
+    return (<Box component="form"
+                 autoComplete="off"
+                 noValidate
+                 onSubmit={(e) => {
+                     e.preventDefault()
+                     dispatch(common_position_add_comment(filial, order_type, uid_order, uid_position, comment, selected_modifications))
+                     dispatch(closeModal())
+                 }}
+                 display="flex" flexDirection="column" sx={{alignItems: 'flex-start'}} id="modal-comment">
+        <Typography variant="h6" color="textSecondary" margin={1}>Комментарий к позиции заказа</Typography>
+        <TextField label='Комментарий' sx={{m: 1, minWidth: '500px'}} variant='filled' color="textSecondary"
+                   multiline value={comment} onChange={(event) => {
+            set_comment(event.target.value)
+        }}/>
+        {props.order_type === 'horeca' && modifications !== null ?
+            <Box sx={{minWidth: '500px', maxWidth: '500px', m: 1}}>
+                <Autocomplete
+                    fullWidth
+                    multiple
+                    id='modifications'
+                    options={modifications}
+                    getOptionLabel={(option) => option.name}
+                    value={modifications.filter(m => selected_modifications.includes(m.uid))}
+                    onChange={(e, newValue) => {
+                        set_selected_modifications(newValue.map(m => m.uid))
+                    }}
+                    renderInput={(params) => (<TextField
+                        {...params}
+                        variant='outlined'
+                        label='Модификаторы'
+                        placeholder="добавить модификатор"
+                    />)}
+                />
+            </Box> : null}
+        <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
+            <Button variant='contained' color='secondary' type="submit">Сохранить</Button>
         </Box>
-    )
+    </Box>)
 }
 
 export default CommentPosition

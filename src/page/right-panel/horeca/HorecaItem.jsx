@@ -1,6 +1,5 @@
 import {Box} from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import LooksOneIcon from '@mui/icons-material/LooksOne'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
@@ -8,7 +7,8 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
-import {common_position_delete_comment,
+import {
+    common_position_delete_comment,
     horeca_position_change_state,
     horeca_position_delete
 } from "../../../service/fetch_service.js"
@@ -16,12 +16,12 @@ import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 
 const HorecaItem = (props) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
     const state = [<></>, <Box key='1'>Начать готовить</Box>, <Box key='2'>Закончить готовку</Box>,
         <Box key='3'>Отдать гостю</Box>]
     const course = [
@@ -74,7 +74,7 @@ const HorecaItem = (props) => {
                         }))}><BorderColorIcon
                     sx={{color: 'white'}}/></button>
                 <button className='order-box-horeca-item-1-3'
-                        onClick={() => dispatch((horeca_position_delete(filial, wp, props.order.uid, props.item.uid)))}>
+                        onClick={() => dispatch((horeca_position_delete(filial, props.order.uid, props.item.uid)))}>
                     <DeleteIcon sx={{color: 'white'}}/></button>
             </Box>
             {props.item.price.uid_discount !== null ?
@@ -89,7 +89,6 @@ const HorecaItem = (props) => {
                         type: 'mark',
                         props: {
                             filial: filial,
-                            wp: wp,
                             uid_order: props.order.uid,
                             uid_position: props.item.uid,
                             add: false
@@ -120,7 +119,7 @@ const HorecaItem = (props) => {
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
                 <Box className='order-box-horeca-item-4-1'>{props.item.comment}</Box>
                 <Box className='order-box-horeca-item-4-2'
-                     onClick={() => dispatch(common_position_delete_comment(filial, wp, 'horeca', props.order.uid, props.item.uid))}><DeleteIcon
+                     onClick={() => dispatch(common_position_delete_comment(filial, 'horeca', props.order.uid, props.item.uid))}><DeleteIcon
                     sx={{color: 'white'}}/></Box>
             </Box> : <></>}
             {props.item.kitchen !== null && props.item.kitchen.modifications !== null ? <Box className='modifications'>{
@@ -130,15 +129,20 @@ const HorecaItem = (props) => {
             }</Box> : null}
             {props.item.kitchen !== null ? <Box className='order-box-horeca-item-5'>
                 <button className='order-box-horeca-item-5-1' onClick={() => {
-                    dispatch(horeca_position_change_state(filial, wp, props.order.uid, props.item.uid, 'away'))
-                }} style={{backgroundColor: props.item.kitchen.take_away ? '#45B97C' : '#1C1F23'}}><DirectionsRunIcon
+                    dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'away'))
+                }} style={{backgroundColor: props.item.kitchen.take_away ? '#45B97C' : '#1C1F23'}}><ShoppingBagIcon
                     sx={{color: props.item.kitchen.take_away ? 'black' : 'white'}}/></button>
                 <button className='order-box-horeca-item-5-2'
                         style={{backgroundColor: props.item.kitchen.course > 0 ? '#45B97C' : '#1C1F23'}}
-                        onClick={() => dispatch(horeca_position_change_state(filial, wp, props.order.uid, props.item.uid, 'course'))}>{course[props.item.kitchen.course]}</button>
+                        onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'course'))}>{course[props.item.kitchen.course]}</button>
                 <button className='order-box-horeca-item-5-3'
-                        onClick={() => dispatch(horeca_position_change_state(filial, wp, props.order.uid, props.item.uid, 'cook'))}
-                        style={{backgroundColor: '#45B97C', color: 'black', fontSize: '60%', padding: '0 5px'}}>{state[props.item.kitchen.state]}</button>
+                        onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'cook'))}
+                        style={{
+                            backgroundColor: '#45B97C',
+                            color: 'black',
+                            fontSize: '60%',
+                            padding: '0 5px'
+                        }}>{state[props.item.kitchen.state]}</button>
                 <Box className='order-box-horeca-item-5-4'></Box>
                 {props.item.kitchen.uid_delivery_path !== null ?
                     <Box className='order-box-horeca-item-5-5'>{props.item.kitchen.name_delivery_path}</Box> : null}

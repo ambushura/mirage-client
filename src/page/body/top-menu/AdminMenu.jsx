@@ -2,7 +2,9 @@ import {
     Box,
     Button,
     ButtonGroup,
-    FormControl, IconButton, InputAdornment,
+    FormControl,
+    IconButton,
+    InputAdornment,
     InputLabel,
     Menu,
     MenuItem,
@@ -18,7 +20,8 @@ import {
     setCurrentPreOrder,
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
-    setOrdersCinemaFiltersFromKioskSelect, setOrdersCinemaFiltersFromSiteSelect,
+    setOrdersCinemaFiltersFromKioskSelect,
+    setOrdersCinemaFiltersFromSiteSelect,
     setOrdersCinemaFiltersFromWPSelect,
     setOrdersCinemaFiltersHallsSelect,
     setOrdersCinemaFiltersSeancesSelect,
@@ -50,25 +53,36 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../../components/forms/Calendar.jsx"
 import {useEffect, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import {useSetHalls} from "../admin/halls/useSetHalls.js"
 import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
-import {common_list_get, equipment_action} from "../../../service/fetch_service.js"
+import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../../service/fetch_service.js"
 import {SelectMenu} from "../../../ui/SelectMenu.jsx"
 import {
-    ROUTE_EQUIPMENT_KKT_Z,
-    ROUTE_EQUIPMENT_PINPAD_X,
-    ROUTE_EQUIPMENT_PINPAD_Z
+    ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z
 } from "../../../service/fetch_routes.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 
 export function AdminHallsList() {
 
     const dispatch = useDispatch()
-    const halls = useSetHalls()
-
+    const filial = useSelector(state => state.data.filial)
     const uid_hall = useSelector(state => state.halls.uid_hall)
     const mode = useSelector(state => state.halls.mode)
+    const [halls, set_halls] = useState([])
+
+    useEffect(() => {
+        const fetch_halls = async () => {
+            const fetching_result = await dispatch(common_orders_filters_halls_get(filial))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                set_halls(fetching_result.data)
+            }
+        }
+        if (filial !== undefined) {
+            fetch_halls()
+        }
+    }, [dispatch, filial])
 
     return <Box sx={{marginRight: '5px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <FormControl variant='filled' sx={{minWidth: '200px'}}>
@@ -104,41 +118,33 @@ export function ShowFastSearch() {
     const dispatch = useDispatch()
     const order_search_value = useSelector(state => state.orders.order_search_value)
 
-    return (
-        <Box sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: 'center',
-            padding: '2px 0',
-            marginRight: '5px'
-        }}>
-            <TextField
-                label='QR, номер заказа, телефон'
-                sx={{minWidth: '400px'}}
-                variant='filled' color="textSecondary"
-                value={order_search_value ?? ""}
-                onChange={(event) => {
-                    if (event.target.value === '') {
-                        dispatch(setOrderSearchValue(null))
-                    } else {
-                        dispatch(setOrderSearchValue(event.target.value))
-                    }
-                }}
-                InputProps={{
-                    endAdornment: order_search_value && (
-                        <InputAdornment position="end">
-                            <IconButton
-                                onClick={() => dispatch(setOrderSearchValue(null))}
-                                edge="end"
-                                size="small"
-                            >
-                                <ClearIcon/>
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}/>
-        </Box>
-    )
+    return (<Box sx={{
+        display: "flex", justifyContent: "flex-end", alignItems: 'center', padding: '2px 0', marginRight: '5px'
+    }}>
+        <TextField
+            label='QR, номер заказа, телефон'
+            sx={{minWidth: '400px'}}
+            variant='filled' color="textSecondary"
+            value={order_search_value ?? ""}
+            onChange={(event) => {
+                if (event.target.value === '') {
+                    dispatch(setOrderSearchValue(null))
+                } else {
+                    dispatch(setOrderSearchValue(event.target.value))
+                }
+            }}
+            InputProps={{
+                endAdornment: order_search_value && (<InputAdornment position="end">
+                    <IconButton
+                        onClick={() => dispatch(setOrderSearchValue(null))}
+                        edge="end"
+                        size="small"
+                    >
+                        <ClearIcon/>
+                    </IconButton>
+                </InputAdornment>),
+            }}/>
+    </Box>)
 
 }
 
@@ -163,51 +169,36 @@ export function ShowFilters() {
     const cinema_buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
 
     if (current_page === 'admin/orders/horeca') {
-        return (
-            <ButtonGroup sx={{marginRight: '5px'}}>
-                <Button variant='outlined' color='secondary'
-                        onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
-                        startIcon={<FilterAltIcon/>}>Фильтры</Button>
-                {horeca_staff_selected.length > 0 ||
-                horeca_state_selected.length > 0 ||
-                horeca_halls_selected.length > 0 ||
-                horeca_workplaces_selected.length > 0 ||
-                horeca_kitchen_points_selected.length > 0 ||
-                horeca_kitchen_state_selected.length > 0 ?
-                    <Button variant='contained' color='secondary' onClick={() => {
-                        dispatch(setOrdersHorecaFiltersStaffSelect([]))
-                        dispatch(setOrdersHorecaFiltersStateSelect([]))
-                        dispatch(setOrdersHorecaFiltersHallsSelect([]))
-                        dispatch(setOrdersHorecaFiltersWorkPlacesSelect([]))
-                        dispatch(setOrdersHorecaFiltersKitchenPointsSelect([]))
-                        dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
-                    }}><FilterAltOffIcon/></Button> : null}
-            </ButtonGroup>
-        )
+        return (<ButtonGroup sx={{marginRight: '5px'}}>
+            <Button variant='outlined' color='secondary'
+                    onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
+                    startIcon={<FilterAltIcon/>}>Фильтры</Button>
+            {horeca_staff_selected.length > 0 || horeca_state_selected.length > 0 || horeca_halls_selected.length > 0 || horeca_workplaces_selected.length > 0 || horeca_kitchen_points_selected.length > 0 || horeca_kitchen_state_selected.length > 0 ?
+                <Button variant='contained' color='secondary' onClick={() => {
+                    dispatch(setOrdersHorecaFiltersStaffSelect([]))
+                    dispatch(setOrdersHorecaFiltersStateSelect([]))
+                    dispatch(setOrdersHorecaFiltersHallsSelect([]))
+                    dispatch(setOrdersHorecaFiltersWorkPlacesSelect([]))
+                    dispatch(setOrdersHorecaFiltersKitchenPointsSelect([]))
+                    dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
+                }}><FilterAltOffIcon/></Button> : null}
+        </ButtonGroup>)
     } else if (current_page === 'admin/orders/cinema') {
-        return (
-            <ButtonGroup sx={{marginRight: '5px'}}>
-                <Button variant='outlined' color='secondary'
-                        onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
-                        startIcon={<FilterAltIcon/>}>Фильтры</Button>
-                {cinema_staff_selected.length > 0 ||
-                cinema_state_selected.length > 0 ||
-                cinema_seances_selected.length > 0 ||
-                cinema_halls_selected.length > 0 ||
-                cinema_workplaces_selected.length > 0 ||
-                cinema_buyer_emails_selected !== '' ||
-                cinema_buyer_phone_numbers_selected !== '' ?
-                    <Button variant='contained' color='secondary' onClick={() => {
-                        dispatch(setOrdersCinemaFiltersStaffSelect([]))
-                        dispatch(setOrdersCinemaFiltersStateSelect([]))
-                        dispatch(setOrdersCinemaFiltersSeancesSelect([]))
-                        dispatch(setOrdersCinemaFiltersHallsSelect([]))
-                        dispatch(setOrdersCinemaFiltersWorkplacesSelect([]))
-                        dispatch(setOrdersCinemaFiltersBuyerEmailsSelect(''))
-                        dispatch(setOrdersCinemaFiltersBuyerPhoneNumbersSelect(''))
-                    }}><FilterAltOffIcon/></Button> : null}
-            </ButtonGroup>
-        )
+        return (<ButtonGroup sx={{marginRight: '5px'}}>
+            <Button variant='outlined' color='secondary'
+                    onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
+                    startIcon={<FilterAltIcon/>}>Фильтры</Button>
+            {cinema_staff_selected.length > 0 || cinema_state_selected.length > 0 || cinema_seances_selected.length > 0 || cinema_halls_selected.length > 0 || cinema_workplaces_selected.length > 0 || cinema_buyer_emails_selected !== '' || cinema_buyer_phone_numbers_selected !== '' ?
+                <Button variant='contained' color='secondary' onClick={() => {
+                    dispatch(setOrdersCinemaFiltersStaffSelect([]))
+                    dispatch(setOrdersCinemaFiltersStateSelect([]))
+                    dispatch(setOrdersCinemaFiltersSeancesSelect([]))
+                    dispatch(setOrdersCinemaFiltersHallsSelect([]))
+                    dispatch(setOrdersCinemaFiltersWorkplacesSelect([]))
+                    dispatch(setOrdersCinemaFiltersBuyerEmailsSelect(''))
+                    dispatch(setOrdersCinemaFiltersBuyerPhoneNumbersSelect(''))
+                }}><FilterAltOffIcon/></Button> : null}
+        </ButtonGroup>)
     }
 
     return null
@@ -280,11 +271,7 @@ export function DateParamAdmin() {
                      sx={{marginRight: '5px'}}>
             <Button onClick={async () => {
                 const now = new Date()
-                const date = date_dayjs(
-                    now.getHours() >= 0 && now.getHours() < 7
-                        ? new Date(now.setDate(now.getDate() - 1))
-                        : now
-                )
+                const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
                 const current_param_date = from_dayjs_to_str(date)
                 await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -304,9 +291,8 @@ export function DateParamAdmin() {
             }}>
                 <KeyboardArrowLeftIcon/>
             </Button>
-            <Button onClick={handleClick} endIcon={<KeyboardArrowDownIcon/>}>
-                Заказы {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}
-            </Button>
+            <Button onClick={handleClick} endIcon={
+                <KeyboardArrowDownIcon/>}>{dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}</Button>
             <Button onClick={async () => {
                 const date = dayjs(param_date_admin).add(1, 'day').format('YYYY-MM-DD')
                 await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
@@ -324,14 +310,12 @@ export function DateParamAdmin() {
             anchorEl={admin_calendar_open}
             onClose={handleClose}
             anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: 'bottom', horizontal: 'left',
             }}
             slotProps={{
                 paper: {
                     sx: {
-                        borderRadius: '12px',
-                        backgroundColor: '#393a3b'
+                        borderRadius: '12px', backgroundColor: '#393a3b'
                     }
                 }
             }}
@@ -397,12 +381,10 @@ export function ShowDateOperations() {
 
     const {date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
 
-    return (
-        <ButtonGroup color='secondary' variant='outlined'>
-            <Button>{date_shift_beginning}</Button>
-            <Button>{date_shift_ending}</Button>
-        </ButtonGroup>
-    )
+    return (<ButtonGroup color='secondary' variant='outlined'>
+        <Button>{date_shift_beginning}</Button>
+        <Button>{date_shift_ending}</Button>
+    </ButtonGroup>)
 }
 
 export function CurrentKKT() {
@@ -410,30 +392,27 @@ export function CurrentKKT() {
     const dispatch = useDispatch()
     const {kkt_list, uid_kkt_current} = useSelector(state => state.documents.zbooks)
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     useEffect(() => {
-        dispatch(common_list_get(filial, wp, 'kkt'))
-    }, [dispatch, filial, wp])
+        dispatch(common_list_get(filial, 'kkt'))
+    }, [dispatch, filial])
 
-    return (
-        <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
-            <SelectMenu
-                type={'zbooks-kkt'}
-                list={kkt_list}
-                current_value={uid_kkt_current}
-                width={230}
-            />
-            <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
-                <Button>Суточный отчет</Button>
-                <Button>X-отчет</Button>
-                <Button>Открыть ДЯ</Button>
-                <Button variant='contained' color='primary'
-                        onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_KKT_Z, {uid: uid_kkt_current}))}>Закрыть
-                    смену</Button>
-            </ButtonGroup>
-        </Box>
-    )
+    return (<Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
+        <SelectMenu
+            type={'zbooks-kkt'}
+            list={kkt_list}
+            current_value={uid_kkt_current}
+            width={230}
+        />
+        <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
+            <Button>Суточный отчет</Button>
+            <Button>X-отчет</Button>
+            <Button>Открыть ДЯ</Button>
+            <Button variant='contained' color='primary'
+                    onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_Z, {uid: uid_kkt_current}))}>Закрыть
+                смену</Button>
+        </ButtonGroup>
+    </Box>)
 }
 
 export function CurrentPinpad() {
@@ -447,24 +426,22 @@ export function CurrentPinpad() {
         dispatch(common_list_get(filial, wp, 'pinpad'))
     }, [dispatch, filial, wp])
 
-    return (
-        <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
-            <SelectMenu
-                type={'zbooks-pinpad'}
-                list={pinpad_list}
-                current_value={uid_pinpad_current}
-                width={230}
-            />
-            <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
-                <Button variant='outlined' color='secondary'
-                        onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_X, {uid: uid_pinpad_current}))}>Краткий
-                    отчет</Button>
-                <Button variant='contained' color='primary'
-                        onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
-                    смену</Button>
-            </ButtonGroup>
-        </Box>
-    )
+    return (<Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
+        <SelectMenu
+            type={'zbooks-pinpad'}
+            list={pinpad_list}
+            current_value={uid_pinpad_current}
+            width={230}
+        />
+        <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
+            <Button variant='outlined' color='secondary'
+                    onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_X, {uid: uid_pinpad_current}))}>Краткий
+                отчет</Button>
+            <Button variant='contained' color='primary'
+                    onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
+                смену</Button>
+        </ButtonGroup>
+    </Box>)
 }
 
 export default function AdminMenu() {
@@ -472,23 +449,19 @@ export default function AdminMenu() {
     const current_page = useSelector(state => state.interface.current_page)
     const order_search_value = useSelector(state => state.orders.order_search_value)
 
-    return (
-        <Box className='admin-panel'>
-            {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
-                <DateParamAdmin/> : null}
-            {current_page === 'admin/zbooks' ? <CurrentKKT/> : null}
-            {current_page === 'admin/acquiring' ? <CurrentPinpad/> : null}
-            {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
-                <CreateDeleteButtons/> : null}
-            {current_page === 'admin/operations' ? <ShowDateOperations/> : null}
-            {current_page === 'admin/orders/cinema' && order_search_value === null ? <CinemaType/> : null}
-            {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null ?
-                <ShowFilters/> : null}
-            {current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema' ?
-                <ShowFastSearch/> : null}
-            {current_page === 'admin/egais' ? <EGAISMenu/> : null}
-            {current_page === 'admin/halls' ? <AdminHallsList/> : null}
-            {current_page === 'admin/equipment' ? <Equipment/> : null}
-        </Box>
-    )
+    return (<Box className='admin-panel'>
+        {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
+            <DateParamAdmin/> : null}
+        {current_page === 'admin/zbooks' ? <CurrentKKT/> : null}
+        {current_page === 'admin/acquiring' ? <CurrentPinpad/> : null}
+        {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ? <CreateDeleteButtons/> : null}
+        {current_page === 'admin/operations' ? <ShowDateOperations/> : null}
+        {current_page === 'admin/orders/cinema' && order_search_value === null ? <CinemaType/> : null}
+        {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null ?
+            <ShowFilters/> : null}
+        {current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema' ? <ShowFastSearch/> : null}
+        {current_page === 'admin/egais' ? <EGAISMenu/> : null}
+        {current_page === 'admin/halls' ? <AdminHallsList/> : null}
+        {current_page === 'admin/equipment' ? <Equipment/> : null}
+    </Box>)
 }

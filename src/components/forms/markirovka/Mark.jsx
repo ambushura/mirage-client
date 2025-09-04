@@ -11,7 +11,6 @@ const Mark = ({props}) => {
     const [mark, set_mark] = useState(null)
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
     const horder = useSelector(state => state.orders.horder)
 
     return (
@@ -21,9 +20,9 @@ const Mark = ({props}) => {
              onSubmit={(e) => {
                  e.preventDefault()
                  if (props.add) {
-                     dispatch(horeca_position_add_mark(filial, wp, horder.uid, null, mark))
+                     dispatch(horeca_position_add_mark(filial, horder.uid, null, mark))
                  } else {
-                     dispatch(horeca_position_add_mark(props.filial, props.wp, props.uid_order, props.uid_position, mark))
+                     dispatch(horeca_position_add_mark(props.filial, props.uid_order, props.uid_position, mark))
                  }
                  dispatch(closeModal())
              }}>

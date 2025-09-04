@@ -1,23 +1,39 @@
 import {Box} from "@mui/material"
-import {useSetMenu} from "./useSetMenu.js"
 import {useEffect, useState} from "react"
 import Folder from "./Folder.jsx"
 import Item from "./Item.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {horeca_menu_get} from "../../../service/fetch_service.js"
 
-const Menu = () => {
+export default function Menu() {
 
+    const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     const [uid_folder, set_uid_folder] = useState('Меню')
-    const [menu_data, ,] = useSetMenu(uid_folder)
+    const [menu, set_menu] = useState(null)
     const [breadcrumbs, set_breadcrumbs] = useState([])
 
     useEffect(() => {
-        if (!menu_data?.breadcrumbs) return
+        const fetch = async () => {
+            const fetching_result = await dispatch(horeca_menu_get(filial, uid_folder))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.error === null && fetching_result.data !== null) {
+                set_menu(fetching_result.data)
+            }
+        }
+        if (filial !== undefined && param_date_admin !== undefined) {
+            fetch()
+        }
+    }, [dispatch, filial, param_date_admin, uid_folder])
+
+    useEffect(() => {
+        if (!menu?.breadcrumbs) return
         const breadcrumbs_new = []
-        for (let item = menu_data.breadcrumbs; item; item = item.folder) {
+        for (let item = menu.breadcrumbs; item; item = item.folder) {
             breadcrumbs_new.unshift(
                 <motion.div
                     key={item.uid}
@@ -30,13 +46,13 @@ const Menu = () => {
             )
         }
         set_breadcrumbs(breadcrumbs_new)
-    }, [menu_data])
+    }, [menu])
 
     if (filial === undefined) {
         return <Box className='empty-box' sx={{height: '100%'}}>Выберите филиал...</Box>
     } else {
         return <Box id="horeca-menu">
-            {menu_data !== undefined ? <>
+            {menu !== null ? <>
                 <AnimatePresence>
                     {breadcrumbs.length > 0 && <motion.div
                         className='menu-breadcrumbs'
@@ -46,13 +62,13 @@ const Menu = () => {
                         variants={containerVariants}>{breadcrumbs}</motion.div>}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {menu_data.items.length > 0 && <motion.div
+                    {menu.items.length > 0 && <motion.div
                         className='menu-folders'
                         initial="hidden"
                         animate="visible"
 
                         variants={containerVariants}>
-                        {menu_data.items.map(item => {
+                        {menu.items.map(item => {
                             if (item.its_folder) {
                                 return (<motion.div
                                     key={item.uid}
@@ -67,13 +83,13 @@ const Menu = () => {
                     </motion.div>}
                 </AnimatePresence>
                 <AnimatePresence>
-                    {menu_data.items.length > 0 && <motion.div
+                    {menu.items.length > 0 && <motion.div
                         className='menu-items'
                         initial="hidden"
                         animate="visible"
 
                         variants={containerVariants}>
-                        {menu_data.items.map(item => {
+                        {menu.items.map(item => {
                             if (!item.its_folder) {
                                 return (
                                     <motion.div
@@ -90,8 +106,6 @@ const Menu = () => {
         </Box>
     }
 }
-
-export default Menu
 
 const containerVariants = {
     hidden: {}, visible: {

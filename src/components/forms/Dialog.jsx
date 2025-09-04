@@ -1,11 +1,5 @@
 import {
-    Box,
-    Button,
-    Dialog as MuiDialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle
+    Box, Button, Dialog as MuiDialog, DialogActions, DialogContent, DialogContentText, DialogTitle
 } from '@mui/material'
 import {cinema_order_delete, horeca_order_delete} from "../../service/fetch_service.js"
 import {closeModal} from "../../redux/interfaceReducer.js"
@@ -19,18 +13,10 @@ const Dialog = ({props}) => {
     const handleYes = () => {
         switch (props.action) {
             case 'cinema_order_delete':
-                dispatch(cinema_order_delete(
-                    props.payload.filial,
-                    props.payload.wp,
-                    props.payload.uid
-                ))
+                dispatch(cinema_order_delete(props.payload.filial, props.payload.uid))
                 break
             case 'horeca_order_delete':
-                dispatch(horeca_order_delete(
-                    props.payload.filial,
-                    props.payload.wp,
-                    props.payload.uid
-                ))
+                dispatch(horeca_order_delete(props.payload.filial, props.payload.uid))
                 break
             case 'cinema_order_save':
                 dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -50,8 +36,7 @@ const Dialog = ({props}) => {
 
     switch (props.type) {
         case 'YesNo':
-            return (
-                <MuiDialog
+            return (<MuiDialog
                     open={true}
                     onClose={handleNo}
                     aria-labelledby="confirm-dialog-title"
@@ -79,8 +64,7 @@ const Dialog = ({props}) => {
                             Нет
                         </Button>
                     </DialogActions>
-                </MuiDialog>
-            )
+                </MuiDialog>)
         case 'No':
             return <Box/>
         default:

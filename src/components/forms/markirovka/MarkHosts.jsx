@@ -13,7 +13,6 @@ const MarkHosts = () => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
     const hosts = useSelector(state => state.markirovka.hosts || [])
 
     const [cdn_rows, set_cdn_rows] = useState([])
@@ -51,7 +50,7 @@ const MarkHosts = () => {
 
     useEffect(() => {
         if (hosts.length === 0) {
-            dispatch(markirovka_cdn_info_get(filial, wp))
+            dispatch(markirovka_cdn_info_get(filial))
         }
         return () => {
             fillHosts([])
@@ -82,7 +81,7 @@ const MarkHosts = () => {
             </Box>
             <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
                 <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}} onClick={() => {
-                    dispatch(markirovka_cdn_info_update(filial, wp))
+                    dispatch(markirovka_cdn_info_update(filial))
                 }}>Обновить список CDN-площадок</Button>
             </Box>
         </Box>

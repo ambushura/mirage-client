@@ -40,7 +40,6 @@ const OrderBody = ({
                        uid_selected,
                        set_uid_selected,
                        filial,
-                       wp
                    }) => (
     <>
         {preparing && order.for_payment !== null && order.for_returning !== null ?
@@ -82,7 +81,7 @@ const OrderBody = ({
                                 }}><BorderColorIcon/></Button>
                                 {order.comment !== null ?
                                     <Button variant="contained" color="secondary" onClick={() => {
-                                        dispatch(common_order_delete_comment(filial, wp, 'cinema', order.uid))
+                                        dispatch(common_order_delete_comment(filial, 'cinema', order.uid))
                                     }}><DeleteIcon/></Button> : null}
                             </ButtonGroup>
                             <ButtonGroup size='small'>
@@ -148,7 +147,7 @@ const OrderBody = ({
                                     }}><BorderColorIcon/></Button>
                                     {order.comment !== null ?
                                         <Button variant="contained" color="secondary" onClick={() => {
-                                            dispatch(common_order_delete_comment(filial, wp, 'horeca', order.uid))
+                                            dispatch(common_order_delete_comment(filial, 'horeca', order.uid))
                                         }}><DeleteIcon/></Button> : null}
                                 </ButtonGroup>
                                 <ButtonGroup size='small'>
@@ -210,7 +209,6 @@ const Order = () => {
 
     const cities = useSelector(state => state.data.cities)
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
@@ -248,8 +246,8 @@ const Order = () => {
                     type='cinema'
                     order={pre_order}
                     preparing={pre_order_preparing}
-                    set_preparing={() => dispatch(common_orders_receipts_get(filial, wp, 'cinema', pre_order.uid))}
-                    fetchOrder={() => dispatch(cinema_order_fetch(filial, wp, pre_order.uid))}
+                    set_preparing={() => dispatch(common_orders_receipts_get(filial, 'cinema', pre_order.uid))}
+                    fetchOrder={() => dispatch(cinema_order_fetch(filial, pre_order.uid))}
                     deleteOrder={() => dispatch(openModal({
                         type: 'dialog_delete_order',
                         props: {
@@ -258,7 +256,6 @@ const Order = () => {
                             question: 'Вы уверены, что хотите удалить этот заказ?',
                             payload: {
                                 filial: filial,
-                                wp: wp,
                                 uid: pre_order.uid
                             },
                         }
@@ -281,7 +278,6 @@ const Order = () => {
                     uid_selected={uid_cinema_selected}
                     set_uid_selected={set_uid_cinema_selected}
                     filial={filial}
-                    wp={wp}
                 />
             </motion.div> : null}
         {horder.in_base ?
@@ -296,8 +292,8 @@ const Order = () => {
                     type='horeca'
                     order={horder}
                     preparing={horder_preparing}
-                    set_preparing={() => dispatch(common_orders_receipts_get(filial, wp, 'horeca', horder.uid))}
-                    fetchOrder={() => dispatch(horeca_order_fetch(filial, wp, horder.uid))}
+                    set_preparing={() => dispatch(common_orders_receipts_get(filial, 'horeca', horder.uid))}
+                    fetchOrder={() => dispatch(horeca_order_fetch(filial, horder.uid))}
                     deleteOrder={() => dispatch(openModal({
                         type: 'dialog_delete_order',
                         props: {
@@ -306,7 +302,6 @@ const Order = () => {
                             question: 'Вы уверены, что хотите удалить этот заказ?',
                             payload: {
                                 filial: filial,
-                                wp: wp,
                                 uid: horder.uid
                             },
                         }
@@ -328,7 +323,6 @@ const Order = () => {
                         }))
                     }}
                     filial={filial}
-                    wp={wp}
                 />
             </motion.div> : null}
     </Box>)

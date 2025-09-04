@@ -50,7 +50,11 @@ export const TOP_MENU = [
 ]
 
 const initialState = {
-    kiosk: true,
+    kiosk: false,
+    its_second_screen: false,
+    wp: 'mpopcorn2',
+    version: '1.000',
+    dev: true,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,
@@ -59,7 +63,6 @@ const initialState = {
     modal_type: null,
     modal_props: {},
     search_params: {},
-    wp: 'mpopcorn2',
     params: {
         param_city: undefined,
         param_filial: undefined,
@@ -69,13 +72,15 @@ const initialState = {
         uid_seance: undefined,
     },
     top_menu: TOP_MENU,
-    its_second_screen: false,
 }
 
 const interfaceSlice = createSlice({
     name: "interface",
     initialState,
     reducers: {
+        setDev: (state, action) => {
+            state.dev = action.payload
+        },
         setKiosk: (state, action) => {
             state.kiosk = action.payload
         },
@@ -121,6 +126,8 @@ const interfaceSlice = createSlice({
 
 export const {
     setKiosk,
+    setWP,
+    setSecondScreen,
     setAppWidth,
     setAppHeight,
     setAuthOpened,
@@ -130,8 +137,7 @@ export const {
     setSearchParams,
     openModal,
     closeModal,
-    setWP,
-    setSecondScreen,
+    setDev,
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

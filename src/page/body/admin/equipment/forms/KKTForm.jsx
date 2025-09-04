@@ -1,20 +1,23 @@
 import {
-    Box, Button, ButtonGroup,
-    FormControl, FormControlLabel, FormGroup,
+    Box,
+    Button,
+    ButtonGroup,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
     InputLabel,
     MenuItem,
-    Select, Switch,
-    TextField, Typography
+    Select,
+    Switch,
+    TextField,
+    Typography
 } from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {useFetching} from "../../../../../hooks/common/useFetching.js"
 import {
-    ROUTE_COMMON_CATALOG_GET,
-    ROUTE_EQUIPMENT_KKT_OPEN_BOX, ROUTE_EQUIPMENT_KKT_REBOOT,
-    ROUTE_EQUIPMENT_KKT_X, ROUTE_EQUIPMENT_KKT_Z
+    ROUTE_EQUIPMENT_KKT_OPEN_BOX, ROUTE_EQUIPMENT_KKT_REBOOT, ROUTE_EQUIPMENT_KKT_X, ROUTE_EQUIPMENT_KKT_Z
 } from "../../../../../service/fetch_routes.js"
-import {equipment_action} from "../../../../../service/fetch_service.js"
+import {common_catalog_get, equipment_action} from "../../../../../service/fetch_service.js"
 
 export default function KKTForm({props}) {
 
@@ -23,6 +26,19 @@ export default function KKTForm({props}) {
     const filial = useSelector(state => state.data.filial)
     const wp = useSelector(state => state.interface.wp)
     const param_date = useSelector(state => state.interface.params.param_date)
+
+    const [obj, set_obj] = useState(null)
+    useEffect(() => {
+        const fetch = async () => {
+            const fetching_result = await dispatch(common_catalog_get(filial, 'kkt', props.uid, param_date))
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (fetching_result.data !== null) {
+                set_obj(fetching_result.data)
+            }
+        }
+        fetch()
+    }, [dispatch, filial, param_date, props.uid])
 
     const [values, set_values] = useState({
         uid: '',
@@ -51,90 +67,63 @@ export default function KKTForm({props}) {
         uid_wallet: '',
         ver: '',
     })
-    const [showPassword, set_show_password] = useState(false)
-    const [errors, set_errors] = useState({})
-
-    const [fetch_data, fetch_errors, fetch_loading] = useFetching(
-        {
-            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CATALOG_GET}`,
-            uid_filial: filial.uid,
-            params: {
-                type: 'kkt',
-                uid: props.uid,
-                date_shift: param_date,
-            }
-        }
-    )
 
     useEffect(() => {
-        if (fetch_data !== null) {
+        if (obj !== null) {
             set_values({
-                uid: fetch_data.uid,
-                name: fetch_data.name,
-                type_to_kino: fetch_data.type_to_kino,
-                type_pushkarta: fetch_data.type_pushkarta,
-                type_mirage: fetch_data.type_mirage,
-                type_rent: fetch_data.type_rent,
-                type_horeca: fetch_data.type_horeca,
-                mac: fetch_data.mac,
-                ip: fetch_data.ip,
-                port: fetch_data.port,
+                uid: obj.uid,
+                name: obj.name,
+                type_to_kino: obj.type_to_kino,
+                type_pushkarta: obj.type_pushkarta,
+                type_mirage: obj.type_mirage,
+                type_rent: obj.type_rent,
+                type_horeca: obj.type_horeca,
+                mac: obj.mac,
+                ip: obj.ip,
+                port: obj.port,
             })
         }
-    }, [fetch_data])
+    }, [obj])
 
-    const [fast_commands, set_fast_commands] = useState([
-        {id: 0, name: 'Суточный отчет', route: '', param: {}},
-        {id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {}},
-        {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {}},
-        {id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {}},
-        {id: 4, name: 'Тест связи с ККТ', route: '', param: {}},
-        {id: 5, name: 'Тест связи с ОФД', route: '', param: {}},
-        {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}},
-        {id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {}},
-    ])
+    const [fast_commands, set_fast_commands] = useState([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
+        id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {}
+    }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {}}, {
+        id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {}
+    }, {id: 4, name: 'Тест связи с ККТ', route: '', param: {}}, {
+        id: 5, name: 'Тест связи с ОФД', route: '', param: {}
+    }, {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}}, {
+        id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {}
+    },])
 
     useEffect(() => {
-        set_fast_commands([
-            {id: 0, name: 'Суточный отчет', route: '', param: {}},
-            {id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: values.uid}},
-            {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: values.uid}},
-            {id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: values.uid}},
-            {id: 4, name: 'Тест связи с ККТ', route: '', param: {}},
-            {id: 5, name: 'Тест связи с ОФД', route: '', param: {}},
-            {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}},
-            {id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: values.uid}},
-        ])
+        set_fast_commands([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
+            id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: values.uid}
+        }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: values.uid}}, {
+            id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: values.uid}
+        }, {id: 4, name: 'Тест связи с ККТ', route: '', param: {}}, {
+            id: 5, name: 'Тест связи с ОФД', route: '', param: {}
+        }, {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}}, {
+            id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: values.uid}
+        },])
     }, [values])
 
-    const chapter_list = [
-        {id: 0, name: 'Информация о ККТ'},
-        {id: 1, name: 'Регистрация ККТ'},
-        {id: 2, name: 'Чек'},
-        {id: 3, name: 'Отчеты'},
-        {id: 4, name: 'Маркировка'},
-        {id: 5, name: 'ФН'},
-        {id: 6, name: 'Сервисные'},
-        {id: 7, name: 'Лицензии'},
-    ]
+    const chapter_list = [{id: 0, name: 'Информация о ККТ'}, {id: 1, name: 'Регистрация ККТ'}, {
+        id: 2, name: 'Чек'
+    }, {id: 3, name: 'Отчеты'}, {id: 4, name: 'Маркировка'}, {id: 5, name: 'ФН'}, {id: 6, name: 'Сервисные'}, {
+        id: 7, name: 'Лицензии'
+    },]
 
-    const request_type_list = [
-        {id: 0, name: '0 - Общая информация и статус ККТ'},
-        {id: 1, name: '1 - Сумма наличных в кассе'},
-        {id: 2, name: '2 - Версия модуля'},
-    ]
+    const request_type_list = [{id: 0, name: '0 - Общая информация и статус ККТ'}, {
+        id: 1, name: '1 - Сумма наличных в кассе'
+    }, {id: 2, name: '2 - Версия модуля'},]
 
-    const report_list = [
-        {id: 0, name: '0 - Отчет о закрытии смены'},
-        {id: 1, name: '1 - Х-отчет'},
-        {id: 2, name: '2 - Печать копии последнего документа'},
-        {id: 3, name: '3 - Отчет о состоянии расчетов'},
-        {id: 4, name: '4 - Демонстрационная печать ККТ'},
-        {id: 5, name: '5 - Печать информации о ККТ'},
-        {id: 6, name: '6 - Тест связи с ОФД'},
-        {id: 9, name: '9 - Отчет по секциям'},
-        {id: 12, name: '12 - Печать итогов регистрации/перерегистрации ККТ'},
-    ]
+    const report_list = [{id: 0, name: '0 - Отчет о закрытии смены'}, {id: 1, name: '1 - Х-отчет'}, {
+        id: 2, name: '2 - Печать копии последнего документа'
+    }, {id: 3, name: '3 - Отчет о состоянии расчетов'}, {id: 4, name: '4 - Демонстрационная печать ККТ'}, {
+        id: 5, name: '5 - Печать информации о ККТ'
+    }, {id: 6, name: '6 - Тест связи с ОФД'}, {id: 9, name: '9 - Отчет по секциям'}, {
+        id: 12, name: '12 - Печать итогов регистрации/перерегистрации ККТ'
+    },]
 
     const [page, set_page] = useState(0)
     const [request_type_value, set_request_type_value] = useState(0)
@@ -161,10 +150,7 @@ export default function KKTForm({props}) {
                             <TextField variant='filled' label='Заводской номер' value={props.label}
                                        sx={{marginBottom: 1}}/>
                             <Box sx={{
-                                marginBottom: 1,
-                                width: 'inherit',
-                                display: 'flex',
-                                justifyContent: 'space-between'
+                                marginBottom: 1, width: 'inherit', display: 'flex', justifyContent: 'space-between'
                             }}>
                                 <TextField value={values.ip} variant='filled' sx={{flex: 3}} label='IP'/>
                                 <TextField value={values.port} variant='filled' sx={{flex: 1, marginLeft: 1}}
@@ -276,11 +262,9 @@ export default function KKTForm({props}) {
                                  variant='outlined'
                                  color='secondary' orientation='vertical'>
                         {fast_commands.map(el => {
-                            return (
-                                <Button key={el.id} onClick={() => {
-                                    dispatch(equipment_action(filial, wp, el.route, el.param))
-                                }}>{el.name}</Button>
-                            )
+                            return (<Button key={el.id} onClick={() => {
+                                dispatch(equipment_action(filial, wp, el.route, el.param))
+                            }}>{el.name}</Button>)
                         })}
                     </ButtonGroup>
                 </Box>

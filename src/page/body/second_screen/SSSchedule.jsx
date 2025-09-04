@@ -6,6 +6,8 @@ import dayjs from "dayjs"
 
 const SsSchedule = ({width, height}) => {
 
+    const filial = useSelector(state => state.data.filial)
+
     function binPack(rects, binWidth, binHeight) {
         let spaces = [{x: 0, y: 0, w: binWidth, h: binHeight}]
         let result = []
@@ -32,7 +34,6 @@ const SsSchedule = ({width, height}) => {
     }
 
     const schedule = useSelector(state => state.second_screen.schedule)
-    const settings = useSelector(state => state.data.settings)
 
     if (!schedule) return <Box>Расписание загружается</Box>
 
@@ -93,7 +94,7 @@ const SsSchedule = ({width, height}) => {
                                 <Box className='ss-film-box-poster'
                                      sx={{
                                          width: `${r.h * (174 / 268)}px`,
-                                         backgroundImage: `url(${r.film.cover_link === '' ? cover : `http://${settings?.media_ip}:${settings?.media_port}` + r.film.cover_link})`,
+                                         backgroundImage: `url(${r.film.cover_link === '' ? cover : `http://${filial.media_ip}:${filial.media_port}` + r.film.cover_link})`,
                                      }}/>
                                 <Box className='ss-film-box-content'>
                                     <Box

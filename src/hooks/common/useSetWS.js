@@ -2,6 +2,7 @@ import {useEffect} from "react"
 import useWebSocket from "react-use-websocket"
 import {useDispatch, useSelector} from "react-redux"
 import {setSSState} from "../../redux/secondScreenReducer.js"
+import {ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"
 
 export function useSetWS() {
 
@@ -10,6 +11,7 @@ export function useSetWS() {
     const dispatch = useDispatch()
     const wp = useSelector(state => state.interface.wp)
     const its_second_screen = useSelector(state => state.interface.its_second_screen)
+    const dev = useSelector(state => state.interface.dev)
 
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
@@ -18,13 +20,10 @@ export function useSetWS() {
     const seance = useSelector(state => state.schedule.seance)
 
     const {
-        sendMessage,
-        lastMessage
-    } = useWebSocket(
-         `ws://10.101.3.88:60003/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
-        //`ws://${origin}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
-            shouldReconnect: () => true,
-        })
+        sendMessage, lastMessage
+    } = useWebSocket(dev ? `ws://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.ws_port}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}` : `ws://${origin}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
+        shouldReconnect: () => true,
+    })
 
     useEffect(() => {
         if (lastMessage) {

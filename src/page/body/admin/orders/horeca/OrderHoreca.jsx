@@ -5,9 +5,12 @@ import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
 import {useEffect, useState} from "react"
 import {
-    ITEMS_TYPE_ITEMS, ITEMS_TYPE_MARK_EGAIS,
+    ITEMS_TYPE_ITEMS,
+    ITEMS_TYPE_MARK_EGAIS,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    PAYMENT_STATE_WAITING, RETURNING_STATE_SLIP_WITHOUT_RECEIPT, RETURNING_STATE_SUCCESS,
+    PAYMENT_STATE_WAITING,
+    RETURNING_STATE_SLIP_WITHOUT_RECEIPT,
+    RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
@@ -27,8 +30,7 @@ const group_items = (items_grouped, payment_group, payment_state) => {
 
 const RenderGroup = ({chapter1, label, group, ver}) => {
     if (!group.items.length && !group.mark_egais.length) return null
-    const render_items = (items, typeLabel) => items.length > 0 && (
-        <>
+    const render_items = (items, typeLabel) => items.length > 0 && (<>
             <Box sx={{
                 height: '25px',
                 fontWeight: 'bold',
@@ -38,15 +40,14 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                 top: '25px',
                 zIndex: 1,
             }}>{typeLabel}</Box>
-            {items.map((item, i) => (
-                <Box key={i + ver}
-                     sx={{
-                         display: 'flex',
-                         flexDirection: 'column',
-                         backgroundColor: '#f4f4f4',
-                         borderBottom: '1px dashed #b6b5b5',
-                         padding: '2px 4px 2px 0',
-                     }}>
+            {items.map((item, i) => (<Box key={i + ver}
+                                          sx={{
+                                              display: 'flex',
+                                              flexDirection: 'column',
+                                              backgroundColor: '#f4f4f4',
+                                              borderBottom: '1px dashed #b6b5b5',
+                                              padding: '2px 4px 2px 0',
+                                          }}>
                     <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                         <Box sx={{width: '20px'}}/>
                         <Box sx={{flex: 1}}>{item.name}</Box>
@@ -59,15 +60,14 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                     <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                         <Box sx={{width: '20px'}}/>
                         <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
-                        {item.uid_discount !== null ?
-                            <Box sx={{
-                                flex: 1,
-                                textAlign: 'right',
-                                color: '#1DB1BA',
-                                fontSize: '70%',
-                                fontWeight: 'bold',
-                                overflow: 'hidden'
-                            }}>{item.name_discount}</Box> : null}
+                        {item.uid_discount !== null ? <Box sx={{
+                            flex: 1,
+                            textAlign: 'right',
+                            color: '#1DB1BA',
+                            fontSize: '70%',
+                            fontWeight: 'bold',
+                            overflow: 'hidden'
+                        }}>{item.name_discount}</Box> : null}
                         <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
                             sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                     </Box>
@@ -76,32 +76,21 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                             <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
                             <Box sx={{width: '96px', fontStyle: 'italic'}}>Акцизная марка: </Box>
                             <Box sx={{
-                                flex: 1,
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis'
+                                flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
                             }}>{item.egais_type_value}</Box>
                         </Box> : null}
-                    {item.mark_type !== null ?
-                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <Box sx={{
-                                width: '20px',
-                                color: item.mark_payment_available ? '#50DB92' : '#e3000b'
-                            }}><CircleIcon sx={{scale: 0.5}}/></Box>
-                            <Box sx={{width: '45px', fontStyle: 'italic'}}>ЧЗ КМ: </Box>
-                            <Box sx={{
-                                flex: 1,
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis'
-                            }}>{item.mark_value}</Box>
-                        </Box> : null}
-                </Box>
-            ))}
-        </>
-    )
-    return (
-        <>
+                    {item.mark_type !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Box sx={{
+                            width: '20px', color: item.mark_payment_available ? '#50DB92' : '#e3000b'
+                        }}><CircleIcon sx={{scale: 0.5}}/></Box>
+                        <Box sx={{width: '45px', fontStyle: 'italic'}}>ЧЗ КМ: </Box>
+                        <Box sx={{
+                            flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+                        }}>{item.mark_value}</Box>
+                    </Box> : null}
+                </Box>))}
+        </>)
+    return (<>
             <Box sx={{
                 height: '25px',
                 fontWeight: 'bold',
@@ -115,15 +104,13 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                 <DotsAnimation/> : null}</Box>
             {render_items(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
             {render_items(group.items, ITEMS_TYPE_ITEMS)}
-        </>
-    )
+        </>)
 }
 
 const OrderHoreca = ({order}) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
     const horder = useSelector(state => state.orders.horder)
 
     const [groups, setGroups] = useState({
@@ -144,22 +131,19 @@ const OrderHoreca = ({order}) => {
         })
     }, [order])
 
-    return (
-        <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}} onClick={() =>
-            dispatch(horeca_order_fetch(filial, wp, order.uid))
-        }>
+    return (<Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}
+                 onClick={() => dispatch(horeca_order_fetch(filial, order.uid))}>
             <Box className='admin-orders-horeca-order-header' sx={{
-                display: 'flex',
-                height: '45px',
-                backgroundColor: horder.uid === order.uid ? '#e4e2e2' : null
+                display: 'flex', height: '45px', backgroundColor: horder.uid === order.uid ? '#e4e2e2' : null
             }}>
                 <Box sx={{flexGrow: 1}}>
-                    <Box sx={{fontWeight: 'bold', marginLeft: '12px', textDecoration: horder.uid === order.uid ? 'underline' : null}}>{order.number}</Box>
                     <Box sx={{
-                        overflow: 'hidden',
+                        fontWeight: 'bold',
                         marginLeft: '12px',
-                        fontSize: '80%',
-                        fontWeight: 'bold'
+                        textDecoration: horder.uid === order.uid ? 'underline' : null
+                    }}>{order.number}</Box>
+                    <Box sx={{
+                        overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'
                     }}>{order.name_creator}</Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
@@ -200,21 +184,15 @@ const OrderHoreca = ({order}) => {
 
             <Box className='admin-orders-horeca-order-footer'>
                 {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
-                    padding: '4px 0',
-                    maxHeight: '40px',
-                    overflowX: 'hidden',
-                    overflowY: 'auto',
-                    wordBreak: 'break-word'
+                    padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
                 }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}</Box> : null}
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                    {order.buyer_email !== null ?
-                        <Box><AlternateEmailIcon
-                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
-                        </Box> : null}
-                    {order.buyer_phone_number !== null ?
-                        <Box><PhoneEnabledIcon
-                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
-                        </Box> : null}
+                    {order.buyer_email !== null ? <Box><AlternateEmailIcon
+                        sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+                    </Box> : null}
+                    {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
+                        sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
+                    </Box> : null}
                 </Box>
                 <Box sx={{
                     display: 'flex',
@@ -229,8 +207,7 @@ const OrderHoreca = ({order}) => {
                 </Box>
             </Box>
 
-        </Box>
-    )
+        </Box>)
 }
 
 export default OrderHoreca

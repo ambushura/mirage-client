@@ -6,7 +6,8 @@ import {
     ITEMS_TYPE_SERVICE,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
     RETURNING_STATE_WAITING,
-    PAYMENT_STATE_WAITING, RETURNING_STATE_SUCCESS
+    PAYMENT_STATE_WAITING,
+    RETURNING_STATE_SUCCESS
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import {useEffect, useState} from "react"
@@ -25,7 +26,6 @@ const OrderCinema = ({order}) => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
     const pre_order = useSelector(state => state.orders.pre_order)
 
     const beginning = dayjs.utc(order.seance_beginning)
@@ -41,8 +41,7 @@ const OrderCinema = ({order}) => {
 
     const RenderGroup = ({chapter1, label, group, ver}) => {
         if (!group.items.length) return null
-        const renderItems = (items, typeLabel) => items.length > 0 && (
-            <>
+        const renderItems = (items, typeLabel) => items.length > 0 && (<>
                 <Box sx={{
                     height: '25px',
                     fontWeight: 'bold',
@@ -52,59 +51,45 @@ const OrderCinema = ({order}) => {
                     top: '25px',
                     zIndex: 1,
                 }}>{typeLabel}</Box>
-                {items.map((item, i) => (
-                    <Box key={i + ver}
-                         sx={{
-                             display: 'flex',
-                             flexDirection: 'column',
-                             backgroundColor: '#f4f4f4',
-                             borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
-                             padding: '2px 0 2px 0',
-                         }}>
+                {items.map((item, i) => (<Box key={i + ver}
+                                              sx={{
+                                                  display: 'flex',
+                                                  flexDirection: 'column',
+                                                  backgroundColor: '#f4f4f4',
+                                                  borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
+                                                  padding: '2px 0 2px 0',
+                                              }}>
                         <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{
-                                width: '55px',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'space-around'
-                            }}>{item.ticket_printed ?
-                                <><PrintIcon sx={{
+                                width: '55px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'
+                            }}>{item.ticket_printed ? <><PrintIcon sx={{
+                                width: '15px', height: '15px'
+                            }}/>{item.ticket_printed < 10 ? item.ticket_printed : '>9'}</> : null}
+                                {item.ticket_state !== 0 ? <VisibilityIcon sx={{
                                     width: '15px',
-                                    height: '15px'
-                                }}/>{item.ticket_printed < 10 ? item.ticket_printed : '>9'}</> : null}
-                                {item.ticket_state !== 0 ?
-                                    <VisibilityIcon sx={{
-                                        width: '15px',
-                                        height: '15px',
-                                        color: item.ticket_state === -1 ? '#E3000B' : item.ticket_state === 1 ? '#FF9800' : item.ticket_state === 2 ? '#45B97C' : 'black'
-                                    }}/> : null}</Box>
+                                    height: '15px',
+                                    color: item.ticket_state === -1 ? '#E3000B' : item.ticket_state === 1 ? '#FF9800' : item.ticket_state === 2 ? '#45B97C' : 'black'
+                                }}/> : null}</Box>
                             <Box sx={{
-                                flex: 1,
-                                overflow: 'hidden'
+                                flex: 1, overflow: 'hidden'
                             }}>зал <b>{order.hall_full_name}</b> ряд <b>{item.place_row}</b> место <b>{item.place_number}</b></Box>
                             <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-start',
-                                marginRight: '4px'
+                                display: 'flex', justifyContent: 'flex-start', marginRight: '4px'
                             }}></Box>
                         </Box>
                         <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{width: '20px'}}/>
                             <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
-                            {item.uid_discount !== null ?
-                                <Box sx={{
-                                    flex: 1,
-                                    textAlign: 'right',
-                                    color: '#1DB1BA',
-                                    fontSize: '70%',
-                                    fontWeight: 'bold',
-                                    overflow: 'hidden'
-                                }}>{item.name_discount}</Box> : null}
-                            <Box sx={{
+                            {item.uid_discount !== null ? <Box sx={{
                                 flex: 1,
                                 textAlign: 'right',
+                                color: '#1DB1BA',
+                                fontSize: '70%',
                                 fontWeight: 'bold',
-                                marginRight: '4px'
+                                overflow: 'hidden'
+                            }}>{item.name_discount}</Box> : null}
+                            <Box sx={{
+                                flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'
                             }}><FunctionsIcon
                                 sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
                         </Box>
@@ -112,12 +97,9 @@ const OrderCinema = ({order}) => {
                             <Box sx={{width: '20px'}}/>
                             <Box sx={{flex: 1}}>{item.comment}</Box>
                         </Box>
-                    </Box>
-                ))}
-            </>
-        )
-        return (
-            <>
+                    </Box>))}
+            </>)
+        return (<>
                 <Box sx={{
                     height: '25px',
                     fontWeight: 'bold',
@@ -130,8 +112,7 @@ const OrderCinema = ({order}) => {
                 }}>{label}{['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ?
                     <DotsAnimation/> : null}</Box>
                 {renderItems(group.items, ITEMS_TYPE_SERVICE)}
-            </>
-        )
+            </>)
     }
 
     const [groups, setGroups] = useState({
@@ -152,30 +133,26 @@ const OrderCinema = ({order}) => {
         })
     }, [order])
 
-    return (
-        <Box key={order.uid} onClick={() =>
-            dispatch(cinema_order_fetch(filial, wp, order.uid))
-        }>
+    return (<Box key={order.uid} onClick={() => dispatch(cinema_order_fetch(filial, order.uid))}>
             <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
 
                 <Box className='admin-orders-cinema-order-header' sx={{
-                    display: 'flex',
-                    height: '45px',
-                    backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
+                    display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
                 }}>
 
                     <Box sx={{margin: '0 12px'}}>{order.from_site ?
                         <LanguageIcon sx={{width: '20px', height: '20px'}}/> : order.from_wp ?
-                            <LaptopWindowsIcon sx={{width: '20px', height: '20px'}}/> : order.from.kiosk ?
+                            <LaptopWindowsIcon sx={{width: '20px', height: '20px'}}/> : order.from_kiosk ?
                                 <SmartphoneIcon sx={{width: '20px', height: '20px'}}/> : null}</Box>
 
                     <Box sx={{flexGrow: 1}}>
-                        <Box sx={{fontWeight: 'bold', marginLeft: '12px', textDecoration: pre_order.uid === order.uid ? 'underline' : null}}>{order.number}</Box>
                         <Box sx={{
-                            overflow: 'hidden',
+                            fontWeight: 'bold',
                             marginLeft: '12px',
-                            fontSize: '80%',
-                            fontWeight: 'bold'
+                            textDecoration: pre_order.uid === order.uid ? 'underline' : null
+                        }}>{order.number}</Box>
+                        <Box sx={{
+                            overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'
                         }}>{order.name_creator}</Box>
                     </Box>
 
@@ -208,11 +185,9 @@ const OrderCinema = ({order}) => {
                     padding: '4px 0'
                 }}>
                     <Box sx={{
-                        fontWeight: 'bold',
-                        marginRight: '10px'
+                        fontWeight: 'bold', marginRight: '10px'
                     }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box><Box sx={{
-                    fontWeight: 'bold',
-                    color: '#8B919B'
+                    fontWeight: 'bold', color: '#8B919B'
                 }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
                 </Box>
 
@@ -239,14 +214,12 @@ const OrderCinema = ({order}) => {
                     }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>{order.comment}
                     </Box> : null}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        {order.buyer_email !== null ?
-                            <Box><AlternateEmailIcon
-                                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
-                            </Box> : null}
-                        {order.buyer_phone_number !== null ?
-                            <Box><PhoneEnabledIcon
-                                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
-                            </Box> : null}
+                        {order.buyer_email !== null ? <Box><AlternateEmailIcon
+                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+                        </Box> : null}
+                        {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
+                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
+                        </Box> : null}
                     </Box>
                     <Box sx={{
                         display: 'flex',
@@ -263,8 +236,7 @@ const OrderCinema = ({order}) => {
 
             </Box>
 
-        </Box>
-    )
+        </Box>)
 }
 
 export default OrderCinema

@@ -39,6 +39,7 @@ const AppRoutes = ({current_page}) => {
     const isAdmin = permissions.includes(0) && wp !== undefined
 
     const pages = {
+        second_screen: <SecondScreen/>,
         schedule: <PageSchedule/>,
         films: <PageFilms/>,
         film: <PageFilm/>,
@@ -54,7 +55,6 @@ const AppRoutes = ({current_page}) => {
         "admin/egais": isAdmin ? <PageAdmin/> : null,
         "admin/staff": isAdmin ? <PageAdmin/> : null,
         "admin/acquiring": isAdmin ? <PageAdmin/> : null,
-        second_screen: <SecondScreen/>,
     }
 
     return (

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {useFetchingArray} from "../../../hooks/common/useFetchingArray.js"
+import {useFetchingArray} from "../../../service/useFetchingArray.js"
 import {useDispatch, useSelector} from "react-redux"
 import {setFilms} from "../../../redux/scheduleReducer.js"
 import {ROUTE_CINEMA_FILMS_GET} from "../../../service/fetch_routes.js"

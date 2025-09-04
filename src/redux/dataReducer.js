@@ -4,7 +4,6 @@ const initialState = {
     cities: [],
     city: undefined,
     filial: undefined,
-    settings: null,
 }
 
 export const dataSlice = createSlice({
@@ -20,11 +19,8 @@ export const dataSlice = createSlice({
         setFilial: (state, {payload}) => {
             state.filial = payload ?? undefined
         },
-        setSettings: (state, {payload}) => {
-            state.settings = payload
-        }
     },
 })
 
-export const {setCities, setCity, setFilial, setSettings} = dataSlice.actions
+export const {setCities, setCity, setFilial} = dataSlice.actions
 export default dataSlice.reducer

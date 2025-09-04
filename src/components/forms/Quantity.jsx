@@ -10,7 +10,6 @@ const Quantity = (props) => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     const {
         uid_order,
@@ -43,7 +42,7 @@ const Quantity = (props) => {
         e.preventDefault()
         const quantity = parseFloat(countStr)
         if (!isNaN(quantity) && quantity !== 0) {
-            dispatch(horeca_position_add_quantity(filial, wp, uid_order, uid_position, quantity))
+            dispatch(horeca_position_add_quantity(filial, uid_order, uid_position, quantity))
             dispatch(closeModal())
         } else {
             dispatch(addNotification({

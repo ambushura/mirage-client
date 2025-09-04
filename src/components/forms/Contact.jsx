@@ -11,7 +11,6 @@ const Contact = ({props}) => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     const [buyer_s, set_buyer_s] = useState('')
     const [buyer_n, set_buyer_n] = useState('')
@@ -38,10 +37,10 @@ const Contact = ({props}) => {
                  const action = submitter?.getAttribute('data-action')
                  switch (action) {
                      case 'common':
-                         dispatch(common_contact_add(filial, wp, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
+                         dispatch(common_contact_add(filial, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
                          break
                      case 'pl':
-                         dispatch(pl_estimate_discounts(filial, wp, props.order.uid, props.order_type, qr))
+                         dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr))
                          break
                  }
                  dispatch(closeModal())

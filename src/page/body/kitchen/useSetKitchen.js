@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {useFetchingArray} from "../../../hooks/common/useFetchingArray.js"
+import {useFetchingArray} from "../../../service/useFetchingArray.js"
 import {ROUTE_HORECA_KITCHEN_GET} from "../../../service/fetch_routes.js"
 import {setKitchenOrders} from "../../../redux/ordersReducer.js"
 
