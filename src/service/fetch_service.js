@@ -32,6 +32,7 @@ import {
     ROUTE_CINEMA_POSITION_ADD,
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_POSITION_DELETE_COMMENT,
+    ROUTE_CINEMA_SCHEDULE_GET_HALLS,
     ROUTE_CINEMA_SEANCE_CLOSE,
     ROUTE_CINEMA_SEANCE_GET,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
@@ -1038,6 +1039,33 @@ export const horeca_kitchen_get = (filial, date_shift) => async (dispatch, getSt
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_GET}`,
         params: {date_shift},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const cinema_schedule_halls_get = (filial, date_shift, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`,
+        params: {
+            date_shift,
+            closed,
+            canceled,
+            opened,
+            films,
+            copy_types,
+            age,
+            halls,
+            hall_type_vip,
+            hall_type_regular,
+            time,
+            price,
+            film_types
+        },
         filial,
         wp,
         kiosk,
