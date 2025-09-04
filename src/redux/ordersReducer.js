@@ -61,14 +61,11 @@ const initialState = {
     orders_cinema_page: 1, // Фильтры кино (загруженные)
     orders_cinema_filters_staff: [],
     orders_cinema_filters_state: [{
-        uid: 'payment_waiting',
-        title: PAYMENT_STATE_WAITING
+        uid: 'payment_waiting', title: PAYMENT_STATE_WAITING
     }, {uid: 'payment_slip_without_receipt', title: PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}, {
-        uid: 'returning_waiting',
-        title: RETURNING_STATE_WAITING
+        uid: 'returning_waiting', title: RETURNING_STATE_WAITING
     }, {uid: 'returning_slip_without_receipt', title: RETURNING_STATE_SLIP_WITHOUT_RECEIPT}, {
-        uid: 'returning_success',
-        title: RETURNING_STATE_SUCCESS
+        uid: 'returning_success', title: RETURNING_STATE_SUCCESS
     }, {uid: 'undefined', title: PAYMENT_STATE_CANCELED}],
     orders_cinema_filters_seances: [],
     orders_cinema_filters_halls: [],
@@ -90,21 +87,17 @@ const initialState = {
     orders_horeca_page: 1, // Фильтры общепит (загруженные)
     orders_horeca_filters_staff: [],
     orders_horeca_filters_state: [{
-        uid: 'payment_waiting',
-        title: PAYMENT_STATE_WAITING
+        uid: 'payment_waiting', title: PAYMENT_STATE_WAITING
     }, {uid: 'payment_slip_without_receipt', title: PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}, {
-        uid: 'returning_waiting',
-        title: RETURNING_STATE_WAITING
+        uid: 'returning_waiting', title: RETURNING_STATE_WAITING
     }, {uid: 'returning_slip_without_receipt', title: RETURNING_STATE_SLIP_WITHOUT_RECEIPT}, {
-        uid: 'returning_success',
-        title: RETURNING_STATE_SUCCESS
+        uid: 'returning_success', title: RETURNING_STATE_SUCCESS
     }, {uid: 'undefined', title: PAYMENT_STATE_CANCELED}],
     orders_horeca_filters_halls: [],
     orders_horeca_filters_workplaces: [],
     orders_horeca_filters_kitchen_points: [],
     orders_horeca_filters_kitchen_state: [{uid: 0, title: 'Не готовить'}, {uid: 1, title: 'Готовить'}, {
-        uid: 2,
-        title: 'Готовится'
+        uid: 2, title: 'Готовится'
     }, {uid: 3, title: 'Отдать гостю'},],
 
     // Фильтры общепит (выбранные)
@@ -116,7 +109,7 @@ const initialState = {
     orders_horeca_filters_kitchen_state_selected: [],
 
     // КУХНЯ
-    kitchen_orders: [],
+    kitchen_orders: null,
 
     // КИОСК
     kiosk_payment_error: null
@@ -218,49 +211,43 @@ export const ordersSlice = createSlice({
             state.orders_horeca_update = state.orders_horeca_update + 1
         }, // Кухня
         setKitchenOrders(state, {payload}) {
-            const kitchen_orders_copied = JSON.parse(JSON.stringify(payload))
-            kitchen_orders_copied.forEach((filial_data, i) => {
-                if (kitchen_orders_copied[i].data !== null) {
-                    kitchen_orders_copied[i].data.waiting.sort((a, b) => {
-                        return new Date(a.date_create) - new Date(b.date_create)
-                    })
-                    kitchen_orders_copied[i].data.cooking.sort((a, b) => {
-                        return new Date(a.date_create) - new Date(b.date_create)
-                    })
-                    kitchen_orders_copied[i].data.completed.sort((a, b) => {
-                        return new Date(a.date_create) - new Date(b.date_create)
-                    })
-                }
-            })
-            state.kitchen_orders = kitchen_orders_copied
+            const data = JSON.parse(JSON.stringify(payload))
+            if (data !== null) {
+                data.waiting.sort((a, b) => {
+                    return new Date(a.date_create) - new Date(b.date_create)
+                })
+                data.cooking.sort((a, b) => {
+                    return new Date(a.date_create) - new Date(b.date_create)
+                })
+                data.completed.sort((a, b) => {
+                    return new Date(a.date_create) - new Date(b.date_create)
+                })
+                state.kitchen_orders = data
+            }
         }, pushKitchenPositions(state, {payload}) {
             const kitchen_orders_copied = JSON.parse(JSON.stringify(state.kitchen_orders))
-            kitchen_orders_copied.forEach((filial_data, i) => {
-                if (filial_data.data !== null) {
-                    if (filial_data.data.uid_filial === payload.uid_filial) {
-                        if (kitchen_orders_copied[i].data !== null) {
-                            const waiting = JSON.parse(JSON.stringify(kitchen_orders_copied[i].data.waiting)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
-                            const cooking = JSON.parse(JSON.stringify(kitchen_orders_copied[i].data.cooking)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
-                            const completed = JSON.parse(JSON.stringify(kitchen_orders_copied[i].data.completed)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
-                            payload.waiting.length > 0 ? waiting.push(payload.waiting[0]) : null
-                            payload.cooking.length > 0 ? cooking.push(payload.cooking[0]) : null
-                            payload.completed.length > 0 ? completed.push(payload.completed[0]) : null
-                            kitchen_orders_copied[i].data.waiting = waiting
-                            kitchen_orders_copied[i].data.cooking = cooking
-                            kitchen_orders_copied[i].data.completed = completed
-                            kitchen_orders_copied[i].data.waiting.sort((a, b) => {
-                                return new Date(a.date_create) - new Date(b.date_create)
-                            })
-                            kitchen_orders_copied[i].data.cooking.sort((a, b) => {
-                                return new Date(a.date_create) - new Date(b.date_create)
-                            })
-                            kitchen_orders_copied[i].data.completed.sort((a, b) => {
-                                return new Date(a.date_create) - new Date(b.date_create)
-                            })
-                        }
-                    }
+            if (kitchen_orders_copied !== null) {
+                if (kitchen_orders_copied.uid_filial === payload.uid_filial) {
+                    const waiting = JSON.parse(JSON.stringify(kitchen_orders_copied.waiting)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
+                    const cooking = JSON.parse(JSON.stringify(kitchen_orders_copied.cooking)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
+                    const completed = JSON.parse(JSON.stringify(kitchen_orders_copied.completed)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
+                    payload.waiting.length > 0 ? waiting.push(payload.waiting[0]) : null
+                    payload.cooking.length > 0 ? cooking.push(payload.cooking[0]) : null
+                    payload.completed.length > 0 ? completed.push(payload.completed[0]) : null
+                    kitchen_orders_copied.waiting = waiting
+                    kitchen_orders_copied.cooking = cooking
+                    kitchen_orders_copied.completed = completed
+                    kitchen_orders_copied.waiting.sort((a, b) => {
+                        return new Date(a.date_create) - new Date(b.date_create)
+                    })
+                    kitchen_orders_copied.cooking.sort((a, b) => {
+                        return new Date(a.date_create) - new Date(b.date_create)
+                    })
+                    kitchen_orders_copied.completed.sort((a, b) => {
+                        return new Date(a.date_create) - new Date(b.date_create)
+                    })
                 }
-            })
+            }
             state.kitchen_orders = kitchen_orders_copied
         }, setOrderSearchValue(state, {payload}) {
             state.order_search_value = payload

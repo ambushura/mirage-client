@@ -2133,7 +2133,7 @@ body {
     align-items: center;
     padding: 8px 0 8px 8px;
     position: sticky;
-    top: 68px;
+    top: 0;
     background-color: #f8f8f8;
     width: 100%;
 }

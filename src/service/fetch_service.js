@@ -55,6 +55,7 @@ import {
     ROUTE_EQUIPMENT_KKT_Z,
     ROUTE_EQUIPMENT_PINPAD_X,
     ROUTE_EQUIPMENT_PINPAD_Z,
+    ROUTE_HORECA_KITCHEN_GET,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_MENU_GET,
     ROUTE_HORECA_MODIFICATIONS_GET,
@@ -1024,6 +1025,19 @@ export const common_order_find = (filial, type, value) => async (dispatch, getSt
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_FIND}`,
         params: {type, value},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const horeca_kitchen_get = (filial, date_shift) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_GET}`,
+        params: {date_shift},
         filial,
         wp,
         kiosk,

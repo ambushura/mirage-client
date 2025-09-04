@@ -1,4 +1,5 @@
 import {
+    Autocomplete,
     Box,
     Button,
     ButtonGroup,
@@ -444,6 +445,32 @@ export function CurrentPinpad() {
     </Box>)
 }
 
+export function ShowKitchenPoints() {
+
+    const tags = (size, multiply, limit_tags, id, options, label, placeholder, selected_uid = []) => {
+        return (<Autocomplete
+            onChange={(event, new_value) => {
+            }}
+            value={selected_uid}
+            noOptionsText={'Нет подходящих опций'}
+            size={size}
+            multiple={multiply}
+            limitTags={limit_tags}
+            id={id}
+            options={options}
+            getOptionLabel={(option) => option.title}
+            renderInput={(params) => (<TextField sx={{width: '100%'}} variant='filled' {...params} label={label}
+                                                 placeholder={placeholder}/>)}
+            sx={{width: '100%', marginBottom: 0}}
+            isOptionEqualToValue={(option, value) => option.uid === value.uid}
+        />)
+    }
+
+    return <Box sx={{width: '400px', marginRight: '4px'}}>
+        {tags("large", true, 4, "orders-seances-tags", [], "Цеха", "Цех", [])}
+    </Box>
+}
+
 export default function AdminMenu() {
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -463,5 +490,6 @@ export default function AdminMenu() {
         {current_page === 'admin/egais' ? <EGAISMenu/> : null}
         {current_page === 'admin/halls' ? <AdminHallsList/> : null}
         {current_page === 'admin/equipment' ? <Equipment/> : null}
+        {current_page === 'kitchen' ? <ShowKitchenPoints/> : null}
     </Box>)
 }
