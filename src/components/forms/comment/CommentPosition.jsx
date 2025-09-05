@@ -78,7 +78,7 @@ const CommentPosition = ({props}) => {
                    multiline value={comment} onChange={(event) => {
             set_comment(event.target.value)
         }}/>
-        {props.order_type === 'horeca' && modifications !== null ?
+        {props.order_type === 'horeca' && modifications !== null && modifications.length > 0 ?
             <Box sx={{minWidth: '500px', maxWidth: '500px', m: 1}}>
                 <Autocomplete
                     fullWidth
