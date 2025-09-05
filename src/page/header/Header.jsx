@@ -7,7 +7,9 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/forms/Auth.jsx"
 import {useEffect, useRef, useState} from "react"
-import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
+import {
+    MOBILE_WIDTH, setAuthOpened, TOP_MENU
+} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -31,6 +33,7 @@ const Header = () => {
     const cities = useSelector(state => state.data.cities)
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
+    const param_date = useSelector(state => state.interface.params.param_date)
 
     const current_page = useSelector(state => state.interface.current_page)
     const cities_list_id = "cities-menu"
@@ -74,7 +77,10 @@ const Header = () => {
             up.push(<Button
                 key='3'>{timeRef.current.format('HH:mm')}</Button>)
             up.push(<Button key='2'>{name_user}</Button>)
-            up.push(<Button key='1' onClick={() => dispatch(logout())} startIcon={<ExitToAppIcon/>}>Выход</Button>)
+            up.push(<NavLink key='1'
+                             to={`/films/${cities[0].code}/all/${param_date}/`}>
+                <Button startIcon={<ExitToAppIcon/>} onClick={() => dispatch(logout())}>Выход</Button>
+            </NavLink>)
         } else {
             up.push(<Button size='large' key='4'
                             onClick={() => {
