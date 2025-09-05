@@ -241,7 +241,7 @@ export function DateParamAdmin() {
     const filial = useSelector(state => state.data.filial)
     const current_page = useSelector(state => state.interface.current_page)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const film = useSelector(state => state.schedule.film_seances.film)
+    const film = useSelector(state => state.schedule.film)
     const order_search_value = useSelector(state => state.orders.order_search_value)
     const [admin_calendar_open, set_admin_calendar_open] = useState(null)
 

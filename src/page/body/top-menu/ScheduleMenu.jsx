@@ -34,7 +34,7 @@ const ScheduleMenu = () => {
     // Данные из хранилища
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
-    const film = useSelector(state => state.schedule.film_seances.film)
+    const film = useSelector(state => state.schedule.film)
 
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
@@ -80,7 +80,7 @@ const ScheduleMenu = () => {
     return (
         <Box id="top-menu">
             <Box id="top-menu-schedule">
-                {current_page === 'film' && film !== undefined ?
+                {current_page === 'film' && film !== null ?
                     <Button variant="contained" color="secondary" size='large' onClick={() => {
                         navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
                     }}

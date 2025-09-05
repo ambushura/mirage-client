@@ -8,11 +8,11 @@ const City = (props) => {
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const film = useSelector(state => state.schedule.film_seances.film)
+    const film = useSelector(state => state.schedule.film)
 
     return (
         <NavLink
-            to={`/${current_page}/${props.city.code}/all/${PARAM_DATE_SHIFT.find(el => el === current_page) !== undefined ? param_date + '/' : ''}${film !== undefined ? film.uid + '/' : ''}${PARAM_DATA_ADMIN_SHIFT.find(el => el === current_page) !== undefined ? param_date_admin + '/' : ''}`}>
+            to={`/${current_page}/${props.city.code}/all/${PARAM_DATE_SHIFT.find(el => el === current_page) !== undefined ? param_date + '/' : ''}${film !== null ? film.uid + '/' : ''}${PARAM_DATA_ADMIN_SHIFT.find(el => el === current_page) !== undefined ? param_date_admin + '/' : ''}`}>
             <WhiteMenuItem onClick={(event) => {
                 props.handleClose(event)
             }}>{props.city.name}</WhiteMenuItem>

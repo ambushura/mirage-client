@@ -3,7 +3,8 @@ import {createSlice} from "@reduxjs/toolkit"
 const initialState = {
     booking: [],
     films: [],
-    film_seances: {film: undefined, data: []},
+    film: null,
+    film_seances: [],
     schedule: [],
     seance: undefined,
 
@@ -50,10 +51,21 @@ export const scheduleSlice = createSlice({
             state.schedule = []
         }, setSchedule: (state, action) => {
             state.schedule = [...state.schedule, action.payload]
+        }, cleanFilms: (state) => {
+            state.films = []
         }, setFilms: (state, action) => {
-            state.films = action.payload
+            if (!action.payload.loading && action.payload.error === null && action.payload.data !== null) {
+                const merged = [...state.films, ...action.payload.data]
+                state.films = merged.filter((film, index, self) => index === self.findIndex(f => f.uid === film.uid))
+            }
+        }, cleanFilm: (state) => {
+            state.film = null
+            state.film_seances = []
         }, setFilm: (state, action) => {
-            state.film_seances = action.payload
+            state.film_seances = [...state.film_seances, action.payload]
+            if (!action.payload.loading && action.payload.error === null && action.payload.data !== null) {
+                state.film = action.payload.data.film
+            }
         }, setSeance: (state, action) => {
             state.seance = action.payload
         }, setBooking: (state, action) => {
@@ -103,7 +115,9 @@ export const scheduleSlice = createSlice({
 export const {
     cleanSchedule,
     setSchedule,
+    cleanFilms,
     setFilms,
+    cleanFilm,
     setFilm,
     setSeance,
     setBooking,

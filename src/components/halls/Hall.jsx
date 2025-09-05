@@ -1,11 +1,6 @@
 import {Box} from "@mui/material"
 import {
-    addEdge,
-    Controls,
-    ReactFlow, ReactFlowProvider,
-    useEdgesState,
-    useNodesState,
-    useReactFlow
+    addEdge, Controls, ReactFlow, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow
 } from "@xyflow/react"
 import {useCallback, useEffect, useState} from "react"
 import {Place} from "./nodes/Place.jsx"
@@ -25,10 +20,7 @@ const HallMap = (props) => {
     const [edges, setEdges, onEdgesChange] = useEdgesState([])
     const [ready, setReady] = useState(false) // состояние для fade-in
 
-    const onConnect = useCallback(
-        (params) => setEdges(addEdge(params, edges)),
-        [edges],
-    )
+    const onConnect = useCallback((params) => setEdges(addEdge(params, edges)), [edges],)
 
     const {fitView} = useReactFlow()
 
@@ -43,13 +35,11 @@ const HallMap = (props) => {
                     filial: props.filial,
                 }
                 return {
-                    ...node,
-                    data: updated_data,
+                    ...node, data: updated_data,
                 }
             })
             setNodes(nodesWithBooking)
             setEdges(props.hall.edges)
-
             setTimeout(() => {
                 fitView({padding: 0.2})
                 setReady(true) // показываем после fitView
@@ -58,9 +48,7 @@ const HallMap = (props) => {
     }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial, fitView])
 
     const nodeTypes = {
-        place: Place,
-        row_label: RowLabel,
-        screen: Screen,
+        place: Place, row_label: RowLabel, screen: Screen,
     }
 
     const handleNodeClick = (node) => {
@@ -69,16 +57,7 @@ const HallMap = (props) => {
                 if (props.set_time_remaining !== undefined) {
                     props.set_time_remaining(100)
                 }
-                dispatch(
-                    cinema_position_add(
-                        props.city,
-                        props.filial,
-                        props.seance.uid,
-                        props.pre_order.uid,
-                        node.id,
-                        props.pre_order.ver
-                    )
-                )
+                dispatch(cinema_position_add(props.city, props.filial, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
             } else {
                 if (mode === 'block') {
                     dispatch(cinema_place_block(props.filial, props.hall, node.id))
@@ -87,46 +66,38 @@ const HallMap = (props) => {
         }
     }
 
-    return (
-        <Box style={{
-            width: `${props.width}px`,
-            height: `100%`,
+    return (<Box style={{
+        width: `${props.width}px`, height: `100%`,
+    }}>
+        <div style={{
+            width: "100%", height: "100%", opacity: ready ? 1 : 0, transition: "opacity 0.5s ease-in-out"
         }}>
-            <div style={{
-                width: "100%",
-                height: "100%",
-                opacity: ready ? 1 : 0,
-                transition: "opacity 0.5s ease-in-out"
-            }}>
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    onNodesChange={onNodesChange}
-                    onEdgesChange={onEdgesChange}
-                    onConnect={onConnect}
-                    attributionPosition="top-left"
-                    nodeTypes={nodeTypes}
-                    proOptions={{hideAttribution: true}}
-                    nodesDraggable={false}
-                    onNodeClick={(event, node) => handleNodeClick(node)}
-                    panOnDrag={uid_user !== null}
-                    panOnScroll={uid_user !== null}
-                    zoomOnScroll={uid_user !== null}
-                    zoomOnPinch={uid_user !== null}
-                    zoomOnDoubleClick={uid_user !== null}
-                    style={{background: "transparent"}}
-                >
-                    {uid_user !== null && current_page !== 'second_screen' ? <Controls/> : null}
-                </ReactFlow>
-            </div>
-        </Box>
-    )
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                attributionPosition="top-left"
+                nodeTypes={nodeTypes}
+                proOptions={{hideAttribution: true}}
+                nodesDraggable={false}
+                onNodeClick={(event, node) => handleNodeClick(node)}
+                panOnDrag={uid_user !== null}
+                panOnScroll={uid_user !== null}
+                zoomOnScroll={uid_user !== null}
+                zoomOnPinch={uid_user !== null}
+                zoomOnDoubleClick={uid_user !== null}
+                style={{background: "transparent"}}
+            >
+                {uid_user !== null && current_page !== 'second_screen' ? <Controls/> : null}
+            </ReactFlow>
+        </div>
+    </Box>)
 }
 
-const HallWithProvider = (props) => (
-    <ReactFlowProvider>
-        <HallMap {...props}/>
-    </ReactFlowProvider>
-)
+const HallWithProvider = (props) => (<ReactFlowProvider>
+    <HallMap {...props}/>
+</ReactFlowProvider>)
 
 export default HallWithProvider

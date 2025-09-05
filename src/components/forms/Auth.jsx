@@ -23,19 +23,19 @@ const Auth = () => {
     const apply = () => {
         if (filial === undefined) {
             dispatch(addNotification({
-                message: "для начала выберите филиал аутентификации",
+                message: "Выберите филиал для входа в систему",
                 severity: 'error',
                 autoHide: true
             }))
         } else if (login_auth && (username === '' || password === '')) {
             dispatch(addNotification({
-                message: "логин и пароль не могут бысть пустыми",
+                message: "Логин и пароль не могут бысть пустыми",
                 severity: 'error',
                 autoHide: true
             }))
         } else if (pincode_auth && password === '') {
             dispatch(addNotification({
-                message: "пароль не может бысть пустым",
+                message: "Пароль не может бысть пустым",
                 severity: 'error',
                 autoHide: true
             }))

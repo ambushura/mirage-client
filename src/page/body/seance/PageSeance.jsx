@@ -16,8 +16,8 @@ import Loader from "../../../ui/Loader.jsx"
 import Order from "../../right-panel/Order.jsx"
 import {FOOTER_HEIGHT, HEADER_HEIGHT} from "../../../redux/interfaceReducer.js"
 import SeanceMenu from "./SeanceMenu.jsx"
-import {setBooking} from "../../../redux/scheduleReducer.js";
-import {setHall} from "../../../redux/hallsReducer.js";
+import {setBooking, setSeance} from "../../../redux/scheduleReducer.js"
+import {setHall} from "../../../redux/hallsReducer.js"
 
 const PageSeance = () => {
 
@@ -48,9 +48,11 @@ const PageSeance = () => {
                 dispatch(setBooking(fetching_result.data))
             }
         }
+        dispatch(setBooking([]))
         if (filial !== undefined && seance !== undefined && pre_order.in_base) {
             fetch()
         }
+        return () => dispatch(setBooking([]))
     }, [dispatch, filial, seance, pre_order, count_book])
 
     useEffect(() => {
@@ -58,11 +60,15 @@ const PageSeance = () => {
             const fetching_result = await dispatch(cinema_seance_get(filial, uid_seance))
             if (fetching_result.loading) {
                 // TODO Крутилка
+            } else if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
+                dispatch(setSeance(fetching_result.data))
             }
         }
+        dispatch(setSeance(undefined))
         if (filial !== undefined && uid_seance !== undefined) {
             fetch()
         }
+        return () => dispatch(setSeance(undefined))
     }, [dispatch, filial, uid_seance])
 
     useEffect(() => {
@@ -74,8 +80,12 @@ const PageSeance = () => {
                 dispatch(setHall(fetching_result.data))
             }
         }
+        dispatch(setHall(null))
         if (filial !== undefined && seance !== undefined) {
             fetch()
+        }
+        return () => {
+            dispatch(setHall(null))
         }
     }, [dispatch, filial, seance])
 
@@ -144,34 +154,32 @@ const PageSeance = () => {
                                             day={true}
                                             its_hall_map={true}
                                             age={false}/>
-                                        {pre_order.items.length > 0 ?
-                                            <Button sx={{height: '48px', marginLeft: '10px'}}
-                                                    variant="contained"
-                                                    className='seance-title-preorder' onClick={() => {
-                                                set_check_out(1)
-                                            }}>
-                                                <Box
-                                                    style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        marginRight: '20px'
-                                                    }}>
-                                                    <Box style={{
-                                                        fontSize: '12px', fontWeight: '400'
-                                                    }}>{ticket_count(pre_order.quantity)}</Box>
-                                                    <Box style={{fontWeight: 'bold'}}>{pre_order.price} P
-                                                    </Box>
-                                                </Box>
-                                                <Box style={{
-                                                    verticalAlign: 'center',
-                                                    textAlign: 'center',
-                                                    display: 'flex',
-                                                    fontWeight: 'bold'
+                                        {pre_order.items.length > 0 ? <Button sx={{height: '48px', marginLeft: '10px'}}
+                                                                              variant="contained"
+                                                                              className='seance-title-preorder'
+                                                                              onClick={() => {
+                                                                                  set_check_out(1)
+                                                                              }}>
+                                            <Box
+                                                style={{
+                                                    display: 'flex', flexDirection: 'column', marginRight: '20px'
                                                 }}>
-                                                    <div>Продолжить</div>
-                                                    <KeyboardArrowRightIcon/>
+                                                <Box style={{
+                                                    fontSize: '12px', fontWeight: '400'
+                                                }}>{ticket_count(pre_order.quantity)}</Box>
+                                                <Box style={{fontWeight: 'bold'}}>{pre_order.price} P
                                                 </Box>
-                                            </Button> : <></>}
+                                            </Box>
+                                            <Box style={{
+                                                verticalAlign: 'center',
+                                                textAlign: 'center',
+                                                display: 'flex',
+                                                fontWeight: 'bold'
+                                            }}>
+                                                <div>Продолжить</div>
+                                                <KeyboardArrowRightIcon/>
+                                            </Box>
+                                        </Button> : <></>}
                                     </Box>
                                 </Box> : <></>}
                                 <Box
@@ -182,8 +190,7 @@ const PageSeance = () => {
                                         flex: 1,
                                         height: 'inherit',
                                         '--seance-state': seance.canceled ? '"Сеанс отменен"' : !seance.opened ? '"Сеанс закрыт"' : '""'
-                                    }}
-                                >
+                                    }}>
                                     <Hall
                                         city={city}
                                         filial={filial}

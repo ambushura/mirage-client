@@ -20,6 +20,8 @@ import {
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_DISCOUNTS_GET,
     ROUTE_CINEMA_DISCOUNTS_GROUPS_GET,
+    ROUTE_CINEMA_FILM_GET_SEANCES,
+    ROUTE_CINEMA_FILMS_GET,
     ROUTE_CINEMA_FILTERS_FILMS_GET,
     ROUTE_CINEMA_HALL_GET,
     ROUTE_CINEMA_ORDER_ADD_COMMENT,
@@ -728,9 +730,7 @@ export const cinema_seance_get = (filial, uid_seance) => async (dispatch, getSta
         wp,
         kiosk,
         version,
-    }, data => {
-        dispatch(setSeance(data))
-    })
+    }, data => data)
 }
 
 export const cinema_hall_get = (filial, uid_hall) => async (dispatch, getState) => {
@@ -1049,9 +1049,7 @@ export const horeca_kitchen_get = (filial, date_shift) => async (dispatch, getSt
 export const cinema_schedule_halls_get = (filial, date_shift, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`,
-        params: {
+        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`, params: {
             date_shift,
             closed,
             canceled,
@@ -1065,10 +1063,49 @@ export const cinema_schedule_halls_get = (filial, date_shift, closed, canceled, 
             time,
             price,
             film_types
-        },
-        filial,
-        wp,
-        kiosk,
-        version,
+        }, filial, wp, kiosk, version,
+    }, data => data)
+}
+
+export const cinema_films_get = (filial, date_shift, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}`, params: {
+            date_shift,
+            closed,
+            canceled,
+            opened,
+            films,
+            copy_types,
+            age,
+            halls,
+            hall_type_vip,
+            hall_type_regular,
+            time,
+            price,
+            film_types
+        }, filial, wp, kiosk, version,
+    }, data => data)
+}
+
+export const cinema_film_seances_get = (filial, date_shift, uid_film, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILM_GET_SEANCES}`, params: {
+            date_shift,
+            uid_film,
+            closed,
+            canceled,
+            opened,
+            films,
+            copy_types,
+            age,
+            halls,
+            hall_type_vip,
+            hall_type_regular,
+            time,
+            price,
+            film_types
+        }, filial, wp, kiosk, version,
     }, data => data)
 }

@@ -50,6 +50,7 @@ const PageSchedule = () => {
             const fetching_result = await dispatch(cinema_schedule_halls_get(f, param_date, seance_closed, seance_canceled, seance_opened, films_selected.map(f => f.uid), film_copy_types_selected.map(f => f.uid), film_age, halls_selected.map(f => f.uid), hall_type_vip, hall_type_regular, seance_time, seance_price, film_types_selected.map(f => f.uid)))
             dispatch(setSchedule({...fetching_result, filial: f}))
         }
+        dispatch(cleanSchedule())
         if (filial !== undefined) {
             fetch(filial)
         } else if (city !== undefined) {

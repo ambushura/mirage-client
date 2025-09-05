@@ -1,4 +1,4 @@
-import {Autocomplete, Box, TextField} from "@mui/material"
+import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
@@ -11,7 +11,7 @@ import {setKitchenOrders} from "../../../redux/ordersReducer.js"
 
 const KitchenOrderList = ({orders, showButtons, dispatch}) => {
     const filial = useSelector(state => state.data.filial)
-    return (<>
+    return <>
         {orders.map(order => (<motion.div
             className='kitchen-order'
             key={`${order.uid}${order.ver}`}
@@ -36,7 +36,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                 </Box>))}
             </Box>
         </motion.div>))}
-    </>)
+    </>
 }
 
 const KitchenSection = ({
