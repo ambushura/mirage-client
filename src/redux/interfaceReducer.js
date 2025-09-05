@@ -2,11 +2,7 @@ import {createSlice} from "@reduxjs/toolkit"
 import {date_dayjs} from "../service/advanced.js"
 
 const now = new Date()
-const current_date = date_dayjs(
-    now.getHours() >= 0 && now.getHours() < 7
-        ? new Date(now.setDate(now.getDate() - 1))
-        : now
-)
+const current_date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
 
 export const PAYMENT_STATE_CANCELED = 'Заказ отменен'
 export const PAYMENT_STATE_WAITING = 'Ожидает оплаты'
@@ -22,32 +18,35 @@ export const HEADER_HEIGHT = [200, 70]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule", "second_screen"]
 export const PARAM_DATA_ADMIN_SHIFT = ['kitchen', "admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/equipment", "admin/staff", "admin/acquiring"]
-export const TOP_MENU = [
-    [
-        {id: "films", name: "Фильмы", path: ""},
-        {id: "schedule", name: "Расписание", path: ""},
-    ],
-    [
-        {id: "films", name: "Фильмы", path: ""},
-        {id: "schedule", name: "Расписание", path: ""},
-        {id: "menu", name: "Меню", path: ""},
-        {id: "kitchen", name: "Кухня", path: ""},
-        {
-            id: "admin", name: "Кинокомплекс",
-            path: [
-                {id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""},
-                {id: "admin/orders/horeca", name: "Заказы (товары)", path: ""},
-                {id: "admin/egais", name: "ЕГАИС", path: ""},
-                {id: "admin/zbooks", name: "Кассовые книги", path: ""},
-                {id: "admin/acquiring", name: "Эквайринг", path: ""},
-                {id: "admin/operations", name: "Операции по кассам", path: ""},
-                {id: "admin/staff", name: "Табели", path: ""},
-                {id: "admin/halls", name: "Схемы залов", path: ""},
-                {id: "admin/equipment", name: "Оборудование", path: ""},
-            ]
-        },
-    ],
-]
+export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
+    id: "schedule",
+    name: "Расписание",
+    path: ""
+},], [{id: "films", name: "Фильмы", path: ""}, {id: "schedule", name: "Расписание", path: ""}, {
+    id: "menu",
+    name: "Меню",
+    path: ""
+}, {id: "kitchen", name: "Кухня", path: ""}, {
+    id: "admin",
+    name: "Кинокомплекс",
+    path: [{id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""}, {
+        id: "admin/orders/horeca",
+        name: "Заказы (товары)",
+        path: ""
+    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {
+        id: "admin/zbooks",
+        name: "Кассовые книги",
+        path: ""
+    }, {id: "admin/acquiring", name: "Эквайринг", path: ""}, {
+        id: "admin/operations",
+        name: "Операции по кассам",
+        path: ""
+    }, {id: "admin/staff", name: "Табели", path: ""}, {
+        id: "admin/halls",
+        name: "Схемы залов",
+        path: ""
+    }, {id: "admin/equipment", name: "Оборудование", path: ""},]
+},],]
 
 const initialState = {
     kiosk: false,
@@ -75,50 +74,36 @@ const initialState = {
 }
 
 const interfaceSlice = createSlice({
-    name: "interface",
-    initialState,
-    reducers: {
+    name: "interface", initialState, reducers: {
         setDev: (state, action) => {
             state.dev = action.payload
-        },
-        setKiosk: (state, action) => {
+        }, setKiosk: (state, action) => {
             state.kiosk = action.payload
-        },
-        setAppWidth: (state, {payload}) => {
+        }, setAppWidth: (state, {payload}) => {
             state.app_width = payload
-        },
-        setAppHeight: (state, {payload}) => {
+        }, setAppHeight: (state, {payload}) => {
             state.app_height = payload
-        },
-        setAuthOpened: (state, {payload}) => {
+        }, setAuthOpened: (state, {payload}) => {
             state.auth_opened = payload
-        },
-        setCurrentPage: (state, {payload}) => {
+        }, setCurrentPage: (state, {payload}) => {
             state.current_page = payload
-        },
-        setTopMenu: (state, {payload}) => {
+        }, setTopMenu: (state, {payload}) => {
             state.top_menu = payload
-        },
-        setParams: (state, {payload}) => {
+        }, setParams: (state, {payload}) => {
             Object.assign(state.params, payload)
-        },
-        setSearchParams: (state, {payload}) => {
+        }, setSearchParams: (state, {payload}) => {
             state.search_params = JSON.parse(payload)
-        },
-        openModal: (state, {payload}) => {
+        }, openModal: (state, {payload}) => {
             state.modal_opened = true
             state.modal_type = payload.type
             state.modal_props = payload.props
-        },
-        closeModal: (state) => {
+        }, closeModal: (state) => {
             state.modal_opened = false
             state.modal_type = null
             state.modal_props = {}
-        },
-        setWP: (state, {payload}) => {
+        }, setWP: (state, {payload}) => {
             state.wp = payload
-        },
-        setSecondScreen: (state) => {
+        }, setSecondScreen: (state) => {
             state.its_second_screen = true
         }
     },

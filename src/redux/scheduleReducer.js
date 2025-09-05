@@ -6,6 +6,7 @@ const initialState = {
     film: null,
     film_seances: [],
     schedule: [],
+    schedule_reloading: false,
     seance: undefined,
 
     // Фильтры расписания (загруженные)
@@ -49,8 +50,10 @@ export const scheduleSlice = createSlice({
     name: "schedule", initialState, reducers: {
         cleanSchedule: (state) => {
             state.schedule = []
+            state.schedule_reloading = true
         }, setSchedule: (state, action) => {
             state.schedule = [...state.schedule, action.payload]
+            state.schedule_reloading = false
         }, cleanFilms: (state) => {
             state.films = []
         }, setFilms: (state, action) => {

@@ -46,19 +46,22 @@ const PageSchedule = () => {
     const film_types_selected = useSelector(state => state.schedule.schedule_filters_film_types_selected)
 
     useEffect(() => {
+        let active = true
         const fetch = async (f) => {
             const fetching_result = await dispatch(cinema_schedule_halls_get(f, param_date, seance_closed, seance_canceled, seance_opened, films_selected.map(f => f.uid), film_copy_types_selected.map(f => f.uid), film_age, halls_selected.map(f => f.uid), hall_type_vip, hall_type_regular, seance_time, seance_price, film_types_selected.map(f => f.uid)))
-            dispatch(setSchedule({...fetching_result, filial: f}))
+
+            if (active) {
+                dispatch(setSchedule({...fetching_result, filial: f}))
+            }
         }
         dispatch(cleanSchedule())
         if (filial !== undefined) {
             fetch(filial)
         } else if (city !== undefined) {
-            city.filials.forEach(async (f) => {
-                fetch(f)
-            })
+            city.filials.forEach(f => fetch(f))
         }
         return () => {
+            active = false
             dispatch(cleanSchedule())
         }
     }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])

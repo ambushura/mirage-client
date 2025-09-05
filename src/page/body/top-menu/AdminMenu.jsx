@@ -381,11 +381,14 @@ export function Equipment() {
 export function ShowDateOperations() {
 
     const {date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
+    const {columns, rows} = useSelector(state => state.documents.operations)
 
-    return (<ButtonGroup color='secondary' variant='outlined'>
+    if (columns.length === 0 || rows.length === 0) return null
+
+    return <ButtonGroup color='secondary' variant='outlined'>
         <Button>{date_shift_beginning}</Button>
         <Button>{date_shift_ending}</Button>
-    </ButtonGroup>)
+    </ButtonGroup>
 }
 
 export function CurrentKKT() {
@@ -476,11 +479,13 @@ export default function AdminMenu() {
     const current_page = useSelector(state => state.interface.current_page)
     const order_search_value = useSelector(state => state.orders.order_search_value)
 
+    const filial = useSelector(state => state.data.filial)
+
     return (<Box className='admin-panel'>
         {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
             <DateParamAdmin/> : null}
-        {current_page === 'admin/zbooks' ? <CurrentKKT/> : null}
-        {current_page === 'admin/acquiring' ? <CurrentPinpad/> : null}
+        {current_page === 'admin/zbooks' && filial !== undefined ? <CurrentKKT/> : null}
+        {current_page === 'admin/acquiring' && filial !== undefined ? <CurrentPinpad/> : null}
         {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ? <CreateDeleteButtons/> : null}
         {current_page === 'admin/operations' ? <ShowDateOperations/> : null}
         {current_page === 'admin/orders/cinema' && order_search_value === null ? <CinemaType/> : null}
@@ -490,6 +495,6 @@ export default function AdminMenu() {
         {current_page === 'admin/egais' ? <EGAISMenu/> : null}
         {current_page === 'admin/halls' ? <AdminHallsList/> : null}
         {current_page === 'admin/equipment' ? <Equipment/> : null}
-        {current_page === 'kitchen' ? <ShowKitchenPoints/> : null}
+        {current_page === 'kitchen' && filial !== undefined ? <ShowKitchenPoints/> : null}
     </Box>)
 }

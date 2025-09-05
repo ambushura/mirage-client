@@ -82,7 +82,7 @@ const Header = () => {
                                     dispatch(setAuthOpened(true))
                                 } else {
                                     dispatch(addNotification({
-                                        message: 'для начала выберите филиал аутентификации',
+                                        message: 'Для начала выберите филиал аутентификации',
                                         severity: 'error',
                                         autoHide: true
                                     }))
@@ -95,27 +95,17 @@ const Header = () => {
 
     const main_button = (el) => {
         if (app_width > MOBILE_WIDTH || uid_user === null) {
-            return (
-                <Button>{el.name}</Button>
-            )
+            return (<Button>{el.name}</Button>)
         } else {
             switch (el.id) {
                 case 'films':
-                    return (
-                        <Button><GroupWorkIcon/></Button>
-                    )
+                    return (<Button><GroupWorkIcon/></Button>)
                 case 'schedule':
-                    return (
-                        <Button><CalendarViewMonthIcon/></Button>
-                    )
+                    return (<Button><CalendarViewMonthIcon/></Button>)
                 case 'menu':
-                    return (
-                        <Button><FastfoodIcon/></Button>
-                    )
+                    return (<Button><FastfoodIcon/></Button>)
                 case 'kitchen':
-                    return (
-                        <Button><MicrowaveIcon/></Button>
-                    )
+                    return (<Button><MicrowaveIcon/></Button>)
                 default:
                     el.name
             }
@@ -136,119 +126,107 @@ const Header = () => {
     const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     if (its_second_screen) {
-        return (
-            <header id="header">
-                <Box id="header-desktop">
-                    <Box id="header-menu">
-                        <Box sx={{
-                            fontSize: 'clamp(14px, 2vw, 28px)',
-                            fontWeight: 'bold',
-                            color: 'white',
-                            padding: '0 10px'
-                        }}>Расписание
-                            на {dayjs(date_shift).format('DD.MM')} · {dayjs(date_shift).format('dddd')}</Box>
-                        <Box sx={{
-                            overflowX: 'hidden',
-                            fontSize: 'clamp(14px, 2vw, 28px)',
-                            fontWeight: 'bold',
-                            color: 'white',
-                            padding: '0 10px'
-                        }}>Сегодня {timeRef.current.format('DD.MM')} · {timeRef.current.format('dddd')} · {timeRef.current.format('HH:mm')}</Box>
-                    </Box>
+        return (<header id="header">
+            <Box id="header-desktop">
+                <Box id="header-menu">
+                    <Box sx={{
+                        fontSize: 'clamp(14px, 2vw, 28px)', fontWeight: 'bold', color: 'white', padding: '0 10px'
+                    }}>Расписание
+                        на {dayjs(date_shift).format('DD.MM')} · {dayjs(date_shift).format('dddd')}</Box>
+                    <Box sx={{
+                        overflowX: 'hidden',
+                        fontSize: 'clamp(14px, 2vw, 28px)',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        padding: '0 10px'
+                    }}>Сегодня {timeRef.current.format('DD.MM')} · {timeRef.current.format('dddd')} · {timeRef.current.format('HH:mm')}</Box>
                 </Box>
-            </header>
-        )
+            </Box>
+        </header>)
     } else {
-        return (
-            <header id="header">
-                <Box id="header-desktop">
-                    {permissions.includes(0) ? <></> : <TopSlider/>}
-                    <Box id="header-menu">
-                        <ButtonGroup id="header-menu-list" variant="contained" size='small'
-                                     sx={{marginLeft: '5px'}}>
-                            {uid_user === null ?
-                                top_menu[0].map(el => {
-                                    return <NavLink key={el.id} className='link' to={el.path}>
-                                        {main_button(el)}
-                                    </NavLink>
-                                }) :
-                                top_menu[1].map(el => {
-                                    if (el.id !== 'admin') {
-                                        return <NavLink key={el.id} className='link' to={el.path}>
-                                            {main_button(el)}
-                                        </NavLink>
-                                    } else {
-                                        return <List
-                                            key={el.id}
-                                            size='small'
-                                            open={admin_open}
-                                            anchor={admin_ref}
-                                            prev_open={prev_admin_open}
-                                            id={admin_list_id}
-                                            setOpen={set_admin_open}
-                                            button_text={app_width >= MOBILE_WIDTH ? adv_page_name : null}
-                                            list={el.path}
-                                            startIcon={<AppsIcon/>}
-                                            endIcon={<KeyboardArrowDownIcon/>}
-                                            type="admin"
-                                        />
-                                    }
-                                })
+        return (<header id="header">
+            <Box id="header-desktop">
+                {permissions.includes(0) ? <></> : <TopSlider/>}
+                <Box id="header-menu">
+                    <ButtonGroup id="header-menu-list" variant="contained" size='small'
+                                 sx={{marginLeft: '5px'}}>
+                        {uid_user === null ? top_menu[0].map(el => {
+                            return <NavLink key={el.id} className='link' to={el.path}>
+                                {main_button(el)}
+                            </NavLink>
+                        }) : top_menu[1].map(el => {
+                            if (el.id !== 'admin') {
+                                return <NavLink key={el.id} className='link' to={el.path}>
+                                    {main_button(el)}
+                                </NavLink>
+                            } else {
+                                return <List
+                                    key={el.id}
+                                    size='small'
+                                    open={admin_open}
+                                    anchor={admin_ref}
+                                    prev_open={prev_admin_open}
+                                    id={admin_list_id}
+                                    setOpen={set_admin_open}
+                                    button_text={app_width >= MOBILE_WIDTH ? adv_page_name : null}
+                                    list={el.path}
+                                    startIcon={<AppsIcon/>}
+                                    endIcon={<KeyboardArrowDownIcon/>}
+                                    type="admin"
+                                />
                             }
-                        </ButtonGroup>
-                        {!kiosk ?
-                            <>
-                                <Box sx={{display: 'flex', flexDirection: 'row', marginRight: '5px'}}>
-                                    <ButtonGroup id="top-menu-left" variant="contained" size='small'
-                                                 sx={{marginLeft: '5px'}}>
-                                        <List
-                                            size='small'
-                                            open={cities_open}
-                                            anchor={cities_ref}
-                                            prev_open={prev_cities_open}
-                                            id={cities_list_id}
-                                            setOpen={set_cities_open}
-                                            button_text={city !== undefined ? city.name : 'Все города'}
-                                            list={cities}
-                                            startIcon={<PlaceIcon/>}
-                                            endIcon={<KeyboardArrowDownIcon/>}
-                                            type="cities"
-                                        />
-                                        <List
-                                            size='small'
-                                            open={filials_open}
-                                            anchor={filials_ref}
-                                            prev_open={prev_filials_open}
-                                            id={filials_list_id}
-                                            setOpen={set_filials_open}
-                                            button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
-                                            list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
-                                            endIcon={<KeyboardArrowDownIcon/>}
-                                            type='filials'
-                                        />
-                                    </ButtonGroup>
-                                    <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
-                                        <ButtonGroup size="small" variant='contained' color='secondary'
-                                                     id="header-time-username">
-                                            {user_panel()}
-                                        </ButtonGroup>
-                                        <Modal open={auth_opened}
-                                               keepMounted
-                                               onClose={() => dispatch(setAuthOpened(false))}
-                                               aria-labelledby="Страница авторизации"
-                                               aria-describedby="Введите пароль">
-                                            <Box id="modal">
-                                                <Auth/>
-                                            </Box>
-                                        </Modal>
+                        })}
+                    </ButtonGroup>
+                    {!kiosk ? <>
+                        <Box sx={{display: 'flex', flexDirection: 'row', marginRight: '5px'}}>
+                            <ButtonGroup id="top-menu-left" variant="contained" size='small'
+                                         sx={{marginLeft: '5px'}}>
+                                <List
+                                    size='small'
+                                    open={cities_open}
+                                    anchor={cities_ref}
+                                    prev_open={prev_cities_open}
+                                    id={cities_list_id}
+                                    setOpen={set_cities_open}
+                                    button_text={city !== undefined ? city.name : 'Все города'}
+                                    list={cities}
+                                    startIcon={<PlaceIcon/>}
+                                    endIcon={<KeyboardArrowDownIcon/>}
+                                    type="cities"
+                                />
+                                <List
+                                    size='small'
+                                    open={filials_open}
+                                    anchor={filials_ref}
+                                    prev_open={prev_filials_open}
+                                    id={filials_list_id}
+                                    setOpen={set_filials_open}
+                                    button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
+                                    list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
+                                    endIcon={<KeyboardArrowDownIcon/>}
+                                    type='filials'
+                                />
+                            </ButtonGroup>
+                            <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
+                                <ButtonGroup size="small" variant='contained' color='secondary'
+                                             id="header-time-username">
+                                    {user_panel()}
+                                </ButtonGroup>
+                                <Modal open={auth_opened}
+                                       keepMounted
+                                       onClose={() => dispatch(setAuthOpened(false))}
+                                       aria-labelledby="Страница авторизации"
+                                       aria-describedby="Введите пароль">
+                                    <Box id="modal">
+                                        <Auth/>
                                     </Box>
-                                </Box>
-                            </>
-                            : null}
-                    </Box>
+                                </Modal>
+                            </Box>
+                        </Box>
+                    </> : null}
                 </Box>
-            </header>
-        )
+            </Box>
+        </header>)
     }
 }
 
