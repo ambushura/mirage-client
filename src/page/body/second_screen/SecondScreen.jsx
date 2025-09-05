@@ -53,9 +53,8 @@ export default function SecondScreen() {
             {!['seance'].includes(current_page) && <SSSchedule width={body_width} height={screen_height}/>}
             {['seance'].includes(current_page) && <SSSeance/>}
         </Box>
-        {show_pre_order || show_horder ?
-            <Box sx={{width: `${order_width}px`, height: '100%'}}>
-                <SSOrder/>
-            </Box> : null}
+        {show_pre_order || show_horder ? <Box sx={{width: `${order_width}px`, height: '100%'}}>
+            <SSOrder/>
+        </Box> : null}
     </Box>
 }

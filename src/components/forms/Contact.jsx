@@ -27,71 +27,67 @@ const Contact = ({props}) => {
         set_buyer_phone_number(props.order.buyer_phone_number)
     }, [])
 
-    return (
-        <Box component="form"
-             autoComplete="off"
-             noValidate
-             onSubmit={(e) => {
-                 e.preventDefault()
-                 const submitter = e.nativeEvent.submitter
-                 const action = submitter?.getAttribute('data-action')
-                 switch (action) {
-                     case 'common':
-                         dispatch(common_contact_add(filial, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
-                         break
-                     case 'pl':
-                         dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr))
-                         break
-                 }
-                 dispatch(closeModal())
-             }}
+    return (<Box component="form"
+                 autoComplete="off"
+                 noValidate
+                 onSubmit={(e) => {
+                     e.preventDefault()
+                     const submitter = e.nativeEvent.submitter
+                     const action = submitter?.getAttribute('data-action')
+                     switch (action) {
+                         case 'common':
+                             dispatch(common_contact_add(filial, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
+                             break
+                         case 'pl':
+                             dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr))
+                             break
+                     }
+                     dispatch(closeModal())
+                 }}
+    >
+        <Typography variant="h6" color="textSecondary" margin={1}>
+            Информация о клиенте
+        </Typography>
+        <Box
+            sx={{'& .MuiTextField-root': {m: 1, width: '25ch'}}}
         >
-            <Typography variant="h6" color="textSecondary" margin={1}>
-                Информация о клиенте
-            </Typography>
-            <Box
-                sx={{'& .MuiTextField-root': {m: 1, width: '25ch'}}}
-            >
-                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
-                    <TextField variant='filled' label='Фамилия' margin='dense' value={buyer_s} onChange={(event) => {
-                        set_buyer_s(event.target.value)
-                    }}/>
-                    <TextField variant='filled' label='Имя' margin="dense" value={buyer_n} onChange={(event) => {
-                        set_buyer_n(event.target.value)
-                    }}/>
-                    <TextField variant='filled' label='Отчество' margin="dense" value={buyer_o} onChange={(event) => {
-                        set_buyer_o(event.target.value)
-                    }}/>
-                </Box>
-                <Box>
-                    <TextField variant='filled' label='e-mail' margin="dense" type="email" value={buyer_email}
-                               onChange={(event) => {
-                                   set_buyer_email(event.target.value)
-                               }}/>
-                    <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number}/>
-                    <TextField
-                        slotProps={{
-                            input: {
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <QrCodeIcon/>
-                                    </InputAdornment>
-                                ),
-                            },
-                        }}
-                        variant='outlined' label='Код ПЛ' margin="dense" value={qr} onChange={(event) => {
-                        set_qr(event.target.value)
-                    }}/>
-                </Box>
+            <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
+                <TextField variant='filled' label='Фамилия' margin='dense' value={buyer_s} onChange={(event) => {
+                    set_buyer_s(event.target.value)
+                }}/>
+                <TextField variant='filled' label='Имя' margin="dense" value={buyer_n} onChange={(event) => {
+                    set_buyer_n(event.target.value)
+                }}/>
+                <TextField variant='filled' label='Отчество' margin="dense" value={buyer_o} onChange={(event) => {
+                    set_buyer_o(event.target.value)
+                }}/>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
-                <Button variant='contained' color='secondary' type="submit" data-action="common"
-                        sx={{marginLeft: '10px'}}>Сохранить</Button>
-                <Button variant='contained' color='secondary' type="submit" data-action="pl">Заполнить по коду
-                    ПЛ</Button>
+            <Box>
+                <TextField variant='filled' label='e-mail' margin="dense" type="email" value={buyer_email}
+                           onChange={(event) => {
+                               set_buyer_email(event.target.value)
+                           }}/>
+                <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number}/>
+                <TextField
+                    slotProps={{
+                        input: {
+                            startAdornment: (<InputAdornment position="start">
+                                <QrCodeIcon/>
+                            </InputAdornment>),
+                        },
+                    }}
+                    variant='outlined' label='Код ПЛ' margin="dense" value={qr} onChange={(event) => {
+                    set_qr(event.target.value)
+                }}/>
             </Box>
         </Box>
-    )
+        <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
+            <Button variant='contained' color='secondary' type="submit" data-action="common"
+                    sx={{marginLeft: '10px'}}>Сохранить</Button>
+            <Button variant='contained' color='secondary' type="submit" data-action="pl">Заполнить по коду
+                ПЛ</Button>
+        </Box>
+    </Box>)
 }
 
 export default Contact

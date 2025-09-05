@@ -23,21 +23,15 @@ const Auth = () => {
     const apply = () => {
         if (filial === undefined) {
             dispatch(addNotification({
-                message: "Выберите филиал для входа в систему",
-                severity: 'error',
-                autoHide: true
+                message: "Выберите филиал для входа в систему", severity: 'error', autoHide: true
             }))
         } else if (login_auth && (username === '' || password === '')) {
             dispatch(addNotification({
-                message: "Логин и пароль не могут бысть пустыми",
-                severity: 'error',
-                autoHide: true
+                message: "Логин и пароль не могут бысть пустыми", severity: 'error', autoHide: true
             }))
         } else if (pincode_auth && password === '') {
             dispatch(addNotification({
-                message: "Пароль не может бысть пустым",
-                severity: 'error',
-                autoHide: true
+                message: "Пароль не может бысть пустым", severity: 'error', autoHide: true
             }))
         } else {
             dispatch(login(filial, login_auth, pincode_auth, username, password))
@@ -50,98 +44,85 @@ const Auth = () => {
         set_password('')
     }, [pincode_auth, login_auth])
 
-    return (
-        <Box>
-            <Box sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginBottom: '10px'
+    return (<Box>
+        <Box sx={{
+            width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', marginBottom: '10px'
+        }}>
+            <Button sx={{marginRight: '5px'}} variant='contained' color='primary' onClick={() => {
+                set_pincode_auth(true)
+                set_login_auth(false)
             }}>
-                <Button sx={{marginRight: '5px'}} variant='contained' color='primary' onClick={() => {
-                    set_pincode_auth(true)
-                    set_login_auth(false)
-                }}>
-                    <DialpadIcon/>
-                </Button>
-                <Button variant='contained' color='primary' onClick={() => {
-                    set_pincode_auth(false)
-                    set_login_auth(true)
-                }}>
-                    <KeyboardIcon/>
-                </Button>
+                <DialpadIcon/>
+            </Button>
+            <Button variant='contained' color='primary' onClick={() => {
+                set_pincode_auth(false)
+                set_login_auth(true)
+            }}>
+                <KeyboardIcon/>
+            </Button>
+        </Box>
+        <Box sx={{width: '100%'}}>
+            <Box sx={{
+                width: '100%', display: pincode_auth ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center'
+            }}>
+                <Box maxWidth={200} mx="auto">
+                    <Box
+                        sx={{gap: '2px'}}
+                        display="grid"
+                        gridTemplateColumns="repeat(3, 1fr)">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (<Button
+                            color='secondary'
+                            key={num}
+                            variant="contained"
+                            onClick={() => set_password((prev) => prev + num.toString())}>
+                            {num}
+                        </Button>))}
+                        <Button variant="contained" color='secondary' sx={{fontSize: '70%'}}
+                                onClick={() => {
+                                    set_password('')
+                                }}>DEL</Button>
+                        <Button variant="contained" color='secondary'
+                                onClick={() => set_password((prev) => prev + '0')}>0</Button>
+                        <Button variant="contained" color='primary' sx={{fontSize: '90%'}}
+                                onClick={() => {
+                                    apply()
+                                }}>Войти</Button>
+                    </Box>
+                </Box>
             </Box>
-            <Box sx={{width: '100%'}}>
-                <Box sx={{
-                    width: '100%',
-                    display: pincode_auth ? 'flex' : 'none',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Box maxWidth={200} mx="auto">
-                        <Box
-                            sx={{gap: '2px'}}
-                            display="grid"
-                            gridTemplateColumns="repeat(3, 1fr)">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                                <Button
-                                    color='secondary'
-                                    key={num}
-                                    variant="contained"
-                                    onClick={() => set_password((prev) => prev + num.toString())}>
-                                    {num}
-                                </Button>
-                            ))}
-                            <Button variant="contained" color='secondary' sx={{fontSize: '70%'}}
-                                    onClick={() => {
-                                        set_password('')
-                                    }}>DEL</Button>
-                            <Button variant="contained" color='secondary'
-                                    onClick={() => set_password((prev) => prev + '0')}>0</Button>
-                            <Button variant="contained" color='primary' sx={{fontSize: '90%'}}
-                                    onClick={() => {
-                                        apply()
-                                    }}>Войти</Button>
-                        </Box>
-                    </Box>
+            <Box sx={{
+                display: login_auth ? 'flex' : 'none', flexDirection: 'column', justifyContent: 'space-around'
+            }}>
+                <Box component="form" sx={{backgroundColor: 'white', padding: '10px', borderRadius: '5px'}}>
+                    <TextField
+                        sx={{marginBottom: '10px'}}
+                        autoComplete="username"
+                        color='secondary'
+                        label='Логин'
+                        variant='outlined'
+                        type='text'
+                        fullWidth
+                        value={username}
+                        onChange={(e) => set_username(e.target.value)}
+                    />
+                    <TextField
+                        color='secondary'
+                        autoComplete="current-password"
+                        label='Пароль'
+                        variant='outlined'
+                        type='password'
+                        fullWidth
+                        value={password}
+                        onChange={(e) => set_password(e.target.value)}
+                    />
                 </Box>
-                <Box sx={{
-                    display: login_auth ? 'flex' : 'none',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around'
-                }}>
-                    <Box component="form" sx={{backgroundColor: 'white', padding: '10px', borderRadius: '5px'}}>
-                        <TextField
-                            sx={{marginBottom: '10px'}}
-                            autoComplete="username"
-                            color='secondary'
-                            label='Логин'
-                            variant='outlined'
-                            type='text'
-                            fullWidth
-                            value={username}
-                            onChange={(e) => set_username(e.target.value)}
-                        />
-                        <TextField
-                            color='secondary'
-                            autoComplete="current-password"
-                            label='Пароль'
-                            variant='outlined'
-                            type='password'
-                            fullWidth
-                            value={password}
-                            onChange={(e) => set_password(e.target.value)}
-                        />
-                    </Box>
-                    <Button variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}
-                            onClick={() => {
-                                apply()
-                            }}>Войти</Button>
-                </Box>
+                <Button variant='contained' color='primary' sx={{width: '100%', marginTop: '10px'}}
+                        onClick={() => {
+                            apply()
+                        }}>Войти</Button>
             </Box>
         </Box>
-    )
+    </Box>)
 }
 
 export default memo(Auth)

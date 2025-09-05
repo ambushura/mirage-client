@@ -1,10 +1,7 @@
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    NEW_EMPTY_HORDER,
-    NEW_EMPTY_ORDER,
-    setCurrentHorder,
-    setCurrentPreOrder,
+    NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder,
 } from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
 import {setUidHall} from "../../redux/hallsReducer.js"

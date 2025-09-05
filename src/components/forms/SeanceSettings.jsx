@@ -1,14 +1,9 @@
 import {useState, useEffect} from 'react'
 import {
-    TextField,
-    Box,
-    Stack,
-    InputAdornment,
-    Autocomplete
+    TextField, Box, Stack, InputAdornment, Autocomplete
 } from '@mui/material'
 import {
-    LocalizationProvider,
-    MobileTimePicker
+    LocalizationProvider, MobileTimePicker
 } from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
@@ -17,13 +12,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
 dayjs.locale('ru')
 
-const films = [
-    {label: 'Интерстеллар'},
-    {label: 'Начало'},
-    {label: 'Матрица'},
-    {label: 'Дюна'},
-    {label: 'Темный рыцарь'}
-]
+const films = [{label: 'Интерстеллар'}, {label: 'Начало'}, {label: 'Матрица'}, {label: 'Дюна'}, {label: 'Темный рыцарь'}]
 
 export default function SeanceSettings({props}) {
 
@@ -45,81 +34,68 @@ export default function SeanceSettings({props}) {
         }
     }, [props])
 
-    return (
-        <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            adapterLocale="ru"
-            localeText={{
-                cancelButtonLabel: 'ОТМЕНА',
-                okButtonLabel: 'ОК',
-                clearButtonLabel: 'Очистить',
-                todayButtonLabel: 'Сегодня',
-                timePickerToolbarTitle: 'Укажите время сеанса'
-            }}
-        >
-            <Box sx={{maxWidth: 400}}>
-                <Stack spacing={3}>
-                    <Autocomplete
-                        options={films}
-                        value={film}
-                        onChange={(e, newValue) => setFilm(newValue)}
-                        renderInput={(params) => (
-                            <TextField {...params} label="Фильм" variant="outlined"/>
-                        )}
-                    />
-                    <MobileTimePicker
-                        label="Начало"
-                        value={startTime}
-                        onChange={setStartTime}
-                        ampm={false}
-                        views={['hours', 'minutes']}
-                        slotProps={{
-                            textField: {
-                                variant: 'outlined',
-                                InputProps: {
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <AccessTimeIcon/>
-                                        </InputAdornment>
-                                    )
-                                }
+    return (<LocalizationProvider
+        dateAdapter={AdapterDayjs}
+        adapterLocale="ru"
+        localeText={{
+            cancelButtonLabel: 'ОТМЕНА',
+            okButtonLabel: 'ОК',
+            clearButtonLabel: 'Очистить',
+            todayButtonLabel: 'Сегодня',
+            timePickerToolbarTitle: 'Укажите время сеанса'
+        }}
+    >
+        <Box sx={{maxWidth: 400}}>
+            <Stack spacing={3}>
+                <Autocomplete
+                    options={films}
+                    value={film}
+                    onChange={(e, newValue) => setFilm(newValue)}
+                    renderInput={(params) => (<TextField {...params} label="Фильм" variant="outlined"/>)}
+                />
+                <MobileTimePicker
+                    label="Начало"
+                    value={startTime}
+                    onChange={setStartTime}
+                    ampm={false}
+                    views={['hours', 'minutes']}
+                    slotProps={{
+                        textField: {
+                            variant: 'outlined', InputProps: {
+                                endAdornment: (<InputAdornment position="end">
+                                    <AccessTimeIcon/>
+                                </InputAdornment>)
                             }
-                        }}
-                    />
-                    <MobileTimePicker
-                        label="Окончание"
-                        value={endTime}
-                        onChange={setEndTime}
-                        ampm={false}
-                        views={['hours', 'minutes']}
-                        slotProps={{
-                            textField: {
-                                variant: 'outlined',
-                                InputProps: {
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <AccessTimeIcon/>
-                                        </InputAdornment>
-                                    )
-                                }
+                        }
+                    }}
+                />
+                <MobileTimePicker
+                    label="Окончание"
+                    value={endTime}
+                    onChange={setEndTime}
+                    ampm={false}
+                    views={['hours', 'minutes']}
+                    slotProps={{
+                        textField: {
+                            variant: 'outlined', InputProps: {
+                                endAdornment: (<InputAdornment position="end">
+                                    <AccessTimeIcon/>
+                                </InputAdornment>)
                             }
-                        }}
-                    />
-                    <TextField
-                        label="Стоимость (₽)"
-                        type="number"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">₽</InputAdornment>
-                            ),
-                            inputProps: {min: 0}
-                        }}
-                        variant="outlined"
-                    />
-                </Stack>
-            </Box>
-        </LocalizationProvider>
-    )
+                        }
+                    }}
+                />
+                <TextField
+                    label="Стоимость (₽)"
+                    type="number"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    InputProps={{
+                        startAdornment: (<InputAdornment position="start">₽</InputAdornment>), inputProps: {min: 0}
+                    }}
+                    variant="outlined"
+                />
+            </Stack>
+        </Box>
+    </LocalizationProvider>)
 }

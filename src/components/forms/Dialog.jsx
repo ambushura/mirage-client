@@ -37,34 +37,34 @@ const Dialog = ({props}) => {
     switch (props.type) {
         case 'YesNo':
             return (<MuiDialog
-                    open={true}
-                    onClose={handleNo}
-                    aria-labelledby="confirm-dialog-title"
-                    maxWidth="xk"
-                >
-                    <DialogTitle id="confirm-dialog-title">Подтвердите</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            {props.question}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions sx={{px: 3, pb: 2}}>
-                        <Button
-                            sx={{minWidth: '70px'}}
-                            onClick={handleYes}
-                            variant="contained"
-                            color="secondary">
-                            Да
-                        </Button>
-                        <Button
-                            sx={{minWidth: '70px'}}
-                            onClick={handleNo}
-                            variant="contained"
-                            color="secondary">
-                            Нет
-                        </Button>
-                    </DialogActions>
-                </MuiDialog>)
+                open={true}
+                onClose={handleNo}
+                aria-labelledby="confirm-dialog-title"
+                maxWidth="xk"
+            >
+                <DialogTitle id="confirm-dialog-title">Подтвердите</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {props.question}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions sx={{px: 3, pb: 2}}>
+                    <Button
+                        sx={{minWidth: '70px'}}
+                        onClick={handleYes}
+                        variant="contained"
+                        color="secondary">
+                        Да
+                    </Button>
+                    <Button
+                        sx={{minWidth: '70px'}}
+                        onClick={handleNo}
+                        variant="contained"
+                        color="secondary">
+                        Нет
+                    </Button>
+                </DialogActions>
+            </MuiDialog>)
         case 'No':
             return <Box/>
         default:

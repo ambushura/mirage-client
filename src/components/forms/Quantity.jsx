@@ -12,13 +12,7 @@ const Quantity = (props) => {
     const filial = useSelector(state => state.data.filial)
 
     const {
-        uid_order,
-        uid_position,
-        fraction,
-        unit_name,
-        unit_code,
-        v,
-        quantity
+        uid_order, uid_position, fraction, unit_name, unit_code, v, quantity
     } = props.props
 
     const [countStr, setCountStr] = useState("")
@@ -46,92 +40,84 @@ const Quantity = (props) => {
             dispatch(closeModal())
         } else {
             dispatch(addNotification({
-                message: 'количество должно быть отличным от нуля',
-                severity: 'error',
-                autoHide: true
+                message: 'количество должно быть отличным от нуля', severity: 'error', autoHide: true
             }))
         }
     }
 
-    return (
+    return (<Box
+        id="modal-quantity"
+        component="form"
+        noValidate
+        autoComplete="off"
+        sx={{p: 1, width: 300}}
+        onSubmit={handleSubmit}>
+        <Typography variant="h6" color="textSecondary" sx={{mb: 1}}>
+            Текущее количество
+        </Typography>
         <Box
-            id="modal-quantity"
-            component="form"
-            noValidate
-            autoComplete="off"
-            sx={{p: 1, width: 300}}
-            onSubmit={handleSubmit}>
-            <Typography variant="h6" color="textSecondary" sx={{mb: 1}}>
-                Текущее количество
-            </Typography>
-            <Box
-                sx={{
-                    mb: 2,
-                    p: 2,
-                    border: "1px solid #ccc",
-                    borderRadius: 2,
-                    textAlign: "right",
-                    fontSize: "1.5rem",
-                    backgroundColor: "#f9f9f9"
-                }}>
-                {quantity.toFixed(3)} {unit_name}
-            </Box>
-            <Typography variant="h6" color="textSecondary" sx={{mb: 1}}>
-                Новое количество
-            </Typography>
-            <Box
-                sx={{
-                    mb: 2,
-                    p: 2,
-                    border: "1px solid #ccc",
-                    borderRadius: 2,
-                    textAlign: "right",
-                    fontSize: "1.5rem",
-                    backgroundColor: "#f9f9f9"
-                }}>
-                {(countStr && parseFloat(countStr).toFixed(3)) || "0.000"} {unit_name}
-            </Box>
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gap: 1
-                }}>
-                {[7, 8, 9, 4, 5, 6, 1, 2, 3].map(num => (
-                    <Button
-                        key={num}
-                        variant="contained"
-                        color="secondary"
-                        sx={{fontSize: "150%"}}
-                        onClick={() => handleClick(num.toString())}>{num}</Button>
-                ))}
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: "150%"}}
-                    onClick={() => handleClick("0")}>0</Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: "150%"}}
-                    onClick={() => handleClick(".")}
-                    disabled={!fraction}>.</Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: "150%"}}
-                    onClick={handleBackspace}>←</Button>
-                <Button
-                    type="submit"
-                    autoFocus
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: "120%", gridColumn: "span 3"}}>
-                    Сохранить
-                </Button>
-            </Box>
+            sx={{
+                mb: 2,
+                p: 2,
+                border: "1px solid #ccc",
+                borderRadius: 2,
+                textAlign: "right",
+                fontSize: "1.5rem",
+                backgroundColor: "#f9f9f9"
+            }}>
+            {quantity.toFixed(3)} {unit_name}
         </Box>
-    )
+        <Typography variant="h6" color="textSecondary" sx={{mb: 1}}>
+            Новое количество
+        </Typography>
+        <Box
+            sx={{
+                mb: 2,
+                p: 2,
+                border: "1px solid #ccc",
+                borderRadius: 2,
+                textAlign: "right",
+                fontSize: "1.5rem",
+                backgroundColor: "#f9f9f9"
+            }}>
+            {(countStr && parseFloat(countStr).toFixed(3)) || "0.000"} {unit_name}
+        </Box>
+        <Box
+            sx={{
+                display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1
+            }}>
+            {[7, 8, 9, 4, 5, 6, 1, 2, 3].map(num => (<Button
+                key={num}
+                variant="contained"
+                color="secondary"
+                sx={{fontSize: "150%"}}
+                onClick={() => handleClick(num.toString())}>{num}</Button>))}
+            <Button
+                variant="contained"
+                color="secondary"
+                sx={{fontSize: "150%"}}
+                onClick={() => handleClick("0")}>0</Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                sx={{fontSize: "150%"}}
+                onClick={() => handleClick(".")}
+                disabled={!fraction}>.</Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                sx={{fontSize: "150%"}}
+                onClick={handleBackspace}>←</Button>
+            <Button
+                type="submit"
+                autoFocus
+                variant="contained"
+                color="secondary"
+                sx={{fontSize: "120%", gridColumn: "span 3"}}>
+                Сохранить
+            </Button>
+        </Box>
+    </Box>)
 }
 
 export default Quantity
