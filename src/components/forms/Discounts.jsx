@@ -35,7 +35,6 @@ const Discounts = (props) => {
         fetch()
     }, [dispatch, filial, seance])
 
-
     const [discount_error, set_discount_error] = useState(false)
 
     const pre_order = useSelector(state => state.orders.pre_order)
@@ -44,20 +43,20 @@ const Discounts = (props) => {
     const [uid_discount, set_uid_discount] = useState(null)
     const [comment, set_comment] = useState(null)
 
-    return (<Box component="form"
-                 noValidate
-                 autoComplete="off"
-                 sx={{minWidth: '200px', display: 'flex', flexDirection: 'column'}}
-                 onSubmit={(e) => {
-                     e.preventDefault()
-                     if (!uid_discount) {
-                         set_discount_error(true)
-                         return
-                     }
-                     set_discount_error(false)
-                     dispatch(cinema_discount_apply(filial, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions))
-                     dispatch(closeModal())
-                 }}>
+    return <Box component="form"
+                noValidate
+                autoComplete="off"
+                sx={{minWidth: '200px', display: 'flex', flexDirection: 'column'}}
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    if (!uid_discount) {
+                        set_discount_error(true)
+                        return
+                    }
+                    set_discount_error(false)
+                    dispatch(cinema_discount_apply(filial, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions))
+                    dispatch(closeModal())
+                }}>
         <Typography variant="h6" color="textSecondary" margin={1}>
             Скидки
         </Typography>
@@ -110,7 +109,7 @@ const Discounts = (props) => {
         </Box>
         <Button sx={{m: 1, minWidth: '200px'}} variant="contained" color="secondary"
                 type="submit">Сохранить</Button>
-    </Box>)
+    </Box>
 }
 
 export default Discounts

@@ -54,6 +54,7 @@ const initialState = {
     horder_paying: false,
     orders_cinema_schedule: [],
     order_search_value: null,
+    staff_list: [],
 
     // ЗАКАЗЫ КИНО
     orders_cinema_update: 0,
@@ -253,6 +254,8 @@ export const ordersSlice = createSlice({
             state.order_search_value = payload
         }, setKioskPaymentError(state, {payload}) {
             state.kiosk_payment_error = payload
+        }, setStaffList(state, {payload}) {
+            state.staff_list = payload
         }
     },
 })
@@ -305,5 +308,6 @@ export const {
     pushKitchenPositions,
     setOrderSearchValue,
     setKioskPaymentError,
+    setStaffList,
 } = ordersSlice.actions
 export default ordersSlice.reducer

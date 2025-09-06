@@ -11,7 +11,8 @@ import {
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setPreOrderPaying,
-    setPreOrderPreparing
+    setPreOrderPreparing,
+    setStaffList
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
@@ -63,6 +64,7 @@ import {
     ROUTE_HORECA_MENU_GET,
     ROUTE_HORECA_MODIFICATIONS_GET,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
+    ROUTE_HORECA_ORDER_CHANGE_CREATOR,
     ROUTE_HORECA_ORDER_DELETE,
     ROUTE_HORECA_ORDER_DELETE_COMMENT,
     ROUTE_HORECA_ORDER_GET,
@@ -551,6 +553,8 @@ export const common_list_get = (filial, type) => async (dispatch, getState) => {
                 dispatch(setPinpadList(data))
                 dispatch(setZPinpadsUpdate())
                 break
+            case 'staff':
+                dispatch(setStaffList(data))
         }
     })
 }
@@ -1108,4 +1112,20 @@ export const cinema_film_seances_get = (filial, date_shift, uid_film, closed, ca
             film_types
         }, filial, wp, kiosk, version,
     }, data => data)
+}
+
+export const horeca_order_change_creator = (filial, uid_order, uid_creator) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_CHANGE_CREATOR}`,
+        params: {uid_order, uid_creator},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => {
+        dispatch(setCurrentHorder(data))
+        dispatch(setOrdersHorecaUpdate())
+    })
 }

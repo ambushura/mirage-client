@@ -36,7 +36,7 @@ const Dialog = ({props}) => {
 
     switch (props.type) {
         case 'YesNo':
-            return (<MuiDialog
+            return <MuiDialog
                 open={true}
                 onClose={handleNo}
                 aria-labelledby="confirm-dialog-title"
@@ -64,7 +64,7 @@ const Dialog = ({props}) => {
                         Нет
                     </Button>
                 </DialogActions>
-            </MuiDialog>)
+            </MuiDialog>
         case 'No':
             return <Box/>
         default:

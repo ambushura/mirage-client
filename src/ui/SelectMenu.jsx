@@ -3,13 +3,13 @@ import {setCurrentKKT, setCurrentPinpad} from "../redux/documentsReducer.js"
 import ClearIcon from "@mui/icons-material/Clear"
 import {useDispatch} from "react-redux"
 
-export const SelectMenu = ({type, list, current_value, width}) => {
+export const SelectMenu = ({type, list, current_value, width, action}) => {
 
     const dispatch = useDispatch()
 
     return <FormControl variant="filled" sx={{minWidth: width}}>
         <InputLabel
-            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : null}</InputLabel>
+            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff' ? 'Сотрудник' : null}</InputLabel>
         <Select
             value={current_value || ''}
             onChange={(e) => {
@@ -19,6 +19,9 @@ export const SelectMenu = ({type, list, current_value, width}) => {
                         break
                     case "zbooks-pinpad":
                         dispatch(setCurrentPinpad(e.target.value))
+                        break
+                    case 'staff-list':
+                        action(e.target.value)
                         break
                 }
             }}
@@ -33,6 +36,9 @@ export const SelectMenu = ({type, list, current_value, width}) => {
                             break
                         case "zbooks-pinpad":
                             dispatch(setCurrentPinpad(''))
+                            break
+                        case 'staff-list':
+                            action('')
                             break
                     }
                 }}

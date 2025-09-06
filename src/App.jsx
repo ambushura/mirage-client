@@ -42,6 +42,7 @@ import TableOptions from "./components/forms/TableOptions.jsx"
 import Dialog from "./components/forms/Dialog.jsx"
 import Operation from "./page/body/admin/total/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
+import StaffList from "./components/forms/StaffList.jsx"
 
 function App() {
 
@@ -85,6 +86,7 @@ function App() {
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,
         documents_operation: Operation,
+        creator_change: StaffList,
     }
 
     const ModalContent = useMemo(() => {
@@ -92,12 +94,9 @@ function App() {
         return Component ? <Component props={modal_props}/> : null
     }, [modalComponents, modal_type, modal_props])
 
-    const defaultRedirect = cities.length
-        ? `/films/${cities[0].code}/all/${param_date}/`
-        : "/"
+    const defaultRedirect = cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/"
 
-    return (
-        <Box id="app">
+    return (<Box id="app">
             <Header/>
             <Routes>
                 <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
@@ -115,11 +114,8 @@ function App() {
                 <Route path="/kitchen/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="kitchen"/>}/>
 
-                <Route path="/menu/:param_city/:param_filial/" element={
-                    permissions.includes(0)
-                        ? <AppRoutes current_page="menu"/>
-                        : <NotFound/>
-                }/>
+                <Route path="/menu/:param_city/:param_filial/"
+                       element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
 
                 <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/orders/cinema"/>}/>
@@ -157,8 +153,7 @@ function App() {
             <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
                 <Box id="modal">{ModalContent}</Box>
             </Modal>
-        </Box>
-    )
+        </Box>)
 }
 
 export default App
