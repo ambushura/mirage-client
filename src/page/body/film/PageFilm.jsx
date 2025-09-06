@@ -47,10 +47,12 @@ const PageFilm = () => {
         }
         let active = true
         dispatch(cleanFilm())
-        if (filial) {
-            fetchSeances(filial)
-        } else if (city) {
-            city.filials.forEach(f => fetchSeances(f))
+        if (uid_film !== undefined) {
+            if (filial) {
+                fetchSeances(filial)
+            } else if (city) {
+                city.filials.forEach(f => fetchSeances(f))
+            }
         }
         return () => {
             active = false

@@ -77,10 +77,12 @@ const Header = () => {
             up.push(<Button
                 key='3'>{timeRef.current.format('HH:mm')}</Button>)
             up.push(<Button key='2'>{name_user}</Button>)
-            up.push(<NavLink key='1'
-                             to={`/films/${cities[0].code}/all/${param_date}/`}>
-                <Button startIcon={<ExitToAppIcon/>} onClick={() => dispatch(logout())}>Выход</Button>
-            </NavLink>)
+            if (cities.length > 0) {
+                up.push(<NavLink key='1'
+                                 to={`/films/${cities[0].code}/all/${param_date}/`}>
+                    <Button startIcon={<ExitToAppIcon/>} onClick={() => dispatch(logout())}>Выход</Button>
+                </NavLink>)
+            }
         } else {
             up.push(<Button size='large' key='4'
                             onClick={() => {

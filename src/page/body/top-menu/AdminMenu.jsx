@@ -394,14 +394,15 @@ export function ShowDateOperations() {
 export function CurrentKKT() {
 
     const dispatch = useDispatch()
+    const current_page = useSelector(state => state.interface.current_page)
     const {kkt_list, uid_kkt_current} = useSelector(state => state.documents.zbooks)
     const filial = useSelector(state => state.data.filial)
 
     useEffect(() => {
         dispatch(common_list_get(filial, 'kkt'))
-    }, [dispatch, filial])
+    }, [dispatch, filial, current_page])
 
-    return (<Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
+    return <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
         <SelectMenu
             type={'zbooks-kkt'}
             list={kkt_list}
@@ -416,19 +417,19 @@ export function CurrentKKT() {
                     onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_Z, {uid: uid_kkt_current}))}>Закрыть
                 смену</Button>
         </ButtonGroup>
-    </Box>)
+    </Box>
 }
 
 export function CurrentPinpad() {
 
     const dispatch = useDispatch()
+    const current_page = useSelector(state => state.interface.current_page)
     const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents.zpinpads)
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     useEffect(() => {
-        dispatch(common_list_get(filial, wp, 'pinpad'))
-    }, [dispatch, filial, wp])
+        dispatch(common_list_get(filial, 'pinpad'))
+    }, [dispatch, filial, current_page])
 
     return (<Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
         <SelectMenu
@@ -439,10 +440,10 @@ export function CurrentPinpad() {
         />
         <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
             <Button variant='outlined' color='secondary'
-                    onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_X, {uid: uid_pinpad_current}))}>Краткий
+                    onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PINPAD_X, {uid: uid_pinpad_current}))}>Краткий
                 отчет</Button>
             <Button variant='contained' color='primary'
-                    onClick={() => dispatch(equipment_action(filial, wp, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
+                    onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
                 смену</Button>
         </ButtonGroup>
     </Box>)

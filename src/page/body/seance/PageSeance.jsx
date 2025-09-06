@@ -33,7 +33,7 @@ const PageSeance = () => {
     const booking = useSelector(state => state.schedule.booking)
     const uid_user = useSelector(state => state.auth.uid)
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
-    const {app_width, app_height} = useSelector(state => state.interface.app_width)
+    const {app_width, app_height} = useSelector(state => state.interface)
 
     const refTitle = useRef(null)
     const [checkout, set_check_out] = useState(0)
@@ -49,7 +49,7 @@ const PageSeance = () => {
             }
         }
         dispatch(setBooking([]))
-        if (filial !== undefined && seance !== undefined && pre_order.in_base) {
+        if (filial !== undefined && seance !== undefined) {
             fetch()
         }
         return () => dispatch(setBooking([]))

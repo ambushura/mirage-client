@@ -19,32 +19,18 @@ export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule", "second_screen"]
 export const PARAM_DATA_ADMIN_SHIFT = ['kitchen', "admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/equipment", "admin/staff", "admin/acquiring"]
 export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
-    id: "schedule",
-    name: "Расписание",
-    path: ""
+    id: "schedule", name: "Расписание", path: ""
 },], [{id: "films", name: "Фильмы", path: ""}, {id: "schedule", name: "Расписание", path: ""}, {
-    id: "menu",
-    name: "Меню",
-    path: ""
+    id: "menu", name: "Меню", path: ""
 }, {id: "kitchen", name: "Кухня", path: ""}, {
-    id: "admin",
-    name: "Кинокомплекс",
-    path: [{id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""}, {
-        id: "admin/orders/horeca",
-        name: "Заказы (товары)",
-        path: ""
+    id: "admin", name: "Кинокомплекс", path: [{id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""}, {
+        id: "admin/orders/horeca", name: "Заказы (товары)", path: ""
     }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {
-        id: "admin/zbooks",
-        name: "Кассовые книги",
-        path: ""
+        id: "admin/zbooks", name: "Кассовые книги", path: ""
     }, {id: "admin/acquiring", name: "Эквайринг", path: ""}, {
-        id: "admin/operations",
-        name: "Операции по кассам",
-        path: ""
+        id: "admin/operations", name: "Операции по кассам", path: ""
     }, {id: "admin/staff", name: "Табели", path: ""}, {
-        id: "admin/halls",
-        name: "Схемы залов",
-        path: ""
+        id: "admin/halls", name: "Схемы залов", path: ""
     }, {id: "admin/equipment", name: "Оборудование", path: ""},]
 },],]
 

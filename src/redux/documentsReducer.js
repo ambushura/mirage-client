@@ -3,8 +3,8 @@ import dayjs from "dayjs";
 
 const initialState = {
     zbooks: {
-        uid_kkt_current: null,
-        kkt_list: null,
+        uid_kkt_current: '',
+        kkt_list: [],
         date_shift: '',
         columns: [{field: 'id', headerName: 'ID', width: 10}, {
             field: 'name_organization', headerName: 'Организация', width: 100
@@ -30,7 +30,7 @@ const initialState = {
         rows: [],
         update: 0,
     }, zpinpads: {
-        uid_pinpad_current: null, pinpad_list: null, columns: [{field: 'id', headerName: 'ID', width: 10}, {
+        uid_pinpad_current: '', pinpad_list: [], columns: [{field: 'id', headerName: 'ID', width: 10}, {
             field: 'name_organization', headerName: 'Организация', width: 100
         }, {field: 'inn', headerName: 'ИНН', width: 100}, {
             field: 'number_pinpad', headerName: 'ID', width: 130
@@ -43,22 +43,15 @@ const initialState = {
         }, {field: 'slip_67', headerName: '67', type: 'number', width: 100}, {
             field: 'slip_90', headerName: '90', width: 100
         }, {field: 'type', headerName: 'Т', type: 'number', width: 100},], rows: [], update: 0,
-    }, operations: {
-        wallets: [],
-        columns: [],
-        rows: [],
-        pages: 0,
-        page: 1,
-        date_shift_beginning: undefined,
-        date_shift_ending: undefined,
-        update: 0,
+    }, operations_pages: 0, operations_page: 1, operations_update: 0, operations: {
+        wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined
     }
 }
 
 export const dataSlice = createSlice({
     name: "documents", initialState, reducers: {
         cleanZBooks(state) {
-            state.zbooks = {...state.zbooks, rows: [], uid_kkt: null, kkt_list: null}
+            state.zbooks = {...state.zbooks, rows: []}
         }, setZBooks: (state, {payload}) => {
             const rows = []
             payload.z_books.forEach(zbook => {
@@ -85,34 +78,28 @@ export const dataSlice = createSlice({
                     hide: true
                 })
             })
-            state.zbooks.rows = rows
+            state.zbooks = {...state.zbooks, rows: rows}
         }, setCurrentKKT: (state, {payload}) => {
-            state.zbooks.uid_kkt_current = payload
+            state.zbooks = {...state.zbooks, uid_kkt_current: payload}
         }, setKKTList: (state, {payload}) => {
-            state.zbooks.kkt_list = payload
+            state.zbooks = {...state.zbooks, kkt_list: payload || []}
         }, setZBooksUpdate(state) {
-            state.zbooks.update += 1
+            state.zbooks = {...state.zbooks, update: state.update += 1}
         }, setCurrentPinpad: (state, {payload}) => {
-            state.zpinpads.uid_pinpad_current = payload
+            state.zpinpads = {...state.zpinpads, uid_pinpad_current: payload}
         }, setPinpadList: (state, {payload}) => {
-            state.zpinpads.pinpad_list = payload
+            state.zpinpads = {...state.zpinpads, pinpad_list: payload || []}
         }, setZPinpadsUpdate(state) {
-            state.zpinpads.update += 1
+            state.zpinpads = {...state.zpinpads, update: state.update += 1}
         }, cleanOperations(state) {
             state.operations = {
-                wallets: [],
-                columns: [],
-                rows: [],
-                pages: 0,
-                page: 1,
-                date_shift_beginning: undefined,
-                date_shift_ending: undefined,
-                update: 0,
+                wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined,
             }
         }, setOperations: (state, {payload}) => {
             state.operations = {...state.operations, ...payload}
+            state.operations_pages = payload.pages
         }, setOperationsPage: (state, {payload}) => {
-            state.operations.page = payload
+            state.operations_page = payload
         }, setZPinpads(state, {payload}) {
             const rows = []
             payload.z_pinpads.forEach(zpinpad => {
@@ -133,9 +120,9 @@ export const dataSlice = createSlice({
                     hide: true
                 })
             })
-            state.zpinpads.rows = rows
+            state.zpinpads = {...state.zpinpads, rows: rows}
         }, cleanZPinpads(state) {
-            state.zpinpads.rows = []
+            state.zpinpads = {...state.zpinpads, rows: []}
         }
     },
 })

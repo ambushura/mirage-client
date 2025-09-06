@@ -108,7 +108,7 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
             Authorization: token,
             uid_filial: filial?.uid !== undefined ? filial.uid : null,
             wp,
-            kiosk,
+            kiosk: String(kiosk),
             version
         }
 
@@ -601,7 +601,7 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
     })
 }
 
-export const equipment_action = (filial, wp, kiosk, route, params) => async (dispatch, getState) => {
+export const equipment_action = (filial, route, params) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',

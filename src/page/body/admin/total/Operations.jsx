@@ -11,12 +11,13 @@ const Operations = () => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const {wallets, columns, rows, pages, page} = useSelector(state => state.documents.operations)
+    const {wallets, columns, rows} = useSelector(state => state.documents.operations)
+    const {operations_pages, operations_page} = useSelector(state => state.documents)
     const {update} = useSelector(state => state.documents.operations)
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_documents_operations_get(filial, page, update))
+            const fetching_result = await dispatch(common_documents_operations_get(filial, operations_page, update))
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.data !== null) {
@@ -27,8 +28,8 @@ const Operations = () => {
         if (filial !== undefined) {
             fetch()
         }
-        return () => dispatch(cleanOperations)
-    }, [dispatch, filial, page, update])
+        return () => dispatch(cleanOperations())
+    }, [dispatch, filial, operations_page, update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
@@ -80,10 +81,10 @@ const Operations = () => {
             <Pagination sx={{
                 height: '60px', backgroundColor: 'var(--bgr-color)', padding: '10px 0', width: '100%', zIndex: 1,
             }}
-                        page={page}
+                        page={operations_page}
                         onChange={(event, value) => dispatch(setOperationsPage(value))}
                         size={'large'}
-                        count={pages}
+                        count={operations_pages}
                         showFirstButton showLastButton/>
 
         </>
