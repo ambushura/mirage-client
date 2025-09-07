@@ -50,7 +50,7 @@ const Printing = (props) => {
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             maxHeight: props.type === 'cinema' ? '130px' : null,
             overflowY: 'scroll'
         }}>

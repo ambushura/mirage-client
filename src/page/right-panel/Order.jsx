@@ -235,10 +235,12 @@ const Order = () => {
 
     useEffect(() => {
         set_uid_horeca_selected([])
+        set_printing_horeca(false)
     }, [horder.ver])
 
     useEffect(() => {
         set_uid_cinema_selected([])
+        set_printing_cinema(false)
     }, [pre_order.ver])
 
     return (<Box id='order'>
