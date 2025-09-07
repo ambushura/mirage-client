@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {
     setCash, setHorderPaying, setHorderPreparing, setPreOrderPaying, setPreOrderPreparing, setTotal
-} from "../../../redux/ordersReducer.js"
+} from "../../redux/ordersReducer.js"
 import {
     ITEMS_TYPE_ITEMS,
     ITEMS_TYPE_MARK_EGAIS,
@@ -14,18 +14,18 @@ import {
     RETURNING_STATE_SLIP_WITHOUT_RECEIPT,
     RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING
-} from "../../../redux/interfaceReducer.js"
+} from "../../redux/interfaceReducer.js"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import DotsAnimation from "../../../ui/DotsAnimation.jsx"
-import Loader from "../../../ui/Loader.jsx"
+import DotsAnimation from "../../ui/DotsAnimation.jsx"
+import Loader from "../../ui/Loader.jsx"
 import {
     common_order_pay, common_payment_methods_get
-} from "../../../service/fetch_service.js"
+} from "../../service/fetch_service.js"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
-import {useSetPaymentGroups} from "../../../hooks/common/useSetPaymentGroups.js"
+import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
 
 const Payment = (props) => {
 
@@ -127,7 +127,7 @@ const Payment = (props) => {
         }, [group])
 
         if (grouped_items.length > 0) {
-            return (<Box>
+            return <Box>
                 <Box className='payment-items-group-title-name'>
                     {chapter1 !== 'success' ? <Checkbox checked={payment_group[chapter0][chapter1][chapter2].selected}
                                                         onChange={() => {
@@ -177,13 +177,13 @@ const Payment = (props) => {
                         </motion.div>))}
                     </motion.div>)}
                 </AnimatePresence>
-            </Box>)
+            </Box>
         } else {
             return null
         }
     }
-    return (<Box style={{backgroundColor: '#f8f8f8'}}
-                 className={(props.type === 'cinema' && pre_order_paying) || (props.type === 'horeca' && horder_paying) ? 'payment-paying' : null}>
+    return <Box style={{backgroundColor: '#f8f8f8'}}
+                className={(props.type === 'cinema' && pre_order_paying) || (props.type === 'horeca' && horder_paying) ? 'payment-paying' : null}>
         <Box className='payment-total'>
             <Box className='payment-total-div'>
                 <Box sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}} onClick={() => {
@@ -367,7 +367,7 @@ const Payment = (props) => {
                 </Box>
             </Fade>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default Payment

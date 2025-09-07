@@ -5,13 +5,13 @@ import LooksOneIcon from '@mui/icons-material/LooksOne'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
-import {openModal} from "../../../redux/interfaceReducer.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {
     common_position_delete_comment,
     horeca_position_change_state,
     horeca_position_delete
-} from "../../../service/fetch_service.js"
+} from "../../service/fetch_service.js"
 import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
