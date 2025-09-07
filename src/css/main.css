@@ -1390,17 +1390,7 @@ body {
     vertical-align: center;
     margin: 0 4px 4px 0;
     cursor: pointer;
-    width: 180px;
-}
-
-.order-booking-item-button {
-    transition: background-color 0.3s;
-    background-color: #1C1F23;
-    border-radius: 12px;
-    color: white;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
+    width: 220px;
 }
 
 .order-booking-item-description {
@@ -1495,7 +1485,7 @@ body {
 }
 
 .order-box-panel-1-sum-number {
-    width: calc(460px - 360px);
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
