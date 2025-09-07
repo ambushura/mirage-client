@@ -9,7 +9,7 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
 
     return <FormControl variant="filled" sx={{minWidth: width}}>
         <InputLabel
-            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff' ? 'Сотрудник' : null}</InputLabel>
+            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff-list' ? 'Сотрудник' : null}</InputLabel>
         <Select
             value={current_value || ''}
             onChange={(e) => {
