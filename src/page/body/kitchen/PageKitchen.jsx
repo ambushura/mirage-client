@@ -87,7 +87,7 @@ const PageKitchen = () => {
         return <Loader/>
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
         return <Box className='empty-box'>{fetching.error}</Box>
-    } else if (!fetching.loading && fetching.error !== null && fetching.data !== null) {
+    } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         return <>
             <AdminMenu/>
             <Box id='content-box'>

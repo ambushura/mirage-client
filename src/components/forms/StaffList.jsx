@@ -16,10 +16,7 @@ const StaffList = ({props}) => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result_staff_list = await dispatch(common_list_get(filial, 'staff'))
-            if (fetching_result_staff_list.loading) {
-                // TODO Крутилка
-            }
+            await dispatch(common_list_get(filial, 'staff'))
         }
         dispatch(setStaffList([]))
         fetch()
