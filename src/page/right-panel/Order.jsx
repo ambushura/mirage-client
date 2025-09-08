@@ -24,6 +24,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import Printing from "./Printing.jsx"
+import {setHorderPreparing, setPreOrderPreparing} from "../../redux/ordersReducer.js";
 
 const OrderBody = ({
                        type,
@@ -42,12 +43,12 @@ const OrderBody = ({
                        set_uid_selected,
                        filial,
                    }) => {
-    if (preparing && !printing && order.for_payment !== null && order.for_returning !== null) {
+    if (preparing && order.for_payment !== null && order.for_returning !== null) {
         return <Payment
             type={type}
             order={order}
         />
-    } else if (!preparing && printing) {
+    } else if (printing) {
         return <Printing
             type={type}
             printing={printing}
@@ -55,7 +56,7 @@ const OrderBody = ({
             order={order}
             uid_selected={uid_selected}
             set_uid_selected={set_uid_selected}/>
-    } else if (!preparing && !printing) {
+    } else {
         return <>
             <Box className="order-box-panel-1">
                 <ButtonGroup size='large'>
@@ -236,12 +237,14 @@ const Order = () => {
     useEffect(() => {
         set_uid_horeca_selected([])
         set_printing_horeca(false)
-    }, [horder.ver])
+        dispatch(setPreOrderPreparing(false))
+    }, [dispatch, horder.uid, horder.ver])
 
     useEffect(() => {
         set_uid_cinema_selected([])
         set_printing_cinema(false)
-    }, [pre_order.ver])
+        dispatch(setHorderPreparing(false))
+    }, [dispatch, pre_order.uid, pre_order.ver])
 
     return (<Box id='order'>
         {pre_order.in_base ? <motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
