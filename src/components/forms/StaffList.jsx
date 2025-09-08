@@ -4,9 +4,8 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {common_list_get, horeca_order_change_creator} from "../../service/fetch_service.js"
 import {setStaffList} from "../../redux/ordersReducer.js"
-import {closeModal} from "../../redux/interfaceReducer.js";
-import {addMessage} from "../../redux/wsReducer.js";
-import {addNotification} from "../../redux/notifierReducer.js";
+import {closeModal} from "../../redux/interfaceReducer.js"
+import {addNotification} from "../../redux/notifierReducer.js"
 
 const StaffList = ({props}) => {
 
