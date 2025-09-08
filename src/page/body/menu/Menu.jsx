@@ -55,7 +55,7 @@ export default function Menu() {
         return <Loader/>
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
         return <Box className='empty-box'>{fetching.error}</Box>
-    } else if (!fetching.loading && fetching.error !== null && fetching.data !== null) {
+    } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         return <Box id="horeca-menu">
             {menu !== null ? <>
                 <AnimatePresence>
