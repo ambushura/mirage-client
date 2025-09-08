@@ -52,6 +52,7 @@ const Payment = (props) => {
     const return_reasons = useSelector(state => state.orders.return_reasons)
     const uid_current_return_reasons = useSelector(state => state.orders.uid_current_return_reasons)
     const comment_return_reasons = useSelector(state => state.orders.comment_return_reasons)
+    const [return_kind, set_return_kind] = useState('0')
 
     useEffect(() => {
         const fetch = async () => {
@@ -114,12 +115,22 @@ const Payment = (props) => {
     }, [dispatch, filial])
 
     const return_reasons_list = () => {
-        return <><SelectMenu
-            type={'return-reasons'}
-            list={return_reasons}
-            current_value={uid_current_return_reasons}
-            width={'100%'}
-        />
+        return <>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <SelectMenu
+                    type={'return-reasons'}
+                    list={return_reasons}
+                    current_value={uid_current_return_reasons}
+                    width='60%'
+                />
+                <SelectMenu
+                    type={'return-kind'}
+                    list={[{uid: '0', title: 'Сразу'}, {uid: '1', title: 'По заявлению'}]}
+                    current_value={return_kind}
+                    width='40%'
+                    action={set_return_kind}
+                />
+            </Box>
             <TextField sx={{width: '100%'}} variant='filled' label='Комментарий к возврату'
                        value={comment_return_reasons}
                        onChange={(event) => {

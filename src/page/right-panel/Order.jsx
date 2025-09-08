@@ -24,7 +24,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import Printing from "./Printing.jsx"
-import {setHorderPreparing, setPreOrderPreparing} from "../../redux/ordersReducer.js";
+import {setHorderPreparing, setPreOrderPreparing} from "../../redux/ordersReducer.js"
 
 const OrderBody = ({
                        type,

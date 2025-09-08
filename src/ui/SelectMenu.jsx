@@ -10,7 +10,7 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
 
     return <FormControl variant="filled" sx={{minWidth: width}}>
         <InputLabel
-            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff-list' ? 'Сотрудник' : type === 'return-reasons' ? 'Причина возврата' : null}</InputLabel>
+            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff-list' ? 'Сотрудник' : type === 'return-reasons' ? 'Причина возврата' : type === 'return-kind' ? 'Способ возврата' : null}</InputLabel>
         <Select
             value={current_value || ''}
             onChange={(e) => {
@@ -26,6 +26,10 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
                         break
                     case 'return-reasons':
                         dispatch(setCurrentUidReturnReasons(e.target.value))
+                        break
+                    case 'return-kind':
+                        action(e.target.value)
+                        break
                 }
             }}
             sx={{'& .MuiSelect-icon': {right: 32}}}
@@ -45,6 +49,9 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
                             break
                         case 'return-reasons':
                             dispatch(setCurrentUidReturnReasons(''))
+                            break
+                        case 'return-kind':
+                            action('0')
                             break
                     }
                 }}
