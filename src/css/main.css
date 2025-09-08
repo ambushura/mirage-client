@@ -1581,13 +1581,16 @@ body {
     display: flex;
     flex-direction: column;
     border-radius: 12px;
-    padding: 5px;
     margin-bottom: 5px;
     background-color: #EEEEEE;
 }
 
 .order-box-horeca-item > div {
     margin-bottom: 2px;
+}
+
+.order-box-horeca-item-1 {
+    justify-content: space-between;
 }
 
 .order-box-horeca-item-1-calc,
@@ -1597,7 +1600,7 @@ body {
 .order-box-horeca-item-4,
 .order-box-horeca-item-5 {
     width: 100%;
-    height: 50px;
+    height: calc(48px + 6px + 6px);
     display: flex;
     flex-direction: row;
 }
@@ -1713,6 +1716,11 @@ body {
 .order-box-horeca-item-3-3 {
     min-width: 50px;
     background-color: #1C1F23;
+}
+
+.order-box-horeca-item-4 {
+    display: flex;
+    justify-content: space-between;
 }
 
 .order-box-horeca-item-4-1,
