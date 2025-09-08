@@ -5,6 +5,7 @@ import Item from "./Item.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
 import {useDispatch, useSelector} from "react-redux"
 import {horeca_menu_get} from "../../../service/fetch_service.js"
+import Loader from "../../../ui/Loader.jsx";
 
 export default function Menu() {
 
@@ -15,10 +16,12 @@ export default function Menu() {
     const [uid_folder, set_uid_folder] = useState('Меню')
     const [menu, set_menu] = useState(null)
     const [breadcrumbs, set_breadcrumbs] = useState([])
+    const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(horeca_menu_get(filial, uid_folder))
+            set_fetching(fetching_result)
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.error === null && fetching_result.data !== null) {
@@ -34,23 +37,25 @@ export default function Menu() {
         if (!menu?.breadcrumbs) return
         const breadcrumbs_new = []
         for (let item = menu.breadcrumbs; item; item = item.folder) {
-            breadcrumbs_new.unshift(
-                <motion.div
-                    key={item.uid}
-                    variants={itemVariants}>
-                    <Folder
-                        type="menu-breadcrumb"
-                        set_uid_folder={set_uid_folder}
-                        item={item}/>
-                </motion.div>
-            )
+            breadcrumbs_new.unshift(<motion.div
+                key={item.uid}
+                variants={itemVariants}>
+                <Folder
+                    type="menu-breadcrumb"
+                    set_uid_folder={set_uid_folder}
+                    item={item}/>
+            </motion.div>)
         }
         set_breadcrumbs(breadcrumbs_new)
     }, [menu])
 
     if (filial === undefined) {
-        return <Box className='empty-box' sx={{height: '100%'}}>Выберите филиал...</Box>
-    } else {
+        return <Box className='empty-box'>Выберите филиал...</Box>
+    } else if (fetching.loading && fetching.error === null && fetching.data === null) {
+        return <Loader/>
+    } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
+        return <Box className='empty-box'>{fetching.error}</Box>
+    } else if (!fetching.loading && fetching.error !== null && fetching.data !== null) {
         return <Box id="horeca-menu">
             {menu !== null ? <>
                 <AnimatePresence>
@@ -91,13 +96,11 @@ export default function Menu() {
                         variants={containerVariants}>
                         {menu.items.map(item => {
                             if (!item.its_folder) {
-                                return (
-                                    <motion.div
-                                        key={item.uid}
-                                        variants={itemVariants}>
-                                        <Item item={item}/>
-                                    </motion.div>
-                                )
+                                return (<motion.div
+                                    key={item.uid}
+                                    variants={itemVariants}>
+                                    <Item item={item}/>
+                                </motion.div>)
                             }
                         })}
                     </motion.div>}

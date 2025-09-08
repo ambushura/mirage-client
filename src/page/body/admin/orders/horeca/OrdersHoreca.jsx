@@ -22,7 +22,7 @@ const OrdersHoreca = () => {
     const kitchen_state_selected = useSelector(state => state.orders.orders_horeca_filters_kitchen_state_selected)
     const order_search_value = useSelector(state => state.orders.order_search_value)
     const update = useSelector(state => state.orders.orders_horeca_update)
-    const data = useSelector(state => state.orders.orders_horeca || [])
+    const data = useSelector(state => state.orders.orders_horeca || {orders: [], total_count: 0})
 
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
@@ -51,11 +51,11 @@ const OrdersHoreca = () => {
     } else if (fetching.loading) {
         return <Loader/>
     } else if (fetching.error !== null) {
-        return <Box>Ошибка {fetching.error}</Box>
+        return <Box className='empty-box'>{fetching.error}</Box>
     } else if (fetching.data !== null && fetching.data.total_count === 0) {
         return <Box className='empty-box'
                     sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
-    } else {
+    } else if (data !== null) {
         const pages = Math.ceil(data.total_count / 20)
         return <Box className='admin-orders-horeca'>
             <Box className='admin-orders-horeca-orders'>

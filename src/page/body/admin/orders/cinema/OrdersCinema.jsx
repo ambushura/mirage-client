@@ -55,11 +55,11 @@ const OrdersCinema = () => {
     } else if (fetching.loading) {
         return <Loader/>
     } else if (fetching.error !== null) {
-        return <Box>Ошибка {fetching.error}</Box>
+        return <Box className='empty-box'>{fetching.error}</Box>
     } else if (fetching.data !== null && fetching.data.total_count === 0) {
         return <Box className='empty-box'
                     sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
-    } else {
+    } else if (data !== null) {
         const pages = Math.ceil(data.total_count / 20)
         return <Box className='admin-orders-cinema'>
             <Box className='admin-orders-cinema-orders'>

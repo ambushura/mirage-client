@@ -4,10 +4,11 @@ import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
 import {horeca_kitchen_get, horeca_kitchen_push} from "../../../service/fetch_service.js"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {motion, AnimatePresence} from "framer-motion"
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite'
 import {setKitchenOrders} from "../../../redux/ordersReducer.js"
+import Loader from "../../../ui/Loader.jsx";
 
 const KitchenOrderList = ({orders, showButtons, dispatch}) => {
     const filial = useSelector(state => state.data.filial)
@@ -63,10 +64,12 @@ const PageKitchen = () => {
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const kitchen_orders = useSelector(state => state.orders.kitchen_orders)
+    const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(horeca_kitchen_get(filial, param_date_admin))
+            set_fetching(fetching_result)
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.data !== null) {
@@ -78,35 +81,43 @@ const PageKitchen = () => {
         }
     }, [dispatch, filial, param_date_admin])
 
-    return (<>
-        <AdminMenu/>
-        <Box id='content-box'>
-            <Box id='content-wrap'>
-                <Box id='content'>
-                    {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
-                        <Box className='kitchen-orders'>
-                            <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header'>Ожидайте</Box>
-                                <KitchenSection orders={kitchen_orders.waiting}
-                                                dispatch={dispatch}/>
+    if (filial === undefined) {
+        return <Box className='empty-box'>Выберите филиал...</Box>
+    } else if (fetching.loading && fetching.error === null && fetching.data === null) {
+        return <Loader/>
+    } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
+        return <Box className='empty-box'>{fetching.error}</Box>
+    } else if (!fetching.loading && fetching.error !== null && fetching.data !== null) {
+        return <>
+            <AdminMenu/>
+            <Box id='content-box'>
+                <Box id='content-wrap'>
+                    <Box id='content'>
+                        {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
+                            <Box className='kitchen-orders'>
+                                <Box sx={{flex: 1}}>
+                                    <Box className='kitchen-section-header'>Ожидайте</Box>
+                                    <KitchenSection orders={kitchen_orders.waiting}
+                                                    dispatch={dispatch}/>
+                                </Box>
+                                <Box sx={{flex: 1}}>
+                                    <Box className='kitchen-section-header'>Начните готовить</Box>
+                                    <KitchenSection orders={kitchen_orders.cooking}
+                                                    dispatch={dispatch}/>
+                                </Box>
+                                <Box sx={{flex: 1}}>
+                                    <Box className='kitchen-section-header'>Отдайте официанту</Box>
+                                    <KitchenSection orders={kitchen_orders.completed}
+                                                    dispatch={dispatch}
+                                                    showButtons={false}/>
+                                </Box>
                             </Box>
-                            <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header'>Начните готовить</Box>
-                                <KitchenSection orders={kitchen_orders.cooking}
-                                                dispatch={dispatch}/>
-                            </Box>
-                            <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header'>Отдайте официанту</Box>
-                                <KitchenSection orders={kitchen_orders.completed}
-                                                dispatch={dispatch}
-                                                showButtons={false}/>
-                            </Box>
-                        </Box>
-                    </> : null}
+                        </> : null}
+                    </Box>
                 </Box>
             </Box>
-        </Box>
-    </>)
+        </>
+    }
 }
 
 export default PageKitchen
