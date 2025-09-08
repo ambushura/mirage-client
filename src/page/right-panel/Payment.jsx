@@ -1,8 +1,15 @@
-import {Box, Button, Fade} from "@mui/material"
+import {Box, Button, Fade, TextField} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {
-    setCash, setHorderPaying, setHorderPreparing, setPreOrderPaying, setPreOrderPreparing, setTotal
+    setCash,
+    setCommentReturnReasons,
+    setHorderPaying,
+    setHorderPreparing,
+    setPreOrderPaying,
+    setPreOrderPreparing,
+    setReturnReasonsList,
+    setTotal
 } from "../../redux/ordersReducer.js"
 import {
     ITEMS_TYPE_ITEMS,
@@ -19,13 +26,14 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import DotsAnimation from "../../ui/DotsAnimation.jsx"
 import Loader from "../../ui/Loader.jsx"
 import {
-    common_order_pay, common_payment_methods_get
+    common_list_get, common_order_pay, common_payment_methods_get
 } from "../../service/fetch_service.js"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
 import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
+import {SelectMenu} from "../../ui/SelectMenu.jsx"
 
 const Payment = (props) => {
 
@@ -41,6 +49,9 @@ const Payment = (props) => {
     const [show_payment_types, set_show_payment_types] = useState(false)
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
+    const return_reasons = useSelector(state => state.orders.return_reasons)
+    const uid_current_return_reasons = useSelector(state => state.orders.uid_current_return_reasons)
+    const comment_return_reasons = useSelector(state => state.orders.comment_return_reasons)
 
     useEffect(() => {
         const fetch = async () => {
@@ -66,7 +77,7 @@ const Payment = (props) => {
 
     const pay = async (pm) => {
         await dispatch(props.type === 'cinema' ? setPreOrderPaying(true) : setHorderPaying(true))
-        await dispatch(common_order_pay(filial, pm, props.type === 'cinema' ? props.order.uid : props.order.uid, props.type === 'cinema' ? props.order.ver : props.order.ver, props.type, payment_group))
+        await dispatch(common_order_pay(filial, pm, props.type === 'cinema' ? props.order.uid : props.order.uid, props.type === 'cinema' ? props.order.ver : props.order.ver, props.type, payment_group, uid_current_return_reasons, comment_return_reasons))
         await dispatch(props.type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     }
 
@@ -93,6 +104,29 @@ const Payment = (props) => {
         })
         set_show_payment_types(show)
     }, [payment_group])
+
+    useEffect(() => {
+        dispatch(common_list_get(filial, 'return_reasons'))
+        return () => {
+            dispatch(setCommentReturnReasons(''))
+            dispatch(setReturnReasonsList([]))
+        }
+    }, [dispatch, filial])
+
+    const return_reasons_list = () => {
+        return <><SelectMenu
+            type={'return-reasons'}
+            list={return_reasons}
+            current_value={uid_current_return_reasons}
+            width={'100%'}
+        />
+            <TextField sx={{width: '100%'}} variant='filled' label='Комментарий к возврату'
+                       value={comment_return_reasons}
+                       onChange={(event) => {
+                           dispatch(setCommentReturnReasons(event.target.value))
+                       }}/>
+        </>
+    }
 
     const GroupedTable = ({group, title, chapter}) => {
 
@@ -122,7 +156,7 @@ const Payment = (props) => {
                 case 'for_payment':
                     return groupAndSum(group, ["name", "unit_name", "price", "sum_discount", "uid_discount"], ["quantity", "sum"])
                 case 'for_returning':
-                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "sum_discount", "uid_discount"], ["quantity", "sum"])
+                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "sum_discount", "uid_discount", "uid_return_reason", "name_return_reason", "comment_return_reason"], ["quantity", "sum"])
             }
         }, [group])
 
@@ -148,32 +182,43 @@ const Payment = (props) => {
                                                               exit="hidden"
                                                               variants={containerVariants}>
                         {grouped_items.map((item, i) => (<motion.div
-                            className='payment-items-group-item-row'
                             key={item.uid}
-                            variants={itemVariants}
-                            style={{borderBottom: i !== grouped_items.length - 1 ? '1px dashed #b6b5b5' : null}}>
-                            {chapter1 !== 'success' ? <Checkbox
-                                checked={payment_group[chapter0][chapter1][chapter2].items.find(el => el === item.uid) !== undefined}
-                                onChange={() => {
-                                    let payment_group_new = structuredClone(payment_group)
-                                    if (payment_group_new[chapter0][chapter1][chapter2].items.find(el => el === item.uid) === undefined) {
-                                        payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)
-                                    } else {
-                                        payment_group_new[chapter0][chapter1][chapter2].items = payment_group_new[chapter0][chapter1][chapter2].items.filter(el => el !== item.uid)
-                                    }
-                                    if (payment_group_new[chapter0][chapter1][chapter2].items.length === 0) {
-                                        payment_group_new[chapter0][chapter1][chapter2].selected = false
-                                    } else if (payment_group_new[chapter0][chapter1][chapter2].items.length !== grouped_items.length) {
-                                        payment_group_new[chapter0][chapter1][chapter2].selected = false
-                                    } else {
-                                        payment_group_new[chapter0][chapter1][chapter2].selected = true
-                                    }
-                                    set_payment_group(payment_group_new)
-                                }}/> : null}
-                            <Box className='payment-items-group-item-0'>{item.name}</Box>
-                            <Box className='payment-items-group-item-1'>{item.quantity}</Box>
-                            <Box className='payment-items-group-item-2'>{item.price} р</Box>
-                            <Box className='payment-items-group-item-3'><FunctionsIcon/>{item.sum} р</Box>
+                            variants={itemVariants}>
+                            <Box style={{borderBottom: i !== grouped_items.length - 1 ? '1px dashed #b6b5b5' : null}}>
+                                <Box className='payment-items-group-item-row'>
+                                    {chapter1 !== 'success' ? <Checkbox
+                                        checked={payment_group[chapter0][chapter1][chapter2].items.find(el => el === item.uid) !== undefined}
+                                        onChange={() => {
+                                            let payment_group_new = structuredClone(payment_group)
+                                            if (payment_group_new[chapter0][chapter1][chapter2].items.find(el => el === item.uid) === undefined) {
+                                                payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)
+                                            } else {
+                                                payment_group_new[chapter0][chapter1][chapter2].items = payment_group_new[chapter0][chapter1][chapter2].items.filter(el => el !== item.uid)
+                                            }
+                                            if (payment_group_new[chapter0][chapter1][chapter2].items.length === 0) {
+                                                payment_group_new[chapter0][chapter1][chapter2].selected = false
+                                            } else if (payment_group_new[chapter0][chapter1][chapter2].items.length !== grouped_items.length) {
+                                                payment_group_new[chapter0][chapter1][chapter2].selected = false
+                                            } else {
+                                                payment_group_new[chapter0][chapter1][chapter2].selected = true
+                                            }
+                                            set_payment_group(payment_group_new)
+                                        }}/> : null}
+                                    <Box className='payment-items-group-item-0'>{item.name}</Box>
+                                    <Box className='payment-items-group-item-1'>{item.quantity}</Box>
+                                    <Box className='payment-items-group-item-2'>{item.price} р</Box>
+                                    <Box className='payment-items-group-item-3'><FunctionsIcon/>{item.sum} р</Box>
+                                </Box>
+                                {item.uid_return_reason !== null ? <Box
+                                    sx={{fontSize: '80%', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                    <span style={{fontWeight: 'bold'}}>Причина возврата: </span>
+                                    <span style={{
+                                        marginLeft: '5px', fontWeight: 'bold'
+                                    }}>{item.name_return_reason.toLowerCase()} </span>
+                                    {item.comment_return_reason !== null ?
+                                        <span>, {item.comment_return_reason}</span> : null}
+                                </Box> : null}
+                            </Box>
                         </motion.div>))}
                     </motion.div>)}
                 </AnimatePresence>
@@ -337,6 +382,7 @@ const Payment = (props) => {
                     <Box className='payment-items-group-title' sx={{backgroundColor: '#50DB92'}}>
                         {RETURNING_STATE_WAITING}
                     </Box>
+                    {return_reasons_list()}
                     <GroupedTable group={props.order.for_returning.waiting.mark_egais_items}
                                   title={ITEMS_TYPE_MARK_EGAIS}
                                   chapter={'for_returning.waiting.mark_egais_items'}/>

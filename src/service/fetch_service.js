@@ -12,6 +12,7 @@ import {
     setOrdersHorecaUpdate,
     setPreOrderPaying,
     setPreOrderPreparing,
+    setReturnReasonsList,
     setStaffList
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
@@ -556,16 +557,28 @@ export const common_list_get = (filial, type) => async (dispatch, getState) => {
                 break
             case 'staff':
                 dispatch(setStaffList(data))
+                break
+            case 'return_reasons':
+                dispatch(setReturnReasonsList(data))
+                break
         }
     })
 }
 
-export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group) => async (dispatch, getState) => {
+export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group, uid_return_reason, comment_return_reason) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'post',
         url: kiosk ? `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}` : `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT}`,
-        data: kiosk ? {uid_filial: filial.uid, uid_order, type, ver, payment_group} : {
+        data: kiosk ? {
+            uid_filial: filial.uid,
+            uid_order,
+            type,
+            ver,
+            payment_group,
+            uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
+            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason
+        } : {
             uid_filial: filial.uid,
             uid_payment_type: pm.uid_payment_type,
             uid_kkt: pm.uid_kkt,
@@ -577,6 +590,8 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
             type,
             ver,
             payment_group,
+            uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
+            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
         },
         timeout: TIMEOUT * 6 * 3,
         wp,

@@ -55,6 +55,9 @@ const initialState = {
     orders_cinema_schedule: [],
     order_search_value: null,
     staff_list: [],
+    return_reasons: [],
+    uid_current_return_reasons: '',
+    comment_return_reason: '',
 
     // ЗАКАЗЫ КИНО
     orders_cinema_update: 0,
@@ -256,6 +259,13 @@ export const ordersSlice = createSlice({
             state.kiosk_payment_error = payload
         }, setStaffList(state, {payload}) {
             state.staff_list = payload
+        }, setReturnReasonsList(state, {payload}) {
+            state.return_reasons = payload
+            state.uid_current_return_reasons = ''
+        }, setCurrentUidReturnReasons(state, {payload}) {
+            state.uid_current_return_reasons = payload
+        }, setCommentReturnReasons(state, {payload}) {
+            state.comment_return_reasons = payload
         }
     },
 })
@@ -309,5 +319,8 @@ export const {
     setOrderSearchValue,
     setKioskPaymentError,
     setStaffList,
+    setReturnReasonsList,
+    setCurrentUidReturnReasons,
+    setCommentReturnReasons,
 } = ordersSlice.actions
 export default ordersSlice.reducer

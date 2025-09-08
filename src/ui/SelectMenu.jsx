@@ -2,6 +2,7 @@ import {FormControl, IconButton, InputLabel, MenuItem, Select} from "@mui/materi
 import {setCurrentKKT, setCurrentPinpad} from "../redux/documentsReducer.js"
 import ClearIcon from "@mui/icons-material/Clear"
 import {useDispatch} from "react-redux"
+import {setCurrentUidReturnReasons} from "../redux/ordersReducer.js"
 
 export const SelectMenu = ({type, list, current_value, width, action}) => {
 
@@ -9,7 +10,7 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
 
     return <FormControl variant="filled" sx={{minWidth: width}}>
         <InputLabel
-            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff-list' ? 'Сотрудник' : null}</InputLabel>
+            id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff-list' ? 'Сотрудник' : type === 'return-reasons' ? 'Причина возврата' : null}</InputLabel>
         <Select
             value={current_value || ''}
             onChange={(e) => {
@@ -23,6 +24,8 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
                     case 'staff-list':
                         action(e.target.value)
                         break
+                    case 'return-reasons':
+                        dispatch(setCurrentUidReturnReasons(e.target.value))
                 }
             }}
             sx={{'& .MuiSelect-icon': {right: 32}}}
@@ -39,6 +42,9 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
                             break
                         case 'staff-list':
                             action('')
+                            break
+                        case 'return-reasons':
+                            dispatch(setCurrentUidReturnReasons(''))
                             break
                     }
                 }}
