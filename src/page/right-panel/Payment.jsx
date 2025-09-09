@@ -140,7 +140,6 @@ const Payment = (props) => {
     }
 
     const GroupedTable = ({group, title, chapter}) => {
-
         const [chapter0, chapter1, chapter2] = chapter.split('.')
 
         const has_mounted = useRef(false)
@@ -153,11 +152,14 @@ const Payment = (props) => {
                 return Object.values(data.reduce((acc, item) => {
                     const key = groupByFields.map(field => item[field]).join('-')
                     if (!acc[key]) {
-                        acc[key] = {...item}
+                        acc[key] = {
+                            ...item, __uids: [item.uid] // сохраняем uid-ы
+                        }
                     } else {
                         sumFields.forEach(field => {
                             acc[key][field] += item[field]
                         })
+                        acc[key].__uids.push(item.uid)
                     }
                     return acc
                 }, {}))
@@ -168,76 +170,97 @@ const Payment = (props) => {
                     return groupAndSum(group, ["name", "unit_name", "price", "sum_discount", "uid_discount"], ["quantity", "sum"])
                 case 'for_returning':
                     return groupAndSum(group, ["uid", "name", "unit_name", "price", "sum_discount", "uid_discount", "uid_return_reason", "name_return_reason", "comment_return_reason"], ["quantity", "sum"])
+                default:
+                    return []
             }
-        }, [group])
+        }, [chapter0, group])
 
-        if (grouped_items.length > 0) {
-            return <Box>
-                <Box className='payment-items-group-title-name'>
-                    {chapter1 !== 'success' ? <Checkbox checked={payment_group[chapter0][chapter1][chapter2].selected}
-                                                        onChange={() => {
-                                                            const payment_group_new = structuredClone(payment_group)
-                                                            const action = !payment_group_new[chapter0][chapter1][chapter2].selected
-                                                            payment_group_new[chapter0][chapter1][chapter2].selected = action
-                                                            if (action) {
-                                                                grouped_items.map(item => (payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)))
-                                                            } else {
-                                                                payment_group_new[chapter0][chapter1][chapter2].items = []
-                                                            }
-                                                            set_payment_group(payment_group_new)
-                                                        }}/> : <Box sx={{width: '10px'}}></Box>}{title}</Box>
-                <AnimatePresence>,
-                    {grouped_items.length > 0 && (<motion.div className='payment-items-group-item'
-                                                              initial={!has_mounted.current}
-                                                              animate="visible"
-                                                              exit="hidden"
-                                                              variants={containerVariants}>
-                        {grouped_items.map((item, i) => (<motion.div
-                            key={item.uid}
-                            variants={itemVariants}>
-                            <Box style={{borderBottom: i !== grouped_items.length - 1 ? '1px dashed #b6b5b5' : null}}>
-                                <Box className='payment-items-group-item-row'>
-                                    {chapter1 !== 'success' ? <Checkbox
-                                        checked={payment_group[chapter0][chapter1][chapter2].items.find(el => el === item.uid) !== undefined}
-                                        onChange={() => {
-                                            let payment_group_new = structuredClone(payment_group)
-                                            if (payment_group_new[chapter0][chapter1][chapter2].items.find(el => el === item.uid) === undefined) {
-                                                payment_group_new[chapter0][chapter1][chapter2].items.push(item.uid)
-                                            } else {
-                                                payment_group_new[chapter0][chapter1][chapter2].items = payment_group_new[chapter0][chapter1][chapter2].items.filter(el => el !== item.uid)
-                                            }
-                                            if (payment_group_new[chapter0][chapter1][chapter2].items.length === 0) {
-                                                payment_group_new[chapter0][chapter1][chapter2].selected = false
-                                            } else if (payment_group_new[chapter0][chapter1][chapter2].items.length !== grouped_items.length) {
-                                                payment_group_new[chapter0][chapter1][chapter2].selected = false
-                                            } else {
-                                                payment_group_new[chapter0][chapter1][chapter2].selected = true
-                                            }
-                                            set_payment_group(payment_group_new)
-                                        }}/> : null}
-                                    <Box className='payment-items-group-item-0'>{item.name}</Box>
-                                    <Box className='payment-items-group-item-1'>{item.quantity}</Box>
-                                    <Box className='payment-items-group-item-2'>{item.price} р</Box>
-                                    <Box className='payment-items-group-item-3'><FunctionsIcon/>{item.sum} р</Box>
-                                </Box>
-                                {item.uid_return_reason !== null ? <Box
-                                    sx={{fontSize: '80%', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                    <span style={{fontWeight: 'bold'}}>Причина возврата: </span>
-                                    <span style={{
-                                        marginLeft: '5px', fontWeight: 'bold'
-                                    }}>{item.name_return_reason.toLowerCase()} </span>
-                                    {item.comment_return_reason !== null ?
-                                        <span>, {item.comment_return_reason}</span> : null}
-                                </Box> : null}
-                            </Box>
-                        </motion.div>))}
-                    </motion.div>)}
-                </AnimatePresence>
+        if (grouped_items.length === 0) return null
+
+        return (<Box>
+            <Box className='payment-items-group-title-name'>
+                {chapter1 !== 'success' ? (<Checkbox
+                    checked={payment_group[chapter0][chapter1][chapter2].selected}
+                    onChange={() => {
+                        const payment_group_new = structuredClone(payment_group)
+                        const action = !payment_group_new[chapter0][chapter1][chapter2].selected
+                        payment_group_new[chapter0][chapter1][chapter2].selected = action
+
+                        if (action) {
+                            payment_group_new[chapter0][chapter1][chapter2].items = grouped_items.flatMap(item => item.__uids)
+                        } else {
+                            payment_group_new[chapter0][chapter1][chapter2].items = []
+                        }
+                        set_payment_group(payment_group_new)
+                    }}
+                />) : <Box sx={{width: '10px'}}></Box>}
+                {title}
             </Box>
-        } else {
-            return null
-        }
+
+            <AnimatePresence>
+                {grouped_items.length > 0 && (<motion.div
+                    className='payment-items-group-item'
+                    initial={!has_mounted.current}
+                    animate="visible"
+                    exit="hidden"
+                    variants={containerVariants}
+                >
+                    {grouped_items.map((item, i) => (<motion.div key={item.__uids.join('-')} variants={itemVariants}>
+                        <Box
+                            style={{borderBottom: i !== grouped_items.length - 1 ? '1px dashed #b6b5b5' : null}}>
+                            <Box className='payment-items-group-item-row'>
+                                {chapter1 !== 'success' ? (<Checkbox
+                                    checked={item.__uids.every(uid => payment_group[chapter0][chapter1][chapter2].items.includes(uid))}
+                                    onChange={() => {
+                                        const payment_group_new = structuredClone(payment_group)
+                                        const selectedItems = payment_group_new[chapter0][chapter1][chapter2].items
+
+                                        const allSelected = item.__uids.every(uid => selectedItems.includes(uid))
+
+                                        if (allSelected) {
+                                            // снять выделение — убрать все uid этой группы
+                                            payment_group_new[chapter0][chapter1][chapter2].items = selectedItems.filter(uid => !item.__uids.includes(uid))
+                                        } else {
+                                            // добавить все uid этой группы
+                                            payment_group_new[chapter0][chapter1][chapter2].items = [...new Set([...selectedItems, ...item.__uids])]
+                                        }
+
+                                        // обновляем "выделена ли вся группа"
+                                        const totalUids = grouped_items.flatMap(g => g.__uids)
+                                        const selectedUids = payment_group_new[chapter0][chapter1][chapter2].items
+                                        payment_group_new[chapter0][chapter1][chapter2].selected = totalUids.every(uid => selectedUids.includes(uid))
+
+                                        set_payment_group(payment_group_new)
+                                    }}
+                                />) : null}
+
+                                <Box className='payment-items-group-item-0'>{item.name}</Box>
+                                <Box className='payment-items-group-item-1'>{item.quantity}</Box>
+                                <Box className='payment-items-group-item-2'>{item.price} р</Box>
+                                <Box className='payment-items-group-item-3'>
+                                    <FunctionsIcon/>{item.sum} р
+                                </Box>
+                            </Box>
+
+                            {item.uid_return_reason !== null && (<Box
+                                sx={{
+                                    fontSize: '80%', display: 'flex', flexDirection: 'row', alignItems: 'center'
+                                }}
+                            >
+                                <span style={{fontWeight: 'bold'}}>Причина возврата: </span>
+                                <span style={{marginLeft: '5px', fontWeight: 'bold'}}>
+                                                {item.name_return_reason.toLowerCase()}
+                                            </span>
+                                {item.comment_return_reason !== null && (<span>, {item.comment_return_reason}</span>)}
+                            </Box>)}
+                        </Box>
+                    </motion.div>))}
+                </motion.div>)}
+            </AnimatePresence>
+        </Box>)
     }
+
+
     return <Box style={{backgroundColor: '#f8f8f8'}}
                 className={(props.type === 'cinema' && pre_order_paying) || (props.type === 'horeca' && horder_paying) ? 'payment-paying' : null}>
         <Box className='payment-total'>
@@ -297,8 +320,9 @@ const Payment = (props) => {
             {!show_payment_types ? <Box sx={{fontWeight: 'bold'}}>Выберите позиции для платежной
                 операции</Box> : payment_methods.loading ? <Loader size={2}/> : payment_methods.error !== null ?
                 <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов
-                    оплаты</Box> : payment_methods.data === null ?
-                    <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Для этого рабочего места не найдено
+                    оплаты</Box> : payment_methods.data === null || payment_methods.data.list.length === 0 ?
+                    <Box sx={{color: '#ff1a25', fontWeight: 'bold', textAlign: 'center'}}>Для этого рабочего места не
+                        найдено
                         маршрутов оплаты, обратитесь в учетный отдел</Box> : payment_methods.data.list.map(pm => {
                         const chapter1_array = ['waiting', 'slip_without_receipt']
                         const chapter2_array = ['mark_egais_items', 'horeca_items', 'cinema_items']

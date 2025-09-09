@@ -1,14 +1,13 @@
-import {Box} from "@mui/material"
+import {Box, Button} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from "dayjs"
 import {horeca_kitchen_get, horeca_kitchen_push} from "../../../service/fetch_service.js"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
 import {useEffect, useState} from "react"
 import {motion, AnimatePresence} from "framer-motion"
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite'
 import {setKitchenOrders} from "../../../redux/ordersReducer.js"
-import Loader from "../../../ui/Loader.jsx";
+import Loader from "../../../ui/Loader.jsx"
+import SkipNextIcon from '@mui/icons-material/SkipNext'
 
 const KitchenOrderList = ({orders, showButtons, dispatch}) => {
     const filial = useSelector(state => state.data.filial)
@@ -18,22 +17,22 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
             key={`${order.uid}${order.ver}`}
             variants={itemVariants}>
             <Box className='kitchen-order-header'>
-                <CircleIcon sx={{color: '#d1d1d1'}}/>
                 <Box sx={{ml: '4px'}}>{order.number}</Box>
                 <Box>{dayjs.utc(order.date_create).format("HH:mm")}</Box>
                 <Box>{dayjs.utc(order.date_change).format("HH:mm")}</Box>
             </Box>
             <Box className='kitchen-order-body'>
                 {order.items.map(item => (<Box key={`${item.uid}${order.ver}`} className='kitchen-position'>
-                    {showButtons && <button className='kitchen-button'
-                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid))}>
-                        <PlayCircleFilledWhiteIcon sx={{color: 'white'}}/>
-                    </button>}
-                    <Box sx={{
-                        fontWeight: 'bold', maxWidth: '50px', minWidth: '50px', overflow: 'hidden'
-                    }}>{item.quantity} {item.unit_name}</Box>
-                    <Box sx={{ml: '4px', overflow: 'hidden'}}>{item.name}</Box>
-                    <Box>{item.comment}</Box>
+                    {showButtons && <Button variant='outlined' color='secondary'
+                                            className='kitchen-button'
+                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid))}><SkipNextIcon/></Button>}
+                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Box sx={{
+                            fontWeight: 'bold', overflow: 'hidden'
+                        }}>{item.quantity} {item.unit_name}</Box>
+                        <Box sx={{overflow: 'hidden', flex: 1}}>{item.name}</Box>
+                        <Box>{item.comment}</Box>
+                    </Box>
                 </Box>))}
             </Box>
         </motion.div>))}

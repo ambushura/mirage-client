@@ -2134,6 +2134,7 @@ body {
     top: 0;
     background-color: #f8f8f8;
     width: 100%;
+    z-index: 2;
 }
 
 .kitchen-section-orders {
@@ -2154,12 +2155,16 @@ body {
 }
 
 .kitchen-order-header {
-    padding: 8px 16px 4px 16px;
+    padding: 8px;
     font-size: 100%;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+    z-index: 1;
 }
 
 .kitchen-order-body {
