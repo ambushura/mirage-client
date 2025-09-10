@@ -314,7 +314,8 @@ body {
 .order-box::-webkit-scrollbar,
 .admin-orders-horeca-order-body::-webkit-scrollbar,
 .admin-orders-cinema-order-body::-webkit-scrollbar,
-.kitchen-order::-webkit-scrollbar {
+.kitchen-order::-webkit-scrollbar,
+.printing::-webkit-scrollbar {
     width: 50px;
     height: 50px;
     background-color: transparent;
@@ -331,7 +332,8 @@ body {
 .order-box::-webkit-scrollbar-thumb,
 .admin-orders-horeca-order-body::-webkit-scrollbar-thumb,
 .admin-orders-cinema-order-body::-webkit-scrollbar-thumb,
-.kitchen-order::-webkit-scrollbar-thumb {
+.kitchen-order::-webkit-scrollbar-thumb,
+.printing::-webkit-scrollbar-thumb {
     background-color: var(--bgr-scroll);
     border-radius: 12px;
 }
@@ -357,7 +359,8 @@ body {
 .admin-orders-cinema-filial-box::-webkit-scrollbar-corner,
 .admin-orders-horeca-order-body::-webkit-scrollbar-corner,
 .admin-orders-cinema-order-body::-webkit-scrollbar-corner,
-.kitchen-order::-webkit-scrollbar-corner {
+.kitchen-order::-webkit-scrollbar-corner,
+.printing::-webkit-scrollbar-corner {
     background: transparent;
 }
 
@@ -1553,7 +1556,7 @@ body {
 }
 
 .order-box-panel-3-title-others {
-
+    z-index: 2;
 }
 
 .order-box-panel-3-list-others {

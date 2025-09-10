@@ -3,7 +3,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import {useEffect, useState} from "react"
 import {common_printers_get} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
-import BookingItem from "./BookingItem.jsx";
+import BookingItem from "./BookingItem.jsx"
 
 const Printing = (props) => {
 
@@ -45,21 +45,29 @@ const Printing = (props) => {
                      onClick={() => props.set_printing(false)}><ArrowBackIosNewIcon/></Box>
             </Box>
         </Box>
-        <Box sx={{
-            padding: '4px 0 0 4px',
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'flex-start',
-            maxHeight: props.type === 'cinema' ? '130px' : null,
-            overflowY: 'scroll'
-        }}>
+        <Box
+            className='printing'
+            sx={{
+                padding: '4px 0 0 4px',
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'flex-start',
+                maxHeight: props.type === 'cinema' ? '130px' : null,
+                overflowY: 'scroll'
+            }}>
             {sortedKKT.map(printer => <Button
                 variant={printer.local ? 'contained' : 'outlined'}
                 color={printer.local ? 'info' : 'secondary'}
                 key={printer.kkt.uid}
                 className='payment-path'
-                sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 4px 4px 0'}}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    margin: '0 4px 4px 0',
+                    maxWidth: '130px'
+                }}
             >
                 <span>{printer.kkt.number}</span>
                 <span style={{fontSize: '70%'}}>
@@ -74,7 +82,7 @@ const Printing = (props) => {
                 sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 4px 4px 0'}}>
                 <span>{printer.kitchen_point.name}</span>
                 <span style={{fontSize: '70%'}}>
-            <div>Принтер {printer.kitchen_point.name}</div>
+            <Box sx={{overflow: 'hidden'}}>Принтер {printer.kitchen_point.name}</Box>
         </span>
             </Button>)}
         </Box>

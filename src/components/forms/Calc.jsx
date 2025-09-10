@@ -1,7 +1,7 @@
 import {Box, Button, Stack, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {setCash, setTotal} from "../../redux/ordersReducer.js"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {closeModal} from "../../redux/interfaceReducer.js"
 
 const Calc = () => {
@@ -11,11 +11,20 @@ const Calc = () => {
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const cash = useSelector(state => state.orders.cash)
+    const [total, set_total] = useState(0)
 
     useEffect(() => {
-        dispatch(setTotal(pre_order.sum + horder.sum))
-        dispatch(setCash(['clean', pre_order.sum + horder.sum]))
-    }, [dispatch, pre_order, horder])
+        let total_new = 0
+        pre_order.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
+            total_new += item.sum
+        })
+        horder.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
+            total_new += item.sum
+        })
+        set_total(total_new)
+        dispatch(setTotal(total_new))
+        dispatch(setCash(['clean', total_new]))
+    }, [dispatch, pre_order.ver, horder.ver])
 
     return (<Box sx={{width: 220, mx: "auto", textAlign: "center", color: 'white', overflow: 'hidden'}}>
         <Typography variant="h5"
@@ -30,7 +39,7 @@ const Calc = () => {
                                                      fontSize: value !== '000' && value !== '00' ? '150%' : '100%'
                                                  }}
                                                  onClick={() => {
-                                                     dispatch(setCash([value.toString(), pre_order.sum + horder.sum]))
+                                                     dispatch(setCash([value.toString(), total]))
                                                  }}>
                         {value}
                     </Button>))}
@@ -39,7 +48,7 @@ const Calc = () => {
                 <Button fullWidth sx={{flex: 1, marginRight: '8px'}} variant="contained" color="secondary"
                         onClick={() => dispatch(closeModal())}>Получил</Button>
                 <Button fullWidth sx={{flex: 1}} variant="contained" color="error"
-                        onClick={() => dispatch(setCash(['clean', pre_order.sum + horder.sum]))}>Очистить</Button>
+                        onClick={() => dispatch(setCash(['clean', total]))}>Очистить</Button>
             </Stack>
         </Stack>
     </Box>)

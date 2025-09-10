@@ -83,9 +83,16 @@ const Payment = (props) => {
     }
 
     useEffect(() => {
-        dispatch(setTotal(pre_order.sum + horder.sum))
-        dispatch(setCash(['clean', pre_order.sum + horder.sum]))
-    }, [dispatch, horder.sum, pre_order.sum])
+        let total_new = 0
+        pre_order.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
+            total_new += item.sum
+        })
+        horder.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
+            total_new += item.sum
+        })
+        dispatch(setTotal(total_new))
+        dispatch(setCash(['clean', total_new]))
+    }, [dispatch, horder.ver, pre_order.ver])
 
     useEffect(() => {
 
@@ -214,22 +221,15 @@ const Payment = (props) => {
                                     onChange={() => {
                                         const payment_group_new = structuredClone(payment_group)
                                         const selectedItems = payment_group_new[chapter0][chapter1][chapter2].items
-
                                         const allSelected = item.__uids.every(uid => selectedItems.includes(uid))
-
                                         if (allSelected) {
-                                            // снять выделение — убрать все uid этой группы
                                             payment_group_new[chapter0][chapter1][chapter2].items = selectedItems.filter(uid => !item.__uids.includes(uid))
                                         } else {
-                                            // добавить все uid этой группы
                                             payment_group_new[chapter0][chapter1][chapter2].items = [...new Set([...selectedItems, ...item.__uids])]
                                         }
-
-                                        // обновляем "выделена ли вся группа"
                                         const totalUids = grouped_items.flatMap(g => g.__uids)
                                         const selectedUids = payment_group_new[chapter0][chapter1][chapter2].items
                                         payment_group_new[chapter0][chapter1][chapter2].selected = totalUids.every(uid => selectedUids.includes(uid))
-
                                         set_payment_group(payment_group_new)
                                     }}
                                 />) : null}
