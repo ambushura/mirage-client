@@ -8,7 +8,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     return (
         <IMaskInput
             {...other}
-            mask="+7 (000) 000-00-00"
+            mask="70000000000"
             overwrite
             unmask={false}
             inputRef={ref}
