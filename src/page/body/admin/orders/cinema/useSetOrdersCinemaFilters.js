@@ -43,8 +43,8 @@ export function useSetOrdersCinemaFilters() {
                 // TODO Крутилка
             } else if (fetching_result.error === null && fetching_result.data !== null) {
                 const schedule = fetching_result.data.map(({seance}) => {
-                    const beginning = dayjs(seance.beginning)
-                    const ending = dayjs(seance.ending)
+                    const beginning = dayjs.utc(seance.beginning)
+                    const ending = dayjs.utc(seance.ending)
                     return {
                         uid: seance.uid,
                         title: `${beginning.format("HH:mm")} - ${ending.format("HH:mm")} • ${seance.copy_type} • ${seance.rate_age}+ • Зал ${seance.name_hall} • ${seance.name_film}${seance.content_type === "toKino!" ? " ТоКино!" : ""}`

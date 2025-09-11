@@ -41,78 +41,78 @@ const OrderCinema = ({order}) => {
 
     const RenderGroup = ({chapter1, label, group, ver}) => {
         if (!group.items.length) return null
-        const renderItems = (items, typeLabel) => items.length > 0 && (<>
-                <Box sx={{
-                    height: '25px',
-                    fontWeight: 'bold',
-                    backgroundColor: '#ececec',
-                    padding: '4px 4px 4px 8px',
-                    position: 'sticky',
-                    top: '25px',
-                    zIndex: 1,
-                }}>{typeLabel}</Box>
-                {items.map((item, i) => (<Box key={i + ver}
-                                              sx={{
-                                                  display: 'flex',
-                                                  flexDirection: 'column',
-                                                  backgroundColor: '#f4f4f4',
-                                                  borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
-                                                  padding: '2px 0 2px 0',
-                                              }}>
-                        <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                            <Box sx={{
-                                width: '55px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'
-                            }}>{item.ticket_printed ? <><PrintIcon sx={{
-                                width: '15px', height: '15px'
-                            }}/>{item.ticket_printed < 10 ? item.ticket_printed : '>9'}</> : null}
-                                {item.ticket_state !== 0 ? <VisibilityIcon sx={{
-                                    width: '15px',
-                                    height: '15px',
-                                    color: item.ticket_state === -1 ? '#E3000B' : item.ticket_state === 1 ? '#FF9800' : item.ticket_state === 2 ? '#45B97C' : 'black'
-                                }}/> : null}</Box>
-                            <Box sx={{
-                                flex: 1, overflow: 'hidden'
-                            }}>зал <b>{order.hall_full_name}</b> ряд <b>{item.place_row}</b> место <b>{item.place_number}</b></Box>
-                            <Box sx={{
-                                display: 'flex', justifyContent: 'flex-start', marginRight: '4px'
-                            }}></Box>
-                        </Box>
-                        <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                            <Box sx={{width: '20px'}}/>
-                            <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
-                            {item.uid_discount !== null ? <Box sx={{
-                                flex: 1,
-                                textAlign: 'right',
-                                color: '#1DB1BA',
-                                fontSize: '70%',
-                                fontWeight: 'bold',
-                                overflow: 'hidden'
-                            }}>{item.name_discount}</Box> : null}
-                            <Box sx={{
-                                flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'
-                            }}><FunctionsIcon
-                                sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
-                        </Box>
-                        <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
-                            <Box sx={{width: '20px'}}/>
-                            <Box sx={{flex: 1}}>{item.comment}</Box>
-                        </Box>
-                    </Box>))}
-            </>)
-        return (<>
-                <Box sx={{
-                    height: '25px',
-                    fontWeight: 'bold',
-                    backgroundColor: chapter1 === 'returning_waiting' ? '#50db92' : chapter1 === 'returning_success' ? '#414650' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? '#f74b53' : '#e4e2e2',
-                    color: chapter1 === 'returning_waiting' ? 'black' : chapter1 === 'returning_success' ? 'white' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? 'white' : 'black',
-                    padding: '4px',
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 1,
-                }}>{label}{['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ?
-                    <DotsAnimation/> : null}</Box>
-                {renderItems(group.items, ITEMS_TYPE_SERVICE)}
-            </>)
+        const renderItems = (items, typeLabel) => items.length > 0 && <>
+            <Box sx={{
+                height: '25px',
+                fontWeight: 'bold',
+                backgroundColor: '#ececec',
+                padding: '4px 4px 4px 8px',
+                position: 'sticky',
+                top: '25px',
+                zIndex: 1,
+            }}>{typeLabel}</Box>
+            {items.map((item, i) => <Box key={i + ver}
+                                         sx={{
+                                             display: 'flex',
+                                             flexDirection: 'column',
+                                             backgroundColor: '#f4f4f4',
+                                             borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
+                                             padding: '2px 0 2px 0',
+                                         }}>
+                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{
+                        width: '55px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'
+                    }}>{item.ticket_printed ? <><PrintIcon sx={{
+                        width: '15px', height: '15px'
+                    }}/>{item.ticket_printed < 10 ? item.ticket_printed : '>9'}</> : null}
+                        {item.ticket_state !== 0 ? <VisibilityIcon sx={{
+                            width: '15px',
+                            height: '15px',
+                            color: item.ticket_state === -1 ? '#E3000B' : item.ticket_state === 1 ? '#FF9800' : item.ticket_state === 2 ? '#45B97C' : 'black'
+                        }}/> : null}</Box>
+                    <Box sx={{
+                        flex: 1, overflow: 'hidden'
+                    }}>зал <b>{order.hall_full_name}</b> ряд <b>{item.place_row}</b> место <b>{item.place_number}</b></Box>
+                    <Box sx={{
+                        display: 'flex', justifyContent: 'flex-start', marginRight: '4px'
+                    }}></Box>
+                </Box>
+                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{width: '20px'}}/>
+                    <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
+                    {item.uid_discount !== null ? <Box sx={{
+                        flex: 1,
+                        textAlign: 'right',
+                        color: '#1DB1BA',
+                        fontSize: '70%',
+                        fontWeight: 'bold',
+                        overflow: 'hidden'
+                    }}>{item.name_discount}</Box> : null}
+                    <Box sx={{
+                        flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'
+                    }}><FunctionsIcon
+                        sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
+                </Box>
+                <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{width: '20px'}}/>
+                    <Box sx={{flex: 1}}>{item.comment}</Box>
+                </Box>
+            </Box>)}
+        </>
+        return <>
+            <Box sx={{
+                height: '25px',
+                fontWeight: 'bold',
+                backgroundColor: chapter1 === 'returning_waiting' ? '#50db92' : chapter1 === 'returning_success' ? '#414650' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? '#f74b53' : '#e4e2e2',
+                color: chapter1 === 'returning_waiting' ? 'black' : chapter1 === 'returning_success' ? 'white' : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt' ? 'white' : 'black',
+                padding: '4px',
+                position: 'sticky',
+                top: 0,
+                zIndex: 1,
+            }}>{label}{['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ?
+                <DotsAnimation/> : null}</Box>
+            {renderItems(group.items, ITEMS_TYPE_SERVICE)}
+        </>
     }
 
     const [groups, setGroups] = useState({
@@ -134,109 +134,108 @@ const OrderCinema = ({order}) => {
     }, [order])
 
     return (<Box key={order.uid} onClick={() => dispatch(cinema_order_fetch(filial, order.uid))}>
-            <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
+        <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
 
-                <Box className='admin-orders-cinema-order-header' sx={{
-                    display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
-                }}>
+            <Box className='admin-orders-cinema-order-header' sx={{
+                display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
+            }}>
 
-                    <Box sx={{margin: '0 12px'}}>{order.from_site ?
-                        <LanguageIcon sx={{width: '20px', height: '20px'}}/> : order.from_wp ?
-                            <LaptopWindowsIcon sx={{width: '20px', height: '20px'}}/> : order.from_kiosk ?
-                                <SmartphoneIcon sx={{width: '20px', height: '20px'}}/> : null}</Box>
+                <Box sx={{margin: '0 12px'}}>{order.from_site ? <LanguageIcon sx={{
+                    width: '20px', height: '20px', color: pre_order.uid === order.uid ? 'red' : 'black'
+                }}/> : order.from_wp ? <LaptopWindowsIcon sx={{
+                    width: '20px', height: '20px', color: pre_order.uid === order.uid ? 'red' : 'black'
+                }}/> : order.from_kiosk ? <SmartphoneIcon sx={{
+                    width: '20px', height: '20px', color: pre_order.uid === order.uid ? 'red' : 'black'
+                }}/> : null}</Box>
 
-                    <Box sx={{flexGrow: 1}}>
+                <Box sx={{flexGrow: 1}}>
+                    <Box sx={{
+                        fontWeight: 'bold',
+                        marginLeft: '12px',
+                        textDecoration: pre_order.uid === order.uid ? 'underline' : null
+                    }}>{order.number}</Box>
+                    <Box sx={{
+                        overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'
+                    }}>{order.name_creator} {order.id_site}</Box>
+                </Box>
+
+                <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
+                    <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
                         <Box sx={{
                             fontWeight: 'bold',
-                            marginLeft: '12px',
-                            textDecoration: pre_order.uid === order.uid ? 'underline' : null
-                        }}>{order.number}</Box>
-                        <Box sx={{
-                            overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'
-                        }}>{order.name_creator}</Box>
-                    </Box>
-
-                    <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-                        <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                            <Box sx={{
-                                fontWeight: 'bold',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                                width: '100px'
-                            }}>
-                                <span style={{color: '#8B919B'}}>{dayjs.utc(order.date_create).format("DD.MM")}</span>
-                                <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
-                            </Box>
-                            <Box style={{color: '#8B919B'}}>
-                                {dayjs.utc(order.date_change).format("HH:mm")}
-                            </Box>
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                            width: '100px'
+                        }}>
+                            <span style={{color: '#8B919B'}}>{dayjs.utc(order.date_create).format("DD.MM")}</span>
+                            <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
                         </Box>
-                    </Box>
-
-                </Box>
-
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexGrow: 1,
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    padding: '4px 0'
-                }}>
-                    <Box sx={{
-                        fontWeight: 'bold', marginRight: '10px'
-                    }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box><Box sx={{
-                    fontWeight: 'bold', color: '#8B919B'
-                }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
-                </Box>
-
-                <Box className='admin-orders-cinema-order-body'>
-                    <RenderGroup chapter1={'payment_slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}
-                                 group={groups.for_payment_slip_without_receipt} ver={order.ver}/>
-                    <RenderGroup chapter1={'payment_waiting'} label={PAYMENT_STATE_WAITING}
-                                 group={groups.for_payment_waiting} ver={order.ver}/>
-                    <RenderGroup chapter1={'returning_slip_without_receipt'} label={PAYMENT_STATE_WAITING}
-                                 group={groups.for_returning_slip_without_receipt} ver={order.ver}/>
-                    <RenderGroup chapter1={'returning_waiting'} label={RETURNING_STATE_WAITING}
-                                 group={groups.for_returning_waiting} ver={order.ver}/>
-                    <RenderGroup chapter1={'returning_success'} label={RETURNING_STATE_SUCCESS}
-                                 group={groups.for_returning_success} ver={order.ver}/>
-                </Box>
-
-                <Box className='admin-orders-cinema-order-footer'>
-                    {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
-                        padding: '4px 0',
-                        maxHeight: '40px',
-                        overflowX: 'hidden',
-                        overflowY: 'auto',
-                        wordBreak: 'break-word'
-                    }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>{order.comment}
-                    </Box> : null}
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                        {order.buyer_email !== null ? <Box><AlternateEmailIcon
-                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
-                        </Box> : null}
-                        {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
-                            sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
-                        </Box> : null}
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        fontWeight: 'bold',
-                        justifyContent: 'space-between',
-                        padding: '10px'
-                    }}>
-                        <Box>{order.quantity} услуг</Box>
-                        <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
-                        <Box><FunctionsIcon sx={{width: '15px', height: '15px'}}/>{order.sum} р</Box>
+                        <Box style={{color: '#8B919B'}}>
+                            {dayjs.utc(order.date_change).format("HH:mm")}
+                        </Box>
                     </Box>
                 </Box>
 
             </Box>
 
-        </Box>)
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexGrow: 1,
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                padding: '4px 0'
+            }}>
+                <Box sx={{
+                    fontWeight: 'bold', marginRight: '10px'
+                }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box><Box sx={{
+                fontWeight: 'bold', color: '#8B919B'
+            }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
+            </Box>
+
+            <Box className='admin-orders-cinema-order-body'>
+                <RenderGroup chapter1={'payment_slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}
+                             group={groups.for_payment_slip_without_receipt} ver={order.ver}/>
+                <RenderGroup chapter1={'payment_waiting'} label={PAYMENT_STATE_WAITING}
+                             group={groups.for_payment_waiting} ver={order.ver}/>
+                <RenderGroup chapter1={'returning_slip_without_receipt'} label={PAYMENT_STATE_WAITING}
+                             group={groups.for_returning_slip_without_receipt} ver={order.ver}/>
+                <RenderGroup chapter1={'returning_waiting'} label={RETURNING_STATE_WAITING}
+                             group={groups.for_returning_waiting} ver={order.ver}/>
+                <RenderGroup chapter1={'returning_success'} label={RETURNING_STATE_SUCCESS}
+                             group={groups.for_returning_success} ver={order.ver}/>
+            </Box>
+
+            <Box className='admin-orders-cinema-order-footer'>
+                {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
+                    padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
+                }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>{order.comment}
+                </Box> : null}
+                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                    {order.buyer_email !== null ? <Box><AlternateEmailIcon
+                        sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+                    </Box> : null}
+                    {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
+                        sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
+                    </Box> : null}
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    fontWeight: 'bold',
+                    justifyContent: 'space-between',
+                    padding: '10px'
+                }}>
+                    <Box>{order.quantity} услуг</Box>
+                    <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
+                    <Box><FunctionsIcon sx={{width: '15px', height: '15px'}}/>{order.sum} р</Box>
+                </Box>
+            </Box>
+
+        </Box>
+
+    </Box>)
 }
 
 export default OrderCinema

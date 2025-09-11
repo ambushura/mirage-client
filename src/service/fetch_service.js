@@ -1010,7 +1010,7 @@ export const common_payment_methods_get = (filial, uid_order, type) => async (di
     }, data => data)
 }
 
-export const cinema_orders_get = (filial, update, page, date_shift, staff, state, halls, seances, workplaces, buyer_phone_number, buyer_emails, from_site, from_kiosk, from_wp) => async (dispatch, getState) => {
+export const cinema_orders_get = (filial, update, page, date_shift, staff, state, seances, halls, workplaces, buyer_phone_number, buyer_emails, from_site, from_kiosk, from_wp) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`, params: {

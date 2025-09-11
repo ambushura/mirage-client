@@ -52,7 +52,6 @@ const Payment = (props) => {
     const return_reasons = useSelector(state => state.orders.return_reasons)
     const uid_current_return_reasons = useSelector(state => state.orders.uid_current_return_reasons)
     const comment_return_reasons = useSelector(state => state.orders.comment_return_reasons)
-    const [return_kind, set_return_kind] = useState('0')
 
     useEffect(() => {
         const fetch = async () => {
@@ -128,14 +127,7 @@ const Payment = (props) => {
                     type={'return-reasons'}
                     list={return_reasons}
                     current_value={uid_current_return_reasons}
-                    width='60%'
-                />
-                <SelectMenu
-                    type={'return-kind'}
-                    list={[{uid: '0', title: 'Сразу'}, {uid: '1', title: 'По заявлению'}]}
-                    current_value={return_kind}
-                    width='40%'
-                    action={set_return_kind}
+                    width='100%'
                 />
             </Box>
             <TextField sx={{width: '100%'}} variant='filled' label='Комментарий к возврату'
@@ -192,7 +184,6 @@ const Payment = (props) => {
                         const payment_group_new = structuredClone(payment_group)
                         const action = !payment_group_new[chapter0][chapter1][chapter2].selected
                         payment_group_new[chapter0][chapter1][chapter2].selected = action
-
                         if (action) {
                             payment_group_new[chapter0][chapter1][chapter2].items = grouped_items.flatMap(item => item.__uids)
                         } else {
@@ -337,23 +328,23 @@ const Payment = (props) => {
                             })
                         })
                         if (ok) {
-                            return (<Button variant='outlined'
-                                            color='secondary'
-                                            key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
-                                            className='payment-path'
-                                            sx={{
-                                                display: 'flex', flexDirection: 'column', alignItems: 'center'
-                                            }}
-                                            onClick={() => {
-                                                pay(pm)
-                                            }}>
+                            return <Button variant='outlined'
+                                           color='secondary'
+                                           key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
+                                           className='payment-path'
+                                           sx={{
+                                               display: 'flex', flexDirection: 'column', alignItems: 'center'
+                                           }}
+                                           onClick={() => {
+                                               pay(pm)
+                                           }}>
                                 <span>{pm.name}</span>
                                 <span
                                     style={{fontSize: '70%'}}>
                                             <div>ККТ ...{pm.kkt.number.slice(-4)}</div>
                                     {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
                                                 </span>
-                            </Button>)
+                            </Button>
                         }
                     })
 

@@ -58,7 +58,7 @@ const Printing = (props) => {
             }}>
             {sortedKKT.map(printer => <Button
                 variant={printer.local ? 'contained' : 'outlined'}
-                color={printer.local ? 'info' : 'secondary'}
+                color='secondary'
                 key={printer.kkt.uid}
                 className='payment-path'
                 sx={{
@@ -76,7 +76,7 @@ const Printing = (props) => {
             </Button>)}
             {sortedKP.map(printer => <Button
                 variant={printer.local ? 'contained' : 'outlined'}
-                color={printer.local ? 'info' : 'secondary'}
+                color='secondary'
                 key={printer.kitchen_point.uid}
                 className='payment-path'
                 sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 4px 4px 0'}}>
