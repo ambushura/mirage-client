@@ -34,6 +34,8 @@ import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
 import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
 import {SelectMenu} from "../../ui/SelectMenu.jsx"
+import EditDocumentIcon from '@mui/icons-material/EditDocument'
+import PaymentIcon from '@mui/icons-material/Payment'
 
 const Payment = (props) => {
 
@@ -55,8 +57,36 @@ const Payment = (props) => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type))
-            set_payment_methods(fetching_result)
+            let fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
+                fetching_result.data.list.push({
+                    name: 'Б/Т',
+                    uid_kkt: '',
+                    uid_pinpad: '',
+                    uid_work_place: '',
+                    uid_filial: '',
+                    uid_printer_kkt: '',
+                    uid_printer: '',
+                    hidden: '',
+                    uid: 'Б/Т',
+                    kkt: {number: ''},
+                    pinpad: {number: ''}
+                })
+                fetching_result.data.list.push({
+                    name: 'Заявление',
+                    uid_kkt: '',
+                    uid_pinpad: '',
+                    uid_work_place: '',
+                    uid_filial: '',
+                    uid_printer_kkt: '',
+                    uid_printer: '',
+                    hidden: '',
+                    uid: 'Заявление',
+                    kkt: {number: ''},
+                    pinpad: {number: ''}
+                })
+                set_payment_methods(fetching_result)
+            }
         }
         if (filial !== undefined && props.order.uid !== undefined && props.type !== undefined) {
             fetch()
@@ -87,7 +117,7 @@ const Payment = (props) => {
             total_new += item.sum
         })
         horder.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
-            total_new += item.sum
+            total_new += item.price.sum
         })
         dispatch(setTotal(total_new))
         dispatch(setCash(['clean', total_new]))
@@ -312,43 +342,71 @@ const Payment = (props) => {
                 операции</Box> : payment_methods.loading ? <Loader size={2}/> : payment_methods.error !== null ?
                 <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов
                     оплаты</Box> : payment_methods.data === null || payment_methods.data.list.length === 0 ?
-                    <Box sx={{color: '#ff1a25', fontWeight: 'bold', textAlign: 'center'}}>Для этого рабочего места не
+                    <Box sx={{color: '#ff1a25', fontWeight: 'bold', textAlign: 'center'}}>Для этого рабочего места
+                        не
                         найдено
                         маршрутов оплаты, обратитесь в учетный отдел</Box> : payment_methods.data.list.map(pm => {
+                        const chapter0_array = ['for_payment', 'for_returning']
                         const chapter1_array = ['waiting', 'slip_without_receipt']
                         const chapter2_array = ['mark_egais_items', 'horeca_items', 'cinema_items']
                         let ok = true
-                        chapter1_array.forEach(chapter1 => {
-                            chapter2_array.forEach(chapter2 => {
-                                props.order.for_returning[chapter1][chapter2].forEach(item => {
-                                    if (item.name_payment_type !== pm.name && payment_group.for_returning[chapter1][chapter2].items.includes(item.uid)) {
-                                        ok = false
-                                    }
+                        chapter0_array.forEach((chapter0) => {
+                            if (chapter0 === 'for_returning') {
+                                chapter1_array.forEach(chapter1 => {
+                                    chapter2_array.forEach(chapter2 => {
+                                        props.order[chapter0][chapter1][chapter2].forEach(item => {
+                                            if (pm.uid !== 'Заявление') {
+                                                if (item.name_payment_type !== pm.name && payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
+                                                    ok = false
+                                                }
+                                            }
+                                        })
+                                    })
                                 })
-                            })
+                            } else {
+                                chapter1_array.forEach(chapter1 => {
+                                    chapter2_array.forEach(chapter2 => {
+                                        props.order[chapter0][chapter1][chapter2].forEach(item => {
+                                            if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
+                                                if (pm.uid === 'Заявление') {
+                                                    ok = false
+                                                }
+                                            }
+                                        })
+                                    })
+                                })
+                            }
                         })
                         if (ok) {
-                            return <Button variant='outlined'
-                                           color='secondary'
-                                           key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
-                                           className='payment-path'
-                                           sx={{
-                                               display: 'flex', flexDirection: 'column', alignItems: 'center'
-                                           }}
-                                           onClick={() => {
-                                               pay(pm)
-                                           }}>
+                            return <Button
+                                startIcon={pm.uid === 'Заявление' ? <EditDocumentIcon/> : pm.uid === 'Б/Т' ?
+                                    <PaymentIcon/> : null}
+                                variant={pm.uid === 'Заявление' || pm.uid === 'Б/Т' ? 'contained' : 'outlined'}
+                                color={pm.uid === 'Заявление' ? 'primary' : 'secondary'}
+                                key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
+                                className='payment-path'
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: pm.uid === 'Заявление' || pm.uid === 'Б/Т' ? 'row' : 'column',
+                                    alignItems: 'center'
+                                }}
+                                onClick={() => {
+                                    if (pm.uid === 'Заявление') {
+
+                                    } else if (pm.uid === 'Б/Т') {
+                                        dispatch(openModal({type: 'pinpads', props: {}}))
+                                    } else {
+                                        pay(pm)
+                                    }
+                                }}>
                                 <span>{pm.name}</span>
-                                <span
-                                    style={{fontSize: '70%'}}>
-                                            <div>ККТ ...{pm.kkt.number.slice(-4)}</div>
+                                {pm.uid !== 'Заявление' && pm.uid !== 'Б/Т' ? <span
+                                    style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
                                     {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
-                                                </span>
+                                </span> : null}
                             </Button>
                         }
-                    })
-
-            }
+                    })}
         </Box>
         <Box className='payment-items'>
             <Fade in={payment_group.for_payment.slip_without_receipt.count > 0} timeout={500} unmountOnExit>

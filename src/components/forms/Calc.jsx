@@ -19,7 +19,7 @@ const Calc = () => {
             total_new += item.sum
         })
         horder.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
-            total_new += item.sum
+            total_new += item.price.sum
         })
         set_total(total_new)
         dispatch(setTotal(total_new))

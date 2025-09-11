@@ -43,6 +43,7 @@ import Dialog from "./components/forms/Dialog.jsx"
 import Operation from "./page/body/admin/total/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import StaffList from "./components/forms/StaffList.jsx"
+import Pinpads from "./components/forms/Pinpads.jsx"
 
 function App() {
 
@@ -87,6 +88,7 @@ function App() {
         dialog_save_order: Dialog,
         documents_operation: Operation,
         creator_change: StaffList,
+        pinpads: Pinpads,
     }
 
     const ModalContent = useMemo(() => {
@@ -97,63 +99,63 @@ function App() {
     const defaultRedirect = cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/"
 
     return (<Box id="app">
-            <Header/>
-            <Routes>
-                <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
-                <Route path="/films/:param_city/:param_filial/:param_date"
-                       element={<AppRoutes current_page="films"/>}/>
-                <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
-                       element={<AppRoutes current_page="film"/>}/>
-                <Route path="/schedule/:param_city/:param_filial/:param_date"
-                       element={<AppRoutes current_page="schedule"/>}/>
-                <Route path="/seance/:param_city/:param_filial/:uid_seance"
-                       element={<AppRoutes current_page="seance"/>}/>
-                <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirect}/>}/>
-                <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
-                <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
-                <Route path="/kitchen/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="kitchen"/>}/>
+        <Header/>
+        <Routes>
+            <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
+            <Route path="/films/:param_city/:param_filial/:param_date"
+                   element={<AppRoutes current_page="films"/>}/>
+            <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
+                   element={<AppRoutes current_page="film"/>}/>
+            <Route path="/schedule/:param_city/:param_filial/:param_date"
+                   element={<AppRoutes current_page="schedule"/>}/>
+            <Route path="/seance/:param_city/:param_filial/:uid_seance"
+                   element={<AppRoutes current_page="seance"/>}/>
+            <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirect}/>}/>
+            <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
+            <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
+            <Route path="/kitchen/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="kitchen"/>}/>
 
-                <Route path="/menu/:param_city/:param_filial/"
-                       element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
+            <Route path="/menu/:param_city/:param_filial/"
+                   element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
 
-                <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/orders/cinema"/>}/>
+            <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/orders/cinema"/>}/>
 
-                <Route path="/admin/orders/horeca/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/orders/horeca"/>}/>
+            <Route path="/admin/orders/horeca/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/orders/horeca"/>}/>
 
-                <Route path="/admin/zbooks/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/zbooks"/>}/>
+            <Route path="/admin/zbooks/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/zbooks"/>}/>
 
-                <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/operations"/>}/>
+            <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/operations"/>}/>
 
-                <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/halls"/>}/>
+            <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/halls"/>}/>
 
-                <Route path="/admin/egais/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/egais"/>}/>
+            <Route path="/admin/egais/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/egais"/>}/>
 
-                <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/equipment"/>}/>
+            <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/equipment"/>}/>
 
-                <Route path="/admin/staff/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/staff"/>}/>
+            <Route path="/admin/staff/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/staff"/>}/>
 
-                <Route path="/admin/acquiring/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/acquiring"/>}/>
+            <Route path="/admin/acquiring/:param_city/:param_filial/:param_date_admin/"
+                   element={<AppRoutes current_page="admin/acquiring"/>}/>
 
-                <Route path='/second_screen/:param_city/:param_filial/:param_date/'
-                       element={<AppRoutes current_page="second_screen"/>}/>
+            <Route path='/second_screen/:param_city/:param_filial/:param_date/'
+                   element={<AppRoutes current_page="second_screen"/>}/>
 
-                <Route path="*" element={<NotFound/>}/>
-            </Routes>
-            <Footer/>
-            <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
-                <Box id="modal">{ModalContent}</Box>
-            </Modal>
-        </Box>)
+            <Route path="*" element={<NotFound/>}/>
+        </Routes>
+        <Footer/>
+        <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
+            <Box id="modal">{ModalContent}</Box>
+        </Modal>
+    </Box>)
 }
 
 export default App
