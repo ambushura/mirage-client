@@ -4,7 +4,7 @@ import {common_payment_methods_get} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import EditDocumentIcon from "@mui/icons-material/EditDocument"
 import PaymentIcon from "@mui/icons-material/Payment"
-import {openModal} from "../../redux/interfaceReducer.js"
+import {closeModal, openModal} from "../../redux/interfaceReducer.js"
 import Loader from "../../ui/Loader.jsx"
 
 const Pinpads = ({props}) => {
@@ -62,6 +62,7 @@ const Pinpads = ({props}) => {
                                     }))
                                 } else {
                                     props.pay(pm)
+                                    dispatch(closeModal())
                                 }
                             }}>
                             <span>{pm.name}</span>
