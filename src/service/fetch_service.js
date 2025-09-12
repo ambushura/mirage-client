@@ -70,6 +70,7 @@ import {
     ROUTE_HORECA_ORDER_CHANGE_CREATOR,
     ROUTE_HORECA_ORDER_DELETE,
     ROUTE_HORECA_ORDER_DELETE_COMMENT,
+    ROUTE_HORECA_ORDER_DELETE_TABLE,
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET,
     ROUTE_HORECA_ORDERS_GET,
@@ -472,6 +473,22 @@ export const horeca_table_add = (filial, uid_order, uid_hall, uid_table) => asyn
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_ADD_TABLE}`,
         params: {uid_order, uid_hall, uid_table},
+        wp,
+        filial,
+        kiosk,
+        version,
+    }, data => {
+        dispatch(setCurrentHorder(data))
+        dispatch(setOrdersHorecaUpdate())
+    })
+}
+
+export const horeca_table_delete = (filial, uid_order) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE_TABLE}`,
+        params: {uid_order},
         wp,
         filial,
         kiosk,

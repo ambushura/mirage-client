@@ -11,7 +11,7 @@ import HorecaItem from "./HorecaItem.jsx"
 import {useNavigate} from "react-router-dom"
 import Payment from "./Payment.jsx"
 import {
-    cinema_order_fetch, common_order_delete_comment, common_orders_receipts_get, horeca_order_fetch
+    cinema_order_fetch, common_order_delete_comment, common_orders_receipts_get, horeca_order_fetch, horeca_table_delete
 } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
@@ -164,6 +164,7 @@ const OrderBody = ({
                             }}>Место</Button>
                             {order.name_hall !== null && order.name_place !== null ?
                                 <Button variant="contained" color="secondary" onClick={() => {
+                                    dispatch(horeca_table_delete(filial, order.uid))
                                 }}><DeleteIcon/></Button> : null}
                         </ButtonGroup>
                     </ButtonGroup>
