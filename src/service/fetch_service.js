@@ -66,6 +66,7 @@ import {
     ROUTE_HORECA_MENU_GET,
     ROUTE_HORECA_MODIFICATIONS_GET,
     ROUTE_HORECA_ORDER_ADD_COMMENT,
+    ROUTE_HORECA_ORDER_ADD_TABLE,
     ROUTE_HORECA_ORDER_CHANGE_CREATOR,
     ROUTE_HORECA_ORDER_DELETE,
     ROUTE_HORECA_ORDER_DELETE_COMMENT,
@@ -465,6 +466,22 @@ export const horeca_position_delete = (filial, uid_order, uid_position) => async
     })
 }
 
+export const horeca_table_add = (filial, uid_order, uid_hall, uid_table) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_ADD_TABLE}`,
+        params: {uid_order, uid_hall, uid_table},
+        wp,
+        filial,
+        kiosk,
+        version,
+    }, data => {
+        dispatch(setCurrentHorder(data))
+        dispatch(setOrdersHorecaUpdate())
+    })
+}
+
 export const horeca_kitchen_push = (filial, uid_order, uid_position) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
@@ -753,12 +770,12 @@ export const cinema_seance_get = (filial, uid_seance) => async (dispatch, getSta
     }, data => data)
 }
 
-export const cinema_hall_get = (filial, uid_hall) => async (dispatch, getState) => {
+export const cinema_hall_get = (filial, uid_hall, type) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_HALL_GET}`,
-        params: {uid_hall},
+        params: {uid_hall, type},
         filial,
         wp,
         kiosk,

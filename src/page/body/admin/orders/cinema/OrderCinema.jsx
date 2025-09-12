@@ -137,7 +137,7 @@ const OrderCinema = ({order}) => {
         <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
 
             <Box className='admin-orders-cinema-order-header' sx={{
-                display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#e4e2e2' : null
+                display: 'flex', height: '45px', backgroundColor: pre_order.uid === order.uid ? '#FFDA6B' : null
             }}>
 
                 <Box sx={{margin: '0 12px'}}>{order.from_site ? <LanguageIcon sx={{

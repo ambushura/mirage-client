@@ -73,7 +73,7 @@ const PageSeance = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(cinema_hall_get(filial, seance.uid_hall))
+            const fetching_result = await dispatch(cinema_hall_get(filial, seance.uid_hall, 'cinema'))
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.error === null && fetching_result.data !== null) {

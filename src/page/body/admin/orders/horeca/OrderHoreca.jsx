@@ -133,7 +133,7 @@ const OrderHoreca = ({order}) => {
     return (<Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}
                  onClick={() => dispatch(horeca_order_fetch(filial, order.uid))}>
         <Box className='admin-orders-horeca-order-header' sx={{
-            display: 'flex', height: '45px', backgroundColor: horder.uid === order.uid ? '#e4e2e2' : null
+            display: 'flex', height: '45px', backgroundColor: horder.uid === order.uid ? '#FFDA6B' : null
         }}>
             <Box sx={{flexGrow: 1}}>
                 <Box sx={{
@@ -162,7 +162,8 @@ const OrderHoreca = ({order}) => {
                     </Box>
                 </Box>
                 {order.name_hall !== null && order.name_place !== null ?
-                    <Box><LocationOnIcon sx={{width: '15px', height: '15px'}}/>
+                    <Box sx={{textAlign: 'right', flex: 1, fontWeight: 'bold', marginRight: '4px'}}><LocationOnIcon
+                        sx={{height: '15px'}}/>
                         {order.name_hall} {order.name_place}</Box> : null}
             </Box>
         </Box>

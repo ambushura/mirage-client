@@ -5,7 +5,7 @@ import {
 import {useCallback, useEffect, useState} from "react"
 import {Place} from "./nodes/Place.jsx"
 import {useDispatch, useSelector} from "react-redux"
-import {cinema_place_block, cinema_position_add} from "../../service/fetch_service.js"
+import {cinema_place_block, cinema_position_add, horeca_table_add} from "../../service/fetch_service.js"
 import RowLabel from "./nodes/RowLabel.jsx"
 import Screen from "./nodes/Screen.jsx"
 
@@ -48,7 +48,7 @@ const HallMap = (props) => {
     }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial, fitView])
 
     const nodeTypes = {
-        place: Place, row_label: RowLabel, screen: Screen,
+        place: Place, row_label: RowLabel, screen: Screen, table: Place
     }
 
     const handleNodeClick = (node) => {
@@ -63,10 +63,12 @@ const HallMap = (props) => {
                     dispatch(cinema_place_block(props.filial, props.hall, node.id))
                 }
             }
+        } else if (node.type === 'table') {
+            dispatch(horeca_table_add(props.filial, props.horder.uid, props.hall.uid, node.id))
         }
     }
 
-    return (<Box style={{
+    return <Box style={{
         width: `${props.width}px`, height: `100%`,
     }}>
         <div style={{
@@ -93,7 +95,7 @@ const HallMap = (props) => {
                 {uid_user !== null && current_page !== 'second_screen' ? <Controls/> : null}
             </ReactFlow>
         </div>
-    </Box>)
+    </Box>
 }
 
 const HallWithProvider = (props) => (<ReactFlowProvider>
