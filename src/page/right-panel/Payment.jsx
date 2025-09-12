@@ -274,6 +274,26 @@ const Payment = (props) => {
                                             </span>
                                 {item.comment_return_reason !== null && (<span>, {item.comment_return_reason}</span>)}
                             </Box>)}
+
+                            {item.name_payment_type !== null ? <Box sx={{
+                                fontSize: '80%',
+                                color: 'grey',
+                                marginRight: '5px',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-around'
+                            }}>
+                                <Box>{item.name_payment_type}</Box>
+                                {item.uid_in_receipt !== null ?
+                                    <Box sx={{textDecoration: 'underline'}}>Чек приход</Box> : null}
+                                {item.uid_in_slip !== null ?
+                                    <Box sx={{textDecoration: 'underline'}}>Слип приход</Box> : null}
+                                {item.uid_out_receipt !== null ?
+                                    <Box sx={{textDecoration: 'underline'}}>Чек возврат</Box> : null}
+                                {item.uid_out_slip !== null ?
+                                    <Box sx={{textDecoration: 'underline'}}>Слип возврат</Box> : null}
+                            </Box> : null}
                         </Box>
                     </motion.div>))}
                 </motion.div>)}
