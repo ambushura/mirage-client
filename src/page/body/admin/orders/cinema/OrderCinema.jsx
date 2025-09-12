@@ -156,7 +156,7 @@ const OrderCinema = ({order}) => {
                     }}>{order.number}</Box>
                     <Box sx={{
                         overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'
-                    }}>{order.name_creator} {order.id_site}</Box>
+                    }}>{order.name_creator} {order.id_site !== 0 ? order.id_site : null}</Box>
                 </Box>
 
                 <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
