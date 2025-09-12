@@ -997,12 +997,12 @@ export const horeca_modifications_get = (filial, uid_menu) => async (dispatch, g
     }, data => data)
 }
 
-export const common_payment_methods_get = (filial, uid_order, type) => async (dispatch, getState) => {
+export const common_payment_methods_get = (filial, uid_order, type, remote) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}`,
-        params: {uid_order, type},
+        params: {uid_order, type, remote},
         filial,
         wp,
         kiosk,

@@ -394,7 +394,9 @@ const Payment = (props) => {
                                     if (pm.uid === 'Заявление') {
 
                                     } else if (pm.uid === 'Б/Т') {
-                                        dispatch(openModal({type: 'pinpads', props: {}}))
+                                        dispatch(openModal({
+                                            type: 'pinpads', props: {type: props.type, order: props.order, pay}
+                                        }))
                                     } else {
                                         pay(pm)
                                     }

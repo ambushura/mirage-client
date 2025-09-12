@@ -24,7 +24,7 @@ const CommentPosition = ({props}) => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(horeca_modifications_get(filial, props.uid_menu))
+            const fetching_result = await dispatch(horeca_modifications_get(filial, props.uid_menu, false))
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.data !== null) {
