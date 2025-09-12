@@ -67,7 +67,7 @@ const CheckOut = (props) => {
                 <Button onClick={async () => {
                     await dispatch(setKioskPaymentError(null))
                     await dispatch(setPreOrderPaying(true))
-                    await dispatch(common_order_pay(filial, pre_order.uid, pre_order.ver, 'cinema', payment_group))
+                    await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group))
                     await dispatch(setPreOrderPaying(false))
                 }} variant='contained' color='primary' sx={{
                     width: '100%', marginTop: '10px'
