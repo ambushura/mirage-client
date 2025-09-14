@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import {common_printers_get, equipment_action} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import BookingItem from "./BookingItem.jsx"
-import {ROUTE_EQUIPMENT_KKT_BILL_PRINT, ROUTE_EQUIPMENT_KKT_Z} from "../../service/fetch_routes.js";
+import {ROUTE_EQUIPMENT_KKT_BILL_PRINT} from "../../service/fetch_routes.js"
 
 const Printing = (props) => {
 

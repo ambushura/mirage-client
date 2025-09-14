@@ -63,10 +63,6 @@ const OrderBody = ({
                     <Button variant="contained" color="info" onClick={() => {
                         set_preparing(true)
                     }}><ReceiptIcon/></Button>
-                    <Button variant="contained" color="secondary"
-                            onClick={() => {
-                                set_printing(true)
-                            }}><LocalPrintshopIcon/></Button>
                     <Button variant="contained" color="secondary" onClick={fetchOrder}><CachedIcon/></Button>
                     <Button variant="contained" color="primary" onClick={deleteOrder}><DeleteForeverIcon/></Button>
                     <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
@@ -83,6 +79,10 @@ const OrderBody = ({
             </Box>
             {type === 'cinema' && <>
                 <Box className="order-box-panel-2">
+                    <Button sx={{marginRight: '4px'}} variant="contained" color="secondary"
+                            onClick={() => {
+                                set_printing(true)
+                            }}><LocalPrintshopIcon/></Button>
                     <Button variant="contained" color="secondary"
                             onClick={addContact}><ContactMailIcon/></Button>
                     <ButtonGroup size='large' sx={{marginLeft: '4px'}}>
@@ -142,6 +142,10 @@ const OrderBody = ({
             </>}
             {type === 'horeca' && <>
                 <Box className="order-box-panel-2">
+                    <Button sx={{marginRight: '4px'}} variant="contained" color="secondary"
+                            onClick={() => {
+                                set_printing(true)
+                            }}><LocalPrintshopIcon/></Button>
                     <Button variant="contained" color="secondary"
                             onClick={addContact}><ContactMailIcon/></Button>
                     <ButtonGroup sx={{marginLeft: '4px', marginBottom: '4px'}} size='small'>
