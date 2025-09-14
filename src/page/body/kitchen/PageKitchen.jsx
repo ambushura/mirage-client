@@ -32,8 +32,11 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                         }}>{item.quantity} {item.unit_name}</Box>
                         <Box sx={{overflow: 'hidden', flex: 1}}>{item.name}</Box>
                         <Box>{item.comment}</Box>
-                        {item.modifications !== null ? <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>{item.modifications.map(modification => {
-                            return <Box key={modification} sx={{fontWeight: 'bold', padding: '4px 4px 0 0'}}>{modification}</Box>
+                        {item.modifications !== null ? <Box sx={{
+                            display: 'flex', flexDirection: 'row', flexWrap: 'wrap'
+                        }}>{item.modifications.map(modification => {
+                            return <Box key={modification}
+                                        sx={{fontWeight: 'bold', padding: '4px 4px 0 0'}}>{modification}</Box>
                         })}</Box> : null}
                     </Box>
                 </Box>))}

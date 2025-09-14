@@ -20,6 +20,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import LanguageIcon from '@mui/icons-material/Language'
 import LaptopWindowsIcon from '@mui/icons-material/LaptopWindows'
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 const OrderCinema = ({order}) => {
 
@@ -72,7 +73,7 @@ const OrderCinema = ({order}) => {
                         }}/> : null}</Box>
                     <Box sx={{
                         flex: 1, overflow: 'hidden'
-                    }}>зал <b>{order.hall_full_name}</b> ряд <b>{item.place_row}</b> место <b>{item.place_number}</b></Box>
+                    }}>Ряд <b>{item.place_row}</b> Место <b>{item.place_number}</b></Box>
                     <Box sx={{
                         display: 'flex', justifyContent: 'flex-start', marginRight: '4px'
                     }}></Box>
@@ -189,9 +190,12 @@ const OrderCinema = ({order}) => {
             }}>
                 <Box sx={{
                     fontWeight: 'bold', marginRight: '10px'
-                }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box><Box sx={{
-                fontWeight: 'bold', color: '#8B919B'
-            }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
+                }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+<span style={{
+                    marginLeft: '10px', color: '#8B919B'
+                }}><LocationOnIcon sx={{width: '15px', height: '15px'}}/> Зал {order.hall_full_name}</span></Box><Box
+                sx={{
+                    fontWeight: 'bold', color: '#8B919B'
+                }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
             </Box>
 
             <Box className='admin-orders-cinema-order-body'>
