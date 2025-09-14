@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import {common_printers_get, equipment_action} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import BookingItem from "./BookingItem.jsx"
-import {ROUTE_EQUIPMENT_KKT_BILL_PRINT} from "../../service/fetch_routes.js"
+import {ROUTE_EQUIPMENT_KKT_BILL_PRINT, ROUTE_EQUIPMENT_KKT_TICKETS_PRINT} from "../../service/fetch_routes.js"
 
 const Printing = (props) => {
 
@@ -69,9 +69,17 @@ const Printing = (props) => {
                     margin: '0 4px 4px 0',
                     maxWidth: '130px'
                 }}
-                onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_BILL_PRINT, {
-                    uid: printer.kkt.uid, uid_order: props.order.uid
-                }))}
+                onClick={() => {
+                    if (props.type === 'horeca') {
+                        dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_BILL_PRINT, {
+                            uid: printer.kkt.uid, uid_order: props.order.uid
+                        }))
+                    } else {
+                        dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_TICKETS_PRINT, {
+                            uid: printer.kkt.uid, uid_order: props.order.uid, uid_positions: props.uid_selected
+                        }))
+                    }
+                }}
             >
                 <span>{printer.kkt.number}</span>
                 <span style={{fontSize: '70%'}}>

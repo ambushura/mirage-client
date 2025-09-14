@@ -43,7 +43,7 @@ const Zbooks = () => {
         return <Loader/>
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
         return <Box className='empty-box'>{fetching.error}</Box>
-    } else if (!fetching.loading && fetching.error !== null && fetching.data !== null) {
+    } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         if (rows.length === 0 || columns.length === 0) {
             return <Box className='empty-box'>Документы отсутствуют...</Box>
         } else {

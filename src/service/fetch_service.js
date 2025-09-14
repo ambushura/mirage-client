@@ -59,6 +59,7 @@ import {
     ROUTE_COMMON_PAYMENT_MAP_GET,
     ROUTE_COMMON_PAYMENT_METHODS_GET,
     ROUTE_EQUIPMENT_KKT_BILL_PRINT,
+    ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
     ROUTE_EQUIPMENT_KKT_Z,
     ROUTE_EQUIPMENT_PINPAD_X,
     ROUTE_EQUIPMENT_PINPAD_Z,
@@ -681,6 +682,11 @@ export const equipment_action = (filial, route, params) => async (dispatch, getS
             case ROUTE_EQUIPMENT_KKT_BILL_PRINT:
                 dispatch(setCurrentHorder(data))
                 dispatch(setOrdersHorecaUpdate())
+                break
+            case ROUTE_EQUIPMENT_KKT_TICKETS_PRINT:
+                dispatch(setCurrentPreOrder(data))
+                dispatch(setOrdersCinemaUpdate())
+                break
         }
     })
 }
