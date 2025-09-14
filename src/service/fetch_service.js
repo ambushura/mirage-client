@@ -58,6 +58,7 @@ import {
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_COMMON_PAYMENT_MAP_GET,
     ROUTE_COMMON_PAYMENT_METHODS_GET,
+    ROUTE_EQUIPMENT_KKT_BILL_PRINT,
     ROUTE_EQUIPMENT_KKT_Z,
     ROUTE_EQUIPMENT_PINPAD_X,
     ROUTE_EQUIPMENT_PINPAD_Z,
@@ -666,18 +667,22 @@ export const equipment_action = (filial, route, params) => async (dispatch, getS
         filial,
         kiosk,
         version,
+    }, data => {
+        switch (route) {
+            case ROUTE_EQUIPMENT_KKT_Z:
+                dispatch(setZBooksUpdate())
+                break
+            case ROUTE_EQUIPMENT_PINPAD_X:
+                dispatch(setZPinpadsUpdate())
+                break
+            case ROUTE_EQUIPMENT_PINPAD_Z:
+                dispatch(setZPinpadsUpdate())
+                break
+            case ROUTE_EQUIPMENT_KKT_BILL_PRINT:
+                dispatch(setCurrentHorder(data))
+                dispatch(setOrdersHorecaUpdate())
+        }
     })
-    switch (route) {
-        case ROUTE_EQUIPMENT_KKT_Z:
-            dispatch(setZBooksUpdate())
-            break
-        case ROUTE_EQUIPMENT_PINPAD_X:
-            dispatch(setZPinpadsUpdate())
-            break
-        case ROUTE_EQUIPMENT_PINPAD_Z:
-            dispatch(setZPinpadsUpdate())
-            break
-    }
 }
 
 export const common_cities_filials_get = () => async (dispatch, getState) => {

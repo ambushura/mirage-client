@@ -19,6 +19,7 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 import CommentIcon from "@mui/icons-material/Comment"
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 
 const group_items = (items_grouped, payment_group, payment_state) => {
     const items = [], mark_egais = []
@@ -89,7 +90,8 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
             </Box> : null}
         </Box>))}
     </>)
-    return (<>
+
+    return <>
         <Box sx={{
             height: '25px',
             fontWeight: 'bold',
@@ -103,7 +105,7 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
             <DotsAnimation/> : null}</Box>
         {render_items(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
         {render_items(group.items, ITEMS_TYPE_ITEMS)}
-    </>)
+    </>
 }
 
 const OrderHoreca = ({order}) => {
@@ -130,8 +132,8 @@ const OrderHoreca = ({order}) => {
         })
     }, [order])
 
-    return (<Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}
-                 onClick={() => dispatch(horeca_order_fetch(filial, order.uid))}>
+    return <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}
+                onClick={() => dispatch(horeca_order_fetch(filial, order.uid))}>
         <Box className='admin-orders-horeca-order-header' sx={{
             display: 'flex', height: '45px', backgroundColor: horder.uid === order.uid ? '#FFDA6B' : null
         }}>
@@ -202,12 +204,14 @@ const OrderHoreca = ({order}) => {
                 padding: '10px'
             }}>
                 <Box>{order.quantity} товаров</Box>
+                <Box><LocalPrintshopIcon
+                    sx={{width: '15px', height: '15px', marginRight: '2px'}}/>{order.pre_receipt_state}</Box>
                 <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
                 <Box>{order.sum} р</Box>
             </Box>
         </Box>
 
-    </Box>)
+    </Box>
 }
 
 export default OrderHoreca

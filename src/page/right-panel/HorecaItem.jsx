@@ -103,7 +103,7 @@ const HorecaItem = (props) => {
                 <Button color='secondary' variant='text'
                         onClick={() => dispatch(common_position_delete_comment(filial, 'horeca', props.order.uid, props.item.uid))}><DeleteIcon/></Button>
             </Box> : <></>}
-            {props.item.kitchen !== null && props.item.kitchen.modifications !== null ?
+            {props.item.kitchen !== null && props.item.kitchen.modifications !== null && props.item.kitchen.modifications.length > 0 ?
                 <Box className='modifications'>{props.item.kitchen.modifications.map(modification => {
                     return <Box className='modification' key={modification.uid}>{modification.name}</Box>
                 })}</Box> : null}

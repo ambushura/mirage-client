@@ -1,9 +1,10 @@
 import {Box, Button} from "@mui/material"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import {useEffect, useState} from "react"
-import {common_printers_get} from "../../service/fetch_service.js"
+import {common_printers_get, equipment_action} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import BookingItem from "./BookingItem.jsx"
+import {ROUTE_EQUIPMENT_KKT_BILL_PRINT, ROUTE_EQUIPMENT_KKT_Z} from "../../service/fetch_routes.js";
 
 const Printing = (props) => {
 
@@ -68,6 +69,9 @@ const Printing = (props) => {
                     margin: '0 4px 4px 0',
                     maxWidth: '130px'
                 }}
+                onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_BILL_PRINT, {
+                    uid: printer.kkt.uid, uid_order: props.order.uid
+                }))}
             >
                 <span>{printer.kkt.number}</span>
                 <span style={{fontSize: '70%'}}>

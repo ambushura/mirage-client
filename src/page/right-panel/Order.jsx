@@ -247,7 +247,7 @@ const Order = () => {
         dispatch(setHorderPreparing(false))
     }, [dispatch, pre_order.uid, pre_order.ver])
 
-    return (<Box id='order'>
+    return <Box id='order'>
         {pre_order.in_base ? <motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
                                          key={`${pre_order.uid}`}
                                          initial={{opacity: 0, y: 20}}
@@ -335,7 +335,7 @@ const Order = () => {
                 filial={filial}
             />
         </motion.div> : null}
-    </Box>)
+    </Box>
 }
 
 export default Order
