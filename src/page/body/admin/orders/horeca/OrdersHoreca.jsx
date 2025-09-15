@@ -1,7 +1,7 @@
-import {Box, Pagination} from "@mui/material"
+import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import OrderHoreca from "./OrderHoreca.jsx"
-import {setOrdersHoreca, setOrdersHorecaPage} from "../../../../../redux/ordersReducer.js"
+import {setOrdersHoreca} from "../../../../../redux/ordersReducer.js"
 import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect, useState} from "react"
 import {common_order_find, horeca_orders_get} from "../../../../../service/fetch_service.js"
@@ -56,7 +56,6 @@ const OrdersHoreca = () => {
         return <Box className='empty-box'
                     sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
     } else if (data !== null) {
-        const pages = Math.ceil(data.total_count / 20)
         return <Box className='admin-orders-horeca'>
             <Box className='admin-orders-horeca-orders'>
                 <Box className='admin-orders-horeca-orders-content'>
@@ -69,29 +68,15 @@ const OrdersHoreca = () => {
                                     initial="hidden"
                                     animate="visible"
                                     exit="hidden"
-                                    variants={containerVariants}>{data.orders.map(order => <motion.div
-                                    className='admin-orders-horeca-order'
-                                    key={`${order.uid}${order.ver}`}
-                                    variants={itemVariants}>
-                                    <OrderHoreca order={order}/>
-                                </motion.div>)}
+                                    variants={containerVariants}>
+                                    {data.orders.map(order => <motion.div
+                                        className='admin-orders-horeca-order'
+                                        key={`${order.uid}${order.ver}`}
+                                        variants={itemVariants}>
+                                        <OrderHoreca order={order}/>
+                                    </motion.div>)}
                                 </motion.div>)}
                             </AnimatePresence>
-                            {pages > 1 ? <Pagination sx={{
-                                position: 'absolute',
-                                left: 0,
-                                bottom: 0,
-                                height: '60px',
-                                backgroundColor: 'var(--bgr-color)',
-                                padding: '10px 0',
-                                width: '100%',
-                                zIndex: 1,
-                            }}
-                                                     page={page}
-                                                     onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
-                                                     size={'large'}
-                                                     count={pages}
-                                                     showFirstButton showLastButton/> : null}
                         </Box>
                     </Box>
                 </Box>

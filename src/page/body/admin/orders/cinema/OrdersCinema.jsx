@@ -1,6 +1,6 @@
-import {Box, Pagination} from "@mui/material"
+import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {setOrdersCinema, setOrdersCinemaPage} from "../../../../../redux/ordersReducer.js"
+import {setOrdersCinema} from "../../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect, useState} from "react";
@@ -63,41 +63,26 @@ const OrdersCinema = () => {
         const pages = Math.ceil(data.total_count / 20)
         return <Box className='admin-orders-cinema'>
             <Box className='admin-orders-cinema-orders'>
-                <Box className='admin-orders-cinema-orders-content'><Box className='admin-orders-cinema-filial-content'
-                                                                         key={filial.uid}>
-                    <Box className='admin-orders-cinema-filial-box'>
-                        <AnimatePresence>
-                            {data.orders.length > 0 && (<motion.div
-                                className='admin-orders-cinema-filial-orders'
-                                initial="hidden"
-                                animate="visible"
-                                exit="hidden"
-                                variants={containerVariants}>{data.orders.map(order => <motion.div
-                                className='admin-orders-cinema-order'
-                                key={`${order.uid}${order.ver}`}
-                                variants={itemVariants}>
-                                <OrderCinema key={`${order.uid}${order.ver}`}
-                                             order={order}/>
-                            </motion.div>)}
-                            </motion.div>)}
-                        </AnimatePresence>
-                        {pages > 1 ? <Pagination sx={{
-                            position: 'absolute',
-                            left: 0,
-                            bottom: 0,
-                            height: '60px',
-                            backgroundColor: 'var(--bgr-color)',
-                            padding: '10px 0',
-                            width: '100%',
-                            zIndex: 1,
-                        }}
-                                                 page={page}
-                                                 onChange={(event, value) => dispatch(setOrdersCinemaPage(value))}
-                                                 size={'large'}
-                                                 count={pages}
-                                                 showFirstButton showLastButton/> : null}
+                <Box className='admin-orders-cinema-orders-content'>
+                    <Box className='admin-orders-cinema-filial-content' key={filial.uid}>
+                        <Box className='admin-orders-cinema-filial-box'>
+                            <AnimatePresence>
+                                {data.orders.length > 0 && (<motion.div
+                                    className='admin-orders-cinema-filial-orders'
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="hidden"
+                                    variants={containerVariants}>{data.orders.map(order => <motion.div
+                                    className='admin-orders-cinema-order'
+                                    key={`${order.uid}${order.ver}`}
+                                    variants={itemVariants}>
+                                    <OrderCinema key={`${order.uid}${order.ver}`}
+                                                 order={order}/>
+                                </motion.div>)}
+                                </motion.div>)}
+                            </AnimatePresence>
+                        </Box>
                     </Box>
-                </Box>
                 </Box>
             </Box>
         </Box>

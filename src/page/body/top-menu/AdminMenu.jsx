@@ -9,6 +9,7 @@ import {
     InputLabel,
     Menu,
     MenuItem,
+    Pagination,
     Popover,
     Select,
     TextField
@@ -59,7 +60,9 @@ import {ClearIcon} from "@mui/x-date-pickers"
 import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../../service/fetch_service.js"
 import {SelectMenu} from "../../../ui/SelectMenu.jsx"
 import {
-    ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z
+    ROUTE_EQUIPMENT_KKT_Z,
+    ROUTE_EQUIPMENT_PINPAD_X,
+    ROUTE_EQUIPMENT_PINPAD_Z
 } from "../../../service/fetch_routes.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 
@@ -475,6 +478,36 @@ export function ShowKitchenPoints() {
     </Box>
 }
 
+export function ShowPagesHorecaOrders() {
+
+    const dispatch = useDispatch()
+    const {total_count} = useSelector(state => state.orders.orders_horeca)
+    const page = useSelector(state => state.orders.orders_horeca_page)
+    const pages = Math.ceil(total_count / 20)
+    if (pages > 1) return <Pagination
+        page={page}
+        onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
+        size={'large'}
+        count={pages}
+        showFirstButton
+        showLastButton/>
+}
+
+export function ShowPagesCinemaOrders() {
+
+    const dispatch = useDispatch()
+    const {total_count} = useSelector(state => state.orders.orders_cinema)
+    const page = useSelector(state => state.orders.orders_cinema_page)
+    const pages = Math.ceil(total_count / 20)
+    if (pages > 1) return <Pagination
+        page={page}
+        onChange={(event, value) => dispatch(setOrdersCinemaPage(value))}
+        size={'large'}
+        count={pages}
+        showFirstButton
+        showLastButton/>
+}
+
 export default function AdminMenu() {
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -497,5 +530,7 @@ export default function AdminMenu() {
         {current_page === 'admin/halls' ? <AdminHallsList/> : null}
         {current_page === 'admin/equipment' ? <Equipment/> : null}
         {current_page === 'kitchen' && filial !== undefined ? <ShowKitchenPoints/> : null}
+        {current_page === 'admin/orders/horeca' ? <ShowPagesHorecaOrders/> : null}
+        {current_page === 'admin/orders/cinema' ? <ShowPagesCinemaOrders/> : null}
     </Box>)
 }

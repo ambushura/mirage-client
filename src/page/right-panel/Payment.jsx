@@ -25,9 +25,7 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import DotsAnimation from "../../ui/DotsAnimation.jsx"
 import Loader from "../../ui/Loader.jsx"
-import {
-    common_list_get, common_order_pay, common_payment_methods_get
-} from "../../service/fetch_service.js"
+import {common_list_get, common_order_pay, common_payment_methods_get} from "../../service/fetch_service.js"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
@@ -60,7 +58,7 @@ const Payment = (props) => {
             let fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type))
             if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
                 fetching_result.data.list.push({
-                    name: 'Б/Т',
+                    name: 'Другие способы',
                     uid_kkt: '',
                     uid_pinpad: '',
                     uid_work_place: '',
@@ -68,7 +66,7 @@ const Payment = (props) => {
                     uid_printer_kkt: '',
                     uid_printer: '',
                     hidden: '',
-                    uid: 'Б/Т',
+                    uid: 'Другие способы',
                     kkt: {number: ''},
                     pinpad: {number: ''}
                 })
@@ -82,6 +80,19 @@ const Payment = (props) => {
                     uid_printer: '',
                     hidden: '',
                     uid: 'Заявление',
+                    kkt: {number: ''},
+                    pinpad: {number: ''}
+                })
+                fetching_result.data.list.push({
+                    name: 'Яндекс Еда',
+                    uid_kkt: '',
+                    uid_pinpad: '',
+                    uid_work_place: '',
+                    uid_filial: '',
+                    uid_printer_kkt: '',
+                    uid_printer: '',
+                    hidden: '',
+                    uid: 'Яндекс Еда',
                     kkt: {number: ''},
                     pinpad: {number: ''}
                 })
@@ -388,7 +399,7 @@ const Payment = (props) => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
                                             if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
-                                                if (pm.uid === 'Заявление') {
+                                                if (pm.uid === 'Заявление' || pm.uid === 'Яндекс Еда') {
                                                     ok = false
                                                 }
                                             }
@@ -399,21 +410,21 @@ const Payment = (props) => {
                         })
                         if (ok) {
                             return <Button
-                                startIcon={pm.uid === 'Заявление' ? <EditDocumentIcon/> : pm.uid === 'Б/Т' ?
+                                startIcon={pm.uid === 'Заявление' ? <EditDocumentIcon/> : pm.uid === 'Другие способы' ?
                                     <PaymentIcon/> : null}
-                                variant={pm.uid === 'Заявление' || pm.uid === 'Б/Т' ? 'contained' : 'outlined'}
+                                variant={pm.uid === 'Заявление' || pm.uid === 'Другие способы' ? 'contained' : 'outlined'}
                                 color={pm.uid === 'Заявление' ? 'primary' : 'secondary'}
                                 key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
                                 className='payment-path'
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: pm.uid === 'Заявление' || pm.uid === 'Б/Т' ? 'row' : 'column',
+                                    flexDirection: pm.uid === 'Заявление' || pm.uid === 'Другие способы' ? 'row' : 'column',
                                     alignItems: 'center'
                                 }}
                                 onClick={() => {
                                     if (pm.uid === 'Заявление') {
 
-                                    } else if (pm.uid === 'Б/Т') {
+                                    } else if (pm.uid === 'Другие способы') {
                                         dispatch(openModal({
                                             type: 'pinpads', props: {type: props.type, order: props.order, pay}
                                         }))
@@ -422,7 +433,7 @@ const Payment = (props) => {
                                     }
                                 }}>
                                 <span>{pm.name}</span>
-                                {pm.uid !== 'Заявление' && pm.uid !== 'Б/Т' ? <span
+                                {pm.uid !== 'Заявление' && pm.uid !== 'Другие способы' ? <span
                                     style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
                                     {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
                                 </span> : null}

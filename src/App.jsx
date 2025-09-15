@@ -43,7 +43,7 @@ import Dialog from "./components/forms/Dialog.jsx"
 import Operation from "./page/body/admin/total/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import StaffList from "./components/forms/StaffList.jsx"
-import Pinpads from "./components/forms/Pinpads.jsx"
+import OthersPaymentTypes from "./components/forms/OthersPaymentTypes.jsx"
 
 function App() {
 
@@ -88,7 +88,7 @@ function App() {
         dialog_save_order: Dialog,
         documents_operation: Operation,
         creator_change: StaffList,
-        pinpads: Pinpads,
+        pinpads: OthersPaymentTypes,
     }
 
     const ModalContent = useMemo(() => {
