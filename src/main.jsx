@@ -11,11 +11,6 @@ import Notifier from './ui/Notifier.jsx'
 import {Theme, ThemeBlackWhite} from './ui/ThemeContext.jsx'
 
 import 'dayjs/locale/ru'
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
-
 import './css/main.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter>
