@@ -257,7 +257,7 @@ const Payment = (props) => {
 
                                 <Box className='payment-items-group-item-0'>{item.name}</Box>
                                 <Box className='payment-items-group-item-1'>{item.quantity}</Box>
-                                <Box className='payment-items-group-item-2'>{item.price}р</Box>
+                                <Box className='payment-items-group-item-2'>{item.price} р</Box>
                                 <Box className='payment-items-group-item-3'>
                                     <FunctionsIcon/>{item.sum} р
                                 </Box>
