@@ -88,6 +88,9 @@ export const Theme = createTheme({
         }, grey: {
             main: '#e3e3e3',
         }
+
+    }, typography: {
+        fontFamily: 'Mirage, serif',
     }, components: {
         MuiButton: {
             styleOverrides: {

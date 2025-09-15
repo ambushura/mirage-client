@@ -18,17 +18,15 @@ import '@fontsource/roboto/700.css'
 
 import './css/main.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-                <ThemeBlackWhite>
-                    <ThemeProvider theme={Theme}>
-                        <App/>
-                        <Notifier/>
-                    </ThemeProvider>
-                </ThemeBlackWhite>
-            </LocalizationProvider>
-        </Provider>
-    </BrowserRouter>
-)
+ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter>
+    <Provider store={store}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+            <ThemeBlackWhite>
+                <ThemeProvider theme={Theme}>
+                    <App/>
+                    <Notifier/>
+                </ThemeProvider>
+            </ThemeBlackWhite>
+        </LocalizationProvider>
+    </Provider>
+</BrowserRouter>)

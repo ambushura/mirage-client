@@ -1,4 +1,21 @@
 /* ============================== */
+/*            ШРИФТЫ              */
+/* ============================== */
+@font-face {
+    font-family: 'Mirage';
+    src: url('../fonts/ProximaNova-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Mirage';
+    src: url('../fonts/ProximaNova-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* ============================== */
 /*            RESET               */
 /* ============================== */
 *,
@@ -8,7 +25,7 @@
     padding: 0;
     border: none;
     letter-spacing: -0.5px;
-    font-family: Roboto, serif;
+    font-family: Mirage, serif;
     transition: background-color 0.3s;
     box-sizing: border-box;
 }
@@ -2444,7 +2461,7 @@ body {
 }
 
 .bgr-message {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: "Mirage", "Helvetica", "Arial", sans-serif;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
