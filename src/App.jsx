@@ -44,7 +44,7 @@ import Operation from "./page/body/admin/total/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import StaffList from "./components/forms/StaffList.jsx"
 import OthersPaymentTypes from "./components/forms/OthersPaymentTypes.jsx"
-import SkipNextIcon from "@mui/icons-material/SkipNext"
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 function App() {
 
@@ -103,12 +103,12 @@ function App() {
     if (need_update) {
         return <div className="bgr-wrapper">
             <div className="bgr-wavy-bg"/>
-            <Button sx={{borderRadius: '30px'}} color='secondary' className="bgr-glass-btn" onClick={() => {
+            <Button sx={{borderRadius: '50%'}} color='secondary' className="bgr-glass-btn" onClick={() => {
                 window.location.reload()
-            }} endIcon={<SkipNextIcon/>}>Продолжить</Button>
+            }}><ArrowForwardIosIcon/></Button>
             <div className='bgr-message' style={{
                 position: 'absolute', bottom: '50px', color: '#1C1F23', fontWeight: '400', zIndex: '1'
-            }}>· Версия программы была обновлена, нажмите "Продолжить", чтобы продолжить работу ·
+            }}>· Версия приложения была обновлена, нажмите на кнопку, чтобы продолжить работу ·
             </div>
         </div>
     } else {
