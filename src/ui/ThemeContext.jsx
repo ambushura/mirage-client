@@ -35,23 +35,20 @@ export const ThemeBlackWhite = ({children}) => {
 
     useEffect(() => {
         set_ui_state(preValue => ({
-            ...preValue,
-            authorized: uid_user !== null
+            ...preValue, authorized: uid_user !== null
         }))
     }, [uid_user])
 
     useEffect(() => {
         set_ui_state(preValue => ({
-            ...preValue,
-            is_full_screen: is_full_screen
+            ...preValue, is_full_screen: is_full_screen
         }))
     }, [is_full_screen])
 
     useEffect(() => {
         const handleResize = () => {
             set_ui_state(preValue => ({
-                ...preValue,
-                is_mobile: window.innerWidth <= 768
+                ...preValue, is_mobile: window.innerWidth <= 768
             }))
         }
         window.addEventListener('resize', handleResize)
@@ -62,7 +59,7 @@ export const ThemeBlackWhite = ({children}) => {
     useEffect(() => {
         set_ui_state(preValue => ({
             ...preValue,
-            show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null && !['kitchen', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/equipment', 'admin/egais', 'admin/staff'].includes(current_page),
+            show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null && !['kitchen', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/equipment', 'admin/egais', 'admin/staff', 'admin/acquiring'].includes(current_page),
         }))
     }, [pre_oder, horder, uid_user, current_page])
 
@@ -75,107 +72,76 @@ export const ThemeBlackWhite = ({children}) => {
 
     }, [current_page, uid_user])
 
-    return (
-        <ThemeContext.Provider value={{uiState: ui_state, setUiState: set_ui_state}}>
-            {children}
-        </ThemeContext.Provider>
-    )
+    return <ThemeContext.Provider value={{uiState: ui_state, setUiState: set_ui_state}}>
+        {children}
+    </ThemeContext.Provider>
 }
 
 export const Theme = createTheme({
     palette: {
         primary: {
             main: '#E3000B',
-        },
-        secondary: {
+        }, secondary: {
             main: '#2E3239',
-        },
-        success: {
+        }, success: {
             main: '#45B97C',
-        },
-        grey: {
+        }, grey: {
             main: '#e3e3e3',
         }
-    },
-    components: {
+    }, components: {
         MuiButton: {
             styleOverrides: {
                 root: {
-                    fontWeight: 'bold',
-                    borderRadius: '12px',
-                    textTransform: 'none',
-                    height: '60px',
+                    fontWeight: 'bold', borderRadius: '12px', textTransform: 'none', height: '60px',
                 },
             }
-        },
-        MuiButtonGroup: {
+        }, MuiButtonGroup: {
             styleOverrides: {
                 root: {
-                    height: '60px',
-                    borderRadius: '12px'
+                    height: '60px', borderRadius: '12px'
                 }
             }
-        },
-        MuiPaper: {
+        }, MuiPaper: {
             styleOverrides: {
                 root: {
-                    borderRadius: '12px',
-                    '&::-webkit-scrollbar': {
-                        width: '50px',
-                        height: '50px',
-                        backgroundColor: 'transparent'
-                    },
-                    '&::-webkit-scrollbar-track': {
+                    borderRadius: '12px', '&::-webkit-scrollbar': {
+                        width: '50px', height: '50px', backgroundColor: 'transparent'
+                    }, '&::-webkit-scrollbar-track': {
                         backgroundColor: 'transparent',
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                        backgroundColor: 'var(--bgr-scroll)',
-                        borderRadius: '12px',
-                    },
-                    scrollbarWidth: 'thin',
-                    scrollbarColor: 'var(--bgr-scroll) transparent',
+                    }, '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'var(--bgr-scroll)', borderRadius: '12px',
+                    }, scrollbarWidth: 'thin', scrollbarColor: 'var(--bgr-scroll) transparent',
                 }
             }
-        },
-        MuiList: {
+        }, MuiList: {
             styleOverrides: {
                 root: {
                     borderRadius: '12px',
                 }
             }
-        },
-        MuiLinearProgress: {
+        }, MuiLinearProgress: {
             styleOverrides: {
                 root: {
                     backgroundColor: '#2E3239'
                 }
             }
-        },
-        MuiTab: {
+        }, MuiTab: {
             styleOverrides: {
                 root: {
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    textTransform: 'capitalize',
-                    "&.Mui-selected": {
-                        color: '#E3000B',
-                        fontWeight: 'bold',
+                    color: '#fff', fontWeight: 'bold', textTransform: 'capitalize', "&.Mui-selected": {
+                        color: '#E3000B', fontWeight: 'bold',
                     },
                 }
             }
-        },
-        MuiAlert: {
+        }, MuiAlert: {
             styleOverrides: {
                 root: {
-                    borderRadius: '12px',
-                    fontSize: '18px',
+                    borderRadius: '12px', fontSize: '18px',
                 }
             }
-        },
-        MuiCheckbox: {
+        }, MuiCheckbox: {
             defaultProps: {
-                icon: <RadioButtonUncheckedIcon/>,
-                checkedIcon: <CheckCircleIcon/>,
+                icon: <RadioButtonUncheckedIcon/>, checkedIcon: <CheckCircleIcon/>,
             },
         }
     },
@@ -185,36 +151,26 @@ export const EMPTY_TABLE_STYLE = {
     // Убираем фон строки при наведении
     '& .MuiDataGrid-row:hover': {
         backgroundColor: 'inherit !important',
-    },
-    // Убираем фон выбранной строки
+    }, // Убираем фон выбранной строки
     '& .MuiDataGrid-row.Mui-selected': {
         backgroundColor: 'inherit !important',
-    },
-    '& .MuiDataGrid-row.Mui-selected:hover': {
+    }, '& .MuiDataGrid-row.Mui-selected:hover': {
         backgroundColor: 'inherit !important',
-    },
-    // Убираем фокус (рамку) ячейки
+    }, // Убираем фокус (рамку) ячейки
     '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
         outline: 'none',
-    },
-    // Убираем фокус (рамку) заголовка
+    }, // Убираем фокус (рамку) заголовка
     '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
         outline: 'none',
-    },
-    // Запрещаем выделение текста мышкой
+    }, // Запрещаем выделение текста мышкой
     '& .MuiDataGrid-cell': {
         userSelect: 'none',
-    },
-    // Убираем выделение текста даже при drag (в некоторых браузерах)
+    }, // Убираем выделение текста даже при drag (в некоторых браузерах)
     '& .MuiDataGrid-root': {
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none',
-        userSelect: 'none',
+        WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none', userSelect: 'none',
     }
 }
 
 export const WhiteMenuItem = styled(MenuItem)({
-    color: 'white',
-    fontWeight: 'bold'
+    color: 'white', fontWeight: 'bold'
 })
