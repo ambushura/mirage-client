@@ -39,6 +39,7 @@ const initialState = {
     its_second_screen: false,
     wp: 'mpopcorn2',
     version: '1.000',
+    need_update: false,
     dev: true,
     app_width: undefined,
     app_height: undefined,
@@ -91,6 +92,8 @@ const interfaceSlice = createSlice({
             state.wp = payload
         }, setSecondScreen: (state) => {
             state.its_second_screen = true
+        }, setNeedUpdate: (state, {payload}) => {
+            state.need_update = payload
         }
     },
 })
@@ -109,6 +112,7 @@ export const {
     openModal,
     closeModal,
     setDev,
+    setNeedUpdate,
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

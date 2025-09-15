@@ -2389,3 +2389,72 @@ body {
     flex: 1;
     width: calc(100% - 120px);
 }
+
+
+/* ============================= */
+/*          ОБНОВЛЕНИЕ           */
+/* ============================= */
+.bgr-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bgr-wavy-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(270deg, #E3000B, #FF1A25, #FF9800, #414650);
+    background-size: 800% 800%;
+    animation: bgr-gradientShift 20s ease-in-out infinite;
+    filter: url(#wavy);
+}
+
+@keyframes bgr-gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.bgr-glass-btn {
+    width: 200px;
+    min-height: 80px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bgr-glass-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.bgr-message {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80%;
+    padding: 20px 20px;
+    text-align: center;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    letter-spacing: 0.02857em;
+    font-size: 0.875rem;
+}

@@ -99,6 +99,7 @@ import {fillHosts} from "../redux/markirovkaReducer.js"
 import {setHall} from "../redux/hallsReducer.js"
 import {setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate} from "../redux/documentsReducer.js"
 import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} from "../redux/secondScreenReducer.js"
+import {setNeedUpdate} from "../redux/interfaceReducer.js"
 
 export const TIMEOUT = 10000
 
@@ -133,9 +134,13 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
     } catch (e) {
 
         let message
+        let show_message = true
         if (e.status === 401) {
             dispatch(logout())
             message = e.response.data
+        } else if (e.status === 409) {
+            show_message = false
+            dispatch(setNeedUpdate(true))
         } else if (e.code === 'ERR_NETWORK') {
             message = 'Сервер не отвечает, проверьте соединение'
         } else if (e.code === 'ECONNABORTED') {
@@ -146,7 +151,7 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
             message = e.message
         }
 
-        if (!config.kiosk) {
+        if (!config.kiosk && show_message) {
             dispatch(addNotification({
                 message, severity: 'error', autoHide: true
             }))
