@@ -5,6 +5,7 @@ import {common_printers_get, equipment_action} from "../../service/fetch_service
 import {useDispatch, useSelector} from "react-redux"
 import BookingItem from "./BookingItem.jsx"
 import {ROUTE_EQUIPMENT_KKT_BILL_PRINT, ROUTE_EQUIPMENT_KKT_TICKETS_PRINT} from "../../service/fetch_routes.js"
+import {selectUidCinema} from "../../redux/ordersReducer.js";
 
 const Printing = (props) => {
 
@@ -26,7 +27,7 @@ const Printing = (props) => {
     }, [dispatch, filial])
 
     useEffect(() => {
-        props.set_uid_selected([])
+        dispatch(selectUidCinema([]))
     }, [])
 
     const sortedKKT = [...printers.kkt].sort((a, b) => {

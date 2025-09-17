@@ -2,13 +2,14 @@ import {Box, Button} from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import LooksOneIcon from '@mui/icons-material/LooksOne'
-import QrCode2Icon from '@mui/icons-material/QrCode2'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import {openModal} from "../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    common_position_delete_comment, horeca_position_change_state, horeca_position_delete
+    common_position_delete_comment,
+    horeca_position_change_state,
+    horeca_position_delete
 } from "../../service/fetch_service.js"
 import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
@@ -16,6 +17,8 @@ import Looks4Icon from '@mui/icons-material/Looks4'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
+import {selectUidHoreca} from "../../redux/ordersReducer.js"
+import {CZIcon} from "../body/top-menu/HorecaMenu.jsx"
 
 const HorecaItem = (props) => {
 
@@ -24,6 +27,7 @@ const HorecaItem = (props) => {
     const state = [<></>, <Box color='primary' key='1'>Начать готовить</Box>,
         <Box color='primary' key='2'>Закончить готовку</Box>, <Box color='primary' key='3'>Отдать гостю</Box>]
     const course = [<LooksOneIcon key='0'/>, <LooksTwoIcon key='1'/>, <Looks3Icon key='2'/>, <Looks4Icon key='3'/>]
+    const uid_selected = useSelector(state => state.orders.uid_horeca_selected)
 
     return (
         <li className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-selected' : ''}`}>
@@ -41,7 +45,7 @@ const HorecaItem = (props) => {
                     }
                 }))}><CalculateIcon/></Button>
                 <Box className='order-box-horeca-item-1-1' onClick={() => {
-                    props.set_uid_selected(prev => prev.includes(props.item.uid) ? prev.filter(el => el !== props.item.uid) : [...prev, props.item.uid])
+                    dispatch(selectUidHoreca(uid_selected.includes(props.item.uid) ? uid_selected.filter(el => el !== props.item.uid) : [...uid_selected, props.item.uid]))
                 }}><Box>{props.item.name}</Box></Box>
                 <Box className='order-box-horeca-item-1-1-sum'>
                     <Box
@@ -71,13 +75,7 @@ const HorecaItem = (props) => {
                 <div style={{marginLeft: '4px'}}>{props.item.price.sum_discount} р</div>
             </Box> : null}
             {props.item.mark !== null ? <Box className='order-box-horeca-item-2'>
-                <Button variant='text' color='secondary'
-                        startIcon={<QrCode2Icon/>}
-                        onClick={() => dispatch(openModal({
-                            type: 'mark', props: {
-                                filial: filial, uid_order: props.order.uid, uid_position: props.item.uid, add: false
-                            }
-                        }))}>КМ</Button>
+                <Button variant='text' color='secondary'><CZIcon/></Button>
                 <Box
                     className='order-box-horeca-item-2-2' onClick={() => {
                     if (props.item.mark.value !== null) {

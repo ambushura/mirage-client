@@ -11,7 +11,11 @@ import HorecaItem from "./HorecaItem.jsx"
 import {useNavigate} from "react-router-dom"
 import Payment from "./Payment.jsx"
 import {
-    cinema_order_fetch, common_order_delete_comment, common_orders_receipts_get, horeca_order_fetch, horeca_table_delete
+    cinema_order_fetch,
+    common_order_delete_comment,
+    common_orders_receipts_get,
+    horeca_order_fetch,
+    horeca_table_delete
 } from "../../service/fetch_service.js"
 import {openModal} from "../../redux/interfaceReducer.js"
 import {Fragment, useEffect, useState} from "react"
@@ -24,7 +28,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import Printing from "./Printing.jsx"
-import {setHorderPreparing, setPreOrderPreparing} from "../../redux/ordersReducer.js"
+import {selectUidCinema, selectUidHoreca, setHorderPreparing, setPreOrderPreparing} from "../../redux/ordersReducer.js"
 
 const OrderBody = ({
                        type,
@@ -40,7 +44,6 @@ const OrderBody = ({
                        addContact,
                        dispatch,
                        uid_selected,
-                       set_uid_selected,
                        filial,
                    }) => {
     if (preparing && order.for_payment !== null && order.for_returning !== null) {
@@ -54,8 +57,7 @@ const OrderBody = ({
             printing={printing}
             set_printing={set_printing}
             order={order}
-            uid_selected={uid_selected}
-            set_uid_selected={set_uid_selected}/>
+            uid_selected={uid_selected}/>
     } else {
         return <>
             <Box className="order-box-panel-1">
@@ -68,7 +70,11 @@ const OrderBody = ({
                     <Button variant="contained" color="secondary" onClick={emptyOrder}><CloseIcon/></Button>
                     {uid_selected.length > 0 ?
                         <Button variant="outlined" color="secondary" sx={{marginRight: '4px'}} onClick={() => {
-                            set_uid_selected([])
+                            if (type === 'cinema') {
+                                dispatch(selectUidCinema([]))
+                            } else {
+                                dispatch(selectUidHoreca([]))
+                            }
                         }} endIcon={<RemoveDoneIcon/>}>{uid_selected.length}</Button> : null}
                 </ButtonGroup>
                 <Box className="order-box-panel-1-sum-number">
@@ -136,8 +142,7 @@ const OrderBody = ({
                     <Box className='order-booking'>{order.items.map(booking => (<BookingItem key={booking.uid}
                                                                                              {...booking}
                                                                                              uid_order={order.uid}
-                                                                                             uid_selected={uid_selected}
-                                                                                             set_uid_selected={set_uid_selected}/>))}</Box>
+                                                                                             uid_selected={uid_selected}/>))}</Box>
                 </Box>
             </>}
             {type === 'horeca' && <>
@@ -189,8 +194,7 @@ const OrderBody = ({
                                 order={order}
                                 key={`${item.uid}${order.ver}`}
                                 item={item}
-                                uid_selected={uid_selected}
-                                set_uid_selected={set_uid_selected}/>)}
+                                uid_selected={uid_selected}/>)}
                         </ul>
                     </>))}
                     {[1, 2, 3].map(state => (order.items.filter(item => item.kitchen !== null).some(item => item.kitchen.state === state) && (
@@ -203,8 +207,7 @@ const OrderBody = ({
                                         order={order}
                                         key={`${item.uid}${order.ver}`}
                                         item={item}
-                                        uid_selected={uid_selected}
-                                        set_uid_selected={set_uid_selected}/>)}
+                                        uid_selected={uid_selected}/>)}
                             </ul>
                         </Fragment>)))}
                 </Box>
@@ -227,8 +230,8 @@ const Order = () => {
     const pre_order_preparing = useSelector(state => state.orders.pre_order_preparing)
     const horder_preparing = useSelector(state => state.orders.horder_preparing)
 
-    const [uid_horeca_selected, set_uid_horeca_selected] = useState([])
-    const [uid_cinema_selected, set_uid_cinema_selected] = useState([])
+    const uid_horeca_selected = useSelector(state => state.orders.uid_horeca_selected)
+    const uid_cinema_selected = useSelector(state => state.orders.uid_cinema_selected)
 
     const [printing_cinema, set_printing_cinema] = useState(false)
     const [printing_horeca, set_printing_horeca] = useState(false)
@@ -240,13 +243,13 @@ const Order = () => {
     }
 
     useEffect(() => {
-        set_uid_horeca_selected([])
+        dispatch(selectUidHoreca([]))
         set_printing_horeca(false)
         dispatch(setPreOrderPreparing(false))
     }, [dispatch, horder.uid, horder.ver])
 
     useEffect(() => {
-        set_uid_cinema_selected([])
+        dispatch(selectUidCinema([]))
         set_printing_cinema(false)
         dispatch(setHorderPreparing(false))
     }, [dispatch, pre_order.uid, pre_order.ver])
@@ -292,7 +295,6 @@ const Order = () => {
                 }}
                 dispatch={dispatch}
                 uid_selected={uid_cinema_selected}
-                set_uid_selected={set_uid_cinema_selected}
                 filial={filial}
             />
         </motion.div> : null}
@@ -330,7 +332,6 @@ const Order = () => {
                 }))}
                 dispatch={dispatch}
                 uid_selected={uid_horeca_selected}
-                set_uid_selected={set_uid_horeca_selected}
                 addContact={() => {
                     dispatch(openModal({
                         type: 'add_contact', props: {order_type: 'horeca', order: horder}

@@ -116,7 +116,10 @@ const initialState = {
     kitchen_orders: null,
 
     // КИОСК
-    kiosk_payment_error: null
+    kiosk_payment_error: null,
+
+    uid_horeca_selected: [],
+    uid_cinema_selected: [],
 }
 
 export const ordersSlice = createSlice({
@@ -266,6 +269,10 @@ export const ordersSlice = createSlice({
             state.uid_current_return_reasons = payload
         }, setCommentReturnReasons(state, {payload}) {
             state.comment_return_reasons = payload
+        }, selectUidHoreca(state, {payload}) {
+            state.uid_horeca_selected = payload
+        }, selectUidCinema(state, {payload}) {
+            state.uid_cinema_selected = payload
         }
     },
 })
@@ -322,5 +329,7 @@ export const {
     setReturnReasonsList,
     setCurrentUidReturnReasons,
     setCommentReturnReasons,
+    selectUidHoreca,
+    selectUidCinema
 } = ordersSlice.actions
 export default ordersSlice.reducer

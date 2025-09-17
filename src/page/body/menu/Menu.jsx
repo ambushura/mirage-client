@@ -63,7 +63,6 @@ export default function Menu() {
                         className='menu-breadcrumbs'
                         initial="hidden"
                         animate="visible"
-
                         variants={containerVariants}>{breadcrumbs}</motion.div>}
                 </AnimatePresence>
                 <AnimatePresence>

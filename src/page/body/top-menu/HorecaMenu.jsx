@@ -1,7 +1,6 @@
 import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch} from "react-redux"
 import {openModal} from "../../../redux/interfaceReducer.js"
-import SettingsIcon from '@mui/icons-material/Settings'
 
 export function CZIcon(props) {
     return <svg
@@ -73,31 +72,19 @@ const HorecaMenu = () => {
 
     const dispatch = useDispatch()
 
-    return (<Box id="top-menu">
+    return <Box id="top-menu">
         <ButtonGroup variant='outlined' color='secondary' size='medium'>
             <Button startIcon={<CZIcon/>}
                     onClick={() => {
-                        dispatch(openModal({type: 'mark', props: {add: true}}))
-                    }}>ЧЗ</Button>
-            <Button endIcon={<SettingsIcon/>}
-                    onClick={() => {
                         dispatch(openModal({type: 'mark_hosts', props: {}}))
-                    }}>Настройки</Button>
-        </ButtonGroup>
-        <ButtonGroup variant='outlined' color='secondary' size='large' sx={{marginLeft: '4px'}}>
-            <Button startIcon={<EGAISIcon/>}
-                    onClick={() => {
-                        dispatch(openModal({type: 'egais', props: {add: true}}))
-                    }}>ЕГАИС</Button>
+                    }}>Маркировка</Button>
             <Button size='small'
-                    endIcon={<SettingsIcon/>}
+                    startIcon={<EGAISIcon/>}
                     onClick={() => {
                         dispatch(openModal({type: 'egais_settings', props: {}}))
                     }}>УТМ ЕГАИС</Button>
         </ButtonGroup>
-        <Button variant='outlined' color='secondary' sx={{marginLeft: '4px'}}
-                startIcon={<BarcodeIcon/>}>Штрихкод</Button>
-    </Box>)
+    </Box>
 }
 
 export default HorecaMenu

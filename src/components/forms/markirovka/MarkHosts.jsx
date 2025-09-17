@@ -17,31 +17,28 @@ const MarkHosts = () => {
 
     const [cdn_rows, set_cdn_rows] = useState([])
     const cdn_columns_wight = [150, 50, 110]
-    const cdn_columns = [
-        {field: 'id', headerName: 'Площадка', width: cdn_columns_wight[0]},
-        {field: 'period', headerName: '', width: cdn_columns_wight[2]},
-        {
-            field: 'avg_time_ms',
-            headerName: '',
-            width: cdn_columns_wight[1],
-            renderCell: (params) => {
-                const value = params.value
-                let color = 'inherit'
-                if (value < 3) color = 'green'
-                else if (value < 5) color = 'orange'
-                else color = 'red'
-                return <span style={{color, fontWeight: 'bold'}}>{value}</span>
+    const cdn_columns = [{field: 'id', headerName: 'Площадка', width: cdn_columns_wight[0]}, {
+        field: 'period', headerName: '', width: cdn_columns_wight[2]
+    }, {
+        field: 'avg_time_ms', headerName: '', width: cdn_columns_wight[1], renderCell: (params) => {
+            const value = params.value
+            let color = 'inherit'
+            if (value < 3) {
+                color = 'green'
+            } else if (value < 5) {
+                color = 'orange'
+            } else {
+                color = 'red'
             }
-        },
-    ]
+            return <span style={{color, fontWeight: 'bold'}}>{value}</span>
+        }
+    },]
 
     useEffect(() => {
         const cdn_rows_new = []
         hosts.forEach(host => {
             cdn_rows_new.push({
-                id: host.host,
-                avg_time_ms: host.avgTimeMs,
-                period: dayjs(host.period).format('DD.MM HH:mm:ss'),
+                id: host.host, avg_time_ms: host.avgTimeMs, period: dayjs(host.period).format('DD.MM HH:mm:ss'),
             })
         })
         cdn_rows_new.sort((a, b) => a.avg_time_ms - b.avg_time_ms)
@@ -57,35 +54,33 @@ const MarkHosts = () => {
         }
     })
 
-    return (
-        <Box component="form"
-             noValidate
-             autoComplete="off"
-             onSubmit={(e) => {
-                 e.preventDefault()
-             }}
-             sx={{width: `${cdn_columns_wight.reduce((a, b) => a + b, 0) + 2}px`}}>
-            <Typography variant="h6" color="textSecondary" margin={1}>Доступность площадок ГИСМТ &#34;Честный
-                знак&#34;</Typography>
-            <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
-                <DataGrid
-                    disableSelectionOnClick
-                    hideFooterPagination
-                    rows={cdn_rows}
-                    columns={cdn_columns}
-                    pageSize={5}
-                    pageSizeOptions={[5]}
-                    sx={EMPTY_TABLE_STYLE}
-                    localeText={ruRU.localeText}
-                />
-            </Box>
-            <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
-                <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}} onClick={() => {
-                    dispatch(markirovka_cdn_info_update(filial))
-                }}>Обновить список CDN-площадок</Button>
-            </Box>
+    return (<Box component="form"
+                 noValidate
+                 autoComplete="off"
+                 onSubmit={(e) => {
+                     e.preventDefault()
+                 }}
+                 sx={{width: `${cdn_columns_wight.reduce((a, b) => a + b, 0) + 2}px`}}>
+        <Typography variant="h6" color="textSecondary" margin={1}>Доступность площадок ГИСМТ &#34;Честный
+            знак&#34;</Typography>
+        <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
+            <DataGrid
+                disableSelectionOnClick
+                hideFooterPagination
+                rows={cdn_rows}
+                columns={cdn_columns}
+                pageSize={5}
+                pageSizeOptions={[5]}
+                sx={EMPTY_TABLE_STYLE}
+                localeText={ruRU.localeText}
+            />
         </Box>
-    )
+        <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
+            <Button variant='contained' color='secondary' type="submit" sx={{marginLeft: '4px'}} onClick={() => {
+                dispatch(markirovka_cdn_info_update(filial))
+            }}>Обновить список CDN-площадок</Button>
+        </Box>
+    </Box>)
 }
 
 export default MarkHosts

@@ -1,11 +1,13 @@
 import {Box, Button} from "@mui/material"
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {openModal} from "../../redux/interfaceReducer.js"
+import {selectUidCinema} from "../../redux/ordersReducer.js";
 
 const BookingItem = (props) => {
 
     const dispatch = useDispatch()
+    const uid_selected = useSelector(state => state.orders.uid_cinema_selected)
 
     return (<Box className="order-booking-item">
         <Box
@@ -18,7 +20,7 @@ const BookingItem = (props) => {
                 width: 'calc(100% - 50px)'
             }}
                  onClick={() => {
-                     props.set_uid_selected(prev => prev.includes(props.uid) ? prev.filter(el => el !== props.uid) : [...prev, props.uid])
+                     dispatch(selectUidCinema(uid_selected.includes(props.uid) ? uid_selected.filter(el => el !== props.uid) : [...uid_selected, props.uid]))
                  }}>
                 <span className="order-booking-item-numbers">{props.place_row}</span>
                 <span className="order-booking-item-labels">р</span>

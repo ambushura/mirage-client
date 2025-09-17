@@ -1704,8 +1704,10 @@ body {
 }
 
 .order-box-horeca-item-2-2 {
-    width: calc(460px - 50px - 50px);
+    flex: 1;
     padding: 4px;
+    overflow: hidden;
+    font-size: 12px;
 }
 
 .order-box-horeca-item-2-3 {

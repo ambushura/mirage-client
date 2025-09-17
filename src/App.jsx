@@ -14,9 +14,7 @@ import {
     CommentPosition,
     Contact,
     Discounts,
-    Egais,
     EgaisSettings,
-    Mark,
     MarkHosts,
     Quantity,
     SeanceCancellation
@@ -69,11 +67,9 @@ function App() {
         comment_position: CommentPosition,
         calc: Calc,
         discounts: Discounts,
-        add_contact: Contact,
-        mark: Mark,
+        add_contact: Contact, //mark: Mark,
         mark_hosts: MarkHosts,
-        mark_info: MarkInfo,
-        egais: Egais,
+        mark_info: MarkInfo, //egais: Egais,
         egais_settings: EgaisSettings,
         horeca_filters: HorecaFilters,
         cinema_filters: CinemaFilters,
@@ -90,7 +86,7 @@ function App() {
         dialog_save_order: Dialog,
         documents_operation: Operation,
         creator_change: StaffList,
-        pinpads: OthersPaymentTypes,
+        pinpads: OthersPaymentTypes, //barcode: Barcode,
     }
 
     const ModalContent = useMemo(() => {

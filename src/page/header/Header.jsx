@@ -7,9 +7,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../components/forms/Auth.jsx"
 import {useEffect, useRef, useState} from "react"
-import {
-    MOBILE_WIDTH, setAuthOpened, TOP_MENU
-} from "../../redux/interfaceReducer.js"
+import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -79,7 +77,7 @@ const Header = () => {
             up.push(<Button key='2'>{name_user}</Button>)
             if (cities.length > 0) {
                 up.push(<NavLink key='1'
-                                 to={`/films/${cities[0].code}/all/${param_date}/`}>
+                                 to={`/films/${city !== undefined ? city.code : cities[0].code}/${filial !== undefined ? filial.eais : 'all'}/${param_date}/`}>
                     <Button startIcon={<ExitToAppIcon/>} onClick={() => dispatch(logout())}>Выход</Button>
                 </NavLink>)
             }
