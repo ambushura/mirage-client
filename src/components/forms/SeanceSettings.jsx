@@ -1,10 +1,6 @@
-import {useState, useEffect} from 'react'
-import {
-    TextField, Box, Stack, InputAdornment, Autocomplete
-} from '@mui/material'
-import {
-    LocalizationProvider, MobileTimePicker
-} from '@mui/x-date-pickers'
+import {useEffect, useState} from 'react'
+import {Autocomplete, Box, InputAdornment, Stack, TextField} from '@mui/material'
+import {LocalizationProvider, MobileTimePicker} from '@mui/x-date-pickers'
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
@@ -86,12 +82,12 @@ export default function SeanceSettings({props}) {
                     }}
                 />
                 <TextField
-                    label="Стоимость (₽)"
+                    label="Стоимость (Р)"
                     type="number"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     InputProps={{
-                        startAdornment: (<InputAdornment position="start">₽</InputAdornment>), inputProps: {min: 0}
+                        startAdornment: (<InputAdornment position="start">Р</InputAdornment>), inputProps: {min: 0}
                     }}
                     variant="outlined"
                 />

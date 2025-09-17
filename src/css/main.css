@@ -1101,7 +1101,6 @@ body {
 .component-seance-title-time, .component-seance-title-time-x2 {
     background-color: #fff;
     color: black;
-    width: calc(80px * var(--scale));
 }
 
 .component-seance-title-time > div > span,
