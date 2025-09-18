@@ -46,7 +46,7 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                                           display: 'flex',
                                           flexDirection: 'column',
                                           backgroundColor: '#f4f4f4',
-                                          borderBottom: '1px dashed #b6b5b5',
+                                          borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
                                           padding: '2px 4px 2px 0',
                                       }}>
             <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
@@ -74,18 +74,18 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
             </Box>
             {item.egais_type_code !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
-                <Box sx={{width: '96px', fontStyle: 'italic'}}>Акцизная марка: </Box>
+                <Box sx={{width: '96px', fontWeight: 100,}}>Акцизная марка: </Box>
                 <Box sx={{
-                    flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+                    fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
                 }}>{item.egais_type_value}</Box>
             </Box> : null}
             {item.mark_type !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <Box sx={{
                     width: '20px', color: item.mark_payment_available ? '#50DB92' : '#e3000b'
                 }}><CircleIcon sx={{scale: 0.5}}/></Box>
-                <Box sx={{width: '45px', fontStyle: 'italic'}}>ЧЗ КМ: </Box>
+                <Box sx={{fontWeight: 100, width: '45px'}}>ЧЗ КМ: </Box>
                 <Box sx={{
-                    flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+                    fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
                 }}>{item.mark_value}</Box>
             </Box> : null}
         </Box>))}
@@ -169,7 +169,17 @@ const OrderHoreca = ({order}) => {
                         {order.name_hall} {order.name_place}</Box> : null}
             </Box>
         </Box>
-
+        {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
+            padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
+        }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}</Box> : null}
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            {order.buyer_email !== null ? <Box><AlternateEmailIcon
+                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+            </Box> : null}
+            {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
+                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
+            </Box> : null}
+        </Box>
         <Box className='admin-orders-horeca-order-body'>
             <RenderGroup chapter1={'payment_slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}
                          group={groups.for_payment_slip_without_receipt}
@@ -185,23 +195,13 @@ const OrderHoreca = ({order}) => {
         </Box>
 
         <Box className='admin-orders-horeca-order-footer'>
-            {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
-                padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
-            }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}</Box> : null}
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                {order.buyer_email !== null ? <Box><AlternateEmailIcon
-                    sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
-                </Box> : null}
-                {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
-                    sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
-                </Box> : null}
-            </Box>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
                 fontWeight: 'bold',
                 justifyContent: 'space-between',
-                padding: '10px'
+                padding: '10px',
+                borderTop: '1px dashed gray'
             }}>
                 <Box>{order.quantity} товаров</Box>
                 <Box><LocalPrintshopIcon

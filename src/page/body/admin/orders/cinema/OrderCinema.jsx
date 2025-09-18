@@ -5,9 +5,9 @@ import dayjs from "dayjs"
 import {
     ITEMS_TYPE_SERVICE,
     PAYMENT_STATE_SLIP_WITHOUT_RECEIPT,
-    RETURNING_STATE_WAITING,
     PAYMENT_STATE_WAITING,
-    RETURNING_STATE_SUCCESS
+    RETURNING_STATE_SUCCESS,
+    RETURNING_STATE_WAITING
 } from "../../../../../redux/interfaceReducer.js"
 import DotsAnimation from "../../../../../ui/DotsAnimation.jsx"
 import {useEffect, useState} from "react"
@@ -134,7 +134,7 @@ const OrderCinema = ({order}) => {
         })
     }, [order])
 
-    return (<Box key={order.uid} onClick={() => dispatch(cinema_order_fetch(filial, order.uid))}>
+    return <Box key={order.uid} onClick={() => dispatch(cinema_order_fetch(filial, order.uid))}>
         <Box className='admin-orders-cinema-order-content' sx={{fontSize: '80%'}}>
 
             <Box className='admin-orders-cinema-order-header' sx={{
@@ -160,21 +160,18 @@ const OrderCinema = ({order}) => {
                     }}>{order.name_creator} {order.id_site !== 0 ? order.id_site : null}</Box>
                 </Box>
 
-                <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-                    <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                        <Box sx={{
-                            fontWeight: 'bold',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-around',
-                            width: '100px'
-                        }}>
-                            <span style={{color: '#8B919B'}}>{dayjs.utc(order.date_create).format("DD.MM")}</span>
-                            <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
-                        </Box>
-                        <Box style={{color: '#8B919B'}}>
-                            {dayjs.utc(order.date_change).format("HH:mm")}
-                        </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', flex: 1}}>
+                    <Box sx={{
+                        fontWeight: 'bold',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-around',
+                        width: '100px',
+                        marginRight: '4px'
+                    }}>
+                        <span>{dayjs.utc(order.date_create).format("DD.MM")}</span>
+                        <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
+                        <span style={{color: '#8B919B'}}> {dayjs.utc(order.date_change).format("HH:mm")}</span>
                     </Box>
                 </Box>
 
@@ -182,22 +179,37 @@ const OrderCinema = ({order}) => {
 
             <Box sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
                 flexGrow: 1,
-                flexWrap: 'wrap',
+                flexWrap: 'no-wrap',
                 justifyContent: 'center',
-                padding: '4px 0'
+                padding: '0 4px',
+                borderTop: '1px dashed #b6b5b5',
+                borderBottom: '1px dashed #b6b5b5',
             }}>
                 <Box sx={{
                     fontWeight: 'bold', marginRight: '10px'
-                }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+<span style={{
-                    marginLeft: '10px', color: '#8B919B'
-                }}><LocationOnIcon sx={{width: '15px', height: '15px'}}/> Зал {order.hall_full_name}</span></Box><Box
-                sx={{
-                    fontWeight: 'bold', color: '#8B919B'
-                }}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
+                }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box>
+                <Box
+                    sx={{
+                        fontWeight: 'bold', color: '#8B919B'
+                    }}><span
+                    style={{marginRight: '10px'}}><LocationOnIcon sx={{
+                    width: '15px', height: '15px'
+                }}/> Зал {order.hall_full_name}</span> {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
             </Box>
-
+            {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
+                padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
+            }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>{order.comment}
+            </Box> : null}
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                {order.buyer_email !== null ? <Box><AlternateEmailIcon
+                    sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+                </Box> : null}
+                {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
+                    sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
+                </Box> : null}
+            </Box>
             <Box className='admin-orders-cinema-order-body'>
                 <RenderGroup chapter1={'payment_slip_without_receipt'} label={PAYMENT_STATE_SLIP_WITHOUT_RECEIPT}
                              group={groups.for_payment_slip_without_receipt} ver={order.ver}/>
@@ -212,24 +224,13 @@ const OrderCinema = ({order}) => {
             </Box>
 
             <Box className='admin-orders-cinema-order-footer'>
-                {order.comment !== null ? <Box className='admin-orders-order-footer-comment' sx={{
-                    padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
-                }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>{order.comment}
-                </Box> : null}
-                <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                    {order.buyer_email !== null ? <Box><AlternateEmailIcon
-                        sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
-                    </Box> : null}
-                    {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
-                        sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}
-                    </Box> : null}
-                </Box>
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'row',
                     fontWeight: 'bold',
                     justifyContent: 'space-between',
-                    padding: '10px'
+                    padding: '10px',
+                    borderTop: '1px dashed gray',
                 }}>
                     <Box>{order.quantity} услуг</Box>
                     <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
@@ -239,7 +240,7 @@ const OrderCinema = ({order}) => {
 
         </Box>
 
-    </Box>)
+    </Box>
 }
 
 export default OrderCinema

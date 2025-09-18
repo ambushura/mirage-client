@@ -15,6 +15,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Mirage';
+    src: url('../fonts/ProximaNova-Regular.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
 /* ============================== */
 /*            RESET               */
 /* ============================== */
@@ -2102,7 +2109,6 @@ body {
 
 .admin-orders-horeca-order-content, .admin-orders-cinema-order-content {
     width: 310px;
-    max-height: var(--admin-order-height);
     background-color: #f4f4f4;
     border-radius: 12px;
     overflow: hidden;
