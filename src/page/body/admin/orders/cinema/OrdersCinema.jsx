@@ -60,7 +60,6 @@ const OrdersCinema = () => {
         return <Box className='empty-box'
                     sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
     } else if (data !== null) {
-        const pages = Math.ceil(data.total_count / 20)
         return <Box className='admin-orders-cinema'>
             <Box className='admin-orders-cinema-orders'>
                 <Box className='admin-orders-cinema-orders-content'>

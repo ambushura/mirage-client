@@ -1,6 +1,4 @@
 import {Box, Fade} from "@mui/material"
-import ScheduleMenu from "../top-menu/ScheduleMenu.jsx"
-import Order from "../../right-panel/Order.jsx"
 import cover from "../../../images/cover.jpg"
 import SeanceCard from "./SeanceCard.jsx"
 import {useDispatch, useSelector} from "react-redux"
@@ -11,7 +9,7 @@ import {useEffect} from "react"
 import {cinema_film_seances_get} from "../../../service/fetch_service.js"
 import {cleanFilm, setFilm} from "../../../redux/scheduleReducer.js"
 
-const PageFilm = () => {
+export default function PageFilm() {
 
     const dispatch = useDispatch()
 
@@ -22,8 +20,6 @@ const PageFilm = () => {
     const filial = useSelector(state => state.data.filial)
     const film = useSelector(state => state.schedule.film)
     const film_seances = useSelector(state => state.schedule.film_seances)
-    const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
-    const horder = useSelector(state => state.orders.horder || {in_base: false})
 
     const seance_closed = useSelector(state => state.schedule.schedule_filters_seance_closed)
     const seance_canceled = useSelector(state => state.schedule.schedule_filters_seance_canceled)
@@ -61,81 +57,77 @@ const PageFilm = () => {
     }, [city, filial, uid_film, param_date, seance_closed, seance_canceled, seance_opened, films_selected, film_copy_types_selected, film_age, halls_selected, hall_type_vip, hall_type_regular, seance_time, seance_price, film_types_selected, dispatch])
 
     if (film_seances.length > 0 && film !== null) {
-        return <>
-            <ScheduleMenu/>
-            <Box id='content-box'>
-                <Box id="content-wrap">
-                    <Box id="content">
-                        <Box className='seances-body-poster'>
-                            <Box className='seances-cover'>
-                                <img className='seances-cover-img'
-                                     src={film.cover_link === '' ? cover : `http://${city.filials[0].media_ip}:${city.filials[0].media_port}` + film.cover_link}
-                                     alt={film.name}/>
+        return <Box id='content-box' sx={{overflowY: 'auto'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <Box id='content-header'></Box>
+                <Box id='content'>
+                    <Box className='seances-body-poster'>
+                        <Box className='seances-cover'>
+                            <img className='seances-cover-img'
+                                 src={film.cover_link === '' ? cover : `http://${city.filials[0].media_ip}:${city.filials[0].media_port}` + film.cover_link}
+                                 alt={film.name}/>
+                        </Box>
+                        <Box className='seances-body'>
+                            <Box className='seances-body-description'>
+                                <Box
+                                    className='seances-body-description-name'>{film.name}</Box>
+                                <Box className='seances-body-description-genre'>ужасы, триллеры</Box>
+                                <Box>{film.description}</Box>
                             </Box>
-                            <Box className='seances-body'>
-                                <Box className='seances-body-description'>
-                                    <Box
-                                        className='seances-body-description-name'>{film.name}</Box>
-                                    <Box className='seances-body-description-genre'>ужасы, триллеры</Box>
-                                    <Box>{film.description}</Box>
-                                </Box>
-                                {film_seances.map(filial_data => {
-                                    if (!filial_data.loading && filial_data.error !== null && filial_data.data === null) {
-                                        return <Box className='seances-body-filial'
-                                                    key={filial_data.filial.uid}>
-                                            <Box className='seances-body-filial-name'>{filial_data.filial.name}</Box>
-                                            <Box className='seances-body-seances'>Не могу загрузить фильмы для этого
-                                                филиала...</Box>
+                            {film_seances.map(filial_data => {
+                                if (!filial_data.loading && filial_data.error !== null && filial_data.data === null) {
+                                    return <Box className='seances-body-filial'
+                                                key={filial_data.filial.uid}>
+                                        <Box className='seances-body-filial-name'>{filial_data.filial.name}</Box>
+                                        <Box className='seances-body-seances'>Не могу загрузить фильмы для этого
+                                            филиала...</Box>
+                                    </Box>
+                                } else if (filial_data.loading && filial_data.error === null && filial_data.data === null) {
+                                    return <Box className='seances-body-filial'
+                                                key={filial_data.filial.uid}>
+                                        <Box className='seances-body-filial-name'>{filial_data.filial.name}</Box>
+                                        <Box className='seances-body-seances'>
+                                            <Loader key={filial_data.filial.uid}/>
                                         </Box>
-                                    } else if (filial_data.loading && filial_data.error === null && filial_data.data === null) {
-                                        return <Box className='seances-body-filial'
-                                                    key={filial_data.filial.uid}>
-                                            <Box className='seances-body-filial-name'>{filial_data.filial.name}</Box>
-                                            <Box className='seances-body-seances'>
-                                                <Loader key={filial_data.filial.uid}/>
-                                            </Box>
+                                    </Box>
+                                } else if (!filial_data.loading && filial_data.error === null && filial_data.data !== null) {
+                                    return <Fade key={filial_data.filial.uid}
+                                                 in={filial_data.data.seances.length > 0} timeout={TIMEOUT}
+                                                 unmountOnExit>
+                                        <Box className='seances-body-filial'>
+                                            <Box
+                                                className='seances-body-filial-name'>{filial_data.filial.name}</Box>
+                                            <AnimatePresence>
+                                                {filial_data.data.seances.length > 0 && (<motion.div
+                                                    className='seances-body-seances'
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="hidden"
+                                                    variants={containerVariants}>
+                                                    {filial_data.data.seances.map(seance => {
+                                                        return (<motion.div
+                                                            key={`${filial_data.filial.uid}${seance.uid}`}
+                                                            variants={itemVariants}>
+                                                            <SeanceCard
+                                                                seance={seance}
+                                                                city={city}
+                                                                filial={filial_data.filial}/>
+                                                        </motion.div>)
+                                                    })}
+                                                </motion.div>)}
+                                            </AnimatePresence>
                                         </Box>
-                                    } else if (!filial_data.loading && filial_data.error === null && filial_data.data !== null) {
-                                        return <Fade key={filial_data.filial.uid}
-                                                     in={filial_data.data.seances.length > 0} timeout={TIMEOUT}
-                                                     unmountOnExit>
-                                            <Box className='seances-body-filial'>
-                                                <Box
-                                                    className='seances-body-filial-name'>{filial_data.filial.name}</Box>
-                                                <AnimatePresence>
-                                                    {filial_data.data.seances.length > 0 && (<motion.div
-                                                        className='seances-body-seances'
-                                                        initial="hidden"
-                                                        animate="visible"
-                                                        exit="hidden"
-                                                        variants={containerVariants}>
-                                                        {filial_data.data.seances.map(seance => {
-                                                            return (<motion.div
-                                                                key={`${filial_data.filial.uid}${seance.uid}`}
-                                                                variants={itemVariants}>
-                                                                <SeanceCard
-                                                                    seance={seance}
-                                                                    city={city}
-                                                                    filial={filial_data.filial}/>
-                                                            </motion.div>)
-                                                        })}
-                                                    </motion.div>)}
-                                                </AnimatePresence>
-                                            </Box>
-                                        </Fade>
-                                    }
-                                })}
-                            </Box>
+                                    </Fade>
+                                }
+                            })}
                         </Box>
                     </Box>
                 </Box>
-                {pre_order.in_base || horder.in_base ? <Order/> : null}
+                <Box id='content-footer'></Box>
             </Box>
-        </>
+        </Box>
     }
 }
-
-export default PageFilm
 
 const containerVariants = {
     hidden: {}, visible: {

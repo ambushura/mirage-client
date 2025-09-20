@@ -1,0 +1,18 @@
+.seance-header-kiosk {
+    z-index: 1;
+    height: var(--header-height);
+    display: flex;
+    flex-direction: column;
+}
+
+.order-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 4px;
+}
+
+.order-progress {
+    height: 100%;
+    border-radius: 12px;
+}

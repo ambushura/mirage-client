@@ -14,22 +14,23 @@ export const ThemeBlackWhite = ({children}) => {
     const pre_oder = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const current_page = useSelector(state => state.interface.current_page)
+    const kiosk = useSelector(state => state.interface.kiosk)
 
     const [ui_state, set_ui_state] = useState({
         authorized: false,
         is_full_screen: false,
         is_mobile: false,
         show_order: false,
-        top_menu: false,
         second_screen: false,
+        kiosk: false,
     })
 
     useEffect(() => {
+        document.documentElement.setAttribute('kiosk', ui_state.kiosk)
         document.documentElement.setAttribute('authorized', ui_state.authorized)
         document.documentElement.setAttribute('full-screen', String(ui_state.is_full_screen))
         document.documentElement.setAttribute('mobile', String(ui_state.is_mobile))
         document.documentElement.setAttribute('show-order', String(ui_state.show_order))
-        document.documentElement.setAttribute('top-menu', String(ui_state.top_menu))
         document.documentElement.setAttribute('second-screen', String(ui_state.second_screen))
     }, [ui_state])
 
@@ -65,12 +66,16 @@ export const ThemeBlackWhite = ({children}) => {
 
     useEffect(() => {
         set_ui_state(preValue => ({
-            ...preValue,
-            top_menu: uid_user !== null || current_page !== 'seance',
-            second_screen: current_page === 'second_screen',
+            ...preValue, second_screen: current_page === 'second_screen',
         }))
 
     }, [current_page, uid_user])
+
+    useEffect(() => {
+        set_ui_state(preValue => ({
+            ...preValue, kiosk: kiosk,
+        }))
+    }, [kiosk])
 
     return <ThemeContext.Provider value={{uiState: ui_state, setUiState: set_ui_state}}>
         {children}
@@ -146,6 +151,14 @@ export const Theme = createTheme({
             defaultProps: {
                 icon: <RadioButtonUncheckedIcon/>, checkedIcon: <CheckCircleIcon/>,
             },
+        }, MuiBackdrop: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                }
+            }
         }
     },
 })

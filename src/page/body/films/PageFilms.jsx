@@ -1,6 +1,4 @@
 import {Box} from "@mui/material"
-import ScheduleMenu from "../top-menu/ScheduleMenu.jsx"
-import Order from "../../right-panel/Order.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import FilmCard from "./FilmCard.jsx"
 import {motion, AnimatePresence} from 'framer-motion'
@@ -16,8 +14,6 @@ const PageFilms = () => {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const films = useSelector(state => state.schedule.films || [])
-    const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
-    const horder = useSelector(state => state.orders.horder || {in_base: false})
 
     const seance_closed = useSelector(state => state.schedule.schedule_filters_seance_closed)
     const seance_canceled = useSelector(state => state.schedule.schedule_filters_seance_canceled)
@@ -50,32 +46,31 @@ const PageFilms = () => {
         }
     }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])
 
-    return (<>
-        <ScheduleMenu/>
-        <Box id='content-box'>
-            <Box id='content-wrap'>
-                <Box id='content'>
-                    <AnimatePresence>
-                        {films.length > 0 && (<motion.div
-                            id="schedule"
-                            initial="hidden"
-                            animate="visible"
-                            exit="hidden"
-                            variants={containerVariants}>
-                            {films.map(film => (<motion.div
-                                className='film'
-                                key={film.uid}
-                                variants={itemVariants}>
-                                <FilmCard film={film}/>
-                            </motion.div>))}
-                        </motion.div>)}
-                        {films.length === 0 && (<Box className='empty-box'>Нет фильмов на эту дату...</Box>)}
-                    </AnimatePresence>
-                </Box>
+    return <Box id='content-box' sx={{overflowY: 'auto'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box id='content-header'></Box>
+            <Box id='content' sx={{padding: '10px 0'}}>
+                <AnimatePresence>
+                    {films.length > 0 && (<motion.div
+                        id="schedule"
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={containerVariants}>
+                        {films.map(film => (<motion.div
+                            className='film'
+                            key={film.uid}
+                            variants={itemVariants}>
+                            <FilmCard film={film}/>
+                        </motion.div>))}
+                    </motion.div>)}
+                    {films.length === 0 && <Box className='empty-box'>Нет фильмов на эту дату...</Box>}
+                </AnimatePresence>
             </Box>
-            {pre_order.in_base || horder.in_base ? <Order/> : null}
+            <Box id='content-footer'></Box>
         </Box>
-    </>)
+    </Box>
+
 }
 
 export default PageFilms

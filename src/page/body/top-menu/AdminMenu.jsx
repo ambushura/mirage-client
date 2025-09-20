@@ -60,9 +60,7 @@ import {ClearIcon} from "@mui/x-date-pickers"
 import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../../service/fetch_service.js"
 import {SelectMenu} from "../../../ui/SelectMenu.jsx"
 import {
-    ROUTE_EQUIPMENT_KKT_Z,
-    ROUTE_EQUIPMENT_PINPAD_X,
-    ROUTE_EQUIPMENT_PINPAD_Z
+    ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z
 } from "../../../service/fetch_routes.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 
@@ -271,7 +269,7 @@ export function DateParamAdmin() {
     }
 
     return <>
-        <ButtonGroup size='medium' variant='outlined' color='secondary' className='admin-panel-period'
+        <ButtonGroup size='medium' variant='contained' color='secondary' className='admin-panel-period'
                      sx={{marginRight: '5px'}}>
             <Button onClick={async () => {
                 const now = new Date()
@@ -455,7 +453,7 @@ export function CurrentPinpad() {
 export function ShowKitchenPoints() {
 
     const tags = (size, multiply, limit_tags, id, options, label, placeholder, selected_uid = []) => {
-        return (<Autocomplete
+        return <Autocomplete
             onChange={(event, new_value) => {
             }}
             value={selected_uid}
@@ -466,11 +464,11 @@ export function ShowKitchenPoints() {
             id={id}
             options={options}
             getOptionLabel={(option) => option.title}
-            renderInput={(params) => (<TextField sx={{width: '100%'}} variant='filled' {...params} label={label}
-                                                 placeholder={placeholder}/>)}
+            renderInput={(params) => <TextField sx={{width: '100%'}} variant='filled' {...params} label={label}
+                                                placeholder={placeholder}/>}
             sx={{width: '100%', marginBottom: 0}}
             isOptionEqualToValue={(option, value) => option.uid === value.uid}
-        />)
+        />
     }
 
     return <Box sx={{width: '400px', marginRight: '4px'}}>
@@ -515,7 +513,7 @@ export default function AdminMenu() {
 
     const filial = useSelector(state => state.data.filial)
 
-    return (<Box className='admin-panel'>
+    return <Box id='top-menu'>
         {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
             <DateParamAdmin/> : null}
         {current_page === 'admin/zbooks' && filial !== undefined ? <CurrentKKT/> : null}
@@ -532,5 +530,5 @@ export default function AdminMenu() {
         {current_page === 'kitchen' && filial !== undefined ? <ShowKitchenPoints/> : null}
         {current_page === 'admin/orders/horeca' ? <ShowPagesHorecaOrders/> : null}
         {current_page === 'admin/orders/cinema' ? <ShowPagesCinemaOrders/> : null}
-    </Box>)
+    </Box>
 }

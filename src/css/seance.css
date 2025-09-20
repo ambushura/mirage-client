@@ -1,0 +1,82 @@
+.seance {
+    width: inherit;
+    height: calc(var(--page-height) - 10px - 10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.seance-canceled::after,
+.seance-closed::after {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: all;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px 12px 0 0;
+}
+
+#seance-title {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#seance-title > div {
+    margin-bottom: 5px;
+}
+
+.seance-title-film-name {
+    font-size: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    color: var(--txt-color);
+}
+
+.seance-title-hall-name {
+    font-size: 18px;
+    color: #8B919B;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.seance-title-panel {
+    display: flex;
+}
+
+.seance-title-preorder {
+    height: 48px;
+    color: white;
+    display: flex;
+}
+
+.seance-title-timeslot {
+    padding: 0 10px;
+    height: 48px;
+    background-color: white;
+    border-radius: 12px;
+    color: black;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+}
+
+.seance-title-timeslot-day {
+    color: #8B919B;
+    margin-left: 5px;
+}

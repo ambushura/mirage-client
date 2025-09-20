@@ -12,6 +12,10 @@ import {Theme, ThemeBlackWhite} from './ui/ThemeContext.jsx'
 
 import 'dayjs/locale/ru'
 import './css/main.css'
+import './css/new-main.css'
+import './css/checkout.css'
+import './css/films.css'
+import './css/seance.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter>
     <Provider store={store}>

@@ -57,11 +57,10 @@ const AppRoutes = ({current_page}) => {
         "admin/acquiring": isAdmin ? <PageAdmin/> : null,
     }
 
-    return (
-        <Box id='page'>
+    return (<Box id='page'>
+
             {pages[current_page] || null}
-        </Box>
-    )
+        </Box>)
 }
 
 export default AppRoutes

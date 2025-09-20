@@ -12,7 +12,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext'
 const KitchenOrderList = ({orders, showButtons, dispatch}) => {
     const filial = useSelector(state => state.data.filial)
     return <>
-        {orders.map(order => (<motion.div
+        {orders.map(order => <motion.div
             className='kitchen-order'
             key={`${order.uid}${order.ver}`}
             variants={itemVariants}>
@@ -22,7 +22,8 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                 <Box>{dayjs.utc(order.date_change).format("HH:mm")}</Box>
             </Box>
             <Box className='kitchen-order-body'>
-                {order.items.map(item => (<Box key={`${item.uid}${order.ver}`} className='kitchen-position'>
+                {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`} className='kitchen-position'
+                                                   style={{borderBottom: i !== order.items.length - 1 ? '1px dashed #b1b1b7;' : 'none'}}>
                     {showButtons && <Button variant='outlined' color='secondary'
                                             className='kitchen-button'
                                             onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid))}><SkipNextIcon/></Button>}
@@ -39,15 +40,15 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                                         sx={{fontWeight: 'bold', padding: '4px 4px 0 0'}}>{modification}</Box>
                         })}</Box> : null}
                     </Box>
-                </Box>))}
+                </Box>)}
             </Box>
-        </motion.div>))}
+        </motion.div>)}
     </>
 }
 
 const KitchenSection = ({
                             orders, showButtons = true, dispatch
-                        }) => (<Box className='kitchen-section'>
+                        }) => <Box className='kitchen-section'>
     <AnimatePresence>
         {orders.length > 0 && (<motion.div
             className='kitchen-section-orders'
@@ -60,7 +61,7 @@ const KitchenSection = ({
                               dispatch={dispatch}/>
         </motion.div>)}
     </AnimatePresence>
-</Box>)
+</Box>
 
 const PageKitchen = () => {
 
@@ -93,35 +94,34 @@ const PageKitchen = () => {
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
         return <Box className='empty-box'>{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
-        return <>
-            <AdminMenu/>
-            <Box id='content-box'>
-                <Box id='content-wrap'>
-                    <Box id='content'>
-                        {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
-                            <Box className='kitchen-orders'>
-                                <Box sx={{flex: 1}}>
-                                    <Box className='kitchen-section-header'>Ожидайте</Box>
-                                    <KitchenSection orders={kitchen_orders.waiting}
-                                                    dispatch={dispatch}/>
-                                </Box>
-                                <Box sx={{flex: 1}}>
-                                    <Box className='kitchen-section-header'>Начните готовить</Box>
-                                    <KitchenSection orders={kitchen_orders.cooking}
-                                                    dispatch={dispatch}/>
-                                </Box>
-                                <Box sx={{flex: 1}}>
-                                    <Box className='kitchen-section-header'>Отдайте официанту</Box>
-                                    <KitchenSection orders={kitchen_orders.completed}
-                                                    dispatch={dispatch}
-                                                    showButtons={false}/>
-                                </Box>
+        return <Box id='content-box' sx={{overflowY: 'auto'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <Box id='content-header'></Box>
+                <Box id='content' sx={{padding: '10px 0'}}>
+                    {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
+                        <Box className='kitchen-orders'>
+                            <Box sx={{flex: 1}}>
+                                <Box className='kitchen-section-header'>Ожидайте</Box>
+                                <KitchenSection orders={kitchen_orders.waiting}
+                                                dispatch={dispatch}/>
                             </Box>
-                        </> : null}
-                    </Box>
+                            <Box sx={{flex: 1}}>
+                                <Box className='kitchen-section-header'>Начните готовить</Box>
+                                <KitchenSection orders={kitchen_orders.cooking}
+                                                dispatch={dispatch}/>
+                            </Box>
+                            <Box sx={{flex: 1}}>
+                                <Box className='kitchen-section-header'>Отдайте официанту</Box>
+                                <KitchenSection orders={kitchen_orders.completed}
+                                                dispatch={dispatch}
+                                                showButtons={false}/>
+                            </Box>
+                        </Box>
+                    </> : null}
                 </Box>
+                <Box id='content-footer'></Box>
             </Box>
-        </>
+        </Box>
     }
 }
 

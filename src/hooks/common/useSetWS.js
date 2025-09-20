@@ -22,6 +22,7 @@ export function useSetWS() {
     const horder = useSelector(state => state.orders.horder)
     const seance = useSelector(state => state.schedule.seance)
     const uid_horeca_selected = useSelector(state => state.orders.uid_horeca_selected)
+    const kiosk = useSelector(state => state.interface.kiosk)
 
     const {
         sendMessage, lastMessage
@@ -45,11 +46,13 @@ export function useSetWS() {
                         // 4 - Уникальный идентификатор
                         switch (data.code_type) {
                             case 0:
-                                if (uid_user === null) {
+                                if (uid_user === null && !kiosk) {
                                     dispatch(login(filial, false, true, '', data.value))
                                 } else {
 
                                 }
+                                break
+                            case 1:
                                 break
                             case 2:
                                 if (uid_horeca_selected.length === 0) {
@@ -57,6 +60,10 @@ export function useSetWS() {
                                 } else {
                                     dispatch(horeca_position_add_mark(filial, horder.uid, uid_horeca_selected[0], data.value))
                                 }
+                                break
+                            case 3:
+                                break
+                            case 4:
                                 break
                         }
                 }

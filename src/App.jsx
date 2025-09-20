@@ -9,15 +9,7 @@ import NotFound from "./page/body/NotFound.jsx"
 import AppRoutes from "./AppRoutes.jsx"
 
 import {
-    Calc,
-    CommentOrder,
-    CommentPosition,
-    Contact,
-    Discounts,
-    EgaisSettings,
-    MarkHosts,
-    Quantity,
-    SeanceCancellation
+    Calc, CommentOrder, CommentPosition, Contact, Discounts, EgaisSettings, MarkHosts, Quantity, SeanceCancellation
 } from "./components/forms/"
 
 import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
@@ -67,9 +59,9 @@ function App() {
         comment_position: CommentPosition,
         calc: Calc,
         discounts: Discounts,
-        add_contact: Contact, //mark: Mark,
+        add_contact: Contact,
         mark_hosts: MarkHosts,
-        mark_info: MarkInfo, //egais: Egais,
+        mark_info: MarkInfo,
         egais_settings: EgaisSettings,
         horeca_filters: HorecaFilters,
         cinema_filters: CinemaFilters,
@@ -86,7 +78,7 @@ function App() {
         dialog_save_order: Dialog,
         documents_operation: Operation,
         creator_change: StaffList,
-        pinpads: OthersPaymentTypes, //barcode: Barcode,
+        pinpads: OthersPaymentTypes,
     }
 
     const ModalContent = useMemo(() => {
@@ -162,7 +154,9 @@ function App() {
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>
-            <Modal keepMounted open={modal_opened} onClose={() => dispatch(closeModal())}>
+            <Modal
+                keepMounted open={modal_opened}
+                onClose={() => dispatch(closeModal())}>
                 <Box id="modal">{ModalContent}</Box>
             </Modal>
         </Box>

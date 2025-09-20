@@ -18,25 +18,23 @@ const SeanceCard = (props) => {
         return result
     }
 
-    return (
-        <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}>
-            <div className='seances-body-seance'>
-                <div className='seances-body-seance-description'>
-                    <div
-                        className='seances-body-seance-description-time'>
-                        {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}
-                    </div>
-                    <div
-                        className='seances-body-seance-description-copy-type'>
-                        {seance.copy_type}
-                    </div>
+    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}>
+        <div className='seances-body-seance'>
+            <div className='seances-body-seance-description'>
+                <div
+                    className='seances-body-seance-description-time'>
+                    {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}
                 </div>
-                <div className='seances-body-seance-price'>
-                    от {min_tariff(seance)} р
+                <div
+                    className='seances-body-seance-description-copy-type'>
+                    {seance.copy_type}
                 </div>
             </div>
-        </NavLink>
-    )
+            <div className='seances-body-seance-price'>
+                от {min_tariff(seance)} р
+            </div>
+        </div>
+    </NavLink>
 }
 
 export default SeanceCard

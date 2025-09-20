@@ -10,6 +10,9 @@ import {
     RETURNING_STATE_WAITING
 } from "./interfaceReducer.js"
 
+export const ORDER_TIME_REMAINING = 100
+export const ORDER_TIME_OUT = 1000
+
 export const NEW_EMPTY_ORDER = () => ({
     in_base: false,
     uid: v4(),
@@ -38,8 +41,6 @@ export const NEW_EMPTY_HORDER = () => ({
     for_returning: null,
 })
 
-export const ORDER_TIME_OUT = 1000
-
 const initialState = {
 
     date: JSON.stringify(date_dayjs(new Date())),
@@ -48,6 +49,7 @@ const initialState = {
     total: 0,
     cash: 0,
     change: 0,
+    pre_order_time_remaining: ORDER_TIME_REMAINING,
     pre_order_preparing: false,
     horder_preparing: false,
     pre_order_paying: false,
@@ -273,6 +275,8 @@ export const ordersSlice = createSlice({
             state.uid_horeca_selected = payload
         }, selectUidCinema(state, {payload}) {
             state.uid_cinema_selected = payload
+        }, setPreOrderTimeRemaining(state, {payload}) {
+            state.pre_order_time_remaining = payload
         }
     },
 })
@@ -330,6 +334,7 @@ export const {
     setCurrentUidReturnReasons,
     setCommentReturnReasons,
     selectUidHoreca,
-    selectUidCinema
+    selectUidCinema,
+    setPreOrderTimeRemaining
 } = ordersSlice.actions
 export default ordersSlice.reducer

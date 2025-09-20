@@ -58,6 +58,7 @@ const initialState = {
         uid_seance: undefined,
     },
     top_menu: TOP_MENU,
+    kiosk_checkout: 0,
 }
 
 const interfaceSlice = createSlice({
@@ -94,6 +95,8 @@ const interfaceSlice = createSlice({
             state.its_second_screen = true
         }, setNeedUpdate: (state, {payload}) => {
             state.need_update = payload
+        }, setKioskCheckout(state, {payload}) {
+            state.kiosk_checkout = payload
         }
     },
 })
@@ -113,6 +116,7 @@ export const {
     closeModal,
     setDev,
     setNeedUpdate,
+    setKioskCheckout
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

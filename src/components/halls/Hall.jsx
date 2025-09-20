@@ -69,32 +69,28 @@ const HallMap = (props) => {
     }
 
     return <Box style={{
-        width: `${props.width}px`, height: `100%`,
+        width: "100%", height: "100%", opacity: ready ? 1 : 0, transition: "opacity 0.5s ease-in-out"
     }}>
-        <div style={{
-            width: "100%", height: "100%", opacity: ready ? 1 : 0, transition: "opacity 0.5s ease-in-out"
-        }}>
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                attributionPosition="top-left"
-                nodeTypes={nodeTypes}
-                proOptions={{hideAttribution: true}}
-                nodesDraggable={false}
-                onNodeClick={(event, node) => handleNodeClick(node)}
-                panOnDrag={uid_user !== null}
-                panOnScroll={uid_user !== null}
-                zoomOnScroll={uid_user !== null}
-                zoomOnPinch={uid_user !== null}
-                zoomOnDoubleClick={uid_user !== null}
-                style={{background: "transparent"}}
-            >
-                {uid_user !== null && current_page !== 'second_screen' ? <Controls/> : null}
-            </ReactFlow>
-        </div>
+        <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            attributionPosition="top-left"
+            nodeTypes={nodeTypes}
+            proOptions={{hideAttribution: true}}
+            nodesDraggable={false}
+            onNodeClick={(event, node) => handleNodeClick(node)}
+            panOnDrag={uid_user !== null}
+            panOnScroll={uid_user !== null}
+            zoomOnScroll={uid_user !== null}
+            zoomOnPinch={uid_user !== null}
+            zoomOnDoubleClick={uid_user !== null}
+            style={{background: "transparent"}}
+        >
+            {uid_user !== null && current_page !== 'second_screen' ? <Controls/> : null}
+        </ReactFlow>
     </Box>
 }
 

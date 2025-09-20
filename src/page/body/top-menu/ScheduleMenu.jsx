@@ -18,10 +18,13 @@ import {
     setScheduleFiltersFilmTypesSelect,
     setScheduleFiltersHallsSelect,
     setScheduleFiltersHallTypeRegular,
-    setScheduleFiltersHallTypeVip, setScheduleFiltersPrice,
+    setScheduleFiltersHallTypeVip,
+    setScheduleFiltersPrice,
     setScheduleFiltersSeanceCanceled,
     setScheduleFiltersSeanceClosed,
-    setScheduleFiltersSeanceOpened, setScheduleFiltersTime, setShowFreeSpace
+    setScheduleFiltersSeanceOpened,
+    setScheduleFiltersTime,
+    setShowFreeSpace
 } from "../../../redux/scheduleReducer.js"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 
@@ -77,117 +80,104 @@ const ScheduleMenu = () => {
 
     const uid_user = useSelector(state => state.auth.uid)
 
-    return (
-        <Box id="top-menu">
-            <Box id="top-menu-schedule">
-                {current_page === 'film' && film !== null ?
-                    <Button variant="contained" color="secondary" size='large' onClick={() => {
-                        navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
-                    }}
-                            sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
-                <ButtonGroup size='medium' variant="contained" color="secondary" sx={{marginRight: '5px'}}>
-                    <Button onClick={() => {
+    return <Box id="top-menu">
+        <Box id="top-menu-schedule">
+            {current_page === 'film' && film !== null ? <Button
+                variant="contained"
+                color="secondary" size='large' onClick={() => {
+                navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/`)
+            }}
+                sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
+            <ButtonGroup size='medium' variant="contained" color="secondary" sx={{marginRight: '5px'}}>
+                <Button
+                    onClick={() => {
                         const now = new Date()
-                        const date = date_dayjs(
-                            now.getHours() >= 0 && now.getHours() < 7
-                                ? new Date(now.setDate(now.getDate() - 1))
-                                : now
-                        )
+                        const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
                         const current_param_date = from_dayjs_to_str(date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}>Сегодня</Button>
-                    <Button onClick={() => {
+                <Button
+                    onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}><KeyboardArrowLeftIcon/></Button>
-                    <Button aria-describedby={id} onClick={handleClick}
-                            endIcon={<KeyboardArrowDownIcon/>}>
-                        Фильмы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}
-                    </Button>
-                    <Button onClick={() => {
+                <Button
+                    aria-describedby={id} onClick={handleClick}
+                    endIcon={<KeyboardArrowDownIcon/>}>
+                    Фильмы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}
+                </Button>
+                <Button
+                    onClick={() => {
                         const current_date = dayjs(param_date).add(1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
                     }}><KeyboardArrowRightIcon/></Button>
-                </ButtonGroup>
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={schedule_calendar_open}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    slotProps={{
-                        paper: {
-                            sx: {
-                                borderRadius: '12px',
-                                backgroundColor: '#393a3b'
-                            }
+            </ButtonGroup>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={schedule_calendar_open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom', horizontal: 'left',
+                }}
+                slotProps={{
+                    paper: {
+                        sx: {
+                            borderRadius: '12px', backgroundColor: '#393a3b'
                         }
-                    }}>
-                    <Calendar
-                        value={dayjs(param_date)}
-                        handleOnChahge={handleOnChahge}
-                    />
-                </Popover>
-                <Box className='top-menu-content-types' size='small' sx={{display: 'flex', flexWrap: 'noWrap'}}>
-                    {schedule_filters_film_types.map(type => {
-                        return <Button variant="contained"
-                                       color={schedule_filters_film_types_selected.find(el => el.uid === type.uid) !== undefined ? 'primary' : 'secondary'}
-                                       key={type.uid}
-                                       onClick={() => {
-                                           dispatch(setScheduleFiltersFilmTypesSelect(type))
-                                       }}
-                                       sx={{marginRight: '4px'}}>{type.title}</Button>
-                    })}
-                </Box>
-                {uid_user !== null ?
-                    <ButtonGroup variant='contained' color='secondary' size='small'>
-                        {filial !== undefined ?
-                            <Button variant='contained' startIcon={<FilterAltIcon/>} onClick={() => dispatch(openModal({
-                                type: 'schedule_filters',
-                                props: {}
-                            }))}>Фильтры</Button> : null}
-                        {seance_closed ||
-                        seance_canceled ||
-                        !seance_opened ||
-                        films_selected.length > 0 ||
-                        film_copy_types_selected.length > 0 ||
-                        film_age[0] !== 0 ||
-                        film_age[1] !== 100 ||
-                        halls_selected.length > 0 ||
-                        !hall_type_vip ||
-                        !hall_type_regular ||
-                        seance_time[0] !== 0 ||
-                        seance_time[1] !== 100 ||
-                        seance_price[0] !== 0 ||
-                        seance_price[1] !== 10000 ?
-                            <Button variant='contained' color='primary' size='large' onClick={() => {
-                                dispatch(setScheduleFiltersSeanceClosed(false))
-                                dispatch(setScheduleFiltersSeanceCanceled(false))
-                                dispatch(setScheduleFiltersSeanceOpened(true))
-                                dispatch(setScheduleFiltersFilmsSelect([]))
-                                dispatch(setScheduleFiltersFilmCopyTypes([]))
-                                dispatch(setScheduleFiltersFilmAgeSelect([0, 100]))
-                                dispatch(setScheduleFiltersHallsSelect([]))
-                                dispatch(setScheduleFiltersHallTypeVip(true))
-                                dispatch(setScheduleFiltersHallTypeRegular(true))
-                                dispatch(setScheduleFiltersTime([0, 100]))
-                                dispatch(setScheduleFiltersPrice([0, 10000]))
-                            }}><FilterAltOffIcon/></Button> : null}
-                        {current_page === 'schedule' ?
-                            <Button variant='contained' color={show_free_space ? 'primary' : 'secondary'}
-                                    startIcon={<FormatLineSpacingIcon/>} onClick={() => {
-                                dispatch(setShowFreeSpace(!show_free_space))
-                            }}>Сводобные слоты</Button> : null}
-                    </ButtonGroup>
-                    : null}
+                    }
+                }}>
+                <Calendar
+                    value={dayjs(param_date)}
+                    handleOnChahge={handleOnChahge}
+                />
+            </Popover>
+            <Box
+                className='top-menu-content-types'
+                size='small'
+                sx={{display: 'flex', flexWrap: 'noWrap'}}>
+                {schedule_filters_film_types.map(type => {
+                    return <Button variant="contained"
+                                   color={schedule_filters_film_types_selected.find(el => el.uid === type.uid) !== undefined ? 'primary' : 'secondary'}
+                                   key={type.uid}
+                                   onClick={() => {
+                                       dispatch(setScheduleFiltersFilmTypesSelect(type))
+                                   }}
+                                   sx={{marginRight: '4px'}}>{type.title}</Button>
+                })}
             </Box>
+            {uid_user !== null ? <ButtonGroup
+                variant='contained'
+                color='secondary'
+                size='small'>
+                {filial !== undefined ? <Button variant='contained' startIcon={<FilterAltIcon/>}
+                                                onClick={() => dispatch(openModal({
+                                                    type: 'schedule_filters', props: {}
+                                                }))}>Фильтры</Button> : null}
+                {filial !== undefined && (seance_closed || seance_canceled || !seance_opened || films_selected.length > 0 || film_copy_types_selected.length > 0 || film_age[0] !== 0 || film_age[1] !== 100 || halls_selected.length > 0 || !hall_type_vip || !hall_type_regular || seance_time[0] !== 0 || seance_time[1] !== 100 || seance_price[0] !== 0 || seance_price[1] !== 10000) ?
+                    <Button variant='contained' size='large' onClick={() => {
+                        dispatch(setScheduleFiltersSeanceClosed(false))
+                        dispatch(setScheduleFiltersSeanceCanceled(false))
+                        dispatch(setScheduleFiltersSeanceOpened(true))
+                        dispatch(setScheduleFiltersFilmsSelect([]))
+                        dispatch(setScheduleFiltersFilmCopyTypes([]))
+                        dispatch(setScheduleFiltersFilmAgeSelect([0, 100]))
+                        dispatch(setScheduleFiltersHallsSelect([]))
+                        dispatch(setScheduleFiltersHallTypeVip(true))
+                        dispatch(setScheduleFiltersHallTypeRegular(true))
+                        dispatch(setScheduleFiltersTime([0, 100]))
+                        dispatch(setScheduleFiltersPrice([0, 10000]))
+                    }}><FilterAltOffIcon/></Button> : null}
+                {current_page === 'schedule' ? <Button variant='contained' sx={{color: 'white'}}
+                                                       color={show_free_space ? 'primary' : 'secondary'}
+                                                       startIcon={<FormatLineSpacingIcon/>} onClick={() => {
+                    dispatch(setShowFreeSpace(!show_free_space))
+                }}>Сводобные слоты</Button> : null}
+            </ButtonGroup> : null}
         </Box>
-    )
+    </Box>
 }
 
 export default ScheduleMenu

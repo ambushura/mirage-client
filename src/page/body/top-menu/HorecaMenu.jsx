@@ -19,7 +19,6 @@ export function CZIcon(props) {
     </svg>
 }
 
-
 export function EGAISIcon(props) {
     return (<svg
         width="1em"
@@ -49,31 +48,12 @@ export function EGAISIcon(props) {
     </svg>)
 }
 
-export function BarcodeIcon({size = 24, color = 'currentColor'}) {
-    return <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 64 64"
-        fill="none"
-    >
-        <rect x="6" y="10" width="4" height="44" fill={color}/>
-        <rect x="14" y="10" width="2" height="44" fill={color}/>
-        <rect x="20" y="10" width="6" height="44" fill={color}/>
-        <rect x="30" y="10" width="2" height="44" fill={color}/>
-        <rect x="36" y="10" width="4" height="44" fill={color}/>
-        <rect x="44" y="10" width="2" height="44" fill={color}/>
-        <rect x="50" y="10" width="6" height="44" fill={color}/>
-        <rect x="60" y="10" width="2" height="44" fill={color}/>
-    </svg>
-}
-
 const HorecaMenu = () => {
 
     const dispatch = useDispatch()
 
     return <Box id="top-menu">
-        <ButtonGroup variant='outlined' color='secondary' size='medium'>
+        <ButtonGroup variant='contained' color='secondary' size='medium'>
             <Button startIcon={<CZIcon/>}
                     onClick={() => {
                         dispatch(openModal({type: 'mark_hosts', props: {}}))

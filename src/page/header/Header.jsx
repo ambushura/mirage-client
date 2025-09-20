@@ -19,6 +19,11 @@ import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import MicrowaveIcon from '@mui/icons-material/Microwave'
+import ScheduleMenu from "../body/top-menu/ScheduleMenu.jsx"
+import HorecaMenu from "../body/top-menu/HorecaMenu.jsx"
+import AdminMenu from "../body/top-menu/AdminMenu.jsx"
+import SeanceMenu from "../body/top-menu/SeanceMenu.jsx"
+import CheckoutMenu from "../body/top-menu/CheckoutMenu.jsx"
 
 const Header = () => {
 
@@ -26,7 +31,6 @@ const Header = () => {
 
     const kiosk = useSelector(state => state.interface.kiosk)
 
-    const permissions = useSelector(state => state.auth.permissions)
     const top_menu = useSelector(state => state.interface.top_menu)
     const cities = useSelector(state => state.data.cities)
     const city = useSelector(state => state.data.city)
@@ -55,6 +59,8 @@ const Header = () => {
 
     const date_shift = useSelector(state => state.second_screen.date_shift)
 
+    const kiosk_checkout = useSelector(state => state.interface.kiosk_checkout)
+
     const timeRef = useRef(dayjs())
     const [, forceUpdate] = useState(0)
     useEffect(() => {
@@ -69,7 +75,7 @@ const Header = () => {
     const user_panel = () => {
         const up = []
         if (uid_user !== null) {
-            up.push(<Button size='medium' onClick={() => {
+            up.push(<Button variant='outlined' size='medium' onClick={() => {
                 document.location.reload()
             }}><CachedIcon/></Button>)
             up.push(<Button
@@ -132,9 +138,9 @@ const Header = () => {
     const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     if (its_second_screen) {
-        return (<header id="header">
+        return <header id="header" className='glass-effect'>
             <Box id="header-desktop">
-                <Box id="header-menu">
+                <Box id="main-menu">
                     <Box sx={{
                         fontSize: 'clamp(14px, 2vw, 28px)', fontWeight: 'bold', color: 'white', padding: '0 10px'
                     }}>Расписание
@@ -148,91 +154,91 @@ const Header = () => {
                     }}>Сегодня {timeRef.current.format('DD.MM')} · {timeRef.current.format('dddd')} · {timeRef.current.format('HH:mm')}</Box>
                 </Box>
             </Box>
-        </header>)
+        </header>
     } else {
-        return (<header id="header">
-            <Box id="header-desktop">
-                {permissions.includes(0) ? <></> : <TopSlider/>}
-                <Box id="header-menu">
-                    <ButtonGroup id="header-menu-list" variant="contained" size='small'
-                                 sx={{marginLeft: '5px'}}>
-                        {uid_user === null ? top_menu[0].map(el => {
+        return <header id="header" className='glass-effect'>
+            {kiosk && !kiosk_checkout && current_page !== 'seance' && <TopSlider/>}
+            {((!kiosk || (kiosk && !['seance'].includes(current_page)))) && <Box id="main-menu">
+                <ButtonGroup id="header-menu-list" variant="contained" size='small'>
+                    {uid_user === null ? top_menu[0].map(el => <NavLink key={el.id} className='link'
+                                                                        to={el.path}>
+                        {main_button(el)}
+                    </NavLink>) : top_menu[1].map(el => {
+                        if (el.id !== 'admin') {
                             return <NavLink key={el.id} className='link' to={el.path}>
                                 {main_button(el)}
                             </NavLink>
-                        }) : top_menu[1].map(el => {
-                            if (el.id !== 'admin') {
-                                return <NavLink key={el.id} className='link' to={el.path}>
-                                    {main_button(el)}
-                                </NavLink>
-                            } else {
-                                return <List
-                                    key={el.id}
-                                    size='small'
-                                    open={admin_open}
-                                    anchor={admin_ref}
-                                    prev_open={prev_admin_open}
-                                    id={admin_list_id}
-                                    setOpen={set_admin_open}
-                                    button_text={app_width >= MOBILE_WIDTH ? adv_page_name : null}
-                                    list={el.path}
-                                    startIcon={<AppsIcon/>}
-                                    endIcon={<KeyboardArrowDownIcon/>}
-                                    type="admin"
-                                />
-                            }
-                        })}
+                        } else {
+                            return <List
+                                key={el.id}
+                                size='small'
+                                open={admin_open}
+                                anchor={admin_ref}
+                                prev_open={prev_admin_open}
+                                id={admin_list_id}
+                                setOpen={set_admin_open}
+                                button_text={app_width >= MOBILE_WIDTH ? adv_page_name : null}
+                                list={el.path}
+                                startIcon={<AppsIcon/>}
+                                endIcon={<KeyboardArrowDownIcon/>}
+                                type="admin"
+                            />
+                        }
+                    })}
+                </ButtonGroup>
+                {!kiosk && <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                    <ButtonGroup id="top-menu-left" variant="contained" size='small'
+                                 sx={{marginLeft: '5px'}}>
+                        <List
+                            size='small'
+                            open={cities_open}
+                            anchor={cities_ref}
+                            prev_open={prev_cities_open}
+                            id={cities_list_id}
+                            setOpen={set_cities_open}
+                            button_text={city !== undefined ? city.name : 'Все города'}
+                            list={cities}
+                            startIcon={<PlaceIcon/>}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type="cities"
+                        />
+                        <List
+                            size='small'
+                            open={filials_open}
+                            anchor={filials_ref}
+                            prev_open={prev_filials_open}
+                            id={filials_list_id}
+                            setOpen={set_filials_open}
+                            button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
+                            list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            type='filials'
+                        />
                     </ButtonGroup>
-                    {!kiosk ? <>
-                        <Box sx={{display: 'flex', flexDirection: 'row', marginRight: '5px'}}>
-                            <ButtonGroup id="top-menu-left" variant="contained" size='small'
-                                         sx={{marginLeft: '5px'}}>
-                                <List
-                                    size='small'
-                                    open={cities_open}
-                                    anchor={cities_ref}
-                                    prev_open={prev_cities_open}
-                                    id={cities_list_id}
-                                    setOpen={set_cities_open}
-                                    button_text={city !== undefined ? city.name : 'Все города'}
-                                    list={cities}
-                                    startIcon={<PlaceIcon/>}
-                                    endIcon={<KeyboardArrowDownIcon/>}
-                                    type="cities"
-                                />
-                                <List
-                                    size='small'
-                                    open={filials_open}
-                                    anchor={filials_ref}
-                                    prev_open={prev_filials_open}
-                                    id={filials_list_id}
-                                    setOpen={set_filials_open}
-                                    button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
-                                    list={city !== undefined ? [{uid: undefined}, ...Array.from(city.filials)] : []}
-                                    endIcon={<KeyboardArrowDownIcon/>}
-                                    type='filials'
-                                />
-                            </ButtonGroup>
-                            <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
-                                <ButtonGroup size="small" variant='contained' color='secondary'
-                                             id="header-time-username">
-                                    {user_panel()}
-                                </ButtonGroup>
-                                <Modal open={auth_opened}
-                                       keepMounted
-                                       onClose={() => dispatch(setAuthOpened(false))}
-                                       aria-labelledby="Страница авторизации"
-                                       aria-describedby="Введите пароль">
-                                    <Box id="modal">
-                                        <Auth/>
-                                    </Box>
-                                </Modal>
+                    <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
+                        <ButtonGroup size="small" variant='contained' color='secondary'
+                                     id="header-time-username">
+                            {user_panel()}
+                        </ButtonGroup>
+                        <Modal open={auth_opened}
+                               keepMounted
+                               onClose={() => dispatch(setAuthOpened(false))}
+                               aria-labelledby="Страница авторизации"
+                               aria-describedby="Введите пароль">
+                            <Box id="modal">
+                                <Auth/>
                             </Box>
-                        </Box>
-                    </> : null}
-                </Box>
-            </Box>
-        </header>)
+                        </Modal>
+                    </Box>
+                </Box>}
+            </Box>}
+            {['films', 'film', 'schedule'].includes(current_page) && <ScheduleMenu/>}
+            {['seance'].includes(current_page) && !kiosk && <SeanceMenu/>}
+            {['seance'].includes(current_page) && kiosk && <CheckoutMenu/>}
+            {['menu'].includes(current_page) && <HorecaMenu/>}
+            {['kitchen', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/egais', 'admin/equipment', 'admin/staff', 'admin/acquiring'].includes(current_page) &&
+                <AdminMenu/>}
+        </header>
     }
 }
 
