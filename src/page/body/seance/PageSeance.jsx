@@ -1,9 +1,7 @@
 import {useEffect} from "react"
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {
-    cinema_hall_get, cinema_seance_booking_get, cinema_seance_get,
-} from "../../../service/fetch_service.js"
+import {cinema_hall_get, cinema_seance_booking_get, cinema_seance_get,} from "../../../service/fetch_service.js"
 import Hall from "../../../components/halls/Hall.jsx"
 import CheckOut from "./CheckOut.jsx"
 import Loader from "../../../ui/Loader.jsx"
@@ -11,7 +9,7 @@ import {setKioskCheckout} from "../../../redux/interfaceReducer.js"
 import {setBooking, setSeance} from "../../../redux/scheduleReducer.js"
 import {setHall} from "../../../redux/hallsReducer.js"
 import {ORDER_TIME_REMAINING, setPreOrderTimeRemaining} from "../../../redux/ordersReducer.js"
-import background from "../../../images/background.jpg"
+import Order from "../../right-panel/Order.jsx"
 
 const PageSeance = () => {
 
@@ -82,10 +80,13 @@ const PageSeance = () => {
             return <Box id='content-box' sx={{overflowY: 'auto'}}>
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
                     <Box id='content-header'></Box>
-                    <Box id='content'>
+                    <Box id='content' style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Box
                             className={`seance ${seance.canceled ? 'seance-canceled' : !seance.opened ? 'seance-closed' : ''}`}
-                            sx={{'--seance-state': seance.canceled ? '"Сеанс отменен"' : !seance.opened ? '"Сеанс закрыт"' : '""'}}>
+                            sx={{
+                                flex: 1,
+                                '--seance-state': seance.canceled ? '"Сеанс отменен"' : !seance.opened ? '"Сеанс закрыт"' : '""'
+                            }}>
                             <Hall
                                 city={city}
                                 filial={filial}
@@ -94,6 +95,7 @@ const PageSeance = () => {
                                 seance={seance}
                                 booking={booking}/>
                         </Box>
+                        <Box><Order/></Box>
                     </Box>
                     <Box id='content-footer'></Box>
                 </Box>

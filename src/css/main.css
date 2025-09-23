@@ -198,6 +198,8 @@
 .seances-body-poster {
     display: flex;
     flex-direction: row;
+    min-height: var(--page-height);
+    padding: 10px 0;
 }
 
 .seances-body-poster > div {
@@ -356,6 +358,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#schedule-full::-webkit-scrollbar {
+    display: none;
 }
 
 .schedule-full-filial {
@@ -382,7 +390,6 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
-    background-color: var(--bgr-color);
     color: black;
 }
 
@@ -912,23 +919,27 @@
 /*       ПАНЕЛЬ ЗАКАЗА        */
 /* ========================== */
 #order {
-    height: 100%;
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: hidden;
-    padding: 0 4px 0 4px;
+    padding: 4px;
+    height: var(--page-height);
 }
 
 .order-box {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--bgr-color);
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
+.order-box::-webkit-scrollbar {
+    display: none;
+}
 
 /* ========================== */
 /*        МАРКИРОВКА          */
@@ -961,7 +972,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: #f8f8f8;
+    justify-content: center;
 }
 
 .order-booking-item {
@@ -1061,8 +1072,8 @@
     position: sticky;
     top: 0;
     z-index: 3;
-    background-color: var(--bgr-color);
     padding: 0 0 4px 0;
+    background-color: var(--bgr-color);
 }
 
 .order-box-panel-1-sum-number {
@@ -1070,7 +1081,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: flex-end;
+    align-items: center;
     font-size: 65%;
     font-weight: bold;
     color: #8B919B;
@@ -1084,11 +1095,9 @@
 
 .order-box-panel-2, .order-box-panel-adv {
     width: 100%;
-    position: sticky;
-    top: 64px;
     z-index: 1;
-    background-color: var(--bgr-color);
     display: flex;
+    background-color: var(--bgr-color);
 }
 
 .order-box-panel-3 {
@@ -1096,9 +1105,7 @@
     flex-direction: column;
     position: sticky;
     top: 64px;
-    padding: 5px 0;
     z-index: 2;
-    background-color: #f8f8f8;
     cursor: pointer;
 }
 
@@ -1154,7 +1161,6 @@
     padding: 5px 0;
     position: sticky;
     top: 64px;
-    background-color: #f8f8f8;
 }
 
 .order-box-horeca-item {
@@ -1599,7 +1605,7 @@
 /* ============================= */
 .admin-orders-horeca, .admin-orders-cinema {
     height: calc(100% - 4px);
-    padding-top: 4px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -1641,7 +1647,7 @@
     flex-direction: column;
     align-items: flex-start;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .admin-orders-horeca-filial-orders, .admin-orders-cinema-filial-orders {
@@ -1663,6 +1669,7 @@
 }
 
 .admin-orders-horeca-order-content, .admin-orders-cinema-order-content {
+    position: relative;
     width: 310px;
     background-color: #f4f4f4;
     border-radius: 12px;
@@ -1680,10 +1687,22 @@
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 250px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.admin-orders-order-body-bottom {
+    min-height: 40px;
+}
+
+.admin-orders-horeca-order-body::-webkit-scrollbar, .admin-orders-cinema-order-body::-webkit-scrollbar {
+    display: none;
 }
 
 .admin-orders-horeca-order-footer, .admin-orders-cinema-order-footer {
-    padding: 4px 4px 0 4px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 

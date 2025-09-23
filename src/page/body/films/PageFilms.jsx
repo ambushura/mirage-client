@@ -1,10 +1,11 @@
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import FilmCard from "./FilmCard.jsx"
-import {motion, AnimatePresence} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect} from "react"
 import {cinema_films_get} from "../../../service/fetch_service.js"
 import {cleanFilms, setFilms} from "../../../redux/scheduleReducer.js"
+import Order from "../../right-panel/Order.jsx";
 
 const PageFilms = () => {
 
@@ -14,6 +15,9 @@ const PageFilms = () => {
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const films = useSelector(state => state.schedule.films || [])
+
+    const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
 
     const seance_closed = useSelector(state => state.schedule.schedule_filters_seance_closed)
     const seance_canceled = useSelector(state => state.schedule.schedule_filters_seance_canceled)
@@ -46,7 +50,10 @@ const PageFilms = () => {
         }
     }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])
 
-    return <Box id='content-box' sx={{overflowY: 'auto'}}>
+    return <Box id='content-box' style={{
+        overflowY: 'auto',
+        width: pre_order.in_base || horder.in_base ? 'calc(100vw - var(--order-width))' : '100vw'
+    }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
             <Box id='content' sx={{padding: '10px 0'}}>
@@ -68,9 +75,9 @@ const PageFilms = () => {
                 </AnimatePresence>
             </Box>
             <Box id='content-footer'></Box>
+            <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>
         </Box>
     </Box>
-
 }
 
 export default PageFilms

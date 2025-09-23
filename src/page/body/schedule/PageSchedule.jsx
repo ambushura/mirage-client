@@ -9,6 +9,7 @@ import NewSeance from "./NewSeance.jsx"
 import dayjs from "dayjs"
 import {cinema_schedule_halls_get} from "../../../service/fetch_service.js"
 import {cleanSchedule, setSchedule} from "../../../redux/scheduleReducer.js"
+import Order from "../../right-panel/Order.jsx"
 
 const PageSchedule = () => {
 
@@ -16,6 +17,9 @@ const PageSchedule = () => {
 
     const city = useSelector(state => state.data.city)
     const schedule = useSelector(state => state.schedule.schedule || [])
+
+    const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
 
     const elementsRef = useRef(new Map())
     const [content_width, set_content_width] = useState(200)
@@ -62,7 +66,11 @@ const PageSchedule = () => {
         }
     }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])
 
-    return <Box id='content-box' style={{height: 'calc(var(--page-height) + var(--header-height))'}}>
+    return <Box id='content-box'
+                style={{
+                    height: 'calc(var(--page-height) + var(--header-height)) + var(--footer-height)',
+                    width: pre_order.in_base || horder.in_base ? 'calc(100vw - var(--order-width))' : '100vw'
+                }}>
         <Box id='content'
              sx={{overflowX: 'auto', overflowY: 'auto', maxHeight: '100vh'}}>
             <Box id="schedule-full">
@@ -85,17 +93,20 @@ const PageSchedule = () => {
                             </Box>
                         </Box>)
                     } else if (filial_data.data.length > 0) {
-                        return (<Box key={filial_data.filial.uid}>
+                        return <Box key={filial_data.filial.uid}>
                             <Box
-                                className="schedule-full-filial-name glass blur-border" style={{
-                                width: `${content_width}px`,
-                            }}>
-                                <Button variant='contained'
-                                        color='secondary'
-                                        sx={{
-                                            minWidth: '210px', position: 'sticky', left: '4px'
-                                        }}>{filial_data.filial.name}
-                                </Button>
+                                className="schedule-full-filial-name glass blur-border"
+                                style={{
+                                    width: `${content_width}px`,
+                                    fontSize: '18px',
+                                    fontWeight: 'bold',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                }}>
+                                <Box sx={{
+                                    minWidth: '210px', position: 'sticky', left: '4px'
+                                }}>{filial_data.filial.name}</Box>
                             </Box>
                             <Box className="schedule-full-filial"
                                  ref={el => elementsRef.current.set(index, el)}>
@@ -191,12 +202,14 @@ const PageSchedule = () => {
                                     </Fade>)
                                 })}
                             </Box>
-                        </Box>)
+                        </Box>
                     } else {
                         return null
                     }
                 })}
             </Box>
+            <Box id='content-footer'></Box>
+            <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>
         </Box>
     </Box>
 }

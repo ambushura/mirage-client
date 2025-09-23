@@ -32,10 +32,11 @@ const group_items = (items_grouped, payment_group, payment_state) => {
 const RenderGroup = ({chapter1, label, group, ver}) => {
     if (!group.items.length && !group.mark_egais.length) return null
     const render_items = (items, typeLabel) => items.length > 0 && (<>
-        <Box sx={{
+        <Box
+            className='glass'
+            sx={{
             height: '25px',
             fontWeight: 'bold',
-            backgroundColor: '#ececec',
             padding: '4px 4px 4px 8px',
             position: 'sticky',
             top: '25px',
@@ -192,9 +193,10 @@ const OrderHoreca = ({order}) => {
                          group={groups.for_returning_waiting} ver={order.ver}/>
             <RenderGroup chapter1={'returning_success'} label={RETURNING_STATE_SUCCESS}
                          group={groups.for_returning_success} ver={order.ver}/>
+            <Box className='admin-orders-order-body-bottom'></Box>
         </Box>
 
-        <Box className='admin-orders-horeca-order-footer'>
+        <Box className='admin-orders-horeca-order-footer glass'>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',

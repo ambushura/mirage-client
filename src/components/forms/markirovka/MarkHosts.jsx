@@ -67,6 +67,7 @@ const MarkHosts = () => {
             <DataGrid
                 disableSelectionOnClick
                 hideFooterPagination
+                hideFooter
                 rows={cdn_rows}
                 columns={cdn_columns}
                 pageSize={5}

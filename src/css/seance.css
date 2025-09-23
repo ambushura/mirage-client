@@ -1,6 +1,6 @@
 .seance {
     width: inherit;
-    height: calc(var(--page-height) - 10px - 10px);
+    height: var(--page-height);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,10 +39,15 @@
 }
 
 .seance-title-film-name {
-    font-size: 30px;
+    height: 60px;
+    text-align: center;
+    font-size: 140%;
     font-weight: bold;
     overflow: hidden;
     color: var(--txt-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .seance-title-hall-name {
@@ -50,7 +55,7 @@
     color: #8B919B;
     font-weight: bold;
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
 }
 
 .seance-title-panel {

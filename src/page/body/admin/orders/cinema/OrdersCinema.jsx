@@ -61,30 +61,23 @@ const OrdersCinema = () => {
                     sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
     } else if (data !== null) {
         return <Box className='admin-orders-cinema'>
-            <Box className='admin-orders-cinema-orders'>
-                <Box className='admin-orders-cinema-orders-content'>
-                    <Box className='admin-orders-cinema-filial-content' key={filial.uid}>
-                        <Box className='admin-orders-cinema-filial-box'>
-                            <AnimatePresence>
-                                {data.orders.length > 0 && (<motion.div
-                                    className='admin-orders-cinema-filial-orders'
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="hidden"
-                                    variants={containerVariants}>{data.orders.map(order => <motion.div
-                                    className='admin-orders-cinema-order'
-                                    key={`${order.uid}${order.ver}`}
-                                    variants={itemVariants}>
-                                    <OrderCinema key={`${order.uid}${order.ver}`}
-                                                 order={order}/>
-                                </motion.div>)}
-                                </motion.div>)}
-                            </AnimatePresence>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>
+            <AnimatePresence>
+                {data.orders.length > 0 && (<motion.div
+                    className='admin-orders-cinema-filial-orders'
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={containerVariants}>{data.orders.map(order => <motion.div
+                    className='admin-orders-cinema-order'
+                    key={`${order.uid}${order.ver}`}
+                    variants={itemVariants}>
+                    <OrderCinema key={`${order.uid}${order.ver}`}
+                                 order={order}/>
+                </motion.div>)}
+                </motion.div>)}
+            </AnimatePresence>
         </Box>
+
     }
 }
 

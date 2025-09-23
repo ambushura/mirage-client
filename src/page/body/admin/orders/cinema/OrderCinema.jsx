@@ -43,15 +43,16 @@ const OrderCinema = ({order}) => {
     const RenderGroup = ({chapter1, label, group, ver}) => {
         if (!group.items.length) return null
         const renderItems = (items, typeLabel) => items.length > 0 && <>
-            <Box sx={{
-                height: '25px',
-                fontWeight: 'bold',
-                backgroundColor: '#ececec',
-                padding: '4px 4px 4px 8px',
-                position: 'sticky',
-                top: '25px',
-                zIndex: 1,
-            }}>{typeLabel}</Box>
+            <Box
+                className="glass"
+                sx={{
+                    height: '25px',
+                    fontWeight: 'bold',
+                    padding: '4px 4px 4px 8px',
+                    position: 'sticky',
+                    top: '25px',
+                    zIndex: 1,
+                }}>{typeLabel}</Box>
             {items.map((item, i) => <Box key={i + ver}
                                          sx={{
                                              display: 'flex',
@@ -149,7 +150,7 @@ const OrderCinema = ({order}) => {
                     width: '20px', height: '20px', color: pre_order.uid === order.uid ? 'red' : 'black'
                 }}/> : null}</Box>
 
-                <Box sx={{flexGrow: 1}}>
+                <Box sx={{flex: 1}}>
                     <Box sx={{
                         fontWeight: 'bold',
                         marginLeft: '12px',
@@ -160,19 +161,18 @@ const OrderCinema = ({order}) => {
                     }}>{order.name_creator} {order.id_site !== 0 ? order.id_site : null}</Box>
                 </Box>
 
-                <Box sx={{display: 'flex', flexDirection: 'column', flex: 1}}>
-                    <Box sx={{
-                        fontWeight: 'bold',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-around',
-                        width: '100px',
-                        marginRight: '4px'
-                    }}>
-                        <span>{dayjs.utc(order.date_create).format("DD.MM")}</span>
-                        <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
-                        <span style={{color: '#8B919B'}}> {dayjs.utc(order.date_change).format("HH:mm")}</span>
-                    </Box>
+                <Box sx={{
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    width: '100px',
+                    marginRight: '4px',
+                    flex: 1,
+                }}>
+                    <span>{dayjs.utc(order.date_create).format("DD.MM")}</span>
+                    <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
+                    <span style={{color: '#8B919B'}}> {dayjs.utc(order.date_change).format("HH:mm")}</span>
                 </Box>
 
             </Box>
@@ -221,9 +221,10 @@ const OrderCinema = ({order}) => {
                              group={groups.for_returning_waiting} ver={order.ver}/>
                 <RenderGroup chapter1={'returning_success'} label={RETURNING_STATE_SUCCESS}
                              group={groups.for_returning_success} ver={order.ver}/>
+                <Box className='admin-orders-order-body-bottom'></Box>
             </Box>
 
-            <Box className='admin-orders-cinema-order-footer'>
+            <Box className='admin-orders-cinema-order-footer glass'>
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'row',

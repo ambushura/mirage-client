@@ -150,6 +150,7 @@ body {
     justify-content: var(--top-menu-justify-content);
     padding: 0 5px;
     z-index: 1;
+    overflow: hidden;
 }
 
 #page {
@@ -162,12 +163,26 @@ body {
 #content-box {
     width: inherit;
     height: 100%;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#content-box::-webkit-scrollbar {
+    display: none;
 }
 
 #content {
     width: 100%;
     height: 100%;
     min-height: var(--page-height);
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#content::-webkit-scrollbar {
+    display: none;
 }
 
 #content-header {
@@ -259,12 +274,12 @@ body {
 
 @supports not ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))) {
     .glass-effect {
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.9);
     }
 }
 
 .glass-effect {
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(10px) saturate(120%);
     -webkit-backdrop-filter: blur(10px) saturate(120%);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);

@@ -109,40 +109,56 @@ const OrderBody = ({
                             <Button variant="contained" color="secondary"><DeleteIcon/></Button> : null}
                     </ButtonGroup>
                 </Box>
-                <Box className="order-box-panel-3" onClick={navigateTo}>
-                    <SeanceTitle
-                        seance={{
-                            uid: order.seance_uid,
-                            beginning: order.seance_beginning,
-                            ending: order.seance_ending,
-                            copy_type: order.film_copy_type,
-                            rate_age: order.film_rate_age,
-                            content_type: order.seance_content_type
-                        }} content_type={true} day={true} its_hall_map={true} age={true}/>
+                <Box className="order-box-panel-3 glass" onClick={navigateTo}>
+                    <Box sx={{
+                        height: '60px',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}>
+                        <Box className='seance-title-hall-name'><LocationOnIcon/><span>Зал {order.hall_full_name}</span></Box>
+                        <SeanceTitle
+                            seance={{
+                                uid: order.seance_uid,
+                                beginning: order.seance_beginning,
+                                ending: order.seance_ending,
+                                copy_type: order.film_copy_type,
+                                rate_age: order.film_rate_age,
+                                content_type: order.seance_content_type
+                            }} content_type={true} day={true} its_hall_map={true} age={true}/>
+                    </Box>
                     <Box className='seance-title-film-name'>{order.film_name}</Box>
-                    <Box
-                        className='seance-title-hall-name'><LocationOnIcon/><span>Зал {order.hall_full_name}</span></Box>
-                </Box>
-                <Box sx={{fontSize: '80%', marginBottom: '5px', fontWeight: 'bold'}}>
-                    {order.buyer_s !== null || order.buyer_n !== null || order.buyer_o !== null || order.buyer_email !== "" || order.buyer_phone_number !== null ? <>
-                        <Box sx={{color: '#8B919B'}}>Контакты покупателя:</Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                            {order.buyer_email !== "" ? order.buyer_email : null} {order.buyer_phone_number !== null ? order.buyer_phone_number : null}
-                        </Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                            {order.buyer_s !== null ? `${order.buyer_s} ` : null} {order.buyer_n !== null ? `${order.buyer_n} ` : null} {order.buyer_o !== null ? order.buyer_o : null}
-                        </Box>
-                    </> : null}
-                    {order.comment !== null ? <>
-                        <Box sx={{color: '#8B919B'}}>Комментарий к заказу:</Box>
-                        <Box>{order.comment}</Box>
-                    </> : null}
                 </Box>
                 <Box className="order-box-panel-4">
                     <Box className='order-booking'>{order.items.map(booking => (<BookingItem key={booking.uid}
                                                                                              {...booking}
                                                                                              uid_order={order.uid}
                                                                                              uid_selected={uid_selected}/>))}</Box>
+                </Box>
+                <Box className='glass'
+                     sx={{fontWeight: 'bold', position: 'sticky', bottom: 0}}>
+                    {order.buyer_s !== null || order.buyer_n !== null || order.buyer_o !== null || order.buyer_email !== "" || order.buyer_phone_number !== null ? <>
+                        <Box sx={{color: '#8B919B'}}>Контакты покупателя:</Box>
+                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                            {order.buyer_email !== "" ? order.buyer_email : null}
+                        </Box>
+                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                            {order.buyer_phone_number !== null ? order.buyer_phone_number : null}
+                        </Box>
+                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                            {order.buyer_s !== null ? `${order.buyer_s} ` : null} {order.buyer_n !== null ? `${order.buyer_n} ` : null} {order.buyer_o !== null ? order.buyer_o : null}
+                        </Box>
+                    </> : null}
+                    {order.comment !== null ? <>
+                        <Box sx={{
+                            color: '#8B919B',
+                            wordBreak: 'break-word',
+                            whiteSpace: 'normal',
+                            overflowWrap: 'break-word'
+                        }}>Комментарий к заказу:</Box>
+                        <Box>{order.comment}</Box>
+                    </> : null}
                 </Box>
             </>}
             {type === 'horeca' && <>
@@ -254,7 +270,7 @@ const Order = () => {
         dispatch(setHorderPreparing(false))
     }, [dispatch, pre_order.uid, pre_order.ver])
 
-    return <Box id='order'>
+    return <Box id='order' className='glass'>
         {pre_order.in_base ? <motion.div className="order-box" style={{height: horder.in_base ? '50%' : '100%'}}
                                          key={`${pre_order.uid}`}
                                          initial={{opacity: 0, y: 20}}
@@ -298,7 +314,8 @@ const Order = () => {
                 filial={filial}
             />
         </motion.div> : null}
-        {horder.in_base ? <motion.div className="order-box" style={{height: pre_order.in_base ? '50%' : '100%'}}
+        {horder.in_base ? <motion.div className="order-box"
+                                      style={{height: pre_order.in_base ? '50%' : '100%'}}
                                       key={`${horder.uid}`}
                                       initial={{opacity: 0, y: 20}}
                                       animate={{opacity: 1, y: 0}}

@@ -105,7 +105,7 @@ const ScheduleMenu = () => {
                 <Button
                     aria-describedby={id} onClick={handleClick}
                     endIcon={<KeyboardArrowDownIcon/>}>
-                    Фильмы {dayjs(param_date).$D} {to_str_DAY(dayjs(param_date).$d)}
+                    {`${current_page === 'films' ? 'Фильмы' : 'Сеансы'} ${dayjs(param_date).$D} ${to_str_DAY(dayjs(param_date).$d)}`}
                 </Button>
                 <Button
                     onClick={() => {

@@ -57,30 +57,21 @@ const OrdersHoreca = () => {
                     sx={{height: '100%'}}>{order_search_value === null ? 'Нет заказов на эту дату...' : 'Ничего не найдено...'}</Box>
     } else if (data !== null) {
         return <Box className='admin-orders-horeca'>
-            <Box className='admin-orders-horeca-orders'>
-                <Box className='admin-orders-horeca-orders-content'>
-                    <Box className='admin-orders-horeca-filial-content'
-                         key={filial.uid}>
-                        <Box className='admin-orders-horeca-filial-box'>
-                            <AnimatePresence>
-                                {data.orders.length > 0 && (<motion.div
-                                    className='admin-orders-horeca-filial-orders'
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="hidden"
-                                    variants={containerVariants}>
-                                    {data.orders.map(order => <motion.div
-                                        className='admin-orders-horeca-order'
-                                        key={`${order.uid}${order.ver}`}
-                                        variants={itemVariants}>
-                                        <OrderHoreca order={order}/>
-                                    </motion.div>)}
-                                </motion.div>)}
-                            </AnimatePresence>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>
+            <AnimatePresence>
+                {data.orders.length > 0 && (<motion.div
+                    className='admin-orders-horeca-filial-orders'
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={containerVariants}>
+                    {data.orders.map(order => <motion.div
+                        className='admin-orders-horeca-order'
+                        key={`${order.uid}${order.ver}`}
+                        variants={itemVariants}>
+                        <OrderHoreca order={order}/>
+                    </motion.div>)}
+                </motion.div>)}
+            </AnimatePresence>
         </Box>
     }
 }

@@ -4,10 +4,11 @@ import SeanceCard from "./SeanceCard.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import Loader from "../../../ui/Loader.jsx"
 import {TIMEOUT} from "../../../redux/interfaceReducer.js"
-import {motion, AnimatePresence} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect} from "react"
 import {cinema_film_seances_get} from "../../../service/fetch_service.js"
 import {cleanFilm, setFilm} from "../../../redux/scheduleReducer.js"
+import Order from "../../right-panel/Order.jsx";
 
 export default function PageFilm() {
 
@@ -124,6 +125,7 @@ export default function PageFilm() {
                     </Box>
                 </Box>
                 <Box id='content-footer'></Box>
+                <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>
             </Box>
         </Box>
     }
