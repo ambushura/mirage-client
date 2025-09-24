@@ -40,21 +40,24 @@ export default function SecondScreen() {
         set_body_width(screen_width * 70 / 100)
     }, [screen_width, show_pre_order, show_horder])
 
-    return <Box
-        className='ss-background'
-        sx={{
-            width: `${screen_width}px`,
-            height: `${screen_height}px`,
-            backgroundImage: current_page === 'seance' ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})` : `url(${background})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
-        <Box sx={{width: `${body_width}px`, height: '100%'}}>
-            {!['seance'].includes(current_page) && <SSSchedule width={body_width} height={screen_height}/>}
-            {['seance'].includes(current_page) && <SSSeance/>}
+    return <Box id='content-box'
+                sx={{
+                    overflow: 'hidden',
+                    backgroundImage: current_page === 'seance' ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})` : `url(${background})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}>
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box id='content-header'></Box>
+            <Box className='ss-background' sx={{width: '100%', height: 'var(--page-height)'}}>
+                <Box sx={{width: `${body_width}px`, height: '100%'}}>
+                    {!['seance'].includes(current_page) && <SSSchedule width={body_width} height={screen_height}/>}
+                    {['seance'].includes(current_page) && <SSSeance/>}
+                </Box>
+                {show_pre_order || show_horder ? <Box sx={{width: `${order_width}px`, height: '100%'}}>
+                    <SSOrder/>
+                </Box> : null}
+            </Box>
         </Box>
-        {show_pre_order || show_horder ? <Box sx={{width: `${order_width}px`, height: '100%'}}>
-            <SSOrder/>
-        </Box> : null}
     </Box>
 }

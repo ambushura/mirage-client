@@ -60,7 +60,9 @@ import {ClearIcon} from "@mui/x-date-pickers"
 import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../../service/fetch_service.js"
 import {SelectMenu} from "../../../ui/SelectMenu.jsx"
 import {
-    ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z
+    ROUTE_EQUIPMENT_KKT_Z,
+    ROUTE_EQUIPMENT_PINPAD_X,
+    ROUTE_EQUIPMENT_PINPAD_Z
 } from "../../../service/fetch_routes.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 
@@ -88,7 +90,7 @@ export function AdminHallsList() {
 
     return <Box sx={{marginRight: '5px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <FormControl variant='filled' sx={{minWidth: '200px'}}>
-            <InputLabel id="halls-select-label">Текущий зал</InputLabel>
+            <InputLabel id="halls-select-label" color='secondary'>Текущий зал</InputLabel>
             <Select
                 sx={{marginRight: '5px'}}
                 onChange={(event) => {
@@ -98,13 +100,15 @@ export function AdminHallsList() {
                 id="halls-select"
                 value={uid_hall !== null ? uid_hall : null}
                 label="Залы"
-                variant='filled'>
-                {halls !== null ? halls.map(hall => <MenuItem
-                    sx={{color: 'black'}} key={hall.uid}
-                    value={hall.uid}>{hall.title}</MenuItem>) : null}
+                variant='filled'
+                color='secondary'
+            >
+                {halls !== null && halls.map(hall => <MenuItem
+                    key={hall.uid}
+                    value={hall.uid}>{hall.title}</MenuItem>)}
             </Select>
         </FormControl>
-        <ButtonGroup variant='outlined'>
+        <ButtonGroup variant='contained'>
             <Button color={mode === 'block' ? 'primary' : 'secondary'} onClick={() => {
                 dispatch(setMode('block'))
             }}>Режим блокировки</Button>
@@ -171,7 +175,7 @@ export function ShowFilters() {
     const cinema_buyer_phone_numbers_selected = useSelector(state => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
 
     if (current_page === 'admin/orders/horeca') {
-        return (<ButtonGroup sx={{marginRight: '5px'}}>
+        return <ButtonGroup sx={{marginRight: '5px'}}>
             <Button variant='outlined' color='secondary'
                     onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
                     startIcon={<FilterAltIcon/>}>Фильтры</Button>
@@ -184,9 +188,9 @@ export function ShowFilters() {
                     dispatch(setOrdersHorecaFiltersKitchenPointsSelect([]))
                     dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
                 }}><FilterAltOffIcon/></Button> : null}
-        </ButtonGroup>)
+        </ButtonGroup>
     } else if (current_page === 'admin/orders/cinema') {
-        return (<ButtonGroup sx={{marginRight: '5px'}}>
+        return <ButtonGroup sx={{marginRight: '5px'}}>
             <Button variant='outlined' color='secondary'
                     onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
                     startIcon={<FilterAltIcon/>}>Фильтры</Button>
@@ -200,14 +204,14 @@ export function ShowFilters() {
                     dispatch(setOrdersCinemaFiltersBuyerEmailsSelect(''))
                     dispatch(setOrdersCinemaFiltersBuyerPhoneNumbersSelect(''))
                 }}><FilterAltOffIcon/></Button> : null}
-        </ButtonGroup>)
+        </ButtonGroup>
     }
 
     return null
 }
 
 export function EGAISMenu() {
-    return <ButtonGroup variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
+    return <ButtonGroup variant='contained' color='secondary' sx={{marginRight: '5px'}}>
         <Button>Контрагенты</Button>
         <Button>Алкогольная продукция</Button>
         <Button>Входящие ТТН</Button>
@@ -335,7 +339,7 @@ export function CreateDeleteButtons() {
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
 
-    return <ButtonGroup size='medium' variant='outlined' color='secondary' sx={{marginRight: '5px'}}>
+    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
         <Button startIcon={<AddIcon/>} onClick={() => {
             switch (current_page) {
                 case 'admin/operations':

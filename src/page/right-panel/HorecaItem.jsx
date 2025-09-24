@@ -16,7 +16,6 @@ import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import QrCodeIcon from '@mui/icons-material/QrCode'
-import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
 import {selectUidHoreca} from "../../redux/ordersReducer.js"
 import {CZIcon} from "../body/top-menu/HorecaMenu.jsx"
 
@@ -85,15 +84,14 @@ const HorecaItem = (props) => {
                     }
                 }}>{props.item.mark.value === null ? 'Отсканируйте маркировку' : props.item.mark.value}</Box>
                 <Button variant='text' color='secondary'>
-                    {props.item.mark.value === null ? <QrCodeScannerIcon/> : <CheckCircleOutlineIcon
-                        sx={{color: props.item.mark_payment_available ? 'green' : 'red'}}/>}
+                    {props.item.mark.value !== null &&
+                        <CheckCircleOutlineIcon sx={{color: props.item.mark_payment_available ? 'green' : 'red'}}/>}
                 </Button>
             </Box> : <></>}
             {props.item.egais !== null ? <Box className='order-box-horeca-item-3'>
                 <Button variant='text' color='secondary' startIcon={<QrCodeIcon/>}>АМ</Button>
                 <Box
                     className='order-box-horeca-item-3-2'>{props.item.egais.value === '' ? 'Отсканируйте акцизную марку' : props.item.egais.value}</Box>
-                <Button variant='text' color='secondary'><CheckCircleOutlineIcon/></Button>
             </Box> : <></>}
             {props.item.comment !== null ? <Box className='order-box-horeca-item-4'>
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', flex: 1}}><span

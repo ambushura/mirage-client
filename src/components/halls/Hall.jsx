@@ -1,6 +1,12 @@
 import {Box} from "@mui/material"
 import {
-    addEdge, Controls, ReactFlow, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow
+    addEdge,
+    Controls,
+    ReactFlow,
+    ReactFlowProvider,
+    useEdgesState,
+    useNodesState,
+    useReactFlow
 } from "@xyflow/react"
 import {useCallback, useEffect, useState} from "react"
 import {Place} from "./nodes/Place.jsx"
@@ -21,6 +27,8 @@ const HallMap = (props) => {
     const [ready, setReady] = useState(false) // состояние для fade-in
 
     const onConnect = useCallback((params) => setEdges(addEdge(params, edges)), [edges],)
+
+    const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     const {fitView} = useReactFlow()
 
@@ -52,6 +60,7 @@ const HallMap = (props) => {
     }
 
     const handleNodeClick = (node) => {
+        if (its_second_screen) return
         if (node.type === 'place') {
             if (current_page === 'seance') {
                 if (props.set_time_remaining !== undefined) {

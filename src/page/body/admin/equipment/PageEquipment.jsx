@@ -1,7 +1,5 @@
 import {useCallback, useEffect} from "react"
-import {
-    ReactFlow, addEdge, Controls, MiniMap, useNodesState, useEdgesState, Background
-} from '@xyflow/react'
+import {addEdge, Background, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState} from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {FilialNode} from "./nodes/FilialNode.jsx"
 import {KKTNode} from "./nodes/KKTNode.jsx"
@@ -53,7 +51,7 @@ const PageEquipment = () => {
             Выберите филиал...
         </Box>
     } else {
-        return <Box style={{width: '100vw', height: '100vh'}}>
+        return <Box style={{width: '100%', height: 'calc(var(--page-height) - 10px - 10px)'}}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}

@@ -38,16 +38,18 @@ const PageHalls = () => {
             Выберите зал...
         </Box>
     } else {
-        return <Hall
-            uid_hall={hall.uid}
-            city={city}
-            filial={filial}
-            pre_order={null}
-            hall={hall}
-            seance={null}
-            width={app_width}
-            booking={[]}
-        />
+        return <Box sx={{width: '100%', height: 'var(--page-height)'}}>
+            <Hall
+                uid_hall={hall.uid}
+                city={city}
+                filial={filial}
+                pre_order={null}
+                hall={hall}
+                seance={null}
+                width={app_width}
+                booking={[]}
+            />
+        </Box>
     }
 }
 

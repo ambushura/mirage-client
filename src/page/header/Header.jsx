@@ -138,7 +138,7 @@ const Header = () => {
     const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     if (its_second_screen) {
-        return <header id="header" className='glass-effect'>
+        return <header id="header" className='glass-effect' style={{height: 'var(--header-height)'}}>
             <Box id="header-desktop">
                 <Box id="main-menu">
                     <Box sx={{

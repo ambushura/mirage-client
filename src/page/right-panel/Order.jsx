@@ -30,6 +30,32 @@ import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import Printing from "./Printing.jsx"
 import {selectUidCinema, selectUidHoreca, setHorderPreparing, setPreOrderPreparing} from "../../redux/ordersReducer.js"
 
+function Details({order}) {
+    return <Box className='glass'
+                sx={{fontWeight: 'bold', position: 'sticky', bottom: 0, zIndex: 2}}>
+        {order.buyer_s !== null || order.buyer_n !== null || order.buyer_o !== null || order.buyer_email !== "" || order.buyer_phone_number !== null ? <>
+            <Box sx={{color: '#8B919B'}}>Контакты покупателя:</Box>
+            <Box>
+                <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                    {order.buyer_email !== "" ? order.buyer_email : null}
+                </Box>
+                <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                    {order.buyer_phone_number !== null ? order.buyer_phone_number : null}
+                </Box>
+                <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                    {order.buyer_s !== null ? `${order.buyer_s} ` : null} {order.buyer_n !== null ? `${order.buyer_n} ` : null} {order.buyer_o !== null ? order.buyer_o : null}
+                </Box>
+            </Box>
+        </> : null}
+        {order.comment !== null ? <>
+            <Box sx={{
+                color: '#8B919B', wordBreak: 'break-word', whiteSpace: 'normal', overflowWrap: 'break-word'
+            }}>Комментарий к заказу:</Box>
+            <Box>{order.comment}</Box>
+        </> : null}
+    </Box>
+}
+
 const OrderBody = ({
                        type,
                        order,
@@ -136,30 +162,7 @@ const OrderBody = ({
                                                                                              uid_order={order.uid}
                                                                                              uid_selected={uid_selected}/>))}</Box>
                 </Box>
-                <Box className='glass'
-                     sx={{fontWeight: 'bold', position: 'sticky', bottom: 0}}>
-                    {order.buyer_s !== null || order.buyer_n !== null || order.buyer_o !== null || order.buyer_email !== "" || order.buyer_phone_number !== null ? <>
-                        <Box sx={{color: '#8B919B'}}>Контакты покупателя:</Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                            {order.buyer_email !== "" ? order.buyer_email : null}
-                        </Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                            {order.buyer_phone_number !== null ? order.buyer_phone_number : null}
-                        </Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                            {order.buyer_s !== null ? `${order.buyer_s} ` : null} {order.buyer_n !== null ? `${order.buyer_n} ` : null} {order.buyer_o !== null ? order.buyer_o : null}
-                        </Box>
-                    </> : null}
-                    {order.comment !== null ? <>
-                        <Box sx={{
-                            color: '#8B919B',
-                            wordBreak: 'break-word',
-                            whiteSpace: 'normal',
-                            overflowWrap: 'break-word'
-                        }}>Комментарий к заказу:</Box>
-                        <Box>{order.comment}</Box>
-                    </> : null}
-                </Box>
+                <Details order={order}/>
             </>}
             {type === 'horeca' && <>
                 <Box className="order-box-panel-2">
@@ -204,7 +207,7 @@ const OrderBody = ({
                 </Box>
                 <Box className="order-box-panel-3">
                     {(order.items.filter(item => item.kitchen === null).length > 0 && (<>
-                        <Box className={`order-box-panel-3-title-others`}>Не готовить</Box>
+                        <Box className={`order-box-panel-3-title-others glass`}>Не готовить</Box>
                         <ul className={`order-box-panel-3-list-others`}>
                             {order.items.filter(item => item.kitchen === null).map(item => <HorecaItem
                                 order={order}
@@ -216,7 +219,7 @@ const OrderBody = ({
                     {[1, 2, 3].map(state => (order.items.filter(item => item.kitchen !== null).some(item => item.kitchen.state === state) && (
                         <Fragment key={`${state}`}>
                             <Box
-                                className={`order-box-panel-3-title-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['', 'Сообщить повару', 'Повар готовит', 'Приготовлено'][state]}</Box>
+                                className={`glass order-box-panel-3-title-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>{['', 'Сообщить повару', 'Повар готовит', 'Приготовлено'][state]}</Box>
                             <ul className={`order-box-panel-3-list-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}>
                                 {order.items.filter(item => item.kitchen !== null).filter(item => item.kitchen.state === state).map(item =>
                                     <HorecaItem
@@ -227,6 +230,7 @@ const OrderBody = ({
                             </ul>
                         </Fragment>)))}
                 </Box>
+                <Details order={order}/>
             </>}
         </>
     }

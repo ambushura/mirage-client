@@ -982,7 +982,7 @@
     vertical-align: center;
     margin: 0 4px 4px 0;
     cursor: pointer;
-    width: 220px;
+    width: 250px;
 }
 
 .order-booking-item-description {
@@ -1154,13 +1154,19 @@
 .order-box-panel-3-title-kitchen,
 .order-box-panel-3-title-others,
 .order-box-panel-3-title-kitchen-ready {
+    height: 60px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 24px;
     color: #212429;
     text-align: left;
     padding: 5px 0;
     position: sticky;
     top: 64px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
 }
 
 .order-box-horeca-item {
@@ -1300,7 +1306,8 @@
 }
 
 .order-box-horeca-item-3-2 {
-    width: calc(460px - 50px - 50px);
+    flex: 1;
+    font-size: 12px;
 }
 
 .order-box-horeca-item-3-3 {
@@ -1818,7 +1825,6 @@
 
 .ss-background {
     position: relative;
-    background: #1C1F23;
     overflow: hidden;
     display: flex;
     flex-direction: row;
@@ -1878,11 +1884,12 @@
     margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-height: 20px;
 }
 
 .ss-film-box-sub-title {
     font-weight: bold;
-    font-size: 80%;
+    font-size: 60%;
     color: #8B919B;
 }
 

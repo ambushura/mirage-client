@@ -35,13 +35,13 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
         <Box
             className='glass'
             sx={{
-            height: '25px',
-            fontWeight: 'bold',
-            padding: '4px 4px 4px 8px',
-            position: 'sticky',
-            top: '25px',
-            zIndex: 1,
-        }}>{typeLabel}</Box>
+                height: '25px',
+                fontWeight: 'bold',
+                padding: '4px 4px 4px 8px',
+                position: 'sticky',
+                top: '25px',
+                zIndex: 1,
+            }}>{typeLabel}</Box>
         {items.map((item, i) => (<Box key={i + ver}
                                       sx={{
                                           display: 'flex',

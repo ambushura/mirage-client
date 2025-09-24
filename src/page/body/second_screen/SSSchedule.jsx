@@ -111,7 +111,7 @@ const SsSchedule = ({width, height}) => {
 
                                     {/* Подзаголовок */}
                                     <Box className='ss-film-box-sub-title'>
-                                        {r.film.rate_age}+ {r.film.copy_type} · {r.film.duration} мин.
+                                        {r.film.rate_age}+ {r.film.copy_type} · {r.film.duration} м.
                                     </Box>
 
                                     {/* Сеансы */}
