@@ -58,7 +58,7 @@ const OrdersHoreca = () => {
     } else if (data !== null) {
         return <Box className='admin-orders-horeca'>
             <AnimatePresence>
-                {data.orders.length > 0 && (<motion.div
+                {data.orders.length > 0 && <motion.div
                     className='admin-orders-horeca-filial-orders'
                     initial="hidden"
                     animate="visible"
@@ -70,7 +70,7 @@ const OrdersHoreca = () => {
                         variants={itemVariants}>
                         <OrderHoreca order={order}/>
                     </motion.div>)}
-                </motion.div>)}
+                </motion.div>}
             </AnimatePresence>
         </Box>
     }

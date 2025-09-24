@@ -11,6 +11,7 @@ import PageStaff from "./staff/PageStaff.jsx"
 import PageHalls from "./halls/PageHalls.jsx"
 import PageEquipment from "./equipment/PageEquipment.jsx"
 import ZPinpads from "./total/ZPinpads.jsx"
+import Order from "../../right-panel/Order.jsx"
 
 const PageAdmin = () => {
 
@@ -20,12 +21,18 @@ const PageAdmin = () => {
     const [update_cinema, set_update_cinema] = useState(true)
     const [update_horeca, set_update_horeca] = useState(true)
 
+    const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
+
     useEffect(() => {
         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
         dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
     }, [dispatch])
 
-    return <Box id='content-box' sx={{overflowY: 'auto'}}>
+    return <Box id='content-box' style={{
+        overflowY: 'auto',
+        width: ['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page) && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw'
+    }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
             <Box id='content' sx={{padding: '10px 0'}}>
@@ -40,6 +47,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/acquiring' ? <ZPinpads/> : null}
             </Box>
             <Box id='content-footer'></Box>
+            <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>
         </Box>
     </Box>
 }

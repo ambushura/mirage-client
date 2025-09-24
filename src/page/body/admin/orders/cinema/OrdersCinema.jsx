@@ -62,7 +62,7 @@ const OrdersCinema = () => {
     } else if (data !== null) {
         return <Box className='admin-orders-cinema'>
             <AnimatePresence>
-                {data.orders.length > 0 && (<motion.div
+                {data.orders.length > 0 && <motion.div
                     className='admin-orders-cinema-filial-orders'
                     initial="hidden"
                     animate="visible"
@@ -74,7 +74,7 @@ const OrdersCinema = () => {
                     <OrderCinema key={`${order.uid}${order.ver}`}
                                  order={order}/>
                 </motion.div>)}
-                </motion.div>)}
+                </motion.div>}
             </AnimatePresence>
         </Box>
 

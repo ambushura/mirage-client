@@ -20,7 +20,9 @@ const PageSeance = () => {
     const {seance, booking} = useSelector(state => state.schedule)
     const hall = useSelector(state => state.halls.hall)
     const pre_order = useSelector(state => state.orders.pre_order || {in_base: false})
+    const kiosk = useSelector(state => state.interface.kiosk)
     const kiosk_checkout = useSelector(state => state.interface.kiosk_checkout)
+    const user = useSelector(state => state.auth.uid)
 
     useEffect(() => {
         const fetch = async () => {
@@ -95,7 +97,8 @@ const PageSeance = () => {
                                 seance={seance}
                                 booking={booking}/>
                         </Box>
-                        <Box><Order/></Box>
+                        <Box
+                            sx={{minWidth: kiosk || user === null ? 0 : 'var(--order-width)'}}><Order/></Box>
                     </Box>
                     <Box id='content-footer'></Box>
                 </Box>

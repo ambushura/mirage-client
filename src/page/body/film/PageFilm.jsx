@@ -8,7 +8,7 @@ import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect} from "react"
 import {cinema_film_seances_get} from "../../../service/fetch_service.js"
 import {cleanFilm, setFilm} from "../../../redux/scheduleReducer.js"
-import Order from "../../right-panel/Order.jsx";
+import Order from "../../right-panel/Order.jsx"
 
 export default function PageFilm() {
 
@@ -34,6 +34,9 @@ export default function PageFilm() {
     const seance_time = useSelector(state => state.schedule.schedule_filters_time)
     const seance_price = useSelector(state => state.schedule.schedule_filters_price)
     const film_types_selected = useSelector(state => state.schedule.schedule_filters_film_types_selected)
+
+    const pre_order = useSelector(state => state.orders.pre_order)
+    const horder = useSelector(state => state.orders.horder)
 
     useEffect(() => {
         const fetchSeances = async (f) => {
@@ -96,8 +99,7 @@ export default function PageFilm() {
                                                  in={filial_data.data.seances.length > 0} timeout={TIMEOUT}
                                                  unmountOnExit>
                                         <Box className='seances-body-filial'>
-                                            <Box
-                                                className='seances-body-filial-name'>{filial_data.filial.name}</Box>
+                                            <Box className='seances-body-filial-name'>{filial_data.filial.name}</Box>
                                             <AnimatePresence>
                                                 {filial_data.data.seances.length > 0 && (<motion.div
                                                     className='seances-body-seances'
@@ -122,6 +124,10 @@ export default function PageFilm() {
                                 }
                             })}
                         </Box>
+                        <Box sx={{
+                            minWidth: 'var(--order-width)',
+                            display: pre_order.in_base || horder.in_base ? 'flex' : 'none'
+                        }}></Box>
                     </Box>
                 </Box>
                 <Box id='content-footer'></Box>
