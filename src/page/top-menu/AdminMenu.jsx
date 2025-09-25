@@ -43,12 +43,12 @@ import {
     setOrdersHorecaFiltersWorkPlacesSelect,
     setOrdersHorecaPage,
     setUidKitchenPointsSelected
-} from "../../../redux/ordersReducer.js"
+} from "../../redux/ordersReducer.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../../service/advanced.js"
+import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
-import {openModal} from "../../../redux/interfaceReducer.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 import LaptopIcon from "@mui/icons-material/Laptop"
 import LanguageIcon from "@mui/icons-material/Language"
 import {useDispatch, useSelector} from "react-redux"
@@ -56,20 +56,16 @@ import {useNavigate} from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
-import Calendar from "../../../components/forms/Calendar.jsx"
+import Calendar from "../../components/forms/Calendar.jsx"
 import {useEffect, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import {setMode, setUidHall} from "../../../redux/hallsReducer.js"
+import {setMode, setUidHall} from "../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
-import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../../service/fetch_service.js"
-import {SelectMenu} from "../../../ui/SelectMenu.jsx"
-import {
-    ROUTE_EQUIPMENT_KKT_Z,
-    ROUTE_EQUIPMENT_PINPAD_X,
-    ROUTE_EQUIPMENT_PINPAD_Z
-} from "../../../service/fetch_routes.js"
+import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../service/fetch_service.js"
+import {SelectMenu} from "../../ui/SelectMenu.jsx"
+import {ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z} from "../../service/fetch_routes.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
-import {setOperationsPage} from "../../../redux/documentsReducer.js";
+import {setOperationsDetails, setOperationsPage} from "../../redux/documentsReducer.js";
 
 export function AdminHallsList() {
 
@@ -390,8 +386,9 @@ export function Equipment() {
 
 export function ShowDateOperations() {
 
-    const {date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
-    const {columns, rows} = useSelector(state => state.documents.operations)
+    const dispatch = useDispatch()
+    const {columns, rows, date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
+    const {operations_details} = useSelector(state => state.documents)
 
     if (columns.length === 0 || rows.length === 0) return null
 
@@ -400,7 +397,11 @@ export function ShowDateOperations() {
             <Button>{date_shift_beginning}</Button>
             <Button>{date_shift_ending}</Button>
         </ButtonGroup>
-        <FormControlLabel checked={true} control={<Switch/>} label="Полный вариант" sx={{margin: '0 4px'}}/>
+        <FormControlLabel onChange={() => {
+            dispatch(setOperationsDetails(!operations_details))
+        }}
+                          checked={operations_details}
+                          control={<Switch/>} label="Детализация" sx={{margin: '0 4px'}}/>
     </>
 }
 
@@ -408,6 +409,7 @@ export function Operations() {
 
     const dispatch = useDispatch()
     const {operations_page, operations_pages} = useSelector(state => state.documents)
+
     return <Pagination
         sx={{flexWrap: 'no-wrap'}}
         page={operations_page}

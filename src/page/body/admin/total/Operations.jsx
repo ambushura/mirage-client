@@ -13,13 +13,12 @@ const Operations = () => {
 
     const filial = useSelector(state => state.data.filial)
     const {columns, rows, column_grouping_model} = useSelector(state => state.documents.operations)
-    const {operations_page} = useSelector(state => state.documents)
+    const {operations_page, operations_details} = useSelector(state => state.documents)
     const {update} = useSelector(state => state.documents.operations)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
-
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_documents_operations_get(filial, operations_page, update))
+            const fetching_result = await dispatch(common_documents_operations_get(filial, operations_page, update, operations_details))
             set_fetching(fetching_result)
             if (fetching_result.loading) {
                 // TODO Крутилка
@@ -32,7 +31,7 @@ const Operations = () => {
             fetch()
         }
         return () => dispatch(cleanOperations())
-    }, [dispatch, filial, operations_page, update])
+    }, [dispatch, filial, operations_page, operations_details, update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
@@ -54,33 +53,32 @@ const Operations = () => {
                 }
             }))
 
-            return <>
-                <DataGridPro
-                    localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    checkboxSelection
-                    rows={rows}
-                    columns={columnsWithCustomRender}
-                    hideFooter
-                    rowHeight={26}
-                    headerHeight={28}
-                    columnGroupingModel={column_grouping_model}
-                    experimentalFeatures={{columnGrouping: true}}
-                    getRowClassName={(params) => params.row.isTotalRow ? 'total-row' : ''}
-                    sx={{
-                        '& .MuiDataGrid-columnHeaders': {
-                            position: 'sticky', top: '500px', zIndex: 1000, backgroundColor: '#fff',
-                        }, '& .MuiDataGrid-columnHeader--grouped': {
-                            position: 'sticky', top: 0, zIndex: 1100, backgroundColor: '#f9f9f9',
-                        }, '& .total-row': {
-                            backgroundColor: '#f0f0f0', fontWeight: 'bold',
-                        }, '& .MuiDataGrid-cell': {
-                            padding: '0 4px', fontSize: '0.9rem',
-                        }, '& .MuiDataGrid-columnHeaderTitle': {
-                            fontSize: '0.9rem',
-                        },
-                    }}
-                />
-            </>
+            return <DataGridPro
+                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                checkboxSelection
+                rows={rows}
+                columns={columnsWithCustomRender}
+                hideFooter
+                rowHeight={26}
+                headerHeight={28}
+                loading={fetching.loading}
+                columnGroupingModel={column_grouping_model}
+                experimentalFeatures={{columnGrouping: true}}
+                getRowClassName={(params) => params.row.isTotalRow ? 'total-row' : ''}
+                sx={{
+                    '& .MuiDataGrid-columnHeaders': {
+                        position: 'sticky', top: '500px', zIndex: 1000, backgroundColor: '#fff',
+                    }, '& .MuiDataGrid-columnHeader--grouped': {
+                        position: 'sticky', top: 0, zIndex: 1100, backgroundColor: '#f9f9f9',
+                    }, '& .total-row': {
+                        backgroundColor: '#f0f0f0', fontWeight: 'bold',
+                    }, '& .MuiDataGrid-cell': {
+                        padding: '0 4px', fontSize: '0.9rem',
+                    }, '& .MuiDataGrid-columnHeaderTitle': {
+                        fontSize: '0.9rem',
+                    },
+                }}
+            />
         }
     }
 }

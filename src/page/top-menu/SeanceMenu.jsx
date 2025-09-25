@@ -1,10 +1,10 @@
 import {Box, Button} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
+import SeanceTitle from "../../components/cinema/SeanceTitle.jsx"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import {useNavigate} from "react-router-dom"
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import {openModal} from "../../../redux/interfaceReducer.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 
 const SeanceMenu = () => {
 

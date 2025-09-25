@@ -19,11 +19,11 @@ import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import MicrowaveIcon from '@mui/icons-material/Microwave'
-import ScheduleMenu from "../body/top-menu/ScheduleMenu.jsx"
-import HorecaMenu from "../body/top-menu/HorecaMenu.jsx"
-import AdminMenu from "../body/top-menu/AdminMenu.jsx"
-import SeanceMenu from "../body/top-menu/SeanceMenu.jsx"
-import CheckoutMenu from "../body/top-menu/CheckoutMenu.jsx"
+import ScheduleMenu from "../top-menu/ScheduleMenu.jsx"
+import HorecaMenu from "../top-menu/HorecaMenu.jsx"
+import AdminMenu from "../top-menu/AdminMenu.jsx"
+import SeanceMenu from "../top-menu/SeanceMenu.jsx"
+import CheckoutMenu from "../top-menu/CheckoutMenu.jsx"
 
 const Header = () => {
 

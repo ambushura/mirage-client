@@ -994,12 +994,12 @@ export const common_payment_map_get = (filial, date_shift) => async (dispatch, g
     }, data => data)
 }
 
-export const common_documents_operations_get = (filial, page, update) => async (dispatch, getState) => {
+export const common_documents_operations_get = (filial, page, update, details) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET}`,
-        params: {page, update},
+        params: {page, update, details},
         filial,
         wp,
         kiosk,

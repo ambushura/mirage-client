@@ -6,11 +6,11 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
-import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../../service/advanced.js"
-import Calendar from "../../../components/forms/Calendar.jsx"
+import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
+import Calendar from "../../components/forms/Calendar.jsx"
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import {openModal} from "../../../redux/interfaceReducer.js"
+import {openModal} from "../../redux/interfaceReducer.js"
 import {
     setScheduleFiltersFilmAgeSelect,
     setScheduleFiltersFilmCopyTypes,
@@ -25,7 +25,7 @@ import {
     setScheduleFiltersSeanceOpened,
     setScheduleFiltersTime,
     setShowFreeSpace
-} from "../../../redux/scheduleReducer.js"
+} from "../../redux/scheduleReducer.js"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 
 const ScheduleMenu = () => {

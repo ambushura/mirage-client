@@ -43,7 +43,7 @@ const initialState = {
         }, {field: 'slip_67', headerName: '67', type: 'number', width: 100}, {
             field: 'slip_90', headerName: '90', width: 100
         }, {field: 'type', headerName: 'Т', type: 'number', width: 100},], rows: [], update: 0,
-    }, operations_pages: 0, operations_page: 1, operations_update: 0, operations: {
+    }, operations_pages: 0, operations_page: 1, operations_update: 0, operations_details: false, operations: {
         wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined
     }
 }
@@ -93,13 +93,15 @@ export const dataSlice = createSlice({
             state.zpinpads = {...state.zpinpads, update: state.update += 1}
         }, cleanOperations(state) {
             state.operations = {
-                wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined,
+                wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined
             }
         }, setOperations: (state, {payload}) => {
             state.operations = {...state.operations, ...payload}
             state.operations_pages = payload.pages
         }, setOperationsPage: (state, {payload}) => {
             state.operations_page = payload
+        }, setOperationsDetails: (state, {payload}) => {
+            state.operations_details = payload
         }, setZPinpads(state, {payload}) {
             const rows = []
             payload.z_pinpads.forEach(zpinpad => {
@@ -141,5 +143,6 @@ export const {
     setPinpadList,
     setZBooksUpdate,
     setZPinpadsUpdate,
+    setOperationsDetails,
 } = dataSlice.actions
 export default dataSlice.reducer

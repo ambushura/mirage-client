@@ -17,7 +17,7 @@ import Looks4Icon from '@mui/icons-material/Looks4'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 import {selectUidHoreca} from "../../redux/ordersReducer.js"
-import {CZIcon} from "../body/top-menu/HorecaMenu.jsx"
+import {CZIcon} from "../top-menu/HorecaMenu.jsx"
 
 const HorecaItem = (props) => {
 

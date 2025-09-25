@@ -1,20 +1,30 @@
 import {
-    Box, Button, Dialog as MuiDialog, DialogContent, DialogContentText, DialogTitle, LinearProgress
+    Box,
+    Button,
+    Dialog as MuiDialog,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    LinearProgress
 } from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {cinema_order_delete, common_order_pay} from "../../../service/fetch_service.js"
+import {cinema_order_delete, common_order_pay} from "../../service/fetch_service.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import {useEffect} from "react"
 import {useNavigate} from "react-router-dom"
 import {
-    ORDER_TIME_OUT, ORDER_TIME_REMAINING, setKioskPaymentError, setPreOrderPaying, setPreOrderTimeRemaining
-} from "../../../redux/ordersReducer.js"
-import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
-import {ticket_count} from "../../../service/advanced.js"
+    ORDER_TIME_OUT,
+    ORDER_TIME_REMAINING,
+    setKioskPaymentError,
+    setPreOrderPaying,
+    setPreOrderTimeRemaining
+} from "../../redux/ordersReducer.js"
+import SeanceTitle from "../../components/cinema/SeanceTitle.jsx"
+import {ticket_count} from "../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
-import {setKioskCheckout} from "../../../redux/interfaceReducer.js"
-import Loader from "../../../ui/Loader.jsx"
-import {useSetPaymentGroups} from "../../../hooks/common/useSetPaymentGroups.js"
+import {setKioskCheckout} from "../../redux/interfaceReducer.js"
+import Loader from "../../ui/Loader.jsx"
+import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
 
 const CheckoutMenu = () => {
 
