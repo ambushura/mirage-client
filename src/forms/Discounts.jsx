@@ -1,12 +1,22 @@
 import {
-    Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography
+    Box,
+    Button,
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography
 } from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    cinema_discount_apply, cinema_seance_discounts_get, cinema_seance_discounts_groups_get
-} from "../../service/fetch_service.js"
-import {closeModal} from "../../redux/interfaceReducer.js"
+    cinema_discount_apply,
+    cinema_seance_discounts_get,
+    cinema_seance_discounts_groups_get
+} from "../service/fetch_service.js"
+import {closeModal} from "../redux/interfaceReducer.js"
 
 const Discounts = (props) => {
 

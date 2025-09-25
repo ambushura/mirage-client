@@ -1,10 +1,16 @@
 import {
-    Box, Button, Dialog as MuiDialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+    Box,
+    Button,
+    Dialog as MuiDialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
 } from '@mui/material'
-import {cinema_order_delete, horeca_order_delete} from "../../service/fetch_service.js"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import {cinema_order_delete, horeca_order_delete} from "../service/fetch_service.js"
+import {closeModal} from "../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
-import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../../redux/ordersReducer.js"
+import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
 
 const Dialog = ({props}) => {
 

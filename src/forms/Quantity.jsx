@@ -1,9 +1,9 @@
 import {Box, Button, Typography} from "@mui/material"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import {closeModal} from "../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useState} from "react"
-import {horeca_position_add_quantity} from "../../service/fetch_service.js"
-import {addNotification} from "../../redux/notifierReducer.js"
+import {horeca_position_add_quantity} from "../service/fetch_service.js"
+import {addNotification} from "../redux/notifierReducer.js"
 
 const Quantity = (props) => {
 
@@ -45,7 +45,7 @@ const Quantity = (props) => {
         }
     }
 
-    return (<Box
+    return <Box
         id="modal-quantity"
         component="form"
         noValidate
@@ -117,7 +117,7 @@ const Quantity = (props) => {
                 Сохранить
             </Button>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default Quantity

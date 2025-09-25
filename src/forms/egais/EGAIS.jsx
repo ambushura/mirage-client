@@ -1,9 +1,9 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
-import {closeModal} from "../../../redux/interfaceReducer.js"
-import {ruToEnLayout} from "../../../service/advanced.js"
+import {closeModal} from "../../redux/interfaceReducer.js"
+import {ruToEnLayout} from "../../service/advanced.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useState} from "react"
-import {horeca_position_add_mark} from "../../../service/fetch_service.js"
+import {horeca_position_add_mark} from "../../service/fetch_service.js"
 
 const Egais = ({props}) => {
 

@@ -18,8 +18,8 @@ const initialState = {
             field: 'sum_in_electron', headerName: 'БН +', type: 'number', width: 100
         }, {field: 'sum_out_cash', headerName: 'Н -', type: 'number', width: 100}, {
             field: 'sum_out_electron', headerName: 'БН -', type: 'number', width: 100
-        }, {field: 'sum_nds', headerName: 'НДС', type: 'number', width: 100}, {
-            field: 'sum_collection', headerName: 'Инкассация', type: 'number', width: 100
+        }, {field: 'sum_nds', headerName: 'НДС', type: 'number', width: 90}, {
+            field: 'sum_collection', headerName: 'Инкассация', type: 'number', width: 90
         }, {field: 'sum_electron', headerName: 'Б ∑', type: 'number', width: 100}, {
             field: 'revenue', headerName: 'В ∑', type: 'number', width: 100
         }, {

@@ -1,10 +1,10 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
-import {common_payment_methods_get} from "../../service/fetch_service.js"
+import {common_payment_methods_get} from "../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import PaymentIcon from "@mui/icons-material/Payment"
-import {closeModal} from "../../redux/interfaceReducer.js"
-import Loader from "../../ui/Loader.jsx"
+import {closeModal} from "../redux/interfaceReducer.js"
+import Loader from "../ui/Loader.jsx"
 
 const YandexFood = ({text}) => (<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
     <path

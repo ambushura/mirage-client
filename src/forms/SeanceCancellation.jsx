@@ -1,8 +1,8 @@
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import {closeModal} from "../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useState} from "react"
-import {cinema_seance_close} from "../../service/fetch_service.js"
+import {cinema_seance_close} from "../service/fetch_service.js"
 
 export default function SeanceCancellation({props}) {
 
@@ -21,21 +21,21 @@ export default function SeanceCancellation({props}) {
     const [current_cancellation_reason, set_current_cancellation_reason] = useState(null)
     const [comment, set_comment] = useState(null)
 
-    return (<Box component="form"
-                 autoComplete="off"
-                 noValidate
-                 onSubmit={async (e) => {
-                     e.preventDefault()
-                     await dispatch(cinema_seance_close(filial, wp, props.uid_seance, current_cancellation_reason, comment))
-                     await dispatch(closeModal())
-                 }}
-                 sx={{
-                     display: 'flex',
-                     flexDirection: 'column',
-                     alignItems: 'center',
-                     justifyContent: 'space-between',
-                     minWidth: '400px'
-                 }}
+    return <Box component="form"
+                autoComplete="off"
+                noValidate
+                onSubmit={async (e) => {
+                    e.preventDefault()
+                    await dispatch(cinema_seance_close(filial, wp, props.uid_seance, current_cancellation_reason, comment))
+                    await dispatch(closeModal())
+                }}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    minWidth: '400px'
+                }}
     >
         <Typography variant="h6" color="textSecondary" margin={1}>
             Отмена сеанса
@@ -62,5 +62,5 @@ export default function SeanceCancellation({props}) {
         }}/>
         <Button sx={{m: 1, minWidth: 'inherit'}} variant="contained" color="primary"
                 type="submit">Отменить сеанс</Button>
-    </Box>)
+    </Box>
 }

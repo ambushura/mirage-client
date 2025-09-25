@@ -1,10 +1,7 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
-import {setScheduleFiltersFilms, setScheduleFiltersHalls} from "../../../redux/scheduleReducer.js"
-import {
-    cinema_halls_filters_get,
-    cinema_schedule_filters_get,
-} from "../../../service/fetch_service.js"
+import {setScheduleFiltersFilms, setScheduleFiltersHalls} from "../../redux/scheduleReducer.js"
+import {cinema_halls_filters_get, cinema_schedule_filters_get,} from "../../service/fetch_service.js"
 
 export function useSetScheduleFilters() {
 

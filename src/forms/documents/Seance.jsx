@@ -10,7 +10,7 @@ dayjs.locale('ru')
 
 const films = [{label: 'Интерстеллар'}, {label: 'Начало'}, {label: 'Матрица'}, {label: 'Дюна'}, {label: 'Темный рыцарь'}]
 
-export default function SeanceSettings({props}) {
+export default function Seance({props}) {
 
     const [film, setFilm] = useState(null)
     const [startTime, setStartTime] = useState(dayjs())
@@ -30,7 +30,7 @@ export default function SeanceSettings({props}) {
         }
     }, [props])
 
-    return (<LocalizationProvider
+    return <LocalizationProvider
         dateAdapter={AdapterDayjs}
         adapterLocale="ru"
         localeText={{
@@ -93,5 +93,5 @@ export default function SeanceSettings({props}) {
                 />
             </Stack>
         </Box>
-    </LocalizationProvider>)
+    </LocalizationProvider>
 }

@@ -1,11 +1,11 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {markirovka_cdn_info_get, markirovka_cdn_info_update} from "../../../service/fetch_service.js"
+import {markirovka_cdn_info_get, markirovka_cdn_info_update} from "../../service/fetch_service.js"
 import {DataGrid} from "@mui/x-data-grid"
 import {useEffect, useState} from "react"
 import dayjs from "dayjs"
-import {fillHosts} from "../../../redux/markirovkaReducer.js"
-import {EMPTY_TABLE_STYLE} from "../../../ui/ThemeContext.jsx"
+import {fillHosts} from "../../redux/markirovkaReducer.js"
+import {EMPTY_TABLE_STYLE} from "../../ui/ThemeContext.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 
 const MarkHosts = () => {

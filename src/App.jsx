@@ -18,30 +18,30 @@ import {
     MarkHosts,
     Quantity,
     SeanceCancellation
-} from "./components/forms/"
+} from "./forms/"
 
 import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
 import {useSetTopMenu} from "./hooks/interface/useSetTopMenu.js"
 import {useSetWS} from "./hooks/common/useSetWS.js"
 import {useReset} from "./hooks/common/useReset.js"
 import {closeModal} from "./redux/interfaceReducer.js"
-import MarkInfo from "./components/forms/markirovka/MarkInfo.jsx"
+import MarkInfo from "./forms/markirovka/MarkInfo.jsx"
 import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
-import ScheduleFilters from "./components/forms/schedule_filters/ScheduleFilters.jsx"
-import SeanceSettings from "./components/forms/SeanceSettings.jsx"
+import ScheduleFilters from "./forms/schedule_filters/ScheduleFilters.jsx"
+import Seance from "./forms/documents/Seance.jsx"
 import KKTForm from "./page/body/admin/equipment/forms/KKTForm.jsx"
 import PinpadForm from "./page/body/admin/equipment/forms/PinpadForm.jsx"
 import {FilialForm} from "./page/body/admin/equipment/forms/FilialForm.jsx"
 import {KitchenPointForm} from "./page/body/admin/equipment/forms/KitchenPointForm.jsx"
 import {BilletCheckForm} from "./page/body/admin/equipment/forms/BilletCheckForm.jsx"
 import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx"
-import TableOptions from "./components/forms/TableOptions.jsx"
-import Dialog from "./components/forms/Dialog.jsx"
+import TableOptions from "./forms/TableOptions.jsx"
+import Dialog from "./forms/Dialog.jsx"
 import Operation from "./page/body/admin/total/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
-import StaffList from "./components/forms/StaffList.jsx"
-import OthersPaymentTypes from "./components/forms/OthersPaymentTypes.jsx"
+import StaffList from "./forms/StaffList.jsx"
+import OthersPaymentTypes from "./forms/OthersPaymentTypes.jsx"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {LicenseInfo} from '@mui/x-license'
 
@@ -77,7 +77,7 @@ function App() {
         horeca_filters: HorecaFilters,
         cinema_filters: CinemaFilters,
         schedule_filters: ScheduleFilters,
-        seance_settings: SeanceSettings,
+        seance_settings: Seance,
         equipment_billet_check: BilletCheckForm,
         equipment_filial: FilialForm,
         equipment_kitchen_point: KitchenPointForm,

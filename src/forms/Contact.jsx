@@ -1,9 +1,9 @@
 import {Box, Button, InputAdornment, TextField, Typography} from "@mui/material"
-import PhoneInput from "../../ui/PhoneInput.jsx"
-import {closeModal} from "../../redux/interfaceReducer.js"
+import PhoneInput from "../ui/PhoneInput.jsx"
+import {closeModal} from "../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_contact_add, pl_estimate_discounts} from "../../service/fetch_service.js"
+import {common_contact_add, pl_estimate_discounts} from "../service/fetch_service.js"
 import QrCodeIcon from '@mui/icons-material/QrCode'
 
 const Contact = ({props}) => {
@@ -27,23 +27,23 @@ const Contact = ({props}) => {
         set_buyer_phone_number(props.order.buyer_phone_number)
     }, [])
 
-    return (<Box component="form"
-                 autoComplete="off"
-                 noValidate
-                 onSubmit={(e) => {
-                     e.preventDefault()
-                     const submitter = e.nativeEvent.submitter
-                     const action = submitter?.getAttribute('data-action')
-                     switch (action) {
-                         case 'common':
-                             dispatch(common_contact_add(filial, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
-                             break
-                         case 'pl':
-                             dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr))
-                             break
-                     }
-                     dispatch(closeModal())
-                 }}
+    return <Box component="form"
+                autoComplete="off"
+                noValidate
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    const submitter = e.nativeEvent.submitter
+                    const action = submitter?.getAttribute('data-action')
+                    switch (action) {
+                        case 'common':
+                            dispatch(common_contact_add(filial, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email))
+                            break
+                        case 'pl':
+                            dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr))
+                            break
+                    }
+                    dispatch(closeModal())
+                }}
     >
         <Typography variant="h6" color="textSecondary" margin={1}>
             Информация о клиенте
@@ -87,7 +87,7 @@ const Contact = ({props}) => {
             <Button variant='contained' color='secondary' type="submit" data-action="pl">Заполнить по коду
                 ПЛ</Button>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default Contact

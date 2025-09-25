@@ -1,11 +1,11 @@
 import {Box, Button, Typography} from "@mui/material"
-import {SelectMenu} from "../../ui/SelectMenu.jsx"
+import {SelectMenu} from "../ui/SelectMenu.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_list_get, horeca_order_change_creator} from "../../service/fetch_service.js"
-import {setStaffList} from "../../redux/ordersReducer.js"
-import {closeModal} from "../../redux/interfaceReducer.js"
-import {addNotification} from "../../redux/notifierReducer.js"
+import {common_list_get, horeca_order_change_creator} from "../service/fetch_service.js"
+import {setStaffList} from "../redux/ordersReducer.js"
+import {closeModal} from "../redux/interfaceReducer.js"
+import {addNotification} from "../redux/notifierReducer.js"
 
 const StaffList = ({props}) => {
 

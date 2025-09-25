@@ -33,10 +33,6 @@ const Zbooks = () => {
         return () => dispatch(cleanZBooks())
     }, [dispatch, filial, param_date_admin, update])
 
-    const [columnVisibility, set_visibility] = useState({
-        id: false
-    })
-
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else if (fetching.loading && fetching.error === null && fetching.data === null) {
@@ -45,7 +41,7 @@ const Zbooks = () => {
         return <Box className='empty-box'>{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         if (rows.length === 0 || columns.length === 0) {
-            return <Box className='empty-box'>Документы отсутствуют...</Box>
+            return <Box className='empty-box'>Кассовые книги отсутствуют...</Box>
         } else {
             return <DataGrid
                 hideFooter
@@ -57,7 +53,7 @@ const Zbooks = () => {
                 rowHeight={26}
                 headerHeight={28}
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                columnVisibilityModel={columnVisibility}
+                columnVisibilityModel={{id: false}}
                 sx={{
                     '& .total-row': {
                         backgroundColor: '#f0f0f0', fontWeight: 'bold',

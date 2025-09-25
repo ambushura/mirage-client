@@ -1,7 +1,7 @@
 import {DateCalendar} from "@mui/x-date-pickers"
 
 const Calendar = (props) => {
-    return (<DateCalendar
+    return <DateCalendar
         value={props.value}
         onChange={props.handleOnChahge}
         sx={{
@@ -48,7 +48,7 @@ const Calendar = (props) => {
         }}
         format="DD dd"
         views={['day']}
-    />)
+    />
 }
 
 export default Calendar

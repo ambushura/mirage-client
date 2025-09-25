@@ -44,7 +44,7 @@ const ZPinpads = () => {
         return <Box className='empty-box'>{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         if (rows.length === 0 || columns.length === 0) {
-            return <Box className='empty-box'>Документы отсутствуют...</Box>
+            return <Box className='empty-box'>Итоги смены отсутствуют...</Box>
         } else {
             return <DataGrid
                 hideFooter

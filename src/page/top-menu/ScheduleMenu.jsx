@@ -7,7 +7,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
 import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
-import Calendar from "../../components/forms/Calendar.jsx"
+import Calendar from "../../forms/Calendar.jsx"
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {openModal} from "../../redux/interfaceReducer.js"

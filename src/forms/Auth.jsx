@@ -2,11 +2,11 @@ import {memo, useEffect, useState} from 'react'
 import {Box, Button, TextField} from "@mui/material"
 import "react-simple-keyboard/build/css/index.css"
 import {useDispatch, useSelector} from "react-redux"
-import {setAuthOpened} from "../../redux/interfaceReducer.js"
+import {setAuthOpened} from "../redux/interfaceReducer.js"
 import DialpadIcon from '@mui/icons-material/Dialpad'
 import KeyboardIcon from '@mui/icons-material/Keyboard'
-import {addNotification} from "../../redux/notifierReducer.js"
-import {login} from "../../service/fetch_service.js"
+import {addNotification} from "../redux/notifierReducer.js"
+import {login} from "../service/fetch_service.js"
 
 const Auth = () => {
 
@@ -44,7 +44,7 @@ const Auth = () => {
         set_password('')
     }, [pincode_auth, login_auth])
 
-    return (<Box>
+    return <Box>
         <Box sx={{
             width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', marginBottom: '10px'
         }}>
@@ -122,7 +122,7 @@ const Auth = () => {
                         }}>Войти</Button>
             </Box>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default memo(Auth)

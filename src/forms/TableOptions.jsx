@@ -1,8 +1,8 @@
-import Hall from "../halls/Hall.jsx"
+import Hall from "../components/halls/Hall.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {Box, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material"
-import {cinema_hall_get, common_orders_filters_halls_get} from "../../service/fetch_service.js"
+import {cinema_hall_get, common_orders_filters_halls_get} from "../service/fetch_service.js"
 
 export default function TableOptions() {
 

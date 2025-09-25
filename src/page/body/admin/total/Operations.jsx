@@ -33,6 +33,10 @@ const Operations = () => {
         return () => dispatch(cleanOperations())
     }, [dispatch, filial, operations_page, operations_details, update])
 
+    const handleOpenDocument = (params) => {
+        alert(params.row)
+    }
+
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else if (fetching.loading && fetching.error === null && fetching.data === null) {
@@ -41,7 +45,7 @@ const Operations = () => {
         return <Box className='empty-box'>{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         if (rows.length === 0 || columns.length === 0 || column_grouping_model.length === 0) {
-            return <Box className='empty-box'>Документы отсутствуют...</Box>
+            return <Box className='empty-box'>Операции по кассе отсутствуют...</Box>
         } else {
             // Добавляем кастомный рендер для всех колонок
             const columnsWithCustomRender = columns.map(col => ({
@@ -54,6 +58,7 @@ const Operations = () => {
             }))
 
             return <DataGridPro
+                onRowDoubleClick={handleOpenDocument}
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 checkboxSelection
                 rows={rows}

@@ -5,7 +5,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
-import Auth from "../../components/forms/Auth.jsx"
+import Auth from "../../forms/Auth.jsx"
 import {useEffect, useRef, useState} from "react"
 import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
