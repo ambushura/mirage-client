@@ -4,6 +4,7 @@ import {
     Button,
     ButtonGroup,
     FormControl,
+    FormControlLabel,
     IconButton,
     InputAdornment,
     InputLabel,
@@ -12,6 +13,7 @@ import {
     Pagination,
     Popover,
     Select,
+    Switch,
     TextField
 } from "@mui/material"
 import dayjs from "dayjs"
@@ -393,10 +395,13 @@ export function ShowDateOperations() {
 
     if (columns.length === 0 || rows.length === 0) return null
 
-    return <ButtonGroup color='secondary' variant='outlined'>
-        <Button>{date_shift_beginning}</Button>
-        <Button>{date_shift_ending}</Button>
-    </ButtonGroup>
+    return <>
+        <ButtonGroup color='secondary' variant='outlined'>
+            <Button>{date_shift_beginning}</Button>
+            <Button>{date_shift_ending}</Button>
+        </ButtonGroup>
+        <FormControlLabel checked={true} control={<Switch/>} label="Полный вариант" sx={{margin: '0 4px'}}/>
+    </>
 }
 
 export function Operations() {
@@ -552,16 +557,16 @@ export default function AdminMenu() {
     const filial = useSelector(state => state.data.filial)
 
     return <Box id='top-menu'>
-        {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ?
-            <DateParamAdmin/> : null}
-        {current_page === 'admin/zbooks' && filial !== undefined ? <CurrentKKT/> : null}
-        {current_page === 'admin/acquiring' && filial !== undefined ? <CurrentPinpad/> : null}
-        {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ? <CreateDeleteButtons/> : null}
-        {current_page === 'admin/operations' ? <ShowDateOperations/> : null}
-        {current_page === 'admin/operations' ? <Operations/> : null}
-        {current_page === 'admin/orders/cinema' && order_search_value === null ? <CinemaType/> : null}
-        {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null ?
-            <ShowFilters/> : null}
+        {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) &&
+            <DateParamAdmin/>}
+        {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
+        {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
+        {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) && <CreateDeleteButtons/>}
+        {current_page === 'admin/operations' && <ShowDateOperations/>}
+        {current_page === 'admin/operations' && <Operations/>}
+        {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
+        {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null &&
+            <ShowFilters/>}
         {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch/>}
         {current_page === 'admin/egais' && <EGAISMenu/>}
         {current_page === 'admin/halls' && <AdminHallsList/>}

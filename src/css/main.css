@@ -1118,7 +1118,7 @@
 }
 
 .order-box-panel-3-title-for-kitchen {
-
+    z-index: 3;
 }
 
 .order-box-panel-3-list-for-kitchen {
@@ -1126,7 +1126,7 @@
 }
 
 .order-box-panel-3-title-kitchen {
-
+    z-index: 4;
 }
 
 .order-box-panel-3-list-kitchen {
@@ -1134,7 +1134,7 @@
 }
 
 .order-box-panel-3-title-kitchen-ready {
-
+    z-index: 5;
 }
 
 .order-box-panel-3-list-kitchen-ready {
@@ -1726,6 +1726,7 @@
 
 .kitchen-section {
     display: flex;
+    align-items: center;
     flex-direction: column;
     flex: 1;
     margin: 0 10px 10px 0;
@@ -1749,6 +1750,7 @@
 
 .kitchen-section-orders {
     display: flex;
+    align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
 }

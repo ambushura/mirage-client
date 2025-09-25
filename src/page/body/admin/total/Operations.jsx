@@ -44,12 +44,22 @@ const Operations = () => {
         if (rows.length === 0 || columns.length === 0 || column_grouping_model.length === 0) {
             return <Box className='empty-box'>Документы отсутствуют...</Box>
         } else {
+            // Добавляем кастомный рендер для всех колонок
+            const columnsWithCustomRender = columns.map(col => ({
+                ...col, renderCell: (params) => {
+                    const value = params.value
+                    if (value === 0) return null
+                    const style = value < 0 ? {color: 'red'} : {}
+                    return <span style={style}>{value}</span>
+                }
+            }))
+
             return <>
                 <DataGridPro
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                     checkboxSelection
                     rows={rows}
-                    columns={columns}
+                    columns={columnsWithCustomRender}
                     hideFooter
                     rowHeight={26}
                     headerHeight={28}
