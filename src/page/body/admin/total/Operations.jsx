@@ -1,8 +1,8 @@
-import {Box, Pagination, Typography} from "@mui/material"
-import {DataGrid} from "@mui/x-data-grid"
+import {Box} from "@mui/material"
+import {DataGridPro} from '@mui/x-data-grid-pro'
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {cleanOperations, setOperations, setOperationsPage} from "../../../../redux/documentsReducer.js"
+import {cleanOperations, setOperations} from "../../../../redux/documentsReducer.js"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {common_documents_operations_get} from "../../../../service/fetch_service.js"
 import Loader from "../../../../ui/Loader.jsx"
@@ -12,8 +12,8 @@ const Operations = () => {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const {wallets, columns, rows} = useSelector(state => state.documents.operations)
-    const {operations_pages, operations_page} = useSelector(state => state.documents)
+    const {columns, rows, column_grouping_model} = useSelector(state => state.documents.operations)
+    const {operations_page} = useSelector(state => state.documents)
     const {update} = useSelector(state => state.documents.operations)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
@@ -41,32 +41,11 @@ const Operations = () => {
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
         return <Box className='empty-box'>{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
-        if (rows.length === 0 || columns.length === 0) {
+        if (rows.length === 0 || columns.length === 0 || column_grouping_model.length === 0) {
             return <Box className='empty-box'>Документы отсутствуют...</Box>
         } else {
             return <>
-                <Box sx={{
-                    display: 'grid',
-                    gridTemplateColumns: '130px repeat(4, 400px)',
-                    borderBottom: '1px solid #ccc',
-                    height: '30px',
-                }}><Box/>
-                    {wallets.map((wallet) => {
-                        return (<Box key={wallet} sx={{
-                            textAlign: 'center',
-                            borderLeft: '1px solid #ccc',
-                            borderRight: '1px solid #ccc',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}>
-                            <Typography variant="subtitle2">{wallet}</Typography>
-                        </Box>)
-                    })}
-                </Box>
-
-                <DataGrid
+                <DataGridPro
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                     checkboxSelection
                     rows={rows}
@@ -74,9 +53,15 @@ const Operations = () => {
                     hideFooter
                     rowHeight={26}
                     headerHeight={28}
+                    columnGroupingModel={column_grouping_model}
+                    experimentalFeatures={{columnGrouping: true}}
                     getRowClassName={(params) => params.row.isTotalRow ? 'total-row' : ''}
                     sx={{
-                        '& .total-row': {
+                        '& .MuiDataGrid-columnHeaders': {
+                            position: 'sticky', top: '500px', zIndex: 1000, backgroundColor: '#fff',
+                        }, '& .MuiDataGrid-columnHeader--grouped': {
+                            position: 'sticky', top: 0, zIndex: 1100, backgroundColor: '#f9f9f9',
+                        }, '& .total-row': {
                             backgroundColor: '#f0f0f0', fontWeight: 'bold',
                         }, '& .MuiDataGrid-cell': {
                             padding: '0 4px', fontSize: '0.9rem',
@@ -85,16 +70,6 @@ const Operations = () => {
                         },
                     }}
                 />
-
-                <Pagination sx={{
-                    height: '60px', backgroundColor: 'var(--bgr-color)', padding: '10px 0', width: '100%', zIndex: 1,
-                }}
-                            page={operations_page}
-                            onChange={(event, value) => dispatch(setOperationsPage(value))}
-                            size={'large'}
-                            count={operations_pages}
-                            showFirstButton showLastButton/>
-
             </>
         }
     }

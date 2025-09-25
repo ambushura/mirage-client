@@ -8,6 +8,7 @@ import {
     setHorderPaying,
     setHorderPreparing,
     setKioskPaymentError,
+    setKitchenPointsList,
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setPreOrderPaying,
@@ -74,7 +75,6 @@ import {
     ROUTE_HORECA_ORDER_DELETE_COMMENT,
     ROUTE_HORECA_ORDER_DELETE_TABLE,
     ROUTE_HORECA_ORDER_GET,
-    ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET,
     ROUTE_HORECA_ORDERS_GET,
     ROUTE_HORECA_POSITION_ADD,
     ROUTE_HORECA_POSITION_ADD_COMMENT,
@@ -506,16 +506,12 @@ export const horeca_table_delete = (filial, uid_order) => async (dispatch, getSt
     })
 }
 
-export const horeca_kitchen_push = (filial, uid_order, uid_position) => async (dispatch, getState) => {
+export const horeca_kitchen_push = (filial, uid_order, uid_position, uid_kitchen_points_selected) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`,
-        params: {uid_order, uid_position},
-        wp,
-        filial,
-        kiosk,
-        version,
+        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`, params: {
+            uid_order, uid_position, uid_kitchen_points_selected
+        }, wp, filial, kiosk, version,
     }, data => {
         dispatch(pushKitchenPositions(data))
     })
@@ -601,6 +597,9 @@ export const common_list_get = (filial, type) => async (dispatch, getState) => {
                 break
             case 'return_reasons':
                 dispatch(setReturnReasonsList(data))
+                break
+            case 'kitchen_points':
+                dispatch(setKitchenPointsList(data))
                 break
         }
     })
@@ -885,8 +884,8 @@ export const horeca_orders_filters_kitchen_points_get = (filial) => async (dispa
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_FILTERS_KITCHENPOINTS_GET}`,
-        params: {},
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
+        params: {type: 'kitchen_points'},
         filial,
         wp,
         kiosk,
@@ -1103,12 +1102,12 @@ export const common_order_find = (filial, type, value) => async (dispatch, getSt
     }, data => data)
 }
 
-export const horeca_kitchen_get = (filial, date_shift) => async (dispatch, getState) => {
+export const horeca_kitchen_get = (filial, date_shift, uid_kitchen_points_selected) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_GET}`,
-        params: {date_shift},
+        params: {date_shift, uid_kitchen_points_selected},
         filial,
         wp,
         kiosk,

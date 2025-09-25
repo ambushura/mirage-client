@@ -20,6 +20,7 @@ import {
     NEW_EMPTY_ORDER,
     setCurrentHorder,
     setCurrentPreOrder,
+    setKitchenPointsList,
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
     setOrdersCinemaFiltersFromKioskSelect,
@@ -38,7 +39,8 @@ import {
     setOrdersHorecaFiltersStaffSelect,
     setOrdersHorecaFiltersStateSelect,
     setOrdersHorecaFiltersWorkPlacesSelect,
-    setOrdersHorecaPage
+    setOrdersHorecaPage,
+    setUidKitchenPointsSelected
 } from "../../../redux/ordersReducer.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
@@ -65,6 +67,7 @@ import {
     ROUTE_EQUIPMENT_PINPAD_Z
 } from "../../../service/fetch_routes.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
+import {setOperationsPage} from "../../../redux/documentsReducer.js";
 
 export function AdminHallsList() {
 
@@ -396,6 +399,20 @@ export function ShowDateOperations() {
     </ButtonGroup>
 }
 
+export function Operations() {
+
+    const dispatch = useDispatch()
+    const {operations_page, operations_pages} = useSelector(state => state.documents)
+    return <Pagination
+        sx={{flexWrap: 'no-wrap'}}
+        page={operations_page}
+        onChange={(event, value) => dispatch(setOperationsPage(value))}
+        size={'large'}
+        count={operations_pages}
+        showFirstButton showLastButton/>
+
+}
+
 export function CurrentKKT() {
 
     const dispatch = useDispatch()
@@ -456,27 +473,44 @@ export function CurrentPinpad() {
 
 export function ShowKitchenPoints() {
 
-    const tags = (size, multiply, limit_tags, id, options, label, placeholder, selected_uid = []) => {
+    const dispatch = useDispatch()
+    const filial = useSelector(state => state.data.filial)
+    const current_page = useSelector(state => state.interface.current_page)
+    const kitchen_points_list = useSelector(state => state.orders.kitchen_points_list)
+    const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
+
+    useEffect(() => {
+        dispatch(common_list_get(filial, 'kitchen_points'))
+        return () => dispatch(setKitchenPointsList([]))
+    }, [dispatch, filial, current_page])
+
+    const tags = (size, multiply, limit_tags, id, label, placeholder) => {
         return <Autocomplete
-            onChange={(event, new_value) => {
-            }}
-            value={selected_uid}
-            noOptionsText={'Нет подходящих опций'}
-            size={size}
+            sx={{backgroundColor: 'white', borderRadius: '4px 4px 0 0'}}
             multiple={multiply}
+            size={size}
             limitTags={limit_tags}
             id={id}
-            options={options}
+            options={kitchen_points_list}
+            value={kitchen_points_list.filter(opt => uid_kitchen_points_selected.includes(opt.uid))}
+            onChange={(event, newValue) => {
+                dispatch(setUidKitchenPointsSelected(newValue.map(v => v.uid)))
+            }}
             getOptionLabel={(option) => option.title}
-            renderInput={(params) => <TextField sx={{width: '100%'}} variant='filled' {...params} label={label}
-                                                placeholder={placeholder}/>}
-            sx={{width: '100%', marginBottom: 0}}
+            renderInput={(params) => (<TextField
+                {...params}
+                sx={{width: '100%'}}
+                variant="filled"
+                color='secondary'
+                label={label}
+                placeholder={placeholder}
+            />)}
             isOptionEqualToValue={(option, value) => option.uid === value.uid}
         />
     }
 
-    return <Box sx={{width: '400px', marginRight: '4px'}}>
-        {tags("large", true, 4, "orders-seances-tags", [], "Цеха", "Цех", [])}
+    return <Box sx={{flex: 1, width: '100%', marginRight: '4px'}}>
+        {tags("large", true, 1, "kitchen-points-tags", "Цеха", "Цех")}
     </Box>
 }
 
@@ -524,15 +558,16 @@ export default function AdminMenu() {
         {current_page === 'admin/acquiring' && filial !== undefined ? <CurrentPinpad/> : null}
         {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ? <CreateDeleteButtons/> : null}
         {current_page === 'admin/operations' ? <ShowDateOperations/> : null}
+        {current_page === 'admin/operations' ? <Operations/> : null}
         {current_page === 'admin/orders/cinema' && order_search_value === null ? <CinemaType/> : null}
         {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null ?
             <ShowFilters/> : null}
-        {current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema' ? <ShowFastSearch/> : null}
-        {current_page === 'admin/egais' ? <EGAISMenu/> : null}
-        {current_page === 'admin/halls' ? <AdminHallsList/> : null}
-        {current_page === 'admin/equipment' ? <Equipment/> : null}
-        {current_page === 'kitchen' && filial !== undefined ? <ShowKitchenPoints/> : null}
-        {current_page === 'admin/orders/horeca' ? <ShowPagesHorecaOrders/> : null}
-        {current_page === 'admin/orders/cinema' ? <ShowPagesCinemaOrders/> : null}
+        {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch/>}
+        {current_page === 'admin/egais' && <EGAISMenu/>}
+        {current_page === 'admin/halls' && <AdminHallsList/>}
+        {current_page === 'admin/equipment' && <Equipment/>}
+        {current_page === 'kitchen' && filial !== undefined && <ShowKitchenPoints/>}
+        {current_page === 'admin/orders/horeca' && <ShowPagesHorecaOrders/>}
+        {current_page === 'admin/orders/cinema' && <ShowPagesCinemaOrders/>}
     </Box>
 }

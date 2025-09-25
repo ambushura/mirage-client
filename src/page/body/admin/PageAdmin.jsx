@@ -35,7 +35,9 @@ const PageAdmin = () => {
     }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
-            <Box id='content' sx={{padding: '10px 0'}}>
+            <Box id='content'
+                 sx={{padding: '10px 0'}}
+                 style={{height: 'var(--page-height)'}}>
                 {current_page === 'admin/orders/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
                 {current_page === 'admin/orders/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
                 {current_page === 'admin/zbooks' ? <Zbooks/> : null}

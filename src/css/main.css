@@ -1736,7 +1736,7 @@
 .kitchen-section-header {
     display: flex;
     font-weight: bold;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     padding: 8px 0 8px 8px;
     position: sticky;
@@ -1744,6 +1744,7 @@
     background-color: #f8f8f8;
     width: 100%;
     z-index: 2;
+    font-size: 170%;
 }
 
 .kitchen-section-orders {

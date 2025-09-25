@@ -115,6 +115,8 @@ const initialState = {
     orders_horeca_filters_kitchen_state_selected: [],
 
     // КУХНЯ
+    kitchen_points_list: [],
+    uid_kitchen_points_selected: [],
     kitchen_orders: null,
 
     // КИОСК
@@ -258,6 +260,10 @@ export const ordersSlice = createSlice({
                 }
             }
             state.kitchen_orders = kitchen_orders_copied
+        }, setKitchenPointsList(state, {payload}) {
+            state.kitchen_points_list = payload
+        }, setUidKitchenPointsSelected(state, {payload}) {
+            state.uid_kitchen_points_selected = payload
         }, setOrderSearchValue(state, {payload}) {
             state.order_search_value = payload
         }, setKioskPaymentError(state, {payload}) {
@@ -335,6 +341,8 @@ export const {
     setCommentReturnReasons,
     selectUidHoreca,
     selectUidCinema,
-    setPreOrderTimeRemaining
+    setPreOrderTimeRemaining,
+    setKitchenPointsList,
+    setUidKitchenPointsSelected,
 } = ordersSlice.actions
 export default ordersSlice.reducer

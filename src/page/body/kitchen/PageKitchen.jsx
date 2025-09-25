@@ -9,7 +9,10 @@ import Loader from "../../../ui/Loader.jsx"
 import SkipNextIcon from '@mui/icons-material/SkipNext'
 
 const KitchenOrderList = ({orders, showButtons, dispatch}) => {
+
     const filial = useSelector(state => state.data.filial)
+    const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
+
     return <>
         {orders.map(order => <motion.div
             className='kitchen-order'
@@ -22,10 +25,10 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
             </Box>
             <Box className='kitchen-order-body'>
                 {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`} className='kitchen-position'
-                                                   style={{borderBottom: i !== order.items.length - 1 ? '1px dashed #b1b1b7;' : 'none'}}>
+                                                   style={{borderBottom: i !== order.items.length - 1 ? '1px dashed #b1b1b7' : 'none'}}>
                     {showButtons && <Button variant='outlined' color='secondary'
                                             className='kitchen-button'
-                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid))}><SkipNextIcon/></Button>}
+                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected))}><SkipNextIcon/></Button>}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Box sx={{
                             fontWeight: 'bold', overflow: 'hidden'
@@ -69,11 +72,12 @@ const PageKitchen = () => {
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const kitchen_orders = useSelector(state => state.orders.kitchen_orders)
+    const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(horeca_kitchen_get(filial, param_date_admin))
+            const fetching_result = await dispatch(horeca_kitchen_get(filial, param_date_admin, uid_kitchen_points_selected))
             set_fetching(fetching_result)
             if (fetching_result.loading) {
                 // TODO Крутилка
@@ -84,10 +88,10 @@ const PageKitchen = () => {
         if (filial !== undefined && param_date_admin !== undefined) {
             fetch()
         }
-    }, [dispatch, filial, param_date_admin])
+    }, [dispatch, filial, param_date_admin, uid_kitchen_points_selected])
 
     if (filial === undefined) {
-        return <Box className='empty-box'>Выберите филиал...</Box>
+        return <Box className='empty-box' sx={{width: '100%', height: '100%'}}>Выберите филиал...</Box>
     } else if (fetching.loading && fetching.error === null && fetching.data === null) {
         return <Loader/>
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
