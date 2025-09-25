@@ -157,10 +157,11 @@ const OrderBody = ({
                     <Box className='seance-title-film-name'>{order.film_name}</Box>
                 </Box>
                 <Box className="order-box-panel-4">
-                    <Box className='order-booking'>{order.items.map(booking => (<BookingItem key={booking.uid}
-                                                                                             {...booking}
-                                                                                             uid_order={order.uid}
-                                                                                             uid_selected={uid_selected}/>))}</Box>
+                    <Box className='order-booking'>{order.items.map(booking => <BookingItem key={booking.uid}
+                                                                                            {...booking}
+                                                                                            uid_order={order.uid}
+                                                                                            uid_selected={uid_selected}/>)}</Box>
+                    <Box sx={{height: '150px'}}></Box>
                 </Box>
                 <Details order={order}/>
             </>}
@@ -229,6 +230,7 @@ const OrderBody = ({
                                         uid_selected={uid_selected}/>)}
                             </ul>
                         </Fragment>)))}
+                    <Box sx={{height: '150px'}}></Box>
                 </Box>
                 <Details order={order}/>
             </>}

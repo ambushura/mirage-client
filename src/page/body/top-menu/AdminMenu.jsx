@@ -565,7 +565,7 @@ export default function AdminMenu() {
         {current_page === 'admin/operations' && <ShowDateOperations/>}
         {current_page === 'admin/operations' && <Operations/>}
         {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
-        {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null &&
+        {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&
             <ShowFilters/>}
         {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch/>}
         {current_page === 'admin/egais' && <EGAISMenu/>}
