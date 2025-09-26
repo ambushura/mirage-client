@@ -85,10 +85,7 @@ const PageSeance = () => {
                     <Box id='content' style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Box
                             className={`seance ${seance.canceled ? 'seance-canceled' : !seance.opened ? 'seance-closed' : ''}`}
-                            sx={{
-                                flex: 1,
-                                '--seance-state': seance.canceled ? '"Сеанс отменен"' : !seance.opened ? '"Сеанс закрыт"' : '""'
-                            }}>
+                            sx={{flex: 1}}>
                             <Hall
                                 city={city}
                                 filial={filial}

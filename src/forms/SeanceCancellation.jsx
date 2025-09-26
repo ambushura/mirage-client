@@ -26,7 +26,7 @@ export default function SeanceCancellation({props}) {
                 noValidate
                 onSubmit={async (e) => {
                     e.preventDefault()
-                    await dispatch(cinema_seance_close(filial, wp, props.uid_seance, current_cancellation_reason, comment))
+                    await dispatch(cinema_seance_close(filial, props.uid_seance, current_cancellation_reason, comment, props.ver))
                     await dispatch(closeModal())
                 }}
                 sx={{

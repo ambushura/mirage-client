@@ -545,12 +545,12 @@ export const cinema_place_block = (filial, hall, uid_place) => async (dispatch, 
     })
 }
 
-export const pl_estimate_discounts = (filial, uid_order, type, card) => async (dispatch, getState) => {
+export const pl_estimate_discounts = (filial, uid_order, type, card, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_PL_ESTIMATE_DISCOUNTS}`,
-        params: {uid_order, type, card},
+        params: {uid_order, type, card, ver},
         wp,
         filial,
         kiosk,
@@ -561,12 +561,12 @@ export const pl_estimate_discounts = (filial, uid_order, type, card) => async (d
     })
 }
 
-export const cinema_seance_close = (filial, uid_seance, reason, comment) => async (dispatch, getState) => {
+export const cinema_seance_close = (filial, uid_seance, reason, comment, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_CLOSE}`,
-        params: {uid_seance, reason, comment},
+        params: {uid_seance, reason, comment, ver},
         wp,
         filial,
         kiosk,

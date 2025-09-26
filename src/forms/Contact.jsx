@@ -39,7 +39,7 @@ const Contact = ({props}) => {
                             dispatch(common_contact_add(filial, props.order_type, props.order.uid, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, props.order.ver))
                             break
                         case 'pl':
-                            dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr))
+                            dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr, props.order.ver))
                             break
                     }
                     dispatch(closeModal())

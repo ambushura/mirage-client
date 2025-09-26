@@ -29,25 +29,35 @@ const SeanceMenu = () => {
                     its_hall_map={true}
                     age={true}/>
                 <Box sx={{
-                    fontWeight: 'bold', margin: '0 8px', fontSize: '20px', overflow: 'hidden'
-                }}>{seance.name_film}</Box>
-                <Box sx={{
-                    margin: '0 16px',
-                    fontSize: '18px',
-                    fontWeight: 'bold',
-                    color: '#8B919B',
-                    overflow: 'hidden',
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}><LocationOnIcon/><span>Зал
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: 'white',
+                    height: '48px',
+                    borderRadius: '12px',
+                    padding: '0 2px',
+                }}>
+                    <Box sx={{
+                        margin: '0 16px',
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#8B919B',
+                        overflow: 'hidden',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}><LocationOnIcon/><span>Зал
                         №{seance.hall_full_name}</span></Box>
+                    <Box sx={{
+                        fontWeight: 'bold', margin: '0 8px', fontSize: '20px', overflow: 'hidden'
+                    }}>{seance.name_film}</Box>
+                </Box>
             </Box>
             {!seance.canceled && seance.opened && user !== null &&
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <Button variant='contained' color='primary' onClick={() => {
                         dispatch(openModal({
-                            type: 'seance_cancellation', props: {uid_seance: seance.uid}
+                            type: 'seance_cancellation', props: {uid_seance: seance.uid, ver: seance.ver}
                         }))
                     }}>Отменить сеанс</Button>
                 </Box>}
