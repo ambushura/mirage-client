@@ -298,7 +298,7 @@ const Order = () => {
                         action: 'cinema_order_delete',
                         question: 'Вы уверены, что хотите удалить этот заказ?',
                         payload: {
-                            filial: filial, uid: pre_order.uid
+                            filial: filial, uid: pre_order.uid, ver: pre_order.ver
                         },
                     }
                 }))}
@@ -342,7 +342,7 @@ const Order = () => {
                         action: 'horeca_order_delete',
                         question: 'Вы уверены, что хотите удалить этот заказ?',
                         payload: {
-                            filial: filial, uid: horder.uid
+                            filial: filial, uid: horder.uid, ver: horder.uid
                         },
                     }
                 }))}

@@ -19,10 +19,10 @@ const Dialog = ({props}) => {
     const handleYes = () => {
         switch (props.action) {
             case 'cinema_order_delete':
-                dispatch(cinema_order_delete(props.payload.filial, props.payload.uid))
+                dispatch(cinema_order_delete(props.payload.filial, props.payload.uid, props.payload.ver))
                 break
             case 'horeca_order_delete':
-                dispatch(horeca_order_delete(props.payload.filial, props.payload.uid))
+                dispatch(horeca_order_delete(props.payload.filial, props.payload.uid, props.payload.ver))
                 break
             case 'cinema_order_save':
                 dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))

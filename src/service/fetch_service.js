@@ -214,12 +214,12 @@ export const common_orders_receipts_get = (filial, type, uid_order) => async (di
     })
 }
 
-export const cinema_order_delete = (filial, uid_order) => async (dispatch, getState) => {
+export const cinema_order_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_DELETE}`,
-        params: {uid_order},
+        params: {uid_order, ver},
         wp,
         filial,
         kiosk,
@@ -230,12 +230,12 @@ export const cinema_order_delete = (filial, uid_order) => async (dispatch, getSt
     })
 }
 
-export const horeca_order_delete = (filial, uid_order) => async (dispatch, getState) => {
+export const horeca_order_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE}`,
-        params: {uid_order},
+        params: {uid_order, ver},
         wp,
         filial,
         kiosk,
