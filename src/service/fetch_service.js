@@ -240,8 +240,12 @@ export const horeca_order_delete = (filial, uid_order) => async (dispatch, getSt
         filial,
         kiosk,
         version
-    }, () => {
-        dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+    }, (data) => {
+        if (data.canceled) {
+            dispatch(setCurrentHorder(data))
+        } else {
+            dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+        }
         dispatch(setOrdersHorecaUpdate())
     })
 }

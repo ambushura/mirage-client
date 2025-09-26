@@ -133,7 +133,8 @@ const OrderHoreca = ({order}) => {
         })
     }, [order])
 
-    return <Box className='admin-orders-horeca-order-content' sx={{fontSize: '80%'}}
+    return <Box className={`admin-orders-horeca-order-content ${order.canceled && 'order-canceled'}`}
+                sx={{fontSize: '80%'}}
                 onClick={() => dispatch(horeca_order_fetch(filial, order.uid))}>
         <Box className='admin-orders-horeca-order-header' sx={{
             display: 'flex', height: '45px', backgroundColor: horder.uid === order.uid ? '#FFDA6B' : null

@@ -29,18 +29,25 @@ const OrdersHoreca = () => {
     useEffect(() => {
         const fetch_orders = async () => {
             const fetching_result = await dispatch(horeca_orders_get(filial, update, page, param_date_admin, staff_selected.map(({uid}) => uid), state_selected.map(({uid}) => uid), halls_selected.map(({uid}) => uid), workplaces_selected.map(({uid}) => uid), kitchen_points_selected.map(({uid}) => uid), kitchen_state_selected.map(({uid}) => uid)))
-            dispatch(setOrdersHoreca(fetching_result.data))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data != null) {
+                dispatch(setOrdersHoreca(fetching_result.data))
+            }
             set_fetching(fetching_result)
         }
         const fetch_order = async () => {
             const fetching_result = await dispatch(common_order_find(filial, 'horeca', order_search_value))
-            dispatch(setOrdersHoreca(fetching_result.data))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data != null) {
+                dispatch(setOrdersHoreca(fetching_result.data))
+            }
             set_fetching(fetching_result)
         }
         if (filial !== undefined && order_search_value === null) {
             fetch_orders()
         } else if (filial !== undefined && order_search_value !== null) {
             fetch_order()
+        }
+        return () => {
+            dispatch(setOrdersHoreca({orders: [], total_count: 0}))
         }
     }, [dispatch, filial, halls_selected, kitchen_points_selected, kitchen_state_selected, order_search_value, page, param_date_admin, staff_selected, state_selected, update, workplaces_selected])
 

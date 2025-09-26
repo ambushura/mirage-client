@@ -33,12 +33,16 @@ const OrdersCinema = () => {
     useEffect(() => {
         const fetch_orders = async () => {
             const fetching_result = await dispatch(cinema_orders_get(filial, update, page, param_date_admin, staff_selected.map(({uid}) => uid), state_selected.map(({uid}) => uid), seances_selected.map(({uid}) => uid), halls_selected.map(({uid}) => uid), workplaces_selected.map(({uid}) => uid), buyer_emails_selected, buyer_phone_numbers_selected, from_site_selected, from_kiosk_selected, from_wp_selected))
-            dispatch(setOrdersCinema(fetching_result.data))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data != null) {
+                dispatch(setOrdersCinema(fetching_result.data))
+            }
             set_fetching(fetching_result)
         }
         const fetch_order = async () => {
             const fetching_result = await dispatch(common_order_find(filial, 'cinema', order_search_value))
-            dispatch(setOrdersCinema(fetching_result.data))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data != null) {
+                dispatch(setOrdersCinema(fetching_result.data))
+            }
             set_fetching(fetching_result)
         }
         if (filial !== undefined && order_search_value === null) {
@@ -46,6 +50,7 @@ const OrdersCinema = () => {
         } else if (filial !== undefined && order_search_value !== null) {
             fetch_order()
         }
+        dispatch(setOrdersCinema({orders: [], total_count: 0}))
     }, [dispatch, filial, update, page, buyer_emails_selected, buyer_phone_numbers_selected, from_kiosk_selected, from_site_selected, from_wp_selected, halls_selected, param_date_admin, seances_selected, staff_selected, state_selected, workplaces_selected, order_search_value])
 
     if (filial === undefined) {

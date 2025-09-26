@@ -1684,6 +1684,22 @@
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+.order-canceled::after {
+    content: "Заказ отменен";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: all;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px 12px 0 0;
+}
+
 .admin-orders-horeca-order-header, .admin-orders-cinema-order-header {
     padding-bottom: 4px;
     align-items: center;
@@ -1751,6 +1767,7 @@
 .kitchen-section-orders {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
 }

@@ -65,6 +65,9 @@ const Operations = () => {
                 columnGroupingModel={column_grouping_model}
                 experimentalFeatures={{columnGrouping: true}}
                 getRowClassName={(params) => params.row.isTotalRow ? 'total-row' : ''}
+                pinnedColumns={{
+                    left: ['date_shift'],
+                }}
                 sx={{
                     '& .MuiDataGrid-columnHeaders': {
                         position: 'sticky', top: '500px', zIndex: 1000, backgroundColor: '#fff',
