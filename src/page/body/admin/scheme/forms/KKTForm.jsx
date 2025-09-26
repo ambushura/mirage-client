@@ -15,7 +15,10 @@ import {
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    ROUTE_EQUIPMENT_KKT_OPEN_BOX, ROUTE_EQUIPMENT_KKT_REBOOT, ROUTE_EQUIPMENT_KKT_X, ROUTE_EQUIPMENT_KKT_Z
+    ROUTE_EQUIPMENT_KKT_OPEN_BOX,
+    ROUTE_EQUIPMENT_KKT_REBOOT,
+    ROUTE_EQUIPMENT_KKT_X,
+    ROUTE_EQUIPMENT_KKT_Z
 } from "../../../../../service/fetch_routes.js"
 import {common_catalog_get, equipment_action} from "../../../../../service/fetch_service.js"
 

@@ -11,7 +11,7 @@ import {BilletCheckNode} from "./nodes/BilletCheckNode.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import {common_payment_map_get} from "../../../../service/fetch_service.js"
 
-const PageEquipment = () => {
+const PageScheme = () => {
 
     const dispatch = useDispatch()
 
@@ -71,4 +71,4 @@ const PageEquipment = () => {
     }
 }
 
-export default PageEquipment
+export default PageScheme

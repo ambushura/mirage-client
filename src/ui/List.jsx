@@ -1,14 +1,5 @@
 import {useEffect} from 'react'
-import {
-    Button,
-    ClickAwayListener,
-    Grow,
-    ListItemIcon,
-    ListItemText,
-    MenuList,
-    Paper,
-    Popper
-} from "@mui/material"
+import {Button, ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuList, Paper, Popper} from "@mui/material"
 import Filial from "../page/header/Filial.jsx"
 import City from "../page/header/City.jsx"
 import {useNavigate} from "react-router-dom"
@@ -112,7 +103,7 @@ const List = (props) => {
                                                                     el.id === 'admin/operations' ?
                                                                         <CurrencyRubleIcon/> :
                                                                         el.id === 'admin/halls' ? <ChairIcon/> :
-                                                                            el.id === 'admin/equipment' ?
+                                                                            el.id === 'admin/scheme' ?
                                                                                 <ConstructionIcon/> :
                                                                                 el.id === 'admin/egais' ?
                                                                                     <LiquorIcon/> :

@@ -31,6 +31,10 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                                             onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected))}><SkipNextIcon/></Button>}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Box sx={{
+                            display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'
+                        }}>{item.take_away && <Box sx={{fontSize: '120%'}}>С СОБОЙ</Box>}{item.course > 0 &&
+                            <Box sx={{fontSize: '120%'}}>{item.course} КУРС</Box>}</Box>
+                        <Box sx={{
                             fontWeight: 'bold', overflow: 'hidden'
                         }}>{item.quantity} {item.unit_name}</Box>
                         <Box sx={{overflow: 'hidden', flex: 1}}>{item.name}</Box>
@@ -120,7 +124,7 @@ const PageKitchen = () => {
                                                 showButtons={false}/>
                             </Box>
                         </Box>
-                    </> : null}
+                    </> : <Box className='empty-box'>Ничего не нужно готовить...</Box>}
                 </Box>
                 <Box id='content-footer'></Box>
             </Box>

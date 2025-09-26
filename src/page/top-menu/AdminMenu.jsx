@@ -559,7 +559,7 @@ export default function AdminMenu() {
     const filial = useSelector(state => state.data.filial)
 
     return <Box id='top-menu'>
-        {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/equipment', 'admin/zbooks', 'admin/acquiring'].includes(current_page) &&
+        {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring'].includes(current_page) &&
             <DateParamAdmin/>}
         {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
         {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
@@ -572,7 +572,7 @@ export default function AdminMenu() {
         {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch/>}
         {current_page === 'admin/egais' && <EGAISMenu/>}
         {current_page === 'admin/halls' && <AdminHallsList/>}
-        {current_page === 'admin/equipment' && <Equipment/>}
+        {current_page === 'admin/scheme' && <Equipment/>}
         {current_page === 'kitchen' && filial !== undefined && <ShowKitchenPoints/>}
         {current_page === 'admin/orders/horeca' && <ShowPagesHorecaOrders/>}
         {current_page === 'admin/orders/cinema' && <ShowPagesCinemaOrders/>}

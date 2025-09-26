@@ -30,12 +30,12 @@ import HorecaFilters from "./page/body/admin/orders/horeca/HorecaFilters.jsx"
 import CinemaFilters from "./page/body/admin/orders/cinema/CinemaFilters.jsx"
 import ScheduleFilters from "./forms/schedule_filters/ScheduleFilters.jsx"
 import Seance from "./forms/documents/Seance.jsx"
-import KKTForm from "./page/body/admin/equipment/forms/KKTForm.jsx"
-import PinpadForm from "./page/body/admin/equipment/forms/PinpadForm.jsx"
-import {FilialForm} from "./page/body/admin/equipment/forms/FilialForm.jsx"
-import {KitchenPointForm} from "./page/body/admin/equipment/forms/KitchenPointForm.jsx"
-import {BilletCheckForm} from "./page/body/admin/equipment/forms/BilletCheckForm.jsx"
-import {WorkplaceForm} from "./page/body/admin/equipment/forms/WorkplaceForm.jsx"
+import KKTForm from "./page/body/admin/scheme/forms/KKTForm.jsx"
+import PinpadForm from "./page/body/admin/scheme/forms/PinpadForm.jsx"
+import {FilialForm} from "./page/body/admin/scheme/forms/FilialForm.jsx"
+import {KitchenPointForm} from "./page/body/admin/scheme/forms/KitchenPointForm.jsx"
+import {BilletCheckForm} from "./page/body/admin/scheme/forms/BilletCheckForm.jsx"
+import {WorkplaceForm} from "./page/body/admin/scheme/forms/WorkplaceForm.jsx"
 import TableOptions from "./forms/TableOptions.jsx"
 import Dialog from "./forms/Dialog.jsx"
 import Operation from "./page/body/admin/total/Operation.jsx"
@@ -150,8 +150,8 @@ function App() {
                 <Route path="/admin/egais/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/egais"/>}/>
 
-                <Route path="/admin/equipment/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/equipment"/>}/>
+                <Route path="/admin/scheme/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/scheme"/>}/>
 
                 <Route path="/admin/staff/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/staff"/>}/>

@@ -60,7 +60,7 @@ export const ThemeBlackWhite = ({children}) => {
     useEffect(() => {
         set_ui_state(preValue => ({
             ...preValue,
-            show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null && !['kitchen', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/equipment', 'admin/egais', 'admin/staff', 'admin/acquiring'].includes(current_page),
+            show_order: (pre_oder.in_base || horder.in_base) && uid_user !== null && !['kitchen', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/scheme', 'admin/egais', 'admin/staff', 'admin/acquiring'].includes(current_page),
         }))
     }, [pre_oder, horder, uid_user, current_page])
 

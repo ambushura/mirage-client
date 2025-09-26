@@ -236,7 +236,7 @@ const Header = () => {
             {['seance'].includes(current_page) && !kiosk && <SeanceMenu/>}
             {['seance'].includes(current_page) && kiosk && <CheckoutMenu/>}
             {['menu'].includes(current_page) && <HorecaMenu/>}
-            {['kitchen', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/egais', 'admin/equipment', 'admin/staff', 'admin/acquiring'].includes(current_page) &&
+            {['kitchen', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/zbooks', 'admin/operations', 'admin/halls', 'admin/egais', 'admin/scheme', 'admin/staff', 'admin/acquiring'].includes(current_page) &&
                 <AdminMenu/>}
         </header>
     }

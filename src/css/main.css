@@ -1787,6 +1787,7 @@
 }
 
 .kitchen-position {
+    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1796,7 +1797,7 @@
 }
 
 .kitchen-position > div {
-    margin: 0 4px 0 8px;
+    margin: 0 8px 0 8px;
 }
 
 .kitchen-button {

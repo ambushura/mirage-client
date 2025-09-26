@@ -9,7 +9,7 @@ import Operations from "./total/Operations.jsx"
 import Egais from "./egais/EGAIS.jsx"
 import PageStaff from "./staff/PageStaff.jsx"
 import PageHalls from "./halls/PageHalls.jsx"
-import PageEquipment from "./equipment/PageEquipment.jsx"
+import PageScheme from "./scheme/PageScheme.jsx"
 import ZPinpads from "./total/ZPinpads.jsx"
 import Order from "../../right-panel/Order.jsx"
 
@@ -45,7 +45,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/egais' ? <Egais/> : null}
                 {current_page === 'admin/staff' ? <PageStaff/> : null}
                 {current_page === 'admin/halls' ? <PageHalls/> : null}
-                {current_page === 'admin/equipment' ? <PageEquipment/> : null}
+                {current_page === 'admin/scheme' ? <PageScheme/> : null}
                 {current_page === 'admin/acquiring' ? <ZPinpads/> : null}
             </Box>
             <Box id='content-footer'></Box>
