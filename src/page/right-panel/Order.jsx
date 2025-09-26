@@ -201,7 +201,7 @@ const OrderBody = ({
                     }}><ContentCutIcon/></Button>
                     <Button sx={{marginLeft: '4px'}} variant="contained" color="secondary"
                             onClick={() => dispatch(openModal({
-                                type: 'creator_change', props: {uid_order: order.uid}
+                                type: 'creator_change', props: {uid_order: order.uid, ver: order.ver}
                             }))}><PeopleOutlineIcon/></Button>
                 </Box>
                 <Box className="order-box-panel-adv">

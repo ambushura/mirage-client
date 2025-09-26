@@ -1183,12 +1183,12 @@ export const cinema_film_seances_get = (filial, date_shift, uid_film, closed, ca
     }, data => data)
 }
 
-export const horeca_order_change_creator = (filial, uid_order, uid_creator) => async (dispatch, getState) => {
+export const horeca_order_change_creator = (filial, uid_order, uid_creator, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_CHANGE_CREATOR}`,
-        params: {uid_order, uid_creator},
+        params: {uid_order, uid_creator, ver},
         filial,
         wp,
         kiosk,

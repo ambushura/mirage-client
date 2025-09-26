@@ -36,7 +36,7 @@ const StaffList = ({props}) => {
                 }))
                 return
             }
-            dispatch(horeca_order_change_creator(filial, props.uid_order, current_uid_staff))
+            dispatch(horeca_order_change_creator(filial, props.uid_order, current_uid_staff, props.ver))
             dispatch(closeModal())
         }}>
         <Typography variant="h6" color="textSecondary" margin={1}>

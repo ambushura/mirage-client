@@ -32,10 +32,10 @@ const SeanceMenu = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--bgr-color)',
                     height: '48px',
                     borderRadius: '12px',
-                    padding: '0 2px',
+                    padding: '0 8px 0 0',
                 }}>
                     <Box sx={{
                         margin: '0 16px',
