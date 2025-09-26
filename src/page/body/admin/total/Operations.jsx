@@ -33,10 +33,6 @@ const Operations = () => {
         return () => dispatch(cleanOperations())
     }, [dispatch, filial, operations_page, operations_details, update])
 
-    const handleOpenDocument = (params) => {
-        alert(params.row)
-    }
-
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else if (fetching.loading && fetching.error === null && fetching.data === null) {
@@ -58,7 +54,6 @@ const Operations = () => {
             }))
 
             return <DataGridPro
-                onRowDoubleClick={handleOpenDocument}
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 checkboxSelection
                 rows={rows}
