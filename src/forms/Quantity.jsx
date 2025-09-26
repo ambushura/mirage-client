@@ -12,7 +12,7 @@ const Quantity = (props) => {
     const filial = useSelector(state => state.data.filial)
 
     const {
-        uid_order, uid_position, fraction, unit_name, unit_code, v, quantity
+        uid_order, uid_position, fraction, unit_name, unit_code, v, quantity, ver
     } = props.props
 
     const [countStr, setCountStr] = useState("")
@@ -36,7 +36,7 @@ const Quantity = (props) => {
         e.preventDefault()
         const quantity = parseFloat(countStr)
         if (!isNaN(quantity) && quantity !== 0) {
-            dispatch(horeca_position_add_quantity(filial, uid_order, uid_position, quantity))
+            dispatch(horeca_position_add_quantity(filial, uid_order, uid_position, quantity, ver))
             dispatch(closeModal())
         } else {
             dispatch(addNotification({

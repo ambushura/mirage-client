@@ -124,7 +124,7 @@ const OrderBody = ({
                             }))
                         }}><BorderColorIcon/></Button>
                         {order.comment !== null ? <Button variant="contained" color="secondary" onClick={() => {
-                            dispatch(common_order_delete_comment(filial, 'cinema', order.uid))
+                            dispatch(common_order_delete_comment(filial, 'cinema', order.uid, order.ver))
                         }}><DeleteIcon/></Button> : null}
                     </ButtonGroup>
                     <ButtonGroup size='small'>
@@ -182,7 +182,7 @@ const OrderBody = ({
                                 }))
                             }}><BorderColorIcon/></Button>
                             {order.comment !== null ? <Button variant="contained" color="secondary" onClick={() => {
-                                dispatch(common_order_delete_comment(filial, 'horeca', order.uid))
+                                dispatch(common_order_delete_comment(filial, 'horeca', order.uid, order.ver))
                             }}><DeleteIcon/></Button> : null}
                         </ButtonGroup>
                         <ButtonGroup size='small'>
@@ -193,7 +193,7 @@ const OrderBody = ({
                             }}>Место</Button>
                             {order.name_hall !== null && order.name_place !== null ?
                                 <Button variant="contained" color="secondary" onClick={() => {
-                                    dispatch(horeca_table_delete(filial, order.uid))
+                                    dispatch(horeca_table_delete(filial, order.uid, order.ver))
                                 }}><DeleteIcon/></Button> : null}
                         </ButtonGroup>
                     </ButtonGroup>

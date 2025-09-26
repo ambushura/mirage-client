@@ -28,7 +28,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                                                    style={{borderBottom: i !== order.items.length - 1 ? '1px dashed #b1b1b7' : 'none'}}>
                     {showButtons && <Button variant='outlined' color='secondary'
                                             className='kitchen-button'
-                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected))}><SkipNextIcon/></Button>}
+                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected, order.ver))}><SkipNextIcon/></Button>}
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Box sx={{
                             display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'

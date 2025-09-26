@@ -34,6 +34,7 @@ const HorecaItem = (props) => {
                 className='order-box-horeca-item-1'>
                 <Button variant='text' color='secondary' onClick={() => dispatch(openModal({
                     type: 'quantity', props: {
+                        ver: props.order.ver,
                         uid_order: props.order.uid,
                         uid_position: props.item.uid,
                         fraction: props.item.fraction,
@@ -66,7 +67,7 @@ const HorecaItem = (props) => {
                         }))}>
                     <BorderColorIcon/></Button>
                 <Button variant='text' color='secondary'
-                        onClick={() => dispatch((horeca_position_delete(filial, props.order.uid, props.item.uid)))}><DeleteIcon/></Button>
+                        onClick={() => dispatch((horeca_position_delete(filial, props.order.uid, props.item.uid, props.order.ver)))}><DeleteIcon/></Button>
 
             </Box>
             {props.item.price.uid_discount !== null ? <Box className="order-horeca-item-discount">
@@ -97,7 +98,7 @@ const HorecaItem = (props) => {
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', flex: 1}}><span
                     style={{textAlign: 'center'}}>{props.item.comment}</span></Box>
                 <Button color='secondary' variant='text'
-                        onClick={() => dispatch(common_position_delete_comment(filial, 'horeca', props.order.uid, props.item.uid))}><DeleteIcon/></Button>
+                        onClick={() => dispatch(common_position_delete_comment(filial, 'horeca', props.order.uid, props.item.uid, props.order.ver))}><DeleteIcon/></Button>
             </Box> : <></>}
             {props.item.kitchen !== null && props.item.kitchen.modifications !== null && props.item.kitchen.modifications.length > 0 ?
                 <Box className='modifications'>{props.item.kitchen.modifications.map(modification => {
@@ -107,14 +108,14 @@ const HorecaItem = (props) => {
                 <Button
                     variant='text'
                     color={props.item.kitchen.take_away ? 'info' : 'secondary'}
-                    onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'away'))}>
+                    onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'away', props.order.ver))}>
                     <ShoppingBagIcon/></Button>
                 <Button variant='text'
                         color={props.item.kitchen.course > 0 ? 'info' : 'secondary'}
-                        onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'course'))}>{course[props.item.kitchen.course]}</Button>
+                        onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'course', props.order.ver))}>{course[props.item.kitchen.course]}</Button>
                 <Button variant='text'
                         color='info'
-                        onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'cook'))}>{state[props.item.kitchen.state]}</Button>
+                        onClick={() => dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'cook', props.order.ver))}>{state[props.item.kitchen.state]}</Button>
                 {props.item.kitchen.uid_delivery_path !== null ?
                     <Button variant='text' color='info'>{props.item.kitchen.name_delivery_path}</Button> : null}
             </Box> : null}

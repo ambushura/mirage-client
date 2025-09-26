@@ -73,7 +73,7 @@ const HallMap = (props) => {
                 }
             }
         } else if (node.type === 'table') {
-            dispatch(horeca_table_add(props.filial, props.horder.uid, props.hall.uid, node.id))
+            dispatch(horeca_table_add(props.filial, props.horder.uid, props.hall.uid, node.id, props.horder.ver))
         }
     }
 

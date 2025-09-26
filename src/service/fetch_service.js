@@ -287,12 +287,12 @@ export const horeca_position_add = (filial, uid_order, ver, uid_menu) => async (
     }, data => dispatch(setCurrentHorder(data)))
 }
 
-export const cinema_discount_apply = (filial, uid_order, uid_discount, uid_group_discount, comment, uid_positions) => async (dispatch, getState) => {
+export const cinema_discount_apply = (filial, uid_order, uid_discount, uid_group_discount, comment, uid_positions, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_APPLY}`,
-        params: {uid_order, uid_discount, uid_group_discount, uid_positions, comment},
+        params: {uid_order, uid_discount, uid_group_discount, uid_positions, comment, ver},
         wp,
         filial,
         kiosk,
@@ -303,12 +303,12 @@ export const cinema_discount_apply = (filial, uid_order, uid_discount, uid_group
     })
 }
 
-export const common_contact_add = (filial, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email) => async (dispatch, getState) => {
+export const common_contact_add = (filial, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_ADD_CONTACT}`,
-        params: {order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email},
+        params: {order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, ver},
         wp,
         filial,
         kiosk,
@@ -319,12 +319,12 @@ export const common_contact_add = (filial, order_type, uid_order, buyer_s, buyer
     })
 }
 
-export const common_order_add_comment = (filial, order_type, uid_order, comment) => async (dispatch, getState) => {
+export const common_order_add_comment = (filial, order_type, uid_order, comment, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_ORDER_ADD_COMMENT : ROUTE_HORECA_ORDER_ADD_COMMENT}`,
-        params: {uid_order, comment},
+        params: {uid_order, comment, ver},
         wp,
         filial,
         kiosk,
@@ -335,12 +335,12 @@ export const common_order_add_comment = (filial, order_type, uid_order, comment)
     })
 }
 
-export const common_order_delete_comment = (filial, order_type, uid_order) => async (dispatch, getState) => {
+export const common_order_delete_comment = (filial, order_type, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_ORDER_DELETE_COMMENT : ROUTE_HORECA_ORDER_DELETE_COMMENT}`,
-        params: {uid_order},
+        params: {uid_order, ver},
         wp,
         filial,
         kiosk,
@@ -351,12 +351,12 @@ export const common_order_delete_comment = (filial, order_type, uid_order) => as
     })
 }
 
-export const common_position_add_comment = (filial, order_type, uid_order, uid_position, comment, modifications) => async (dispatch, getState) => {
+export const common_position_add_comment = (filial, order_type, uid_order, uid_position, comment, modifications, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_ADD_COMMENT : ROUTE_HORECA_POSITION_ADD_COMMENT}`,
-        params: {uid_order, uid_position, comment, modifications: order_type === 'horeca' ? modifications : []},
+        params: {uid_order, uid_position, comment, modifications: order_type === 'horeca' ? modifications : [], ver},
         wp,
         filial,
         kiosk,
@@ -367,12 +367,12 @@ export const common_position_add_comment = (filial, order_type, uid_order, uid_p
     })
 }
 
-export const common_position_delete_comment = (filial, order_type, uid_order, uid_position) => async (dispatch, getState) => {
+export const common_position_delete_comment = (filial, order_type, uid_order, uid_position, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_DELETE_COMMENT : ROUTE_HORECA_POSITION_DELETE_COMMENT}`,
-        params: {uid_order, uid_position},
+        params: {uid_order, uid_position, ver},
         wp,
         filial,
         kiosk,
@@ -383,12 +383,12 @@ export const common_position_delete_comment = (filial, order_type, uid_order, ui
     })
 }
 
-export const horeca_position_add_quantity = (filial, uid_order, uid_position, quantity) => async (dispatch, getState) => {
+export const horeca_position_add_quantity = (filial, uid_order, uid_position, quantity, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_QUANTITY}`,
-        params: {uid_order, uid_position, quantity},
+        params: {uid_order, uid_position, quantity, ver},
         wp,
         filial,
         kiosk,
@@ -399,7 +399,7 @@ export const horeca_position_add_quantity = (filial, uid_order, uid_position, qu
     })
 }
 
-export const horeca_position_change_state = (filial, uid_order, uid_position, action) => async (dispatch, getState) => {
+export const horeca_position_change_state = (filial, uid_order, uid_position, action, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const routes = {
         away: ROUTE_HORECA_POSITION_AWAY, course: ROUTE_HORECA_POSITION_COURSE, cook: ROUTE_HORECA_POSITION_COOK
@@ -409,7 +409,7 @@ export const horeca_position_change_state = (filial, uid_order, uid_position, ac
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${route}`,
-        params: {uid_order, uid_position},
+        params: {uid_order, uid_position, ver},
         wp,
         filial,
         kiosk,
@@ -462,12 +462,12 @@ export const markirovka_cdn_info_update = (filial) => async (dispatch, getState)
     }, data => dispatch(fillHosts(data)))
 }
 
-export const horeca_position_delete = (filial, uid_order, uid_position) => async (dispatch, getState) => {
+export const horeca_position_delete = (filial, uid_order, uid_position, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_DELETE}`,
-        params: {uid_order, uid_position},
+        params: {uid_order, uid_position, ver},
         wp,
         filial,
         kiosk,
@@ -478,12 +478,12 @@ export const horeca_position_delete = (filial, uid_order, uid_position) => async
     })
 }
 
-export const horeca_table_add = (filial, uid_order, uid_hall, uid_table) => async (dispatch, getState) => {
+export const horeca_table_add = (filial, uid_order, uid_hall, uid_table, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_ADD_TABLE}`,
-        params: {uid_order, uid_hall, uid_table},
+        params: {uid_order, uid_hall, uid_table, ver},
         wp,
         filial,
         kiosk,
@@ -494,12 +494,12 @@ export const horeca_table_add = (filial, uid_order, uid_hall, uid_table) => asyn
     })
 }
 
-export const horeca_table_delete = (filial, uid_order) => async (dispatch, getState) => {
+export const horeca_table_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE_TABLE}`,
-        params: {uid_order},
+        params: {uid_order, ver},
         wp,
         filial,
         kiosk,
@@ -510,11 +510,11 @@ export const horeca_table_delete = (filial, uid_order) => async (dispatch, getSt
     })
 }
 
-export const horeca_kitchen_push = (filial, uid_order, uid_position, uid_kitchen_points_selected) => async (dispatch, getState) => {
+export const horeca_kitchen_push = (filial, uid_order, uid_position, uid_kitchen_points_selected, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`, params: {
-            uid_order, uid_position, uid_kitchen_points_selected
+            uid_order, uid_position, uid_kitchen_points_selected, ver
         }, wp, filial, kiosk, version,
     }, data => {
         dispatch(pushKitchenPositions(data))

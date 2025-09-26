@@ -64,7 +64,7 @@ const Discounts = (props) => {
                         return
                     }
                     set_discount_error(false)
-                    dispatch(cinema_discount_apply(filial, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions))
+                    dispatch(cinema_discount_apply(filial, pre_order.uid, uid_discount, uid_group_discount, comment, props.props.uid_positions, pre_order.ver))
                     dispatch(closeModal())
                 }}>
         <Typography variant="h6" color="textSecondary" margin={1}>
