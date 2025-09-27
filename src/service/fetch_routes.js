@@ -81,3 +81,4 @@ export const ROUTE_SECOND_SCREEN_PRE_ORDER_GET = '/api/second_screen/pre_order/g
 export const ROUTE_SECOND_SCREEN_HORDER_GET = '/api/second_screen/horder/get'
 export const ROUTE_SECOND_SCREEN_BOOKING_GET = '/api/second_screen/booking/get'
 export const COMMON_PRINTERS_GET = '/api/common/printers/get'
+export const ROUTE_HORECA_POSITION_ADD_BARCODE = '/api/horeca/position/add/barcode'

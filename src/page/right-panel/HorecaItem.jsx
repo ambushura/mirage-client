@@ -15,9 +15,8 @@ import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
-import QrCodeIcon from '@mui/icons-material/QrCode'
 import {selectUidHoreca} from "../../redux/ordersReducer.js"
-import {CZIcon} from "../top-menu/HorecaMenu.jsx"
+import {CZIcon, EGAISIcon} from "../top-menu/HorecaMenu.jsx"
 
 const HorecaItem = (props) => {
 
@@ -90,7 +89,7 @@ const HorecaItem = (props) => {
                 </Button>
             </Box> : <></>}
             {props.item.egais !== null ? <Box className='order-box-horeca-item-3'>
-                <Button variant='text' color='secondary' startIcon={<QrCodeIcon/>}>АМ</Button>
+                <Button variant='text' color='secondary'><EGAISIcon/></Button>
                 <Box
                     className='order-box-horeca-item-3-2'>{props.item.egais.value === '' ? 'Отсканируйте акцизную марку' : props.item.egais.value}</Box>
             </Box> : <></>}

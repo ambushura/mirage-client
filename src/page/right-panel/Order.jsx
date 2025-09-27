@@ -342,7 +342,7 @@ const Order = () => {
                         action: 'horeca_order_delete',
                         question: 'Вы уверены, что хотите удалить этот заказ?',
                         payload: {
-                            filial: filial, uid: horder.uid, ver: horder.uid
+                            filial: filial, uid: horder.uid, ver: horder.ver
                         },
                     }
                 }))}

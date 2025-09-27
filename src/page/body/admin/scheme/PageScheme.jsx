@@ -51,7 +51,7 @@ const PageScheme = () => {
             Выберите филиал...
         </Box>
     } else {
-        return <Box style={{width: '100%', height: 'calc(var(--page-height) - 10px - 10px)'}}>
+        return <Box style={{width: '100%', height: 'var(--page-height)'}}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}

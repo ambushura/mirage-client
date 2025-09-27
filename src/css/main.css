@@ -1193,7 +1193,6 @@
 .order-box-horeca-item-3,
 .order-box-horeca-item-4,
 .order-box-horeca-item-5 {
-    width: 100%;
     height: calc(48px + 6px + 6px);
     display: flex;
     flex-direction: row;
@@ -1308,6 +1307,9 @@
 .order-box-horeca-item-3-2 {
     flex: 1;
     font-size: 12px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
 .order-box-horeca-item-3-3 {

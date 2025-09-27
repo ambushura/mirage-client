@@ -31,13 +31,12 @@ const PageAdmin = () => {
 
     return <Box id='content-box' style={{
         overflowY: 'auto',
-        width: ['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page) && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw'
+        width: ['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page) && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw',
     }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
             <Box id='content'
-                 sx={{padding: '10px 0'}}
-                 style={{height: 'var(--page-height)'}}>
+                 style={['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ? {height: 'var(--page-height)'} : null}>
                 {current_page === 'admin/orders/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
                 {current_page === 'admin/orders/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
                 {current_page === 'admin/zbooks' ? <Zbooks/> : null}

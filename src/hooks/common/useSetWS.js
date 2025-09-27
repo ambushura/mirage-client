@@ -3,7 +3,12 @@ import useWebSocket from "react-use-websocket"
 import {useDispatch, useSelector} from "react-redux"
 import {setSSState} from "../../redux/secondScreenReducer.js"
 import {ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"
-import {horeca_position_add_mark, login} from "../../service/fetch_service.js";
+import {
+    horeca_position_add_barcode,
+    horeca_position_add_egais_mark,
+    horeca_position_add_mark,
+    login
+} from "../../service/fetch_service.js";
 
 export function useSetWS() {
 
@@ -53,6 +58,7 @@ export function useSetWS() {
                                 }
                                 break
                             case 1:
+                                dispatch(horeca_position_add_barcode(filial, horder.uid, data.value))
                                 break
                             case 2:
                                 if (uid_horeca_selected.length === 0) {
@@ -62,6 +68,11 @@ export function useSetWS() {
                                 }
                                 break
                             case 3:
+                                if (uid_horeca_selected.length === 0) {
+                                    dispatch(horeca_position_add_egais_mark(filial, horder.uid, null, data.value))
+                                } else {
+                                    dispatch(horeca_position_add_egais_mark(filial, horder.uid, uid_horeca_selected[0], data.value))
+                                }
                                 break
                             case 4:
                                 break

@@ -77,7 +77,9 @@ import {
     ROUTE_HORECA_ORDER_GET,
     ROUTE_HORECA_ORDERS_GET,
     ROUTE_HORECA_POSITION_ADD,
+    ROUTE_HORECA_POSITION_ADD_BARCODE,
     ROUTE_HORECA_POSITION_ADD_COMMENT,
+    ROUTE_HORECA_POSITION_ADD_EGAIS,
     ROUTE_HORECA_POSITION_ADD_MARK,
     ROUTE_HORECA_POSITION_ADD_QUANTITY,
     ROUTE_HORECA_POSITION_AWAY,
@@ -426,6 +428,38 @@ export const horeca_position_add_mark = (filial, uid_order, uid_position, mark) 
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_MARK}`,
         params: {uid_order, uid_position, mark},
+        wp,
+        filial,
+        kiosk,
+        version,
+    }, data => {
+        dispatch(setCurrentHorder(data))
+        dispatch(setOrdersHorecaUpdate())
+    })
+}
+
+export const horeca_position_add_egais_mark = (filial, uid_order, uid_position, mark) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_EGAIS}`,
+        params: {uid_order, uid_position, mark},
+        wp,
+        filial,
+        kiosk,
+        version,
+    }, data => {
+        dispatch(setCurrentHorder(data))
+        dispatch(setOrdersHorecaUpdate())
+    })
+}
+
+export const horeca_position_add_barcode = (filial, uid_order, mark) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_BARCODE}`,
+        params: {uid_order, mark},
         wp,
         filial,
         kiosk,

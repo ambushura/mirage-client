@@ -78,7 +78,7 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                 <Box sx={{width: '96px', fontWeight: 100,}}>Акцизная марка: </Box>
                 <Box sx={{
                     fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
-                }}>{item.egais_type_value}</Box>
+                }}>{item.egais_value}</Box>
             </Box> : null}
             {item.mark_type !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <Box sx={{
