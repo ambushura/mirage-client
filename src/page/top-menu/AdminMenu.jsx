@@ -424,7 +424,7 @@ export function CurrentKKT() {
 
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
-    const {kkt_list, uid_kkt_current} = useSelector(state => state.documents.zbooks)
+    const {kkt_list, uid_kkt_current} = useSelector(state => state.documents)
     const filial = useSelector(state => state.data.filial)
 
     useEffect(() => {
@@ -453,7 +453,7 @@ export function CurrentPinpad() {
 
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
-    const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents.zpinpads)
+    const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents)
     const filial = useSelector(state => state.data.filial)
 
     useEffect(() => {

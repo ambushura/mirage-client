@@ -12,7 +12,7 @@ const ZPinpads = () => {
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const {columns, rows, update} = useSelector(state => state.documents.zpinpads)
+    const {rows, update} = useSelector(state => state.documents.zpinpads)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
     useEffect(() => {
@@ -31,6 +31,20 @@ const ZPinpads = () => {
         }
         return () => dispatch(cleanZPinpads())
     }, [dispatch, filial, param_date_admin, update])
+
+    const columns = [{field: 'id', headerName: 'ID', width: 10}, {
+        field: 'name_organization', headerName: 'Организация', width: 100
+    }, {field: 'inn', headerName: 'ИНН', width: 100}, {
+        field: 'number_pinpad', headerName: 'ID', width: 130
+    }, {field: 'date_shift', headerName: 'Смена', width: 90}, {
+        field: 'slip_15', headerName: '15', type: 'number', width: 100
+    }, {field: 'slip_19', headerName: '19', type: 'number', width: 100}, {
+        field: 'slip_25', headerName: '25', type: 'number', width: 100
+    }, {field: 'slip_39', headerName: '39', type: 'number', width: 100}, {
+        field: 'slip_65', headerName: '65', type: 'number', width: 100
+    }, {field: 'slip_67', headerName: '67', type: 'number', width: 100}, {
+        field: 'slip_90', headerName: '90', width: 100
+    }, {field: 'type', headerName: 'Т', type: 'number', width: 100},]
 
     const [columnVisibility, setVisibility] = useState({
         id: false

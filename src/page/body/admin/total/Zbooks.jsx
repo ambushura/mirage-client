@@ -14,7 +14,7 @@ const Zbooks = () => {
 
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const {columns, rows, update} = useSelector(state => state.documents.zbooks)
+    const {rows, update} = useSelector(state => state.documents.zbooks)
     const uid_kkt_current = useSelector(state => state.documents.zbooks.uid_kkt_current)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
     const [fetching_receipts, set_fetching_receipts] = useState({loading: false, error: null, data: null})
@@ -35,6 +35,53 @@ const Zbooks = () => {
         }
         return () => dispatch(cleanZBooks())
     }, [dispatch, filial, param_date_admin, update])
+
+    useEffect(() => {
+        const fetch = async () => {
+            const fetching_result = await dispatch(common_documents_receipts_get(filial, param_date_admin, uid_kkt_current))
+            set_fetching_receipts(fetching_result)
+            if (fetching_result.loading) {
+                // TODO Крутилка
+            } else if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
+                dispatch(setReceipts(fetching_result.data))
+            }
+        }
+        dispatch(cleanReceipts())
+        if (filial !== undefined && param_date_admin !== undefined) {
+            fetch()
+        }
+        return () => dispatch(cleanReceipts())
+    }, [dispatch, filial, param_date_admin, uid_kkt_current])
+
+    const columns = [{field: 'id', headerName: 'ID', width: 10}, {
+        field: 'name_organization', headerName: 'Организация', width: 100
+    }, {field: 'inn', headerName: 'ИНН', width: 100}, {
+        field: 'number_kkt', headerName: 'ЗН ККТ', width: 130
+    }, {
+        field: 'date_ofd', headerName: 'ОФД', width: 130, type: 'dateTime', valueGetter: (param) => {
+            return param ? dayjs(param).toDate() : null
+        }
+    }, {
+        field: 'last_fd', headerName: 'ФД', width: 50
+    }, {
+        field: 'date_shift', headerName: 'Смена', width: 90, type: 'date', valueGetter: (param) => {
+            return param ? dayjs(param).toDate() : null
+        }
+    }, {
+        field: 'number_shift', headerName: '№', width: 60
+    }, {field: 'sum_in_cash', headerName: 'Н +', type: 'number', width: 100}, {
+        field: 'sum_in_electron', headerName: 'БН +', type: 'number', width: 100
+    }, {field: 'sum_out_cash', headerName: 'Н -', type: 'number', width: 100}, {
+        field: 'sum_out_electron', headerName: 'БН -', type: 'number', width: 100
+    }, {field: 'sum_nds', headerName: 'НДС', type: 'number', width: 90}, {
+        field: 'sum_collection', headerName: 'Инкассация', type: 'number', width: 90
+    }, {field: 'sum_electron', headerName: 'Б ∑', type: 'number', width: 100}, {
+        field: 'revenue', headerName: 'В ∑', type: 'number', width: 100
+    }, {
+        field: 'sum_total_of_income', headerName: 'П смены', type: 'number', width: 100
+    }, {
+        field: 'sum_non_zero_total_of_income', headerName: 'НС +', type: 'number', width: 100
+    }, {field: 'sum_non_zero_total_of_outcome', headerName: 'НС -', type: 'number', width: 100},]
 
     const columns_receipts = [{field: 'id', headerName: 'ID', width: 10}, {
         field: 'number_kkt', headerName: 'ЗН ККТ', width: 130
@@ -95,23 +142,6 @@ const Zbooks = () => {
     }, {field: 'printed', headerName: 'Напечатан', width: 100, type: 'boolean'}, {
         field: 'date_shift_claim', headerName: 'Подтверждение возврата', width: 100
     }]
-
-    useEffect(() => {
-        const fetch = async () => {
-            const fetching_result = await dispatch(common_documents_receipts_get(filial, param_date_admin, uid_kkt_current))
-            set_fetching_receipts(fetching_result)
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
-                dispatch(setReceipts(fetching_result.data))
-            }
-        }
-        dispatch(cleanReceipts())
-        if (filial !== undefined && param_date_admin !== undefined) {
-            fetch()
-        }
-        return () => dispatch(cleanReceipts())
-    }, [dispatch, filial, param_date_admin, uid_kkt_current])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
