@@ -9,10 +9,11 @@ import {
     horeca_position_add_mark,
     login
 } from "../../service/fetch_service.js";
+import {addNotification} from "../../redux/notifierReducer.js"
 
 export function useSetWS() {
 
-    const origin = window.location.origin
+    const hostname = window.location.hostname
 
     const dispatch = useDispatch()
     const wp = useSelector(state => state.interface.wp)
@@ -31,7 +32,7 @@ export function useSetWS() {
 
     const {
         sendMessage, lastMessage
-    } = useWebSocket(dev ? `ws://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.ws_port}/?wp=${wp}${its_second_screen ? '&ss=true' : ''}` : `ws://${origin}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
+    } = useWebSocket(dev ? `ws://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.ws_port}/?wp=${wp}${its_second_screen ? '&ss=true' : ''}` : `ws://${hostname}:${ROUTE_MAIN_HOST.ws_port}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
         shouldReconnect: () => true,
     })
 
@@ -49,6 +50,10 @@ export function useSetWS() {
                         // 2 - Честный знак
                         // 3 - Акцизная марка
                         // 4 - Уникальный идентификатор
+                        if (filial === undefined) {
+                            dispatch(addNotification({message: 'Выберите филиал', severity: 'error', autoHide: true}))
+                            return
+                        }
                         switch (data.code_type) {
                             case 0:
                                 if (uid_user === null && !kiosk) {

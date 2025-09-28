@@ -36,6 +36,7 @@ const SeanceMenu = () => {
                     height: '48px',
                     borderRadius: '12px',
                     padding: '0 8px 0 0',
+                    overflow: 'hidden',
                 }}>
                     <Box sx={{
                         margin: '0 16px',
@@ -45,11 +46,16 @@ const SeanceMenu = () => {
                         overflow: 'hidden',
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        alignItems: 'center',
                     }}><LocationOnIcon/><span>Зал
                         №{seance.hall_full_name}</span></Box>
                     <Box sx={{
-                        fontWeight: 'bold', margin: '0 8px', fontSize: '20px', overflow: 'hidden'
+                        fontWeight: 'bold',
+                        margin: '0 8px',
+                        fontSize: '20px',
+                        overflow: 'hidden',
+                        overflowWrap: 'break-word',
+                        whiteSpace: 'wrap',
                     }}>{seance.name_film}</Box>
                 </Box>
             </Box>

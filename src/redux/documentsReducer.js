@@ -45,6 +45,8 @@ const initialState = {
         }, {field: 'type', headerName: 'Т', type: 'number', width: 100},], rows: [], update: 0,
     }, operations_pages: 0, operations_page: 1, operations_update: 0, operations_details: false, operations: {
         wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined
+    }, receipts: {
+        date_shift: '', uid_kkt: '', rows_receipts: [], update: 0,
     }
 }
 
@@ -125,6 +127,10 @@ export const dataSlice = createSlice({
             state.zpinpads = {...state.zpinpads, rows: rows}
         }, cleanZPinpads(state) {
             state.zpinpads = {...state.zpinpads, rows: []}
+        }, setReceipts: (state, {payload}) => {
+            state.receipts = payload
+        }, cleanReceipts: (state, {payload}) => {
+            state.receipts.rows_receipts = []
         }
     },
 })
@@ -144,5 +150,7 @@ export const {
     setZBooksUpdate,
     setZPinpadsUpdate,
     setOperationsDetails,
+    setReceipts,
+    cleanReceipts,
 } = dataSlice.actions
 export default dataSlice.reducer
