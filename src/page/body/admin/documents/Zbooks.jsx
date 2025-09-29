@@ -166,7 +166,7 @@ export const columns = [{field: 'id', headerName: 'UID документ', width:
 }, {
     field: 'last_fd', headerName: 'ФД', width: 50
 }, {
-    field: 'date_shift', headerName: 'Смена', width: 90, type: 'date', valueGetter: (param) => {
+    field: 'date_shift', headerName: 'Дата смены', width: 90, type: 'date', valueGetter: (param) => {
         return param ? dayjs(param).toDate() : null
     }
 }, {
