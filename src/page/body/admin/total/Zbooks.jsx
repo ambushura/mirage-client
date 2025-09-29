@@ -149,7 +149,7 @@ const Zbooks = () => {
 
 export default Zbooks
 
-export const columns = [{field: 'id', headerName: 'ID', width: 10}, {
+export const columns = [{field: 'id', headerName: 'UID документ', width: 10}, {
     field: 'name_organization', headerName: 'Организация', width: 100
 }, {field: 'inn', headerName: 'ИНН', width: 100}, {
     field: 'number_kkt', headerName: 'ЗН ККТ', width: 130
@@ -179,7 +179,7 @@ export const columns = [{field: 'id', headerName: 'ID', width: 10}, {
     field: 'sum_non_zero_total_of_income', headerName: 'НС +', type: 'number', width: 100
 }, {field: 'sum_non_zero_total_of_outcome', headerName: 'НС -', type: 'number', width: 100},]
 
-export const columns_receipts = [{field: 'id', headerName: 'ID', width: 10}, {
+export const columns_receipts = [{field: 'id', headerName: 'UID документ', width: 10}, {
     field: 'number_kkt', headerName: 'ЗН ККТ', width: 130
 }, {
     field: 'date_shift', headerName: 'Дата смены', width: 100, type: 'date', valueGetter: (param) => {
@@ -191,7 +191,9 @@ export const columns_receipts = [{field: 'id', headerName: 'ID', width: 10}, {
     width: 140,
     type: 'dateTime',
     valueGetter: (param) => param ? dayjs(param).toDate() : null
-}, {field: 'copy', headerName: '', width: 100, type: 'boolean', renderHeader: () => <CakeIcon fontSize="small"/>}, {
+}, {
+    field: 'copy', headerName: 'Копия', width: 100, type: 'boolean', renderHeader: () => <CakeIcon fontSize="small"/>
+}, {
     field: 'type', headerName: 'Тип', width: 100, valueGetter: (param) => {
         switch (param) {
             case 1:
@@ -204,23 +206,19 @@ export const columns_receipts = [{field: 'id', headerName: 'ID', width: 10}, {
     field: 'sum_discount', headerName: 'Скидка', width: 100, type: 'number'
 }, {field: 'sum', headerName: 'Сумма', width: 100, type: 'number'}, {
     field: 'name_payment_type', headerName: 'Вид оплаты', width: 140
-}, {field: 'number', headerName: '№', width: 50}, {field: 'rn', headerName: 'РН', width: 140}, {
+}, {field: 'number', headerName: '№ чека', width: 50}, {field: 'rn', headerName: 'РН', width: 140}, {
     field: 'fn', headerName: 'ФН', width: 140
 }, {field: 'fd', headerName: 'ФД', width: 50}, {field: 'fp', headerName: 'ФП', width: 100}, {
     field: 'moment', headerName: 'Пробитие', width: 150, type: 'dateTime', valueGetter: (param) => {
         return param ? dayjs(param).toDate() : null
     }
 }, {field: 'shift_number', headerName: 'Номер смены', width: 70}, {
-    field: 'uid_cashier', headerName: '', width: 100
-}, {field: 'name_cashier', headerName: 'Кассир', width: 120}, {
-    field: 'uid_kkt', headerName: '', width: 100
-}, {field: 'uid_order_cinema', headerName: '', width: 100}, {
-    field: 'uid_order_food', headerName: '', width: 100
-}, {field: 'uid_organization', headerName: '', width: 100}, {
-    field: 'uid_payment_type', headerName: '', width: 100
-}, {field: 'uid_channel', headerName: '', width: 100}, {
+    field: 'name_cashier',
+    headerName: 'Кассир',
+    width: 120
+}, {
     field: 'name_channel', headerName: 'Канал продажи', width: 140
-}, {field: 'uid_store', headerName: '', width: 100}, {
+}, {
     field: 'name_organization', headerName: 'Организация', width: 100
 }, {field: 'inn_organization', headerName: 'ИНН', width: 100}, {
     field: 'sno', headerName: 'СНО', width: 100, valueGetter: (param) => {
@@ -232,9 +230,21 @@ export const columns_receipts = [{field: 'id', headerName: 'ID', width: 10}, {
         }
     }
 }, {field: 'name_store', headerName: 'Торговая точка', width: 140}, {
-    field: 'uid_work_place', headerName: '', width: 100
-}, {field: 'uid_creator', headerName: '', width: 100}, {
     field: 'name_creator', headerName: 'Автор', width: 100
 }, {field: 'printed', headerName: 'Напечатан', width: 100, type: 'boolean'}, {
     field: 'date_shift_claim', headerName: 'Подтверждение возврата', width: 100
-}]
+}, {
+    field: 'uid_kkt', headerName: 'UID ККТ', width: 100
+}, {field: 'uid_order_cinema', headerName: 'UID заказ кино', width: 100}, {
+    field: 'uid_order_food', headerName: 'UID заказ общепит', width: 100
+}, {field: 'uid_organization', headerName: ' UID организация', width: 100}, {
+    field: 'uid_payment_type', headerName: 'UID вид оплаты', width: 100
+}, {field: 'uid_channel', headerName: 'UID канал продажи', width: 100}, {
+    field: 'uid_store',
+    headerName: 'UID Торговая точка',
+    width: 100
+}, {field: 'uid_cashier', headerName: 'UID Кассир', width: 100}, {
+    field: 'uid_work_place',
+    headerName: 'UID рабочее место',
+    width: 100
+}, {field: 'uid_creator', headerName: 'UID автор', width: 100}]
