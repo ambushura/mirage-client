@@ -281,7 +281,7 @@ const Payment = (props) => {
                             >
                                 <span style={{fontWeight: 'bold'}}>Причина возврата: </span>
                                 <span style={{marginLeft: '5px', fontWeight: 'bold'}}>
-                                                {item.name_return_reason.toLowerCase()}
+                                                {item.name_return_reason !== null && item.name_return_reason.toLowerCase()}
                                             </span>
                                 {item.comment_return_reason !== null && (<span>, {item.comment_return_reason}</span>)}
                             </Box>)}

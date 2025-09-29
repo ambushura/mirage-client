@@ -1,18 +1,27 @@
 import {createSlice} from "@reduxjs/toolkit"
-import dayjs from "dayjs";
 
 const initialState = {
+
     // Кассовые книги
     kkt_list: [],
     uid_kkt_current: '',
+    zbooks: {date_shift: '', zbooks: []},
     zbooks_update: 0,
-    zbooks: {date_shift: '', rows: []},
+
     // Чеки
-    receipts: {date_shift: '', uid_kkt: '', rows_receipts: [], update: 0},
+    receipts: {date_shift: '', uid_kkt: '', receipts: []},
+    receipts_update: 0,
+
     // Эквайринг
     uid_pinpad_current: '',
     pinpad_list: [],
-    zpinpads: {rows: [], update: 0,},
+    zpinpads: {date_shift: '', zpinpads: []},
+    zpinpads_update: 0,
+
+    // Слипы
+    slips: {date_shift: '', uid_pinpad: '', slips: []},
+    slips_update: 0,
+
     // Операции по кассе
     operations_pages: 0,
     operations_page: 1,
@@ -38,7 +47,7 @@ export const dataSlice = createSlice({
         }, setPinpadList: (state, {payload}) => {
             state.pinpad_list = payload
         }, setZPinpadsUpdate(state) {
-            state.zpinpads = {...state.zpinpads, update: state.update += 1}
+            state.zpinpads_update += 1
         }, cleanOperations(state) {
             state.operations = {
                 wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined
@@ -51,32 +60,17 @@ export const dataSlice = createSlice({
         }, setOperationsDetails: (state, {payload}) => {
             state.operations_details = payload
         }, setZPinpads(state, {payload}) {
-            const rows = []
-            payload.z_pinpads.forEach(zpinpad => {
-                rows.push({
-                    id: zpinpad.uid,
-                    inn: zpinpad.inn,
-                    name_organization: zpinpad.name_organization,
-                    number_pinpad: zpinpad.number_pinpad,
-                    date_shift: dayjs(zpinpad.date_shift).format('DD.MM.YYYY'),
-                    slip_15: zpinpad.slip_15,
-                    slip_19: zpinpad.slip_19,
-                    slip_25: zpinpad.slip_25,
-                    slip_39: zpinpad.slip_39,
-                    slip_65: zpinpad.slip_65,
-                    slip_67: zpinpad.slip_67,
-                    slip_90: zpinpad.slip_90,
-                    type: zpinpad.type,
-                    hide: true
-                })
-            })
-            state.zpinpads = {...state.zpinpads, rows: rows}
+            state.zpinpads = payload
         }, cleanZPinpads(state) {
-            state.zpinpads = {rows: [], update: 0}
+            state.zpinpads = {date_shift: '', zpinpads: []}
         }, setReceipts: (state, {payload}) => {
             state.receipts = payload
         }, cleanReceipts: (state, {payload}) => {
-            state.receipts = {date_shift: '', uid_kkt: '', rows_receipts: [], update: 0}
+            state.receipts = {date_shift: '', uid_kkt: '', receipts: []}
+        }, setSlips: (state, {payload}) => {
+            state.slips = payload
+        }, cleanSlips: (state, {payload}) => {
+            state.slips = {date_shift: '', uid_pinpad: '', slips: []}
         }
     },
 })
@@ -98,5 +92,7 @@ export const {
     setOperationsDetails,
     setReceipts,
     cleanReceipts,
+    setSlips,
+    cleanSlips,
 } = dataSlice.actions
 export default dataSlice.reducer

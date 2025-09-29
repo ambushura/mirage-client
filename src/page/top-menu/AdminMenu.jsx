@@ -563,7 +563,7 @@ export default function AdminMenu() {
             <DateParamAdmin/>}
         {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
         {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
-        {['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) && <CreateDeleteButtons/>}
+        {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
         {current_page === 'admin/operations' && <ShowDateOperations/>}
         {current_page === 'admin/operations' && <Operations/>}
         {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
