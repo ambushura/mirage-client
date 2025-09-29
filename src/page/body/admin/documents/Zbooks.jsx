@@ -8,6 +8,7 @@ import dayjs from "dayjs"
 import CakeIcon from '@mui/icons-material/Cake'
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import Loader from "../../../../ui/Loader.jsx"
+import {openModal} from "../../../../redux/interfaceReducer.js";
 
 const Zbooks = () => {
 
@@ -90,6 +91,9 @@ const Zbooks = () => {
                                 fontSize: '0.9rem',
                             },
                         }}
+                        onRowDoubleClick={(params) => {
+                            dispatch(openModal({type: 'zBook', props: {uid: params.row.id}}))
+                        }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}
                 </Box>}
             {fetching_receipts.loading && fetching_receipts.error === null && fetching_receipts.data === null &&
@@ -121,7 +125,6 @@ const Zbooks = () => {
                             uid_channel: false,
                             uid_store: false,
                             uid_work_place: false,
-
                         }}
                         sx={{
                             '& .total-row': {
@@ -140,6 +143,9 @@ const Zbooks = () => {
                             sorting: {
                                 sortModel: [{field: 'date_create', sort: 'desc'}],
                             },
+                        }}
+                        onRowDoubleClick={(params) => {
+                            dispatch(openModal({type: 'receipt', props: {uid: params.row.id}}))
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Чеки отсутствуют в смене...</Box>}
                 </Box>}
@@ -213,9 +219,7 @@ export const columns_receipts = [{field: 'id', headerName: 'UID документ
         return param ? dayjs(param).toDate() : null
     }
 }, {field: 'shift_number', headerName: 'Номер смены', width: 70}, {
-    field: 'name_cashier',
-    headerName: 'Кассир',
-    width: 120
+    field: 'name_cashier', headerName: 'Кассир', width: 120
 }, {
     field: 'name_channel', headerName: 'Канал продажи', width: 140
 }, {
@@ -240,11 +244,7 @@ export const columns_receipts = [{field: 'id', headerName: 'UID документ
 }, {field: 'uid_organization', headerName: ' UID организация', width: 100}, {
     field: 'uid_payment_type', headerName: 'UID вид оплаты', width: 100
 }, {field: 'uid_channel', headerName: 'UID канал продажи', width: 100}, {
-    field: 'uid_store',
-    headerName: 'UID Торговая точка',
-    width: 100
+    field: 'uid_store', headerName: 'UID Торговая точка', width: 100
 }, {field: 'uid_cashier', headerName: 'UID Кассир', width: 100}, {
-    field: 'uid_work_place',
-    headerName: 'UID рабочее место',
-    width: 100
+    field: 'uid_work_place', headerName: 'UID рабочее место', width: 100
 }, {field: 'uid_creator', headerName: 'UID автор', width: 100}]

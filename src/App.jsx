@@ -38,12 +38,15 @@ import {BilletCheckForm} from "./page/body/admin/scheme/forms/BilletCheckForm.js
 import {WorkplaceForm} from "./page/body/admin/scheme/forms/WorkplaceForm.jsx"
 import TableOptions from "./forms/TableOptions.jsx"
 import Dialog from "./forms/Dialog.jsx"
-import Operation from "./page/body/admin/total/Operation.jsx"
+import Operation from "./page/body/admin/documents/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import StaffList from "./forms/StaffList.jsx"
 import OthersPaymentTypes from "./forms/OthersPaymentTypes.jsx"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {LicenseInfo} from '@mui/x-license'
+import Zbook from "./page/body/admin/documents/Zbook.jsx"
+import Receipt from "./page/body/admin/documents/Receipt.jsx"
+import Slip from "./page/body/admin/documents/Slip.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -90,6 +93,9 @@ function App() {
         documents_operation: Operation,
         creator_change: StaffList,
         pinpads: OthersPaymentTypes,
+        zBook: Zbook,
+        receipt: Receipt,
+        slip: Slip,
     }
 
     const ModalContent = useMemo(() => {

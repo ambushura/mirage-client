@@ -6,6 +6,7 @@ import {Box} from "@mui/material"
 import {cleanSlips, cleanZPinpads, setSlips, setZPinpads} from "../../../../redux/documentsReducer.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import dayjs from "dayjs"
+import {openModal} from "../../../../redux/interfaceReducer.js";
 
 const ZPinpads = () => {
 
@@ -123,6 +124,9 @@ const ZPinpads = () => {
                         sorting: {
                             sortModel: [{field: 'date_create', sort: 'desc'}],
                         },
+                    }}
+                    onRowDoubleClick={(params) => {
+                        dispatch(openModal({type: 'slip', props: {uid: params.row.id}}))
                     }}
                 />
             </Box>
