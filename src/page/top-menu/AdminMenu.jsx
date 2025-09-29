@@ -56,7 +56,7 @@ import {useNavigate} from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
-import Calendar from "../../forms/Calendar.jsx"
+import Calendar from "../../ui/Calendar.jsx"
 import {useEffect, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {setMode, setUidHall} from "../../redux/hallsReducer.js"

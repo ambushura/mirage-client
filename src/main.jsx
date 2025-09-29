@@ -17,9 +17,17 @@ import './css/checkout.css'
 import './css/films.css'
 import './css/seance.css'
 
+import {ruRU} from "@mui/x-date-pickers/locales"
+import dayjs from "dayjs"
+import "dayjs/locale/ru"
+
+dayjs.locale("ru")
+
 ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter>
     <Provider store={store}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+        <LocalizationProvider dateAdapter={AdapterDayjs}
+                              adapterLocale="ru"
+                              localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}>
             <ThemeBlackWhite>
                 <ThemeProvider theme={Theme}>
                     <App/>

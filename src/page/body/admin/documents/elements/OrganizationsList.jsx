@@ -1,12 +1,12 @@
 import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material"
 
-const OrganizationsList = ({uid_organization, set_uid_organization}) => {
+const OrganizationsList = ({uid_organization, set_uid_organization, variant}) => {
     return <Box>
         <FormControl fullWidth size="medium">
             <InputLabel id="organization-select-label">Организация</InputLabel>
             <Select
+                variant={variant}
                 sx={{m: 1}}
-                variant='filled'
                 labelId="organization-select-label"
                 value={uid_organization}
                 onChange={(e) => set_uid_organization(e.target.value)}

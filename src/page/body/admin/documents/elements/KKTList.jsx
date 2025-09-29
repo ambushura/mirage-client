@@ -1,12 +1,12 @@
 import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material"
 
-const KKTList = ({uid_kkt, set_uid_kkt}) => {
+const KKTList = ({uid_kkt, set_uid_kkt, variant}) => {
     return <Box>
         <FormControl fullWidth size='medium'>
             <InputLabel id="kkt-select-label">Касса</InputLabel>
             <Select
+                variant={variant}
                 sx={{m: 1}}
-                variant='filled'
                 labelId="kkt-select-label"
                 value={uid_kkt}
                 onChange={(e) => set_uid_kkt(e.target.value)}
