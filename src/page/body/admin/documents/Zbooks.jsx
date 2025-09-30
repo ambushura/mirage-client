@@ -8,7 +8,7 @@ import dayjs from "dayjs"
 import CakeIcon from '@mui/icons-material/Cake'
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import Loader from "../../../../ui/Loader.jsx"
-import {openModal} from "../../../../redux/interfaceReducer.js";
+import {openModal} from "../../../../redux/interfaceReducer.js"
 
 const Zbooks = () => {
 
@@ -81,7 +81,11 @@ const Zbooks = () => {
                         rowHeight={26}
                         headerHeight={28}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                        columnVisibilityModel={{id: false}}
+                        columnVisibilityModel={{id: false, ver: false, automatic: false}}
+                        pinnedColumns={{
+                            left: ['date_shift', 'number_kkt'],
+                            right: ['sum_non_zero_total_of_income', 'sum_non_zero_total_of_outcome']
+                        }}
                         sx={{
                             '& .total-row': {
                                 backgroundColor: '#f0f0f0', fontWeight: 'bold',
@@ -160,13 +164,13 @@ export const columns = [{field: 'id', headerName: 'UID документ', width:
 }, {field: 'inn', headerName: 'ИНН', width: 100}, {
     field: 'number_kkt', headerName: 'ЗН ККТ', width: 130
 }, {
-    field: 'date_ofd', headerName: 'ОФД', width: 130, type: 'dateTime', valueGetter: (param) => {
+    field: 'date_ofd', headerName: 'ОФД', width: 100, type: 'date', valueGetter: (param) => {
         return param ? dayjs(param).toDate() : null
     }
 }, {
     field: 'last_fd', headerName: 'ФД', width: 50
 }, {
-    field: 'date_shift', headerName: 'Дата смены', width: 90, type: 'date', valueGetter: (param) => {
+    field: 'date_shift', headerName: 'Дата смены', width: 100, type: 'date', valueGetter: (param) => {
         return param ? dayjs(param).toDate() : null
     }
 }, {
@@ -183,7 +187,11 @@ export const columns = [{field: 'id', headerName: 'UID документ', width:
     field: 'sum_total_of_income', headerName: 'П смены', type: 'number', width: 100
 }, {
     field: 'sum_non_zero_total_of_income', headerName: 'НС +', type: 'number', width: 100
-}, {field: 'sum_non_zero_total_of_outcome', headerName: 'НС -', type: 'number', width: 100},]
+}, {field: 'sum_non_zero_total_of_outcome', headerName: 'НС -', type: 'number', width: 100}, {
+    field: 'ver', headerName: 'Версия', width: 100
+}, {field: 'automatic', headerName: 'Создан автоматически', type: 'boolean', width: 100}, {
+    field: 'comment', headerName: 'Комментарий', width: 100
+}]
 
 export const columns_receipts = [{field: 'id', headerName: 'UID документ', width: 10}, {
     field: 'number_kkt', headerName: 'ЗН ККТ', width: 130

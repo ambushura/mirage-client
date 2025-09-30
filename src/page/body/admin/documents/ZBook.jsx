@@ -1,10 +1,10 @@
-import {Box, Button, Typography} from "@mui/material"
+import {Box, Button, TextField, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
 import {useState} from "react"
-import OrganizationsList from "./elements/OrganizationsList.jsx"
 import KKTList from "./elements/KKTList.jsx"
-import {DateTimeField, NumberField} from "./elements/Fields.jsx"
+import dayjs from "dayjs"
+import {DatePicker} from "@mui/x-date-pickers"
 
 const ZBook = ({props}) => {
 
@@ -24,18 +24,184 @@ const ZBook = ({props}) => {
         component="form"
         noValidate
         autoComplete="off"
-        sx={{p: 1, width: 300}}
+        sx={{width: '920px'}}
         onSubmit={handleSubmit}>
         <Typography variant="h6" color="textSecondary" margin={1}>
             Кассовая книга
         </Typography>
-        <Box>
-            <OrganizationsList variant='filled' sx={{m: 1}} uid_organization={uid_organization}
-                               set_uid_organization={set_uid_organization}/>
-            <KKTList variant='filled' sx={{m: 1}} uid_kkt={uid_kkt} set_uid_kkt={set_uid_kkt}/>
-            <DateTimeField variant='filled' sx={{m: 1, width: '100%'}} label='Дата/время ОФД' value={ofd}
-                           onChange={''}/>
-            <NumberField label='ФД' sx={{m: 1}}/>
+        <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
+                <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+                    <Box sx={{maxWidth: '300px', marginRight: '10px'}}>
+                        <DatePicker
+                            label='Дата смены'
+                            variant='filled'
+                            value={ofd ? dayjs(ofd) : null}
+                            sx={{marginBottom: '10px', width: '100%'}}
+                            onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
+                        />
+                        <DatePicker
+                            label='Дата ОФД'
+                            variant='filled'
+                            value={ofd ? dayjs(ofd) : null}
+                            sx={{marginBottom: '10px', width: '100%'}}
+                            onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
+                        />
+                        <KKTList
+                            variant='filled'
+                            sx={{marginBottom: '10px'}}
+                            uid_kkt={uid_kkt}
+                            set_uid_kkt={set_uid_kkt}
+                        />
+                        <TextField
+                            label='Организация'
+                            variant='filled'
+                            fullWidth
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {readOnly: true}}}
+                        />
+                        <TextField
+                            label='ИНН'
+                            variant='filled'
+                            fullWidth
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {readOnly: true}}}
+                        />
+                        <TextField
+                            label='ФД'
+                            variant='filled'
+                            fullWidth
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {readOnly: true}}}
+                        />
+                    </Box>
+                    <Box sx={{maxWidth: '300px', marginRight: '10px'}}>
+                        <TextField
+                            label='Последний ФД'
+                            variant='filled'
+                            fullWidth
+                            type='number'
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {min: 0, step: 0.01}}}
+                        />
+                        <TextField
+                            label='Наличные +'
+                            variant='filled'
+                            fullWidth
+                            type='number'
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {min: 0, step: 0.01}}}
+                        />
+                        <TextField
+                            label='Наличные -'
+                            variant='filled'
+                            fullWidth
+                            type='number'
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {min: 0, step: 0.01}}}
+                        />
+                        <TextField
+                            label='Безналичные +'
+                            variant='filled'
+                            fullWidth
+                            type='number'
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {min: 0, step: 0.01}}}
+                        />
+                        <TextField
+                            label='Безналичные -'
+                            variant='filled'
+                            fullWidth
+                            type='number'
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {min: 0, step: 0.01}}}
+                        />
+                        <TextField
+                            label='НДС'
+                            variant='filled'
+                            fullWidth
+                            type='number'
+                            sx={{marginBottom: '10px'}}
+                            slotProps={{input: {min: 0, step: 0.01}}}
+                        />
+                    </Box>
+                </Box>
+                <Box sx={{maxWidth: '610px', marginRight: '10px'}}>
+                    <TextField
+                        label='Комментарий'
+                        variant='filled'
+                        fullWidth
+                        multiline
+                        rows={4}
+                    />
+                </Box>
+            </Box>
+            <Box sx={{maxWidth: '300px'}}>
+                <TextField
+                    label='Номер смены'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Инкассация'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Наличные ∑'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Безналичные ∑'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Выручка'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Сменный итог +'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Необнуляемая сумма +'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+                <TextField
+                    label='Необнуляемая сумма -'
+                    variant='filled'
+                    fullWidth
+                    type='number'
+                    sx={{marginBottom: '10px'}}
+                    slotProps={{input: {min: 0, step: 0.01}}}
+                />
+            </Box>
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
             <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>

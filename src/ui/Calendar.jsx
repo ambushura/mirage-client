@@ -1,9 +1,12 @@
 import {DateCalendar} from "@mui/x-date-pickers"
+import {useState} from "react"
 
-const Calendar = (props) => {
+const Calendar = ({value, handleOnChahge}) => {
+    const [viewMonth, setViewMonth] = useState(value)
     return <DateCalendar
-        value={props.value}
-        onChange={props.handleOnChahge}
+        onChange={handleOnChahge}
+        referenceDate={viewMonth}
+        onMonthChange={setViewMonth}
         sx={{
             backgroundColor: '#0E0F11', opacity: '95%', textTransform: 'uppercase', "& .MuiDayCalendar-weekDayLabel": {
                 backgroundColor: '#e3000b', borderRadius: '12px', color: 'white', fontWeight: '900'

@@ -22,7 +22,6 @@ export const DateTimeField = ({label, value, onChange, sx, variant}) => <DateTim
 export const MoneyField = ({label, value, onChange, sx, variant}) => <TextField
     label={label}
     type="number"
-    fullWidth
     value={value}
     onChange={(e) => onChange(Number(e.target.value))}
     variant={variant}
