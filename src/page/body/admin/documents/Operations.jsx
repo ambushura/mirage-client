@@ -20,9 +20,7 @@ const Operations = () => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_operations_get(filial, operations_page, update, operations_details))
             set_fetching(fetching_result)
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (fetching_result.data !== null) {
+            if (fetching_result.data !== null) {
                 dispatch(setOperations(fetching_result.data))
             }
         }
@@ -35,9 +33,9 @@ const Operations = () => {
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
-    } else if (fetching.loading && fetching.error === null && fetching.data === null) {
+    } else if (fetching.loading && fetching.error === null) {
         return <Loader/>
-    } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
+    } else if (!fetching.loading && fetching.error !== null) {
         return <Box className='empty-box'>{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
         if (rows.length === 0 || columns.length === 0 || column_grouping_model.length === 0) {

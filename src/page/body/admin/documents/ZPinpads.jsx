@@ -6,7 +6,8 @@ import {Box} from "@mui/material"
 import {cleanSlips, cleanZPinpads, setSlips, setZPinpads} from "../../../../redux/documentsReducer.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import dayjs from "dayjs"
-import {openModal} from "../../../../redux/interfaceReducer.js";
+import {openModal} from "../../../../redux/interfaceReducer.js"
+import Loader from "../../../../ui/Loader.jsx"
 
 const ZPinpads = () => {
 
@@ -29,14 +30,12 @@ const ZPinpads = () => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_pinpads_get(filial, param_date_admin, zpinpads_update))
             set_fetching_zpinpads(fetching_result)
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (fetching_result.error === null && !fetching_result.loading && fetching_result.data !== null) {
+            if (fetching_result.error === null && !fetching_result.loading && fetching_result.data !== null) {
                 dispatch(setZPinpads(fetching_result.data))
             }
         }
         dispatch(cleanZPinpads())
-        if (filial !== undefined) {
+        if (filial !== undefined && param_date_admin !== undefined) {
             fetch()
         }
         return () => dispatch(cleanZPinpads())
@@ -46,90 +45,100 @@ const ZPinpads = () => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_slips_get(filial, param_date_admin, uid_pinpad_current))
             set_fetching_slips(fetching_result)
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (fetching_result.error === null && !fetching_result.loading && fetching_result.data !== null) {
+            if (fetching_result.error === null && !fetching_result.loading && fetching_result.data !== null) {
                 dispatch(setSlips(fetching_result.data))
             }
         }
         dispatch(cleanSlips())
-        if (filial !== undefined) {
+        if (filial !== undefined && param_date_admin !== undefined) {
             fetch()
         }
         return () => dispatch(cleanSlips())
-    }, [dispatch, filial, param_date_admin, uid_pinpad_current, zpinpads_update])
+    }, [dispatch, filial, param_date_admin, uid_pinpad_current, slips_update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else {
         return <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-            <Box sx={{minHeight: '50%'}}>
-                <DataGridPro
-                    hideFooter
-                    checkboxSelection
-                    rows={zpinpads}
-                    columns={columns_zpinpads}
-                    pageSize={20}
-                    pageSizeOptions={[10, 25, 50]}
-                    rowHeight={26}
-                    headerHeight={28}
-                    localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    columnVisibilityModel={{
-                        id: false
-                    }}
-                    sx={{
-                        '& .total-row': {
-                            backgroundColor: '#f0f0f0', fontWeight: 'bold',
-                        }, '& .MuiDataGrid-cell': {
-                            padding: '0 4px', fontSize: '0.9rem',
-                        }, '& .MuiDataGrid-columnHeaderTitle': {
-                            fontSize: '0.9rem',
-                        },
-                    }}
-                />
-            </Box>
-            <Box sx={{minHeight: '50%'}}>
-                <DataGridPro
-                    hideFooter
-                    checkboxSelection
-                    rows={slips}
-                    columns={columns_slips}
-                    pageSize={20}
-                    pageSizeOptions={[10, 25, 50]}
-                    rowHeight={26}
-                    headerHeight={28}
-                    localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    columnVisibilityModel={{
-                        id: false,
-                        uid_creator: false,
-                        uid_order_cinema: false,
-                        uid_order_food: false,
-                        uid_pinpad: false,
+            {fetching_zpinpads.loading && fetching_zpinpads.error === null && <Loader/>}
+            {!fetching_zpinpads.loading && fetching_zpinpads.error !== null &&
+                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
+                                                  className='empty-box'>{fetching_zpinpads.error}</Box></Box>}
+            {!fetching_zpinpads.loading && fetching_zpinpads.error === null && fetching_zpinpads.data !== null && zpinpads !== undefined &&
+                <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+                    <Box sx={{minHeight: '50%'}}>
+                        <DataGridPro
+                            hideFooter
+                            checkboxSelection
+                            rows={zpinpads}
+                            columns={columns_zpinpads}
+                            pageSize={20}
+                            pageSizeOptions={[10, 25, 50]}
+                            rowHeight={26}
+                            headerHeight={28}
+                            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                            columnVisibilityModel={{
+                                id: false
+                            }}
+                            sx={{
+                                '& .total-row': {
+                                    backgroundColor: '#f0f0f0', fontWeight: 'bold',
+                                }, '& .MuiDataGrid-cell': {
+                                    padding: '0 4px', fontSize: '0.9rem',
+                                }, '& .MuiDataGrid-columnHeaderTitle': {
+                                    fontSize: '0.9rem',
+                                },
+                            }}
+                        />
+                    </Box>
+                    {fetching_slips.loading && fetching_slips.error === null && <Loader/>}
+                    {!fetching_slips.loading && fetching_slips.error !== null &&
+                        <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
+                                                          className='empty-box'>{fetching_slips.error}</Box></Box>}
+                    {!fetching_slips.loading && fetching_slips.error === null && fetching_slips.data !== null && slips !== undefined &&
+                        <Box sx={{minHeight: '50%'}}>
+                            <DataGridPro
+                                hideFooter
+                                checkboxSelection
+                                rows={slips}
+                                columns={columns_slips}
+                                pageSize={20}
+                                pageSizeOptions={[10, 25, 50]}
+                                rowHeight={26}
+                                headerHeight={28}
+                                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                                columnVisibilityModel={{
+                                    id: false,
+                                    uid_creator: false,
+                                    uid_order_cinema: false,
+                                    uid_order_food: false,
+                                    uid_pinpad: false,
 
-                    }}
-                    sx={{
-                        '& .total-row': {
-                            backgroundColor: '#f0f0f0', fontWeight: 'bold',
-                        }, '& .MuiDataGrid-cell': {
-                            padding: '0 4px', fontSize: '0.9rem',
-                        }, '& .MuiDataGrid-columnHeaderTitle': {
-                            fontSize: '0.9rem',
-                        },
-                    }}
-                    pinnedColumns={{
-                        left: ['date_shift', 'date_create', 'pinpad_number'],
-                        right: ['slip90', 'printed', 'slip_type', 'slip_sum']
-                    }}
-                    initialState={{
-                        sorting: {
-                            sortModel: [{field: 'date_create', sort: 'desc'}],
-                        },
-                    }}
-                    onRowDoubleClick={(params) => {
-                        dispatch(openModal({type: 'slip', props: {uid: params.row.id}}))
-                    }}
-                />
-            </Box>
+                                }}
+                                sx={{
+                                    '& .total-row': {
+                                        backgroundColor: '#f0f0f0', fontWeight: 'bold',
+                                    }, '& .MuiDataGrid-cell': {
+                                        padding: '0 4px', fontSize: '0.9rem',
+                                    }, '& .MuiDataGrid-columnHeaderTitle': {
+                                        fontSize: '0.9rem',
+                                    },
+                                }}
+                                pinnedColumns={{
+                                    left: ['date_shift', 'date_create', 'pinpad_number'],
+                                    right: ['slip90', 'printed', 'slip_type', 'slip_sum']
+                                }}
+                                initialState={{
+                                    sorting: {
+                                        sortModel: [{field: 'date_create', sort: 'desc'}],
+                                    },
+                                }}
+                                onRowDoubleClick={(params) => {
+                                    dispatch(openModal({type: 'slip', props: {uid: params.row.id}}))
+                                }}
+                            />
+                        </Box>}
+                </Box>}
         </Box>
     }
 }

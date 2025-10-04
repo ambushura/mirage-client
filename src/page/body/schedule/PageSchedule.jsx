@@ -110,43 +110,87 @@ const PageSchedule = () => {
                             </Box>
                             <Box className="schedule-full-filial"
                                  ref={el => elementsRef.current.set(index, el)}>
-                                {filial_data.data.map(hall => {
-                                    return (<Fade key={hall.uid_hall} in={hall.seances.length > 0}
-                                                  timeout={TIMEOUT} unmountOnExit>
-                                        <Box className='schedule-full-hall'>
-                                            <Box className='schedule-full-hall-name' style={{
-                                                position: 'sticky', zIndex: 2,
-                                            }}>
-                                                <Button variant='contained'
-                                                        style={{
-                                                            width: '100%',
-                                                            backgroundColor: 'var(--bgr-seance-card)',
-                                                            color: 'var(--txt-color)'
-                                                        }}>Зал {hall.hall.name_full}</Button>
-                                            </Box>
-                                            <AnimatePresence>
-                                                {hall.seances.length > 0 && (
-                                                    <motion.div className='schedule-full-seances'
-                                                                initial="hidden"
-                                                                animate="visible"
-                                                                exit="hidden"
-                                                                variants={containerVariants}>
-                                                        {hall.seances.map((seance, i) => {
-                                                            if (show_free_space) {
-                                                                return (<Fragment key={i}>
-                                                                    {i === 0 ? <motion.div
-                                                                        className='schedule-full-seance'
-                                                                        key={'first'}
-                                                                        variants={itemVariants}>
-                                                                        <NewSeance
-                                                                            key={i}
-                                                                            uid_hall={hall.uid_hall}
-                                                                            name_hall={hall.name_full_hall}
-                                                                            beginning={null}
-                                                                            ending={dayjs.utc(hall.seances[i].beginning).add(-1, 'minute')}
-                                                                        />
-                                                                    </motion.div> : null}
-                                                                    <motion.div
+                                {filial_data.data
+                                    .slice()
+                                    .sort((a, b) => {
+                                        const A = String(a?.hall?.name_full ?? a?.hall?.name_full ?? '').trim();
+                                        const B = String(b?.hall?.name_full ?? b?.hall?.name_full ?? '').trim();
+                                        return A.localeCompare(B, 'ru', {numeric: true, sensitivity: 'base'});
+                                    })
+                                    .map(hall => {
+                                        return <Fade key={hall.uid_hall} in={hall.seances.length > 0}
+                                                     timeout={TIMEOUT} unmountOnExit>
+                                            <Box className='schedule-full-hall'>
+                                                <Box className='schedule-full-hall-name' style={{
+                                                    position: 'sticky', zIndex: 2,
+                                                }}>
+                                                    <Button variant='contained'
+                                                            style={{
+                                                                width: '100%',
+                                                                backgroundColor: 'var(--bgr-seance-card)',
+                                                                color: 'var(--txt-color)'
+                                                            }}>Зал {hall.hall.name_full}</Button>
+                                                </Box>
+                                                <AnimatePresence>
+                                                    {hall.seances.length > 0 && (
+                                                        <motion.div className='schedule-full-seances'
+                                                                    initial="hidden"
+                                                                    animate="visible"
+                                                                    exit="hidden"
+                                                                    variants={containerVariants}>
+                                                            {hall.seances.map((seance, i) => {
+                                                                if (show_free_space) {
+                                                                    return (<Fragment key={i}>
+                                                                        {i === 0 ? <motion.div
+                                                                            className='schedule-full-seance'
+                                                                            key={'first'}
+                                                                            variants={itemVariants}>
+                                                                            <NewSeance
+                                                                                key={i}
+                                                                                uid_hall={hall.uid_hall}
+                                                                                name_hall={hall.name_full_hall}
+                                                                                beginning={null}
+                                                                                ending={dayjs.utc(hall.seances[i].beginning).add(-1, 'minute')}
+                                                                            />
+                                                                        </motion.div> : null}
+                                                                        <motion.div
+                                                                            className='schedule-full-seance'
+                                                                            key={`${seance.uid}${seance.ver}`}
+                                                                            variants={itemVariants}>
+                                                                            <SeanceCard
+                                                                                key={seance.uid}
+                                                                                city={city}
+                                                                                filial={filial_data.filial}
+                                                                                seance={seance}>
+                                                                            </SeanceCard>
+                                                                        </motion.div>
+                                                                        {i !== hall.seances.length - 1 ? <motion.div
+                                                                            className='schedule-full-seance'
+                                                                            key={`${hall.seances[i]}-last`}
+                                                                            variants={itemVariants}>
+                                                                            <NewSeance
+                                                                                key={i}
+                                                                                uid_hall={hall.uid_hall}
+                                                                                name_hall={hall.name_full_hall}
+                                                                                beginning={dayjs.utc(hall.seances[i].ending).add(1, 'minute')}
+                                                                                ending={dayjs.utc(hall.seances[i + 1].beginning).add(-1, 'minute')}
+                                                                            />
+                                                                        </motion.div> : null}
+                                                                        {i === hall.seances.length - 1 ? <motion.div
+                                                                            className='schedule-full-seance'
+                                                                            key={'last'}
+                                                                            variants={itemVariants}>
+                                                                            <NewSeance
+                                                                                key={i}
+                                                                                uid_hall={hall.uid_hall}
+                                                                                name_hall={hall.name_full_hall}
+                                                                                beginning={dayjs.utc(hall.seances[hall.seances.length - 1].ending).add(-1, 'minute')}
+                                                                                ending={null}
+                                                                            />
+                                                                        </motion.div> : null}
+                                                                    </Fragment>)
+                                                                } else {
+                                                                    return (<motion.div
                                                                         className='schedule-full-seance'
                                                                         key={`${seance.uid}${seance.ver}`}
                                                                         variants={itemVariants}>
@@ -156,51 +200,14 @@ const PageSchedule = () => {
                                                                             filial={filial_data.filial}
                                                                             seance={seance}>
                                                                         </SeanceCard>
-                                                                    </motion.div>
-                                                                    {i !== hall.seances.length - 1 ? <motion.div
-                                                                        className='schedule-full-seance'
-                                                                        key={`${hall.seances[i]}-last`}
-                                                                        variants={itemVariants}>
-                                                                        <NewSeance
-                                                                            key={i}
-                                                                            uid_hall={hall.uid_hall}
-                                                                            name_hall={hall.name_full_hall}
-                                                                            beginning={dayjs.utc(hall.seances[i].ending).add(1, 'minute')}
-                                                                            ending={dayjs.utc(hall.seances[i + 1].beginning).add(-1, 'minute')}
-                                                                        />
-                                                                    </motion.div> : null}
-                                                                    {i === hall.seances.length - 1 ? <motion.div
-                                                                        className='schedule-full-seance'
-                                                                        key={'last'}
-                                                                        variants={itemVariants}>
-                                                                        <NewSeance
-                                                                            key={i}
-                                                                            uid_hall={hall.uid_hall}
-                                                                            name_hall={hall.name_full_hall}
-                                                                            beginning={dayjs.utc(hall.seances[hall.seances.length - 1].ending).add(-1, 'minute')}
-                                                                            ending={null}
-                                                                        />
-                                                                    </motion.div> : null}
-                                                                </Fragment>)
-                                                            } else {
-                                                                return (<motion.div
-                                                                    className='schedule-full-seance'
-                                                                    key={`${seance.uid}${seance.ver}`}
-                                                                    variants={itemVariants}>
-                                                                    <SeanceCard
-                                                                        key={seance.uid}
-                                                                        city={city}
-                                                                        filial={filial_data.filial}
-                                                                        seance={seance}>
-                                                                    </SeanceCard>
-                                                                </motion.div>)
-                                                            }
-                                                        })}
-                                                    </motion.div>)}
-                                            </AnimatePresence>
-                                        </Box>
-                                    </Fade>)
-                                })}
+                                                                    </motion.div>)
+                                                                }
+                                                            })}
+                                                        </motion.div>)}
+                                                </AnimatePresence>
+                                            </Box>
+                                        </Fade>
+                                    })}
                             </Box>
                         </Box>
                     } else {

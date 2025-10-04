@@ -24,15 +24,14 @@ const Zbooks = () => {
     const zbooks_update = useSelector(state => state.documents.zbooks_update)
 
     const [fetching_receipts, set_fetching_receipts] = useState({loading: false, error: null, data: null})
-    const {receipts} = useSelector(state => state.documents.receipts)
+    const receipts = useSelector(state => state.documents.receipts.receipts)
+    const receipts_update = useSelector(state => state.documents.receipts_update)
 
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_zbooks_get(filial, param_date_admin, zbooks_update))
             set_fetching_zbooks(fetching_result)
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
                 dispatch(setZBooks(fetching_result.data))
             }
         }
@@ -47,9 +46,7 @@ const Zbooks = () => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_receipts_get(filial, param_date_admin, uid_kkt_current))
             set_fetching_receipts(fetching_result)
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
                 dispatch(setReceipts(fetching_result.data))
             }
         }
@@ -58,16 +55,16 @@ const Zbooks = () => {
             fetch()
         }
         return () => dispatch(cleanReceipts())
-    }, [dispatch, filial, param_date_admin, uid_kkt_current])
+    }, [dispatch, filial, param_date_admin, uid_kkt_current, receipts_update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else {
         return <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-            {fetching_zbooks.loading && fetching_zbooks.error === null && fetching_zbooks.data === null &&
-                <Box sx={{minHeight: '50%'}} className='empty-box'>{fetching_zbooks.error}</Box>}
-            {!fetching_zbooks.loading && fetching_zbooks.error !== null && fetching_zbooks.data === null &&
-                <Box sx={{minHeight: '50%'}}><Loader/></Box>}
+            {fetching_zbooks.loading && fetching_zbooks.error === null && <Loader/>}
+            {!fetching_zbooks.loading && fetching_zbooks.error !== null &&
+                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
+                                                  className='empty-box'>{fetching_zbooks.error}</Box></Box>}
             {!fetching_zbooks.loading && fetching_zbooks.error === null && fetching_zbooks.data !== null && zbooks !== undefined &&
                 <Box sx={{minHeight: '50%'}}>
                     {zbooks.length > 0 ? <DataGridPro
@@ -101,9 +98,10 @@ const Zbooks = () => {
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}
                 </Box>}
             {fetching_receipts.loading && fetching_receipts.error === null && fetching_receipts.data === null &&
-                <Box sx={{minHeight: '50%'}} className='empty-box'>{fetching_receipts.error}</Box>}
+                <Loader/>}
             {!fetching_receipts.loading && fetching_receipts.error !== null && fetching_receipts.data === null &&
-                <Box sx={{minHeight: '50%'}}><Loader/></Box>}
+                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
+                                                  className='empty-box'>{fetching_receipts.error}</Box></Box>}
             {!fetching_receipts.loading && fetching_receipts.error === null && fetching_receipts.data !== null && receipts !== undefined &&
                 <Box sx={{minHeight: '50%'}}>
                     {receipts.length > 0 ? <DataGridPro

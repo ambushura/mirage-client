@@ -1,10 +1,13 @@
-import {Box, Button, TextField, Typography} from "@mui/material"
+import {Box, Button, InputAdornment, TextField, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
 import {useState} from "react"
 import KKTList from "./elements/KKTList.jsx"
 import dayjs from "dayjs"
 import {DatePicker} from "@mui/x-date-pickers"
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
+import FunctionsIcon from '@mui/icons-material/Functions'
 
 const ZBook = ({props}) => {
 
@@ -85,36 +88,61 @@ const ZBook = ({props}) => {
                             slotProps={{input: {min: 0, step: 0.01}}}
                         />
                         <TextField
-                            label='Наличные +'
+                            label='Наличные'
                             variant='filled'
                             fullWidth
                             type='number'
                             sx={{marginBottom: '10px'}}
-                            slotProps={{input: {min: 0, step: 0.01}}}
+                            slotProps={{
+                                input: {
+                                    min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        <AddIcon/>
+                                    </InputAdornment>,
+                                }
+                            }}
+
                         />
                         <TextField
-                            label='Наличные -'
+                            label='Наличные'
                             variant='filled'
                             fullWidth
                             type='number'
                             sx={{marginBottom: '10px'}}
-                            slotProps={{input: {min: 0, step: 0.01}}}
+                            slotProps={{
+                                input: {
+                                    min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        <RemoveIcon/>
+                                    </InputAdornment>,
+                                }
+                            }}
                         />
                         <TextField
-                            label='Безналичные +'
+                            label='Безналичные'
                             variant='filled'
                             fullWidth
                             type='number'
                             sx={{marginBottom: '10px'}}
-                            slotProps={{input: {min: 0, step: 0.01}}}
+                            slotProps={{
+                                input: {
+                                    min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        <AddIcon/>
+                                    </InputAdornment>
+                                }
+                            }}
                         />
                         <TextField
-                            label='Безналичные -'
+                            label='Безналичные'
                             variant='filled'
                             fullWidth
                             type='number'
                             sx={{marginBottom: '10px'}}
-                            slotProps={{input: {min: 0, step: 0.01}}}
+                            slotProps={{
+                                input: {
+                                    min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        <RemoveIcon/>
+                                    </InputAdornment>
+                                }
+                            }}
                         />
                         <TextField
                             label='НДС'
@@ -154,20 +182,32 @@ const ZBook = ({props}) => {
                     slotProps={{input: {min: 0, step: 0.01}}}
                 />
                 <TextField
-                    label='Наличные ∑'
+                    label='Наличные'
                     variant='filled'
                     fullWidth
                     type='number'
                     sx={{marginBottom: '10px'}}
-                    slotProps={{input: {min: 0, step: 0.01}}}
+                    slotProps={{
+                        input: {
+                            min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                <FunctionsIcon/>
+                            </InputAdornment>
+                        }
+                    }}
                 />
                 <TextField
-                    label='Безналичные ∑'
+                    label='Безналичные'
                     variant='filled'
                     fullWidth
                     type='number'
                     sx={{marginBottom: '10px'}}
-                    slotProps={{input: {min: 0, step: 0.01}}}
+                    slotProps={{
+                        input: {
+                            min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                <FunctionsIcon/>
+                            </InputAdornment>
+                        }
+                    }}
                 />
                 <TextField
                     label='Выручка'
@@ -178,28 +218,46 @@ const ZBook = ({props}) => {
                     slotProps={{input: {min: 0, step: 0.01}}}
                 />
                 <TextField
-                    label='Сменный итог +'
+                    label='Сменный итог'
                     variant='filled'
                     fullWidth
                     type='number'
                     sx={{marginBottom: '10px'}}
-                    slotProps={{input: {min: 0, step: 0.01}}}
+                    slotProps={{
+                        input: {
+                            min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                <AddIcon/>
+                            </InputAdornment>
+                        }
+                    }}
                 />
                 <TextField
-                    label='Необнуляемая сумма +'
+                    label='Необнуляемая сумма'
                     variant='filled'
                     fullWidth
                     type='number'
                     sx={{marginBottom: '10px'}}
-                    slotProps={{input: {min: 0, step: 0.01}}}
+                    slotProps={{
+                        input: {
+                            min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                <AddIcon/>
+                            </InputAdornment>
+                        }
+                    }}
                 />
                 <TextField
-                    label='Необнуляемая сумма -'
+                    label='Необнуляемая сумма'
                     variant='filled'
                     fullWidth
                     type='number'
                     sx={{marginBottom: '10px'}}
-                    slotProps={{input: {min: 0, step: 0.01}}}
+                    slotProps={{
+                        input: {
+                            min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                <RemoveIcon/>
+                            </InputAdornment>
+                        }
+                    }}
                 />
             </Box>
         </Box>
