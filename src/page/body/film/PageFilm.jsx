@@ -16,6 +16,7 @@ export default function PageFilm() {
 
     const param_date = useSelector(state => state.interface.params.param_date)
     const uid_film = useSelector(state => state.interface.params.uid_film)
+    const uid_user = useSelector(state => state.auth.uid)
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
@@ -124,10 +125,10 @@ export default function PageFilm() {
                                 }
                             })}
                         </Box>
-                        <Box sx={{
+                        {uid_user !== null && <Box sx={{
                             minWidth: 'var(--order-width)',
                             display: pre_order.in_base || horder.in_base ? 'flex' : 'none'
-                        }}></Box>
+                        }}></Box>}
                     </Box>
                 </Box>
                 <Box id='content-footer'></Box>

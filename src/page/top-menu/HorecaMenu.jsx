@@ -1,5 +1,5 @@
 import {Box, Button, ButtonGroup} from "@mui/material"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {openModal} from "../../redux/interfaceReducer.js"
 
 export function CZIcon(props) {
@@ -51,20 +51,23 @@ export function EGAISIcon(props) {
 const HorecaMenu = () => {
 
     const dispatch = useDispatch()
+    const uid_user = useSelector(state => state.auth.uid)
 
-    return <Box id="top-menu">
-        <ButtonGroup variant='contained' color='secondary' size='medium'>
-            <Button startIcon={<CZIcon/>}
-                    onClick={() => {
-                        dispatch(openModal({type: 'mark_hosts', props: {}}))
-                    }}>Маркировка</Button>
-            <Button size='small'
-                    startIcon={<EGAISIcon/>}
-                    onClick={() => {
-                        dispatch(openModal({type: 'egais_settings', props: {}}))
-                    }}>УТМ ЕГАИС</Button>
-        </ButtonGroup>
-    </Box>
+    if (uid_user !== null) {
+        return <Box id="top-menu">
+            <ButtonGroup variant='contained' color='secondary' size='medium'>
+                <Button startIcon={<CZIcon/>}
+                        onClick={() => {
+                            dispatch(openModal({type: 'mark_hosts', props: {}}))
+                        }}>Маркировка</Button>
+                <Button size='small'
+                        startIcon={<EGAISIcon/>}
+                        onClick={() => {
+                            dispatch(openModal({type: 'egais_settings', props: {}}))
+                        }}>УТМ ЕГАИС</Button>
+            </ButtonGroup>
+        </Box>
+    }
 }
 
 export default HorecaMenu

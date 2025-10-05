@@ -15,6 +15,8 @@ const PageSchedule = () => {
 
     const dispatch = useDispatch()
 
+    const uid_user = useSelector(state => state.auth.uid)
+
     const city = useSelector(state => state.data.city)
     const schedule = useSelector(state => state.schedule.schedule || [])
     const pre_order = useSelector(state => state.orders.pre_order)
@@ -71,7 +73,7 @@ const PageSchedule = () => {
     return (<Box id='content-box'
                  style={{
                      height: 'calc(var(--page-height) + var(--header-height)) + var(--footer-height)',
-                     width: pre_order.in_base || horder.in_base ? 'calc(100vw - var(--order-width))' : '100vw'
+                     width: uid_user !== null && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw'
                  }}>
         <Box id='content'
              sx={{overflowX: 'auto', overflowY: 'auto', maxHeight: '100vh'}}>

@@ -11,6 +11,7 @@ const PageFilms = () => {
 
     const dispatch = useDispatch()
     const param_date = useSelector(state => state.interface.params.param_date)
+    const uid_user = useSelector(state => state.auth.uid)
 
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
@@ -52,7 +53,7 @@ const PageFilms = () => {
 
     return <Box id='content-box' style={{
         overflowY: 'auto',
-        width: pre_order.in_base || horder.in_base ? 'calc(100vw - var(--order-width))' : '100vw'
+        width: uid_user !== null && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw'
     }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
