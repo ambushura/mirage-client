@@ -10,6 +10,7 @@ export function useSetTopMenu() {
     const top_menu = useSelector(state => state.interface.top_menu)
     const param_date = useSelector(state => state.interface.params.param_date)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
 
     useEffect(() => {
         if (city !== undefined) {
@@ -19,17 +20,17 @@ export function useSetTopMenu() {
                 top_menu[i].forEach(old_option => {
                     let new_option = structuredClone(old_option)
                     if (PARAM_DATE_SHIFT.find(el => el === new_option.id) !== undefined) {
-                        new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}`
+                        new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}${wp !== null ? '?wp=' + wp : ''}`
                     }
                     if (PARAM_DATE_SHIFT.find(el => el === new_option.id) === undefined) {
                         if (new_option.id.includes('admin')) {
                             new_option.path.forEach(el => {
-                                el.path = `/${el.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
+                                el.path = `/${el.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}${wp !== null ? '?wp=' + wp : ''}`
                             })
                         } else if (new_option.id === 'kitchen') {
-                            new_option.path = `/${new_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}`
+                            new_option.path = `/${new_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date_admin}${wp !== null ? '?wp=' + wp : ''}`
                         } else {
-                            new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/`
+                            new_option.path = `/${old_option.id}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${wp !== null ? '?wp=' + wp : ''}`
                         }
                     }
                     top_menu_new[i].push(new_option)

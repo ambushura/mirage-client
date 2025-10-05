@@ -13,7 +13,7 @@ const NewSeance = ({beginning, ending, uid_hall, name_hall}) => {
             startIcon={<AddCircleOutlineIcon/>}
             variant="contained"
             sx={{
-                backgroundColor: '#1EC7D3', color: 'black', fontSize: '12px',
+                backgroundColor: '#bdbdbd', color: 'black', fontSize: '12px',
             }}
             onClick={() => {
                 dispatch(openModal({

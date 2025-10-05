@@ -37,7 +37,7 @@ export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
 const initialState = {
     kiosk: false,
     its_second_screen: false,
-    wp: 'mpopcorn2',
+    wp: null,
     version: '1.000',
     need_update: false,
     dev: true,
@@ -81,6 +81,11 @@ const interfaceSlice = createSlice({
             Object.assign(state.params, payload)
         }, setSearchParams: (state, {payload}) => {
             state.search_params = JSON.parse(payload)
+            if (state.search_params.wp !== undefined) {
+                state.wp = state.search_params.wp
+            } else {
+                state.wp = null
+            }
         }, openModal: (state, {payload}) => {
             state.modal_opened = true
             state.modal_type = payload.type

@@ -1,5 +1,6 @@
 import dayjs from "dayjs"
 import {NavLink} from "react-router-dom"
+import {useSelector} from "react-redux";
 
 const SeanceCard = (props) => {
 
@@ -7,6 +8,7 @@ const SeanceCard = (props) => {
     const filial = props.filial
     const seance = props.seance
     const beginning = dayjs(seance.beginning.replace('Z', ''))
+    const wp = useSelector(state => state.interface.wp)
 
     const min_tariff = (seance) => {
         let result = undefined
@@ -18,7 +20,7 @@ const SeanceCard = (props) => {
         return result
     }
 
-    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}>
+    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/${wp !== null ? '?wp=' + wp : ''}`}>
         <div className='seances-body-seance'>
             <div
                 className={`seances-body-seance-description ${!seance.opened ? 'seances-body-seance-description-closed' : seance.canceled ? 'seances-body-seance-description-canceled' : ''}`}>

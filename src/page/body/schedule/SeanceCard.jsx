@@ -3,14 +3,16 @@ import {NavLink} from "react-router-dom"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 import PlaceLabel from "./PlaceLabel.jsx"
 import dynamic_price from '../../../images/dynamic_price.svg'
+import {useSelector} from "react-redux";
 
 const SeanceCard = (props) => {
 
     const city = props.city
     const filial = props.filial
     const seance = props.seance
+    const wp = useSelector(state => state.interface.wp)
 
-    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}
+    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/${wp !== null ? '?wp=' + wp : ''}`}
                     className={`schedule-full-seance-link ${!seance.opened ? 'schedule-full-seance-link-closed' : seance.canceled ? 'schedule-full-seance-link-canceled' : ''}`}>
         <Box sx={{margin: '5px'}}>
             <SeanceTitle

@@ -146,7 +146,7 @@ const PageSchedule = () => {
                                                                     variants={containerVariants}>
                                                             {sortedSeances.map((seance, i) => {
                                                                 if (show_free_space) {
-                                                                    return (<Fragment key={i}>
+                                                                    return <Fragment key={i}>
                                                                         {i === 0 && (<motion.div
                                                                             className='schedule-full-seance'
                                                                             key='first'
@@ -194,9 +194,9 @@ const PageSchedule = () => {
                                                                                 ending={null}
                                                                             />
                                                                         </motion.div>)}
-                                                                    </Fragment>)
+                                                                    </Fragment>
                                                                 } else {
-                                                                    return (<motion.div
+                                                                    return <motion.div
                                                                         className='schedule-full-seance'
                                                                         key={`${seance.uid}${seance.ver}`}
                                                                         variants={itemVariants}>
@@ -206,7 +206,7 @@ const PageSchedule = () => {
                                                                             filial={filial_data.filial}
                                                                             seance={seance}
                                                                         />
-                                                                    </motion.div>)
+                                                                    </motion.div>
                                                                 }
                                                             })}
                                                         </motion.div>)}

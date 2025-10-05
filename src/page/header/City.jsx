@@ -9,15 +9,14 @@ const City = (props) => {
     const param_date = useSelector(state => state.interface.params.param_date)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const film = useSelector(state => state.schedule.film)
+    const wp = useSelector(state => state.interface.wp)
 
-    return (
-        <NavLink
-            to={`/${current_page}/${props.city.code}/all/${PARAM_DATE_SHIFT.find(el => el === current_page) !== undefined ? param_date + '/' : ''}${film !== null ? film.uid + '/' : ''}${PARAM_DATA_ADMIN_SHIFT.find(el => el === current_page) !== undefined ? param_date_admin + '/' : ''}`}>
-            <WhiteMenuItem onClick={(event) => {
-                props.handleClose(event)
-            }}>{props.city.name}</WhiteMenuItem>
-        </NavLink>
-    )
+    return (<NavLink
+        to={`/${current_page}/${props.city.code}/all/${PARAM_DATE_SHIFT.find(el => el === current_page) !== undefined ? param_date + '/' : ''}${film !== null ? film.uid + '/' : ''}${PARAM_DATA_ADMIN_SHIFT.find(el => el === current_page) !== undefined ? param_date_admin + '/' : ''}${wp !== null ? '?wp=' + wp : ''}`}>
+        <WhiteMenuItem onClick={(event) => {
+            props.handleClose(event)
+        }}>{props.city.name}</WhiteMenuItem>
+    </NavLink>)
 }
 
 export default City
