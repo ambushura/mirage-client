@@ -108,14 +108,14 @@ export default function PageFilm() {
                                                     exit="hidden"
                                                     variants={containerVariants}>
                                                     {filial_data.data.seances.map(seance => {
-                                                        return (<motion.div
+                                                        return <motion.div
                                                             key={`${filial_data.filial.uid}${seance.uid}`}
                                                             variants={itemVariants}>
                                                             <SeanceCard
                                                                 seance={seance}
                                                                 city={city}
                                                                 filial={filial_data.filial}/>
-                                                        </motion.div>)
+                                                        </motion.div>
                                                     })}
                                                 </motion.div>)}
                                             </AnimatePresence>

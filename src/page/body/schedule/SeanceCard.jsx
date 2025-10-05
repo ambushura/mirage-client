@@ -10,39 +10,35 @@ const SeanceCard = (props) => {
     const filial = props.filial
     const seance = props.seance
 
-    return (
-        <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`} className='schedule-full-seance-link'>
-            <Box sx={{margin: '5px'}}>
-                <SeanceTitle
-                    seance={seance}
-                    content_type={true}
-                    day={false}
-                    age={true}/>
+    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}
+                    className={`schedule-full-seance-link ${!seance.opened ? 'schedule-full-seance-link-closed' : seance.canceled ? 'schedule-full-seance-link-canceled' : ''}`}>
+        <Box sx={{margin: '5px'}}>
+            <SeanceTitle
+                seance={seance}
+                content_type={true}
+                day={false}
+                age={true}/>
+        </Box>
+        <Box sx={{paddingLeft: '5px'}}>
+            <Box className='schedule-full-seance-film-name'>
+                {seance.film_name}
             </Box>
-            <Box sx={{paddingLeft: '5px'}}>
-                <Box className='schedule-full-seance-film-name'>
-                    {seance.film_name}
-                </Box>
+        </Box>
+        <Box className='schedule-full-tariff'>
+            <Box className='schedule-full-tariff-body'>
+                {seance.tariff.map(price => {
+                    return (<Box key={price.uid_place_type} className='schedule-full-tariff-place'>
+                        <PlaceLabel name={price.image_name}/>
+                        <Box>{price.sum_dynamic !== null ? <img src={dynamic_price} alt="экран" width='10px'
+                                                                height='10px'/> : null} {price.price} P</Box>
+                    </Box>)
+                })}
             </Box>
-            <Box className='schedule-full-tariff'>
-                <Box className='schedule-full-tariff-body'>
-                    {seance.tariff.map(price => {
-                        return (
-                            <Box key={price.uid_place_type} className='schedule-full-tariff-place'>
-                                <PlaceLabel name={price.image_name}/>
-                                <Box>{price.sum_dynamic !== null ?
-                                    <img src={dynamic_price} alt="экран" width='10px'
-                                         height='10px'/> : null} {price.price} P</Box>
-                            </Box>
-                        )
-                    })}
-                </Box>
-                <Box className='schedule-full-tariff-footer'>
-                    <div className='circle'></div>
-                </Box>
+            <Box className='schedule-full-tariff-footer'>
+                <div className='circle'></div>
             </Box>
-        </NavLink>
-    )
+        </Box>
+    </NavLink>
 }
 
 export default SeanceCard

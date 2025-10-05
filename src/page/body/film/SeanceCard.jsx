@@ -20,7 +20,8 @@ const SeanceCard = (props) => {
 
     return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/`}>
         <div className='seances-body-seance'>
-            <div className='seances-body-seance-description'>
+            <div
+                className={`seances-body-seance-description ${!seance.opened ? 'seances-body-seance-description-closed' : seance.canceled ? 'seances-body-seance-description-canceled' : ''}`}>
                 <div
                     className='seances-body-seance-description-time'>
                     {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}

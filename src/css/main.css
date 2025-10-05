@@ -249,6 +249,7 @@
     margin: 0 10px 10px 0;
     cursor: pointer;
     color: white;
+    position: relative;
 }
 
 .seances-body-seance-description {
@@ -259,6 +260,30 @@
     border-radius: 16px;
     flex-direction: column;
     justify-content: center
+}
+
+.seances-body-seance-description-canceled::after,
+.seances-body-seance-description-closed::after {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: all;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 14px;
+}
+
+.seances-body-seance-description-canceled::after {
+    content: "Отменен";
+}
+
+.seances-body-seance-description-closed::after {
+    content: "Закрыт";
 }
 
 .seances-body-seance-description-time {
@@ -419,6 +444,31 @@
 .schedule-full-seance-link {
     background-color: var(--bgr-seance-card);
     color: var(--txt-color) !important;
+    position: relative;
+}
+
+.schedule-full-seance-link-canceled::after,
+.schedule-full-seance-link-closed::after {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: all;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px 12px 0 0;
+}
+
+.schedule-full-seance-link-canceled::after {
+    content: "Сеанс отменен";
+}
+
+.schedule-full-seance-link-closed::after {
+    content: "Сеанс закрыт";
 }
 
 .schedule-full-seance-title {

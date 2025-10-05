@@ -7,8 +7,9 @@ import {
     horeca_position_add_barcode,
     horeca_position_add_egais_mark,
     horeca_position_add_mark,
-    login
-} from "../../service/fetch_service.js";
+    login,
+    pl_estimate_discounts
+} from "../../service/fetch_service.js"
 import {addNotification} from "../../redux/notifierReducer.js"
 
 export function useSetWS() {
@@ -56,10 +57,17 @@ export function useSetWS() {
                         }
                         switch (data.code_type) {
                             case 0:
+                                // Авторизоваться
                                 if (uid_user === null && !kiosk) {
                                     dispatch(login(filial, false, true, '', data.value))
                                 } else {
-
+                                    // Применить скидку
+                                    if (pre_order.in_base) {
+                                        dispatch(pl_estimate_discounts(filial, pre_order.uid, 'cinema', data.value, pre_order.ver))
+                                    }
+                                    if (horder.in_base) {
+                                        dispatch(pl_estimate_discounts(filial, horder.uid, 'horeca', data.value, horder.ver))
+                                    }
                                 }
                                 break
                             case 1:
@@ -80,6 +88,13 @@ export function useSetWS() {
                                 }
                                 break
                             case 4:
+                                // Применить скидку
+                                if (pre_order.in_base) {
+                                    dispatch(pl_estimate_discounts(filial, pre_order.uid, 'cinema', data.value, pre_order.ver))
+                                }
+                                if (horder.in_base) {
+                                    dispatch(pl_estimate_discounts(filial, horder.uid, 'horeca', data.value, horder.ver))
+                                }
                                 break
                         }
                 }

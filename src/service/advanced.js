@@ -38,7 +38,7 @@ export function duration_title(beginning, ending) {
         if (hours === 0) {
             return `${minutes} мин`
         }
-        return `${hours} ${pluralize(hours, 'час', 'часа', 'часов')}, ${minutes} мин)`
+        return `${hours} ${pluralize(hours, 'час', 'часа', 'часов')}, ${minutes} мин`
     } else {
         return null
     }
