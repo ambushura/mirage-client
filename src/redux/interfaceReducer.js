@@ -40,7 +40,7 @@ const initialState = {
     wp: null,
     version: '1.000',
     need_update: false,
-    dev: true,
+    dev: false,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,
