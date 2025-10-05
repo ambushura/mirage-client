@@ -8,7 +8,7 @@ const SeanceCard = (props) => {
     const filial = props.filial
     const seance = props.seance
     const beginning = dayjs(seance.beginning.replace('Z', ''))
-    const wp = useSelector(state => state.interface.wp)
+    const {wp, kiosk} = useSelector(state => state.interface)
 
     const min_tariff = (seance) => {
         let result = undefined
@@ -20,7 +20,8 @@ const SeanceCard = (props) => {
         return result
     }
 
-    return <NavLink to={`/seance/${city.code}/${filial.eais}/${seance.uid}/${wp !== null ? '?wp=' + wp : ''}`}>
+    return <NavLink
+        to={`/seance/${city.code}/${filial.eais}/${seance.uid}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`}>
         <div className='seances-body-seance'>
             <div
                 className={`seances-body-seance-description ${!seance.opened ? 'seances-body-seance-description-closed' : seance.canceled ? 'seances-body-seance-description-canceled' : ''}`}>

@@ -250,6 +250,7 @@ export function DateParamAdmin() {
     const film = useSelector(state => state.schedule.film)
     const order_search_value = useSelector(state => state.orders.order_search_value)
     const [admin_calendar_open, set_admin_calendar_open] = useState(null)
+    const {wp, kiosk} = useSelector(state => state.interface)
 
     if (order_search_value !== null) return null
 
@@ -266,7 +267,7 @@ export function DateParamAdmin() {
     const handleOnChange = async (value) => {
         set_admin_calendar_open(null)
         const current_param_data = value.year() + '-' + (value.month() + 1) + '-' + (value.date())
-        await navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
+        await navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
         await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
         await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
         dispatch(setOrdersHorecaPage(1))
@@ -280,7 +281,7 @@ export function DateParamAdmin() {
                 const now = new Date()
                 const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
                 const current_param_date = from_dayjs_to_str(date)
-                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}`)
+                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
                 dispatch(setOrdersHorecaPage(1))
@@ -290,7 +291,7 @@ export function DateParamAdmin() {
             </Button>
             <Button onClick={async () => {
                 const date = dayjs(param_date_admin).subtract(1, 'day').format('YYYY-MM-DD')
-                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
                 dispatch(setOrdersHorecaPage(1))
@@ -302,7 +303,7 @@ export function DateParamAdmin() {
                 <KeyboardArrowDownIcon/>}>{dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}</Button>
             <Button onClick={async () => {
                 const date = dayjs(param_date_admin).add(1, 'day').format('YYYY-MM-DD')
-                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}`)
+                await navigate(`${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${date}` : '/'}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                 await dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 await dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
                 dispatch(setOrdersHorecaPage(1))
@@ -557,24 +558,27 @@ export default function AdminMenu() {
     const order_search_value = useSelector(state => state.orders.order_search_value)
 
     const filial = useSelector(state => state.data.filial)
+    const uid_user = useSelector(state => state.auth.uid)
 
-    return <Box id='top-menu'>
-        {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring'].includes(current_page) &&
-            <DateParamAdmin/>}
-        {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
-        {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
-        {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
-        {current_page === 'admin/operations' && <ShowDateOperations/>}
-        {current_page === 'admin/operations' && <Operations/>}
-        {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
-        {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&
-            <ShowFilters/>}
-        {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch/>}
-        {current_page === 'admin/egais' && <EGAISMenu/>}
-        {current_page === 'admin/halls' && <AdminHallsList/>}
-        {current_page === 'admin/scheme' && <Equipment/>}
-        {current_page === 'kitchen' && filial !== undefined && <ShowKitchenPoints/>}
-        {current_page === 'admin/orders/horeca' && <ShowPagesHorecaOrders/>}
-        {current_page === 'admin/orders/cinema' && <ShowPagesCinemaOrders/>}
-    </Box>
+    if (uid_user !== null) {
+        return <Box id='top-menu'>
+            {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring'].includes(current_page) &&
+                <DateParamAdmin/>}
+            {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
+            {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
+            {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
+            {current_page === 'admin/operations' && <ShowDateOperations/>}
+            {current_page === 'admin/operations' && <Operations/>}
+            {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
+            {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&
+                <ShowFilters/>}
+            {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch/>}
+            {current_page === 'admin/egais' && <EGAISMenu/>}
+            {current_page === 'admin/halls' && <AdminHallsList/>}
+            {current_page === 'admin/scheme' && <Equipment/>}
+            {current_page === 'kitchen' && filial !== undefined && <ShowKitchenPoints/>}
+            {current_page === 'admin/orders/horeca' && <ShowPagesHorecaOrders/>}
+            {current_page === 'admin/orders/cinema' && <ShowPagesCinemaOrders/>}
+        </Box>
+    }
 }

@@ -84,7 +84,7 @@ const Header = () => {
             up.push(<Button key='2'>{name_user}</Button>)
             if (cities.length > 0) {
                 up.push(<NavLink key='1'
-                                 to={`/films/${city !== undefined ? city.code : cities[0].code}/${filial !== undefined ? filial.eais : 'all'}/${param_date}/${wp !== null ? '?wp=' + wp : ''}`}>
+                                 to={`/films/${city !== undefined ? city.code : cities[0].code}/${filial !== undefined ? filial.eais : 'all'}/${param_date}/?${wp !== null ? 'wp=' + wp : ''}`}>
                     <Button startIcon={<ExitToAppIcon/>} onClick={() => dispatch(logout())}>Выход</Button>
                 </NavLink>)
             }

@@ -62,7 +62,7 @@ const ScheduleMenu = () => {
     const handleOnChahge = (value) => {
         set_schedule_calendar_open(null)
         const current_param_data = value.year() + '-' + (value.month() + 1) + '-' + (value.date())
-        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}`)
+        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_data}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
     }
 
     // Фильтры кино
@@ -79,6 +79,7 @@ const ScheduleMenu = () => {
     const seance_price = useSelector(state => state.schedule.schedule_filters_price)
 
     const uid_user = useSelector(state => state.auth.uid)
+    const {wp, kiosk} = useSelector(state => state.interface)
 
     return <Box id="top-menu">
         <Box id="top-menu-schedule">
@@ -94,13 +95,13 @@ const ScheduleMenu = () => {
                         const now = new Date()
                         const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
                         const current_param_date = from_dayjs_to_str(date)
-                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
+                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                     }}>Сегодня</Button>
                 <Button
                     onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
-                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
+                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                     }}><KeyboardArrowLeftIcon/></Button>
                 <Button
                     aria-describedby={id} onClick={handleClick}
@@ -111,7 +112,7 @@ const ScheduleMenu = () => {
                     onClick={() => {
                         const current_date = dayjs(param_date).add(1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
-                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}`)
+                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                     }}><KeyboardArrowRightIcon/></Button>
             </ButtonGroup>
             <Popover

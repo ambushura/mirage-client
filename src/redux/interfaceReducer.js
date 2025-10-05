@@ -86,6 +86,7 @@ const interfaceSlice = createSlice({
             } else {
                 state.wp = null
             }
+            state.kiosk = state.search_params.kiosk !== undefined
         }, openModal: (state, {payload}) => {
             state.modal_opened = true
             state.modal_type = payload.type
