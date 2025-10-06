@@ -1,12 +1,12 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {markirovka_cdn_info_get, markirovka_cdn_info_update} from "../../service/fetch_service.js"
-import {DataGrid} from "@mui/x-data-grid"
 import {useEffect, useState} from "react"
 import dayjs from "dayjs"
 import {fillHosts} from "../../redux/markirovkaReducer.js"
 import {EMPTY_TABLE_STYLE} from "../../ui/ThemeContext.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
+import {DataGridPro} from "@mui/x-data-grid-pro"
 
 const MarkHosts = () => {
 
@@ -64,7 +64,7 @@ const MarkHosts = () => {
         <Typography variant="h6" color="textSecondary" margin={1}>Доступность площадок ГИСМТ &#34;Честный
             знак&#34;</Typography>
         <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
-            <DataGrid
+            <DataGridPro
                 disableSelectionOnClick
                 hideFooterPagination
                 hideFooter
@@ -73,7 +73,7 @@ const MarkHosts = () => {
                 pageSize={5}
                 pageSizeOptions={[5]}
                 sx={EMPTY_TABLE_STYLE}
-                localeText={ruRU.localeText}
+                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             />
         </Box>
         <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>

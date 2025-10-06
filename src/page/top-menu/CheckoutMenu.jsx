@@ -46,7 +46,7 @@ const CheckoutMenu = () => {
         if (uid_user === null) {
             if (pre_order_time_remaining <= 1) {
                 navigate(-1)
-                dispatch(cinema_order_delete(filial, pre_order.uid))
+                dispatch(cinema_order_delete(filial, pre_order.uid, pre_order.ver))
             }
         }
     }, [dispatch, filial, navigate, uid_user, pre_order, pre_order_time_remaining])
@@ -75,7 +75,7 @@ const CheckoutMenu = () => {
                 <Button onClick={() => {
                     if (kiosk_checkout === 0) {
                         navigate(-1)
-                        dispatch(cinema_order_delete(filial, pre_order.uid))
+                        dispatch(cinema_order_delete(filial, pre_order.uid, pre_order.ver))
                     } else {
                         dispatch(setKioskCheckout(0))
                     }

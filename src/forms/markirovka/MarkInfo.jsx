@@ -7,12 +7,12 @@ const MarkInfo = (props) => {
     const error_code = ['ошибки отсутствуют', 'ошибка валидации КМ', 'КМ не содержит GTIN', 'КМ не содержит серийный номер', 'КМ содержит недопустимые символы', 'ошибка верификации крипто-подписи КМ (формат крипто-подписи не соответствует типу КМ)', 'ошибка верификации крипто-подписи КМ (крипто-подпись не валидная)', 'ошибка верификации крипто-подписи КМ (крипто-ключ не валиден)', 'КМ не прошел верификацию в стране эмитента', 'Найденные AI в КМ не поддерживаются', 'КМ не найден в ГИС МТ', 'КМ не найден в трансгране']
 
     if (item.mark !== null) {
-        return (<Box component="form"
-                     noValidate
-                     autoComplete="off"
-                     onSubmit={(e) => {
-                         e.preventDefault()
-                     }}>
+        return <Box component="form"
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={(e) => {
+                        e.preventDefault()
+                    }}>
             <Typography variant="h6" color="textSecondary" margin={1}>Разрешительный
                 режим</Typography>
             <Box className='mark-info'>
@@ -48,9 +48,7 @@ const MarkInfo = (props) => {
                 <Box className='mark-info-row' sx={{fontWeight: 'bold'}}><Box>Сообщение ЧЗ</Box><Box
                     sx={{textAlign: 'end'}}>{item.mark.message}</Box></Box>
             </Box>
-        </Box>)
-    } else {
-        return <></>
+        </Box>
     }
 }
 

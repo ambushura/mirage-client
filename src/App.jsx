@@ -136,7 +136,7 @@ function App() {
                        element={<AppRoutes current_page="kitchen"/>}/>
 
                 <Route path="/menu/:param_city/:param_filial/"
-                       element={permissions.includes(0) ? <AppRoutes current_page="menu"/> : <NotFound/>}/>
+                       element={<AppRoutes current_page="menu"/>}/>
 
                 <Route path="/admin/orders/cinema/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/orders/cinema"/>}/>

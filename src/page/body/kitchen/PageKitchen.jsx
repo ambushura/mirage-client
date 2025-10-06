@@ -94,16 +94,16 @@ const PageKitchen = () => {
         }
     }, [dispatch, filial, param_date_admin, uid_kitchen_points_selected])
 
-    if (filial === undefined) {
-        return <Box className='empty-box' sx={{width: '100%', height: '100%'}}>Выберите филиал...</Box>
-    } else if (fetching.loading && fetching.error === null && fetching.data === null) {
-        return <Loader/>
-    } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
-        return <Box className='empty-box'>{fetching.error}</Box>
-    } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
-        return <Box id='content-box' sx={{overflowY: 'auto'}}>
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                <Box id='content-header'></Box>
+    return <Box id='content-box' sx={{overflowY: 'auto'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box id='content-header'></Box>
+            {filial === undefined &&
+                <Box className='empty-box' sx={{width: '100%', height: '100%'}}>Выберите филиал...</Box>}
+            {fetching.loading && fetching.error === null && fetching.data === null && <Loader/>}
+            {!fetching.loading && fetching.error !== null && fetching.data === null &&
+                <Box className='empty-box' sx={{minHeight: 'var(--page-height)'}}>{fetching.error}</Box>}
+            {}
+            {!fetching.loading && fetching.error === null && fetching.data !== null &&
                 <Box id='content' sx={{padding: '10px 0'}}>
                     {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
                         <Box className='kitchen-orders'>
@@ -125,11 +125,10 @@ const PageKitchen = () => {
                             </Box>
                         </Box>
                     </> : <Box className='empty-box'>Ничего не нужно готовить...</Box>}
-                </Box>
-                <Box id='content-footer'></Box>
-            </Box>
+                </Box>}
+            <Box id='content-footer'></Box>
         </Box>
-    }
+    </Box>
 }
 
 export default PageKitchen
