@@ -68,7 +68,7 @@ const Header = () => {
             up.push(<Button variant='outlined' size='medium' onClick={() => {
                 document.location.reload()
             }}><CachedIcon/></Button>)
-            up.push(<Clock key='3'/>)
+            up.push(<Button><Clock key='3'/></Button>)
             up.push(<Button key='2'>{name_user}</Button>)
             if (cities.length > 0) {
                 up.push(<NavLink key='1'
@@ -140,7 +140,7 @@ const Header = () => {
                         fontWeight: 'bold',
                         color: 'white',
                         padding: '0 10px'
-                    }}>Сегодня {timeRef.current.format('DD.MM')} · {timeRef.current.format('dddd')} · {timeRef.current.format('HH:mm')}</Box>
+                    }}>Сегодня <Clock/></Box>
                 </Box>
             </Box>
         </header>
@@ -234,11 +234,11 @@ const Header = () => {
 
 export default Header
 
-const Clock = () => {
+export function Clock() {
     const [time, setTime] = useState(dayjs())
     useEffect(() => {
         const timer = setInterval(() => setTime(dayjs()), 1000)
         return () => clearInterval(timer)
     }, [])
-    return <Button>{time.format('HH:mm')}</Button>
+    return time.format('HH:mm')
 }
