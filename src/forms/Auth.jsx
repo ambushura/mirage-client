@@ -8,7 +8,7 @@ import KeyboardIcon from '@mui/icons-material/Keyboard'
 import {addNotification} from "../redux/notifierReducer.js"
 import {login} from "../service/fetch_service.js"
 
-const Auth = () => {
+const Auth = ({auth_opened}) => {
 
     const dispatch = useDispatch()
 
@@ -48,7 +48,7 @@ const Auth = () => {
             set_username('')
             set_password('')
         }
-    }, [pincode_auth, login_auth])
+    }, [pincode_auth, login_auth, auth_opened])
 
     return <Box>
         <Box sx={{

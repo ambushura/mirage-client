@@ -215,7 +215,8 @@ const Header = () => {
                                aria-labelledby="Страница авторизации"
                                aria-describedby="Введите пароль">
                             <Box id="modal">
-                                <Auth/>
+                                <Auth
+                                    auth_opened={auth_opened}/>
                             </Box>
                         </Modal>
                     </Box>
