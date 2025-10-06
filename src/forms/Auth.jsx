@@ -1,4 +1,4 @@
-import {memo, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Box, Button, TextField} from "@mui/material"
 import "react-simple-keyboard/build/css/index.css"
 import {useDispatch, useSelector} from "react-redux"
@@ -37,11 +37,17 @@ const Auth = () => {
             dispatch(login(filial, login_auth, pincode_auth, username, password))
             dispatch(setAuthOpened(false))
         }
+        set_username('')
+        set_password('')
     }
 
     useEffect(() => {
         set_username('')
         set_password('')
+        return () => {
+            set_username('')
+            set_password('')
+        }
     }, [pincode_auth, login_auth])
 
     return <Box>
@@ -125,4 +131,4 @@ const Auth = () => {
     </Box>
 }
 
-export default memo(Auth)
+export default Auth

@@ -258,10 +258,12 @@ const Order = () => {
     const [printing_cinema, set_printing_cinema] = useState(false)
     const [printing_horeca, set_printing_horeca] = useState(false)
 
+    const {wp, kiosk} = useSelector(state => state.interface)
+
     const seance_link = () => {
         const city = cities.find(el => el.uid === pre_order.uid_city)
         const fil = city?.filials.find(el => el.uid === pre_order.uid_filial)
-        return fil ? `/seance/${city.code}/${fil.eais}/${pre_order.uid_seance}/` : '/'
+        return fil ? `/seance/${city.code}/${fil.eais}/${pre_order.uid_seance}/?${wp !== null ? 'wp=' + wp : ''}` : `/?${wp !== null ? 'wp=' + wp : ''}`
     }
 
     useEffect(() => {

@@ -62,25 +62,13 @@ const Header = () => {
     const kiosk_checkout = useSelector(state => state.interface.kiosk_checkout)
     const wp = useSelector(state => state.interface.wp)
 
-    const timeRef = useRef(dayjs())
-    const [, forceUpdate] = useState(0)
-    useEffect(() => {
-        const interval = setInterval(() => {
-            timeRef.current = dayjs()
-            forceUpdate(v => v + 1)
-        }, 1000)
-
-        return () => clearInterval(interval)
-    }, [])
-
     const user_panel = () => {
         const up = []
         if (uid_user !== null) {
             up.push(<Button variant='outlined' size='medium' onClick={() => {
                 document.location.reload()
             }}><CachedIcon/></Button>)
-            up.push(<Button
-                key='3'>{timeRef.current.format('HH:mm')}</Button>)
+            up.push(<Clock key='3'/>)
             up.push(<Button key='2'>{name_user}</Button>)
             if (cities.length > 0) {
                 up.push(<NavLink key='1'
@@ -244,3 +232,12 @@ const Header = () => {
 }
 
 export default Header
+
+const Clock = () => {
+    const [time, setTime] = useState(dayjs())
+    useEffect(() => {
+        const timer = setInterval(() => setTime(dayjs()), 1000)
+        return () => clearInterval(timer)
+    }, [])
+    return <Button>{time.format('HH:mm')}</Button>
+}
