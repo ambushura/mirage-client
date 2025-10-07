@@ -1,4 +1,4 @@
-import cover from "../../../images/cover.jpg"
+import cover from "../../../images/cover.png"
 import {useSelector} from "react-redux"
 import {Box} from "@mui/material"
 import {NavLink} from "react-router-dom"

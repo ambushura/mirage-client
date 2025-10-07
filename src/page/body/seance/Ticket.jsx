@@ -1,6 +1,6 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
-import cover from "../../../images/cover.jpg"
+import cover from "../../../images/cover.png"
 import DeleteIcon from '@mui/icons-material/Delete'
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 

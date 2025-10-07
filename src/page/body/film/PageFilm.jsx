@@ -1,5 +1,5 @@
 import {Box, Fade} from "@mui/material"
-import cover from "../../../images/cover.jpg"
+import cover from "../../../images/cover.png"
 import SeanceCard from "./SeanceCard.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import Loader from "../../../ui/Loader.jsx"

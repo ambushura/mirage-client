@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder,} from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
 import {setUidHall} from "../../redux/hallsReducer.js"
-import {logout} from "../../redux/authReducer.js"
 
 export function useReset() {
 
@@ -35,7 +34,7 @@ export function useReset() {
         dispatch(setUidHall(null))
     }, [dispatch, filial])
 
-    useEffect(() => {
-        dispatch(logout())
-    }, [wp, kiosk])
+    //useEffect(() => {
+    //    dispatch(logout())
+    //}, [wp, kiosk])
 }

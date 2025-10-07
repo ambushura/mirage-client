@@ -51,7 +51,6 @@ const PageSchedule = () => {
         let active = true
         const fetch = async (f) => {
             const fetching_result = await dispatch(cinema_schedule_halls_get(f, param_date, seance_closed, seance_canceled, seance_opened, films_selected.map(f => f.uid), film_copy_types_selected.map(f => f.uid), film_age, halls_selected.map(f => f.uid), hall_type_vip, hall_type_regular, seance_time, seance_price, film_types_selected.map(f => f.uid)))
-
             if (active) {
                 dispatch(setSchedule({...fetching_result, filial: f}))
             }
@@ -70,15 +69,28 @@ const PageSchedule = () => {
         }
     }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])
 
-    return (<Box id='content-box'
-                 style={{
-                     height: 'calc(var(--page-height) + var(--header-height)) + var(--footer-height)',
-                     width: uid_user !== null && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw'
-                 }}>
+    const [schedule_empty, set_schedule_empty] = useState(true)
+    useEffect(() => {
+        schedule.forEach((filial_data) => {
+            if (filial_data.data !== null) {
+                if (filial_data.data.length > 0) {
+                    set_schedule_empty(false)
+                }
+            }
+        })
+    }, [schedule])
+
+    return <Box id='content-box'
+                style={{
+                    height: 'calc(var(--page-height) + var(--header-height)) + var(--footer-height)',
+                    width: uid_user !== null && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw'
+                }}>
         <Box id='content'
              sx={{overflowX: 'auto', overflowY: 'auto', maxHeight: '100vh'}}>
             <Box id="schedule-full">
                 <Box id='content-header'></Box>
+                {schedule_empty ? <Box className='empty-box' sx={{minHeight: 'var(--page-height)'}}>Нет сеансов на эту
+                    дату...</Box> : null}
                 {schedule.map((filial_data, index) => {
                     if (filial_data.error !== null) {
                         return <Box key={filial_data.filial.uid}></Box>
@@ -228,7 +240,7 @@ const PageSchedule = () => {
                 <Order/>
             </Box>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default PageSchedule

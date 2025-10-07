@@ -1,7 +1,7 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import {motion} from "framer-motion"
-import cover from "../../../images/cover.jpg"
+import cover from "../../../images/cover.png"
 import dayjs from "dayjs"
 
 const SsSchedule = ({width, height}) => {
