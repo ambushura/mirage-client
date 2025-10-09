@@ -13,8 +13,6 @@ export function useReset() {
 
     const [clear, set_clear] = useState(0)
 
-    const {kiosk, wp} = useSelector(state => state.interface)
-
     // Очищаем по старым реквизитам данные
     useEffect(() => {
         set_clear(prevState => prevState + 1)
@@ -34,7 +32,4 @@ export function useReset() {
         dispatch(setUidHall(null))
     }, [dispatch, filial])
 
-    //useEffect(() => {
-    //    dispatch(logout())
-    //}, [wp, kiosk])
 }

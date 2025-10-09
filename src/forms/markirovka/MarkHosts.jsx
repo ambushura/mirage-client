@@ -46,13 +46,11 @@ const MarkHosts = () => {
     }, [hosts])
 
     useEffect(() => {
-        if (hosts.length === 0) {
-            dispatch(markirovka_cdn_info_get(filial))
-        }
+        dispatch(markirovka_cdn_info_get(filial))
         return () => {
             fillHosts([])
         }
-    })
+    }, [])
 
     return (<Box component="form"
                  noValidate

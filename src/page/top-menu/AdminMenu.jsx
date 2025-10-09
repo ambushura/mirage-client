@@ -141,7 +141,7 @@ export function ShowFastSearch() {
                 }
             }}
             InputProps={{
-                endAdornment: order_search_value && (<InputAdornment position="end">
+                endAdornment: order_search_value && <InputAdornment position="end">
                     <IconButton
                         onClick={() => dispatch(setOrderSearchValue(null))}
                         edge="end"
@@ -149,7 +149,7 @@ export function ShowFastSearch() {
                     >
                         <ClearIcon/>
                     </IconButton>
-                </InputAdornment>),
+                </InputAdornment>,
             }}/>
     </Box>)
 

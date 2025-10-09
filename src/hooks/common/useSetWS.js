@@ -11,6 +11,7 @@ import {
     pl_estimate_discounts
 } from "../../service/fetch_service.js"
 import {addNotification} from "../../redux/notifierReducer.js"
+import {setOrderSearchValue} from "../../redux/ordersReducer.js";
 
 export function useSetWS() {
 
@@ -62,11 +63,15 @@ export function useSetWS() {
                                     dispatch(login(filial, false, true, '', data.value))
                                 } else {
                                     // Применить скидку
-                                    if (pre_order.in_base) {
-                                        dispatch(pl_estimate_discounts(filial, pre_order.uid, 'cinema', data.value, pre_order.ver))
-                                    }
-                                    if (horder.in_base) {
-                                        dispatch(pl_estimate_discounts(filial, horder.uid, 'horeca', data.value, horder.ver))
+                                    if (current_page === 'admin/orders/cinema' || current_page === 'admin/orders/horeca') {
+                                        dispatch(setOrderSearchValue(data.value))
+                                    } else {
+                                        if (pre_order.in_base) {
+                                            dispatch(pl_estimate_discounts(filial, pre_order.uid, 'cinema', data.value, pre_order.ver))
+                                        }
+                                        if (horder.in_base) {
+                                            dispatch(pl_estimate_discounts(filial, horder.uid, 'horeca', data.value, horder.ver))
+                                        }
                                     }
                                 }
                                 break
@@ -89,11 +94,15 @@ export function useSetWS() {
                                 break
                             case 4:
                                 // Применить скидку
-                                if (pre_order.in_base) {
-                                    dispatch(pl_estimate_discounts(filial, pre_order.uid, 'cinema', data.value, pre_order.ver))
-                                }
-                                if (horder.in_base) {
-                                    dispatch(pl_estimate_discounts(filial, horder.uid, 'horeca', data.value, horder.ver))
+                                if (current_page === 'admin/orders/cinema' || current_page === 'admin/orders/horeca') {
+                                    dispatch(setOrderSearchValue(data.value))
+                                } else {
+                                    if (pre_order.in_base) {
+                                        dispatch(pl_estimate_discounts(filial, pre_order.uid, 'cinema', data.value, pre_order.ver))
+                                    }
+                                    if (horder.in_base) {
+                                        dispatch(pl_estimate_discounts(filial, horder.uid, 'horeca', data.value, horder.ver))
+                                    }
                                 }
                                 break
                         }
