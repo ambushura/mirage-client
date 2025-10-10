@@ -95,7 +95,7 @@ function App() {
         pinpads: OthersPaymentTypes,
         zBook: Zbook,
         receipt: Receipt,
-        slip: Slip,
+        slip: Slip
     }
 
     const ModalContent = useMemo(() => {

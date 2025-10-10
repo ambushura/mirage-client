@@ -57,15 +57,17 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../ui/Calendar.jsx"
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {setMode, setUidHall} from "../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
-import {common_list_get, common_orders_filters_halls_get, equipment_action} from "../../service/fetch_service.js"
-import {SelectMenu} from "../../ui/SelectMenu.jsx"
-import {ROUTE_EQUIPMENT_KKT_Z, ROUTE_EQUIPMENT_PINPAD_X, ROUTE_EQUIPMENT_PINPAD_Z} from "../../service/fetch_routes.js"
+import {common_list_get, common_orders_filters_halls_get} from "../../service/fetch_service.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
-import {setOperationsDetails, setOperationsPage} from "../../redux/documentsReducer.js";
+import {setCurrentKKT, setCurrentPinpad, setOperationsDetails, setOperationsPage} from "../../redux/documentsReducer.js"
+import List from "../../ui/List.jsx"
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import PointOfSaleRoundedIcon from '@mui/icons-material/PointOfSaleRounded'
+import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded'
 
 export function AdminHallsList() {
 
@@ -428,24 +430,41 @@ export function CurrentKKT() {
     const {kkt_list, uid_kkt_current} = useSelector(state => state.documents)
     const filial = useSelector(state => state.data.filial)
 
+    const kkt_list_id = "zbooks-kkt-menu"
+    const kkt_ref = useRef(null)
+    const [kkt_open, set_kkt_open] = useState(false)
+    const prev_kkt_open = useRef(Boolean(kkt_open))
+
     useEffect(() => {
         dispatch(common_list_get(filial, 'kkt'))
     }, [dispatch, filial, current_page])
 
     return <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
-        <SelectMenu
-            type={'zbooks-kkt'}
-            list={kkt_list}
-            current_value={uid_kkt_current}
-            width={230}
-        />
-        <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
-            <Button>Суточный отчет</Button>
-            <Button>X-отчет</Button>
-            <Button>Открыть ДЯ</Button>
-            <Button variant='contained' color='primary'
-                    onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_KKT_Z, {uid: uid_kkt_current}))}>Закрыть
-                смену</Button>
+        <ButtonGroup sx={{marginLeft: '5px'}}>
+            <List
+                type="zbooks-kkt"
+                size='small'
+                open={kkt_open}
+                anchor={kkt_ref}
+                prev_open={prev_kkt_open}
+                id={kkt_list_id}
+                setOpen={set_kkt_open}
+                button_text={uid_kkt_current === '' ? 'Выберите кассу' : kkt_list.find(el => el.uid === uid_kkt_current).title}
+                list={kkt_list}
+                color='secondary'
+                variant='contained'
+                startIcon={<PointOfSaleRoundedIcon/>}
+                endIcon={<KeyboardArrowDownIcon/>}
+                handleClose={(event) => {
+                    dispatch(setCurrentKKT(event))
+                }}
+            />
+            {uid_kkt_current !== '' && <Button
+                variant='outlined'
+                color='secondary'
+                onClick={() => dispatch(openModal({
+                    type: 'equipment_kkt', props: {uid: uid_kkt_current}
+                }))}><OpenInNewIcon/></Button>}
         </ButtonGroup>
     </Box>
 }
@@ -457,26 +476,42 @@ export function CurrentPinpad() {
     const {pinpad_list, uid_pinpad_current} = useSelector(state => state.documents)
     const filial = useSelector(state => state.data.filial)
 
+    const pinpad_list_id = "zpinpads-pinpad-menu"
+    const pinpad_ref = useRef(null)
+    const [pinpad_open, set_pinpad_open] = useState(false)
+    const prev_pinpad_open = useRef(Boolean(pinpad_open))
+
     useEffect(() => {
         dispatch(common_list_get(filial, 'pinpad'))
     }, [dispatch, filial, current_page])
 
-    return (<Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
-        <SelectMenu
-            type={'zbooks-pinpad'}
-            list={pinpad_list}
-            current_value={uid_pinpad_current}
-            width={230}
-        />
+    return <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
         <ButtonGroup color='secondary' variant='outlined' sx={{marginLeft: '5px'}}>
-            <Button variant='outlined' color='secondary'
-                    onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PINPAD_X, {uid: uid_pinpad_current}))}>Краткий
-                отчет</Button>
-            <Button variant='contained' color='primary'
-                    onClick={() => dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PINPAD_Z, {uid: uid_pinpad_current}))}>Закрыть
-                смену</Button>
+            <List
+                type="zpinpads-pinpad"
+                size='small'
+                open={pinpad_open}
+                anchor={pinpad_ref}
+                prev_open={prev_pinpad_open}
+                id={pinpad_list_id}
+                setOpen={set_pinpad_open}
+                button_text={uid_pinpad_current === '' ? 'Выберите пинпад' : pinpad_list.find(el => el.uid === uid_pinpad_current).title}
+                list={pinpad_list}
+                color='secondary'
+                variant='contained'
+                startIcon={<PaymentRoundedIcon/>}
+                endIcon={<KeyboardArrowDownIcon/>}
+                handleClose={(event) => {
+                    dispatch(setCurrentPinpad(event))
+                }}
+            />
+            {uid_pinpad_current !== '' && <Button
+                variant='contained'
+                onClick={() => dispatch(openModal({
+                    type: 'equipment_pinpad', props: {uid: uid_pinpad_current}
+                }))}><OpenInNewIcon/></Button>}
         </ButtonGroup>
-    </Box>)
+    </Box>
 }
 
 export function ShowKitchenPoints() {
@@ -564,10 +599,10 @@ export default function AdminMenu() {
         return <Box id='top-menu'>
             {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring'].includes(current_page) &&
                 <DateParamAdmin/>}
-            {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
             {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
             {current_page === 'admin/operations' && <ShowDateOperations/>}
+            {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
             {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&

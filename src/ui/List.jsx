@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {Fragment, useEffect} from 'react'
 import {Button, ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuList, Paper, Popper} from "@mui/material"
 import Filial from "../page/header/Filial.jsx"
 import City from "../page/header/City.jsx"
@@ -45,88 +45,89 @@ const List = (props) => {
         }
     }
 
-    return (
-        <>
-            <Button
-                ref={props.anchor}
-                id={props.id + '-button'}
-                aria-controls={props.open ? props.id : undefined}
-                aria-expanded={props.open ? 'true' : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle}
-                startIcon={props.startIcon !== undefined ? props.startIcon : null}
-                endIcon={props.endIcon !== undefined ? props.endIcon : null}
-                size="small">
-                {props.button_text}
-            </Button>
-            <Popper
-                open={props.open}
-                anchorEl={props.anchor.current}
-                placement="bottom-start"
-                transition
-                disablePortal>
-                {({TransitionProps, placement}) => (
-                    <Grow {...TransitionProps}
-                          style={{transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'}}>
-                        <Paper sx={{backgroundColor: '#1b1d20'}}>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList
-                                    autoFocusItem={props.open}
-                                    id={props.id}
-                                    onKeyDown={handleListKeyDown}>
-                                    {props.list.map(el => {
-                                        if (props.type === 'cities') {
-                                            return (
-                                                <City
-                                                    key={el.uid}
-                                                    handleClose={handleClose}
-                                                    city={el}/>)
-                                        }
-                                        if (props.type === 'filials') {
-                                            return (
-                                                <Filial
-                                                    key={el.uid === undefined ? 'uid' : el.uid}
-                                                    handleClose={handleClose}
-                                                    filial={el}/>)
-                                        }
-                                        if (props.type === 'admin') {
-                                            return (
-                                                <WhiteMenuItem key={el.id} onClick={(event) => {
-                                                    handleClose(event)
-                                                    navigate(el.path)
-                                                }}>
-                                                    <ListItemIcon sx={{color: 'white'}}>
-                                                        {el.id === 'admin/orders/cinema' ?
-                                                            <GroupWorkIcon/> :
-                                                            el.id === 'admin/orders/horeca' ? <FastfoodIcon/> :
-                                                                el.id === 'admin/zbooks' ? <EqualizerIcon/> :
-                                                                    el.id === 'admin/operations' ?
-                                                                        <CurrencyRubleIcon/> :
-                                                                        el.id === 'admin/halls' ? <ChairIcon/> :
-                                                                            el.id === 'admin/scheme' ?
-                                                                                <ConstructionIcon/> :
-                                                                                el.id === 'admin/egais' ?
-                                                                                    <LiquorIcon/> :
-                                                                                    el.id === 'admin/acquiring' ?
-                                                                                        <PaymentsIcon/> :
-                                                                                        el.id === 'admin/staff' ?
-                                                                                            <ContactMailIcon/> : null}
-                                                    </ListItemIcon>
-                                                    <ListItemText>
-                                                        {el.name}
-                                                    </ListItemText>
-                                                </WhiteMenuItem>
-                                            )
-                                        }
-                                    })}
-                                </MenuList>
-                            </ClickAwayListener>
-                        </Paper>
-                    </Grow>
-                )}
-            </Popper>
-        </>
-    )
+    return <Fragment>
+        <Button
+            variant={props.variant !== undefined ? props.variant : 'contained'}
+            color={props.color !== undefined ? props.color : 'primary'}
+            ref={props.anchor}
+            id={props.id + '-button'}
+            aria-controls={props.open ? props.id : undefined}
+            aria-expanded={props.open ? 'true' : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
+            startIcon={props.startIcon !== undefined ? props.startIcon : null}
+            endIcon={props.endIcon !== undefined ? props.endIcon : null}
+            size="small">{props.button_text}
+        </Button>
+        <Popper
+            open={props.open}
+            anchorEl={props.anchor.current}
+            placement="bottom-start"
+            transition
+            disablePortal>
+            {({TransitionProps, placement}) => (<Grow {...TransitionProps}
+                                                      style={{transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'}}>
+                <Paper sx={{backgroundColor: '#1b1d20', maxHeight: 600, overflowY: 'auto'}}>
+                    <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList
+                            autoFocusItem={props.open}
+                            id={props.id}
+                            onKeyDown={handleListKeyDown}>
+                            {props.list.map(el => {
+                                switch (props.type) {
+                                    case 'zbooks-kkt':
+                                        return <WhiteMenuItem key={el.uid} onClick={(event) => {
+                                            props.handleClose !== undefined ? props.handleClose(el.uid) : null
+                                            handleClose(event)
+                                        }}>
+                                            <ListItemText>{el.title}</ListItemText>
+                                        </WhiteMenuItem>
+                                    case 'zpinpads-pinpad':
+                                        return <WhiteMenuItem key={el.uid} onClick={(event) => {
+                                            props.handleClose !== undefined ? props.handleClose(el.uid) : null
+                                            handleClose(event)
+                                        }}>
+                                            <ListItemText>{el.title}</ListItemText>
+                                        </WhiteMenuItem>
+                                    case 'cities':
+                                        return <City
+                                            key={el.uid}
+                                            handleClose={handleClose}
+                                            city={el}/>
+                                    case 'filials':
+                                        return <Filial
+                                            key={el.uid === undefined ? 'uid' : el.uid}
+                                            handleClose={handleClose}
+                                            filial={el}/>
+                                    case 'admin':
+                                        return <WhiteMenuItem key={el.id} onClick={(event) => {
+                                            handleClose(event)
+                                            navigate(el.path)
+                                        }}>
+                                            <ListItemIcon sx={{color: 'white'}}>
+                                                {el.id === 'admin/orders/cinema' ?
+                                                    <GroupWorkIcon/> : el.id === 'admin/orders/horeca' ?
+                                                        <FastfoodIcon/> : el.id === 'admin/zbooks' ?
+                                                            <EqualizerIcon/> : el.id === 'admin/operations' ?
+                                                                <CurrencyRubleIcon/> : el.id === 'admin/halls' ?
+                                                                    <ChairIcon/> : el.id === 'admin/scheme' ?
+                                                                        <ConstructionIcon/> : el.id === 'admin/egais' ?
+                                                                            <LiquorIcon/> : el.id === 'admin/acquiring' ?
+                                                                                <PaymentsIcon/> : el.id === 'admin/staff' ?
+                                                                                    <ContactMailIcon/> : null}
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                {el.name}
+                                            </ListItemText>
+                                        </WhiteMenuItem>
+                                }
+                            })}
+                        </MenuList>
+                    </ClickAwayListener>
+                </Paper>
+            </Grow>)}
+        </Popper>
+    </Fragment>
 }
 
 export default List

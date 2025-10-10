@@ -8,7 +8,7 @@ export const SelectMenu = ({type, list, current_value, width, action}) => {
 
     const dispatch = useDispatch()
 
-    return <FormControl variant="filled" sx={{minWidth: width}}>
+    return <FormControl variant="filled" sx={{minWidth: width, backgroundColor: 'white'}}>
         <InputLabel
             id="list-select-label">{type === 'zbooks-kkt' ? 'Касса' : type === 'zbooks-pinpad' ? 'Пинпад' : type === 'staff-list' ? 'Сотрудник' : type === 'return-reasons' ? 'Причина возврата' : type === 'return-kind' ? 'Способ возврата' : null}</InputLabel>
         <Select

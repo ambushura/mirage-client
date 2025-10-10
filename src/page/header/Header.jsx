@@ -14,7 +14,6 @@ import {logout} from "../../redux/authReducer.js"
 import dayjs from "dayjs"
 import {addNotification} from "../../redux/notifierReducer.js"
 import AppsIcon from '@mui/icons-material/Apps'
-import CachedIcon from '@mui/icons-material/Cached'
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import FastfoodIcon from '@mui/icons-material/Fastfood'
@@ -24,6 +23,9 @@ import HorecaMenu from "../top-menu/HorecaMenu.jsx"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
 import SeanceMenu from "../top-menu/SeanceMenu.jsx"
 import CheckoutMenu from "../top-menu/CheckoutMenu.jsx"
+import RestartAltIcon from '@mui/icons-material/RestartAlt'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
+import RestorePageIcon from '@mui/icons-material/RestorePage'
 
 const Header = () => {
 
@@ -66,8 +68,14 @@ const Header = () => {
         const up = []
         if (uid_user !== null) {
             up.push(<Button variant='outlined' size='medium' onClick={() => {
+                // TODO Выключение
+            }}><PowerSettingsNewIcon/></Button>)
+            up.push(<Button variant='outlined' size='medium' onClick={() => {
+                // TODO Перезагрузка
+            }}><RestartAltIcon/></Button>)
+            up.push(<Button variant='outlined' size='medium' onClick={() => {
                 document.location.reload()
-            }}><CachedIcon/></Button>)
+            }}><RestorePageIcon/></Button>)
             up.push(<Button><Clock key='3'/></Button>)
             up.push(<Button key='2'>{name_user}</Button>)
             if (cities.length > 0) {
@@ -77,6 +85,15 @@ const Header = () => {
                 </NavLink>)
             }
         } else {
+            up.push(<Button variant='contained' size='medium' onClick={() => {
+                // TODO Выключение
+            }}><PowerSettingsNewIcon/></Button>)
+            up.push(<Button variant='contained' size='medium' onClick={() => {
+                // TODO Перезагрузка
+            }}><RestartAltIcon/></Button>)
+            up.push(<Button variant='contained' size='medium' onClick={() => {
+                document.location.reload()
+            }}><RestorePageIcon/></Button>)
             up.push(<Button size='large' key='4'
                             onClick={() => {
                                 if (filial !== undefined) {

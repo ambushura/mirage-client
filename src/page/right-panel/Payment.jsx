@@ -373,10 +373,9 @@ const Payment = (props) => {
                 операции</Box> : payment_methods.loading ? <Loader size={2}/> : payment_methods.error !== null ?
                 <Box sx={{color: '#ff1a25', fontWeight: 'bold'}}>Ошибка загрузки маршрутов
                     оплаты</Box> : payment_methods.data === null || payment_methods.data.list.length === 0 ?
-                    <Box sx={{color: '#ff1a25', fontWeight: 'bold', textAlign: 'center'}}>Для этого рабочего места
-                        не
-                        найдено
-                        маршрутов оплаты, обратитесь в учетный отдел</Box> : payment_methods.data.list.map(pm => {
+                    <Box sx={{color: '#ff1a25', fontWeight: 'bold', textAlign: 'center'}}>Для этого рабочего места не
+                        найдено маршрутов оплаты, обратитесь в учетный
+                        отдел</Box> : payment_methods.data.list.map(pm => {
                         const chapter0_array = ['for_payment', 'for_returning']
                         const chapter1_array = ['waiting', 'slip_without_receipt']
                         const chapter2_array = ['mark_egais_items', 'horeca_items', 'cinema_items']

@@ -37,7 +37,7 @@ const OthersPaymentTypes = ({props}) => {
         <Typography variant="h6" color="textSecondary" margin={1}>
             Другие способы оплаты
         </Typography>
-        <Box sx={{display: "flex", flexWrap: 'wrap', flexDirection: "row", justifyContent: "space-between"}}>
+        <Box sx={{display: "flex", flexWrap: 'wrap', flexDirection: "row", justifyContent: "center"}}>
             {!payment_methods.loading && payment_methods.error !== null && payment_methods.data === null ?
                 <Box className='empty-box'>Ошибка загрузки маршрутов оплаты {payment_methods.error}</Box> : null}
             {payment_methods.loading && payment_methods.error === null && payment_methods.data === null ?
