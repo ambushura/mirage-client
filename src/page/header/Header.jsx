@@ -7,7 +7,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../forms/Auth.jsx"
 import {useEffect, useRef, useState} from "react"
-import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
+import {MOBILE_WIDTH, openModal, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -68,10 +68,22 @@ const Header = () => {
         const up = []
         if (uid_user !== null) {
             up.push(<Button variant='outlined' size='medium' onClick={() => {
-                // TODO Выключение
+                dispatch(openModal({
+                    type: 'dialog_shutdown', props: {
+                        type: 'YesNo',
+                        action: 'shutdown',
+                        question: 'Вы уверены, что хотите выключить это рабочее место?',
+                    }
+                }))
             }}><PowerSettingsNewIcon/></Button>)
             up.push(<Button variant='outlined' size='medium' onClick={() => {
-                // TODO Перезагрузка
+                dispatch(openModal({
+                    type: 'dialog_reboot', props: {
+                        type: 'YesNo',
+                        action: 'reboot',
+                        question: 'Вы уверены, что хотите перезагрузить это рабочее место?',
+                    }
+                }))
             }}><RestartAltIcon/></Button>)
             up.push(<Button variant='outlined' size='medium' onClick={() => {
                 document.location.reload()
@@ -86,10 +98,22 @@ const Header = () => {
             }
         } else {
             up.push(<Button variant='contained' size='medium' onClick={() => {
-                // TODO Выключение
+                dispatch(openModal({
+                    type: 'dialog_shutdown', props: {
+                        type: 'YesNo',
+                        action: 'shutdown',
+                        question: 'Вы уверены, что хотите выключить это рабочее место?',
+                    }
+                }))
             }}><PowerSettingsNewIcon/></Button>)
             up.push(<Button variant='contained' size='medium' onClick={() => {
-                // TODO Перезагрузка
+                dispatch(openModal({
+                    type: 'dialog_reboot', props: {
+                        type: 'YesNo',
+                        action: 'reboot',
+                        question: 'Вы уверены, что хотите перезагрузить это рабочее место?',
+                    }
+                }))
             }}><RestartAltIcon/></Button>)
             up.push(<Button variant='contained' size='medium' onClick={() => {
                 document.location.reload()

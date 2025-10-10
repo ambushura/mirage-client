@@ -18,6 +18,10 @@ const Dialog = ({props}) => {
 
     const handleYes = () => {
         switch (props.action) {
+            case 'reboot':
+                break
+            case 'shutdown':
+                break
             case 'cinema_order_delete':
                 dispatch(cinema_order_delete(props.payload.filial, props.payload.uid, props.payload.ver))
                 break

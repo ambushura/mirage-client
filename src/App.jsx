@@ -95,7 +95,9 @@ function App() {
         pinpads: OthersPaymentTypes,
         zBook: Zbook,
         receipt: Receipt,
-        slip: Slip
+        slip: Slip,
+        dialog_reboot: Dialog,
+        dialog_shutdown: Dialog,
     }
 
     const ModalContent = useMemo(() => {
