@@ -66,7 +66,7 @@ const ZPinpads = () => {
                                                   className='empty-box'>{fetching_zpinpads.error}</Box></Box>}
             {!fetching_zpinpads.loading && fetching_zpinpads.error === null && fetching_zpinpads.data !== null && zpinpads !== undefined &&
                 <Box sx={{minHeight: '50%'}}>
-                    <DataGridPro
+                    {zpinpads.length > 0 ? <DataGridPro
                         hideFooter
                         checkboxSelection
                         rows={zpinpads}
@@ -88,7 +88,8 @@ const ZPinpads = () => {
                                 fontSize: '0.9rem',
                             },
                         }}
-                    />
+                    /> : <Box className='empty-box' sx={{height: '100%'}}>Итоговые операции эквайринга в смене
+                        отсутствуют...</Box>}
                 </Box>}
             {fetching_slips.loading && fetching_slips.error === null && <Loader/>}
             {!fetching_slips.loading && fetching_slips.error !== null &&
@@ -96,7 +97,7 @@ const ZPinpads = () => {
                                                   className='empty-box'>{fetching_slips.error}</Box></Box>}
             {!fetching_slips.loading && fetching_slips.error === null && fetching_slips.data !== null && slips !== undefined &&
                 <Box sx={{minHeight: '50%'}}>
-                    <DataGridPro
+                    {slips.length > 0 ? <DataGridPro
                         hideFooter
                         checkboxSelection
                         rows={slips}
@@ -135,7 +136,7 @@ const ZPinpads = () => {
                         onRowDoubleClick={(params) => {
                             dispatch(openModal({type: 'slip', props: {uid: params.row.id}}))
                         }}
-                    />
+                    /> : <Box className='empty-box' sx={{height: '100%'}}>Слипы отсутствуют в смене...</Box>}
                 </Box>}
         </Box>
     }

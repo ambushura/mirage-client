@@ -266,7 +266,7 @@ export default function KKTForm({props}) {
                                  color='secondary' orientation='vertical'>
                         {fast_commands.map(el => {
                             return (<Button key={el.id} onClick={() => {
-                                dispatch(equipment_action(filial, wp, el.route, el.param))
+                                dispatch(equipment_action(filial, el.route, el.param))
                             }}>{el.name}</Button>)
                         })}
                     </ButtonGroup>
