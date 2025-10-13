@@ -156,7 +156,7 @@ const Slip = ({props}) => {
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
             <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
             <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Квитанция</Button>
-            <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>К заказу</Button>
+            <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в заказ</Button>
             <Button fullWidth variant='contained' color='success'>Сохранить</Button>
         </Box>
     </Box>
