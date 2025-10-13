@@ -23,7 +23,7 @@ const ZBook = ({props}) => {
     const [ofd, set_ofd] = useState('')
 
     return <Box
-        id="modal-quantity"
+        id="modal-zbook"
         component="form"
         noValidate
         autoComplete="off"

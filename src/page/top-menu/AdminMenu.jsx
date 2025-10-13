@@ -388,39 +388,28 @@ export function Equipment() {
 
 }
 
-export function ShowDateOperations() {
-
-    const dispatch = useDispatch()
-    const {columns, rows, date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
-    const {operations_details} = useSelector(state => state.documents)
-
-    if (columns.length === 0 || rows.length === 0) return null
-
-    return <>
-        <ButtonGroup color='secondary' variant='outlined'>
-            <Button>{date_shift_beginning}</Button>
-            <Button>{date_shift_ending}</Button>
-        </ButtonGroup>
-        <FormControlLabel onChange={() => {
-            dispatch(setOperationsDetails(!operations_details))
-        }}
-                          checked={operations_details}
-                          control={<Switch/>} label="Детализация" sx={{margin: '0 4px'}}/>
-    </>
-}
-
 export function Operations() {
 
     const dispatch = useDispatch()
     const {operations_page, operations_pages} = useSelector(state => state.documents)
+    const {operations_details} = useSelector(state => state.documents)
+    const {columns, rows, date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
 
-    return <Pagination
-        sx={{flexWrap: 'no-wrap'}}
-        page={operations_page}
-        onChange={(event, value) => dispatch(setOperationsPage(value))}
-        size={'large'}
-        count={operations_pages}
-        showFirstButton showLastButton/>
+    return <>
+        <Button sx={{margin: '0 4px'}} variant='contained' color='secondary'>Заполнить по итогам смены</Button>
+        <FormControlLabel onChange={() => {
+            dispatch(setOperationsDetails(!operations_details))
+        }} sx={{margin: '0 4px'}}
+                          checked={operations_details}
+                          control={<Switch/>} label="Подробно"/>
+        <Pagination
+            sx={{flexWrap: 'no-wrap'}}
+            page={operations_page}
+            onChange={(event, value) => dispatch(setOperationsPage(value))}
+            size={'large'}
+            count={operations_pages}
+            showFirstButton showLastButton/>
+    </>
 
 }
 
@@ -611,7 +600,6 @@ export default function AdminMenu() {
                 <DateParamAdmin/>}
             {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
             {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
-            {current_page === 'admin/operations' && <ShowDateOperations/>}
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
