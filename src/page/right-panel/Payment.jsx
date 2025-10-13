@@ -297,13 +297,22 @@ const Payment = (props) => {
                             }}>
                                 <Box>{item.name_payment_type}</Box>
                                 {item.uid_in_receipt !== null ?
-                                    <Box sx={{textDecoration: 'underline'}}>Чек приход</Box> : null}
+                                    <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
+                                        dispatch(openModal({type: 'receipt', props: {uid: item.uid_in_receipt}}))
+                                    }}>Чек приход</Box> : null}
                                 {item.uid_in_slip !== null ?
-                                    <Box sx={{textDecoration: 'underline'}}>Слип приход</Box> : null}
+                                    <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
+                                        dispatch(openModal({type: 'slip', props: {uid: item.uid_in_slip}}))
+                                    }}>Слип приход</Box> : null}
                                 {item.uid_out_receipt !== null ?
-                                    <Box sx={{textDecoration: 'underline'}}>Чек возврат</Box> : null}
+                                    <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
+                                        dispatch(openModal({type: 'receipt', props: {uid: item.uid_out_receipt}}))
+                                    }}>Чек возврат</Box> : null}
                                 {item.uid_out_slip !== null ?
-                                    <Box sx={{textDecoration: 'underline'}}>Слип возврат</Box> : null}
+                                    <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
+                                        dispatch(openModal({type: 'slip', props: {uid: item.uid_out_slip}}))
+                                    }}>Слип
+                                        возврат</Box> : null}
                             </Box> : null}
                         </Box>
                     </motion.div>)}
