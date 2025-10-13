@@ -679,14 +679,10 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
         kiosk,
         version,
     }, data => {
-        if (data.order !== null) {
-            if (data.errors.length === 0) {
-                dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
-                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-            } else {
-                dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
-                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-            }
+        if (data.errors.length === 0) {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        } else {
             data.errors.forEach(error => {
                 if (kiosk) {
                     dispatch(setKioskPaymentError(error))
@@ -696,6 +692,10 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
                     }))
                 }
             })
+            if (data.order !== null) {
+                dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+            }
         }
         dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     })

@@ -46,6 +46,21 @@ export function useSetPaymentGroups(order) {
 
             const payment_group_new = structuredClone(payment_group)
 
+            Object.values(payment_group_new.for_payment).forEach(group => {
+                Object.values(group).forEach(type => {
+                    if (type && typeof type === 'object' && Array.isArray(type.items)) {
+                        type.items = []
+                    }
+                })
+            })
+            Object.values(payment_group_new.for_returning).forEach(group => {
+                Object.values(group).forEach(type => {
+                    if (type && typeof type === 'object' && Array.isArray(type.items)) {
+                        type.items = []
+                    }
+                })
+            })
+
             payment_group_new.for_payment.waiting.mark_egais_items.count = order.for_payment.waiting.mark_egais_items.length
             payment_group_new.for_payment.waiting.horeca_items.count = order.for_payment.waiting.horeca_items.length
             payment_group_new.for_payment.waiting.cinema_items.count = order.for_payment.waiting.cinema_items.length

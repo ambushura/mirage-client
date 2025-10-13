@@ -217,7 +217,7 @@ const Payment = (props) => {
 
         if (grouped_items.length === 0) return null
 
-        return (<Box>
+        return <Box>
             <Box className='payment-items-group-title-name'>
                 {chapter1 !== 'success' ? (<Checkbox
                     checked={payment_group[chapter0][chapter1][chapter2].selected}
@@ -244,7 +244,7 @@ const Payment = (props) => {
                     exit="hidden"
                     variants={containerVariants}
                 >
-                    {grouped_items.map((item, i) => (<motion.div key={item.__uids.join('-')} variants={itemVariants}>
+                    {grouped_items.map((item, i) => <motion.div key={item.__uids.join('-')} variants={itemVariants}>
                         <Box
                             style={{borderBottom: i !== grouped_items.length - 1 ? '1px dashed #b6b5b5' : null}}>
                             <Box className='payment-items-group-item-row'>
@@ -306,10 +306,10 @@ const Payment = (props) => {
                                     <Box sx={{textDecoration: 'underline'}}>Слип возврат</Box> : null}
                             </Box> : null}
                         </Box>
-                    </motion.div>))}
+                    </motion.div>)}
                 </motion.div>)}
             </AnimatePresence>
-        </Box>)
+        </Box>
     }
 
 
