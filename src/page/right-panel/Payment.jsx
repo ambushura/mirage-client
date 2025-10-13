@@ -311,8 +311,7 @@ const Payment = (props) => {
                                 {item.uid_out_slip !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
                                         dispatch(openModal({type: 'slip', props: {uid: item.uid_out_slip}}))
-                                    }}>Слип
-                                        возврат</Box> : null}
+                                    }}>Слип возврат</Box> : null}
                             </Box> : null}
                         </Box>
                     </motion.div>)}

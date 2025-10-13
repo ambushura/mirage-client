@@ -150,21 +150,6 @@ const Receipt = ({props}) => {
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
-                        ЧЗ/ЕГАИС
-                    </Typography>
-                    <TextField
-                        label='Содержит марки'
-                        variant='filled'
-                        sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
-                    />
-                    <TextField
-                        label='Марки проверены'
-                        variant='filled'
-                        sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
-                    />
-                    <Typography variant="h6" color="textSecondary">
                         Покупатель
                     </Typography>
                     <TextField
@@ -175,6 +160,21 @@ const Receipt = ({props}) => {
                     />
                     <TextField
                         label='Номер телефона'
+                        variant='filled'
+                        sx={{marginBottom: '10px'}}
+                        slotProps={{input: {readOnly: true}}}
+                    />
+                    <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
+                        ЧЗ
+                    </Typography>
+                    <TextField
+                        label='Содержит марки'
+                        variant='filled'
+                        sx={{marginBottom: '10px'}}
+                        slotProps={{input: {readOnly: true}}}
+                    />
+                    <TextField
+                        label='Марки проверены'
                         variant='filled'
                         sx={{marginBottom: '10px'}}
                         slotProps={{input: {readOnly: true}}}
