@@ -68,6 +68,7 @@ import List from "../../ui/List.jsx"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PointOfSaleRoundedIcon from '@mui/icons-material/PointOfSaleRounded'
 import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded'
+import CloseIcon from '@mui/icons-material/Close'
 
 export function AdminHallsList() {
 
@@ -465,6 +466,10 @@ export function CurrentKKT() {
                 onClick={() => dispatch(openModal({
                     type: 'equipment_kkt', props: {uid: uid_kkt_current}
                 }))}><OpenInNewIcon/></Button>}
+            {uid_kkt_current !== '' && <Button variant='outlined'
+                                               color='secondary'
+                                               onClick={() => dispatch(setCurrentKKT(''))}>
+                <CloseIcon/></Button>}
         </ButtonGroup>
     </Box>
 }
@@ -506,10 +511,15 @@ export function CurrentPinpad() {
                 }}
             />
             {uid_pinpad_current !== '' && <Button
-                variant='contained'
+                variant='outlined'
                 onClick={() => dispatch(openModal({
                     type: 'equipment_pinpad', props: {uid: uid_pinpad_current}
                 }))}><OpenInNewIcon/></Button>}
+            {uid_pinpad_current !== '' && <Button variant='outlined'
+                                                  color='secondary'
+                                                  onClick={() => dispatch(setCurrentPinpad(''))}>
+                <CloseIcon/>
+            </Button>}
         </ButtonGroup>
     </Box>
 }

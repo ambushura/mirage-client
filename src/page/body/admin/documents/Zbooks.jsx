@@ -61,42 +61,6 @@ const Zbooks = () => {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else {
         return <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-            {fetching_zbooks.loading && fetching_zbooks.error === null && <Loader/>}
-            {!fetching_zbooks.loading && fetching_zbooks.error !== null &&
-                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
-                                                  className='empty-box'>{fetching_zbooks.error}</Box></Box>}
-            {!fetching_zbooks.loading && fetching_zbooks.error === null && fetching_zbooks.data !== null && zbooks !== undefined &&
-                <Box sx={{minHeight: '50%'}}>
-                    {zbooks.length > 0 ? <DataGridPro
-                        loading={fetching_zbooks.loading}
-                        hideFooter
-                        checkboxSelection
-                        rows={zbooks}
-                        columns={columns}
-                        pageSize={20}
-                        pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
-                        headerHeight={28}
-                        localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                        columnVisibilityModel={{id: false, ver: false, automatic: false}}
-                        pinnedColumns={{
-                            left: ['date_shift', 'number_kkt'],
-                            right: ['sum_non_zero_total_of_income', 'sum_non_zero_total_of_outcome']
-                        }}
-                        sx={{
-                            '& .total-row': {
-                                backgroundColor: '#f0f0f0', fontWeight: 'bold',
-                            }, '& .MuiDataGrid-cell': {
-                                padding: '0 4px', fontSize: '0.9rem',
-                            }, '& .MuiDataGrid-columnHeaderTitle': {
-                                fontSize: '0.9rem',
-                            },
-                        }}
-                        onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'zBook', props: {uid: params.row.id}}))
-                        }}
-                    /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}
-                </Box>}
             {fetching_receipts.loading && fetching_receipts.error === null && fetching_receipts.data === null &&
                 <Loader/>}
             {!fetching_receipts.loading && fetching_receipts.error !== null && fetching_receipts.data === null &&
@@ -150,6 +114,42 @@ const Zbooks = () => {
                             dispatch(openModal({type: 'receipt', props: {uid: params.row.id}}))
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Чеки отсутствуют в смене...</Box>}
+                </Box>}
+            {fetching_zbooks.loading && fetching_zbooks.error === null && <Loader/>}
+            {!fetching_zbooks.loading && fetching_zbooks.error !== null &&
+                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
+                                                  className='empty-box'>{fetching_zbooks.error}</Box></Box>}
+            {!fetching_zbooks.loading && fetching_zbooks.error === null && fetching_zbooks.data !== null && zbooks !== undefined &&
+                <Box sx={{minHeight: '50%'}}>
+                    {zbooks.length > 0 ? <DataGridPro
+                        loading={fetching_zbooks.loading}
+                        hideFooter
+                        checkboxSelection
+                        rows={zbooks}
+                        columns={columns}
+                        pageSize={20}
+                        pageSizeOptions={[10, 25, 50]}
+                        rowHeight={26}
+                        headerHeight={28}
+                        localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                        columnVisibilityModel={{id: false, ver: false, automatic: false}}
+                        pinnedColumns={{
+                            left: ['date_shift', 'number_kkt'],
+                            right: ['sum_non_zero_total_of_income', 'sum_non_zero_total_of_outcome']
+                        }}
+                        sx={{
+                            '& .total-row': {
+                                backgroundColor: '#f0f0f0', fontWeight: 'bold',
+                            }, '& .MuiDataGrid-cell': {
+                                padding: '0 4px', fontSize: '0.9rem',
+                            }, '& .MuiDataGrid-columnHeaderTitle': {
+                                fontSize: '0.9rem',
+                            },
+                        }}
+                        onRowDoubleClick={(params) => {
+                            dispatch(openModal({type: 'zBook', props: {uid: params.row.id}}))
+                        }}
+                    /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}
                 </Box>}
         </Box>
     }

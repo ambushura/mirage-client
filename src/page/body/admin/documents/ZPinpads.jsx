@@ -60,37 +60,6 @@ const ZPinpads = () => {
         return <Box className='empty-box'>Выберите филиал...</Box>
     } else {
         return <Box sx={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-            {fetching_zpinpads.loading && fetching_zpinpads.error === null && <Loader/>}
-            {!fetching_zpinpads.loading && fetching_zpinpads.error !== null &&
-                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
-                                                  className='empty-box'>{fetching_zpinpads.error}</Box></Box>}
-            {!fetching_zpinpads.loading && fetching_zpinpads.error === null && fetching_zpinpads.data !== null && zpinpads !== undefined &&
-                <Box sx={{minHeight: '50%'}}>
-                    {zpinpads.length > 0 ? <DataGridPro
-                        hideFooter
-                        checkboxSelection
-                        rows={zpinpads}
-                        columns={columns_zpinpads}
-                        pageSize={20}
-                        pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
-                        headerHeight={28}
-                        localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                        columnVisibilityModel={{
-                            id: false
-                        }}
-                        sx={{
-                            '& .total-row': {
-                                backgroundColor: '#f0f0f0', fontWeight: 'bold',
-                            }, '& .MuiDataGrid-cell': {
-                                padding: '0 4px', fontSize: '0.9rem',
-                            }, '& .MuiDataGrid-columnHeaderTitle': {
-                                fontSize: '0.9rem',
-                            },
-                        }}
-                    /> : <Box className='empty-box' sx={{height: '100%'}}>Итоговые операции эквайринга в смене
-                        отсутствуют...</Box>}
-                </Box>}
             {fetching_slips.loading && fetching_slips.error === null && <Loader/>}
             {!fetching_slips.loading && fetching_slips.error !== null &&
                 <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
@@ -137,6 +106,37 @@ const ZPinpads = () => {
                             dispatch(openModal({type: 'slip', props: {uid: params.row.id}}))
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Слипы отсутствуют в смене...</Box>}
+                </Box>}
+            {fetching_zpinpads.loading && fetching_zpinpads.error === null && <Loader/>}
+            {!fetching_zpinpads.loading && fetching_zpinpads.error !== null &&
+                <Box sx={{minHeight: '50%'}}><Box sx={{minHeight: '50%'}}
+                                                  className='empty-box'>{fetching_zpinpads.error}</Box></Box>}
+            {!fetching_zpinpads.loading && fetching_zpinpads.error === null && fetching_zpinpads.data !== null && zpinpads !== undefined &&
+                <Box sx={{minHeight: '50%'}}>
+                    {zpinpads.length > 0 ? <DataGridPro
+                        hideFooter
+                        checkboxSelection
+                        rows={zpinpads}
+                        columns={columns_zpinpads}
+                        pageSize={20}
+                        pageSizeOptions={[10, 25, 50]}
+                        rowHeight={26}
+                        headerHeight={28}
+                        localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                        columnVisibilityModel={{
+                            id: false
+                        }}
+                        sx={{
+                            '& .total-row': {
+                                backgroundColor: '#f0f0f0', fontWeight: 'bold',
+                            }, '& .MuiDataGrid-cell': {
+                                padding: '0 4px', fontSize: '0.9rem',
+                            }, '& .MuiDataGrid-columnHeaderTitle': {
+                                fontSize: '0.9rem',
+                            },
+                        }}
+                    /> : <Box className='empty-box' sx={{height: '100%'}}>Итоговые операции эквайринга в смене
+                        отсутствуют...</Box>}
                 </Box>}
         </Box>
     }
