@@ -88,12 +88,13 @@ const Header = () => {
             up.push(<Button variant='outlined' size='medium' onClick={() => {
                 document.location.reload()
             }}><RestorePageIcon/></Button>)
-            up.push(<Button><Clock key='3'/></Button>)
-            up.push(<Button key='2'>{name_user}</Button>)
+            up.push(<Button variant='contained'><Clock key='3'/></Button>)
+            up.push(<Button key='2' variant='contained'>{name_user}</Button>)
             if (cities.length > 0) {
                 up.push(<NavLink key='1'
                                  to={`/films/${city !== undefined ? city.code : cities[0].code}/${filial !== undefined ? filial.eais : 'all'}/${param_date}/?${wp !== null ? 'wp=' + wp : ''}`}>
-                    <Button startIcon={<ExitToAppIcon/>} onClick={() => dispatch(logout())}>Выход</Button>
+                    <Button variant='contained' startIcon={<ExitToAppIcon/>}
+                            onClick={() => dispatch(logout())}>Выход</Button>
                 </NavLink>)
             }
         } else {
@@ -118,7 +119,7 @@ const Header = () => {
             up.push(<Button variant='contained' size='medium' onClick={() => {
                 document.location.reload()
             }}><RestorePageIcon/></Button>)
-            up.push(<Button size='large' key='4'
+            up.push(<Button variant='contained' size='large' key='4'
                             onClick={() => {
                                 if (filial !== undefined) {
                                     dispatch(setAuthOpened(true))
@@ -246,7 +247,7 @@ const Header = () => {
                         />
                     </ButtonGroup>
                     <Box sx={{display: 'flex', alignItems: 'center', marginLeft: '5px'}}>
-                        <ButtonGroup size="small" variant='contained' color='secondary'
+                        <ButtonGroup size="small" color='secondary'
                                      id="header-time-username">
                             {user_panel()}
                         </ButtonGroup>
