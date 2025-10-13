@@ -22,7 +22,7 @@ export default function LazySelect({
     const [loading, setLoading] = useState(false)
     const [initialized, setInitialized] = useState(false)
 
-    const fetchOptions = async () => {
+    const fetch_options = async () => {
         if (loading) return
         setLoading(true)
         const data = await dispatch(common_lazy_list_get(filial, type))
@@ -33,7 +33,7 @@ export default function LazySelect({
 
     const handleOpen = async () => {
         if (options.length || loading) return
-        await fetchOptions()
+        await fetch_options()
     }
 
     const handleChange = e => {
@@ -48,14 +48,14 @@ export default function LazySelect({
 
     useEffect(() => {
         if (value && !options.length && !loading && !initialized) {
-            fetchOptions()
+            fetch_options()
         }
     }, [value, options.length])
 
     useEffect(() => {
         if (value && options.length) {
             const exists = options.some(o => getValue(o) === value)
-            if (!exists && !loading) fetchOptions()
+            if (!exists && !loading) fetch_options()
         }
     }, [value, options])
 

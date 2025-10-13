@@ -20,7 +20,7 @@ const Receipt = ({props}) => {
         sx={{width: '940px'}}
         onSubmit={handleSubmit}>
         <Typography variant="h6" color="textSecondary" margin={1}>
-            Чек
+            КАССОВЫЙ ЧЕК
         </Typography>
         <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>

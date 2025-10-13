@@ -21,7 +21,7 @@ const Operation = ({props}) => {
         sx={{width: '920px'}}
         onSubmit={handleSubmit}>
         <Typography variant="h6" color="textSecondary" margin={1}>
-            Операция по кассе
+            ОПЕРАЦИЯ ПО КАССЕ
         </Typography>
         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
             <TextField

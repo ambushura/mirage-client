@@ -48,7 +48,7 @@ const ZBook = ({props}) => {
             sx={{width: '920px'}}
             onSubmit={handleSubmit}>
             <Typography variant="h6" color="textSecondary" margin={1}>
-                Кассовая книга
+                КАССОВАЯ КНИГА
             </Typography>
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
@@ -75,12 +75,15 @@ const ZBook = ({props}) => {
                                 value={z_book.uid_kkt}
                                 type="kkt"
                                 filial={filial}
-                                onChange={(uid, extra) => set_z_book(prev => ({...prev, uid_kkt: uid}))}
+                                onChange={(uid, extra) => set_z_book(prev => ({
+                                    ...prev, uid_kkt: uid, name_organization: extra.name_organization, inn: extra.inn
+                                }))}
                                 getLabel={item => `ЗН ${item.title}`}
-                                extraFields={['uid_organization', 'name_organization', 'inn_organization']}
+                                extraFields={['uid_organization', 'name_organization', 'inn']}
                             />
                             <TextField
                                 label='Организация'
+                                value={z_book.name_organization || ''}
                                 variant='filled'
                                 fullWidth
                                 sx={{marginBottom: '10px'}}
@@ -88,13 +91,14 @@ const ZBook = ({props}) => {
                             />
                             <TextField
                                 label='ИНН'
+                                value={z_book.inn || ''}
                                 variant='filled'
                                 fullWidth
                                 sx={{marginBottom: '10px'}}
                                 slotProps={{input: {readOnly: true}}}
                             />
                             <TextField
-                                label='ФД'
+                                label='Номер последнего ФД'
                                 variant='filled'
                                 fullWidth
                                 sx={{marginBottom: '10px'}}
@@ -103,7 +107,7 @@ const ZBook = ({props}) => {
                         </Box>
                         <Box sx={{maxWidth: '300px', marginRight: '10px'}}>
                             <TextField
-                                label='Последний ФД'
+                                label='Номер смены'
                                 variant='filled'
                                 fullWidth
                                 type='number'
@@ -179,6 +183,7 @@ const ZBook = ({props}) => {
                     </Box>
                     <Box sx={{maxWidth: '610px', marginRight: '10px'}}>
                         <TextField
+                            sx={{marginBottom: '10px'}}
                             label='Комментарий'
                             variant='filled'
                             fullWidth
@@ -188,14 +193,6 @@ const ZBook = ({props}) => {
                     </Box>
                 </Box>
                 <Box sx={{maxWidth: '300px'}}>
-                    <TextField
-                        label='Номер смены'
-                        variant='filled'
-                        fullWidth
-                        type='number'
-                        sx={{marginBottom: '10px'}}
-                        slotProps={{input: {min: 0, step: 0.01}}}
-                    />
                     <TextField
                         label='Инкассация'
                         variant='filled'
