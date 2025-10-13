@@ -47,6 +47,7 @@ import {
     ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET,
     ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
     ROUTE_COMMON_DOCUMENTS_SLIPS_GET,
+    ROUTE_COMMON_DOCUMENTS_ZBOOK_GET,
     ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET,
     ROUTE_COMMON_DOCUMENTS_ZPINPADS_GET,
     ROUTE_COMMON_LIST_GET,
@@ -645,6 +646,20 @@ export const common_list_get = (filial, type) => async (dispatch, getState) => {
     })
 }
 
+export const common_lazy_list_get = (filial, type) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const res = await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
+        params: {type},
+        wp,
+        filial,
+        kiosk,
+        version,
+    })
+    return res?.data || []
+}
+
 export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group, uid_return_reason, comment_return_reason) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
@@ -1053,6 +1068,19 @@ export const common_documents_zbooks_get = (filial, date_shift, update) => async
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET}`,
         params: {date_shift, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_zbook_get = (filial, uid) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_GET}`,
+        params: {uid},
         filial,
         wp,
         kiosk,
