@@ -182,6 +182,12 @@ const Receipt = ({props}) => {
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', m: 1, width: '100%'}}>
                     <TextField
+                        label='Вид операции'
+                        variant='filled'
+                        sx={{marginRight: '10px', flex: 1}}
+                        slotProps={{input: {readOnly: true}}}
+                    />
+                    <TextField
                         label='Способ оплаты'
                         variant='filled'
                         sx={{marginRight: '10px', flex: 1}}
@@ -209,6 +215,7 @@ const Receipt = ({props}) => {
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
                 <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Товары</Button>
+                <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>К заказу</Button>
                 <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Сохранить</Button>
                 <Button fullWidth variant='contained' color='error'>Удалить</Button>
             </Box>
