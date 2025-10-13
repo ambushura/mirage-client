@@ -262,8 +262,8 @@ const ZBook = ({props}) => {
             </Box>
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
-            <Button fullWidth variant='contained' color='error' sx={{marginLeft: 1}}>Удалить</Button>
+            <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
+            <Button fullWidth variant='contained' color='success'>Сохранить</Button>
         </Box>
     </Box>
 }
