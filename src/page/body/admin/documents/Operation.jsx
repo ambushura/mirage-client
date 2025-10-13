@@ -1,9 +1,25 @@
 import {Box, Button, InputAdornment, TextField, Typography} from "@mui/material"
 import RemoveIcon from "@mui/icons-material/Remove"
 import AddIcon from "@mui/icons-material/Add"
+import {useDispatch} from "react-redux"
+import {closeModal} from "../../../../redux/interfaceReducer.js"
 
 const Operation = ({props}) => {
-    return (<Box>
+
+    const dispatch = useDispatch()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(closeModal())
+    }
+
+    return <Box
+        id="modal-zbook"
+        component="form"
+        noValidate
+        autoComplete="off"
+        sx={{width: '920px'}}
+        onSubmit={handleSubmit}>
         <Typography variant="h6" color="textSecondary" margin={1}>
             Операция по кассе
         </Typography>
@@ -59,7 +75,7 @@ const Operation = ({props}) => {
             <Button fullWidth variant='contained' color='success'>Сохранить</Button>
         </Box>
         {props.uid}
-    </Box>)
+    </Box>
 }
 
 export default Operation

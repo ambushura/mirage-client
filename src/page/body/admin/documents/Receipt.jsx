@@ -17,7 +17,7 @@ const Receipt = ({props}) => {
         component="form"
         noValidate
         autoComplete="off"
-        sx={{width: '960px'}}
+        sx={{width: '940px'}}
         onSubmit={handleSubmit}>
         <Typography variant="h6" color="textSecondary" margin={1}>
             Чек
