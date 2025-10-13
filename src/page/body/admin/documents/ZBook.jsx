@@ -1,7 +1,7 @@
 import {Box, Button, InputAdornment, TextField, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import KKTList from "./elements/KKTList.jsx"
 import dayjs from "dayjs"
 import {DatePicker} from "@mui/x-date-pickers"
@@ -21,6 +21,12 @@ const ZBook = ({props}) => {
     const [uid_kkt, set_uid_kkt] = useState('')
     const [uid_organization, set_uid_organization] = useState('')
     const [ofd, set_ofd] = useState('')
+
+    useEffect(() => {
+        if (props.uid !== null) {
+
+        }
+    }, [])
 
     return <Box
         id="modal-zbook"
