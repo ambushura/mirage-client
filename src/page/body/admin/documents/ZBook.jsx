@@ -59,14 +59,18 @@ const ZBook = ({props}) => {
                                 variant='filled'
                                 value={z_book.date_shift ? dayjs(z_book.date_shift) : null}
                                 sx={{marginBottom: '10px', width: '100%'}}
-                                onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
+                                onChange={(newVal) => set_z_book(prev => ({
+                                    ...prev, date_shift: newVal ? newVal.toISOString() : null
+                                }))}
                             />
                             <DatePicker
                                 label='Дата ОФД'
                                 variant='filled'
                                 value={z_book.date_ofd ? dayjs(z_book.date_ofd) : null}
                                 sx={{marginBottom: '10px', width: '100%'}}
-                                onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
+                                onChange={(newVal) => set_z_book(prev => ({
+                                    ...prev, date_ofd: newVal ? newVal.toISOString() : null
+                                }))}
                             />
                             <LazySelect
                                 variant='filled'
@@ -99,30 +103,45 @@ const ZBook = ({props}) => {
                             />
                             <TextField
                                 label='Номер последнего ФД'
+                                value={z_book.last_fd || 0}
                                 variant='filled'
                                 fullWidth
                                 sx={{marginBottom: '10px'}}
-                                slotProps={{input: {readOnly: true}}}
+                                onChange={e => {
+                                    const val = e.target.value
+                                    if (/^\d*$/.test(val)) {
+                                        set_z_book(prev => ({...prev, last_fd: val}))
+                                    }
+                                }}
                             />
                         </Box>
                         <Box sx={{maxWidth: '300px', marginRight: '10px'}}>
                             <TextField
                                 label='Номер смены'
                                 variant='filled'
+                                value={z_book.number_shift || 0}
                                 fullWidth
-                                type='number'
                                 sx={{marginBottom: '10px'}}
                                 slotProps={{input: {min: 0, step: 0.01}}}
+                                onChange={e => {
+                                    const val = e.target.value
+                                    if (/^\d*$/.test(val)) {
+                                        set_z_book(prev => ({...prev, number_shift: val}))
+                                    }
+                                }}
                             />
                             <TextField
                                 label='Наличные'
                                 variant='filled'
                                 fullWidth
-                                type='number'
+                                value={z_book.sum_in_cash || 0}
                                 sx={{marginBottom: '10px'}}
                                 slotProps={{
                                     input: {
-                                        min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        min: 0,
+                                        step: 0.01,
+                                        sx: {'& input': {textAlign: 'right'}},
+                                        startAdornment: <InputAdornment position="start">
                                             <AddIcon/>
                                         </InputAdornment>,
                                     }
@@ -133,11 +152,14 @@ const ZBook = ({props}) => {
                                 label='Наличные'
                                 variant='filled'
                                 fullWidth
-                                type='number'
+                                value={z_book.sum_out_cash || 0}
                                 sx={{marginBottom: '10px'}}
                                 slotProps={{
                                     input: {
-                                        min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        min: 0,
+                                        step: 0.01,
+                                        sx: {'& input': {textAlign: 'right'}},
+                                        startAdornment: <InputAdornment position="start">
                                             <RemoveIcon/>
                                         </InputAdornment>,
                                     }
@@ -147,11 +169,14 @@ const ZBook = ({props}) => {
                                 label='Безналичные'
                                 variant='filled'
                                 fullWidth
-                                type='number'
+                                value={z_book.sum_in_electron || 0}
                                 sx={{marginBottom: '10px'}}
                                 slotProps={{
                                     input: {
-                                        min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        min: 0,
+                                        step: 0.01,
+                                        sx: {'& input': {textAlign: 'right'}},
+                                        startAdornment: <InputAdornment position="start">
                                             <AddIcon/>
                                         </InputAdornment>
                                     }
@@ -161,11 +186,14 @@ const ZBook = ({props}) => {
                                 label='Безналичные'
                                 variant='filled'
                                 fullWidth
-                                type='number'
+                                value={z_book.sum_out_electron || 0}
                                 sx={{marginBottom: '10px'}}
                                 slotProps={{
                                     input: {
-                                        min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                        min: 0,
+                                        step: 0.01,
+                                        sx: {'& input': {textAlign: 'right'}},
+                                        startAdornment: <InputAdornment position="start">
                                             <RemoveIcon/>
                                         </InputAdornment>
                                     }
@@ -175,9 +203,9 @@ const ZBook = ({props}) => {
                                 label='НДС'
                                 variant='filled'
                                 fullWidth
-                                type='number'
+                                value={z_book.sum_nds || 0}
                                 sx={{marginBottom: '10px'}}
-                                slotProps={{input: {min: 0, step: 0.01}}}
+                                slotProps={{input: {min: 0, step: 0.01, sx: {'& input': {textAlign: 'right'}},}}}
                             />
                         </Box>
                     </Box>
@@ -185,6 +213,7 @@ const ZBook = ({props}) => {
                         <TextField
                             sx={{marginBottom: '10px'}}
                             label='Комментарий'
+                            value={z_book.comment || ''}
                             variant='filled'
                             fullWidth
                             multiline
@@ -197,19 +226,22 @@ const ZBook = ({props}) => {
                         label='Инкассация'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.sum_total_of_income || 0}
                         sx={{marginBottom: '10px'}}
-                        slotProps={{input: {min: 0, step: 0.01}}}
+                        slotProps={{input: {min: 0, step: 0.01, sx: {'& input': {textAlign: 'right'}},}}}
                     />
                     <TextField
                         label='Наличные'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.sum_collection || 0}
                         sx={{marginBottom: '10px'}}
                         slotProps={{
                             input: {
-                                min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                min: 0,
+                                step: 0.01,
+                                sx: {'& input': {textAlign: 'right'}},
+                                startAdornment: <InputAdornment position="start">
                                     <FunctionsIcon/>
                                 </InputAdornment>
                             }
@@ -219,11 +251,14 @@ const ZBook = ({props}) => {
                         label='Безналичные'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.sum_electron || 0}
                         sx={{marginBottom: '10px'}}
                         slotProps={{
                             input: {
-                                min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                min: 0,
+                                step: 0.01,
+                                sx: {'& input': {textAlign: 'right'}},
+                                startAdornment: <InputAdornment position="start">
                                     <FunctionsIcon/>
                                 </InputAdornment>
                             }
@@ -233,19 +268,22 @@ const ZBook = ({props}) => {
                         label='Выручка'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.revenue || 0}
                         sx={{marginBottom: '10px'}}
-                        slotProps={{input: {min: 0, step: 0.01}}}
+                        slotProps={{input: {min: 0, step: 0.01, sx: {'& input': {textAlign: 'right'}},}}}
                     />
                     <TextField
                         label='Сменный итог'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.sum_total_of_income || 0}
                         sx={{marginBottom: '10px'}}
                         slotProps={{
                             input: {
-                                min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                min: 0,
+                                step: 0.01,
+                                sx: {'& input': {textAlign: 'right'}},
+                                startAdornment: <InputAdornment position="start">
                                     <AddIcon/>
                                 </InputAdornment>
                             }
@@ -255,11 +293,14 @@ const ZBook = ({props}) => {
                         label='Необнуляемая сумма'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.sum_non_zero_total_of_income || 0}
                         sx={{marginBottom: '10px'}}
                         slotProps={{
                             input: {
-                                min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                min: 0,
+                                step: 0.01,
+                                sx: {'& input': {textAlign: 'right'}},
+                                startAdornment: <InputAdornment position="start">
                                     <AddIcon/>
                                 </InputAdornment>
                             }
@@ -269,11 +310,14 @@ const ZBook = ({props}) => {
                         label='Необнуляемая сумма'
                         variant='filled'
                         fullWidth
-                        type='number'
+                        value={z_book.sum_non_zero_total_of_outcome || 0}
                         sx={{marginBottom: '10px'}}
                         slotProps={{
                             input: {
-                                min: 0, step: 0.01, startAdornment: <InputAdornment position="start">
+                                min: 0,
+                                step: 0.01,
+                                sx: {'& input': {textAlign: 'right'}},
+                                startAdornment: <InputAdornment position="start">
                                     <RemoveIcon/>
                                 </InputAdornment>
                             }
