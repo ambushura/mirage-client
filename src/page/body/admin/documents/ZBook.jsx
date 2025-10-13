@@ -32,7 +32,7 @@ const ZBook = ({props}) => {
         <Typography variant="h6" color="textSecondary" margin={1}>
             Кассовая книга
         </Typography>
-        <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
             <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
                 <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
                     <Box sx={{maxWidth: '300px', marginRight: '10px'}}>

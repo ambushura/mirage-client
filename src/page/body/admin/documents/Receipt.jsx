@@ -23,7 +23,7 @@ const Receipt = ({props}) => {
             Чек
         </Typography>
         <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
-            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         ФНС

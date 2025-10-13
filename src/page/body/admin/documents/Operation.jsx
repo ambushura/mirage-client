@@ -7,7 +7,7 @@ const Operation = ({props}) => {
         <Typography variant="h6" color="textSecondary" margin={1}>
             Операция по кассе
         </Typography>
-        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
             <TextField
                 label='Касса источник'
                 variant='filled'

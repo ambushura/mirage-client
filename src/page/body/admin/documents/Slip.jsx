@@ -21,7 +21,7 @@ const Slip = ({props}) => {
         <Typography variant="h6" color="textSecondary" margin={1}>
             Слип
         </Typography>
-        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
             <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                 <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                     Общие
