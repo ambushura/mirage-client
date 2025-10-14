@@ -55,7 +55,7 @@ export default function LazySelect({
     useEffect(() => {
         if (value && options.length) {
             const exists = options.some(o => getValue(o) === value)
-            if (!exists && !loading) fetch_options()
+            if (!exists && !loading && !initialized) fetch_options()
         }
     }, [value, options])
 
