@@ -72,7 +72,7 @@ const ZBook = ({props}) => {
     }
 
     useEffect(() => {
-        if (props.id === 'new') {
+        if (props.uid === 'new') {
             set_z_book({
                 id: uuidv4(),
                 automatic: false,
@@ -109,7 +109,7 @@ const ZBook = ({props}) => {
             }
             fetch()
         }
-    }, [filial, props.id, dispatch])
+    }, [filial, props.uid, dispatch])
 
     const handleMoneyChange = (key) => (e) => {
         let val = e.target.value.replace(',', '.')
@@ -133,7 +133,7 @@ const ZBook = ({props}) => {
         onSubmit={handleSubmit}>
         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px'}}>
             <Typography variant="h6" color="textSecondary">
-                {`${props.id === 'new' ? 'НОВАЯ' : ''} КАССОВАЯ КНИГА`}
+                {`КАССОВАЯ КНИГА ${props.uid === 'new' ? ' *' : ''}`}
             </Typography>
             <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
         </Box>

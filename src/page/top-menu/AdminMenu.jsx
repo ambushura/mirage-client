@@ -347,7 +347,7 @@ export function CreateDeleteButtons() {
     const [anchor_z_books, set_anchor_z_books] = useState(null)
     const open_z_books = Boolean(anchor_z_books)
     const handleSelectZBook = (type) => {
-        dispatch(openModal({type, props: {id: 'new'}}))
+        dispatch(openModal({type, props: {uid: 'new'}}))
         set_anchor_z_books(null)
     }
 
@@ -358,7 +358,7 @@ export function CreateDeleteButtons() {
                 onClick={(e) => {
                     switch (current_page) {
                         case 'admin/operations':
-                            dispatch(openModal({type: 'documents_operation', props: {id: 'new'}}))
+                            dispatch(openModal({type: 'documents_operation', props: {uid: 'new'}}))
                             break
                         case 'admin/zbooks':
                             set_anchor_z_books(e.currentTarget)
