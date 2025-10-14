@@ -344,16 +344,40 @@ export function CreateDeleteButtons() {
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
 
-    return <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-        <Button startIcon={<AddIcon/>} onClick={() => {
-            switch (current_page) {
-                case 'admin/operations':
-                    dispatch(openModal({type: 'documents_operation', props: {}}))
-                    break
-            }
-        }}>Создать</Button>
-        <Button startIcon={<RemoveIcon/>}>Удалить</Button>
-    </ButtonGroup>
+    const [anchor_z_books, set_anchor_z_books] = useState(null)
+    const open_z_books = Boolean(anchor_z_books)
+    const handleSelectZBook = (type) => {
+        dispatch(openModal({type, props: {id: 'new'}}))
+        set_anchor_z_books(null)
+    }
+
+    return <>
+        <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
+            <Button
+                startIcon={<AddIcon/>}
+                onClick={(e) => {
+                    switch (current_page) {
+                        case 'admin/operations':
+                            dispatch(openModal({type: 'documents_operation', props: {id: 'new'}}))
+                            break
+                        case 'admin/zbooks':
+                            set_anchor_z_books(e.currentTarget)
+                            break
+                    }
+                }}>
+                Создать
+            </Button>
+            <Button startIcon={<RemoveIcon/>}>Удалить</Button>
+        </ButtonGroup>
+
+        <Menu
+            anchorEl={anchor_z_books}
+            open={open_z_books}
+            onClose={() => set_anchor_z_books(null)}>
+            <MenuItem onClick={() => handleSelectZBook('zBook')}>Кассовую книгу</MenuItem>
+            <MenuItem onClick={() => handleSelectZBook('receipt')}>Чек</MenuItem>
+        </Menu>
+    </>
 }
 
 export function Equipment() {
@@ -439,7 +463,7 @@ export function CurrentKKT() {
                 prev_open={prev_kkt_open}
                 id={kkt_list_id}
                 setOpen={set_kkt_open}
-                button_text={uid_kkt_current === '' ? 'Выберите кассу' : kkt_list.find(el => el.uid === uid_kkt_current).title}
+                button_text={uid_kkt_current === '' ? 'Выберите кассу' : kkt_list.find(el => el.uid === uid_kkt_current) !== undefined ? kkt_list.find(el => el.uid === uid_kkt_current).name_organization + ' · ЗН ' + kkt_list.find(el => el.uid === uid_kkt_current).title : 'Объект не найден'}
                 list={kkt_list}
                 color='secondary'
                 variant='contained'

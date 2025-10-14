@@ -80,7 +80,7 @@ const List = (props) => {
                                             props.handleClose !== undefined ? props.handleClose(el.uid) : null
                                             handleClose(event)
                                         }}>
-                                            <ListItemText>{el.title}</ListItemText>
+                                            <ListItemText>{el.name_organization} · ЗН {el.title}</ListItemText>
                                         </WhiteMenuItem>
                                     case 'zpinpads-pinpad':
                                         return <WhiteMenuItem key={el.uid} onClick={(event) => {
