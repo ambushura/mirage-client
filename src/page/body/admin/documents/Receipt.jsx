@@ -236,16 +236,35 @@ const Receipt = ({props}) => {
                         sx={{marginBottom: '10px'}}
                         slotProps={{input: {readOnly: true}}}
                     />
-                    <TextField
-                        label='Торговая точка'
+                    <LazySelect
                         variant='filled'
-                        sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
+                        sx={{marginBottom: '10px', maxWidth: '210px'}}
+                        label="Торговая точка"
+                        value={receipt.uid_store || ''}
+                        type="stores"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, uid_store: uid, name_store: extra.name_store,
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
+                        extraFields={['name_store']}
                     />
-                    <TextField
-                        label='Канал продажи'
+                    <LazySelect
                         variant='filled'
-                        slotProps={{input: {readOnly: true}}}
+                        sx={{marginBottom: '10px', maxWidth: '210px'}}
+                        label="Канал продажи"
+                        value={receipt.uid_channel || ''}
+                        type="sales_channels"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, uid_channel: uid, name_channel: extra.name_channel,
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
+                        extraFields={['name_store']}
                     />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
