@@ -71,10 +71,9 @@ const Operation = ({props}) => {
             />
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
-            <Button fullWidth variant='contained' color='success'>Сохранить</Button>
+            <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}>Удалить</Button>
+            <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
         </Box>
-        {props.uid}
     </Box>
 }
 
