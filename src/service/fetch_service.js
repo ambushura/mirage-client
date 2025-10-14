@@ -12,9 +12,7 @@ import {
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setPreOrderPaying,
-    setPreOrderPreparing,
-    setReturnReasonsList,
-    setStaffList
+    setPreOrderPreparing
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
@@ -634,9 +632,6 @@ export const common_list_get = (filial, type) => async (dispatch, getState) => {
             case 'pinpad':
                 dispatch(setPinpadList(data))
                 dispatch(setZPinpadsUpdate())
-                break
-            case 'staff':
-                dispatch(setStaffList(data))
                 break
             case 'return_reasons':
                 dispatch(setReturnReasonsList(data))

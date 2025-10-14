@@ -3,12 +3,10 @@ import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {
     setCash,
-    setCommentReturnReasons,
     setHorderPaying,
     setHorderPreparing,
     setPreOrderPaying,
     setPreOrderPreparing,
-    setReturnReasonsList,
     setTotal
 } from "../../redux/ordersReducer.js"
 import {
@@ -25,15 +23,15 @@ import {
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import DotsAnimation from "../../ui/DotsAnimation.jsx"
 import Loader from "../../ui/Loader.jsx"
-import {common_list_get, common_order_pay, common_payment_methods_get} from "../../service/fetch_service.js"
+import {common_order_pay, common_payment_methods_get} from "../../service/fetch_service.js"
 import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
 import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
-import {SelectMenu} from "../../ui/SelectMenu.jsx"
 import EditDocumentIcon from '@mui/icons-material/EditDocument'
 import PaymentIcon from '@mui/icons-material/Payment'
+import LazySelect from "../../ui/LazySelect.jsx"
 
 const Payment = (props) => {
 
@@ -49,9 +47,9 @@ const Payment = (props) => {
     const [show_payment_types, set_show_payment_types] = useState(false)
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
     const horder_paying = useSelector(state => state.orders.horder_paying)
-    const return_reasons = useSelector(state => state.orders.return_reasons)
-    const uid_current_return_reasons = useSelector(state => state.orders.uid_current_return_reasons)
-    const comment_return_reasons = useSelector(state => state.orders.comment_return_reasons)
+
+    const [uid_current_return_reasons, set_uid_current_return_reasons] = useState('')
+    const [comment_return_reasons, set_comment_return_reasons] = useState('')
 
     useEffect(() => {
         const fetch = async () => {
@@ -153,29 +151,30 @@ const Payment = (props) => {
         set_show_payment_types(show)
     }, [payment_group])
 
-    useEffect(() => {
-        dispatch(common_list_get(filial, 'return_reasons'))
-        return () => {
-            dispatch(setCommentReturnReasons(''))
-            dispatch(setReturnReasonsList([]))
-        }
-    }, [dispatch, filial])
-
     const return_reasons_list = () => {
         return <>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <SelectMenu
-                    type={'return-reasons'}
-                    list={return_reasons}
-                    current_value={uid_current_return_reasons}
-                    width='100%'
+                <LazySelect
+                    variant='filled'
+                    label="Причины возврата"
+                    value={uid_current_return_reasons || ''}
+                    type="return_reasons"
+                    filial={filial}
+                    onChange={(uid, extra) => {
+                        set_uid_current_return_reasons(uid)
+                    }}
+                    getLabel={item => `${item.title}`}
                 />
             </Box>
-            <TextField sx={{width: '100%'}} variant='filled' label='Комментарий к возврату'
-                       value={comment_return_reasons}
-                       onChange={(event) => {
-                           dispatch(setCommentReturnReasons(event.target.value))
-                       }}/>
+            <TextField
+                sx={{width: '100%'}}
+                value={comment_return_reasons || ''}
+                label='Комментарий к возврату'
+                variant='filled'
+                onChange={e => {
+                    set_comment_return_reasons(e.target.value)
+                }}
+            />
         </>
     }
 

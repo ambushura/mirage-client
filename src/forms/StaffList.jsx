@@ -1,27 +1,16 @@
 import {Box, Button, Typography} from "@mui/material"
-import {SelectMenu} from "../ui/SelectMenu.jsx"
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect, useState} from "react"
-import {common_list_get, horeca_order_change_creator} from "../service/fetch_service.js"
-import {setStaffList} from "../redux/ordersReducer.js"
+import {useState} from "react"
+import {horeca_order_change_creator} from "../service/fetch_service.js"
 import {closeModal} from "../redux/interfaceReducer.js"
 import {addNotification} from "../redux/notifierReducer.js"
+import LazySelect from "../ui/LazySelect.jsx"
 
 const StaffList = ({props}) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
-    const staff_list = useSelector(state => state.orders.staff_list)
     const [current_uid_staff, set_current_uid_staff] = useState('')
-
-    useEffect(() => {
-        const fetch = async () => {
-            await dispatch(common_list_get(filial, 'staff'))
-        }
-        dispatch(setStaffList([]))
-        fetch()
-        return () => dispatch(setStaffList([]))
-    }, [dispatch, filial])
 
     return <Box
         component="form"
@@ -40,14 +29,19 @@ const StaffList = ({props}) => {
             dispatch(closeModal())
         }}>
         <Typography variant="h6" color="textSecondary" margin={1}>
-            Автор заказа
+            Новый автор заказа
         </Typography>
-        <SelectMenu
-            type={'staff-list'}
-            list={staff_list}
-            current_value={current_uid_staff}
-            width={230}
-            action={set_current_uid_staff}
+        <LazySelect
+            variant='filled'
+            sx={{marginBottom: '10px', maxWidth: '210px'}}
+            label="Сотрудник"
+            value={current_uid_staff || ''}
+            type="staff"
+            filial={filial}
+            onChange={(uid, extra) => {
+                set_current_uid_staff(uid)
+            }}
+            getLabel={item => `${item.title}`}
         />
         <Button sx={{marginTop: '4px'}} variant="contained" color="secondary"
                 type="submit">Сохранить</Button>
