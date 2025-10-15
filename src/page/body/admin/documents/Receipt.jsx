@@ -1,4 +1,4 @@
-import {Box, Button, TextField, Typography} from "@mui/material"
+import {Box, Button, FormControlLabel, Switch, TextField, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {DatePicker} from "@mui/x-date-pickers"
@@ -129,7 +129,7 @@ const Receipt = ({props}) => {
         component="form"
         noValidate
         autoComplete="off"
-        sx={{width: '960px'}}
+        sx={{width: '970px'}}
         onSubmit={handleSubmit}>
         <Typography variant="h6" color="textSecondary" margin={1}>
             КАССОВЫЙ ЧЕК
@@ -271,17 +271,37 @@ const Receipt = ({props}) => {
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         Сумма
                     </Typography>
-                    <TextField
-                        label='Вид операции'
+                    <LazySelect
                         variant='filled'
-                        sx={{marginBottom: '10px', flex: 1}}
-                        slotProps={{input: {readOnly: true}}}
+                        sx={{marginBottom: '10px'}}
+                        label="Вид операции"
+                        value={receipt.type || ''}
+                        type="types"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, type: uid
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
+                        optionsStatic={[{uid: 1, title: 'ПРИХОД'}, {uid: 2, title: 'ВОЗВРАТ ПРИХОДА'}, {
+                            uid: 3, title: 'РАСХОД'
+                        }, {uid: 4, title: 'ВОЗВРАТ РАСХОДА'},]}
                     />
-                    <TextField
-                        label='Способ оплаты'
+                    <LazySelect
                         variant='filled'
-                        sx={{marginBottom: '10px', flex: 1}}
-                        slotProps={{input: {readOnly: true}}}
+                        sx={{marginBottom: '10px'}}
+                        label="Способ оплаты"
+                        value={receipt.uid_payment_type || ''}
+                        type="payment_types"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, uid_channel: uid, name_channel: extra.name_payment_type,
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
+                        extraFields={['name_store']}
                     />
                     <TextField
                         value={receipt.price || '0'}
@@ -304,6 +324,20 @@ const Receipt = ({props}) => {
                         slotProps={{input: {readOnly: true}}}
                         sx={{flex: 1}}
                     />
+                    <FormControlLabel
+                        control={<Switch
+                            checked={Boolean(receipt.copy)}
+                            onChange={e => set_receipt(prev => ({...prev, copy: e.target.checked}))}
+                            color="secondary"/>}
+                        label="Копия"
+                    />
+                    <FormControlLabel
+                        control={<Switch
+                            checked={Boolean(receipt.printed)}
+                            onChange={e => set_receipt(prev => ({...prev, printed: e.target.checked}))}
+                            color="secondary"/>}
+                        label="Напечатан"
+                    />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
@@ -323,29 +357,47 @@ const Receipt = ({props}) => {
                         sx={{marginBottom: '10px'}}
                         onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
                     />
-                    <TextField
-                        label='Автор'
+                    <LazySelect
                         variant='filled'
                         sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
+                        label="Рабочее место"
+                        value={receipt.uid_work_place || ''}
+                        type="workplaces"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, uid_work_place: uid,
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
                     />
-                    <TextField
-                        label='Кассир'
+                    <LazySelect
                         variant='filled'
                         sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
+                        label="Автор"
+                        value={receipt.uid_creator || ''}
+                        type="staff"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, uid_creator: uid,
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
                     />
-                    <TextField
-                        label='Содержит марки'
+                    <LazySelect
                         variant='filled'
                         sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
-                    />
-                    <TextField
-                        label='Марки проверены'
-                        variant='filled'
-                        sx={{marginBottom: '10px'}}
-                        slotProps={{input: {readOnly: true}}}
+                        label="Кассир"
+                        value={receipt.uid_cashier || ''}
+                        type="staff"
+                        filial={filial}
+                        onChange={(uid, extra) => {
+                            set_receipt(prev => ({
+                                ...prev, uid_cashier: uid,
+                            }))
+                        }}
+                        getLabel={item => `${item.title}`}
                     />
                 </Box>
             </Box>

@@ -1,11 +1,9 @@
 import {useEffect, useMemo, useState} from 'react'
 import {useDispatch} from 'react-redux'
-import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from '@mui/material'
+import {Autocomplete, CircularProgress, TextField} from '@mui/material'
 import {common_lazy_list_get} from "../service/fetch_service.js"
 
 export default function LazySelect({
-                                       variant,
-                                       sx,
                                        label,
                                        value,
                                        type,
@@ -14,8 +12,9 @@ export default function LazySelect({
                                        getLabel = item => item.title,
                                        getValue = item => item.uid,
                                        extraFields = [],
-                                       fullWidth = true,
+                                       optionsStatic = null,
                                        disabled = false,
+                                       sx,
                                    }) {
     const dispatch = useDispatch()
     const [options, setOptions] = useState([])
@@ -23,7 +22,7 @@ export default function LazySelect({
     const [initialized, setInitialized] = useState(false)
 
     const fetch_options = async () => {
-        if (loading) return
+        if (loading || optionsStatic) return
         setLoading(true)
         const data = await dispatch(common_lazy_list_get(filial, type))
         if (Array.isArray(data)) setOptions(data)
@@ -31,59 +30,62 @@ export default function LazySelect({
         setInitialized(true)
     }
 
-    const handleOpen = async () => {
-        if (options.length || loading) return
-        await fetch_options()
-    }
-
-    const handleChange = e => {
-        const uid = e.target.value
-        const item = options.find(o => getValue(o) === uid)
-        const extra = extraFields.reduce((acc, key) => {
-            if (item && item[key] !== undefined) acc[key] = item[key]
-            return acc
-        }, {})
-        onChange(uid, extra)
-    }
-
     useEffect(() => {
+        if (optionsStatic) {
+            setOptions(optionsStatic)
+            return
+        }
         if (value && !options.length && !loading && !initialized) {
             fetch_options()
         }
-    }, [value, options.length])
+    }, [value, optionsStatic])
 
-    useEffect(() => {
-        if (value && options.length) {
-            const exists = options.some(o => getValue(o) === value)
-            if (!exists && !loading && !initialized) fetch_options()
+    const allOptions = useMemo(() => {
+        const base = optionsStatic || options
+        if (!value) return base
+        const exists = base.some(o => getValue(o) === value)
+        return exists ? base : [{uid: value, title: 'Объект не найден…'}, ...base]
+    }, [options, optionsStatic, value])
+
+    const currentItem = allOptions.find(o => getValue(o) === value) || null
+
+    const handleChange = (_, newItem) => {
+        if (!newItem || newItem.title === 'Объект не найден…') {
+            onChange(null)
+            return
         }
-    }, [value, options])
+        const extra = extraFields.reduce((acc, key) => {
+            if (newItem && newItem[key] !== undefined) acc[key] = newItem[key]
+            return acc
+        }, {})
+        onChange(getValue(newItem), extra)
+    }
 
-    const displayedOptions = useMemo(() => {
-        if (!value) return options
-        const exists = options.some(o => getValue(o) === value)
-        if (!exists && !loading) {
-            return [{uid: value, title: 'Объект не найден…'}, ...options,]
-        }
-        return options
-    }, [options, value, loading])
-
-    return <FormControl variant={variant} fullWidth={fullWidth} disabled={disabled} sx={sx}>
-        <InputLabel>{label}</InputLabel>
-        <Select
+    return <Autocomplete
+        value={currentItem}
+        onChange={handleChange}
+        onOpen={fetch_options}
+        options={allOptions}
+        getOptionLabel={getLabel}
+        loading={loading}
+        disabled={disabled}
+        sx={sx}
+        noOptionsText="Нет данных"
+        renderOption={(props, option) => <li
+            {...props}
+            style={option.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}>
+            {option.title}
+        </li>}
+        renderInput={(params) => <TextField
+            {...params}
             label={label}
-            value={value || ''}
-            onChange={handleChange}
-            onOpen={handleOpen}>
-            {loading ? <MenuItem disabled>
-                <CircularProgress size={20}/>
-            </MenuItem> : displayedOptions.length ? displayedOptions.map(opt => <MenuItem
-                key={getValue(opt)}
-                value={getValue(opt)}
-                disabled={opt.title === 'Объект не найден…'}
-                style={opt.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}>
-                {getLabel(opt)}
-            </MenuItem>) : <MenuItem disabled>Нет данных</MenuItem>}
-        </Select>
-    </FormControl>
+            variant="filled"
+            InputProps={{
+                ...params.InputProps, endAdornment: (<>
+                    {loading ? <CircularProgress color="inherit" size={20}/> : null}
+                    {params.InputProps.endAdornment}
+                </>),
+            }}
+        />}
+    />
 }
