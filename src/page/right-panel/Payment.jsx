@@ -153,8 +153,9 @@ const Payment = (props) => {
 
     const return_reasons_list = () => {
         return <>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{display: 'flex', flexDirection: 'row', width: '100%'}}>
                 <LazySelect
+                    sx={{width: '100%'}}
                     variant='filled'
                     label="Причины возврата"
                     value={uid_current_return_reasons || ''}

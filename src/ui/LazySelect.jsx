@@ -51,7 +51,7 @@ export default function LazySelect({
 
     const handleChange = (_, newItem) => {
         if (!newItem || newItem.title === 'Объект не найден…') {
-            onChange(null)
+            onChange(null, {})
             return
         }
         const extra = extraFields.reduce((acc, key) => {
@@ -80,7 +80,7 @@ export default function LazySelect({
             {...params}
             label={label}
             variant="filled"
-            InputProps={{
+            slotProps={{
                 ...params.InputProps, endAdornment: (<>
                     {loading ? <CircularProgress color="inherit" size={20}/> : null}
                     {params.InputProps.endAdornment}

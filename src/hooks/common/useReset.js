@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder,} from "../../redux/ordersReducer.js"
 import {setShowFreeSpace} from "../../redux/scheduleReducer.js"
 import {setUidHall} from "../../redux/hallsReducer.js"
+import {logout} from "../../redux/authReducer.js";
 
 export function useReset() {
 
@@ -10,6 +11,7 @@ export function useReset() {
 
     const filial = useSelector(state => state.data.filial)
     const uid_user = useSelector(state => state.auth.uid)
+    const {kiosk, wp} = useSelector(state => state.interface)
 
     const [clear, set_clear] = useState(0)
 
@@ -32,4 +34,9 @@ export function useReset() {
         dispatch(setUidHall(null))
     }, [dispatch, filial])
 
+    useEffect(() => {
+        if (kiosk) {
+            dispatch(logout())
+        }
+    }, [kiosk])
 }
