@@ -145,13 +145,12 @@ const CheckoutMenu = () => {
                     onClose={() => {
                     }}
                     aria-labelledby="paying-process"
-                    PaperProps={{
-                        sx: {
-                            borderRadius: '45px', backgroundColor: '#EFEFEF', color: 'black', minWidth: '530px',
-                        }
-                    }}
-                >
-                    <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+                    slotProps={{
+                        sx: {backgroundColor: '#EFEFEF', color: 'black', minWidth: '500px'}
+                    }}>
+                    <Box sx={{
+                        display: 'flex', flexDirection: 'row', justifyContent: 'space-around', minWidth: '500px'
+                    }}>
                         <Box>
                             <Loader size={1.8}/>
                         </Box>

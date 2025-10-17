@@ -5,13 +5,11 @@ import {
     pushKitchenPositions,
     setCurrentHorder,
     setCurrentPreOrder,
-    setHorderPaying,
     setHorderPreparing,
     setKioskPaymentError,
     setKitchenPointsList,
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
-    setPreOrderPaying,
     setPreOrderPreparing
 } from "../redux/ordersReducer.js"
 import {setBooking, setSeance} from "../redux/scheduleReducer.js"
@@ -691,6 +689,10 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
         kiosk,
         version,
     }, data => {
+        if (data.order !== null) {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        }
         if (data.errors.length === 0) {
             dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
             dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
@@ -704,12 +706,7 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
                     }))
                 }
             })
-            if (data.order !== null) {
-                dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
-                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-            }
         }
-        dispatch(type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     })
 }
 
