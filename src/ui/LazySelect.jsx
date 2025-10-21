@@ -71,6 +71,7 @@ export default function LazySelect({
         disabled={disabled}
         sx={sx}
         noOptionsText="Нет данных"
+        loadingText="Загрузка..."
         renderOption={(props, option) => <li
             {...props}
             style={option.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}>
@@ -81,10 +82,10 @@ export default function LazySelect({
             label={label}
             variant="filled"
             slotProps={{
-                ...params.InputProps, endAdornment: (<>
+                ...params.InputProps, endAdornment: <>
                     {loading ? <CircularProgress color="inherit" size={20}/> : null}
                     {params.InputProps.endAdornment}
-                </>),
+                </>,
             }}
         />}
     />

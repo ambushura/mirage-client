@@ -190,3 +190,9 @@ export const EMPTY_TABLE_STYLE = {
 export const WhiteMenuItem = styled(MenuItem)({
     color: 'white', fontWeight: 'bold'
 })
+
+export const tooltip_error = {
+    sx: {
+        bgcolor: 'error.main', color: '#fff', fontSize: 13, boxShadow: 3, '& .MuiTooltip-arrow': {color: 'error.main'}
+    }
+}
