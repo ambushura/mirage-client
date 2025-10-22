@@ -18,7 +18,7 @@ const Receipt = ({props}) => {
 
     const {handleSubmit, setValue, control, formState: {errors}, reset, watch} = useForm({
         defaultValues: {
-            id: null,
+            id: '',
             uid_creator: null,
             name_creator: '',
             copy: false,
@@ -26,35 +26,36 @@ const Receipt = ({props}) => {
             date_shift: null,
             sum_discount: 0,
             fn: '',
-            fd: null,
+            fd: '',
             fp: '',
             moment: null,
-            number: null,
+            number: '',
             number_kkt: '',
             price: 0,
-            shift_number: null,
+            shift_number: '',
             sum: 0,
             type: null,
-            uid_cashier: null,
+            uid_cashier: '',
             name_cashier: '',
-            uid_kkt: null,
-            uid_order_cinema: null,
-            uid_order_food: null,
-            uid_organization: null,
-            uid_payment_type: null,
+            uid_kkt: '',
+            uid_order_cinema: '',
+            uid_order_food: '',
+            uid_organization: '',
+            uid_payment_type: '',
             name_payment_type: '',
-            uid_channel: null,
+            uid_channel: '',
             name_channel: '',
-            uid_store: null,
+            uid_store: '',
             name_organization: '',
             inn_organization: '',
             name_store: '',
-            uid_work_place: null,
+            uid_work_place: '',
             sno: null,
             printed: false,
             channel_name: '',
             rn: '',
-            date_shift_claim: null
+            date_shift_claim: null,
+            items: [],
         }
     })
 
@@ -77,9 +78,10 @@ const Receipt = ({props}) => {
                             date_create: data.data.date_create ? dayjs(data.data.date_create) : null,
                             date_shift: data.data.date_shift ? dayjs(data.data.date_shift) : null,
                             moment: data.data.moment ? dayjs(data.data.moment) : null,
-                            price: data.data.price ? parseFloat(data.data.price).toFixed(2) : '0.00',
-                            sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount).toFixed(2) : '0.00',
-                            sum: data.data.sum ? parseFloat(data.data.sum).toFixed(2) : '0.00',
+                            price: data.data.price ? parseFloat(data.data.price) : 0,
+                            sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
+                            sum: data.data.sum ? parseFloat(data.data.sum) : 0,
+                            sno: data.data.sno !== null ? String(data.data.sno) : null,
                         })
                     }
                 } catch (err) {
@@ -91,21 +93,6 @@ const Receipt = ({props}) => {
         fetchData()
     }, [props.uid, filial, dispatch, reset])
 
-    const formatMoney = (value) => {
-        const num = parseFloat(value)
-        if (isNaN(num)) return '0.00'
-        return num.toFixed(2)
-    }
-
-    const handleMoneyChange = (value) => (e) => {
-        let val = value.replace(',', '.')
-        if (!/^\d*\.?\d{0,2}$/.test(val)) return
-        if (val.startsWith('0') && val.length > 1 && val[1] !== '.') {
-            val = val.replace(/^0+/, '')
-        }
-        if (val === '.') val = '0.'
-        return val
-    }
 
     const price = watch('price')
     const discount = watch('sum_discount')
@@ -113,8 +100,8 @@ const Receipt = ({props}) => {
     useEffect(() => {
         const p = parseFloat(price) || 0
         const d = parseFloat(discount) || 0
-        const result = p - d
-        setValue('sum', result > 0 ? result.toFixed(2) : '0.00')
+        const result = Math.max(p - d, 0)
+        setValue('sum', Number(result.toFixed(2)), {shouldValidate: true})
     }, [price, discount, setValue])
 
     return <Box
@@ -258,10 +245,10 @@ const Receipt = ({props}) => {
                         label="Канал продажи"
                         type="sales_channels"
                         filial={filial}
-                        extraFields={['channel_name']}
+                        extraFields={['name_channel']}
                         rules={{required: 'Укажите канал продажи'}}
                         onChange={(uid, extra) => {
-                            setValue('channel_name', extra.channel_name || '')
+                            setValue('channel_name', extra.name_channel || '')
                         }}
                     />
                 </Box>
@@ -301,7 +288,7 @@ const Receipt = ({props}) => {
                         control={control}
                         name="sum"
                         label="Сумма со скидкой"
-                        readOnly
+                        readOnly={true}
                     />
                     <ControlledSwitch
                         control={control}
@@ -330,6 +317,7 @@ const Receipt = ({props}) => {
                         type="workplaces"
                         filial={filial}
                         rules={{required: 'Укажите рабочее место'}}
+                        extraFields={['name_workplace']}
                     />
                     <ControlledLazySelect
                         control={control}
@@ -351,21 +339,17 @@ const Receipt = ({props}) => {
                         control={control}
                         name="printed"
                         label="Напечатан"
-                        color="primary"
+                        color="secondary"
                     />
                 </Box>
             </Box>
-            <ControlledTextField
-                control={control}
-                name="comment"
-                label="Комментарий"
-            />
             <Box className='glass'
                  sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
                 <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}>Удалить</Button>
                 <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Товары</Button>
-                <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в
-                    заказ</Button>
+                {watch('uid_order_cinema') !== null || watch('uid_order_horeca') !== null &&
+                    <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в
+                        заказ</Button>}
                 <Button fullWidth variant='contained' color='secondary' type="submit">Сохранить</Button>
             </Box>
         </Box>

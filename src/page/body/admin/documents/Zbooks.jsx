@@ -233,10 +233,10 @@ export const columns_receipts = [{field: 'id', headerName: 'UID документ
 }, {field: 'inn_organization', headerName: 'ИНН', width: 100}, {
     field: 'sno', headerName: 'СНО', width: 100, valueGetter: (param) => {
         switch (param) {
+            case 0:
+                return 'Основная'
             case 1:
-                return 'ОБЩАЯ'
-            case 2:
-                return 'УСН'
+                return 'Упрощенная'
         }
     }
 }, {field: 'name_store', headerName: 'Торговая точка', width: 140}, {

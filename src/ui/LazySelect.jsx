@@ -74,6 +74,7 @@ export default function LazySelect({
         loadingText="Загрузка..."
         renderOption={(props, option) => <li
             {...props}
+            key={getValue(option)}
             style={option.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}>
             {option.title}
         </li>}
