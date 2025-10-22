@@ -10,6 +10,8 @@ import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
 import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
+import {ruRU} from "@mui/x-data-grid/locales"
+import {DataGridPro} from "@mui/x-data-grid-pro"
 
 const Receipt = ({props}) => {
 
@@ -93,6 +95,8 @@ const Receipt = ({props}) => {
         fetchData()
     }, [props.uid, filial, dispatch, reset])
 
+
+    const items = watch('items')
 
     const price = watch('price')
     const discount = watch('sum_discount')
@@ -343,10 +347,40 @@ const Receipt = ({props}) => {
                     />
                 </Box>
             </Box>
+            <Box>
+                <DataGridPro
+                    hideFooter
+                    checkboxSelection
+                    rows={items}
+                    columns={columns_items}
+                    pageSize={20}
+                    pageSizeOptions={[10, 25, 50]}
+                    rowHeight={26}
+                    headerHeight={28}
+                    columnVisibilityModel={{
+                        id: false,
+                        unit_code: false,
+                        mark_kkt_check_result: false,
+                        mark_req_id: false,
+                        mark_req_timestamp: false
+                    }}
+                    sx={{
+                        '& .total-row': {
+                            backgroundColor: '#f0f0f0', fontWeight: 'bold',
+                        }, '& .MuiDataGrid-cell': {
+                            padding: '0 4px', fontSize: '0.9rem',
+                        }, '& .MuiDataGrid-columnHeaderTitle': {
+                            fontSize: '0.9rem',
+                        }, marginBottom: '10px'
+                    }}
+                    localeText={{
+                        ...ruRU.components.MuiDataGrid.defaultProps.localeText, noRowsLabel: 'Нет товаров'
+                    }}
+                />
+            </Box>
             <Box className='glass'
                  sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
                 <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}>Удалить</Button>
-                <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Товары</Button>
                 {watch('uid_order_cinema') !== null || watch('uid_order_horeca') !== null &&
                     <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в
                         заказ</Button>}
@@ -357,3 +391,17 @@ const Receipt = ({props}) => {
 }
 
 export default Receipt
+
+export const columns_items = [{field: 'id', headerName: 'Номер строки', width: 10}, {
+    field: 'commodity_name', headerName: 'Наименование', width: 200
+}, {field: 'mark_value', headerName: 'Марка', width: 80}, {
+    field: 'mark_kkt_check_result', headerName: 'ЧЗ КП', width: 130
+}, {field: 'mark_req_id', headerName: 'ЧЗ ИД РР', width: 50}, {
+    field: 'mark_req_timestamp', headerName: 'ЧЗ Дата проверки РР', width: 50
+}, {field: 'price', headerName: 'Цена', width: 100, type: 'number'}, {
+    field: 'quantity', headerName: 'Количество', width: 100, type: 'number'
+}, {field: 'sum', headerName: 'Сумма со скидкой', width: 100, type: 'number'}, {
+    field: 'sum_tax', headerName: 'Сумма НДС', width: 100, type: 'number'
+}, {field: 'tax_type', headerName: 'СНО (%НДС)', width: 30}, {
+    field: 'unit_code', headerName: 'Код ед. изм.', width: 30
+}, {field: 'unit_name', headerName: 'Ед. изм.', width: 30},]
