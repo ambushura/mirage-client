@@ -86,4 +86,5 @@ export const COMMON_PRINTERS_GET = '/api/common/printers/get'
 export const ROUTE_HORECA_POSITION_ADD_BARCODE = '/api/horeca/position/add/barcode'
 export const ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET = '/api/common/documents/receipts/get'
 export const ROUTE_COMMON_DOCUMENTS_RECEIPT_GET = '/api/common/documents/receipt/get'
+export const ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE = "/api/common/documents/receipt/save"
 export const ROUTE_COMMON_DOCUMENTS_SLIPS_GET = '/api/common/documents/slips/get'

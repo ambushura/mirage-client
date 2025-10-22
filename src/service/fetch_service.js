@@ -42,6 +42,7 @@ import {
     ROUTE_COMMON_CITIES_GET,
     ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET,
     ROUTE_COMMON_DOCUMENTS_RECEIPT_GET,
+    ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE,
     ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
     ROUTE_COMMON_DOCUMENTS_SLIPS_GET,
     ROUTE_COMMON_DOCUMENTS_ZBOOK_GET,
@@ -1302,6 +1303,19 @@ export const common_documents_receipt_get = (filial, uid) => async (dispatch, ge
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_GET}`,
         params: {uid},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_receipt_save = (filial, receipt) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'post',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE}`,
+        data: receipt,
         filial,
         wp,
         kiosk,

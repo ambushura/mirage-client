@@ -2,7 +2,7 @@ import {Box, Button, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
-import {common_documents_receipt_get} from "../../../../service/fetch_service.js"
+import {common_documents_receipt_get, common_documents_receipt_save} from "../../../../service/fetch_service.js"
 import dayjs from "dayjs"
 import {useForm} from "react-hook-form"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
@@ -12,6 +12,7 @@ import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
+import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
 
 const Receipt = ({props}) => {
 
@@ -62,8 +63,10 @@ const Receipt = ({props}) => {
     })
 
     const onSubmit = (data) => {
-        // TODO
-        console.log(data)
+        const prepared = {
+            ...data, sno: data.sno !== null ? parseInt(data.sno, 10) : null,
+        }
+        dispatch(common_documents_receipt_save(filial, prepared))
         dispatch(closeModal())
     }
 
@@ -182,7 +185,7 @@ const Receipt = ({props}) => {
                             pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
                         }}
                     />
-                    <ControlledDatePicker
+                    <ControlledDateTimePicker
                         control={control}
                         name="moment"
                         label="Момент пробития чека"
@@ -365,13 +368,12 @@ const Receipt = ({props}) => {
                         mark_req_timestamp: false
                     }}
                     sx={{
-                        '& .total-row': {
-                            backgroundColor: '#f0f0f0', fontWeight: 'bold',
-                        }, '& .MuiDataGrid-cell': {
-                            padding: '0 4px', fontSize: '0.9rem',
-                        }, '& .MuiDataGrid-columnHeaderTitle': {
-                            fontSize: '0.9rem',
-                        }, marginBottom: '10px'
+                        maxHeight: `calc(${28}px + ${26 * 5}px + 2px)`,
+                        overflowY: 'auto',
+                        '& .total-row': {backgroundColor: '#f0f0f0', fontWeight: 'bold'},
+                        '& .MuiDataGrid-cell': {padding: '0 4px', fontSize: '0.9rem'},
+                        '& .MuiDataGrid-columnHeaderTitle': {fontSize: '0.9rem'},
+                        marginBottom: '10px',
                     }}
                     localeText={{
                         ...ruRU.components.MuiDataGrid.defaultProps.localeText, noRowsLabel: 'Нет товаров'
@@ -393,7 +395,7 @@ const Receipt = ({props}) => {
 export default Receipt
 
 export const columns_items = [{field: 'id', headerName: 'Номер строки', width: 10}, {
-    field: 'commodity_name', headerName: 'Наименование', width: 200
+    field: 'commodity_name', headerName: 'Наименование', width: 210
 }, {field: 'mark_value', headerName: 'Марка', width: 80}, {
     field: 'mark_kkt_check_result', headerName: 'ЧЗ КП', width: 130
 }, {field: 'mark_req_id', headerName: 'ЧЗ ИД РР', width: 50}, {
@@ -402,6 +404,6 @@ export const columns_items = [{field: 'id', headerName: 'Номер строки
     field: 'quantity', headerName: 'Количество', width: 100, type: 'number'
 }, {field: 'sum', headerName: 'Сумма со скидкой', width: 100, type: 'number'}, {
     field: 'sum_tax', headerName: 'Сумма НДС', width: 100, type: 'number'
-}, {field: 'tax_type', headerName: 'СНО (%НДС)', width: 30}, {
+}, {field: 'tax_type', headerName: '% НДС', width: 80, type: 'number'}, {
     field: 'unit_code', headerName: 'Код ед. изм.', width: 30
-}, {field: 'unit_name', headerName: 'Ед. изм.', width: 30},]
+}, {field: 'unit_name', headerName: 'Ед. изм.', width: 80},]
