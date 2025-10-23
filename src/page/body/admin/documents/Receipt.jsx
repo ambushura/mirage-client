@@ -273,10 +273,10 @@ const Receipt = ({props}) => {
                         label="Канал продажи"
                         type="sales_channels"
                         filial={filial}
-                        extraFields={['name_channel']}
+                        extraFields={['title']}
                         rules={{required: 'Укажите канал продажи'}}
                         onChange={(uid, extra) => {
-                            setValue('channel_name', extra.name_channel || '')
+                            setValue('channel_name', extra.title || '')
                         }}
                     />
                 </Box>
