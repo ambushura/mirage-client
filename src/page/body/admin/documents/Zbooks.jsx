@@ -27,6 +27,25 @@ const Zbooks = () => {
     const receipts = useSelector(state => state.documents.receipts.receipts)
     const receipts_update = useSelector(state => state.documents.receipts_update)
 
+    const [columnVisibilityModelReceipts, setColumnVisibilityModelReceipts] = useState({
+        id: false,
+        uid_creator: false,
+        uid_cashier: false,
+        uid_kkt: false,
+        uid_order_cinema: false,
+        uid_order_food: false,
+        uid_organization: false,
+        uid_payment_type: false,
+        uid_channel: false,
+        uid_store: false,
+        uid_work_place: false,
+        deleted: false,
+    })
+
+    const [columnVisibilityModelZBooks, setColumnVisibilityModelZBooks] = useState({
+        id: false, ver: false, automatic: false
+    })
+
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_zbooks_get(filial, param_date_admin, zbooks_update))
@@ -79,19 +98,8 @@ const Zbooks = () => {
                         rowHeight={26}
                         headerHeight={28}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                        columnVisibilityModel={{
-                            id: false,
-                            uid_creator: false,
-                            uid_cashier: false,
-                            uid_kkt: false,
-                            uid_order_cinema: false,
-                            uid_order_food: false,
-                            uid_organization: false,
-                            uid_payment_type: false,
-                            uid_channel: false,
-                            uid_store: false,
-                            uid_work_place: false,
-                        }}
+                        columnVisibilityModel={columnVisibilityModelReceipts}
+                        onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModelReceipts(newModel)}
                         sx={{
                             '& .total-row': {
                                 backgroundColor: '#f0f0f0', fontWeight: 'bold',
@@ -132,7 +140,8 @@ const Zbooks = () => {
                         rowHeight={26}
                         headerHeight={28}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                        columnVisibilityModel={{id: false, ver: false, automatic: false}}
+                        columnVisibilityModel={columnVisibilityModelZBooks}
+                        onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModelZBooks(newModel)}
                         pinnedColumns={{
                             left: ['date_shift', 'number_kkt'],
                             right: ['sum_non_zero_total_of_income', 'sum_non_zero_total_of_outcome']
@@ -192,6 +201,8 @@ export const columns = [{field: 'id', headerName: 'UID документ', width:
 }]
 
 export const columns_receipts = [{field: 'id', headerName: 'UID документ', width: 10}, {
+    field: 'deleted', headerName: 'Пометка на удаление', width: 100, type: 'boolean',
+}, {
     field: 'number_kkt', headerName: 'ЗН ККТ', width: 130
 }, {
     field: 'date_shift', headerName: 'Дата смены', width: 100, type: 'date', valueGetter: (param) => {
@@ -250,7 +261,7 @@ export const columns_receipts = [{field: 'id', headerName: 'UID документ
 }, {field: 'uid_organization', headerName: ' UID организация', width: 100}, {
     field: 'uid_payment_type', headerName: 'UID вид оплаты', width: 100
 }, {field: 'uid_channel', headerName: 'UID канал продажи', width: 100}, {
-    field: 'uid_store', headerName: 'UID Торговая точка', width: 100
-}, {field: 'uid_cashier', headerName: 'UID Кассир', width: 100}, {
+    field: 'uid_store', headerName: 'UID торговая точка', width: 100
+}, {field: 'uid_cashier', headerName: 'UID кассир', width: 100}, {
     field: 'uid_work_place', headerName: 'UID рабочее место', width: 100
 }, {field: 'uid_creator', headerName: 'UID автор', width: 100}]

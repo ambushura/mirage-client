@@ -41,6 +41,7 @@ import {
     ROUTE_COMMON_CATALOG_GET,
     ROUTE_COMMON_CITIES_GET,
     ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET,
+    ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE,
     ROUTE_COMMON_DOCUMENTS_RECEIPT_GET,
     ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE,
     ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
@@ -1316,6 +1317,19 @@ export const common_documents_receipt_save = (filial, receipt) => async (dispatc
         method: 'post',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE}`,
         data: receipt,
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_receipt_delete = (filial, uid) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE}`,
+        params: {uid},
         filial,
         wp,
         kiosk,

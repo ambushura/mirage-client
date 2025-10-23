@@ -1,7 +1,11 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect} from "react"
-import {common_documents_receipt_get, common_documents_receipt_save} from "../../../../service/fetch_service.js"
+import {useEffect, useState} from "react"
+import {
+    common_documents_receipt_delete,
+    common_documents_receipt_get,
+    common_documents_receipt_save
+} from "../../../../service/fetch_service.js"
 import dayjs from "dayjs"
 import {useForm} from "react-hook-form"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
@@ -22,9 +26,12 @@ const Receipt = ({props}) => {
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
 
+    const [action, set_action] = useState(null)
+
     const {handleSubmit, setValue, control, formState: {errors}, reset, watch} = useForm({
         defaultValues: {
             id: '',
+            deleted: false,
             uid_creator: null,
             name_creator: '',
             copy: false,
@@ -82,7 +89,15 @@ const Receipt = ({props}) => {
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
         if (prepared.moment) prepared.moment = dayjs(prepared.moment)
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        dispatch(common_documents_receipt_save(filial, prepared))
+
+        if (action === 'delete') {
+            dispatch(common_documents_receipt_delete(filial, prepared.id))
+            dispatch(setReceiptsUpdated())
+        } else {
+            dispatch(common_documents_receipt_save(filial, prepared))
+            dispatch(setReceiptsUpdated())
+        }
+
         dispatch(closeModal())
         dispatch(setReceiptsUpdated())
     }
@@ -407,11 +422,13 @@ const Receipt = ({props}) => {
             </Box>
             <Box className='glass'
                  sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
-                <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}>Удалить</Button>
+                <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}
+                        onClick={() => set_action('delete')} type="submit">Удалить</Button>
                 {watch('uid_order_cinema') !== null || watch('uid_order_horeca') !== null &&
                     <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в
                         заказ</Button>}
-                <Button fullWidth variant='contained' color='secondary' type="submit">Сохранить</Button>
+                <Button fullWidth variant='contained' color='secondary' type="submit"
+                        onClick={() => set_action('save')}>Сохранить</Button>
             </Box>
         </Box>
     </Box>
