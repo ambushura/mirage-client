@@ -15,6 +15,7 @@ import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.js
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import CloseIcon from "@mui/icons-material/Close"
 import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
+import {parceZone} from "../../../../service/advanced.js"
 
 const Receipt = ({props}) => {
 
@@ -76,11 +77,11 @@ const Receipt = ({props}) => {
         }
         if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
             .startOf('day')
-            .format('YYYY-MM-DDTHH:mm:ss+03:00')
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
         if (prepared.date_create) prepared.date_create = dayjs(prepared.date_create)
-            .format('YYYY-MM-DDTHH:mm:ss+03:00')
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
         if (prepared.moment) prepared.moment = dayjs(prepared.moment)
-            .format('YYYY-MM-DDTHH:mm:ss+03:00')
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
         dispatch(common_documents_receipt_save(filial, prepared))
         dispatch(closeModal())
         dispatch(setReceiptsUpdated())
@@ -96,9 +97,9 @@ const Receipt = ({props}) => {
                     if (data?.data) {
                         reset({
                             ...data.data,
-                            date_create: data.data.date_create ? dayjs(data.data.date_create) : null,
-                            date_shift: data.data.date_shift ? dayjs(data.data.date_shift) : null,
-                            moment: data.data.moment ? dayjs(data.data.moment) : null,
+                            date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
+                            date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
+                            moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
                             price: data.data.price ? parseFloat(data.data.price) : 0,
                             sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
                             sum: data.data.sum ? parseFloat(data.data.sum) : 0,

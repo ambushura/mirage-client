@@ -53,10 +53,46 @@ function pluralize(n, one, few, many) {
 
 export const ruToEnLayout = (text) => {
     const layoutMap = {
-        'й': 'q', 'ц': 'w', 'у': 'e', 'к': 'r', 'е': 't', 'н': 'y', 'г': 'u', 'ш': 'i', 'щ': 'o', 'з': 'p',
-        'х': '[', 'ъ': ']', 'ф': 'a', 'ы': 's', 'в': 'd', 'а': 'f', 'п': 'g', 'р': 'h', 'о': 'j', 'л': 'k',
-        'д': 'l', 'ж': ';', 'э': '\'', 'я': 'z', 'ч': 'x', 'с': 'c', 'м': 'v', 'и': 'b', 'т': 'n', 'ь': 'm',
-        'б': ',', 'ю': '.', 'Ё': '~', 'ё': '`', '"': '@', '№': '#', ';': '$', '%': '^', ':': '&', '?': '?'
+        'й': 'q',
+        'ц': 'w',
+        'у': 'e',
+        'к': 'r',
+        'е': 't',
+        'н': 'y',
+        'г': 'u',
+        'ш': 'i',
+        'щ': 'o',
+        'з': 'p',
+        'х': '[',
+        'ъ': ']',
+        'ф': 'a',
+        'ы': 's',
+        'в': 'd',
+        'а': 'f',
+        'п': 'g',
+        'р': 'h',
+        'о': 'j',
+        'л': 'k',
+        'д': 'l',
+        'ж': ';',
+        'э': '\'',
+        'я': 'z',
+        'ч': 'x',
+        'с': 'c',
+        'м': 'v',
+        'и': 'b',
+        'т': 'n',
+        'ь': 'm',
+        'б': ',',
+        'ю': '.',
+        'Ё': '~',
+        'ё': '`',
+        '"': '@',
+        '№': '#',
+        ';': '$',
+        '%': '^',
+        ':': '&',
+        '?': '?'
     }
     return text.split('').map(char => {
         const lower = char.toLowerCase()
@@ -64,4 +100,8 @@ export const ruToEnLayout = (text) => {
         const replaced = layoutMap[lower] || char
         return isUpper ? replaced.toUpperCase() : replaced
     }).join('')
+}
+
+export function parceZone(local_date) {
+    return local_date.replace(/([+-]\d{2}:\d{2}|Z)$/, '')
 }
