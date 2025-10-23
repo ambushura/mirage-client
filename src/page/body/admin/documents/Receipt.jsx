@@ -25,6 +25,7 @@ import {parceZone} from "../../../../service/advanced.js"
 const Receipt = ({props}) => {
 
     const dispatch = useDispatch()
+
     const filial = useSelector(state => state.data.filial)
 
     const {handleSubmit, setValue, control, formState: {errors}, reset, watch} = useForm({
@@ -88,7 +89,6 @@ const Receipt = ({props}) => {
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
         if (prepared.moment) prepared.moment = dayjs(prepared.moment)
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
-
         dispatch(common_documents_receipt_save(filial, prepared))
         dispatch(closeModal())
         dispatch(setReceiptsUpdated())
@@ -118,7 +118,6 @@ const Receipt = ({props}) => {
                 }
             }
         }
-
         fetchData()
     }, [props.uid, filial, dispatch, reset])
 
@@ -144,7 +143,7 @@ const Receipt = ({props}) => {
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px'}}>
+        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
             <Typography variant="h6" color="textSecondary">
                 {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' *' : ''}`}
             </Typography>

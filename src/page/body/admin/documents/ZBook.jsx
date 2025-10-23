@@ -132,7 +132,7 @@ const ZBook = ({props}) => {
         autoComplete="off"
         sx={{width: '920px'}}
         onSubmit={handleSubmit}>
-        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px'}}>
+        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
             <Typography variant="h6" color="textSecondary">
                 {`КАССОВАЯ КНИГА ${props.uid === 'new' ? ' *' : ''}`}
             </Typography>
