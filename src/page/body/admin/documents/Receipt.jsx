@@ -1,7 +1,12 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
-import {common_documents_receipt_get, common_documents_receipt_save} from "../../../../service/fetch_service.js"
+import {
+    cinema_order_fetch,
+    common_documents_receipt_get,
+    common_documents_receipt_save,
+    horeca_order_fetch
+} from "../../../../service/fetch_service.js"
 import dayjs from "dayjs"
 import {useForm} from "react-hook-form"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
@@ -12,7 +17,7 @@ import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
-import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
+import {closeModal, openModal, setCurrentPage} from "../../../../redux/interfaceReducer.js"
 import CloseIcon from "@mui/icons-material/Close"
 import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
@@ -119,6 +124,8 @@ const Receipt = ({props}) => {
 
 
     const uid = watch('id')
+    const uid_order_cinema = watch('uid_order_cinema')
+    const uid_order_food = watch('uid_order_food')
     const items = watch('items')
     const price = watch('price')
     const discount = watch('sum_discount')
@@ -420,9 +427,17 @@ const Receipt = ({props}) => {
                                 uid: uid,
                             }
                         }))}>Удалить</Button>
-                {watch('uid_order_cinema') !== null || watch('uid_order_horeca') !== null &&
-                    <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в
-                        заказ</Button>}
+                {(uid_order_cinema !== null || uid_order_food !== null) &&
+                    <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
+                        if (uid_order_cinema !== null) {
+                            dispatch(setCurrentPage('admin/orders/cinema'))
+                            dispatch(cinema_order_fetch(filial, uid_order_cinema))
+                        } else if (uid_order_food !== null) {
+                            dispatch(setCurrentPage('admin/orders/horeca'))
+                            dispatch(horeca_order_fetch(filial, uid_order_food))
+                        }
+                        dispatch(closeModal())
+                    }}>Перейти в заказ</Button>}
                 <Button fullWidth variant='contained' color='secondary' type="submit">Сохранить</Button>
             </Box>
         </Box>
