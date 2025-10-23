@@ -82,6 +82,7 @@ const ZBook = ({props}) => {
                 number_shift: 0,
                 date_shift: '',
                 date_ofd: '',
+                date_create: '',
                 sum_in_cash: 0,
                 sum_out_cash: 0,
                 sum_in_electron: 0,
@@ -190,7 +191,7 @@ const ZBook = ({props}) => {
                             variant='filled'
                             fullWidth
                             sx={{marginBottom: '10px'}}
-                            slotProps={{input: {readonly: true}}}
+                            slotProps={{input: {readOnly: true}}}
                         />
                         <TextField
                             label='ИНН'
@@ -198,7 +199,7 @@ const ZBook = ({props}) => {
                             variant='filled'
                             fullWidth
                             sx={{marginBottom: '10px'}}
-                            slotProps={{input: {readonly: true}}}
+                            slotProps={{input: {readOnly: true}}}
                         />
                         <TextField
                             label='Номер последнего ФД'

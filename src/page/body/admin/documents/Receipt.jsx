@@ -1,11 +1,7 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect, useState} from "react"
-import {
-    common_documents_receipt_delete,
-    common_documents_receipt_get,
-    common_documents_receipt_save
-} from "../../../../service/fetch_service.js"
+import {useEffect} from "react"
+import {common_documents_receipt_get, common_documents_receipt_save} from "../../../../service/fetch_service.js"
 import dayjs from "dayjs"
 import {useForm} from "react-hook-form"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
@@ -16,7 +12,7 @@ import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
-import {closeModal} from "../../../../redux/interfaceReducer.js"
+import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
 import CloseIcon from "@mui/icons-material/Close"
 import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
@@ -25,8 +21,6 @@ const Receipt = ({props}) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
-
-    const [action, set_action] = useState(null)
 
     const {handleSubmit, setValue, control, formState: {errors}, reset, watch} = useForm({
         defaultValues: {
@@ -90,14 +84,7 @@ const Receipt = ({props}) => {
         if (prepared.moment) prepared.moment = dayjs(prepared.moment)
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
 
-        if (action === 'delete') {
-            dispatch(common_documents_receipt_delete(filial, prepared.id))
-            dispatch(setReceiptsUpdated())
-        } else {
-            dispatch(common_documents_receipt_save(filial, prepared))
-            dispatch(setReceiptsUpdated())
-        }
-
+        dispatch(common_documents_receipt_save(filial, prepared))
         dispatch(closeModal())
         dispatch(setReceiptsUpdated())
     }
@@ -131,6 +118,7 @@ const Receipt = ({props}) => {
     }, [props.uid, filial, dispatch, reset])
 
 
+    const uid = watch('id')
     const items = watch('items')
     const price = watch('price')
     const discount = watch('sum_discount')
@@ -423,12 +411,19 @@ const Receipt = ({props}) => {
             <Box className='glass'
                  sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
                 <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}
-                        onClick={() => set_action('delete')} type="submit">Удалить</Button>
+                        onClick={() => dispatch(openModal({
+                            type: 'delete_receipts', props: {
+                                type: 'YesNo',
+                                action: 'delete_receipts',
+                                question: 'Вы уверены, что хотите удалить этот чек?',
+                                filial: filial,
+                                uid: uid,
+                            }
+                        }))}>Удалить</Button>
                 {watch('uid_order_cinema') !== null || watch('uid_order_horeca') !== null &&
                     <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в
                         заказ</Button>}
-                <Button fullWidth variant='contained' color='secondary' type="submit"
-                        onClick={() => set_action('save')}>Сохранить</Button>
+                <Button fullWidth variant='contained' color='secondary' type="submit">Сохранить</Button>
             </Box>
         </Box>
     </Box>

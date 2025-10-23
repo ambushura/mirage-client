@@ -7,10 +7,11 @@ import {
     DialogContentText,
     DialogTitle
 } from '@mui/material'
-import {cinema_order_delete, horeca_order_delete} from "../service/fetch_service.js"
+import {cinema_order_delete, common_documents_receipt_delete, horeca_order_delete} from "../service/fetch_service.js"
 import {closeModal} from "../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
 import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
+import {setReceiptsUpdated} from "../redux/documentsReducer.js"
 
 const Dialog = ({props}) => {
 
@@ -33,6 +34,10 @@ const Dialog = ({props}) => {
                 break
             case 'horeca_order_save':
                 dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+                break
+            case 'delete_receipts':
+                dispatch(common_documents_receipt_delete(props.filial, props.uid))
+                dispatch(setReceiptsUpdated())
                 break
             default:
                 break

@@ -95,6 +95,7 @@ function App() {
         pinpads: OthersPaymentTypes,
         zBook: Zbook,
         receipt: Receipt,
+        delete_receipts: Dialog,
         slip: Slip,
         dialog_reboot: Dialog,
         dialog_shutdown: Dialog,
