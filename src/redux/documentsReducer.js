@@ -67,6 +67,8 @@ export const dataSlice = createSlice({
             state.receipts = payload
         }, cleanReceipts: (state, {payload}) => {
             state.receipts = {date_shift: '', uid_kkt: '', receipts: []}
+        }, setReceiptsUpdated: (state) => {
+            state.receipts_update += 1
         }, setSlips: (state, {payload}) => {
             state.slips = payload
         }, cleanSlips: (state, {payload}) => {
@@ -91,6 +93,7 @@ export const {
     setZPinpadsUpdate,
     setOperationsDetails,
     setReceipts,
+    setReceiptsUpdated,
     cleanReceipts,
     setSlips,
     cleanSlips,

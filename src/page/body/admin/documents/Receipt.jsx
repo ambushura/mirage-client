@@ -1,5 +1,4 @@
 import {Box, Button, Typography} from "@mui/material"
-import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
 import {common_documents_receipt_get, common_documents_receipt_save} from "../../../../service/fetch_service.js"
@@ -13,6 +12,9 @@ import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
+import {closeModal} from "../../../../redux/interfaceReducer.js"
+import CloseIcon from "@mui/icons-material/Close"
+import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
 
 const Receipt = ({props}) => {
 
@@ -64,10 +66,24 @@ const Receipt = ({props}) => {
 
     const onSubmit = (data) => {
         const prepared = {
-            ...data, sno: data.sno !== null ? parseInt(data.sno, 10) : null,
+            ...data,
+            sno: parseInt(data.sno, 10),
+            fd: parseFloat(data.fd),
+            number: parseFloat(data.number),
+            shift_number: parseFloat(data.shift_number),
+            uid_order_cinema: data.uid_order_cinema === '' ? null : data.uid_order_cinema,
+            uid_order_food: data.uid_order_food === '' ? null : data.uid_order_food,
         }
+        if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
+            .startOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss+03:00')
+        if (prepared.date_create) prepared.date_create = dayjs(prepared.date_create)
+            .format('YYYY-MM-DDTHH:mm:ss+03:00')
+        if (prepared.moment) prepared.moment = dayjs(prepared.moment)
+            .format('YYYY-MM-DDTHH:mm:ss+03:00')
         dispatch(common_documents_receipt_save(filial, prepared))
         dispatch(closeModal())
+        dispatch(setReceiptsUpdated())
     }
 
     useEffect(() => {
@@ -100,7 +116,6 @@ const Receipt = ({props}) => {
 
 
     const items = watch('items')
-
     const price = watch('price')
     const discount = watch('sum_discount')
 
@@ -118,9 +133,12 @@ const Receipt = ({props}) => {
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h6" color="textSecondary" margin={1}>
-            КАССОВЫЙ ЧЕК
-        </Typography>
+        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px'}}>
+            <Typography variant="h6" color="textSecondary">
+                {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' *' : ''}`}
+            </Typography>
+            <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
+        </Box>
         <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
                 <Box
@@ -200,12 +218,14 @@ const Receipt = ({props}) => {
                         label="ККТ"
                         type="kkt"
                         filial={filial}
-                        extraFields={['name_organization', 'inn', 'sno']}
+                        extraFields={['uid_organization', 'name_organization', 'inn', 'sno', 'title']}
                         rules={{required: 'Укажите ККТ'}}
                         onChange={(uid, extra) => {
+                            setValue('uid_organization', extra.uid_organization || '')
                             setValue('name_organization', extra.name_organization || '')
                             setValue('inn_organization', extra.inn || '')
                             setValue('sno', String(extra.sno) ?? null)
+                            setValue('number_kkt', extra.title ?? null)
                         }}
                     />
                     <ControlledTextField
@@ -311,7 +331,7 @@ const Receipt = ({props}) => {
                         label="Дата смены"
                         rules={{required: 'Укажите дату смены'}}
                     />
-                    <ControlledDatePicker
+                    <ControlledDateTimePicker
                         control={control}
                         name="date_create"
                         label="Дата создания"
@@ -333,6 +353,8 @@ const Receipt = ({props}) => {
                         type="staff"
                         filial={filial}
                         rules={{required: 'Укажите автора'}}
+                        extraFields={['title']}
+                        onChange={(uid, extra) => setValue('name_creator', extra.title || '')}
                     />
                     <ControlledLazySelect
                         control={control}
@@ -341,6 +363,8 @@ const Receipt = ({props}) => {
                         type="staff"
                         filial={filial}
                         rules={{required: 'Укажите кассира'}}
+                        extraFields={['title']}
+                        onChange={(uid, extra) => setValue('name_cashier', extra.title || '')}
                     />
                     <ControlledSwitch
                         control={control}
