@@ -8,7 +8,6 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
-    Menu,
     MenuItem,
     Pagination,
     Popover,
@@ -53,7 +52,6 @@ import LaptopIcon from "@mui/icons-material/Laptop"
 import LanguageIcon from "@mui/icons-material/Language"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
-import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../ui/Calendar.jsx"
@@ -396,34 +394,46 @@ export function CreateDeleteButtons() {
 
 export function Equipment() {
 
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget)
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
-
-    const handleSelect = () => {
-        handleClose()
-    }
+    const [menu, set_menu] = useState([{uid: 'workplace', title: 'Рабочее место'}, {
+        uid: 'kkt', title: 'Касса'
+    }, {uid: 'pinpad', title: 'Пинпад'}, {uid: 'printer', title: 'Чековый принтер'}, {
+        uid: 'billet_check', title: 'Билетный контролер'
+    }])
+    const [menu_create_opened, set_menu_create_opened] = useState(false)
+    const menu_create_ref = useRef(null)
+    const prev_menu_create_opened = useRef(Boolean(menu_create_opened))
 
     return <Box>
-        <Button startIcon={<AddIcon/>} onClick={handleClick} variant="outlined" color='outlined'>
-            Добавить устройство
-        </Button>
-        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            <MenuItem onClick={() => handleSelect('Рабочее место')}>Рабочее место</MenuItem>
-            <MenuItem onClick={() => handleSelect('Кассу')}>Кассу</MenuItem>
-            <MenuItem onClick={() => handleSelect('Пинпад')}>Пинпад</MenuItem>
-            <MenuItem onClick={() => handleSelect('Чековый принтер')}>Чековый принтер</MenuItem>
-            <MenuItem onClick={() => handleSelect('Билетный контролер')}>Билетный контролер</MenuItem>
-        </Menu>
+        <List
+            size='small'
+            open={menu_create_opened}
+            anchor={menu_create_ref}
+            prev_open={prev_menu_create_opened}
+            id={'menu-create'}
+            setOpen={set_menu_create_opened}
+            button_text={'Новое устройство'}
+            list={menu}
+            startIcon={<AddCircleOutlineIcon/>}
+            endIcon={<KeyboardArrowDownIcon/>}
+            type="menu-create"
+            color={'secondary'}
+            handleClose={(uid) => {
+                switch (uid) {
+                    case 'workplace':
+                        //dispatch(openModal({type: 'equipment_workplace', props: {uid: 'new'}}))
+                        break
+                    case 'kkt':
+                        break
+                    case 'pinpad':
+                        break
+                    case 'printer':
+                        break
+                    case 'billet_check':
+                        break
+                }
+            }}
+        />
     </Box>
-
 }
 
 export function Operations() {
