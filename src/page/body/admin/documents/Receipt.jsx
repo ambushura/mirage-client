@@ -149,7 +149,7 @@ const Receipt = ({props}) => {
     }, [price, discount, setValue])
 
     if (loading) {
-        return <Skeleton/>
+        return <Loader/>
     } else {
         return <Box
             sx={{maxHeight: '700px', overflowY: 'auto'}}
