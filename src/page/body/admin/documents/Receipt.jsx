@@ -17,16 +17,21 @@ import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
-import {closeModal, openModal, setCurrentPage} from "../../../../redux/interfaceReducer.js"
+import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
 import CloseIcon from "@mui/icons-material/Close"
 import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
+import {useNavigate} from "react-router-dom"
 
 const Receipt = ({props}) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
+    const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
 
     const [loading, set_loading] = useState(true)
 
@@ -439,10 +444,10 @@ const Receipt = ({props}) => {
                     {(uid_order_cinema !== null || uid_order_food !== null) &&
                         <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
                             if (uid_order_cinema !== null) {
-                                dispatch(setCurrentPage('admin/orders/cinema'))
+                                navigate(`/admin/orders/cinema/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
                                 dispatch(cinema_order_fetch(filial, uid_order_cinema))
                             } else if (uid_order_food !== null) {
-                                dispatch(setCurrentPage('admin/orders/horeca'))
+                                navigate(`/admin/orders/horeca/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
                                 dispatch(horeca_order_fetch(filial, uid_order_food))
                             }
                             dispatch(closeModal())
@@ -472,7 +477,7 @@ export const columns_items = [{field: 'id', headerName: 'Номер строки
     field: 'unit_code', headerName: 'Код ед. изм.', width: 30
 },]
 
-export function Skeleton() {
+export function Loader() {
     return <Box sx={{display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
