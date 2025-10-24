@@ -15,6 +15,7 @@ const ControlledDateTimePicker = ({control, name, label, rules = {}, sx = {}}) =
         arrow
         slotProps={{tooltip: tooltip_error}}
     >
+        <span>
         <DateTimePicker
             {...field}
             label={label}
@@ -28,6 +29,7 @@ const ControlledDateTimePicker = ({control, name, label, rules = {}, sx = {}}) =
             format="DD.MM.YYYY HH:mm"
             ampm={false}
         />
+        </span>
     </Tooltip>}
 />
 

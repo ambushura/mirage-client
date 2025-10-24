@@ -30,7 +30,7 @@ const Receipt = ({props}) => {
 
     const [loading, set_loading] = useState(true)
 
-    const {handleSubmit, setValue, control, formState: {errors}, reset, watch} = useForm({
+    const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
             id: '',
             deleted: false,
@@ -144,35 +144,7 @@ const Receipt = ({props}) => {
     }, [price, discount, setValue])
 
     if (loading) {
-        return <Box sx={{display: 'flex', flexDirection: 'column'}}>
-            <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', width: '150px'}}>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                </Box>
-            </Box>
-            <Skeleton variant="rectangular" width={'615px'} height={50}/>
-        </Box>
+        return <Skeleton/>
     } else {
         return <Box
             sx={{maxHeight: '700px', overflowY: 'auto'}}
@@ -499,3 +471,35 @@ export const columns_items = [{field: 'id', headerName: 'Номер строки
 }, {field: 'tax_type', headerName: '% НДС', width: 80, type: 'number'}, {
     field: 'unit_code', headerName: 'Код ед. изм.', width: 30
 },]
+
+export function Skeleton() {
+    return <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+        </Box>
+        <Skeleton variant="rectangular" width={'615px'} height={50}/>
+    </Box>
+}
