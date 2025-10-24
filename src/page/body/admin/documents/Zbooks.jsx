@@ -119,7 +119,7 @@ const Zbooks = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'receipt', props: {uid: params.row.id}}))
+                            dispatch(openModal({type: 'documents_receipt', props: {uid: params.row.id}}))
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Чеки отсутствуют в смене...</Box>}
                 </Box>}
@@ -156,7 +156,7 @@ const Zbooks = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'zBook', props: {uid: params.row.id}}))
+                            dispatch(openModal({type: 'documents_z_book', props: {uid: params.row.id}}))
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}
                 </Box>}

@@ -352,10 +352,10 @@ export function CreateDeleteButtons() {
     useEffect(() => {
         switch (current_page) {
             case 'admin/zbooks':
-                set_menu([{uid: 'z_book', title: 'Книга'}, {uid: 'receipt', title: 'Чек'}])
+                set_menu([{uid: 'documents_z_book', title: 'Книга'}, {uid: 'documents_receipt', title: 'Чек'}])
                 break
             case 'admin/operations':
-                set_menu([{uid: 'operation', title: 'Операция'}])
+                set_menu([{uid: 'documents_operation', title: 'Операция'}])
                 break
         }
     }, [current_page])
@@ -377,13 +377,13 @@ export function CreateDeleteButtons() {
                 color={'secondary'}
                 handleClose={(uid) => {
                     switch (uid) {
-                        case 'z_book':
+                        case 'documents_z_book':
                             dispatch(openModal({type: 'documents_z_book', props: {uid: 'new'}}))
                             break
-                        case 'receipt':
+                        case 'documents_receipt':
                             dispatch(openModal({type: 'documents_receipt', props: {uid: 'new'}}))
                             break
-                        case 'operation':
+                        case 'documents_operation':
                             dispatch(openModal({type: 'documents_operation', props: {uid: 'new'}}))
                             break
                     }
