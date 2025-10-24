@@ -128,7 +128,6 @@ const Receipt = ({props}) => {
                 set_loading(false)
             }
         }
-
         fetchData()
     }, [props.uid, filial, dispatch, reset])
 
@@ -477,28 +476,28 @@ export const columns_items = [{field: 'id', headerName: 'Номер строки
     field: 'unit_code', headerName: 'Код ед. изм.', width: 30
 },]
 
-export function Loader() {
+function Loader() {
     return <Box sx={{display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
-            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px', marginRight: '5px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', width: '150px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1}}>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
                 <Skeleton variant="text" width={'100%'} height={40}/>
