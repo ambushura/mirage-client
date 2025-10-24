@@ -52,7 +52,6 @@ import LaptopIcon from "@mui/icons-material/Laptop"
 import LanguageIcon from "@mui/icons-material/Language"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
-import RemoveIcon from '@mui/icons-material/Remove'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from "../../ui/Calendar.jsx"
 import {useEffect, useRef, useState} from "react"
@@ -64,10 +63,11 @@ import SmartphoneIcon from '@mui/icons-material/Smartphone'
 import {setCurrentKKT, setCurrentPinpad, setOperationsDetails, setOperationsPage} from "../../redux/documentsReducer.js"
 import List from "../../ui/List.jsx"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import PointOfSaleRoundedIcon from '@mui/icons-material/PointOfSaleRounded'
 import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded'
 import CloseIcon from '@mui/icons-material/Close'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import SavingsIcon from '@mui/icons-material/Savings'
 
 export function AdminHallsList() {
 
@@ -387,7 +387,7 @@ export function CreateDeleteButtons() {
                     }
                 }}
             />
-            <Button startIcon={<RemoveIcon/>}>Удалить</Button>
+            <Button startIcon={<DeleteForeverIcon/>}>Удалить</Button>
         </ButtonGroup>
     </>
 }
@@ -491,7 +491,7 @@ export function CurrentKKT() {
                 list={kkt_list}
                 color='secondary'
                 variant='contained'
-                startIcon={<PointOfSaleRoundedIcon/>}
+                startIcon={<SavingsIcon/>}
                 endIcon={<KeyboardArrowDownIcon/>}
                 handleClose={(event) => {
                     dispatch(setCurrentKKT(event))
