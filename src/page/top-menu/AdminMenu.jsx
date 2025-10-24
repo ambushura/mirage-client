@@ -69,6 +69,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PointOfSaleRoundedIcon from '@mui/icons-material/PointOfSaleRounded'
 import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded'
 import CloseIcon from '@mui/icons-material/Close'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 export function AdminHallsList() {
 
@@ -343,40 +344,53 @@ export function CreateDeleteButtons() {
 
     const dispatch = useDispatch()
     const current_page = useSelector(state => state.interface.current_page)
+    const [menu, set_menu] = useState([])
+    const [menu_create_opened, set_menu_create_opened] = useState(false)
+    const menu_create_ref = useRef(null)
+    const prev_menu_create_opened = useRef(Boolean(menu_create_opened))
 
-    const [anchor_z_books, set_anchor_z_books] = useState(null)
-    const open_z_books = Boolean(anchor_z_books)
-    const handleSelectZBook = (type) => {
-        dispatch(openModal({type, props: {uid: 'new'}}))
-        set_anchor_z_books(null)
-    }
+    useEffect(() => {
+        switch (current_page) {
+            case 'admin/zbooks':
+                set_menu([{uid: 'z_book', title: 'Книга'}, {uid: 'receipt', title: 'Чек'}])
+                break
+            case 'admin/operations':
+                set_menu([{uid: 'operation', title: 'Операция'}])
+                break
+        }
+    }, [current_page])
 
     return <>
         <ButtonGroup size='medium' variant='contained' color='secondary' sx={{marginRight: '5px'}}>
-            <Button
-                startIcon={<AddIcon/>}
-                onClick={(e) => {
-                    switch (current_page) {
-                        case 'admin/operations':
+            <List
+                size='small'
+                open={menu_create_opened}
+                anchor={menu_create_ref}
+                prev_open={prev_menu_create_opened}
+                id={'menu-create'}
+                setOpen={set_menu_create_opened}
+                button_text={'Создать'}
+                list={menu}
+                startIcon={<AddCircleOutlineIcon/>}
+                endIcon={<KeyboardArrowDownIcon/>}
+                type="menu-create"
+                color={'secondary'}
+                handleClose={(uid) => {
+                    switch (uid) {
+                        case 'z_book':
+                            dispatch(openModal({type: 'documents_z_book', props: {uid: 'new'}}))
+                            break
+                        case 'receipt':
+                            dispatch(openModal({type: 'documents_receipt', props: {uid: 'new'}}))
+                            break
+                        case 'operation':
                             dispatch(openModal({type: 'documents_operation', props: {uid: 'new'}}))
                             break
-                        case 'admin/zbooks':
-                            set_anchor_z_books(e.currentTarget)
-                            break
                     }
-                }}>
-                Создать
-            </Button>
+                }}
+            />
             <Button startIcon={<RemoveIcon/>}>Удалить</Button>
         </ButtonGroup>
-
-        <Menu
-            anchorEl={anchor_z_books}
-            open={open_z_books}
-            onClose={() => set_anchor_z_books(null)}>
-            <MenuItem onClick={() => handleSelectZBook('zBook')}>Кассовую книгу</MenuItem>
-            <MenuItem onClick={() => handleSelectZBook('receipt')}>Чек</MenuItem>
-        </Menu>
     </>
 }
 

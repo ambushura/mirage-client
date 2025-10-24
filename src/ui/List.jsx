@@ -75,6 +75,14 @@ const List = (props) => {
                             onKeyDown={handleListKeyDown}>
                             {props.list.map(el => {
                                 switch (props.type) {
+                                    case 'menu-create':
+                                        return <WhiteMenuItem key={el.uid}
+                                                              onClick={(event) => {
+                                                                  props.handleClose !== undefined ? props.handleClose(el.uid) : null
+                                                                  handleClose(event)
+                                                              }}>
+                                            <ListItemText>{el.title}</ListItemText>
+                                        </WhiteMenuItem>
                                     case 'zbooks-kkt':
                                         return <WhiteMenuItem key={el.uid} onClick={(event) => {
                                             props.handleClose !== undefined ? props.handleClose(el.uid) : null

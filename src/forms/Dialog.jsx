@@ -35,7 +35,7 @@ const Dialog = ({props}) => {
             case 'horeca_order_save':
                 dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
                 break
-            case 'delete_receipts':
+            case 'dialog_delete_receipts':
                 dispatch(common_documents_receipt_delete(props.filial, props.uid))
                 dispatch(setReceiptsUpdated())
                 break

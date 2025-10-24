@@ -123,6 +123,7 @@ const Receipt = ({props}) => {
 
 
     const uid = watch('id')
+    const number = watch('number')
     const uid_order_cinema = watch('uid_order_cinema')
     const uid_order_food = watch('uid_order_food')
     const items = watch('items')
@@ -145,7 +146,7 @@ const Receipt = ({props}) => {
         onSubmit={handleSubmit(onSubmit)}>
         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
             <Typography variant="h6" color="textSecondary">
-                {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' *' : ''}`}
+                {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' *' : number}`}
             </Typography>
             <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
         </Box>
@@ -418,9 +419,9 @@ const Receipt = ({props}) => {
                  sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
                 <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}
                         onClick={() => dispatch(openModal({
-                            type: 'delete_receipts', props: {
+                            type: 'dialog_delete_receipts', props: {
                                 type: 'YesNo',
-                                action: 'delete_receipts',
+                                action: 'dialog_delete_receipts',
                                 question: 'Вы уверены, что хотите удалить этот чек?',
                                 filial: filial,
                                 uid: uid,
