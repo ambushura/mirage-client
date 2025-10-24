@@ -454,8 +454,10 @@ export const columns_items = [{field: 'id', headerName: 'Номер строки
     field: 'mark_req_timestamp', headerName: 'ЧЗ Дата проверки РР', width: 50
 }, {field: 'price', headerName: 'Цена', width: 100, type: 'number'}, {
     field: 'quantity', headerName: 'Количество', width: 100, type: 'number'
-}, {field: 'sum', headerName: 'Сумма со скидкой', width: 100, type: 'number'}, {
+}, {field: 'unit_name', headerName: 'Ед. изм.', width: 80}, {
+    field: 'sum', headerName: 'Сумма со скидкой', width: 100, type: 'number'
+}, {
     field: 'sum_tax', headerName: 'Сумма НДС', width: 100, type: 'number'
 }, {field: 'tax_type', headerName: '% НДС', width: 80, type: 'number'}, {
     field: 'unit_code', headerName: 'Код ед. изм.', width: 30
-}, {field: 'unit_name', headerName: 'Ед. изм.', width: 80},]
+},]

@@ -298,19 +298,23 @@ const Payment = (props) => {
                                 <Box>{item.name_payment_type}</Box>
                                 {item.uid_in_receipt !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({type: 'receipt', props: {uid: item.uid_in_receipt}}))
+                                        dispatch(openModal({
+                                            type: 'documents_receipt', props: {uid: item.uid_in_receipt}
+                                        }))
                                     }}>Чек приход</Box> : null}
                                 {item.uid_in_slip !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({type: 'slip', props: {uid: item.uid_in_slip}}))
+                                        dispatch(openModal({type: 'documents_slip', props: {uid: item.uid_in_slip}}))
                                     }}>Слип приход</Box> : null}
                                 {item.uid_out_receipt !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({type: 'receipt', props: {uid: item.uid_out_receipt}}))
+                                        dispatch(openModal({
+                                            type: 'documents_receipt', props: {uid: item.uid_out_receipt}
+                                        }))
                                     }}>Чек возврат</Box> : null}
                                 {item.uid_out_slip !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({type: 'slip', props: {uid: item.uid_out_slip}}))
+                                        dispatch(openModal({type: 'documents_slip', props: {uid: item.uid_out_slip}}))
                                     }}>Слип возврат</Box> : null}
                             </Box> : null}
                         </Box>
