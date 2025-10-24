@@ -2,14 +2,14 @@ import {Box, Button, Skeleton, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_documents_zbook_get, common_documents_zbook_save} from "../../../../service/fetch_service.js"
-import {setZBooksUpdate} from "../../../../redux/documentsReducer.js"
+import {common_documents_zbook_get} from "../../../../service/fetch_service.js"
 import CloseIcon from '@mui/icons-material/Close'
 import {useForm} from "react-hook-form"
 import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
 import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
-import ControlledTextField from "../../../../ui/ControlledTextField.jsx";
-import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx";
+import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
+import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
+import dayjs from "dayjs";
 
 const ZBook = ({props}) => {
 
@@ -47,30 +47,30 @@ const ZBook = ({props}) => {
         }
     })
 
-
     const date_shift = watch('date_shift')
+    const number_kkt = watch('number_kkt')
 
-    const handle_save = () => {
-        const prepared = {
-            ...data,
-            number_shift: Number(data.number_shift) || 0,
-            last_fd: Number(data.last_fd) || 0,
-            sum_in_cash: parseFloat(data.sum_in_cash) || 0,
-            sum_out_cash: parseFloat(data.sum_out_cash) || 0,
-            sum_in_electron: parseFloat(data.sum_in_electron) || 0,
-            sum_out_electron: parseFloat(data.sum_out_electron) || 0,
-            sum_nds: parseFloat(data.sum_nds) || 0,
-            sum_collection: parseFloat(data.sum_collection) || 0,
-            sum_electron: parseFloat(data.sum_electron) || 0,
-            revenue: parseFloat(data.revenue) || 0,
-            sum_total_of_income: parseFloat(data.sum_total_of_income) || 0,
-            sum_non_zero_total_of_income: parseFloat(data.sum_non_zero_total_of_income) || 0,
-            sum_non_zero_total_of_outcome: parseFloat(data.sum_non_zero_total_of_outcome) || 0,
-        }
-        dispatch(common_documents_zbook_save(filial, prepared))
-        dispatch(closeModal())
-        dispatch(setZBooksUpdate())
-    }
+    // const handle_save = () => {
+    //     const prepared = {
+    //         ...data,
+    //         number_shift: Number(data.number_shift) || 0,
+    //         last_fd: Number(data.last_fd) || 0,
+    //         sum_in_cash: parseFloat(data.sum_in_cash) || 0,
+    //         sum_out_cash: parseFloat(data.sum_out_cash) || 0,
+    //         sum_in_electron: parseFloat(data.sum_in_electron) || 0,
+    //         sum_out_electron: parseFloat(data.sum_out_electron) || 0,
+    //         sum_nds: parseFloat(data.sum_nds) || 0,
+    //         sum_collection: parseFloat(data.sum_collection) || 0,
+    //         sum_electron: parseFloat(data.sum_electron) || 0,
+    //         revenue: parseFloat(data.revenue) || 0,
+    //         sum_total_of_income: parseFloat(data.sum_total_of_income) || 0,
+    //         sum_non_zero_total_of_income: parseFloat(data.sum_non_zero_total_of_income) || 0,
+    //         sum_non_zero_total_of_outcome: parseFloat(data.sum_non_zero_total_of_outcome) || 0,
+    //     }
+    //     dispatch(common_documents_zbook_save(filial, prepared))
+    //     dispatch(closeModal())
+    //     dispatch(setZBooksUpdate())
+    // }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -115,7 +115,7 @@ const ZBook = ({props}) => {
             onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
                 <Typography variant="h6" color="textSecondary">
-                    {`КАССОВАЯ КНИГА ${props.uid === 'new' ? ' *' : date_shift}`}
+                    {`КАССОВАЯ КНИГА ${props.uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`}
                 </Typography>
                 <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
             </Box>
@@ -254,7 +254,7 @@ const ZBook = ({props}) => {
                         <ControlledMoneyField
                             control={control}
                             name="sum_total_of_income"
-                            label="Сменны итог"
+                            label="Сменный итог"
                             sx={{width: '100%'}}
                         />
                         <ControlledMoneyField

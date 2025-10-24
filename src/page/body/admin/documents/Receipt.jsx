@@ -79,6 +79,14 @@ const Receipt = ({props}) => {
         }
     })
 
+    const uid = watch('id')
+    const number = watch('number')
+    const uid_order_cinema = watch('uid_order_cinema')
+    const uid_order_food = watch('uid_order_food')
+    const items = watch('items')
+    const price = watch('price')
+    const discount = watch('sum_discount')
+
     const onSubmit = (data) => {
         const prepared = {
             ...data,
@@ -131,15 +139,6 @@ const Receipt = ({props}) => {
         fetchData()
     }, [props.uid, filial, dispatch, reset])
 
-
-    const uid = watch('id')
-    const number = watch('number')
-    const uid_order_cinema = watch('uid_order_cinema')
-    const uid_order_food = watch('uid_order_food')
-    const items = watch('items')
-    const price = watch('price')
-    const discount = watch('sum_discount')
-
     useEffect(() => {
         const p = parseFloat(price) || 0
         const d = parseFloat(discount) || 0
@@ -159,7 +158,7 @@ const Receipt = ({props}) => {
             onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
                 <Typography variant="h6" color="textSecondary">
-                    {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' *' : number}`}
+                    {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' * ' : ' №' + number}`}
                 </Typography>
                 <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
             </Box>
