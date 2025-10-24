@@ -7,7 +7,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from "./TopSlider.jsx"
 import Auth from "../../forms/Auth.jsx"
 import {useEffect, useRef, useState} from "react"
-import {MOBILE_WIDTH, openModal, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
+import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from "../../redux/interfaceReducer.js"
 import {NavLink} from "react-router-dom"
 import List from "../../ui/List.jsx"
 import {logout} from "../../redux/authReducer.js"
@@ -23,9 +23,7 @@ import HorecaMenu from "../top-menu/HorecaMenu.jsx"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
 import SeanceMenu from "../top-menu/SeanceMenu.jsx"
 import CheckoutMenu from "../top-menu/CheckoutMenu.jsx"
-import RestartAltIcon from '@mui/icons-material/RestartAlt'
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
-import RestorePageIcon from '@mui/icons-material/RestorePage'
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
 
 const Header = () => {
 
@@ -67,27 +65,9 @@ const Header = () => {
     const user_panel = () => {
         const up = []
         if (uid_user !== null) {
-            up.push(<Button variant='outlined' size='medium' onClick={() => {
-                dispatch(openModal({
-                    type: 'dialog_shutdown', props: {
-                        type: 'YesNo',
-                        action: 'shutdown',
-                        question: 'Вы уверены, что хотите выключить это рабочее место?',
-                    }
-                }))
-            }}><PowerSettingsNewIcon/></Button>)
-            up.push(<Button variant='outlined' size='medium' onClick={() => {
-                dispatch(openModal({
-                    type: 'dialog_reboot', props: {
-                        type: 'YesNo',
-                        action: 'reboot',
-                        question: 'Вы уверены, что хотите перезагрузить это рабочее место?',
-                    }
-                }))
-            }}><RestartAltIcon/></Button>)
-            up.push(<Button variant='outlined' size='medium' onClick={() => {
+            up.push(<Button variant='contained' size='medium' color='secondary' onClick={() => {
                 document.location.reload()
-            }}><RestorePageIcon/></Button>)
+            }}><TipsAndUpdatesIcon/></Button>)
             up.push(<Button variant='contained'><Clock key='3'/></Button>)
             up.push(<Button key='2' variant='contained'>{name_user}</Button>)
             if (cities.length > 0) {
@@ -99,35 +79,15 @@ const Header = () => {
             }
         } else {
             up.push(<Button variant='contained' size='medium' onClick={() => {
-                dispatch(openModal({
-                    type: 'dialog_shutdown', props: {
-                        type: 'YesNo',
-                        action: 'shutdown',
-                        question: 'Вы уверены, что хотите выключить это рабочее место?',
-                    }
-                }))
-            }}><PowerSettingsNewIcon/></Button>)
-            up.push(<Button variant='contained' size='medium' onClick={() => {
-                dispatch(openModal({
-                    type: 'dialog_reboot', props: {
-                        type: 'YesNo',
-                        action: 'reboot',
-                        question: 'Вы уверены, что хотите перезагрузить это рабочее место?',
-                    }
-                }))
-            }}><RestartAltIcon/></Button>)
-            up.push(<Button variant='contained' size='medium' onClick={() => {
                 document.location.reload()
-            }}><RestorePageIcon/></Button>)
+            }}><TipsAndUpdatesIcon/></Button>)
             up.push(<Button variant='contained' size='large' key='4'
                             onClick={() => {
                                 if (filial !== undefined) {
                                     dispatch(setAuthOpened(true))
                                 } else {
                                     dispatch(addNotification({
-                                        message: 'Для начала выберите филиал аутентификации',
-                                        severity: 'error',
-                                        autoHide: true
+                                        message: 'Выберите филиал для авторизации', severity: 'error', autoHide: true
                                     }))
                                 }
                             }}
