@@ -9,7 +9,6 @@ export default function SeanceCancellation({props}) {
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
 
     const [cancellation_reasons, set_cancellation_reasons] = useState([{
         uid: 0, name: '1 - Нет проданных билетов'

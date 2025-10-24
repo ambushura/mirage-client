@@ -12,9 +12,7 @@ const DotsAnimation = () => {
 
         return () => clearInterval(interval)
     }, [])
-    return (
-        <>{dots}</>
-    )
+    return <>{dots}</>
 }
 
 export default DotsAnimation

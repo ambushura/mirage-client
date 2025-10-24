@@ -11,7 +11,7 @@ const Ticket = (props) => {
     const ticket = props.ticket
 
     if (pre_order.uid !== undefined) {
-        return (<Box className='checkout-order-ticket'>
+        return <Box className='checkout-order-ticket'>
             <Box className='checkout-order-ticket-right'>
                 <div className='checkout-order-ticket-circle'></div>
             </Box>
@@ -48,7 +48,7 @@ const Ticket = (props) => {
                     }}><DeleteIcon sx={{color: '#8B919B'}}/></Box>
                 </Box>
             </Box>
-        </Box>)
+        </Box>
     }
 }
 

@@ -9,7 +9,7 @@ const BookingItem = (props) => {
     const dispatch = useDispatch()
     const uid_selected = useSelector(state => state.orders.uid_cinema_selected)
 
-    return (<Box className="order-booking-item">
+    return <Box className="order-booking-item">
         <Box
             className={`order-booking-item-description ${props.uid_selected.find(el => el === props.uid) ? 'position-selected' : ''}`}>
             <div style={{
@@ -48,7 +48,7 @@ const BookingItem = (props) => {
         {props.comment !== "" ? <Box className="order-booking-item-comment">
             <div>{props.comment}</div>
         </Box> : null}
-    </Box>)
+    </Box>
 }
 
 export default BookingItem

@@ -11,7 +11,7 @@ const SeanceTitle = (props) => {
     const ending = dayjs.utc(seance.ending)
     const its_hall_map = props.its_hall_map ? '-x2' : ''
 
-    return (<Box className={`component-seance-title${its_hall_map}`}>
+    return <Box className={`component-seance-title${its_hall_map}`}>
         <Box className={`component-seance-title-time${its_hall_map}`}>
             <Box
                 style={{paddingLeft: 0}}>{String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}<span> - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}</span></Box>
@@ -30,7 +30,7 @@ const SeanceTitle = (props) => {
         {props.age ? <Box className={`component-seance-title-rate-age${its_hall_map}`}>
             <Box>{`${seance.rate_age}+`}</Box>
         </Box> : <></>}
-    </Box>)
+    </Box>
 }
 
 export default SeanceTitle

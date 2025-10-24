@@ -9,10 +9,7 @@ export function WorkplaceForm({props}) {
             <TextField variant='filled' label='Имя' value={props.label}
                        sx={{marginBottom: 1}}/>
             <Box sx={{
-                marginBottom: 1,
-                width: 'inherit',
-                display: 'flex',
-                justifyContent: 'space-between'
+                marginBottom: 1, width: 'inherit', display: 'flex', justifyContent: 'space-between'
             }}>
                 <TextField variant='filled' sx={{flex: 3}} label='IP'/>
                 <TextField variant='filled' sx={{flex: 1, marginLeft: 1}} label='PORT'/>

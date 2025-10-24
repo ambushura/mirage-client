@@ -5,9 +5,7 @@ const initialState = {
 }
 
 const notifierSlice = createSlice({
-    name: "notifier",
-    initialState,
-    reducers: {
+    name: "notifier", initialState, reducers: {
         addNotification: (state, {payload}) => {
             state.notifications.push({
                 id: Date.now(),
@@ -15,8 +13,7 @@ const notifierSlice = createSlice({
                 severity: payload.severity ?? "info",
                 autoHide: payload.autoHide ?? true,
             })
-        },
-        removeNotification: (state, {payload}) => {
+        }, removeNotification: (state, {payload}) => {
             state.notifications = state.notifications.filter(n => n.id !== payload)
         }
     }

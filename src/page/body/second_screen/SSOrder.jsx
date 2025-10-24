@@ -21,7 +21,7 @@ const SsOrder = () => {
         set_total_sum(sum)
     }, [pre_order, horder])
 
-    return (<Box sx={{
+    return <Box sx={{
         width: 'calc(100% - 100px)',
         height: 'calc(100% - 100px)',
         margin: '50px',
@@ -97,7 +97,7 @@ const SsOrder = () => {
             <Box>ИТОГО</Box>
             <Box>{total_sum} р</Box>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default SsOrder

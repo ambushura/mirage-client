@@ -13,7 +13,7 @@ const SsSeance = ({width, height}) => {
     const booking = useSelector(state => state.second_screen.booking)
     const pre_order = useSelector(state => state.second_screen.pre_order)
 
-    return (<Box sx={{width: '100%', height: '100%'}}>
+    return <Box sx={{width: '100%', height: '100%'}}>
         <Hall
             city={city}
             filial={filial}
@@ -27,7 +27,7 @@ const SsSeance = ({width, height}) => {
             }}
             set_time_remaining={() => {
             }}/>
-    </Box>)
+    </Box>
 }
 
 export default SsSeance

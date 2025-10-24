@@ -5,9 +5,7 @@ const initialState = {
 }
 
 const markirovkaSlice = createSlice({
-    name: "markirovka",
-    initialState,
-    reducers: {
+    name: "markirovka", initialState, reducers: {
         fillHosts: (state, {payload}) => {
             state.hosts = payload
         },

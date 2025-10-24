@@ -43,9 +43,7 @@ const initialState = {
 }
 
 const authReducer = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
+    name: "auth", initialState, reducers: {
         loginSuccess: (state, {payload}) => {
             const decode = jwtDecode(payload)
             state.uid = decode.uid
@@ -67,8 +65,7 @@ const authReducer = createSlice({
             setStorageItem("token", payload)
             setStorageItem("filials", decode.filials)
             setStorageItem("permissions", decode.permissions)
-        },
-        logout: (state) => {
+        }, logout: (state) => {
             state.uid = null
             state.name = null
             state.login = null
