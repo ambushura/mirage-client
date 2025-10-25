@@ -127,7 +127,7 @@ export function ShowFastSearch() {
     const dispatch = useDispatch()
     const order_search_value = useSelector(state => state.orders.order_search_value)
 
-    return (<Box sx={{
+    return <Box sx={{
         display: "flex", justifyContent: "flex-end", alignItems: 'center', padding: '2px 0', marginRight: '5px'
     }}>
         <TextField
@@ -142,7 +142,7 @@ export function ShowFastSearch() {
                     dispatch(setOrderSearchValue(event.target.value))
                 }
             }}
-            InputProps={{
+            slotProps={{
                 endAdornment: order_search_value && <InputAdornment position="end">
                     <IconButton
                         onClick={() => dispatch(setOrderSearchValue(null))}
@@ -153,7 +153,7 @@ export function ShowFastSearch() {
                     </IconButton>
                 </InputAdornment>,
             }}/>
-    </Box>)
+    </Box>
 
 }
 

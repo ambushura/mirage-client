@@ -2,14 +2,16 @@ import {Box, Button, Skeleton, Typography} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_documents_zbook_get} from "../../../../service/fetch_service.js"
+import {common_documents_zbook_get, common_documents_zbook_save} from "../../../../service/fetch_service.js"
 import CloseIcon from '@mui/icons-material/Close'
 import {useForm} from "react-hook-form"
 import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
 import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
-import dayjs from "dayjs";
+import dayjs from "dayjs"
+import {setZBooksUpdate} from "../../../../redux/documentsReducer.js"
+import {parceZone} from "../../../../service/advanced.js"
 
 const ZBook = ({props}) => {
 
@@ -50,28 +52,6 @@ const ZBook = ({props}) => {
     const date_shift = watch('date_shift')
     const number_kkt = watch('number_kkt')
 
-    // const handle_save = () => {
-    //     const prepared = {
-    //         ...data,
-    //         number_shift: Number(data.number_shift) || 0,
-    //         last_fd: Number(data.last_fd) || 0,
-    //         sum_in_cash: parseFloat(data.sum_in_cash) || 0,
-    //         sum_out_cash: parseFloat(data.sum_out_cash) || 0,
-    //         sum_in_electron: parseFloat(data.sum_in_electron) || 0,
-    //         sum_out_electron: parseFloat(data.sum_out_electron) || 0,
-    //         sum_nds: parseFloat(data.sum_nds) || 0,
-    //         sum_collection: parseFloat(data.sum_collection) || 0,
-    //         sum_electron: parseFloat(data.sum_electron) || 0,
-    //         revenue: parseFloat(data.revenue) || 0,
-    //         sum_total_of_income: parseFloat(data.sum_total_of_income) || 0,
-    //         sum_non_zero_total_of_income: parseFloat(data.sum_non_zero_total_of_income) || 0,
-    //         sum_non_zero_total_of_outcome: parseFloat(data.sum_non_zero_total_of_outcome) || 0,
-    //     }
-    //     dispatch(common_documents_zbook_save(filial, prepared))
-    //     dispatch(closeModal())
-    //     dispatch(setZBooksUpdate())
-    // }
-
     useEffect(() => {
         const fetchData = async () => {
             set_loading(true)
@@ -82,7 +62,9 @@ const ZBook = ({props}) => {
                     const data = await dispatch(common_documents_zbook_get(filial, props.uid))
                     if (data?.data) {
                         reset({
-                            ...data.data
+                            ...data.data,
+                            date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
+                            moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
                         })
                     }
                 }
@@ -98,9 +80,25 @@ const ZBook = ({props}) => {
     const onSubmit = (data) => {
         const prepared = {
             ...data,
+            date_shift: dayjs(data.date_shift).format('YYYY-MM-DDTHH:mm:ss+00:00'),
+            moment: dayjs(data.moment).format('YYYY-MM-DDTHH:mm:ss+00:00'),
+            number_shift: Number(data.number_shift) || 0,
+            last_fd: Number(data.last_fd) || 0,
+            sum_in_cash: parseFloat(data.sum_in_cash) || 0,
+            sum_out_cash: parseFloat(data.sum_out_cash) || 0,
+            sum_in_electron: parseFloat(data.sum_in_electron) || 0,
+            sum_out_electron: parseFloat(data.sum_out_electron) || 0,
+            sum_nds: parseFloat(data.sum_nds) || 0,
+            sum_collection: parseFloat(data.sum_collection) || 0,
+            sum_electron: parseFloat(data.sum_electron) || 0,
+            revenue: parseFloat(data.revenue) || 0,
+            sum_total_of_income: parseFloat(data.sum_total_of_income) || 0,
+            sum_non_zero_total_of_income: parseFloat(data.sum_non_zero_total_of_income) || 0,
+            sum_non_zero_total_of_outcome: parseFloat(data.sum_non_zero_total_of_outcome) || 0,
         }
+        dispatch(common_documents_zbook_save(filial, prepared))
         dispatch(closeModal())
-        dispatch(setZBooksUpdated())
+        dispatch(setZBooksUpdate())
     }
 
     if (loading) {

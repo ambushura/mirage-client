@@ -14,7 +14,7 @@ const Footer = () => {
         <div>© «МИРАЖ СИНЕМА» {new Date().getFullYear()}</div>
         <div>{wp}</div>
         {!kiosk && <div style={{position: 'absolute', right: 0}}>
-            <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} variant='contained' size='small'
+            <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} variant='outlined' size='small'
                     color='secondary' onClick={() => {
                 dispatch(openModal({
                     type: 'dialog_reboot', props: {
@@ -24,7 +24,7 @@ const Footer = () => {
                     }
                 }))
             }}><RestartAltIcon/></Button>
-            <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} variant='contained' size='small'
+            <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} variant='outlined' size='small'
                     color='secondary' onClick={() => {
                 dispatch(openModal({
                     type: 'dialog_shutdown', props: {
