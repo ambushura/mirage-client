@@ -103,7 +103,7 @@ const ZPinpads = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'slip', props: {uid: params.row.id}}))
+                            dispatch(openModal({type: 'documents_slip', props: {uid: params.row.id}}))
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Слипы отсутствуют в смене...</Box>}
                 </Box>}

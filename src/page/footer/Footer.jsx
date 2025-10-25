@@ -20,7 +20,7 @@ const Footer = () => {
                     type: 'dialog_reboot', props: {
                         type: 'YesNo',
                         action: 'reboot',
-                        question: 'Вы уверены, что хотите перезагрузить это рабочее место?',
+                        question: 'Вы уверены, что хотите ПЕРЕЗАГРУЗИТЬ это рабочее место?',
                     }
                 }))
             }}><RestartAltIcon/></Button>
@@ -30,7 +30,7 @@ const Footer = () => {
                     type: 'dialog_shutdown', props: {
                         type: 'YesNo',
                         action: 'shutdown',
-                        question: 'Вы уверены, что хотите выключить это рабочее место?',
+                        question: 'Вы уверены, что хотите ВЫКЛЮЧИТЬ это рабочее место?',
                     }
                 }))
             }}><PowerSettingsNewIcon/></Button>

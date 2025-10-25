@@ -93,7 +93,7 @@ function App() {
         documents_z_book: Zbook,
         documents_receipt: Receipt,
         documents_operation: Operation,
-        slip: Slip,
+        documents_slip: Slip,
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,
         dialog_delete_receipts: Dialog,
