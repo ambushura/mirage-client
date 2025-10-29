@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {setSSState} from "../../redux/secondScreenReducer.js"
 import {ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"
 import {
+    cinema_seance_booking_get,
     horeca_position_add_barcode,
     horeca_position_add_egais_mark,
     horeca_position_add_mark,
@@ -12,6 +13,7 @@ import {
 } from "../../service/fetch_service.js"
 import {addNotification} from "../../redux/notifierReducer.js"
 import {setOrderSearchValue} from "../../redux/ordersReducer.js";
+import {setBooking} from "../../redux/scheduleReducer.js";
 
 export function useSetWS() {
 
@@ -106,6 +108,26 @@ export function useSetWS() {
                                 }
                                 break
                         }
+                        break
+                    case 'cinema':
+                        if (data.action === 'position_add') if (current_page === 'seance') {
+                            if (seance.uid === data.uid_seance) {
+                                (async () => {
+                                    const fetching_result = await dispatch(cinema_seance_booking_get(filial, data.uid_seance, pre_order.uid))
+                                    if (fetching_result.data !== null) {
+                                        dispatch(setBooking(fetching_result.data))
+                                    }
+                                })()
+                            }
+                        }
+                        break
+                    case 'kitchen':
+                        break
+                    case 'horeca':
+                        if (current_page === 'admin/orders/horeca') {
+
+                        }
+                        break
                 }
             } catch (e) {
                 console.error(e)

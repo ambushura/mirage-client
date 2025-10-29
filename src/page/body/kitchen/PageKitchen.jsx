@@ -101,24 +101,24 @@ const PageKitchen = () => {
                 <Box className='empty-box' sx={{width: '100%', height: '100%'}}>Выберите филиал...</Box>}
             {fetching.loading && fetching.error === null && fetching.data === null && <Loader/>}
             {!fetching.loading && fetching.error !== null && fetching.data === null &&
-                <Box className='empty-box' sx={{minHeight: 'var(--page-height)'}}>{fetching.error}</Box>}
+                <Box className='empty-box' sx={{minHeight: 'calc(var(--page-height)'}}>{fetching.error}</Box>}
             {}
             {!fetching.loading && fetching.error === null && fetching.data !== null &&
-                <Box id='content' sx={{padding: '10px 0'}}>
+                <Box id='content' sx={{height: 'calc(var(--page-height) - var(--footer-height)) !important'}}>
                     {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
                         <Box className='kitchen-orders'>
                             <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header'>Ожидайте</Box>
+                                <Box className='kitchen-section-header glass'>Ожидайте</Box>
                                 <KitchenSection orders={kitchen_orders.waiting}
                                                 dispatch={dispatch}/>
                             </Box>
                             <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header'>Начните готовить</Box>
+                                <Box className='kitchen-section-header glass'>Начните готовить</Box>
                                 <KitchenSection orders={kitchen_orders.cooking}
                                                 dispatch={dispatch}/>
                             </Box>
                             <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header'>Отдайте официанту</Box>
+                                <Box className='kitchen-section-header glass'>Отдайте официанту</Box>
                                 <KitchenSection orders={kitchen_orders.completed}
                                                 dispatch={dispatch}
                                                 showButtons={false}/>
