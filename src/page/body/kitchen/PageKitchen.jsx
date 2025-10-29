@@ -18,7 +18,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
             className={`kitchen-order ${order.canceled ? 'kitchen-order-canceled' : ''}`}
             key={`${order.uid}${order.ver}`}
             variants={itemVariants}>
-            <Box className='kitchen-order-header'>
+            <Box className='kitchen-order-header glass'>
                 <Box sx={{ml: '4px'}}>{order.number}</Box>
                 <Box>{dayjs.utc(order.date_create).format("HH:mm")}</Box>
                 <Box>{dayjs.utc(order.date_change).format("HH:mm")}</Box>

@@ -23,7 +23,7 @@ import HorecaMenu from "../top-menu/HorecaMenu.jsx"
 import AdminMenu from "../top-menu/AdminMenu.jsx"
 import SeanceMenu from "../top-menu/SeanceMenu.jsx"
 import CheckoutMenu from "../top-menu/CheckoutMenu.jsx"
-import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
+import SosIcon from '@mui/icons-material/Sos'
 
 const Header = () => {
 
@@ -67,7 +67,7 @@ const Header = () => {
         if (uid_user !== null) {
             up.push(<Button variant='contained' size='medium' color='secondary' onClick={() => {
                 document.location.reload()
-            }}><TipsAndUpdatesIcon/></Button>)
+            }}><SosIcon/></Button>)
             up.push(<Button variant='contained'><Clock key='3'/></Button>)
             up.push(<Button key='2' variant='contained'>{name_user}</Button>)
             if (cities.length > 0) {
@@ -80,7 +80,7 @@ const Header = () => {
         } else {
             up.push(<Button variant='contained' size='medium' onClick={() => {
                 document.location.reload()
-            }}><TipsAndUpdatesIcon/></Button>)
+            }}><SosIcon/></Button>)
             up.push(<Button variant='contained' size='large' key='4'
                             onClick={() => {
                                 if (filial !== undefined) {

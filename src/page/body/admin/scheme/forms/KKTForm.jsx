@@ -260,16 +260,13 @@ export default function KKTForm({props}) {
                         </FormGroup>
                     </Box>
                 </Box>
-                <Box sx={{flex: 1, marginLeft: '5px'}}>
-                    <ButtonGroup size='small' sx={{height: 'fit-content', width: '100%', marginBottom: 1}}
-                                 variant='outlined'
-                                 color='secondary' orientation='vertical'>
-                        {fast_commands.map(el => {
-                            return (<Button key={el.id} onClick={() => {
-                                dispatch(equipment_action(filial, el.route, el.param))
-                            }}>{el.name}</Button>)
-                        })}
-                    </ButtonGroup>
+                <Box sx={{flex: 1, marginLeft: '5px', display: 'flex', flexDirection: 'column'}}>
+                    {fast_commands.map(el => {
+                        return <Button variant='outlined' color='secondary' sx={{marginBottom: '5px'}} fullWidth
+                                       key={el.id} onClick={() => {
+                            dispatch(equipment_action(filial, el.route, el.param))
+                        }}>{el.name}</Button>
+                    })}
                 </Box>
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
