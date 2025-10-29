@@ -8,6 +8,7 @@ import sound_kitchen_add_positon from '../../sounds/kitchen_new_order.mp3'
 import {
     cinema_seance_booking_get,
     horeca_kitchen_get,
+    horeca_order_fetch,
     horeca_position_add_barcode,
     horeca_position_add_egais_mark,
     horeca_position_add_mark,
@@ -15,7 +16,7 @@ import {
     pl_estimate_discounts
 } from "../../service/fetch_service.js"
 import {addNotification} from "../../redux/notifierReducer.js"
-import {setKitchenOrders, setOrderSearchValue} from "../../redux/ordersReducer.js"
+import {setKitchenOrders, setOrderSearchValue, setOrdersHorecaUpdate} from "../../redux/ordersReducer.js"
 import {setBooking} from "../../redux/scheduleReducer.js"
 import dayjs from "dayjs"
 
@@ -239,7 +240,10 @@ export function useSetWS() {
                         break
                     case 'horeca':
                         if (current_page === 'admin/orders/horeca') {
-
+                            dispatch(setOrdersHorecaUpdate())
+                        }
+                        if (horder.uid === data.uid_order) {
+                            dispatch(horeca_order_fetch(filial, horder.uid))
                         }
                         break
                 }
