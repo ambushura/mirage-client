@@ -3,8 +3,11 @@ import useWebSocket from "react-use-websocket"
 import {useDispatch, useSelector} from "react-redux"
 import {setSSState} from "../../redux/secondScreenReducer.js"
 import {ROUTE_MAIN_HOST} from "../../service/fetch_routes.js"
+import useSound from "use-sound"
+import sound_kitchen_add_positon from '../../sounds/kitchen_new_order.mp3'
 import {
     cinema_seance_booking_get,
+    horeca_kitchen_get,
     horeca_position_add_barcode,
     horeca_position_add_egais_mark,
     horeca_position_add_mark,
@@ -12,8 +15,9 @@ import {
     pl_estimate_discounts
 } from "../../service/fetch_service.js"
 import {addNotification} from "../../redux/notifierReducer.js"
-import {setOrderSearchValue} from "../../redux/ordersReducer.js";
-import {setBooking} from "../../redux/scheduleReducer.js";
+import {setKitchenOrders, setOrderSearchValue} from "../../redux/ordersReducer.js"
+import {setBooking} from "../../redux/scheduleReducer.js"
+import dayjs from "dayjs"
 
 export function useSetWS() {
 
@@ -28,17 +32,21 @@ export function useSetWS() {
     const filial = useSelector(state => state.data.filial)
     const current_page = useSelector(state => state.interface.current_page)
     const param_date = useSelector(state => state.interface.params.param_date)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const pre_order = useSelector(state => state.orders.pre_order)
     const horder = useSelector(state => state.orders.horder)
     const seance = useSelector(state => state.schedule.seance)
     const uid_horeca_selected = useSelector(state => state.orders.uid_horeca_selected)
     const kiosk = useSelector(state => state.interface.kiosk)
+    const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
 
     const {
         sendMessage, lastMessage
     } = useWebSocket(dev ? `ws://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.ws_port}/?wp=${wp}${its_second_screen ? '&ss=true' : ''}` : `ws://${hostname}:${ROUTE_MAIN_HOST.ws_port}/ws?wp=${wp}${its_second_screen ? '&ss=true' : ''}`, {
         shouldReconnect: () => true,
     })
+
+    const [kitchen_add_position] = useSound(sound_kitchen_add_positon)
 
     useEffect(() => {
         if (lastMessage) {
@@ -121,7 +129,97 @@ export function useSetWS() {
                             }
                         }
                         break
+                    // Кухня
                     case 'kitchen':
+                        if (current_page === 'kitchen') {
+                            if (param_date === dayjs(data.date_shift).format('YYYY-MM-DD')) {
+                                (async () => {
+                                    const fetching_result = await dispatch(horeca_kitchen_get(filial, param_date_admin, uid_kitchen_points_selected))
+                                    if (fetching_result.data !== null) {
+                                        dispatch(setKitchenOrders(fetching_result.data))
+                                    }
+                                })()
+                                switch (data.action) {
+                                    // Добавление позиции
+                                    case 'add_position':
+                                        if (data.exist) {
+                                            // в существующий заказ
+                                            dispatch(addNotification({
+                                                message: `ИЗМЕНЕНИЕ ПОЗИЦИЙ В ЗАКАЗЕ ${data.number}`,
+                                                severity: 'info',
+                                                autoHide: true
+                                            }))
+                                        } else {
+                                            // в новый заказ
+                                            dispatch(addNotification({
+                                                message: `НОВЫЙ ЗАКАЗ ${data.number}`, severity: 'info', autoHide: true
+                                            }))
+                                            kitchen_add_position()
+                                        }
+                                        break
+                                    // Комментарий к заказу
+                                    case 'comment':
+                                        dispatch(addNotification({
+                                            message: `КОММЕНТАРИЙ К ЗАКАЗУ ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                    // Изменилось отменен
+                                    case 'order_canceled':
+                                        dispatch(addNotification({
+                                            message: `ОТМЕНА ЗАКАЗА ${data.number}`, severity: 'error', autoHide: false
+                                        }))
+                                        break
+                                    // Комментарий к заказу удален
+                                    case 'comment_deleted':
+                                        dispatch(addNotification({
+                                            message: `КОММЕНТАРИЙ К ЗАКАЗУ УДАЛЕН ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                    // С собой
+                                    case 'away':
+                                        dispatch(addNotification({
+                                            message: `С СОБОЙ в заказе ${data.number}`, severity: 'info', autoHide: true
+                                        }))
+                                        break
+                                    // Курс
+                                    case 'course':
+                                        dispatch(addNotification({
+                                            message: `НОВЫЙ КУРС в заказе ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                    // Комментарий к позиции
+                                    case 'comment_position':
+                                        dispatch(addNotification({
+                                            message: `Комментарий к позиции заказа ${data.number}: ${data.comment}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                    // Комментарий к позиции удалить
+                                    case 'delete_comment_position':
+                                        dispatch(addNotification({
+                                            message: `Удален комментарий к позиции заказа ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                    // Изменилось количество позиций
+                                    case 'quantity_changed':
+                                        dispatch(addNotification({
+                                            message: `Изменилось количество в заказе ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                }
+                            }
+                        }
                         break
                     case 'horeca':
                         if (current_page === 'admin/orders/horeca') {

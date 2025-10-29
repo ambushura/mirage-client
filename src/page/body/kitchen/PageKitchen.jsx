@@ -15,7 +15,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
 
     return <>
         {orders.map(order => <motion.div
-            className='kitchen-order'
+            className={`kitchen-order ${order.canceled ? 'kitchen-order-canceled' : ''}`}
             key={`${order.uid}${order.ver}`}
             variants={itemVariants}>
             <Box className='kitchen-order-header'>
@@ -32,7 +32,8 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                     <Box sx={{display: 'flex', flexDirection: 'column'}}>
                         <Box sx={{
                             display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'
-                        }}>{item.take_away && <Box sx={{fontSize: '120%'}}>С СОБОЙ</Box>}{item.course > 0 &&
+                        }}>{item.take_away &&
+                            <Box sx={{fontSize: '120%', marginRight: '5px'}}>С СОБОЙ</Box>}{item.course > 0 &&
                             <Box sx={{fontSize: '120%'}}>{item.course} КУРС</Box>}</Box>
                         <Box sx={{
                             fontWeight: 'bold', overflow: 'hidden'
@@ -56,7 +57,7 @@ const KitchenSection = ({
                             orders, showButtons = true, dispatch
                         }) => <Box className='kitchen-section'>
     <AnimatePresence>
-        {orders.length > 0 && (<motion.div
+        {orders.length > 0 && <motion.div
             className='kitchen-section-orders'
             initial="hidden"
             animate="visible"
@@ -65,7 +66,7 @@ const KitchenSection = ({
             <KitchenOrderList orders={orders}
                               showButtons={showButtons}
                               dispatch={dispatch}/>
-        </motion.div>)}
+        </motion.div>}
     </AnimatePresence>
 </Box>
 
@@ -108,17 +109,17 @@ const PageKitchen = () => {
                     {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
                         <Box className='kitchen-orders'>
                             <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header glass'>Ожидайте</Box>
+                                <Box className='kitchen-section-header glass'>ОЖИДАЙТЕ</Box>
                                 <KitchenSection orders={kitchen_orders.waiting}
                                                 dispatch={dispatch}/>
                             </Box>
                             <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header glass'>Начните готовить</Box>
+                                <Box className='kitchen-section-header glass'>НАЧНИТЕ ГОТОВИТЬ</Box>
                                 <KitchenSection orders={kitchen_orders.cooking}
                                                 dispatch={dispatch}/>
                             </Box>
                             <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header glass'>Отдайте официанту</Box>
+                                <Box className='kitchen-section-header glass'>ГОТОВЫ</Box>
                                 <KitchenSection orders={kitchen_orders.completed}
                                                 dispatch={dispatch}
                                                 showButtons={false}/>
