@@ -217,6 +217,22 @@ export function useSetWS() {
                                             autoHide: true
                                         }))
                                         break
+                                    // Готовить
+                                    case 'cook':
+                                        dispatch(addNotification({
+                                            message: `Начните готовить позицию в заказе ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
+                                    // Продвинуть готовность
+                                    case 'push':
+                                        dispatch(addNotification({
+                                            message: `Изменилось состояние готовности позиции в заказе ${data.number}`,
+                                            severity: 'info',
+                                            autoHide: true
+                                        }))
+                                        break
                                 }
                             }
                         }
