@@ -174,7 +174,7 @@ export default function KKTForm({props}) {
                     </Box>
                     <Box sx={{display: page === 1 ? 'block' : 'none', width: 'inherit'}}>
                         <Box>
-                            Ограничения работы кассы
+                            В разработке...
                         </Box>
                     </Box>
                     <Box sx={{display: page === 2 ? 'block' : 'none', width: 'inherit'}}>
