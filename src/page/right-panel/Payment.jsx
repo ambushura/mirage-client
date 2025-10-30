@@ -53,7 +53,7 @@ const Payment = (props) => {
 
     useEffect(() => {
         const fetch = async () => {
-            let fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type))
+            let fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type, false))
             if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
                 fetching_result.data.list.push({
                     name: 'Другие способы',
@@ -410,7 +410,7 @@ const Payment = (props) => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
                                             if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
-                                                if (pm.uid === 'Заявление' || pm.uid === 'Яндекс Еда') {
+                                                if (pm.uid === 'Заявление' || pm.uid === 'Яндекс Еда' || pm.name === 'Безналичные (б/т)') {
                                                     ok = false
                                                 }
                                             }
