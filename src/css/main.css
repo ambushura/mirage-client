@@ -1849,6 +1849,7 @@
     font-weight: bold;
     border-radius: 14px;
     content: "Заказ отменен";
+    overflow: hidden;
 }
 
 .kitchen-order-header {
