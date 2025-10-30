@@ -1831,7 +1831,6 @@
     max-height: 280px;
     width: 270px;
     overflow-x: hidden;
-    overflow-y: auto;
     position: relative;
 }
 

@@ -17,7 +17,8 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
         {orders.map(order => <motion.div
             className={`kitchen-order ${order.canceled ? 'kitchen-order-canceled' : ''}`}
             key={`${order.uid}${order.ver}`}
-            variants={itemVariants}>
+            variants={itemVariants}
+            style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
             <Box className='kitchen-order-header glass'>
                 <Box sx={{ml: '4px'}}>{order.number}</Box>
                 <Box>{dayjs.utc(order.date_create).format("HH:mm")}</Box>
