@@ -353,7 +353,9 @@ export function CreateDeleteButtons() {
                 set_menu([{uid: 'documents_z_book', title: 'Книга'}, {uid: 'documents_receipt', title: 'Чек'}])
                 break
             case 'admin/operations':
-                set_menu([{uid: 'documents_operation', title: 'Операция'}])
+                set_menu([{
+                    uid: 'documents_operation_close_shift', title: 'Заполнить по итогам смены'
+                }, {uid: 'documents_operation', title: 'Операция'}])
                 break
         }
     }, [current_page])
@@ -383,6 +385,9 @@ export function CreateDeleteButtons() {
                             break
                         case 'documents_operation':
                             dispatch(openModal({type: 'documents_operation', props: {uid: 'new'}}))
+                            break
+                        case 'documents_operation_close_shift':
+                            dispatch(openModal({type: 'documents_operation_close_shift', props: {uid: 'new'}}))
                             break
                     }
                 }}
@@ -420,7 +425,6 @@ export function Equipment() {
             handleClose={(uid) => {
                 switch (uid) {
                     case 'workplace':
-                        //dispatch(openModal({type: 'equipment_workplace', props: {uid: 'new'}}))
                         break
                     case 'kkt':
                         break
@@ -444,7 +448,6 @@ export function Operations() {
     const {columns, rows, date_shift_beginning, date_shift_ending} = useSelector(state => state.documents.operations)
 
     return <>
-        <Button sx={{margin: '0 4px'}} variant='contained' color='secondary'>Заполнить по итогам смены</Button>
         <FormControlLabel onChange={() => {
             dispatch(setOperationsDetails(!operations_details))
         }} sx={{margin: '0 4px'}}

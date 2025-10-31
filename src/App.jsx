@@ -47,6 +47,7 @@ import {LicenseInfo} from '@mui/x-license'
 import Zbook from "./page/body/admin/documents/Zbook.jsx"
 import Receipt from "./page/body/admin/documents/Receipt.jsx"
 import Slip from "./page/body/admin/documents/Slip.jsx"
+import OperationCloseShift from "./forms/OperationCloseShift.jsx";
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -93,6 +94,7 @@ function App() {
         documents_z_book: Zbook,
         documents_receipt: Receipt,
         documents_operation: Operation,
+        documents_operation_close_shift: OperationCloseShift,
         documents_slip: Slip,
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,

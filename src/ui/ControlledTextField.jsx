@@ -10,6 +10,8 @@ const ControlledTextField = ({
                                  readOnly = false,
                                  rules = {},
                                  sx = {},
+                                 multiline = false,
+                                 rows,
                                  onChange: customOnChange,
                              }) => <Controller
     name={name}
@@ -36,6 +38,8 @@ const ControlledTextField = ({
                 if (numeric) val = val.replace(/\D/g, '')
                 if (customOnChange) customOnChange(e, val); else field.onChange(val)
             }}
+            multiline={multiline}
+            rows={rows}
         />
     </Tooltip>}
 />

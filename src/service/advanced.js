@@ -105,3 +105,13 @@ export const ruToEnLayout = (text) => {
 export function parceZone(local_date) {
     return local_date.replace(/([+-]\d{2}:\d{2}|Z)$/, '')
 }
+
+export function get_date_shift(now) {
+    const hours = now.getHours()
+    const date = new Date(now)
+    if (hours < 7) {
+        date.setDate(date.getDate() - 1)
+    }
+    date.setHours(0, 0, 0, 0)
+    return date
+}
