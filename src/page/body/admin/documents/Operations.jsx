@@ -13,12 +13,12 @@ const Operations = () => {
 
     const filial = useSelector(state => state.data.filial)
     const {columns, rows, column_grouping_model} = useSelector(state => state.documents.operations)
-    const {operations_page, operations_details} = useSelector(state => state.documents)
-    const {update} = useSelector(state => state.documents.operations)
+    const {operations_page, operations_details, operations_update} = useSelector(state => state.documents)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
+
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_documents_operations_get(filial, operations_page, update, operations_details))
+            const fetching_result = await dispatch(common_documents_operations_get(filial, operations_page, operations_update, operations_details))
             set_fetching(fetching_result)
             if (fetching_result.data !== null) {
                 dispatch(setOperations(fetching_result.data))
@@ -29,7 +29,7 @@ const Operations = () => {
             fetch()
         }
         return () => dispatch(cleanOperations())
-    }, [dispatch, filial, operations_page, operations_details, update])
+    }, [dispatch, filial, operations_page, operations_details, operations_update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>

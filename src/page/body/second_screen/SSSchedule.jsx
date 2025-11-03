@@ -1,143 +1,127 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
-import {motion} from "framer-motion"
+import "../../../css/ss.css"
+import {useEffect, useRef} from "react"
+import {AnimatePresence, motion} from "framer-motion"
 import cover from "../../../images/cover.png"
 import dayjs from "dayjs"
 
-const SsSchedule = ({width, height}) => {
+function minPrice(tariff) {
+    return tariff[0].price
+}
+
+const SsSchedule = () => {
     const filial = useSelector(state => state.data.filial)
-    const schedule = useSelector(state => state.second_screen.schedule)
+    const schedule = useSelector(state => state.second_screen.schedule || [])
 
-    if (!schedule) return <Box>Расписание загружается</Box>
-
-    function binPack(rects, binWidth, binHeight) {
-        let spaces = [{x: 0, y: 0, w: binWidth, h: binHeight}]
-        let result = []
-        for (let r of rects) {
-            let idx = spaces.findIndex(s => r.w <= s.w && r.h <= s.h)
-            if (idx === -1) continue
-            let space = spaces[idx]
-            result.push({...r, x: space.x, y: space.y})
-            spaces.splice(idx, 1)
-            spaces.push({x: space.x + r.w, y: space.y, w: space.w - r.w, h: r.h})
-            spaces.push({x: space.x, y: space.y + r.h, w: space.w, h: space.h - r.h})
-        }
-        return result
+    if (schedule.length === 0) {
+        return <Box>Расписание загружается</Box>
     }
 
-    // 1. Базовые размеры карточек
-    const baseRects = schedule.map(film => {
-        const area = film.seances.length || 1
-        const aspectRatio = 2
-        const baseH = Math.sqrt(area / aspectRatio)
-        const baseW = aspectRatio * baseH
-        return {baseW, baseH, film, seancesCount: film.seances.length}
-    })
+    return <Box className="ss-schedule">
+        {schedule.map(film => {
+            const seances = film.seances || []
+            const mainSeances = seances.slice(0, 3)
+            const extraSeances = seances.slice(3)
 
-    // 2. Масштаб под экран
-    const totalBaseArea = baseRects.reduce((acc, r) => acc + r.baseW * r.baseH, 0)
-    const screenArea = width * height
-    const scale = Math.sqrt(screenArea / totalBaseArea) * 0.9
+            return <Box key={film.uid} className="movie-block glass-effect"
+                        sx={{width: extraSeances.length > 0 ? '224px' : '174px'}}>
+                <img
+                    className="poster"
+                    src={`${film.cover_link === '' ? cover : `http://${filial.media_ip}:${filial.media_port}${film.cover_link}`}`}
+                    alt={film.name}
+                />
 
-    let rects = baseRects.map(r => ({
-        w: Math.ceil(r.baseW * scale), h: Math.ceil(r.baseH * scale), film: r.film, seancesCount: r.seancesCount
-    }))
+                <div className="top-bar">
+                    <div className="top-item glass-effect">{film.rate_age}+</div>
+                    <div className="top-item glass-effect">{film.copy_type}+</div>
+                    <div className="top-item"/>
+                </div>
 
-    // 3. Пакуем карточки
-    rects.sort((a, b) => (b.w * b.h) - (a.w * a.h))
-    const packed = binPack(rects, width, height)
+                <div className="bottom-cards">
+                    {mainSeances.map(seance => <div key={seance.uid} className="card glass-effect">
+                        {dayjs(seance.beginning).format("HH:mm")}
+                        <br/><span className='card-price'>от {minPrice(seance.tariff) || 0}</span>
+                    </div>)}
+                </div>
 
-    // 4. Максимальная высота карточки
-    const maxCardHeight = Math.max(...packed.map(r => r.h))
-    const baseSeanceFont = {hall: maxCardHeight * 0.04, time: maxCardHeight * 0.08}
-
-    return <>
-        {packed.map((r, idx) => {
-            // масштаб под текущую карточку
-            const scaleFactor = Math.min(1, r.h / maxCardHeight)
-
-            return (<Box
-                key={r.film.uid}
-                className='ss-film-box'
-                sx={{
-                    position: 'absolute',
-                    left: r.x,
-                    top: r.y,
-                    width: r.w,
-                    height: 'auto',
-                    minHeight: r.h,
-                    overflow: 'visible',
-                }}
-            >
-                <motion.div
-                    className='ss-film-box-motion'
-                    initial={{opacity: 0, scale: 0.9, y: 20}}
-                    animate={{opacity: 1, scale: 1, y: 0}}
-                    transition={{duration: 0.4, delay: idx * 0.05}}
-                >
-                    <Box className='ss-film-box-card' sx={{display: 'flex', width: '100%', height: 'auto'}}>
-                        {/* Постер */}
-                        <Box
-                            className='ss-film-box-poster'
-                            sx={{
-                                width: `${r.h * (174 / 268)}px`,
-                                height: 'auto',
-                                backgroundImage: `url(${r.film.cover_link === '' ? cover : `http://${filial.media_ip}:${filial.media_port}` + r.film.cover_link})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center'
-                            }}
-                        />
-                        {/* Контент */}
-                        <Box className='ss-film-box-content' sx={{flex: 1, overflow: 'visible', ml: 1}}>
-                            {/* Заголовок */}
-                            <Box
-                                className='ss-film-box-title'
-                                sx={{
-                                    fontSize: `clamp(12px, ${r.h * 0.10}px, 18px)`,
-                                    lineHeight: 1.2,
-                                    display: '-webkit-box',
-                                    WebkitLineClamp: 3,
-                                    WebkitBoxOrient: 'vertical',
-                                    overflow: 'hidden',
-                                }}
-                            >
-                                {r.film.name}
-                            </Box>
-
-                            {/* Подзаголовок */}
-                            <Box className='ss-film-box-sub-title'>
-                                {r.film.rate_age}+ {r.film.copy_type} · {r.film.duration} м.
-                            </Box>
-
-                            {/* Сеансы */}
-                            <Box className='ss-film-box-seances' sx={{overflow: 'visible'}}>
-                                {r.film.seances.map((seance, i) => (<motion.div
-                                    key={seance.uid}
-                                    initial={{opacity: 0, scale: 0.8}}
-                                    animate={{opacity: 1, scale: 1}}
-                                    transition={{duration: 0.3, delay: i * 0.05}}
-                                >
-                                    <Box className='ss-film-box-seance-box'>
-                                        <Box
-                                            sx={{fontSize: `clamp(8px, ${baseSeanceFont.hall * scaleFactor}px, 24px)`}}>
-                                            Зал {seance.name_hall}
-                                        </Box>
-                                        <Box sx={{
-                                            color: 'white',
-                                            fontWeight: 'bold',
-                                            fontSize: `clamp(12px, ${baseSeanceFont.time * scaleFactor}px, 24px)`,
-                                        }}>
-                                            {dayjs(seance.beginning).format("HH:mm")}
-                                        </Box>
-                                    </Box>
-                                </motion.div>))}
-                            </Box>
-                        </Box>
-                    </Box>
-                </motion.div>
-            </Box>)
+                <AnimatePresence>
+                    {extraSeances.length > 0 && <motion.div
+                        key="sessions-panel"
+                        initial={{opacity: 0, x: 30}}
+                        animate={{opacity: 1, x: 0}}
+                        exit={{opacity: 0, x: 30}}
+                        transition={{duration: 0.4, ease: "easeOut"}}
+                    >
+                        <ScrollingSessions seances={extraSeances}/>
+                    </motion.div>}
+                </AnimatePresence>
+            </Box>
         })}
-    </>
+    </Box>
+}
+
+export function ScrollingSessions({seances}) {
+
+    const containerRef = useRef(null)
+    const wrapperRef = useRef(null)
+
+    useEffect(() => {
+        const container = containerRef.current
+        const wrapper = wrapperRef.current
+        if (!container || !wrapper) return
+
+        // Если элементов 5 или меньше — просто показываем без прокрутки
+        if (seances.length <= 5) {
+            wrapper.innerHTML = ""
+            wrapper.appendChild(container)
+            return
+        }
+
+        const containerHeight = container.scrollHeight
+        const wrapperHeight = wrapper.clientHeight
+
+        if (containerHeight <= wrapperHeight) {
+            wrapper.innerHTML = ""
+            wrapper.appendChild(container)
+            return
+        }
+
+        const clone = container.cloneNode(true)
+        const innerWrapper = document.createElement("div")
+        innerWrapper.className = 'scroll-wrapper'
+        innerWrapper.style.display = "flex"
+        innerWrapper.style.flexDirection = "column"
+        innerWrapper.appendChild(container)
+        innerWrapper.appendChild(clone)
+
+        wrapper.innerHTML = ""
+        wrapper.appendChild(innerWrapper)
+
+        let pos = 0
+        const speed = 0.1
+        let frameId
+
+        const loop = () => {
+            pos += speed
+            if (pos >= container.offsetHeight) pos = 0
+            innerWrapper.style.transform = `translateY(-${pos}px)`
+            frameId = requestAnimationFrame(loop)
+        }
+
+        loop()
+
+        return () => cancelAnimationFrame(frameId)
+    }, [seances])
+
+    return <Box className="scrolling-sessions" ref={wrapperRef}>
+        <div className="scroll-content" ref={containerRef}>
+            {seances.map(seance => <Box key={seance.uid} className="session">
+                {dayjs(seance.beginning).format("HH:mm")}
+                <br/><span className='card-price'>от {minPrice(seance.tariff) || 0}</span>
+            </Box>)}
+        </div>
+    </Box>
 }
 
 export default SsSchedule

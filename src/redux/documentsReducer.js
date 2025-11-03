@@ -59,6 +59,8 @@ export const dataSlice = createSlice({
             state.operations_page = payload
         }, setOperationsDetails: (state, {payload}) => {
             state.operations_details = payload
+        }, setOperationsUpdate: (state, {payload}) => {
+            state.operations_update += 1
         }, setZPinpads(state, {payload}) {
             state.zpinpads = payload
         }, cleanZPinpads(state) {
@@ -85,6 +87,7 @@ export const {
     cleanOperations,
     setOperations,
     setOperationsPage,
+    setOperationsUpdate,
     setCurrentKKT,
     setKKTList,
     setCurrentPinpad,

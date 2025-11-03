@@ -15,6 +15,7 @@ import {
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {
+    ROUTE_EQUIPMENT_KKT_CLOCK_RESET,
     ROUTE_EQUIPMENT_KKT_OPEN_BOX,
     ROUTE_EQUIPMENT_KKT_REBOOT,
     ROUTE_EQUIPMENT_KKT_X,
@@ -99,13 +100,18 @@ export default function KKTForm({props}) {
     },])
 
     useEffect(() => {
-        set_fast_commands([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
+        set_fast_commands([{
             id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: values.uid}
         }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: values.uid}}, {
             id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: values.uid}
         }, {id: 4, name: 'Тест связи с ККТ', route: '', param: {}}, {
             id: 5, name: 'Тест связи с ОФД', route: '', param: {}
-        }, {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}}, {
+        }, {
+            id: 6,
+            name: 'Синхронизировать время с сервером',
+            route: ROUTE_EQUIPMENT_KKT_CLOCK_RESET,
+            param: {uid: values.uid}
+        }, {
             id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: values.uid}
         },])
     }, [values])

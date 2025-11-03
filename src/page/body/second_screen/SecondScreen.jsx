@@ -37,7 +37,7 @@ export default function SecondScreen() {
 
     useEffect(() => {
         set_order_width(screen_width * 30 / 100)
-        set_body_width(screen_width * 70 / 100)
+        set_body_width((show_pre_order || show_horder) ? (screen_width * 70 / 100) : screen_width)
     }, [screen_width, show_pre_order, show_horder])
 
     return <Box id='content-box'
