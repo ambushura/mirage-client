@@ -34,9 +34,12 @@ const SsSchedule = () => {
 
                 <div className="top-bar">
                     <div className="top-item glass-effect">{film.rate_age}+</div>
-                    <div className="top-item glass-effect">{film.copy_type}+</div>
-                    <div className="top-item"/>
+                    <div className="top-item glass-effect">{film.copy_type}</div>
                 </div>
+
+                <Box className="film-title">
+                    {film.name}
+                </Box>
 
                 <div className="bottom-cards">
                     {mainSeances.map(seance => <div key={seance.uid} className="card glass-effect">
