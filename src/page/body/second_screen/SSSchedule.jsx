@@ -27,7 +27,7 @@ const SsSchedule = () => {
             return <Box key={film.uid} className="movie-block glass-effect"
                         sx={{width: extraSeances.length > 0 ? '224px' : '174px'}}>
                 <img
-                    className="poster"
+                    className={`poster ${extraSeances.length > 0 ? ' poster-grad' : ''}`}
                     src={`${film.cover_link === '' ? cover : `http://${filial.media_ip}:${filial.media_port}${film.cover_link}`}`}
                     alt={film.name}
                 />
@@ -102,7 +102,7 @@ export function ScrollingSessions({seances}) {
         wrapper.appendChild(innerWrapper)
 
         let pos = 0
-        const speed = 0.1
+        const speed = 0.3
         let frameId
 
         const loop = () => {

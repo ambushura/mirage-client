@@ -15,7 +15,7 @@
     height: 268px;
     overflow: hidden;
     border-radius: 18px;
-    margin: 5px 5px 0 0;
+    margin: 15px 15px 0 0;
 }
 
 .poster {
@@ -26,6 +26,13 @@
     height: 268px;
     object-fit: cover;
     border-radius: 10px 0 0 10px;
+}
+
+.poster-grad {
+    -webkit-mask-image: linear-gradient(to right, black 55%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+    mask-image: linear-gradient(to right, black 55%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 }
 
 /* Верхняя полоска */
