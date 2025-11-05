@@ -11,8 +11,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 const Footer = () => {
 
     const dispatch = useDispatch()
-    const wp = useSelector(state => state.interface.wp)
-    const kiosk = useSelector(state => state.interface.kiosk)
+    const {wp, kiosk, its_second_screen} = useSelector(state => state.interface)
 
     const [play] = useSound(sounds_on)
     const [unlocked, set_unlocked] = useState(false)
@@ -20,7 +19,7 @@ const Footer = () => {
     return <footer id="footer" className='glass-effect'>
         <div>© «МИРАЖ СИНЕМА» {new Date().getFullYear()}</div>
         <div>{wp}</div>
-        {!kiosk && <div style={{position: 'absolute', right: 0}}>
+        {!kiosk && !its_second_screen && <div style={{position: 'absolute', right: 0}}>
             <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} size='small' variant='outlined'
                     color='secondary'
                     onClick={() => {

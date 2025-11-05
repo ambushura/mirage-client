@@ -74,17 +74,7 @@ export function ScrollingSessions({seances}) {
         const wrapper = wrapperRef.current
         if (!container || !wrapper) return
 
-        // Если элементов 5 или меньше — просто показываем без прокрутки
         if (seances.length <= 5) {
-            wrapper.innerHTML = ""
-            wrapper.appendChild(container)
-            return
-        }
-
-        const containerHeight = container.scrollHeight
-        const wrapperHeight = wrapper.clientHeight
-
-        if (containerHeight <= wrapperHeight) {
             wrapper.innerHTML = ""
             wrapper.appendChild(container)
             return
@@ -101,19 +91,24 @@ export function ScrollingSessions({seances}) {
         wrapper.innerHTML = ""
         wrapper.appendChild(innerWrapper)
 
-        let pos = 0
-        const speed = 0.3
+        const speed = 20
+        let lastTime = null
+        let offset = 0
         let frameId
 
-        const loop = () => {
-            pos += speed
-            if (pos >= container.offsetHeight) pos = 0
-            innerWrapper.style.transform = `translateY(-${pos}px)`
+        const loop = (time) => {
+            if (lastTime == null) lastTime = time
+            const delta = (time - lastTime) / 1000 // секунды
+            lastTime = time
+
+            offset += speed * delta
+            if (offset >= container.offsetHeight) offset = 0
+            innerWrapper.style.transform = `translateY(-${offset}px)`
+
             frameId = requestAnimationFrame(loop)
         }
 
-        loop()
-
+        frameId = requestAnimationFrame(loop)
         return () => cancelAnimationFrame(frameId)
     }, [seances])
 
