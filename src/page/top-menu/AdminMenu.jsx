@@ -650,7 +650,7 @@ export default function AdminMenu() {
             {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring', 'admin/sales'].includes(current_page) &&
                 <DateParamAdmin/>}
             {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
-            {['admin/operations', 'admin/zbooks', 'admin/sales'].includes(current_page) && <CreateDeleteButtons/>}
+            {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
