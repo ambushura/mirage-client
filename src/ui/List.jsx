@@ -6,13 +6,14 @@ import {useNavigate} from "react-router-dom"
 import EqualizerIcon from "@mui/icons-material/Equalizer"
 import ChairIcon from "@mui/icons-material/Chair"
 import FastfoodIcon from '@mui/icons-material/Fastfood'
-import PaymentsIcon from '@mui/icons-material/Payments'
 import LiquorIcon from '@mui/icons-material/Liquor'
-import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
 import {WhiteMenuItem} from "./ThemeContext.jsx"
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import ConstructionIcon from '@mui/icons-material/Construction'
 import SavingsIcon from '@mui/icons-material/Savings'
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
+import WalletIcon from '@mui/icons-material/Wallet'
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 
 const List = (props) => {
 
@@ -117,12 +118,12 @@ const List = (props) => {
                                                     <GroupWorkIcon/> : el.id === 'admin/orders/horeca' ?
                                                         <FastfoodIcon/> : el.id === 'admin/zbooks' ?
                                                             <EqualizerIcon/> : el.id === 'admin/operations' ?
-                                                                <CurrencyRubleIcon/> : el.id === 'admin/halls' ?
+                                                                <WalletIcon/> : el.id === 'admin/halls' ?
                                                                     <ChairIcon/> : el.id === 'admin/scheme' ?
                                                                         <ConstructionIcon/> : el.id === 'admin/egais' ?
                                                                             <LiquorIcon/> : el.id === 'admin/acquiring' ?
-                                                                                <PaymentsIcon/> : el.id === 'admin/staff' ?
-                                                                                    <PaymentsIcon/> : el.id === 'admin/sales' ?
+                                                                                <AccountBalanceIcon/> : el.id === 'admin/staff' ?
+                                                                                    <AssignmentIndIcon/> : el.id === 'admin/sales' ?
                                                                                         <SavingsIcon/> : null}
                                             </ListItemIcon>
                                             <ListItemText>
