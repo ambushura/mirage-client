@@ -6,6 +6,7 @@ import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 
 const Sales = () => {
+
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
@@ -14,7 +15,7 @@ const Sales = () => {
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
     const [columnVisibilityModel, setColumnVisibilityModel] = useState({})
 
-    // --- Загрузка данных ---
+    // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_documents_sales_get(filial, param_date_admin))
@@ -28,7 +29,7 @@ const Sales = () => {
         return () => dispatch(cleanOperations())
     }, [dispatch, filial, param_date_admin])
 
-    // --- Инициализация видимости колонок ---
+    // Инициализация видимости колонок
     useEffect(() => {
         const initialModel = {
             uid_store: false,
