@@ -12,6 +12,7 @@ import PageHalls from "./halls/PageHalls.jsx"
 import PageScheme from "./scheme/PageScheme.jsx"
 import ZPinpads from "./documents/ZPinpads.jsx"
 import Order from "../../right-panel/Order.jsx"
+import Sales from "./documents/Sales.jsx"
 
 const PageAdmin = () => {
 
@@ -46,6 +47,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/halls' ? <PageHalls/> : null}
                 {current_page === 'admin/scheme' ? <PageScheme/> : null}
                 {current_page === 'admin/acquiring' ? <ZPinpads/> : null}
+                {current_page === 'admin/sales' ? <Sales/> : null}
             </Box>
             <Box id='content-footer'></Box>
             <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>

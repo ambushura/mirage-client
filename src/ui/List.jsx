@@ -10,9 +10,9 @@ import PaymentsIcon from '@mui/icons-material/Payments'
 import LiquorIcon from '@mui/icons-material/Liquor'
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
 import {WhiteMenuItem} from "./ThemeContext.jsx"
-import ContactMailIcon from '@mui/icons-material/ContactMail'
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import ConstructionIcon from '@mui/icons-material/Construction'
+import SavingsIcon from '@mui/icons-material/Savings'
 
 const List = (props) => {
 
@@ -122,7 +122,8 @@ const List = (props) => {
                                                                         <ConstructionIcon/> : el.id === 'admin/egais' ?
                                                                             <LiquorIcon/> : el.id === 'admin/acquiring' ?
                                                                                 <PaymentsIcon/> : el.id === 'admin/staff' ?
-                                                                                    <ContactMailIcon/> : null}
+                                                                                    <PaymentsIcon/> : el.id === 'admin/sales' ?
+                                                                                        <SavingsIcon/> : null}
                                             </ListItemIcon>
                                             <ListItemText>
                                                 {el.name}

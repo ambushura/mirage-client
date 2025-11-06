@@ -25,7 +25,7 @@ export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
 }, {id: "kitchen", name: "Кухня", path: ""}, {
     id: "admin", name: "Кинокомплекс", path: [{id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""}, {
         id: "admin/orders/horeca", name: "Заказы (товары)", path: ""
-    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {
+    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {id: "admin/sales", name: "Итоги смены", path: ""}, {
         id: "admin/zbooks", name: "Кассовые документы", path: ""
     }, {id: "admin/acquiring", name: "Эквайринг", path: ""}, {
         id: "admin/operations", name: "Операции по кассам", path: ""

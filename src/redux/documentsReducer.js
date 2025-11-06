@@ -28,6 +28,9 @@ const initialState = {
     operations_update: 0,
     operations_details: false,
     operations: {wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined},
+
+    // Продажи
+    sales: {columns: [], rows: [], columnGroupingModel: []},
 }
 
 export const dataSlice = createSlice({
@@ -59,7 +62,7 @@ export const dataSlice = createSlice({
             state.operations_page = payload
         }, setOperationsDetails: (state, {payload}) => {
             state.operations_details = payload
-        }, setOperationsUpdate: (state, {payload}) => {
+        }, setOperationsUpdate: (state) => {
             state.operations_update += 1
         }, setZPinpads(state, {payload}) {
             state.zpinpads = payload
@@ -67,14 +70,18 @@ export const dataSlice = createSlice({
             state.zpinpads = {date_shift: '', zpinpads: []}
         }, setReceipts: (state, {payload}) => {
             state.receipts = payload
-        }, cleanReceipts: (state, {payload}) => {
+        }, cleanReceipts: (state) => {
             state.receipts = {date_shift: '', uid_kkt: '', receipts: []}
         }, setReceiptsUpdated: (state) => {
             state.receipts_update += 1
         }, setSlips: (state, {payload}) => {
             state.slips = payload
-        }, cleanSlips: (state, {payload}) => {
+        }, cleanSlips: (state) => {
             state.slips = {date_shift: '', uid_pinpad: '', slips: []}
+        }, setSales: (state, {payload}) => {
+            state.sales = {...state.sales, ...payload}
+        }, cleanSales: (state) => {
+            state.sales = {columns: [], rows: [], columnGroupingModel: []}
         }
     },
 })
@@ -100,5 +107,7 @@ export const {
     cleanReceipts,
     setSlips,
     cleanSlips,
+    setSales,
+    cleanSales,
 } = dataSlice.actions
 export default dataSlice.reducer

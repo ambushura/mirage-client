@@ -46,6 +46,7 @@ import {
     ROUTE_COMMON_DOCUMENTS_RECEIPT_GET,
     ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE,
     ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
+    ROUTE_COMMON_DOCUMENTS_SALES_GET,
     ROUTE_COMMON_DOCUMENTS_SLIPS_GET,
     ROUTE_COMMON_DOCUMENTS_ZBOOK_GET,
     ROUTE_COMMON_DOCUMENTS_ZBOOK_SAVE,
@@ -1123,6 +1124,20 @@ export const common_documents_pinpads_get = (filial, date_shift, update) => asyn
         version,
     }, data => data)
 }
+
+export const common_documents_sales_get = (filial, date_shift, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SALES_GET}`,
+        params: {date_shift, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
 
 export const horeca_modifications_get = (filial, uid_menu) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface

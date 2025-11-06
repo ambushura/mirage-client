@@ -91,3 +91,4 @@ export const ROUTE_COMMON_DOCUMENTS_RECEIPT_GET = '/api/common/documents/receipt
 export const ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE = "/api/common/documents/receipt/save"
 export const ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE = "/api/common/documents/receipt/delete"
 export const ROUTE_COMMON_DOCUMENTS_SLIPS_GET = '/api/common/documents/slips/get'
+export const ROUTE_COMMON_DOCUMENTS_SALES_GET = '/api/common/documents/sales/get'
