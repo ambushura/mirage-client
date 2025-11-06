@@ -37,7 +37,7 @@ const PageAdmin = () => {
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
             <Box id='content'
-                 style={['admin/operations', 'admin/zbooks', 'admin/acquiring'].includes(current_page) ? {height: 'var(--page-height)'} : null}>
+                 style={['admin/operations', 'admin/zbooks', 'admin/acquiring', 'admin/sales'].includes(current_page) ? {height: 'var(--page-height)'} : null}>
                 {current_page === 'admin/orders/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
                 {current_page === 'admin/orders/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
                 {current_page === 'admin/zbooks' ? <Zbooks/> : null}
