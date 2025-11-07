@@ -61,7 +61,6 @@ function App() {
     useSetTopMenu()
     useReset()
 
-    const {permissions} = useSelector(state => state.auth)
     const {cities} = useSelector(state => state.data)
     const {modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
     const param_date = useSelector(state => state.interface.params.param_date)
