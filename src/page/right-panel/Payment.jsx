@@ -125,7 +125,7 @@ const Payment = (props) => {
         pre_order.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
             total_new += item.sum
         })
-        horder.items.filter(item => !item.in_payment_completed && !item.out_payment_completed).forEach(item => {
+        horder.items.filter(item => !item.in_payment_completed && !item.out_payment_completed && !item.canceled).forEach(item => {
             total_new += item.price.sum
         })
         dispatch(setTotal(total_new))
