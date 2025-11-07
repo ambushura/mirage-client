@@ -10,7 +10,8 @@ const EgaisSettings = () => {
         <Typography variant="h6" color="textSecondary" margin={1}>УТМ ЕГАИС</Typography>
         <Box>
         </Box>
-        <Box sx={{display: "flex", justifyContent: "flex-end", width: "100%"}}>
+        <Box sx={{display: "flex", justifyContent: "center", width: "100%"}}>
+            В разработке...
         </Box>
     </Box>
 }

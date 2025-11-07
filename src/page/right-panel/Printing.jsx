@@ -5,7 +5,7 @@ import {common_printers_get, equipment_action} from "../../service/fetch_service
 import {useDispatch, useSelector} from "react-redux"
 import BookingItem from "./BookingItem.jsx"
 import {ROUTE_EQUIPMENT_KKT_BILL_PRINT, ROUTE_EQUIPMENT_KKT_TICKETS_PRINT} from "../../service/fetch_routes.js"
-import {selectUidCinema} from "../../redux/ordersReducer.js";
+import {selectUidCinema} from "../../redux/ordersReducer.js"
 
 const Printing = (props) => {
 
@@ -31,7 +31,7 @@ const Printing = (props) => {
     }, [])
 
     const sortedKKT = [...printers.kkt].sort((a, b) => {
-        if (a.local !== b.local) return a.local ? -1 : 1  // local=true вверх
+        if (a.local !== b.local) return a.local ? -1 : 1
         return a.kkt.number.localeCompare(b.kkt.number, 'ru', {numeric: true})
     })
 

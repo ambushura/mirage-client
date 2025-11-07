@@ -98,17 +98,17 @@ const Header = () => {
 
     const main_button = (el) => {
         if (app_width > MOBILE_WIDTH || uid_user === null) {
-            return (<Button>{el.name}</Button>)
+            return <Button>{el.name}</Button>
         } else {
             switch (el.id) {
                 case 'films':
-                    return (<Button><GroupWorkIcon/></Button>)
+                    return <Button><GroupWorkIcon/></Button>
                 case 'schedule':
-                    return (<Button><CalendarViewMonthIcon/></Button>)
+                    return <Button><CalendarViewMonthIcon/></Button>
                 case 'menu':
-                    return (<Button><FastfoodIcon/></Button>)
+                    return <Button><FastfoodIcon/></Button>
                 case 'kitchen':
-                    return (<Button><MicrowaveIcon/></Button>)
+                    return <Button><MicrowaveIcon/></Button>
                 default:
                     el.name
             }
@@ -150,7 +150,7 @@ const Header = () => {
         return <header id="header" className='glass-effect'>
             {kiosk && !kiosk_checkout && current_page !== 'seance' && <TopSlider/>}
             {((!kiosk || (kiosk && !['seance'].includes(current_page)))) && <Box id="main-menu">
-                <ButtonGroup id="header-menu-list" variant="contained" size='small'>
+                <ButtonGroup id="header-menu-list" variant="contained" color='secondary' size='small'>
                     {uid_user === null ? top_menu[0].map(el => <NavLink key={el.id} className='link'
                                                                         to={el.path}>
                         {main_button(el)}
@@ -173,6 +173,7 @@ const Header = () => {
                                 startIcon={<AppsIcon/>}
                                 endIcon={<KeyboardArrowDownIcon/>}
                                 type="admin"
+                                color='secondary'
                             />
                         }
                     })}
