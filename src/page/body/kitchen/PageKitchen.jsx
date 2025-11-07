@@ -25,12 +25,14 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                 <Box>{dayjs.utc(order.date_change).format("HH:mm")}</Box>
             </Box>
             <Box className='kitchen-order-body'>
-                {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`} className='kitchen-position'
-                                                   style={{borderBottom: i !== order.items.length - 1 ? '1px dashed #b1b1b7' : 'none'}}>
+                {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`}
+                                                   className='kitchen-position'
+                                                   style={{borderBottom: i !== order.items.length - 1 && !item.canceled ? '1px dashed #b1b1b7' : 'none'}}>
                     {showButtons && <Button variant='outlined' color='secondary'
                                             className='kitchen-button'
                                             onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected, order.ver))}><SkipNextIcon/></Button>}
-                    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                    <Box className={`${item.canceled ? 'kitchen-item-canceled' : ''}`}
+                         sx={{display: 'flex', flexDirection: 'column'}}>
                         <Box sx={{
                             display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'
                         }}>{item.take_away &&

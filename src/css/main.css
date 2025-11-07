@@ -1227,6 +1227,45 @@
     border-radius: 12px;
     margin-bottom: 5px;
     background-color: #EEEEEE;
+    position: relative;
+}
+
+.item-canceled::after {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: all;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    content: 'Позиция отменена'
+}
+
+.orders-item-canceled::after {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: all;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: '';
+}
+
+.kitchen-item-canceled::after {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: all;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: '';
+    border-radius: 14px;
 }
 
 .order-box-horeca-item > div {
@@ -1778,6 +1817,7 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+    z-index: 1;
 }
 
 
@@ -1878,6 +1918,7 @@
     margin: 0 0 4px 0;
     padding: 0 0 4px 0;
     border-bottom: 1px dashed #b1b1b7;
+    position: relative;
 }
 
 .kitchen-position > div {

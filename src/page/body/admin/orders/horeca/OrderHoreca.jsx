@@ -31,7 +31,7 @@ const group_items = (items_grouped, payment_group, payment_state) => {
 
 const RenderGroup = ({chapter1, label, group, ver}) => {
     if (!group.items.length && !group.mark_egais.length) return null
-    const render_items = (items, typeLabel) => items.length > 0 && (<>
+    const render_items = (items, typeLabel) => items.length > 0 && <>
         <Box
             className='glass'
             sx={{
@@ -42,55 +42,60 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                 top: '25px',
                 zIndex: 1,
             }}>{typeLabel}</Box>
-        {items.map((item, i) => (<Box key={i + ver}
-                                      sx={{
-                                          display: 'flex',
-                                          flexDirection: 'column',
-                                          backgroundColor: '#f4f4f4',
-                                          borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
-                                          padding: '2px 4px 2px 0',
-                                      }}>
-            <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{width: '20px'}}/>
-                <Box sx={{flex: 1}}>{item.name}</Box>
-                <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>{item.quantity} {item.unit_name}</Box>
+        {items.map((item, i) => <Box sx={{position: 'relative'}}>
+            <Box
+                className={item.canceled ? 'orders-item-canceled' : null}
+                key={i + ver}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    backgroundColor: '#f4f4f4',
+                    borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
+                    padding: '2px 4px 2px 0',
+                }}>
+                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{width: '20px'}}/>
+                    <Box sx={{flex: 1}}>{item.name}</Box>
+                    <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>{item.quantity} {item.unit_name}</Box>
+                </Box>
+                <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{width: '20px'}}/>
+                    <Box sx={{flex: 1}}>{item.comment}</Box>
+                </Box>
+                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{width: '20px'}}/>
+                    <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
+                    {item.uid_discount !== null ? <Box sx={{
+                        flex: 1,
+                        textAlign: 'right',
+                        color: '#1DB1BA',
+                        fontSize: '70%',
+                        fontWeight: 'bold',
+                        overflow: 'hidden'
+                    }}>{item.name_discount}</Box> : null}
+                    <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
+                        sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
+                </Box>
+                {item.egais_type_code !== null ?
+                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
+                        <Box sx={{width: '96px', fontWeight: 100,}}>Акцизная марка: </Box>
+                        <Box sx={{
+                            fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+                        }}>{item.egais_value}</Box>
+                    </Box> : null}
+                {item.mark_type !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Box sx={{
+                        width: '20px', color: item.mark_payment_available ? '#50DB92' : '#e3000b'
+                    }}><CircleIcon sx={{scale: 0.5}}/></Box>
+                    <Box sx={{fontWeight: 100, width: '45px'}}>ЧЗ КМ: </Box>
+                    <Box sx={{
+                        fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
+                    }}>{item.mark_value}</Box>
+                </Box> : null}
             </Box>
-            <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{width: '20px'}}/>
-                <Box sx={{flex: 1}}>{item.comment}</Box>
-            </Box>
-            <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{width: '20px'}}/>
-                <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>Цена: {item.price} р</Box>
-                {item.uid_discount !== null ? <Box sx={{
-                    flex: 1,
-                    textAlign: 'right',
-                    color: '#1DB1BA',
-                    fontSize: '70%',
-                    fontWeight: 'bold',
-                    overflow: 'hidden'
-                }}>{item.name_discount}</Box> : null}
-                <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}><FunctionsIcon
-                    sx={{width: '15px', height: '15px'}}/>{item.sum} р</Box>
-            </Box>
-            {item.egais_type_code !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <Box sx={{width: '20px', color: '#50DB92'}}><CircleIcon sx={{scale: 0.5}}/></Box>
-                <Box sx={{width: '96px', fontWeight: 100,}}>Акцизная марка: </Box>
-                <Box sx={{
-                    fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
-                }}>{item.egais_value}</Box>
-            </Box> : null}
-            {item.mark_type !== null ? <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <Box sx={{
-                    width: '20px', color: item.mark_payment_available ? '#50DB92' : '#e3000b'
-                }}><CircleIcon sx={{scale: 0.5}}/></Box>
-                <Box sx={{fontWeight: 100, width: '45px'}}>ЧЗ КМ: </Box>
-                <Box sx={{
-                    fontWeight: 100, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
-                }}>{item.mark_value}</Box>
-            </Box> : null}
-        </Box>))}
-    </>)
+        </Box>)}
+    </>
 
     return <>
         <Box sx={{

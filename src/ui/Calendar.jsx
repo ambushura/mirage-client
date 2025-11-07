@@ -1,5 +1,7 @@
 import {DateCalendar} from "@mui/x-date-pickers"
 import {useState} from "react"
+import dayjs from "dayjs";
+import {get_date_shift} from "../service/advanced.js";
 
 const Calendar = ({value, handleOnChahge}) => {
     const [viewMonth, setViewMonth] = useState(value)
@@ -7,6 +9,7 @@ const Calendar = ({value, handleOnChahge}) => {
         onChange={handleOnChahge}
         referenceDate={viewMonth}
         onMonthChange={setViewMonth}
+        minDate={dayjs(get_date_shift(new Date()))}
         sx={{
             backgroundColor: '#0E0F11', opacity: '95%', textTransform: 'uppercase', "& .MuiDayCalendar-weekDayLabel": {
                 backgroundColor: '#e3000b', borderRadius: '12px', color: 'white', fontWeight: '900'

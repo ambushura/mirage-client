@@ -15,6 +15,7 @@ import {
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {
+    ROUTE_EQUIPMENT_KKT_CANCEL_LAST_DOCUMENT,
     ROUTE_EQUIPMENT_KKT_CLOCK_RESET,
     ROUTE_EQUIPMENT_KKT_OPEN_BOX,
     ROUTE_EQUIPMENT_KKT_REBOOT,
@@ -97,7 +98,7 @@ export default function KKTForm({props}) {
         id: 5, name: 'Тест связи с ОФД', route: '', param: {}
     }, {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}}, {
         id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {}
-    },])
+    }])
 
     useEffect(() => {
         set_fast_commands([{
@@ -113,7 +114,12 @@ export default function KKTForm({props}) {
             param: {uid: values.uid}
         }, {
             id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: values.uid}
-        },])
+        }, {
+            id: 8,
+            name: 'Отмена последнего открытого документа',
+            route: ROUTE_EQUIPMENT_KKT_CANCEL_LAST_DOCUMENT,
+            param: {uid: values.uid}
+        }])
     }, [values])
 
     const chapter_list = [{id: 0, name: 'Информация о ККТ'}, {id: 1, name: 'Регистрация ККТ'}, {

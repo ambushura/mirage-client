@@ -28,7 +28,7 @@ const HorecaItem = (props) => {
     const uid_selected = useSelector(state => state.orders.uid_horeca_selected)
 
     return <li
-        className={`order-box-horeca-item ${props.uid_selected.includes(props.item.uid) ? 'position-selected' : ''}`}>
+        className={`order-box-horeca-item ${!props.item.canceled && props.uid_selected.includes(props.item.uid) ? 'position-selected' : props.item.canceled ? 'item-canceled' : ''}`}>
         <Box
             className='order-box-horeca-item-1'>
             <Button variant='text' color='secondary' onClick={() => dispatch(openModal({
@@ -44,6 +44,9 @@ const HorecaItem = (props) => {
                 }
             }))}><CalculateIcon/></Button>
             <Box className='order-box-horeca-item-1-1' onClick={() => {
+                if (props.item.canceled) {
+                    return
+                }
                 dispatch(selectUidHoreca(uid_selected.includes(props.item.uid) ? uid_selected.filter(el => el !== props.item.uid) : [...uid_selected, props.item.uid]))
             }}><Box>{props.item.name}</Box></Box>
             <Box className='order-box-horeca-item-1-1-sum'>

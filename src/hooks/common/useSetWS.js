@@ -201,6 +201,11 @@ export function useSetWS() {
                                     autoHide: true
                                 }))
                                 break
+                            case 'delete_position':
+                                dispatch(addNotification({
+                                    message: `ОТМЕНА позиции ${data.number}`, severity: 'info', autoHide: true
+                                }))
+                                break
                         }
                     }
                     break
