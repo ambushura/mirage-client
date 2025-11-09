@@ -15,6 +15,7 @@ const ControlledLazySelect = ({
                                   extraFields,
                                   getLabel,
                                   sx = {},
+                                  readOnly
                               }) => <Controller
     name={name}
     control={control}
@@ -47,6 +48,7 @@ const ControlledLazySelect = ({
                 optionsStatic={optionsStatic}
                 extraFields={extraFields}
                 error={!!fieldState.error}
+                readOnly={readOnly}
             />
         </Box>
     </Tooltip>}

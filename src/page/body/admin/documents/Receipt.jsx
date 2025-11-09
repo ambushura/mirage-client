@@ -37,6 +37,7 @@ const Receipt = ({props}) => {
 
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
+            uid_filial: '',
             id: '',
             deleted: false,
             uid_creator: null,
@@ -166,26 +167,23 @@ const Receipt = ({props}) => {
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
                     <Box
                         sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'}}>
-                        <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                            <ControlledTextField
-                                control={control}
-                                name="shift_number"
-                                label="Номер смены"
-                                numeric
-                                rules={{
-                                    required: 'Укажите номер смены',
-                                    pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
-                                }}
-                                sx={{marginRight: '10px'}}
-                            />
-                            <ControlledTextField
-                                control={control}
-                                name="number"
-                                label="Номер чека"
-                                numeric
-                                rules={{required: 'Укажите номер чека'}}
-                            />
-                        </Box>
+                        <ControlledTextField
+                            control={control}
+                            name="shift_number"
+                            label="Номер смены"
+                            numeric
+                            rules={{
+                                required: 'Укажите номер смены',
+                                pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                            }}
+                        />
+                        <ControlledTextField
+                            control={control}
+                            name="number"
+                            label="Номер чека"
+                            numeric
+                            rules={{required: 'Укажите номер чека'}}
+                        />
                         <ControlledTextField
                             control={control}
                             name="fn"
@@ -235,6 +233,15 @@ const Receipt = ({props}) => {
                     </Box>
                     <Box
                         sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'}}>
+                        <ControlledLazySelect
+                            control={control}
+                            name="uid_filial"
+                            label="Филиал"
+                            type="filials"
+                            filial={filial}
+                            rules={{required: 'Укажите филиал'}}
+                            readOnly={true}
+                        />
                         <ControlledLazySelect
                             control={control}
                             name="uid_kkt"

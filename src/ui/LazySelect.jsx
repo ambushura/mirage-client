@@ -15,6 +15,7 @@ export default function LazySelect({
                                        optionsStatic = null,
                                        disabled = false,
                                        sx,
+                                       readOnly = false
                                    }) {
     const dispatch = useDispatch()
     const [options, setOptions] = useState([])
@@ -62,6 +63,7 @@ export default function LazySelect({
     }
 
     return <Autocomplete
+        readOnly={readOnly}
         value={currentItem}
         onChange={handleChange}
         onOpen={fetch_options}
