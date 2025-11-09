@@ -209,7 +209,7 @@ const Receipt = ({props}) => {
                         <ControlledTextField
                             control={control}
                             name="fp"
-                            label="Номер ФД"
+                            label="Номер ФП"
                             numeric
                             rules={{
                                 required: 'Укажите признак фискального документа',
