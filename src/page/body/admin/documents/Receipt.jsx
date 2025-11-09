@@ -76,6 +76,7 @@ const Receipt = ({props}) => {
             channel_name: '',
             rn: '',
             date_shift_claim: null,
+            comment: '',
             items: [],
         }
     })
@@ -151,7 +152,7 @@ const Receipt = ({props}) => {
         return <Loader/>
     } else {
         return <Box
-            sx={{maxHeight: '700px', overflowY: 'auto'}}
+            sx={{maxHeight: '800px', overflowY: 'auto'}}
             id="modal-receipt"
             component="form"
             noValidate
@@ -403,6 +404,14 @@ const Receipt = ({props}) => {
                             color="secondary"
                         />
                     </Box>
+                </Box>
+                <Box sx={{flex: 1}}>
+                    <ControlledTextField
+                        control={control}
+                        name="comment"
+                        label="Комментарий"
+                        sx={{width: '100%'}}
+                    />
                 </Box>
                 <Box>
                     <DataGridPro
