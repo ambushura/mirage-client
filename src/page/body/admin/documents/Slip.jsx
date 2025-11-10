@@ -96,6 +96,7 @@ const Slip = ({props}) => {
 
     const uid_order_cinema = watch('uid_order_cinema')
     const uid_order_food = watch('uid_order_food')
+    const slip14 = watch('slip14')
 
     if (loading) {
         return <Loader/>
@@ -107,7 +108,7 @@ const Slip = ({props}) => {
                     sx={{width: '1230px'}}
                     onSubmit={handleSubmit}>
             <Typography variant="h6" color="textSecondary" margin={1}>
-                БАНКОВСКИЙ СЛИП
+                БАНКОВСКИЙ СЛИП RRN {slip14}
             </Typography>
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
@@ -140,16 +141,11 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip_sum"
                         label="0 · Сумма операции"
-                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="inn"
                         label="ИНН"
-                        readOnly={true}
-                        rules={{
-                            required: 'Укажите ИНН организации (из кассы)'
-                        }}
                     />
                     <ControlledTextField
                         control={control}
@@ -184,13 +180,11 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip10"
                         label="10 · Номер карты"
-                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip11"
                         label="11 · Срок действия карты"
-                        readOnly={true}
                     />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
@@ -201,25 +195,21 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip13"
                         label="13 · Код авторизации"
-                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip14"
                         label="14 · Номер ссылки"
-                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip15"
                         label="15 · Код ответа"
-                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip19"
                         label="19 · Дополнительные данные ответа"
-                        readOnly={true}
                     />
                     <ControlledDatePicker
                         control={control}
@@ -265,7 +255,6 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip39"
                         label="39 · Статус проведения транзакции"
-                        readOnly={true}
                     />
                 </Box>
                 <Box sx={{maxHeight: '420px', m: 1, overflowY: 'auto'}}>
@@ -277,7 +266,6 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip90"
                         label="90 · Квитанция"
-                        readOnly={true}
                         multiline={true}
                         sx={{minWidth: '270px'}}
                     />
