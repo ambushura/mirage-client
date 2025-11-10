@@ -10,7 +10,7 @@ import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import {v4} from "uuid"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
-import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx";
+import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 
 const Slip = ({props}) => {
 
@@ -77,13 +77,7 @@ const Slip = ({props}) => {
                     const data = await dispatch(common_documents_slip_get(filial, props.uid))
                     if (data?.data) {
                         reset({
-                            ...data.data, // date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
-                            // date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
-                            // moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
-                            // price: data.data.price ? parseFloat(data.data.price) : 0,
-                            // sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
-                            // sum: data.data.sum ? parseFloat(data.data.sum) : 0,
-                            // sno: data.data.sno !== null ? String(data.data.sno) : null,
+                            ...data.data,
                         })
                     }
                 }
