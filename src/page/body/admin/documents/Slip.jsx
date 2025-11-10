@@ -23,6 +23,7 @@ const Slip = ({props}) => {
     const wp = useSelector(state => state.interface.wp)
 
     const [loading, set_loading] = useState(true)
+    const [show_90, set_show_90] = useState(false)
 
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
@@ -106,12 +107,12 @@ const Slip = ({props}) => {
                     component="form"
                     noValidate
                     autoComplete="off"
-                    sx={{width: '1230px'}}
+                    sx={{width: '900px'}}
                     onSubmit={handleSubmit}>
             <Typography variant="h6" color="textSecondary" margin={1}>
                 БАНКОВСКИЙ СЛИП RRN {slip14}
             </Typography>
-            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+            {!show_90 && <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         Общие
@@ -127,6 +128,7 @@ const Slip = ({props}) => {
                         name="date_create"
                         label="Дата создания"
                         rules={{required: 'Укажите дату создания слипа'}}
+                        readOnly={true}
                     />
                     <ControlledLazySelect
                         control={control}
@@ -137,28 +139,33 @@ const Slip = ({props}) => {
                         rules={{required: 'Укажите автора'}}
                         extraFields={['title']}
                         onChange={(uid, extra) => setValue('name_creator', extra.title || '')}
+                        readOnly={true}
                     />
                     <ControlledMoneyField
                         control={control}
                         name="slip_sum"
                         label="0 · Сумма операции"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="inn"
                         label="ИНН"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip86"
                         label="86 · Дополнительные данные транзакции"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledSwitch
                         control={control}
                         name="printed"
                         label="Напечатан"
                         color="secondary"
+                        readOnly={true}
                     />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
@@ -170,28 +177,33 @@ const Slip = ({props}) => {
                         name="slip4"
                         label="4 · Код валюты операции"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip6"
                         label="6 · Оригинальные даты и время совершения операции на хосте"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip9"
                         label="9 · Способ кодировки PIN-блока"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip10"
                         label="10 · Номер карты"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip11"
                         label="11 · Срок действия карты"
+                        readOnly={true}
                     />
                     <ControlledLazySelect
                         control={control}
@@ -199,12 +211,14 @@ const Slip = ({props}) => {
                         label="Тип слипа"
                         filial={filial}
                         optionsStatic={[{uid: 1, title: 'ПРИХОД'}, {uid: 2, title: 'ВОЗВРАТ/ОТМЕНА'}]}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="print_error"
                         label="Ошибка печати"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
@@ -215,32 +229,38 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip13"
                         label="13 · Код авторизации"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip14"
                         label="14 · Номер ссылки"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip15"
                         label="15 · Код ответа"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip19"
                         label="19 · Дополнительные данные ответа"
+                        readOnly={true}
                     />
                     <ControlledDatePicker
                         control={control}
                         name="slip21"
                         label="21 · Оригинальные даты и время совершения операции"
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="name_organization"
                         label="Организация"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledLazySelect
                         control={control}
@@ -248,6 +268,7 @@ const Slip = ({props}) => {
                         label="Пинпад"
                         type="pinpad"
                         filial={filial}
+                        readOnly={true}
                     />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
@@ -259,53 +280,59 @@ const Slip = ({props}) => {
                         name="slip23"
                         label="23 · Идентификатор транзакции в коммуникационном сервере"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip25"
                         label="25 · Код операции"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip26"
                         label="26 · Уникальный номер транзакции на стороне внешнего  устройства"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip27"
                         label="27 · Идентификатор внешнего устройства"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip28"
                         label="28 · Идентификатор продавца"
                         sx={{width: '100%'}}
+                        readOnly={true}
                     />
                     <ControlledTextField
                         control={control}
                         name="slip39"
                         label="39 · Статус проведения транзакции"
+                        readOnly={true}
                     />
                 </Box>
-                <Box sx={{maxHeight: '420px', m: 1, overflowY: 'auto'}}>
-                    <Typography className='glass' sx={{textAlign: 'center', position: 'sticky', top: 0, zIndex: 1}}
-                                variant="h6" color="textSecondary">
-                        Квитанция
-                    </Typography>
-                    <ControlledTextField
-                        control={control}
-                        name="slip90"
-                        label="90 · Квитанция"
-                        multiline={true}
-                        sx={{minWidth: '270px'}}
-                    />
-                </Box>
-            </Box>
+            </Box>}
+            {show_90 && <Box sx={{maxHeight: '490px', m: 1, overflowY: 'auto'}}>
+                <Typography className='glass' sx={{textAlign: 'center', position: 'sticky', top: 0, zIndex: 1}}
+                            variant="h6" color="textSecondary">
+                    Квитанция
+                </Typography>
+                <ControlledTextField
+                    control={control}
+                    name="slip90"
+                    label="90 · Квитанция"
+                    multiline={true}
+                    readOnly={true}
+                    sx={{width: '100%'}}
+                />
+            </Box>}
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
                 {(uid_order_cinema !== null || uid_order_food !== null) &&
                     <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
                         if (uid_order_cinema !== null) {
@@ -317,7 +344,9 @@ const Slip = ({props}) => {
                         }
                         dispatch(closeModal())
                     }}>Перейти в заказ</Button>}
-                <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
+                <Button fullWidth variant='contained' color='secondary' onClick={() => {
+                    set_show_90(prev => !prev)
+                }}>{show_90 ? 'Показать слип' : 'Показать квитанцию'}</Button>
             </Box>
         </Box>
     }
