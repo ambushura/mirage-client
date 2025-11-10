@@ -10,6 +10,7 @@ import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import {v4} from "uuid"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
+import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx";
 
 const Slip = ({props}) => {
 
@@ -153,6 +154,12 @@ const Slip = ({props}) => {
                         label="86 · Дополнительные данные транзакции"
                         sx={{width: '100%'}}
                     />
+                    <ControlledSwitch
+                        control={control}
+                        name="printed"
+                        label="Напечатан"
+                        color="secondary"
+                    />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
@@ -186,6 +193,19 @@ const Slip = ({props}) => {
                         name="slip11"
                         label="11 · Срок действия карты"
                     />
+                    <ControlledLazySelect
+                        control={control}
+                        name="slip_type"
+                        label="Тип слипа"
+                        filial={filial}
+                        optionsStatic={[{uid: 1, title: 'ПРИХОД'}, {uid: 2, title: 'ВОЗВРАТ/ОТМЕНА'}]}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="print_error"
+                        label="Ошибка печати"
+                        sx={{width: '100%'}}
+                    />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
@@ -215,6 +235,19 @@ const Slip = ({props}) => {
                         control={control}
                         name="slip21"
                         label="21 · Оригинальные даты и время совершения операции"
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="name_organization"
+                        label="Организация"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledLazySelect
+                        control={control}
+                        name="uid_pinpad"
+                        label="Пинпад"
+                        type="pinpad"
+                        filial={filial}
                     />
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
