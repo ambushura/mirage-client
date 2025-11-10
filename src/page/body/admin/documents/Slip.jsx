@@ -1,16 +1,98 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {DatePicker} from "@mui/x-date-pickers"
-import {useDispatch} from "react-redux"
-import {closeModal} from "../../../../redux/interfaceReducer.js"
+import {useDispatch, useSelector} from "react-redux"
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import {common_documents_slip_get} from "../../../../service/fetch_service.js";
 
 const Slip = ({props}) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(closeModal())
-    }
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
+
+    const [loading, set_loading] = useState(true)
+
+    const {handleSubmit, setValue, control, reset, watch} = useForm({
+        defaultValues: {
+            uid_filial: props.uid === 'new' ? filial.uid : '',
+            ver: props.uid === 'new' ? v4() : '',
+            id: props.uid === 'new' ? v4() : '',
+            deleted: false,
+            uid_creator: null,
+            name_creator: '',
+            copy: false,
+            date_create: null,
+            date_shift: null,
+            sum_discount: 0,
+            fn: '',
+            fd: '',
+            fp: '',
+            moment: null,
+            number: '',
+            number_kkt: '',
+            price: 0,
+            shift_number: '',
+            sum: 0,
+            type: null,
+            uid_cashier: '',
+            name_cashier: '',
+            uid_kkt: '',
+            uid_order_cinema: '',
+            uid_order_food: '',
+            uid_organization: '',
+            uid_payment_type: '',
+            name_payment_type: '',
+            uid_channel: '',
+            name_channel: '',
+            uid_store: '',
+            name_organization: '',
+            inn_organization: '',
+            name_store: '',
+            uid_work_place: '',
+            sno: null,
+            printed: false,
+            channel_name: '',
+            rn: '',
+            date_shift_claim: null,
+            comment: '',
+            items: [],
+        }
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            set_loading(true)
+            try {
+                if (props.uid === 'new') {
+                    reset()
+                } else {
+                    const data = await dispatch(common_documents_slip_get(filial, props.uid))
+                    if (data?.data) {
+                        reset({
+                            ...data.data, // date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
+                            // date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
+                            // moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
+                            // price: data.data.price ? parseFloat(data.data.price) : 0,
+                            // sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
+                            // sum: data.data.sum ? parseFloat(data.data.sum) : 0,
+                            // sno: data.data.sno !== null ? String(data.data.sno) : null,
+                        })
+                    }
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки слипа:', err)
+            } finally {
+                set_loading(false)
+            }
+        }
+        fetchData()
+    }, [props.uid, filial, dispatch, reset])
 
     return <Box id="modal-slip"
                 component="form"
@@ -154,7 +236,7 @@ const Slip = ({props}) => {
             </Box>
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}>Удалить</Button>
+            <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
             <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Квитанция</Button>
             <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в заказ</Button>
             <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>

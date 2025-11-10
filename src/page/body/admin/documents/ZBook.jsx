@@ -1,8 +1,8 @@
 import {Box, Button, Skeleton, Typography} from "@mui/material"
-import {closeModal} from "../../../../redux/interfaceReducer.js"
+import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_documents_zbook_get, common_documents_zbook_save} from "../../../../service/fetch_service.js"
+import {common_documents_z_book_get, common_documents_z_book_save} from "../../../../service/fetch_service.js"
 import CloseIcon from '@mui/icons-material/Close'
 import {useForm} from "react-hook-form"
 import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
@@ -12,6 +12,7 @@ import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import dayjs from "dayjs"
 import {setZBooksUpdate} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
+import {v4} from 'uuid'
 
 const ZBook = ({props}) => {
 
@@ -23,7 +24,9 @@ const ZBook = ({props}) => {
 
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            id: '',
+            uid_filial: props.uid === 'new' ? filial.uid : '',
+            ver: props.uid === 'new' ? v4() : '',
+            id: props.uid === 'new' ? v4() : '',
             automatic: false,
             name_organization: '',
             inn: '',
@@ -42,13 +45,13 @@ const ZBook = ({props}) => {
             sum_collection: 0,
             revenue: 0,
             comment: '',
-            uid_filial: '',
             uid_kkt: '',
             uid_wallet: '',
-            ver: ''
+            deleted: false,
         }
     })
 
+    const uid = watch('id')
     const date_shift = watch('date_shift')
     const number_kkt = watch('number_kkt')
 
@@ -59,7 +62,7 @@ const ZBook = ({props}) => {
                 if (props.uid === 'new') {
                     reset()
                 } else {
-                    const data = await dispatch(common_documents_zbook_get(filial, props.uid))
+                    const data = await dispatch(common_documents_z_book_get(filial, props.uid))
                     if (data?.data) {
                         reset({
                             ...data.data,
@@ -80,6 +83,9 @@ const ZBook = ({props}) => {
     const onSubmit = (data) => {
         const prepared = {
             ...data,
+            id: props.uid === 'new' ? v4() : data.id,
+            uid_filial: props.uid === 'new' ? filial.uid : data.uid_filial,
+            date_create: props.uid === 'new' ? dayjs(new Date()).format('YYYY-MM-DDTHH:mm:ss+00:00') : dayjs(data.date_create).format('YYYY-MM-DDTHH:mm:ss+00:00'),
             date_shift: dayjs(data.date_shift).format('YYYY-MM-DDTHH:mm:ss+00:00'),
             moment: dayjs(data.moment).format('YYYY-MM-DDTHH:mm:ss+00:00'),
             number_shift: Number(data.number_shift) || 0,
@@ -96,7 +102,7 @@ const ZBook = ({props}) => {
             sum_non_zero_total_of_income: parseFloat(data.sum_non_zero_total_of_income) || 0,
             sum_non_zero_total_of_outcome: parseFloat(data.sum_non_zero_total_of_outcome) || 0,
         }
-        dispatch(common_documents_zbook_save(filial, prepared))
+        dispatch(common_documents_z_book_save(filial, prepared))
         dispatch(closeModal())
         dispatch(setZBooksUpdate())
     }
@@ -279,7 +285,16 @@ const ZBook = ({props}) => {
                 />
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}>Удалить</Button>
+                {props.uid !== 'new' && <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}
+                                                onClick={() => dispatch(openModal({
+                                                    type: 'dialog_delete_z_book', props: {
+                                                        type: 'YesNo',
+                                                        action: 'dialog_delete_z_book',
+                                                        question: 'Вы уверены, что хотите удалить эту кассовую книгу?',
+                                                        filial: filial,
+                                                        uid: uid,
+                                                    }
+                                                }))}>Удалить</Button>}
                 <Button fullWidth variant='contained' color='secondary' type={'submit'}>Сохранить</Button>
             </Box>
         </Box>

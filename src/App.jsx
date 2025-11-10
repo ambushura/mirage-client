@@ -98,6 +98,7 @@ function App() {
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,
         dialog_delete_receipts: Dialog,
+        dialog_delete_z_book: Dialog,
         dialog_reboot: Dialog,
         dialog_shutdown: Dialog,
     }

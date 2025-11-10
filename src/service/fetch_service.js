@@ -47,7 +47,9 @@ import {
     ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE,
     ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
     ROUTE_COMMON_DOCUMENTS_SALES_GET,
+    ROUTE_COMMON_DOCUMENTS_SLIP_GET,
     ROUTE_COMMON_DOCUMENTS_SLIPS_GET,
+    ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE,
     ROUTE_COMMON_DOCUMENTS_ZBOOK_GET,
     ROUTE_COMMON_DOCUMENTS_ZBOOK_SAVE,
     ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET,
@@ -1086,7 +1088,7 @@ export const common_documents_zbooks_get = (filial, date_shift, update) => async
     }, data => data)
 }
 
-export const common_documents_zbook_get = (filial, uid) => async (dispatch, getState) => {
+export const common_documents_z_book_get = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
@@ -1099,7 +1101,20 @@ export const common_documents_zbook_get = (filial, uid) => async (dispatch, getS
     }, data => data)
 }
 
-export const common_documents_zbook_save = (filial, z_book) => async (dispatch, getState) => {
+export const common_documents_z_book_delete = (filial, uid) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE}`,
+        params: {uid},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_z_book_save = (filial, z_book) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'post',
@@ -1372,6 +1387,19 @@ export const common_documents_slips_get = (filial, date_shift, uid_pinpad) => as
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SLIPS_GET}`,
         params: {date_shift, uid_pinpad},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_slip_get = (filial, uid) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SLIP_GET}`,
+        params: {uid},
         filial,
         wp,
         kiosk,

@@ -22,6 +22,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
 import {useNavigate} from "react-router-dom"
+import {v4} from 'uuid'
 
 const Receipt = ({props}) => {
 
@@ -37,8 +38,9 @@ const Receipt = ({props}) => {
 
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            uid_filial: '',
-            id: '',
+            uid_filial: props.uid === 'new' ? filial.uid : '',
+            ver: props.uid === 'new' ? v4() : '',
+            id: props.uid === 'new' ? v4() : '',
             deleted: false,
             uid_creator: null,
             name_creator: '',
@@ -445,16 +447,16 @@ const Receipt = ({props}) => {
                 </Box>
                 <Box className='glass'
                      sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
-                    <Button fullWidth variant='contained' color='warning' sx={{marginRight: 1}}
-                            onClick={() => dispatch(openModal({
-                                type: 'dialog_delete_receipts', props: {
-                                    type: 'YesNo',
-                                    action: 'dialog_delete_receipts',
-                                    question: 'Вы уверены, что хотите удалить этот чек?',
-                                    filial: filial,
-                                    uid: uid,
-                                }
-                            }))}>Удалить</Button>
+                    {props.uid !== 'new' && <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}
+                                                    onClick={() => dispatch(openModal({
+                                                        type: 'dialog_delete_receipts', props: {
+                                                            type: 'YesNo',
+                                                            action: 'dialog_delete_receipts',
+                                                            question: 'Вы уверены, что хотите удалить этот чек?',
+                                                            filial: filial,
+                                                            uid: uid,
+                                                        }
+                                                    }))}>Удалить</Button>}
                     {(uid_order_cinema !== null || uid_order_food !== null) &&
                         <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
                             if (uid_order_cinema !== null) {
