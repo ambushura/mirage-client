@@ -1,10 +1,15 @@
-import {Box, Button, TextField, Typography} from "@mui/material"
-import {DatePicker} from "@mui/x-date-pickers"
+import {Box, Button, Skeleton, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {common_documents_slip_get} from "../../../../service/fetch_service.js";
+import {useNavigate} from "react-router-dom"
+import {useEffect, useState} from "react"
+import {useForm} from "react-hook-form"
+import {cinema_order_fetch, common_documents_slip_get, horeca_order_fetch} from "../../../../service/fetch_service.js"
+import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
+import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
+import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
+import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
+import {v4} from "uuid"
+import {closeModal} from "../../../../redux/interfaceReducer.js"
 
 const Slip = ({props}) => {
 
@@ -24,44 +29,39 @@ const Slip = ({props}) => {
             ver: props.uid === 'new' ? v4() : '',
             id: props.uid === 'new' ? v4() : '',
             deleted: false,
-            uid_creator: null,
+            date_create: '',
+            date_shift: '',
+            inn: '',
             name_creator: '',
-            copy: false,
-            date_create: null,
-            date_shift: null,
-            sum_discount: 0,
-            fn: '',
-            fd: '',
-            fp: '',
-            moment: null,
-            number: '',
-            number_kkt: '',
-            price: 0,
-            shift_number: '',
-            sum: 0,
-            type: null,
-            uid_cashier: '',
-            name_cashier: '',
-            uid_kkt: '',
+            name_organization: '',
+            pinpad_number: '',
+            print_error: '',
+            printed: '',
+            slip0: '',
+            slip4: '',
+            slip6: '',
+            slip9: '',
+            slip10: '',
+            slip11: '',
+            slip13: '',
+            slip14: '',
+            slip15: '',
+            slip19: '',
+            slip21: '',
+            slip23: '',
+            slip25: '',
+            slip26: '',
+            slip27: '',
+            slip28: '',
+            slip39: '',
+            slip86: '',
+            slip90: '',
+            slip_sum: '',
+            slip_type: '',
+            uid_creator: '',
             uid_order_cinema: '',
             uid_order_food: '',
-            uid_organization: '',
-            uid_payment_type: '',
-            name_payment_type: '',
-            uid_channel: '',
-            name_channel: '',
-            uid_store: '',
-            name_organization: '',
-            inn_organization: '',
-            name_store: '',
-            uid_work_place: '',
-            sno: null,
-            printed: false,
-            channel_name: '',
-            rn: '',
-            date_shift_claim: null,
-            comment: '',
-            items: [],
+            uid_pinpad: '',
         }
     })
 
@@ -94,154 +94,250 @@ const Slip = ({props}) => {
         fetchData()
     }, [props.uid, filial, dispatch, reset])
 
-    return <Box id="modal-slip"
-                component="form"
-                noValidate
-                autoComplete="off"
-                sx={{width: '900px'}}
-                onSubmit={handleSubmit}>
-        <Typography variant="h6" color="textSecondary" margin={1}>
-            БАНКОВСКИЙ СЛИП
-        </Typography>
-        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
-            <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
-                <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
-                    Общие
-                </Typography>
-                <DatePicker
-                    label='Дата смены'
-                    variant='filled'
-                    value={null}
-                    sx={{marginBottom: '10px'}}
-                    onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
-                />
-                <DatePicker
-                    label='Дата создания'
-                    variant='filled'
-                    value={null}
-                    sx={{marginBottom: '10px'}}
-                    onChange={(newVal) => onChange(newVal ? newVal.toISOString() : null)}
-                />
-                <TextField
-                    label='Автор'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                    slotProps={{input: {readOnly: true}}}
-                />
-                <TextField
-                    label='0 · Сумма операции'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='39 · Статус проведения транзакции'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='86 · Дополнительные данные транзакции'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
+    const uid_order_cinema = watch('uid_order_cinema')
+    const uid_order_food = watch('uid_order_food')
+
+    if (loading) {
+        return <Loader/>
+    } else {
+        return <Box id="modal-slip"
+                    component="form"
+                    noValidate
+                    autoComplete="off"
+                    sx={{width: '1230px'}}
+                    onSubmit={handleSubmit}>
+            <Typography variant="h6" color="textSecondary" margin={1}>
+                БАНКОВСКИЙ СЛИП
+            </Typography>
+            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                    <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
+                        Общие
+                    </Typography>
+                    <ControlledDatePicker
+                        control={control}
+                        name="date_shift"
+                        label="Дата смены"
+                        rules={{required: 'Укажите дату смены'}}
+                    />
+                    <ControlledDatePicker
+                        control={control}
+                        name="date_create"
+                        label="Дата создания"
+                        rules={{required: 'Укажите дату создания слипа'}}
+                    />
+                    <ControlledLazySelect
+                        control={control}
+                        name="uid_creator"
+                        label="Автор"
+                        type="staff"
+                        filial={filial}
+                        rules={{required: 'Укажите автора'}}
+                        extraFields={['title']}
+                        onChange={(uid, extra) => setValue('name_creator', extra.title || '')}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="slip_sum"
+                        label="0 · Сумма операции"
+                        readOnly={true}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="inn"
+                        label="ИНН"
+                        readOnly={true}
+                        rules={{
+                            required: 'Укажите ИНН организации (из кассы)'
+                        }}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip86"
+                        label="86 · Дополнительные данные транзакции"
+                        sx={{width: '100%'}}
+                    />
+                </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                    <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
+                        Поля 4 - 11
+                    </Typography>
+                    <ControlledTextField
+                        control={control}
+                        name="slip4"
+                        label="4 · Код валюты операции"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip6"
+                        label="6 · Оригинальные даты и время совершения операции на хосте"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip9"
+                        label="9 · Способ кодировки PIN-блока"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip10"
+                        label="10 · Номер карты"
+                        readOnly={true}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip11"
+                        label="11 · Срок действия карты"
+                        readOnly={true}
+                    />
+                </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                    <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
+                        Поля 13 - 21
+                    </Typography>
+                    <ControlledTextField
+                        control={control}
+                        name="slip13"
+                        label="13 · Код авторизации"
+                        readOnly={true}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip14"
+                        label="14 · Номер ссылки"
+                        readOnly={true}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip15"
+                        label="15 · Код ответа"
+                        readOnly={true}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip19"
+                        label="19 · Дополнительные данные ответа"
+                        readOnly={true}
+                    />
+                    <ControlledDatePicker
+                        control={control}
+                        name="slip21"
+                        label="21 · Оригинальные даты и время совершения операции"
+                    />
+                </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                    <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
+                        Поля 23 - 39
+                    </Typography>
+                    <ControlledTextField
+                        control={control}
+                        name="slip23"
+                        label="23 · Идентификатор транзакции в коммуникационном сервере"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip25"
+                        label="25 · Код операции"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip26"
+                        label="26 · Уникальный номер транзакции на стороне внешнего  устройства"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip27"
+                        label="27 · Идентификатор внешнего устройства"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip28"
+                        label="28 · Идентификатор продавца"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="slip39"
+                        label="39 · Статус проведения транзакции"
+                        readOnly={true}
+                    />
+                </Box>
+                <Box sx={{maxHeight: '420px', m: 1, overflowY: 'auto'}}>
+                    <Typography className='glass' sx={{textAlign: 'center', position: 'sticky', top: 0, zIndex: 1}}
+                                variant="h6" color="textSecondary">
+                        Квитанция
+                    </Typography>
+                    <ControlledTextField
+                        control={control}
+                        name="slip90"
+                        label="90 · Квитанция"
+                        readOnly={true}
+                        multiline={true}
+                        sx={{minWidth: '270px'}}
+                    />
+                </Box>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
-                <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
-                    Поля 4 - 11
-                </Typography>
-                <TextField
-                    label='4 · Код валюты операции'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='6 · Оригинальные даты и время совершения операции на хосте'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='9 · Способ кодировки PIN-блока'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='10 · Номер карты'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='11 · Срок действия карты'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-            </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
-                <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
-                    Поля 13 - 21
-                </Typography>
-                <TextField
-                    label='13 · Код авторизации'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='14 · Номер ссылки'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='15 · Код ответа'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='19 · Дополнительные данные ответа'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='21 · Оригинальные даты и время совершения операции'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-            </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
-                <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
-                    Поля 23 - 28
-                </Typography>
-                <TextField
-                    label='23 · Идентификатор транзакции в коммуникационном сервере'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='25 · Код операции'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='26 · Уникальный номер транзакции на стороне внешнего  устройства'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='27 · Идентификатор внешнего устройства'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
-                <TextField
-                    label='28 · Идентификатор продавца'
-                    variant='filled'
-                    sx={{marginBottom: '10px'}}
-                />
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
+                {(uid_order_cinema !== null || uid_order_food !== null) &&
+                    <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
+                        if (uid_order_cinema !== null) {
+                            navigate(`/admin/orders/cinema/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
+                            dispatch(cinema_order_fetch(filial, uid_order_cinema))
+                        } else if (uid_order_food !== null) {
+                            navigate(`/admin/orders/horeca/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
+                            dispatch(horeca_order_fetch(filial, uid_order_food))
+                        }
+                        dispatch(closeModal())
+                    }}>Перейти в заказ</Button>}
+                <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
             </Box>
         </Box>
-        <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}>Удалить</Button>
-            <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Квитанция</Button>
-            <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}}>Перейти в заказ</Button>
-            <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
-        </Box>
-    </Box>
+    }
 }
 
 export default Slip
+
+function Loader() {
+    return <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+            </Box>
+        </Box>
+        <Skeleton variant="rectangular" width={'715px'} height={50}/>
+    </Box>
+}
