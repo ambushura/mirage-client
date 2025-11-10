@@ -9,14 +9,16 @@ import CakeIcon from '@mui/icons-material/Cake'
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import Loader from "../../../../ui/Loader.jsx"
 import {openModal} from "../../../../redux/interfaceReducer.js"
+import {useNavigate} from "react-router-dom";
 
 const Zbooks = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const filial = useSelector(state => state.data.filial)
+    const {city, filial} = useSelector(state => state.data)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-
+    const wp = useSelector(state => state.interface.wp)
     const uid_kkt_current = useSelector(state => state.documents.uid_kkt_current)
 
     const [fetching_zbooks, set_fetching_zbooks] = useState({loading: false, error: null, data: null})
@@ -156,7 +158,8 @@ const Zbooks = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'documents_z_book', props: {uid: params.row.id}}))
+                            //dispatch(openModal({type: 'documents_z_book', props: {uid: params.row.id}}))
+                            navigate(`/admin/zbook/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}
                 </Box>}

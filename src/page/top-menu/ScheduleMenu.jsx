@@ -88,7 +88,7 @@ const ScheduleMenu = () => {
                 color="secondary" size='large' onClick={() => {
                 navigate(`/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
             }}
-                sx={{marginRight: '4px'}}><KeyboardArrowLeftIcon/>Назад</Button> : <></>}
+                sx={{marginRight: '4px'}} startIcon={<KeyboardArrowLeftIcon/>}>Назад</Button> : <></>}
             <ButtonGroup size='medium' variant="contained" color="secondary" sx={{marginRight: '5px'}}>
                 <Button
                     onClick={() => {

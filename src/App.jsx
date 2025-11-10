@@ -62,9 +62,8 @@ function App() {
     useReset()
 
     const {cities} = useSelector(state => state.data)
-    const {modal_opened, modal_type, modal_props} = useSelector(state => state.interface)
+    const {modal_opened, modal_type, modal_props, need_update} = useSelector(state => state.interface)
     const param_date = useSelector(state => state.interface.params.param_date)
-    const need_update = useSelector(state => state.interface.need_update)
 
     const modalComponents = {
         table_options: TableOptions,
@@ -151,6 +150,9 @@ function App() {
 
                 <Route path="/admin/zbooks/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/zbooks"/>}/>
+
+                <Route path="/admin/zbook/:param_city/:param_filial/:uid/"
+                       element={<AppRoutes current_page="admin/zbook"/>}/>
 
                 <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/operations"/>}/>

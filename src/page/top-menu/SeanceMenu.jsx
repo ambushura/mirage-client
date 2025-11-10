@@ -21,7 +21,8 @@ const SeanceMenu = () => {
                 <Button variant="contained" color="secondary" size='large' sx={{marginRight: '4px'}}
                         onClick={() => {
                             navigate(-1)
-                        }}><KeyboardArrowLeftIcon/>Назад</Button>
+                        }}
+                        startIcon={<KeyboardArrowLeftIcon/>}>Назад</Button>
                 <SeanceTitle
                     seance={seance}
                     content_type={true}

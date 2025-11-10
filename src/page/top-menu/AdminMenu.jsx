@@ -68,6 +68,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import SavingsIcon from '@mui/icons-material/Savings'
+import SaveIcon from '@mui/icons-material/Save'
 
 export function AdminHallsList() {
 
@@ -637,6 +638,34 @@ export function ShowPagesCinemaOrders() {
         showLastButton/>
 }
 
+export function ZBookMenu() {
+
+    const navigate = useNavigate()
+
+    return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+        <Button variant='contained' color='secondary'
+                startIcon={<KeyboardArrowLeftIcon/>}
+                onClick={() => {
+                    navigate(-1)
+                }}>Назад</Button>
+        <Box>
+            <Button variant='contained' color='secondary' type={'submit'} sx={{marginRight: 1}}
+                    startIcon={<SaveIcon/>}>Сохранить</Button>
+            <Button startIcon={<DeleteForeverIcon/>}
+                    variant='contained' color='error'
+                    onClick={() => dispatch(openModal({
+                        type: 'dialog_delete_z_book', props: {
+                            type: 'YesNo',
+                            action: 'dialog_delete_z_book',
+                            question: 'Вы уверены, что хотите удалить эту кассовую книгу?',
+                            filial: filial,
+                            uid: uid,
+                        }
+                    }))}>Удалить</Button>
+        </Box>
+    </Box>
+}
+
 export default function AdminMenu() {
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -652,6 +681,7 @@ export default function AdminMenu() {
             {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
             {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
+            {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
             {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&

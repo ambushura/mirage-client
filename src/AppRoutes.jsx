@@ -18,9 +18,6 @@ const AppRoutes = ({current_page}) => {
 
     const dispatch = useDispatch()
 
-    const permissions = useSelector(state => state.auth.permissions)
-    const wp = useSelector(state => state.interface.wp)
-
     const params = useParams()
     const [search_params] = useSearchParams()
 
@@ -46,17 +43,18 @@ const AppRoutes = ({current_page}) => {
         film: <PageFilm/>,
         seance: <PageSeance/>,
         kitchen: <PageKitchen/>,
-        menu: uid_user !== null ? <PageHoreca/> : null,
-        "admin/orders/cinema": uid_user !== null ? <PageAdmin/> : null,
-        "admin/orders/horeca": uid_user !== null ? <PageAdmin/> : null,
-        "admin/zbooks": uid_user !== null ? <PageAdmin/> : null,
-        "admin/operations": uid_user !== null ? <PageAdmin/> : null,
-        "admin/halls": uid_user !== null ? <PageAdmin/> : null,
-        "admin/scheme": uid_user !== null ? <PageAdmin/> : null,
-        "admin/egais": uid_user !== null ? <PageAdmin/> : null,
-        "admin/staff": uid_user !== null ? <PageAdmin/> : null,
-        "admin/acquiring": uid_user !== null ? <PageAdmin/> : null,
-        "admin/sales": uid_user !== null ? <PageAdmin/> : null,
+        menu: uid_user !== null && <PageHoreca/>,
+        "admin/orders/cinema": uid_user !== null && <PageAdmin/>,
+        "admin/orders/horeca": uid_user !== null && <PageAdmin/>,
+        "admin/zbooks": uid_user !== null && <PageAdmin/>,
+        "admin/zbook": uid_user !== null && <PageAdmin/>,
+        "admin/operations": uid_user !== null && <PageAdmin/>,
+        "admin/halls": uid_user !== null && <PageAdmin/>,
+        "admin/scheme": uid_user !== null && <PageAdmin/>,
+        "admin/egais": uid_user !== null && <PageAdmin/>,
+        "admin/staff": uid_user !== null && <PageAdmin/>,
+        "admin/acquiring": uid_user !== null && <PageAdmin/>,
+        "admin/sales": uid_user !== null && <PageAdmin/>,
     }
 
     return <Box id='page'>{pages[current_page] || null}</Box>

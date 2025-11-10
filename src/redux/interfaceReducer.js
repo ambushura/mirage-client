@@ -56,6 +56,7 @@ const initialState = {
         param_date_admin: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
         uid_film: undefined,
         uid_seance: undefined,
+        uid: undefined,
     },
     top_menu: TOP_MENU,
     kiosk_checkout: 0,

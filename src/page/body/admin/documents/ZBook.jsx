@@ -1,9 +1,8 @@
-import {Box, Button, Skeleton, Typography} from "@mui/material"
-import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
+import {Box, Skeleton, Typography} from "@mui/material"
+import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {common_documents_z_book_get, common_documents_z_book_save} from "../../../../service/fetch_service.js"
-import CloseIcon from '@mui/icons-material/Close'
 import {useForm} from "react-hook-form"
 import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
 import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
@@ -14,19 +13,20 @@ import {setZBooksUpdate} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
 import {v4} from 'uuid'
 
-const ZBook = ({props}) => {
+const ZBook = () => {
 
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
+    const {uid} = useSelector(state => state.interface.params)
 
     const [loading, set_loading] = useState(true)
 
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            uid_filial: props.uid === 'new' ? filial.uid : '',
-            ver: props.uid === 'new' ? v4() : '',
-            id: props.uid === 'new' ? v4() : '',
+            uid_filial: uid === 'new' ? filial.uid : '',
+            ver: uid === 'new' ? v4() : '',
+            id: uid === 'new' ? v4() : '',
             automatic: false,
             name_organization: '',
             inn: '',
@@ -51,7 +51,6 @@ const ZBook = ({props}) => {
         }
     })
 
-    const uid = watch('id')
     const date_shift = watch('date_shift')
     const number_kkt = watch('number_kkt')
 
@@ -59,10 +58,10 @@ const ZBook = ({props}) => {
         const fetchData = async () => {
             set_loading(true)
             try {
-                if (props.uid === 'new') {
+                if (uid === 'new') {
                     reset()
                 } else {
-                    const data = await dispatch(common_documents_z_book_get(filial, props.uid))
+                    const data = await dispatch(common_documents_z_book_get(filial, uid))
                     if (data?.data) {
                         reset({
                             ...data.data,
@@ -78,14 +77,14 @@ const ZBook = ({props}) => {
             }
         }
         fetchData()
-    }, [props.uid, filial, dispatch, reset])
+    }, [uid, filial, dispatch, reset])
 
     const onSubmit = (data) => {
         const prepared = {
             ...data,
-            id: props.uid === 'new' ? v4() : data.id,
-            uid_filial: props.uid === 'new' ? filial.uid : data.uid_filial,
-            date_create: props.uid === 'new' ? dayjs(new Date()).format('YYYY-MM-DDTHH:mm:ss+00:00') : dayjs(data.date_create).format('YYYY-MM-DDTHH:mm:ss+00:00'),
+            id: uid === 'new' ? v4() : data.id,
+            uid_filial: uid === 'new' ? filial.uid : data.uid_filial,
+            date_create: uid === 'new' ? dayjs(new Date()).format('YYYY-MM-DDTHH:mm:ss+00:00') : dayjs(data.date_create).format('YYYY-MM-DDTHH:mm:ss+00:00'),
             date_shift: dayjs(data.date_shift).format('YYYY-MM-DDTHH:mm:ss+00:00'),
             moment: dayjs(data.moment).format('YYYY-MM-DDTHH:mm:ss+00:00'),
             number_shift: Number(data.number_shift) || 0,
@@ -111,7 +110,7 @@ const ZBook = ({props}) => {
         return <Loader/>
     } else {
         return <Box
-            sx={{maxHeight: '700px', overflowY: 'auto'}}
+            sx={{width: '100%', padding: '4px'}}
             id="modal-z-book"
             component="form"
             noValidate
@@ -119,184 +118,168 @@ const ZBook = ({props}) => {
             onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
                 <Typography variant="h6" color="textSecondary">
-                    {`КАССОВАЯ КНИГА ${props.uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`}
+                    {`КАССОВАЯ КНИГА ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`}
                 </Typography>
-                <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
-                <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-                    <Box sx={{
-                        display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'
-                    }}>
-                        <ControlledDatePicker
-                            control={control}
-                            name="date_shift"
-                            label="Дата смены"
-                            rules={{required: 'Укажите дату смены'}}
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledLazySelect
-                            control={control}
-                            name="uid_kkt"
-                            label="ККТ"
-                            type="kkt"
-                            filial={filial}
-                            extraFields={['uid_organization', 'name_organization', 'inn', 'sno', 'title', 'uid_wallet']}
-                            rules={{required: 'Укажите ККТ'}}
-                            onChange={(uid, extra) => {
-                                setValue('uid_organization', extra.uid_organization || '')
-                                setValue('name_organization', extra.name_organization || '')
-                                setValue('inn', extra.inn || '')
-                                setValue('sno', String(extra.sno) ?? null)
-                                setValue('number_kkt', extra.title ?? null)
-                                setValue('uid_wallet', extra.uid_wallet ?? null)
-                            }}
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledTextField
-                            control={control}
-                            name="name_organization"
-                            label="Организация"
-                            readOnly={true}
-                            rules={{
-                                required: 'Укажите организацию (из кассы)'
-                            }}
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledTextField
-                            control={control}
-                            name="inn"
-                            label="ИНН"
-                            readOnly={true}
-                            rules={{
-                                required: 'Укажите ИНН организации (из кассы)',
-                                pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
-                            }}
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledDatePicker
-                            control={control}
-                            name="date_ofd"
-                            label="Дата ОФД"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledTextField
-                            control={control}
-                            name="last_fd"
-                            label="Номер последнего ФД"
-                            numeric
-                            rules={{
-                                pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
-                            }}
-                            sx={{width: '100%'}}
-                        />
-                    </Box>
-                    <Box
-                        sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'}}>
-                        <ControlledTextField
-                            control={control}
-                            name="number_shift"
-                            label="Номер смены"
-                            numeric
-                            rules={{
-                                required: 'Укажите номер смены',
-                                pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
-                            }}
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_in_cash"
-                            label="Наличные (приход)"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_out_cash"
-                            label="Наличные (расход)"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_in_electron"
-                            label="Безналичные (приход)"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_out_electron"
-                            label="Безналичные (расход)"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_nds"
-                            label="НСД"
-                            sx={{width: '100%'}}
-                        />
-                    </Box>
-                    <Box
-                        sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1}}>
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_collection"
-                            label="Инкассация"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_electron"
-                            label="Безналичные (всего)"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="revenue"
-                            label="Выручка"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_total_of_income"
-                            label="Сменный итог"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_non_zero_total_of_income"
-                            label="Необнуляемая сумма прихода"
-                            sx={{width: '100%'}}
-                        />
-                        <ControlledMoneyField
-                            control={control}
-                            name="sum_non_zero_total_of_outcome"
-                            label="Необнуляемая сумма возврата прихода"
-                            sx={{width: '100%'}}
-                        />
-                    </Box>
+            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+                <Box sx={{
+                    display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'
+                }}>
+                    <ControlledDatePicker
+                        control={control}
+                        name="date_shift"
+                        label="Дата смены"
+                        rules={{required: 'Укажите дату смены'}}
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledLazySelect
+                        control={control}
+                        name="uid_kkt"
+                        label="ККТ"
+                        type="kkt"
+                        filial={filial}
+                        extraFields={['uid_organization', 'name_organization', 'inn', 'sno', 'title', 'uid_wallet']}
+                        rules={{required: 'Укажите ККТ'}}
+                        onChange={(uid, extra) => {
+                            setValue('uid_organization', extra.uid_organization || '')
+                            setValue('name_organization', extra.name_organization || '')
+                            setValue('inn', extra.inn || '')
+                            setValue('sno', String(extra.sno) ?? null)
+                            setValue('number_kkt', extra.title ?? null)
+                            setValue('uid_wallet', extra.uid_wallet ?? null)
+                        }}
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="name_organization"
+                        label="Организация"
+                        readOnly={true}
+                        rules={{
+                            required: 'Укажите организацию (из кассы)'
+                        }}
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="inn"
+                        label="ИНН"
+                        readOnly={true}
+                        rules={{
+                            required: 'Укажите ИНН организации (из кассы)',
+                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                        }}
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledDatePicker
+                        control={control}
+                        name="date_ofd"
+                        label="Дата ОФД"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledTextField
+                        control={control}
+                        name="last_fd"
+                        label="Номер последнего ФД"
+                        numeric
+                        rules={{
+                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                        }}
+                        sx={{width: '100%'}}
+                    />
+                </Box>
+                <Box
+                    sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'}}>
+                    <ControlledTextField
+                        control={control}
+                        name="number_shift"
+                        label="Номер смены"
+                        numeric
+                        rules={{
+                            required: 'Укажите номер смены',
+                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                        }}
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_in_cash"
+                        label="Наличные (приход)"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_out_cash"
+                        label="Наличные (расход)"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_in_electron"
+                        label="Безналичные (приход)"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_out_electron"
+                        label="Безналичные (расход)"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_nds"
+                        label="НСД"
+                        sx={{width: '100%'}}
+                    />
+                </Box>
+                <Box
+                    sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1}}>
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_collection"
+                        label="Инкассация"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_electron"
+                        label="Безналичные (всего)"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="revenue"
+                        label="Выручка"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_total_of_income"
+                        label="Сменный итог"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_non_zero_total_of_income"
+                        label="Необнуляемая сумма прихода"
+                        sx={{width: '100%'}}
+                    />
+                    <ControlledMoneyField
+                        control={control}
+                        name="sum_non_zero_total_of_outcome"
+                        label="Необнуляемая сумма возврата прихода"
+                        sx={{width: '100%'}}
+                    />
                 </Box>
             </Box>
-            <Box sx={{flex: 1}}>
-                <ControlledTextField
-                    control={control}
-                    name="comment"
-                    label="Комментарий"
-                    sx={{width: '100%'}}
-                />
-            </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                {props.uid !== 'new' && <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}
-                                                onClick={() => dispatch(openModal({
-                                                    type: 'dialog_delete_z_book', props: {
-                                                        type: 'YesNo',
-                                                        action: 'dialog_delete_z_book',
-                                                        question: 'Вы уверены, что хотите удалить эту кассовую книгу?',
-                                                        filial: filial,
-                                                        uid: uid,
-                                                    }
-                                                }))}>Удалить</Button>}
-                <Button fullWidth variant='contained' color='secondary' type={'submit'}>Сохранить</Button>
-            </Box>
+            <ControlledTextField
+                control={control}
+                name="comment"
+                label="Комментарий"
+                sx={{width: '100%'}}
+                multiline={true}
+                rows={3}
+            />
         </Box>
     }
 }
@@ -304,7 +287,7 @@ const ZBook = ({props}) => {
 export default ZBook
 
 function Loader() {
-    return <Box sx={{display: 'flex', flexDirection: 'column'}}>
+    return <Box sx={{width: '100%', display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
             <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
                 <Skeleton variant="text" width={'100%'} height={40}/>
@@ -325,6 +308,6 @@ function Loader() {
                 <Skeleton variant="text" width={'100%'} height={40}/>
             </Box>
         </Box>
-        <Skeleton variant="rectangular" width={'615px'} height={50}/>
+        <Skeleton variant="rectangular" width={'100%'} height={50}/>
     </Box>
 }

@@ -13,6 +13,7 @@ import PageScheme from "./scheme/PageScheme.jsx"
 import ZPinpads from "./documents/ZPinpads.jsx"
 import Order from "../../right-panel/Order.jsx"
 import Sales from "./documents/Sales.jsx"
+import ZBook from "./documents/ZBook.jsx";
 
 const PageAdmin = () => {
 
@@ -22,8 +23,7 @@ const PageAdmin = () => {
     const [update_cinema, set_update_cinema] = useState(true)
     const [update_horeca, set_update_horeca] = useState(true)
 
-    const pre_order = useSelector(state => state.orders.pre_order)
-    const horder = useSelector(state => state.orders.horder)
+    const {horder, pre_order} = useSelector(state => state.orders.pre_order)
 
     useEffect(() => {
         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -38,16 +38,17 @@ const PageAdmin = () => {
             <Box id='content-header'></Box>
             <Box id='content'
                  style={['admin/operations', 'admin/zbooks', 'admin/acquiring', 'admin/sales'].includes(current_page) ? {height: 'var(--page-height)'} : null}>
-                {current_page === 'admin/orders/cinema' ? <OrdersCinema update_cinema={update_cinema}/> : null}
-                {current_page === 'admin/orders/horeca' ? <OrdersHoreca update_horeca={update_horeca}/> : null}
-                {current_page === 'admin/zbooks' ? <Zbooks/> : null}
-                {current_page === 'admin/operations' ? <Operations/> : null}
-                {current_page === 'admin/egais' ? <Egais/> : null}
-                {current_page === 'admin/staff' ? <PageStaff/> : null}
-                {current_page === 'admin/halls' ? <PageHalls/> : null}
-                {current_page === 'admin/scheme' ? <PageScheme/> : null}
-                {current_page === 'admin/acquiring' ? <ZPinpads/> : null}
-                {current_page === 'admin/sales' ? <Sales/> : null}
+                {current_page === 'admin/orders/cinema' && <OrdersCinema update_cinema={update_cinema}/>}
+                {current_page === 'admin/orders/horeca' && <OrdersHoreca update_horeca={update_horeca}/>}
+                {current_page === 'admin/zbooks' && <Zbooks/>}
+                {current_page === 'admin/zbook' && <ZBook/>}
+                {current_page === 'admin/operations' && <Operations/>}
+                {current_page === 'admin/egais' && <Egais/>}
+                {current_page === 'admin/staff' && <PageStaff/>}
+                {current_page === 'admin/halls' && <PageHalls/>}
+                {current_page === 'admin/scheme' && <PageScheme/>}
+                {current_page === 'admin/acquiring' && <ZPinpads/>}
+                {current_page === 'admin/sales' && <Sales/>}
             </Box>
             <Box id='content-footer'></Box>
             <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>

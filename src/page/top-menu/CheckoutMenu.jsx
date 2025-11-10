@@ -80,7 +80,8 @@ const CheckoutMenu = () => {
                         dispatch(setKioskCheckout(0))
                     }
                 }} variant="contained"
-                        color="secondary"><KeyboardArrowLeftIcon/>Назад</Button>
+                        color="secondary"
+                        startIcon={<KeyboardArrowLeftIcon/>}>Назад</Button>
                 <Box sx={{width: '100%', marginLeft: '10px'}}>
                     <LinearProgress className='order-progress glass-effect'
                                     sx={{height: '100%'}}
