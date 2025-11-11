@@ -124,6 +124,8 @@ const Header = () => {
         } else {
             if (current_page === 'admin/zbook') {
                 set_adv_page_name('Кассовая книга')
+            } else if (current_page === 'admin/receipt') {
+                set_adv_page_name('Чек')
             } else {
                 set_adv_page_name('Кинокомплекс')
             }

@@ -675,7 +675,7 @@ export function ZBookMenu() {
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
                     navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                }}>Назад</Button>
+                }}>Кассовые документы</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_zBook}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
@@ -712,7 +712,7 @@ export function ReceiptMenu() {
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
                     navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                }}>Назад</Button>
+                }}>Кассовые документы</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_receipt}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>

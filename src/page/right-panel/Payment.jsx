@@ -32,6 +32,7 @@ import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
 import EditDocumentIcon from '@mui/icons-material/EditDocument'
 import PaymentIcon from '@mui/icons-material/Payment'
 import LazySelect from "../../ui/LazySelect.jsx"
+import {useNavigate} from "react-router-dom";
 
 const Payment = (props) => {
 
@@ -217,6 +218,10 @@ const Payment = (props) => {
 
         if (grouped_items.length === 0) return null
 
+        const navigate = useNavigate()
+        const {city, filial} = useSelector(state => state.data)
+        const wp = useSelector(state => state.interface.wp)
+
         return <Box>
             <Box className='payment-items-group-title-name'>
                 {chapter1 !== 'success' ? (<Checkbox
@@ -298,9 +303,7 @@ const Payment = (props) => {
                                 <Box>{item.name_payment_type}</Box>
                                 {item.uid_in_receipt !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({
-                                            type: 'documents_receipt', props: {uid: item.uid_in_receipt}
-                                        }))
+                                        navigate(`/admin/receipt/${city.code}/${filial.eais}/${item.uid_in_receipt}/?${wp !== null ? 'wp=' + wp : ''}`)
                                     }}>Чек приход</Box> : null}
                                 {item.uid_in_slip !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
