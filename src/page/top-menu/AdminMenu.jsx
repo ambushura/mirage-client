@@ -71,8 +71,10 @@ import {
     setOperationsDetails,
     setOperationsPage,
     setTriggerDeleteReceipt,
+    setTriggerDeleteSlip,
     setTriggerDeleteZBook,
     setTriggerSubmitReceipt,
+    setTriggerSubmitSlip,
     setTriggerSubmitZBook
 } from "../../redux/documentsReducer.js"
 import List from "../../ui/List.jsx"
@@ -742,6 +744,52 @@ export function ReceiptMenu() {
     </Box>
 }
 
+export function SlipMenu() {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {city, filial} = useSelector(state => state.data)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
+    const {slip_order, caption_slip} = useSelector(state => state.documents)
+
+    return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+        <ButtonGroup sx={{marginRight: '4px'}}>
+            <Button
+                variant='contained' color='secondary'
+                startIcon={<KeyboardArrowLeftIcon/>}
+                onClick={() => {
+                    navigate(`/admin/acquiring/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                }}>Эквайринг</Button>
+            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_slip}</Button>
+        </ButtonGroup>
+        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            {slip_order !== null &&
+                <Button sx={{marginRight: '4px'}} variant='outlined' color='secondary' startIcon={<OpenInNewIcon/>}
+                        onClick={() => {
+                            if (slip_order.type === 'cinema') {
+                                dispatch(cinema_order_fetch(filial, slip_order.uid))
+                            } else {
+                                dispatch(horeca_order_fetch(filial, slip_order.uid))
+                            }
+                        }}>Открыть заказ</Button>}
+            <Button variant='contained' color='secondary' sx={{marginRight: 1}}
+                    startIcon={<SaveIcon/>} onClick={() => {
+                dispatch(setTriggerSubmitSlip(true))
+                navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+            }}>Сохранить</Button>
+            <Button startIcon={<DeleteForeverIcon/>}
+                    variant='contained'
+                    color='error'
+                    onClick={() => {
+                        dispatch(setTriggerDeleteSlip(true))
+                        navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                    }}
+                    sx={{marginRight: '2px'}}>Удалить</Button>
+        </Box>
+    </Box>
+}
+
 export default function AdminMenu() {
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -759,6 +807,7 @@ export default function AdminMenu() {
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
             {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu/>}
+            {current_page === 'admin/slip' && filial !== undefined && <SlipMenu/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
             {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&

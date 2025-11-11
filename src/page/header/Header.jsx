@@ -126,6 +126,8 @@ const Header = () => {
                 set_adv_page_name('Кассовая книга')
             } else if (current_page === 'admin/receipt') {
                 set_adv_page_name('Чек')
+            } else if (current_page === 'admin/slip') {
+                set_adv_page_name('Слип')
             } else {
                 set_adv_page_name('Кинокомплекс')
             }
@@ -235,7 +237,7 @@ const Header = () => {
             {['seance'].includes(current_page) && !kiosk && <SeanceMenu/>}
             {['seance'].includes(current_page) && kiosk && <CheckoutMenu/>}
             {['menu'].includes(current_page) && <HorecaMenu/>}
-            {['kitchen', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/zbooks', 'admin/zbook', 'admin/receipt', 'admin/operations', 'admin/halls', 'admin/egais', 'admin/scheme', 'admin/staff', 'admin/acquiring', 'admin/sales'].includes(current_page) &&
+            {['kitchen', 'admin/orders/cinema', 'admin/orders/horeca', 'admin/zbooks', 'admin/zbook', 'admin/receipt', 'admin/operations', 'admin/halls', 'admin/egais', 'admin/scheme', 'admin/staff', 'admin/acquiring', 'admin/sales', 'admin/slip'].includes(current_page) &&
                 <AdminMenu/>}
         </header>
     }

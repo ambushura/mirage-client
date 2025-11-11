@@ -44,7 +44,6 @@ import StaffList from "./forms/StaffList.jsx"
 import OthersPaymentTypes from "./forms/OthersPaymentTypes.jsx"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {LicenseInfo} from '@mui/x-license'
-import Slip from "./page/body/admin/documents/Slip.jsx"
 import OperationCloseShift from "./forms/OperationCloseShift.jsx";
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
@@ -89,7 +88,6 @@ function App() {
         pinpads: OthersPaymentTypes,
         documents_operation: Operation,
         documents_operation_close_shift: OperationCloseShift,
-        documents_slip: Slip,
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,
         dialog_delete_receipts: Dialog,
@@ -170,6 +168,12 @@ function App() {
 
                 <Route path="/admin/acquiring/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/acquiring"/>}/>
+
+                <Route path="/admin/slip/:param_city/:param_filial/:uid/"
+                       element={<AppRoutes current_page="admin/slip"/>}/>
+
+                <Route path="/admin/z_acquiring/:param_city/:param_filial/:uid/"
+                       element={<AppRoutes current_page="admin/z_acquiring"/>}/>
 
                 <Route path="/admin/sales/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/sales"/>}/>

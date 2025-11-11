@@ -307,17 +307,15 @@ const Payment = (props) => {
                                     }}>Чек приход</Box> : null}
                                 {item.uid_in_slip !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({type: 'documents_slip', props: {uid: item.uid_in_slip}}))
+                                        navigate(`/admin/slip/${city.code}/${filial.eais}/${item.uid_in_slip}/?${wp !== null ? 'wp=' + wp : ''}`)
                                     }}>Слип приход</Box> : null}
                                 {item.uid_out_receipt !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({
-                                            type: 'documents_receipt', props: {uid: item.uid_out_receipt}
-                                        }))
+                                        navigate(`/admin/receipt/${city.code}/${filial.eais}/${item.uid_out_receipt}/?${wp !== null ? 'wp=' + wp : ''}`)
                                     }}>Чек возврат</Box> : null}
                                 {item.uid_out_slip !== null ?
                                     <Box sx={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
-                                        dispatch(openModal({type: 'documents_slip', props: {uid: item.uid_out_slip}}))
+                                        navigate(`/admin/slip/${city.code}/${filial.eais}/${item.uid_out_slip}/?${wp !== null ? 'wp=' + wp : ''}`)
                                     }}>Слип возврат</Box> : null}
                             </Box> : null}
                         </Box>

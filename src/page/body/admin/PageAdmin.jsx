@@ -15,6 +15,7 @@ import Order from "../../right-panel/Order.jsx"
 import Sales from "./documents/Sales.jsx"
 import ZBook from "./documents/ZBook.jsx"
 import Receipt from "./documents/Receipt.jsx"
+import Slip from "./documents/Slip.jsx";
 
 const PageAdmin = () => {
 
@@ -44,6 +45,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/zbooks' && <Zbooks/>}
                 {current_page === 'admin/zbook' && <ZBook/>}
                 {current_page === 'admin/receipt' && <Receipt/>}
+                {current_page === 'admin/slip' && <Slip/>}
                 {current_page === 'admin/operations' && <Operations/>}
                 {current_page === 'admin/egais' && <Egais/>}
                 {current_page === 'admin/staff' && <PageStaff/>}
@@ -53,7 +55,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/sales' && <Sales/>}
             </Box>
             <Box id='content-footer'></Box>
-            {['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt'].includes(current_page) &&
+            {['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(current_page) &&
                 <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>}
         </Box>
     </Box>

@@ -21,29 +21,23 @@ import {
     setTriggerSubmitReceipt,
 } from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
-import {useNavigate} from "react-router-dom"
 import {v4} from 'uuid'
 import {addNotification} from "../../../../redux/notifierReducer.js"
 
-const Receipt = ({props}) => {
+const Receipt = () => {
 
     // Служебные функции
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     // Данные из стора
-    const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
     const {uid} = useSelector(state => state.interface.params)
-    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const wp = useSelector(state => state.interface.wp)
 
     // Состояние загрузки документа
     const [loading, set_loading] = useState(true)
 
     // Триггеры сохранения/удаления документа
-    const trigger_submit_receipt = useSelector(state => state.documents.trigger_submit_receipt)
-    const trigger_delete_receipt = useSelector(state => state.documents.trigger_delete_receipt)
+    const {trigger_submit_receipt, trigger_delete_receipt} = useSelector(state => state.documents)
 
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({

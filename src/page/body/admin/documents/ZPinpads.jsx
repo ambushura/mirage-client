@@ -6,14 +6,16 @@ import {Box} from "@mui/material"
 import {cleanSlips, cleanZPinpads, setSlips, setZPinpads} from "../../../../redux/documentsReducer.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import dayjs from "dayjs"
-import {openModal} from "../../../../redux/interfaceReducer.js"
 import Loader from "../../../../ui/Loader.jsx"
+import {useNavigate} from "react-router-dom";
 
 const ZPinpads = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const filial = useSelector(state => state.data.filial)
+    const {city, filial} = useSelector(state => state.data)
+    const wp = useSelector(state => state.interface.wp)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
     const uid_pinpad_current = useSelector(state => state.documents.uid_pinpad_current)
@@ -103,7 +105,7 @@ const ZPinpads = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'documents_slip', props: {uid: params.row.id}}))
+                            navigate(`/admin/slip/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Слипы отсутствуют в смене...</Box>}
                 </Box>}
@@ -134,6 +136,9 @@ const ZPinpads = () => {
                             }, '& .MuiDataGrid-columnHeaderTitle': {
                                 fontSize: '0.9rem',
                             },
+                        }}
+                        onRowDoubleClick={(params) => {
+                            navigate(`/admin/z_acquiring/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Итоговые операции эквайринга в смене
                         отсутствуют...</Box>}

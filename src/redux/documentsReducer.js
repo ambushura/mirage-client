@@ -24,10 +24,15 @@ const initialState = {
     pinpad_list: [],
     zpinpads: {date_shift: '', zpinpads: []},
     zpinpads_update: 0,
+    caption_z_acquiring: null,
 
     // Слипы
     slips: {date_shift: '', uid_pinpad: '', slips: []},
     slips_update: 0,
+    trigger_submit_slip: false,
+    trigger_delete_slip: false,
+    caption_slip: null,
+    slip_order: null,
 
     // Операции по кассе
     operations_pages: 0,
@@ -103,7 +108,17 @@ export const dataSlice = createSlice({
             state.sales = {...state.sales, ...payload}
         }, cleanSales: (state) => {
             state.sales = {columns: [], rows: [], columnGroupingModel: []}
-        }
+        }, setCaptionZAcquiring(state, {payload}) {
+            state.caption_z_acquiring = payload
+        }, setTriggerSubmitSlip(state, {payload}) {
+            state.trigger_submit_slip = payload
+        }, setTriggerDeleteSlip(state, {payload}) {
+            state.trigger_delete_slip = payload
+        }, setCaptionSlip(state, {payload}) {
+            state.caption_slip = payload
+        }, setSlipOrder(state, {payload}) {
+            state.slip_order = payload
+        },
     },
 })
 
@@ -137,5 +152,10 @@ export const {
     cleanSlips,
     setSales,
     cleanSales,
+    setCaptionZAcquiring,
+    setTriggerSubmitSlip,
+    setTriggerDeleteSlip,
+    setCaptionSlip,
+    setSlipOrder
 } = dataSlice.actions
 export default dataSlice.reducer

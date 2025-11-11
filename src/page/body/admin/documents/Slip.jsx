@@ -1,35 +1,38 @@
-import {Box, Button, Skeleton, Typography} from "@mui/material"
+import {Box, Skeleton, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {useNavigate} from "react-router-dom"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
-import {cinema_order_fetch, common_documents_slip_get, horeca_order_fetch} from "../../../../service/fetch_service.js"
+import {common_documents_slip_get} from "../../../../service/fetch_service.js"
 import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
 import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import {v4} from "uuid"
-import {closeModal} from "../../../../redux/interfaceReducer.js"
 import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
+import {setCaptionSlip, setReceiptOrder, setSlipOrder} from "../../../../redux/documentsReducer.js"
+import dayjs from "dayjs"
 
-const Slip = ({props}) => {
+const Slip = () => {
 
+    // Служебные функции
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
-    const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
-    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const wp = useSelector(state => state.interface.wp)
+    // Данные из стора
+    const {filial} = useSelector(state => state.data)
+    const {uid} = useSelector(state => state.interface.params)
 
+    // Состояние загрузки документа
     const [loading, set_loading] = useState(true)
-    const [show_90, set_show_90] = useState(false)
 
+    // Триггеры сохранения/удаления документа
+    const {trigger_submit_slip, trigger_delete_slip} = useSelector(state => state.documents)
+
+    // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            uid_filial: props.uid === 'new' ? filial.uid : '',
-            ver: props.uid === 'new' ? v4() : '',
-            id: props.uid === 'new' ? v4() : '',
+            uid_filial: uid === 'new' ? filial.uid : '',
+            ver: uid === 'new' ? v4() : '',
+            id: uid === 'new' ? v4() : '',
             deleted: false,
             date_create: '',
             date_shift: '',
@@ -67,14 +70,15 @@ const Slip = ({props}) => {
         }
     })
 
+    // Загрузка документа в форму при открытии
     useEffect(() => {
         const fetchData = async () => {
             set_loading(true)
             try {
-                if (props.uid === 'new') {
+                if (uid === 'new') {
                     reset()
                 } else {
-                    const data = await dispatch(common_documents_slip_get(filial, props.uid))
+                    const data = await dispatch(common_documents_slip_get(filial, uid))
                     if (data?.data) {
                         reset({
                             ...data.data,
@@ -88,11 +92,39 @@ const Slip = ({props}) => {
             }
         }
         fetchData()
-    }, [props.uid, filial, dispatch, reset])
+    }, [uid, filial, dispatch, reset])
 
+    // Наблюдаемые переменные
     const uid_order_cinema = watch('uid_order_cinema')
     const uid_order_food = watch('uid_order_food')
     const slip14 = watch('slip14')
+    const slip27 = watch('slip27')
+    const date_shift = watch('date_shift')
+
+    // Триггер сохранения документа
+
+    // Функция сохранения документа
+
+    // Триггер удаления документа
+
+    // Триггер заголовка документа в меню
+    useEffect(() => {
+        dispatch(setCaptionSlip(`БАНКОВСКИЙ СЛИП ${uid === 'new' ? ' * ' : ' RRN' + slip14 + ' от ' + dayjs(date_shift).format('DD.MM.YY') + ' ID ' + slip27}`))
+        return () => {
+            dispatch(setCaptionSlip(null))
+        }
+    }, [uid, slip14, date_shift, slip27])
+
+    // Вспомогательные функции
+    useEffect(() => {
+        if (uid_order_cinema !== '') {
+            dispatch(setSlipOrder({uid: uid_order_cinema, type: 'cinema'}))
+        }
+        if (uid_order_food !== '') {
+            dispatch(setSlipOrder({uid: uid_order_food, type: 'horeca'}))
+        }
+        return () => dispatch(setReceiptOrder(null))
+    }, [uid_order_cinema, uid_order_food])
 
     if (loading) {
         return <Loader/>
@@ -101,13 +133,22 @@ const Slip = ({props}) => {
                     component="form"
                     noValidate
                     autoComplete="off"
-                    sx={{width: '900px'}}
-                    onSubmit={handleSubmit}>
-            <Typography variant="h6" color="textSecondary" margin={1}>
-                БАНКОВСКИЙ СЛИП RRN {slip14}
-            </Typography>
-            {!show_90 && <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                    sx={{padding: '10px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1, flex: 1}}>
+                    <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
+                        Квитанция
+                    </Typography>
+                    <ControlledTextField
+                        control={control}
+                        name="slip90"
+                        label="90 · Квитанция"
+                        multiline={true}
+                        readOnly={true}
+                        sx={{width: '100%'}}
+                    />
+                </Box>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1, flex: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         Общие
                     </Typography>
@@ -162,7 +203,7 @@ const Slip = ({props}) => {
                         readOnly={true}
                     />
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1, flex: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         Поля 4 - 11
                     </Typography>
@@ -215,7 +256,7 @@ const Slip = ({props}) => {
                         readOnly={true}
                     />
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1, flex: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         Поля 13 - 21
                     </Typography>
@@ -265,7 +306,7 @@ const Slip = ({props}) => {
                         readOnly={true}
                     />
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', m: 1, flex: 1}}>
                     <Typography sx={{textAlign: 'center'}} variant="h6" color="textSecondary">
                         Поля 23 - 39
                     </Typography>
@@ -311,36 +352,6 @@ const Slip = ({props}) => {
                         readOnly={true}
                     />
                 </Box>
-            </Box>}
-            {show_90 && <Box sx={{maxHeight: '490px', m: 1, overflowY: 'auto'}}>
-                <Typography className='glass' sx={{textAlign: 'center', position: 'sticky', top: 0, zIndex: 1}}
-                            variant="h6" color="textSecondary">
-                    Квитанция
-                </Typography>
-                <ControlledTextField
-                    control={control}
-                    name="slip90"
-                    label="90 · Квитанция"
-                    multiline={true}
-                    readOnly={true}
-                    sx={{width: '100%'}}
-                />
-            </Box>}
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                {(uid_order_cinema !== null || uid_order_food !== null) &&
-                    <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
-                        if (uid_order_cinema !== null) {
-                            navigate(`/admin/orders/cinema/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
-                            dispatch(cinema_order_fetch(filial, uid_order_cinema))
-                        } else if (uid_order_food !== null) {
-                            navigate(`/admin/orders/horeca/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
-                            dispatch(horeca_order_fetch(filial, uid_order_food))
-                        }
-                        dispatch(closeModal())
-                    }}>Перейти в заказ</Button>}
-                <Button fullWidth variant='contained' color='secondary' onClick={() => {
-                    set_show_90(prev => !prev)
-                }}>{show_90 ? 'Показать слип' : 'Показать квитанцию'}</Button>
             </Box>
         </Box>
     }
