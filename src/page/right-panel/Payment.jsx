@@ -325,7 +325,6 @@ const Payment = (props) => {
         </Box>
     }
 
-
     return <Box style={{backgroundColor: '#f8f8f8'}}
                 className={(props.type === 'cinema' && pre_order_paying) || (props.type === 'horeca' && horder_paying) ? 'payment-paying' : null}>
         <Box className='payment-total'>
