@@ -23,7 +23,7 @@ const ControlledDateTimePicker = ({control, name, label, rules = {}, sx = {}}) =
             onChange={(val) => field.onChange(val ? val.toISOString() : null)}
             slotProps={{
                 textField: {
-                    variant: 'filled', error: !!fieldState.error, sx: {mb: 1, ...sx}
+                    variant: 'filled', error: !!fieldState.error, fullWidth: true, sx: {mb: 1, ...sx}
                 },
             }}
             format="DD.MM.YYYY HH:mm"

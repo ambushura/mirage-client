@@ -8,7 +8,6 @@ import dayjs from "dayjs"
 import CakeIcon from '@mui/icons-material/Cake'
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import Loader from "../../../../ui/Loader.jsx"
-import {openModal} from "../../../../redux/interfaceReducer.js"
 import {useNavigate} from "react-router-dom";
 
 const Zbooks = () => {
@@ -121,7 +120,7 @@ const Zbooks = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            dispatch(openModal({type: 'documents_receipt', props: {uid: params.row.id}}))
+                            navigate(`/admin/receipt/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Чеки отсутствуют в смене...</Box>}
                 </Box>}
@@ -158,7 +157,6 @@ const Zbooks = () => {
                             },
                         }}
                         onRowDoubleClick={(params) => {
-                            //dispatch(openModal({type: 'documents_z_book', props: {uid: params.row.id}}))
                             navigate(`/admin/zbook/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
                     /> : <Box className='empty-box' sx={{height: '100%'}}>Кассовые книги отсутствуют в смене...</Box>}

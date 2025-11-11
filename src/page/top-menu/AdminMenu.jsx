@@ -689,6 +689,44 @@ export function ZBookMenu() {
     </Box>
 }
 
+export function ReceiptMenu() {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
+    const captionReceipt = useSelector(state => state.documents.captionReceipt)
+
+    return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+        <ButtonGroup sx={{marginRight: '4px'}}>
+            <Button
+                variant='contained' color='secondary'
+                startIcon={<KeyboardArrowLeftIcon/>}
+                onClick={() => {
+                    navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                }}>Назад</Button>
+            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{captionReceipt}</Button>
+        </ButtonGroup>
+        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Button variant='contained' color='secondary' sx={{marginRight: 1}}
+                    startIcon={<SaveIcon/>} onClick={() => {
+                dispatch(setTriggerSubmitZBook(true))
+                navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+            }}>Сохранить</Button>
+            <Button startIcon={<DeleteForeverIcon/>}
+                    variant='contained'
+                    color='error'
+                    onClick={() => {
+                        dispatch(setTriggerDeleteZBook(true))
+                        navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                    }}
+                    sx={{marginRight: '2px'}}>Удалить</Button>
+        </Box>
+    </Box>
+}
+
 export default function AdminMenu() {
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -705,6 +743,7 @@ export default function AdminMenu() {
             {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
+            {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
             {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&

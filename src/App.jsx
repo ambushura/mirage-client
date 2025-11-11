@@ -44,8 +44,6 @@ import StaffList from "./forms/StaffList.jsx"
 import OthersPaymentTypes from "./forms/OthersPaymentTypes.jsx"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {LicenseInfo} from '@mui/x-license'
-import Zbook from "./page/body/admin/documents/Zbook.jsx"
-import Receipt from "./page/body/admin/documents/Receipt.jsx"
 import Slip from "./page/body/admin/documents/Slip.jsx"
 import OperationCloseShift from "./forms/OperationCloseShift.jsx";
 
@@ -89,8 +87,6 @@ function App() {
         seance_cancellation: SeanceCancellation,
         creator_change: StaffList,
         pinpads: OthersPaymentTypes,
-        documents_z_book: Zbook,
-        documents_receipt: Receipt,
         documents_operation: Operation,
         documents_operation_close_shift: OperationCloseShift,
         documents_slip: Slip,
@@ -153,6 +149,9 @@ function App() {
 
                 <Route path="/admin/zbook/:param_city/:param_filial/:uid/"
                        element={<AppRoutes current_page="admin/zbook"/>}/>
+
+                <Route path="/admin/receipt/:param_city/:param_filial/:uid/"
+                       element={<AppRoutes current_page="admin/receipt"/>}/>
 
                 <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/operations"/>}/>

@@ -1,12 +1,7 @@
-import {Box, Button, Skeleton, Typography} from "@mui/material"
+import {Box, Skeleton} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {
-    cinema_order_fetch,
-    common_documents_receipt_get,
-    common_documents_receipt_save,
-    horeca_order_fetch
-} from "../../../../service/fetch_service.js"
+import {common_documents_receipt_get, common_documents_receipt_save} from "../../../../service/fetch_service.js"
 import dayjs from "dayjs"
 import {useForm} from "react-hook-form"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
@@ -18,29 +13,43 @@ import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
 import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
-import CloseIcon from "@mui/icons-material/Close"
-import {setReceiptsUpdated} from "../../../../redux/documentsReducer.js"
+import {
+    setCaptionReceipt,
+    setReceiptsUpdated,
+    setTriggerDeleteReceipt,
+    setTriggerSubmitReceipt,
+} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
 import {useNavigate} from "react-router-dom"
 import {v4} from 'uuid'
+import {addNotification} from "../../../../redux/notifierReducer.js"
 
 const Receipt = ({props}) => {
 
+    // Служебные функции
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // Данные из стора
     const city = useSelector(state => state.data.city)
     const filial = useSelector(state => state.data.filial)
+    const {uid} = useSelector(state => state.interface.params)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
 
+    // Состояние загрузки документа
     const [loading, set_loading] = useState(true)
 
+    // Триггеры сохранения/удаления документа
+    const triggerSubmitReceipt = useSelector(state => state.documents.triggerSubmitReceipt)
+    const triggerDeleteReceipt = useSelector(state => state.documents.triggerDeleteReceipt)
+
+    // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            uid_filial: props.uid === 'new' ? filial.uid : '',
-            ver: props.uid === 'new' ? v4() : '',
-            id: props.uid === 'new' ? v4() : '',
+            uid_filial: uid === 'new' ? filial.uid : '',
+            ver: uid === 'new' ? v4() : '',
+            id: uid === 'new' ? v4() : '',
             deleted: false,
             uid_creator: null,
             name_creator: '',
@@ -83,14 +92,59 @@ const Receipt = ({props}) => {
         }
     })
 
-    const uid = watch('id')
+    // Загрузка документа в форму при открытии
+    useEffect(() => {
+        const fetchData = async () => {
+            set_loading(true)
+            try {
+                if (uid === 'new') {
+                    reset()
+                } else {
+                    const data = await dispatch(common_documents_receipt_get(filial, uid))
+                    if (data?.data) {
+                        reset({
+                            ...data.data,
+                            date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
+                            date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
+                            moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
+                            price: data.data.price ? parseFloat(data.data.price) : 0,
+                            sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
+                            sum: data.data.sum ? parseFloat(data.data.sum) : 0,
+                            sno: data.data.sno !== null ? String(data.data.sno) : null,
+                        })
+                    }
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки чека:', err)
+            } finally {
+                set_loading(false)
+            }
+        }
+        fetchData()
+    }, [uid, filial, dispatch, reset])
+
+    // Наблюдаемые переменные
     const number = watch('number')
+    const date_shift = watch('date_shift')
+    const number_kkt = watch('number_kkt')
     const uid_order_cinema = watch('uid_order_cinema')
     const uid_order_food = watch('uid_order_food')
     const items = watch('items')
     const price = watch('price')
     const discount = watch('sum_discount')
 
+    // Триггер сохранения документа
+    useEffect(() => {
+        if (triggerSubmitReceipt) {
+            handleSubmit(onSubmit)()
+            dispatch(setTriggerSubmitReceipt(false))
+            dispatch(addNotification({
+                message: `Кассовый чек ${uid === 'new' ? '' : ' №' + number} сохранен`, severity: 'info', autoHide: true
+            }))
+        }
+    }, [triggerSubmitReceipt])
+
+    // Функция сохранения документа
     const onSubmit = (data) => {
         const prepared = {
             ...data,
@@ -113,36 +167,31 @@ const Receipt = ({props}) => {
         dispatch(setReceiptsUpdated())
     }
 
+    // Триггер удаления документа
     useEffect(() => {
-        const fetchData = async () => {
-            set_loading(true)
-            try {
-                if (props.uid === 'new') {
-                    reset()
-                } else {
-                    const data = await dispatch(common_documents_receipt_get(filial, props.uid))
-                    if (data?.data) {
-                        reset({
-                            ...data.data,
-                            date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
-                            date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
-                            moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
-                            price: data.data.price ? parseFloat(data.data.price) : 0,
-                            sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
-                            sum: data.data.sum ? parseFloat(data.data.sum) : 0,
-                            sno: data.data.sno !== null ? String(data.data.sno) : null,
-                        })
-                    }
+        if (triggerDeleteReceipt) {
+            dispatch(openModal({
+                type: 'dialog_delete_receipts', props: {
+                    type: 'YesNo',
+                    action: 'dialog_delete_receipts',
+                    question: 'Вы уверены, что хотите удалить этот чек?',
+                    filial: filial,
+                    uid: uid,
                 }
-            } catch (err) {
-                console.error('Ошибка загрузки чека:', err)
-            } finally {
-                set_loading(false)
-            }
+            }))
         }
-        fetchData()
-    }, [props.uid, filial, dispatch, reset])
+        return () => dispatch(setTriggerDeleteReceipt(false))
+    }, [triggerDeleteReceipt])
 
+    // Триггер заголовка документа в меню
+    useEffect(() => {
+        dispatch(setCaptionReceipt(`КАССОВЫЙ ЧЕК ${uid === 'new' ? '' : ' №' + number} от ${dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`))
+        return () => {
+            dispatch(setCaptionReceipt(null))
+        }
+    }, [uid, number])
+
+    // Вспомогательные функции
     useEffect(() => {
         const p = parseFloat(price) || 0
         const d = parseFloat(discount) || 0
@@ -154,18 +203,12 @@ const Receipt = ({props}) => {
         return <Loader/>
     } else {
         return <Box
-            sx={{maxHeight: '800px', overflowY: 'auto'}}
+            sx={{padding: '4px'}}
             id="modal-receipt"
             component="form"
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
-                <Typography variant="h6" color="textSecondary">
-                    {`КАССОВЫЙ ЧЕК ${props.uid === 'new' ? ' * ' : ' №' + number}`}
-                </Typography>
-                <Button variant='text' color='secondary' onClick={() => dispatch(closeModal())}><CloseIcon/></Button>
-            </Box>
             <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'}}>
                     <Box
@@ -423,7 +466,7 @@ const Receipt = ({props}) => {
                         columns={columns_items}
                         pageSize={20}
                         pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
+                        rowHeight={28}
                         headerHeight={28}
                         columnVisibilityModel={{
                             id: false,
@@ -444,31 +487,6 @@ const Receipt = ({props}) => {
                             ...ruRU.components.MuiDataGrid.defaultProps.localeText, noRowsLabel: 'Нет товаров'
                         }}
                     />
-                </Box>
-                <Box className='glass'
-                     sx={{display: 'flex', flexDirection: 'row', position: 'sticky', bottom: 0, zIndex: 1}}>
-                    {props.uid !== 'new' && <Button fullWidth variant='contained' color='error' sx={{marginRight: 1}}
-                                                    onClick={() => dispatch(openModal({
-                                                        type: 'dialog_delete_receipts', props: {
-                                                            type: 'YesNo',
-                                                            action: 'dialog_delete_receipts',
-                                                            question: 'Вы уверены, что хотите удалить этот чек?',
-                                                            filial: filial,
-                                                            uid: uid,
-                                                        }
-                                                    }))}>Удалить</Button>}
-                    {(uid_order_cinema !== null || uid_order_food !== null) &&
-                        <Button fullWidth variant='contained' color='secondary' sx={{marginRight: 1}} onClick={() => {
-                            if (uid_order_cinema !== null) {
-                                navigate(`/admin/orders/cinema/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
-                                dispatch(cinema_order_fetch(filial, uid_order_cinema))
-                            } else if (uid_order_food !== null) {
-                                navigate(`/admin/orders/horeca/${city.code}/${filial.eais}/${param_date_admin}/${wp !== null ? '?wp=' + wp : ''}`)
-                                dispatch(horeca_order_fetch(filial, uid_order_food))
-                            }
-                            dispatch(closeModal())
-                        }}>Перейти в заказ</Button>}
-                    <Button fullWidth variant='contained' color='secondary' type="submit">Сохранить</Button>
                 </Box>
             </Box>
         </Box>

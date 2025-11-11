@@ -14,6 +14,9 @@ const initialState = {
     // Чеки
     receipts: {date_shift: '', uid_kkt: '', receipts: []},
     receipts_update: 0,
+    triggerSubmitReceipt: false,
+    triggerDeleteReceipt: false,
+    captionReceipt: null,
 
     // Эквайринг
     uid_pinpad_current: '',
@@ -52,8 +55,14 @@ export const dataSlice = createSlice({
             state.triggerSubmitZBook = payload
         }, setTriggerDeleteZBook(state, {payload}) {
             state.triggerDeleteZBook = payload
+        }, setTriggerSubmitReceipt(state, {payload}) {
+            state.triggerSubmitReceipt = payload
+        }, setTriggerDeleteReceipt(state, {payload}) {
+            state.triggerDeleteReceipt = payload
         }, setCaptionZBook(state, {payload}) {
             state.captionZBook = payload
+        }, setCaptionReceipt(state, {payload}) {
+            state.captionReceipt = payload
         }, setCurrentPinpad: (state, {payload}) => {
             state.uid_pinpad_current = payload
         }, setPinpadList: (state, {payload}) => {
@@ -101,8 +110,11 @@ export const {
     cleanZBooks,
     setZBooks,
     setCaptionZBook,
+    setCaptionReceipt,
     setTriggerSubmitZBook,
     setTriggerDeleteZBook,
+    setTriggerSubmitReceipt,
+    setTriggerDeleteReceipt,
     cleanOperations,
     setOperations,
     setOperationsPage,

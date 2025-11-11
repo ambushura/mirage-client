@@ -13,7 +13,8 @@ import PageScheme from "./scheme/PageScheme.jsx"
 import ZPinpads from "./documents/ZPinpads.jsx"
 import Order from "../../right-panel/Order.jsx"
 import Sales from "./documents/Sales.jsx"
-import ZBook from "./documents/ZBook.jsx";
+import ZBook from "./documents/ZBook.jsx"
+import Receipt from "./documents/Receipt.jsx"
 
 const PageAdmin = () => {
 
@@ -42,6 +43,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/orders/horeca' && <OrdersHoreca update_horeca={update_horeca}/>}
                 {current_page === 'admin/zbooks' && <Zbooks/>}
                 {current_page === 'admin/zbook' && <ZBook/>}
+                {current_page === 'admin/receipt' && <Receipt/>}
                 {current_page === 'admin/operations' && <Operations/>}
                 {current_page === 'admin/egais' && <Egais/>}
                 {current_page === 'admin/staff' && <PageStaff/>}
