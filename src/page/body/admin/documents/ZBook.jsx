@@ -1,4 +1,4 @@
-import {Box, Skeleton, Typography} from "@mui/material"
+import {Box, Skeleton} from "@mui/material"
 import {closeModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
@@ -9,9 +9,10 @@ import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import dayjs from "dayjs"
-import {setZBooksUpdate} from "../../../../redux/documentsReducer.js"
+import {setCaptionZBook, setTriggerSubmitZBook, setZBooksUpdate} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
 import {v4} from 'uuid'
+import {addNotification} from "../../../../redux/notifierReducer.js"
 
 const ZBook = () => {
 
@@ -21,6 +22,19 @@ const ZBook = () => {
     const {uid} = useSelector(state => state.interface.params)
 
     const [loading, set_loading] = useState(true)
+
+    const triggerSubmitZBook = useSelector(state => state.documents.triggerSubmitZBook)
+    useEffect(() => {
+        if (triggerSubmitZBook) {
+            handleSubmit(onSubmit)()
+            dispatch(setTriggerSubmitZBook(false))
+            dispatch(addNotification({
+                message: `Кассовая книга ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt} сохранена.`,
+                severity: 'info',
+                autoHide: true
+            }))
+        }
+    }, [triggerSubmitZBook])
 
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
@@ -53,6 +67,12 @@ const ZBook = () => {
 
     const date_shift = watch('date_shift')
     const number_kkt = watch('number_kkt')
+    useEffect(() => {
+        dispatch(setCaptionZBook(`КАССОВАЯ КНИГА ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`))
+        return () => {
+            dispatch(setCaptionZBook(null))
+        }
+    }, [uid, date_shift, number_kkt])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -116,11 +136,6 @@ const ZBook = () => {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px'}}>
-                <Typography variant="h6" color="textSecondary">
-                    {`КАССОВАЯ КНИГА ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`}
-                </Typography>
-            </Box>
             <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
                 <Box sx={{
                     display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flex: 1, marginRight: '10px'

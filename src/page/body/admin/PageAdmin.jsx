@@ -23,7 +23,7 @@ const PageAdmin = () => {
     const [update_cinema, set_update_cinema] = useState(true)
     const [update_horeca, set_update_horeca] = useState(true)
 
-    const {horder, pre_order} = useSelector(state => state.orders.pre_order)
+    const {horder, pre_order} = useSelector(state => state.orders)
 
     useEffect(() => {
         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -51,7 +51,8 @@ const PageAdmin = () => {
                 {current_page === 'admin/sales' && <Sales/>}
             </Box>
             <Box id='content-footer'></Box>
-            <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>
+            {['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page) &&
+                <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>}
         </Box>
     </Box>
 }

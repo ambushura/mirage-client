@@ -60,7 +60,13 @@ import {setMode, setUidHall} from "../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
 import {common_list_get, common_orders_filters_halls_get} from "../../service/fetch_service.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
-import {setCurrentKKT, setCurrentPinpad, setOperationsDetails, setOperationsPage} from "../../redux/documentsReducer.js"
+import {
+    setCurrentKKT,
+    setCurrentPinpad,
+    setOperationsDetails,
+    setOperationsPage,
+    setTriggerSubmitZBook
+} from "../../redux/documentsReducer.js"
 import List from "../../ui/List.jsx"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded'
@@ -640,19 +646,26 @@ export function ShowPagesCinemaOrders() {
 
 export function ZBookMenu() {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const captionZBook = useSelector(state => state.documents.captionZBook)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-        <Button variant='contained' color='secondary'
+        <ButtonGroup sx={{marginRight: '4px'}}>
+            <Button
+                variant='contained' color='secondary'
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
                     navigate(-1)
                 }}>Назад</Button>
-        <Box>
-            <Button variant='contained' color='secondary' type={'submit'} sx={{marginRight: 1}}
-                    startIcon={<SaveIcon/>}>Сохранить</Button>
+            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{captionZBook}</Button>
+        </ButtonGroup>
+        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Button variant='contained' color='secondary' sx={{marginRight: 1}}
+                    startIcon={<SaveIcon/>} onClick={() => dispatch(setTriggerSubmitZBook(true))}>Сохранить</Button>
             <Button startIcon={<DeleteForeverIcon/>}
-                    variant='contained' color='error'
+                    variant='contained'
+                    color='error'
                     onClick={() => dispatch(openModal({
                         type: 'dialog_delete_z_book', props: {
                             type: 'YesNo',
@@ -661,7 +674,8 @@ export function ZBookMenu() {
                             filial: filial,
                             uid: uid,
                         }
-                    }))}>Удалить</Button>
+                    }))}
+                    sx={{marginRight: '2px'}}>Удалить</Button>
         </Box>
     </Box>
 }

@@ -7,6 +7,8 @@ const initialState = {
     uid_kkt_current: '',
     zbooks: {date_shift: '', zbooks: []},
     zbooks_update: 0,
+    triggerSubmitZBook: false,
+    captionZBook: null,
 
     // Чеки
     receipts: {date_shift: '', uid_kkt: '', receipts: []},
@@ -45,6 +47,10 @@ export const dataSlice = createSlice({
             state.kkt_list = payload
         }, setZBooksUpdate(state) {
             state.zbooks_update += 1
+        }, setTriggerSubmitZBook(state, {payload}) {
+            state.triggerSubmitZBook = payload
+        }, setCaptionZBook(state, {payload}) {
+            state.captionZBook = payload
         }, setCurrentPinpad: (state, {payload}) => {
             state.uid_pinpad_current = payload
         }, setPinpadList: (state, {payload}) => {
@@ -91,6 +97,8 @@ export const {
     cleanZPinpads,
     cleanZBooks,
     setZBooks,
+    setCaptionZBook,
+    setTriggerSubmitZBook,
     cleanOperations,
     setOperations,
     setOperationsPage,
