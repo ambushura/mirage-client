@@ -65,6 +65,7 @@ import {
     setCurrentPinpad,
     setOperationsDetails,
     setOperationsPage,
+    setTriggerDeleteZBook,
     setTriggerSubmitZBook
 } from "../../redux/documentsReducer.js"
 import List from "../../ui/List.jsx"
@@ -348,6 +349,12 @@ export function DateParamAdmin() {
 export function CreateDeleteButtons() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+
     const current_page = useSelector(state => state.interface.current_page)
     const [menu, set_menu] = useState([])
     const [menu_create_opened, set_menu_create_opened] = useState(false)
@@ -385,7 +392,7 @@ export function CreateDeleteButtons() {
                 handleClose={(uid) => {
                     switch (uid) {
                         case 'documents_z_book':
-                            dispatch(openModal({type: 'documents_z_book', props: {uid: 'new'}}))
+                            navigate(`/admin/zbook/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                             break
                         case 'documents_receipt':
                             dispatch(openModal({type: 'documents_receipt', props: {uid: 'new'}}))
@@ -648,6 +655,10 @@ export function ZBookMenu() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
     const captionZBook = useSelector(state => state.documents.captionZBook)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
@@ -656,25 +667,23 @@ export function ZBookMenu() {
                 variant='contained' color='secondary'
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
-                    navigate(-1)
+                    navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                 }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{captionZBook}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
             <Button variant='contained' color='secondary' sx={{marginRight: 1}}
-                    startIcon={<SaveIcon/>} onClick={() => dispatch(setTriggerSubmitZBook(true))}>Сохранить</Button>
+                    startIcon={<SaveIcon/>} onClick={() => {
+                dispatch(setTriggerSubmitZBook(true))
+                navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+            }}>Сохранить</Button>
             <Button startIcon={<DeleteForeverIcon/>}
                     variant='contained'
                     color='error'
-                    onClick={() => dispatch(openModal({
-                        type: 'dialog_delete_z_book', props: {
-                            type: 'YesNo',
-                            action: 'dialog_delete_z_book',
-                            question: 'Вы уверены, что хотите удалить эту кассовую книгу?',
-                            filial: filial,
-                            uid: uid,
-                        }
-                    }))}
+                    onClick={() => {
+                        dispatch(setTriggerDeleteZBook(true))
+                        navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                    }}
                     sx={{marginRight: '2px'}}>Удалить</Button>
         </Box>
     </Box>

@@ -1,5 +1,5 @@
 import {Box, Skeleton} from "@mui/material"
-import {closeModal} from "../../../../redux/interfaceReducer.js"
+import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {common_documents_z_book_get, common_documents_z_book_save} from "../../../../service/fetch_service.js"
@@ -9,33 +9,33 @@ import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import dayjs from "dayjs"
-import {setCaptionZBook, setTriggerSubmitZBook, setZBooksUpdate} from "../../../../redux/documentsReducer.js"
+import {
+    setCaptionZBook,
+    setTriggerDeleteZBook,
+    setTriggerSubmitZBook,
+    setZBooksUpdate
+} from "../../../../redux/documentsReducer.js"
 import {parceZone} from "../../../../service/advanced.js"
 import {v4} from 'uuid'
 import {addNotification} from "../../../../redux/notifierReducer.js"
 
 const ZBook = () => {
 
+    // Служебные функции
     const dispatch = useDispatch()
 
+    // Данные из стора
     const filial = useSelector(state => state.data.filial)
     const {uid} = useSelector(state => state.interface.params)
 
+    // Состояние загрузки документа
     const [loading, set_loading] = useState(true)
 
+    // Триггеры сохранения/удаления документа
     const triggerSubmitZBook = useSelector(state => state.documents.triggerSubmitZBook)
-    useEffect(() => {
-        if (triggerSubmitZBook) {
-            handleSubmit(onSubmit)()
-            dispatch(setTriggerSubmitZBook(false))
-            dispatch(addNotification({
-                message: `Кассовая книга ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt} сохранена.`,
-                severity: 'info',
-                autoHide: true
-            }))
-        }
-    }, [triggerSubmitZBook])
+    const triggerDeleteZBook = useSelector(state => state.documents.triggerDeleteZBook)
 
+    // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
             uid_filial: uid === 'new' ? filial.uid : '',
@@ -65,15 +65,7 @@ const ZBook = () => {
         }
     })
 
-    const date_shift = watch('date_shift')
-    const number_kkt = watch('number_kkt')
-    useEffect(() => {
-        dispatch(setCaptionZBook(`КАССОВАЯ КНИГА ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`))
-        return () => {
-            dispatch(setCaptionZBook(null))
-        }
-    }, [uid, date_shift, number_kkt])
-
+    // Загрузка документа в форму при открытии
     useEffect(() => {
         const fetchData = async () => {
             set_loading(true)
@@ -99,6 +91,24 @@ const ZBook = () => {
         fetchData()
     }, [uid, filial, dispatch, reset])
 
+    // Наблюдаемые переменные
+    const date_shift = watch('date_shift')
+    const number_kkt = watch('number_kkt')
+
+    // Триггер сохранения документа
+    useEffect(() => {
+        if (triggerSubmitZBook) {
+            handleSubmit(onSubmit)()
+            dispatch(setTriggerSubmitZBook(false))
+            dispatch(addNotification({
+                message: `Кассовая книга ${uid === 'new' ? '' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt} сохранена.`,
+                severity: 'info',
+                autoHide: true
+            }))
+        }
+    }, [triggerSubmitZBook])
+
+    // Функция сохранения документа
     const onSubmit = (data) => {
         const prepared = {
             ...data,
@@ -125,6 +135,30 @@ const ZBook = () => {
         dispatch(closeModal())
         dispatch(setZBooksUpdate())
     }
+
+    // Триггер удаления документа
+    useEffect(() => {
+        if (triggerDeleteZBook) {
+            dispatch(openModal({
+                type: 'dialog_delete_z_book', props: {
+                    type: 'YesNo',
+                    action: 'dialog_delete_z_book',
+                    question: 'Вы уверены, что хотите удалить эту кассовую книгу?',
+                    filial: filial,
+                    uid: uid,
+                }
+            }))
+        }
+        return () => dispatch(setTriggerDeleteZBook(false))
+    }, [triggerDeleteZBook])
+
+    // Триггер заголовка документа в меню
+    useEffect(() => {
+        dispatch(setCaptionZBook(`КАССОВАЯ КНИГА ${uid === 'new' ? ' * ' : 'от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`))
+        return () => {
+            dispatch(setCaptionZBook(null))
+        }
+    }, [uid, date_shift, number_kkt])
 
     if (loading) {
         return <Loader/>

@@ -8,6 +8,7 @@ const initialState = {
     zbooks: {date_shift: '', zbooks: []},
     zbooks_update: 0,
     triggerSubmitZBook: false,
+    triggerDeleteZBook: false,
     captionZBook: null,
 
     // Чеки
@@ -49,6 +50,8 @@ export const dataSlice = createSlice({
             state.zbooks_update += 1
         }, setTriggerSubmitZBook(state, {payload}) {
             state.triggerSubmitZBook = payload
+        }, setTriggerDeleteZBook(state, {payload}) {
+            state.triggerDeleteZBook = payload
         }, setCaptionZBook(state, {payload}) {
             state.captionZBook = payload
         }, setCurrentPinpad: (state, {payload}) => {
@@ -99,6 +102,7 @@ export const {
     setZBooks,
     setCaptionZBook,
     setTriggerSubmitZBook,
+    setTriggerDeleteZBook,
     cleanOperations,
     setOperations,
     setOperationsPage,
