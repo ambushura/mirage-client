@@ -15,6 +15,7 @@ import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.js
 import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
 import {
     setCaptionReceipt,
+    setReceiptOrder,
     setReceiptsUpdated,
     setTriggerDeleteReceipt,
     setTriggerSubmitReceipt,
@@ -41,8 +42,8 @@ const Receipt = ({props}) => {
     const [loading, set_loading] = useState(true)
 
     // Триггеры сохранения/удаления документа
-    const triggerSubmitReceipt = useSelector(state => state.documents.triggerSubmitReceipt)
-    const triggerDeleteReceipt = useSelector(state => state.documents.triggerDeleteReceipt)
+    const trigger_submit_receipt = useSelector(state => state.documents.trigger_submit_receipt)
+    const trigger_delete_receipt = useSelector(state => state.documents.trigger_delete_receipt)
 
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
@@ -135,14 +136,14 @@ const Receipt = ({props}) => {
 
     // Триггер сохранения документа
     useEffect(() => {
-        if (triggerSubmitReceipt) {
+        if (trigger_submit_receipt) {
             handleSubmit(onSubmit)()
             dispatch(setTriggerSubmitReceipt(false))
             dispatch(addNotification({
                 message: `Кассовый чек ${uid === 'new' ? '' : ' №' + number} сохранен`, severity: 'info', autoHide: true
             }))
         }
-    }, [triggerSubmitReceipt])
+    }, [trigger_submit_receipt])
 
     // Функция сохранения документа
     const onSubmit = (data) => {
@@ -169,7 +170,7 @@ const Receipt = ({props}) => {
 
     // Триггер удаления документа
     useEffect(() => {
-        if (triggerDeleteReceipt) {
+        if (trigger_delete_receipt) {
             dispatch(openModal({
                 type: 'dialog_delete_receipts', props: {
                     type: 'YesNo',
@@ -181,11 +182,11 @@ const Receipt = ({props}) => {
             }))
         }
         return () => dispatch(setTriggerDeleteReceipt(false))
-    }, [triggerDeleteReceipt])
+    }, [trigger_delete_receipt])
 
     // Триггер заголовка документа в меню
     useEffect(() => {
-        dispatch(setCaptionReceipt(`КАССОВЫЙ ЧЕК ${uid === 'new' ? '' : ' №' + number} от ${dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`))
+        dispatch(setCaptionReceipt(`КАССОВЫЙ ЧЕК ${uid === 'new' ? ' * ' : ' №' + number + ' от ' + dayjs(date_shift).format('DD.MM.YY') + ' ЗН ' + number_kkt}`))
         return () => {
             dispatch(setCaptionReceipt(null))
         }
@@ -199,11 +200,21 @@ const Receipt = ({props}) => {
         setValue('sum', Number(result.toFixed(2)), {shouldValidate: true})
     }, [price, discount, setValue])
 
+    useEffect(() => {
+        if (uid_order_cinema !== '') {
+            dispatch(setReceiptOrder({uid: uid_order_cinema, type: 'cinema'}))
+        }
+        if (uid_order_food !== '') {
+            dispatch(setReceiptOrder({uid: uid_order_food, type: 'horeca'}))
+        }
+        return () => dispatch(setReceiptOrder(null))
+    }, [uid_order_cinema, uid_order_food])
+
     if (loading) {
         return <Loader/>
     } else {
         return <Box
-            sx={{padding: '4px'}}
+            sx={{padding: '10px'}}
             id="modal-receipt"
             component="form"
             noValidate

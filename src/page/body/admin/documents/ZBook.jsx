@@ -32,8 +32,8 @@ const ZBook = () => {
     const [loading, set_loading] = useState(true)
 
     // Триггеры сохранения/удаления документа
-    const triggerSubmitZBook = useSelector(state => state.documents.triggerSubmitZBook)
-    const triggerDeleteZBook = useSelector(state => state.documents.triggerDeleteZBook)
+    const trigger_submit_zBook = useSelector(state => state.documents.trigger_submit_zBook)
+    const trigger_delete_zBook = useSelector(state => state.documents.trigger_delete_zBook)
 
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
@@ -97,7 +97,7 @@ const ZBook = () => {
 
     // Триггер сохранения документа
     useEffect(() => {
-        if (triggerSubmitZBook) {
+        if (trigger_submit_zBook) {
             handleSubmit(onSubmit)()
             dispatch(setTriggerSubmitZBook(false))
             dispatch(addNotification({
@@ -106,7 +106,7 @@ const ZBook = () => {
                 autoHide: true
             }))
         }
-    }, [triggerSubmitZBook])
+    }, [trigger_submit_zBook])
 
     // Функция сохранения документа
     const onSubmit = (data) => {
@@ -138,7 +138,7 @@ const ZBook = () => {
 
     // Триггер удаления документа
     useEffect(() => {
-        if (triggerDeleteZBook) {
+        if (trigger_delete_zBook) {
             dispatch(openModal({
                 type: 'dialog_delete_z_book', props: {
                     type: 'YesNo',
@@ -150,7 +150,7 @@ const ZBook = () => {
             }))
         }
         return () => dispatch(setTriggerDeleteZBook(false))
-    }, [triggerDeleteZBook])
+    }, [trigger_delete_zBook])
 
     // Триггер заголовка документа в меню
     useEffect(() => {
@@ -164,7 +164,7 @@ const ZBook = () => {
         return <Loader/>
     } else {
         return <Box
-            sx={{width: '100%', padding: '4px'}}
+            sx={{width: '100%', padding: '10px'}}
             id="modal-z-book"
             component="form"
             noValidate

@@ -53,7 +53,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/sales' && <Sales/>}
             </Box>
             <Box id='content-footer'></Box>
-            {['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page) &&
+            {['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt'].includes(current_page) &&
                 <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}><Order/></Box>}
         </Box>
     </Box>

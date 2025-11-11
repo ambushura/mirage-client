@@ -7,16 +7,17 @@ const initialState = {
     uid_kkt_current: '',
     zbooks: {date_shift: '', zbooks: []},
     zbooks_update: 0,
-    triggerSubmitZBook: false,
-    triggerDeleteZBook: false,
-    captionZBook: null,
+    trigger_submit_zBook: false,
+    trigger_delete_zBook: false,
+    caption_zBook: null,
 
     // Чеки
     receipts: {date_shift: '', uid_kkt: '', receipts: []},
     receipts_update: 0,
-    triggerSubmitReceipt: false,
-    triggerDeleteReceipt: false,
-    captionReceipt: null,
+    trigger_submit_receipt: false,
+    trigger_delete_receipt: false,
+    caption_receipt: null,
+    receipt_order: null,
 
     // Эквайринг
     uid_pinpad_current: '',
@@ -52,17 +53,19 @@ export const dataSlice = createSlice({
         }, setZBooksUpdate(state) {
             state.zbooks_update += 1
         }, setTriggerSubmitZBook(state, {payload}) {
-            state.triggerSubmitZBook = payload
+            state.trigger_submit_zBook = payload
         }, setTriggerDeleteZBook(state, {payload}) {
-            state.triggerDeleteZBook = payload
+            state.trigger_delete_zBook = payload
         }, setTriggerSubmitReceipt(state, {payload}) {
-            state.triggerSubmitReceipt = payload
+            state.trigger_submit_receipt = payload
         }, setTriggerDeleteReceipt(state, {payload}) {
-            state.triggerDeleteReceipt = payload
+            state.trigger_delete_receipt = payload
         }, setCaptionZBook(state, {payload}) {
-            state.captionZBook = payload
+            state.caption_zBook = payload
         }, setCaptionReceipt(state, {payload}) {
-            state.captionReceipt = payload
+            state.caption_receipt = payload
+        }, setReceiptOrder(state, {payload}) {
+            state.receipt_order = payload
         }, setCurrentPinpad: (state, {payload}) => {
             state.uid_pinpad_current = payload
         }, setPinpadList: (state, {payload}) => {
@@ -115,6 +118,7 @@ export const {
     setTriggerDeleteZBook,
     setTriggerSubmitReceipt,
     setTriggerDeleteReceipt,
+    setReceiptOrder,
     cleanOperations,
     setOperations,
     setOperationsPage,

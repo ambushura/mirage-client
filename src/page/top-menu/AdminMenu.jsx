@@ -58,14 +58,21 @@ import {useEffect, useRef, useState} from "react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import {setMode, setUidHall} from "../../redux/hallsReducer.js"
 import {ClearIcon} from "@mui/x-date-pickers"
-import {common_list_get, common_orders_filters_halls_get} from "../../service/fetch_service.js"
+import {
+    cinema_order_fetch,
+    common_list_get,
+    common_orders_filters_halls_get,
+    horeca_order_fetch
+} from "../../service/fetch_service.js"
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 import {
     setCurrentKKT,
     setCurrentPinpad,
     setOperationsDetails,
     setOperationsPage,
+    setTriggerDeleteReceipt,
     setTriggerDeleteZBook,
+    setTriggerSubmitReceipt,
     setTriggerSubmitZBook
 } from "../../redux/documentsReducer.js"
 import List from "../../ui/List.jsx"
@@ -395,7 +402,7 @@ export function CreateDeleteButtons() {
                             navigate(`/admin/zbook/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                             break
                         case 'documents_receipt':
-                            dispatch(openModal({type: 'documents_receipt', props: {uid: 'new'}}))
+                            navigate(`/admin/receipt/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                             break
                         case 'documents_operation':
                             dispatch(openModal({type: 'documents_operation', props: {uid: 'new'}}))
@@ -659,7 +666,7 @@ export function ZBookMenu() {
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
-    const captionZBook = useSelector(state => state.documents.captionZBook)
+    const caption_zBook = useSelector(state => state.documents.caption_zBook)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         <ButtonGroup sx={{marginRight: '4px'}}>
@@ -669,7 +676,7 @@ export function ZBookMenu() {
                 onClick={() => {
                     navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                 }}>Назад</Button>
-            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{captionZBook}</Button>
+            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_zBook}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
             <Button variant='contained' color='secondary' sx={{marginRight: 1}}
@@ -693,11 +700,10 @@ export function ReceiptMenu() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
+    const {city, filial} = useSelector(state => state.data)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
-    const captionReceipt = useSelector(state => state.documents.captionReceipt)
+    const {receipt_order, caption_receipt} = useSelector(state => state.documents)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         <ButtonGroup sx={{marginRight: '4px'}}>
@@ -707,19 +713,28 @@ export function ReceiptMenu() {
                 onClick={() => {
                     navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                 }}>Назад</Button>
-            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{captionReceipt}</Button>
+            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_receipt}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            {receipt_order !== null &&
+                <Button sx={{marginRight: '4px'}} variant='outlined' color='secondary' startIcon={<OpenInNewIcon/>}
+                        onClick={() => {
+                            if (receipt_order.type === 'cinema') {
+                                dispatch(cinema_order_fetch(filial, receipt_order.uid))
+                            } else {
+                                dispatch(horeca_order_fetch(filial, receipt_order.uid))
+                            }
+                        }}>Открыть заказ</Button>}
             <Button variant='contained' color='secondary' sx={{marginRight: 1}}
                     startIcon={<SaveIcon/>} onClick={() => {
-                dispatch(setTriggerSubmitZBook(true))
+                dispatch(setTriggerSubmitReceipt(true))
                 navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
             }}>Сохранить</Button>
             <Button startIcon={<DeleteForeverIcon/>}
                     variant='contained'
                     color='error'
                     onClick={() => {
-                        dispatch(setTriggerDeleteZBook(true))
+                        dispatch(setTriggerDeleteReceipt(true))
                         navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                     }}
                     sx={{marginRight: '2px'}}>Удалить</Button>
