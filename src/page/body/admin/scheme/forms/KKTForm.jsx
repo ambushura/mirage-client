@@ -9,6 +9,7 @@ import {
     Select,
     Skeleton,
     TextField,
+    Typography,
 } from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
@@ -89,7 +90,7 @@ export default function KKTForm({props}) {
                     }
                 }
             } catch (err) {
-                console.error('Ошибка загрузки чека:', err)
+                console.error('Ошибка загрузки кассы:', err)
             } finally {
                 set_loading(false)
             }
@@ -111,14 +112,9 @@ export default function KKTForm({props}) {
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
         if (prepared.date_change) prepared.date_change = dayjs(prepared.date_change)
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        //dispatch(common_documents_receipt_save(filial, prepared))
-        //dispatch(closeModal())
-        //dispatch(setReceiptsUpdated())
     }
 
     // Триггер удаления документа
-
-    // Триггер заголовка документа в меню
 
     // Вспомогательные функции
     const [fast_commands, set_fast_commands] = useState([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
@@ -184,6 +180,9 @@ export default function KKTForm({props}) {
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{width: '700px', display: 'flex', flexDirection: 'column'}}>
+                <Typography variant="h6" color="textSecondary" margin={1}>
+                    ККТ
+                </Typography>
                 <Box sx={{width: 'inherit', display: 'flex', flexDirection: 'row'}}>
                     <Box sx={{flex: 3, marginRight: '5px'}}>
                         <ButtonGroup color='secondary' variant='contained' sx={{marginBottom: 1}}>
@@ -338,21 +337,23 @@ export default function KKTForm({props}) {
                                         setValue('name_department', extra.name_department || '')
                                     }}
                                 />
-                                <ControlledLazySelect
-                                    control={control}
-                                    name="uid_wallet"
-                                    label="Касса"
-                                    type="wallets"
-                                    filial={filial}
-                                    rules={{required: 'Укажите кассу'}}
-                                    fullWidth
-                                />
-                                <ControlledTextField
-                                    control={control}
-                                    name="location"
-                                    label="Расположение"
-                                    sx={{width: '100%'}}
-                                />
+                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                                    <ControlledLazySelect
+                                        sx={{flex: 1, marginRight: '4px'}}
+                                        control={control}
+                                        name="uid_wallet"
+                                        label="Касса"
+                                        type="wallets"
+                                        filial={filial}
+                                        rules={{required: 'Укажите кассу'}}
+                                    />
+                                    <ControlledTextField
+                                        sx={{flex: 1}}
+                                        control={control}
+                                        name="location"
+                                        label="Расположение"
+                                    />
+                                </Box>
                             </FormGroup>
                         </Box>
                         <Box sx={{display: page === 1 ? 'block' : 'none', width: 'inherit'}}>
