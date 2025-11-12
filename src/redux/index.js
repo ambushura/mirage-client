@@ -10,6 +10,7 @@ import wsReducer from "./wsReducer.js"
 import markirovkaReducer from "./markirovkaReducer.js"
 import documentsReducer from "./documentsReducer.js"
 import secondScreen from "./secondScreenReducer.js"
+import equipmentReducer from "./equipmentReducer.js"
 
 export const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
         markirovka: markirovkaReducer,
         documents: documentsReducer,
         second_screen: secondScreen,
+        equipment: equipmentReducer,
     },
 })
 

@@ -109,7 +109,7 @@ const Slip = () => {
 
     // Триггер заголовка документа в меню
     useEffect(() => {
-        dispatch(setCaptionSlip(`БАНКОВСКИЙ СЛИП ${uid === 'new' ? ' * ' : ' RRN' + slip14 + ' от ' + dayjs(date_shift).format('DD.MM.YY') + ' ID ' + slip27}`))
+        dispatch(setCaptionSlip(`БАНКОВСКИЙ СЛИП ${uid === 'new' ? ' * ' : ' RRN ' + slip14 + ' от ' + dayjs(date_shift).format('DD.MM.YY') + ' ID ' + slip27}`))
         return () => {
             dispatch(setCaptionSlip(null))
         }

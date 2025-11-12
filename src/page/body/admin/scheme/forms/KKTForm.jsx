@@ -23,26 +23,78 @@ import {
     ROUTE_EQUIPMENT_KKT_Z
 } from "../../../../../service/fetch_routes.js"
 import {common_catalog_get, equipment_action} from "../../../../../service/fetch_service.js"
+import {useForm} from "react-hook-form"
+import {v4} from "uuid"
 
 export default function KKTForm({props}) {
 
+    // Служебные функции
     const dispatch = useDispatch()
 
+    // Данные из стора
     const filial = useSelector(state => state.data.filial)
-    const wp = useSelector(state => state.interface.wp)
     const param_date = useSelector(state => state.interface.params.param_date)
 
-    const [obj, set_obj] = useState(null)
+    // Состояние загрузки документа
+    const [loading, set_loading] = useState(true)
+
+    // Триггеры сохранения/удаления документа
+    const {trigger_submit_kkt, trigger_delete_kkt} = useSelector(state => state.equipment)
+
+    // Форма
+    const {handleSubmit, setValue, control, reset, watch} = useForm({
+        defaultValues: {
+            uid_filial: props.uid === 'new' ? filial.uid : '',
+            ver: props.uid === 'new' ? v4() : '',
+            id: props.uid === 'new' ? v4() : props.uid,
+            uid: '',
+            name: '',
+            type_to_kino: false,
+            type_pushkarta: false,
+            type_mirage: false,
+            type_rent: false,
+            type_horeca: false,
+            date_change: '',
+            date_create: '',
+            fn: '',
+            rn: '',
+            ip: '',
+            port: '',
+            location: '',
+            mac: '',
+            name_department: '',
+            name_store: '',
+            number: '',
+            uid_channel: '',
+            uid_department: '',
+            uid_organization: '',
+            uid_store: '',
+            uid_wallet: '',
+        }
+    })
+
+    // Загрузка документа в форму при открытии
     useEffect(() => {
-        const fetch = async () => {
-            const fetching_result = await dispatch(common_catalog_get(filial, 'kkt', props.uid, param_date))
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (fetching_result.data !== null) {
-                set_obj(fetching_result.data)
+        const fetchData = async () => {
+            set_loading(true)
+            try {
+                if (props.uid === 'new') {
+                    reset()
+                } else {
+                    const data = await dispatch(common_catalog_get(filial, 'kkt', props.uid, param_date))
+                    if (data?.data) {
+                        reset({
+                            ...data.data,
+                        })
+                    }
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки чека:', err)
+            } finally {
+                set_loading(false)
             }
         }
-        fetch()
+        fetchData()
     }, [dispatch, filial, param_date, props.uid])
 
     const [values, set_values] = useState({
@@ -72,23 +124,23 @@ export default function KKTForm({props}) {
         uid_wallet: '',
         ver: '',
     })
-
-    useEffect(() => {
-        if (obj !== null) {
-            set_values({
-                uid: obj.uid,
-                name: obj.name,
-                type_to_kino: obj.type_to_kino,
-                type_pushkarta: obj.type_pushkarta,
-                type_mirage: obj.type_mirage,
-                type_rent: obj.type_rent,
-                type_horeca: obj.type_horeca,
-                mac: obj.mac,
-                ip: obj.ip,
-                port: obj.port,
-            })
-        }
-    }, [obj])
+    //
+    // useEffect(() => {
+    //     if (obj !== null) {
+    //         set_values({
+    //             uid: obj.uid,
+    //             name: obj.name,
+    //             type_to_kino: obj.type_to_kino,
+    //             type_pushkarta: obj.type_pushkarta,
+    //             type_mirage: obj.type_mirage,
+    //             type_rent: obj.type_rent,
+    //             type_horeca: obj.type_horeca,
+    //             mac: obj.mac,
+    //             ip: obj.ip,
+    //             port: obj.port,
+    //         })
+    //     }
+    // }, [obj])
 
     const [fast_commands, set_fast_commands] = useState([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
         id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {}
