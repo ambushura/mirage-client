@@ -7,11 +7,6 @@ import {v4} from "uuid"
 import ControlledLazySelect from "../../../../../ui/ControlledLazySelect.jsx"
 import ControlledTextField from "../../../../../ui/ControlledTextField.jsx"
 import dayjs from "dayjs";
-import {
-    ROUTE_EQUIPMENT_KKT_OPEN_BOX,
-    ROUTE_EQUIPMENT_KKT_X,
-    ROUTE_EQUIPMENT_KKT_Z
-} from "../../../../../service/fetch_routes.js";
 
 export default function PinpadForm({props}) {
 
@@ -89,11 +84,11 @@ export default function PinpadForm({props}) {
 
     // Вспомогательные функции
     const [fast_commands, set_fast_commands] = useState([{
-        id: 0, name: 'Проверка связи с терминалом', route: '', param: {}
+        id: 0, name: 'Проверка связи с терминалом', route: '', param: {uid: uid}
     }, {
-        id: 1, name: 'Проверка связи с хостом', route: ROUTE_EQUIPMENT_KKT_X, param: {}
-    }, {id: 2, name: 'Оплата/Отмена', route: ROUTE_EQUIPMENT_KKT_Z, param: {}}, {
-        id: 3, name: 'Сверка итогов', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {}
+        id: 1, name: 'Проверка связи с хостом', route: '', param: {uid: uid}
+    }, {id: 2, name: 'Оплата/Отмена (1 рубль)', route: '', param: {uid: uid}}, {
+        id: 3, name: 'Сверка итогов', route: '', param: {uid: uid}
     }])
 
     return <Box sx={{minWidth: '600px'}}>
