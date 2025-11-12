@@ -676,8 +676,9 @@ export function ZBookMenu() {
                 variant='contained' color='secondary'
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
-                    navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                }}>Кассовые документы</Button>
+                    navigate(-1)
+                    //navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_zBook}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
@@ -713,8 +714,9 @@ export function ReceiptMenu() {
                 variant='contained' color='secondary'
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
-                    navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                }}>Кассовые документы</Button>
+                    navigate(-1)
+                    //navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_receipt}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
@@ -759,8 +761,9 @@ export function SlipMenu() {
                 variant='contained' color='secondary'
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
-                    navigate(`/admin/acquiring/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                }}>Эквайринг</Button>
+                    navigate(-1)
+                    //navigate(`/admin/acquiring/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_slip}</Button>
         </ButtonGroup>
         <Box sx={{display: 'flex', flexDirection: 'row'}}>

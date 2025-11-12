@@ -1,10 +1,10 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useEffect, useState} from "react"
-import {common_payment_methods_get} from "../service/fetch_service.js"
+import {common_payment_methods_get} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import PaymentIcon from "@mui/icons-material/Payment"
-import {closeModal} from "../redux/interfaceReducer.js"
-import Loader from "../ui/Loader.jsx"
+import {closeModal} from "../../redux/interfaceReducer.js"
+import Loader from "../../ui/Loader.jsx"
 
 const YandexFood = ({text}) => (<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
     <path
@@ -45,16 +45,19 @@ const OthersPaymentTypes = ({props}) => {
             {!payment_methods.loading && payment_methods.error === null && payment_methods.data !== null ? <Box>
                 {payment_methods.data.list.map(pm => {
                     return <Button
-                        startIcon={pm.name === 'Безналичные (б/т)' ? <PaymentIcon/> : null}
+                        startIcon={pm.name === 'Безналичные (б/т)' || pm.name === 'На расчетный счет' ?
+                            <PaymentIcon/> : pm.name === 'Отложенная оплата' ? <YandexFood/> : null}
                         variant='outlined'
                         color='secondary'
                         key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
                         className='payment-path'
                         sx={{margin: '0 0 4px 4px'}}
                         onClick={() => {
-                            if (pm.name === 'Безналичные (б/т)') {
+                            if (pm.name === 'Безналичные (б/т)' || pm.name === 'На расчетный счет') {
                                 props.pay(pm)
                                 dispatch(closeModal())
+                            } else {
+
                             }
                         }}>
                         <Box>
@@ -62,13 +65,18 @@ const OthersPaymentTypes = ({props}) => {
                                 <Box>{pm.name}</Box>
                                 <Box sx={{fontSize: '70%'}}>ККТ ...{pm.kkt.number.slice(-4)}</Box>
                                 <Box sx={{fontSize: '70%'}}>Пинпад ...{pm.pinpad.number.slice(-4)}</Box>
-                            </> : null}
+                            </> : pm.name === 'На расчетный счет' ? <Box>
+                                {pm.name}
+                                <Box sx={{fontSize: '70%'}}>ККТ ...{pm.kkt.number.slice(-4)}</Box>
+                            </Box> : pm.name === 'Отложенная оплата' ? <span>Яндекс.Еда</span> : <Box>
+                                {pm.name}
+                            </Box>}
                         </Box>
                     </Button>
                 })}
             </Box> : null}
-            {<Button variant='outlined' color='secondary' sx={{margin: '0 0 4px 4px'}}
-                     startIcon={<YandexFood/>}>Яндекс.Еда</Button>}
+            {/*{<Button variant='outlined' color='secondary' sx={{margin: '0 0 4px 4px'}}*/}
+            {/*         startIcon={<YandexFood/>}>Яндекс.Еда</Button>}*/}
         </Box>
     </Box>
 }

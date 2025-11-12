@@ -82,19 +82,6 @@ const Payment = (props) => {
                     kkt: {number: ''},
                     pinpad: {number: ''}
                 })
-                fetching_result.data.list.push({
-                    name: 'Яндекс Еда',
-                    uid_kkt: '',
-                    uid_pinpad: '',
-                    uid_work_place: '',
-                    uid_filial: '',
-                    uid_printer_kkt: '',
-                    uid_printer: '',
-                    hidden: '',
-                    uid: 'Яндекс Еда',
-                    kkt: {number: ''},
-                    pinpad: {number: ''}
-                })
                 set_payment_methods(fetching_result)
             }
         }
@@ -194,7 +181,7 @@ const Payment = (props) => {
                     const key = groupByFields.map(field => item[field]).join('-')
                     if (!acc[key]) {
                         acc[key] = {
-                            ...item, __uids: [item.uid] // сохраняем uid-ы
+                            ...item, __uids: [item.uid]
                         }
                     } else {
                         sumFields.forEach(field => {
@@ -409,10 +396,8 @@ const Payment = (props) => {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
-                                                if (pm.uid === 'Заявление' || pm.uid === 'Яндекс Еда' || pm.name === 'Безналичные (б/т)') {
-                                                    ok = false
-                                                }
+                                            if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) && pm.uid === 'Заявление') {
+                                                ok = false
                                             }
                                         })
                                     })

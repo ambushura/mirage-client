@@ -41,7 +41,7 @@ import Dialog from "./forms/Dialog.jsx"
 import Operation from "./page/body/admin/documents/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import StaffList from "./forms/StaffList.jsx"
-import OthersPaymentTypes from "./forms/OthersPaymentTypes.jsx"
+import OthersPaymentTypes from "./page/right-panel/OthersPaymentTypes.jsx"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {LicenseInfo} from '@mui/x-license'
 import OperationCloseShift from "./forms/OperationCloseShift.jsx";

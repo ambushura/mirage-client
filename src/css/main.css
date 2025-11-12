@@ -1915,8 +1915,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 0 0 4px 0;
-    padding: 0 0 4px 0;
+    padding: 4px;
     border-bottom: 1px dashed #b1b1b7;
     position: relative;
 }
