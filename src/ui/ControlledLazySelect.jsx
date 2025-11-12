@@ -27,16 +27,15 @@ const ControlledLazySelect = ({
         arrow
         slotProps={{tooltip: tooltip_error}}
     >
-        <Box sx={{position: "relative"}}>
+        <Box sx={{
+            position: 'relative', marginBottom: '10px', "& .MuiFilledInput-root": fieldState.error ? {
+                borderBottom: "2px solid #d32f2f", borderRadius: "4px 4px 0 0"
+            } : {}, ...sx,
+        }}>
             <LazySelect
                 {...field}
                 label={label}
                 variant="filled"
-                sx={{
-                    marginBottom: '10px', "& .MuiFilledInput-root": fieldState.error ? {
-                        borderBottom: "2px solid #d32f2f", borderRadius: "4px 4px 0 0"
-                    } : {}, ...sx,
-                }}
                 value={field.value || ''}
                 type={type}
                 filial={filial}

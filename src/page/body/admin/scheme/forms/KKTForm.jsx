@@ -3,14 +3,12 @@ import {
     Button,
     ButtonGroup,
     FormControl,
-    FormControlLabel,
     FormGroup,
     InputLabel,
     MenuItem,
     Select,
-    Switch,
+    Skeleton,
     TextField,
-    Typography
 } from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
@@ -25,6 +23,10 @@ import {
 import {common_catalog_get, equipment_action} from "../../../../../service/fetch_service.js"
 import {useForm} from "react-hook-form"
 import {v4} from "uuid"
+import dayjs from "dayjs"
+import ControlledTextField from "../../../../../ui/ControlledTextField.jsx"
+import ControlledLazySelect from "../../../../../ui/ControlledLazySelect.jsx"
+import ControlledSwitch from "../../../../../ui/ControlledSwitch.jsx"
 
 export default function KKTForm({props}) {
 
@@ -44,32 +46,30 @@ export default function KKTForm({props}) {
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            uid_filial: props.uid === 'new' ? filial.uid : '',
-            ver: props.uid === 'new' ? v4() : '',
-            id: props.uid === 'new' ? v4() : props.uid,
-            uid: '',
-            name: '',
-            type_to_kino: false,
-            type_pushkarta: false,
-            type_mirage: false,
-            type_rent: false,
-            type_horeca: false,
-            date_change: '',
-            date_create: '',
+            date_change: props.uid === 'new' ? dayjs(new Date()) : props.date_change,
+            date_create: props.uid === 'new' ? dayjs(new Date()) : props.date_change,
+            deleted: false,
             fn: '',
-            rn: '',
             ip: '',
-            port: '',
             location: '',
             mac: '',
             name_department: '',
             name_store: '',
             number: '',
+            port: '',
+            rn: '',
+            type_horeca: false,
+            type_mirage: false,
+            type_pushkarta: false,
+            type_rent: false,
+            type_to_kino: false,
+            uid: props.uid === 'new' ? v4() : props.uid,
             uid_channel: '',
             uid_department: '',
             uid_organization: '',
             uid_store: '',
             uid_wallet: '',
+            ver: props.uid === 'new' ? v4() : '',
         }
     })
 
@@ -97,51 +97,30 @@ export default function KKTForm({props}) {
         fetchData()
     }, [dispatch, filial, param_date, props.uid])
 
-    const [values, set_values] = useState({
-        uid: '',
-        uid_filial: '',
-        name: '',
-        type_to_kino: false,
-        type_pushkarta: false,
-        type_mirage: false,
-        type_rent: false,
-        type_horeca: false,
-        date_change: '',
-        date_create: '',
-        fn: '',
-        rn: '',
-        ip: '',
-        port: '',
-        location: '',
-        mac: '',
-        name_department: '',
-        name_store: '',
-        number: '',
-        uid_channel: '',
-        uid_department: '',
-        uid_organization: '',
-        uid_store: '',
-        uid_wallet: '',
-        ver: '',
-    })
-    //
-    // useEffect(() => {
-    //     if (obj !== null) {
-    //         set_values({
-    //             uid: obj.uid,
-    //             name: obj.name,
-    //             type_to_kino: obj.type_to_kino,
-    //             type_pushkarta: obj.type_pushkarta,
-    //             type_mirage: obj.type_mirage,
-    //             type_rent: obj.type_rent,
-    //             type_horeca: obj.type_horeca,
-    //             mac: obj.mac,
-    //             ip: obj.ip,
-    //             port: obj.port,
-    //         })
-    //     }
-    // }, [obj])
+    // Наблюдаемые переменные
+    const uid = watch('uid')
 
+    // Триггер сохранения документа
+
+    // Функция сохранения документа
+    const onSubmit = (data) => {
+        const prepared = {
+            ...data,
+        }
+        if (prepared.date_create) prepared.date_create = dayjs(prepared.date_create)
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
+        if (prepared.date_change) prepared.date_change = dayjs(prepared.date_change)
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
+        //dispatch(common_documents_receipt_save(filial, prepared))
+        //dispatch(closeModal())
+        //dispatch(setReceiptsUpdated())
+    }
+
+    // Триггер удаления документа
+
+    // Триггер заголовка документа в меню
+
+    // Вспомогательные функции
     const [fast_commands, set_fast_commands] = useState([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
         id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {}
     }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {}}, {
@@ -154,25 +133,22 @@ export default function KKTForm({props}) {
 
     useEffect(() => {
         set_fast_commands([{
-            id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: values.uid}
-        }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: values.uid}}, {
-            id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: values.uid}
+            id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: uid}
+        }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: uid}}, {
+            id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: uid}
         }, {id: 4, name: 'Тест связи с ККТ', route: '', param: {}}, {
             id: 5, name: 'Тест связи с ОФД', route: '', param: {}
         }, {
-            id: 6,
-            name: 'Синхронизировать время с сервером',
-            route: ROUTE_EQUIPMENT_KKT_CLOCK_RESET,
-            param: {uid: values.uid}
+            id: 6, name: 'Синхронизировать время с сервером', route: ROUTE_EQUIPMENT_KKT_CLOCK_RESET, param: {uid: uid}
         }, {
-            id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: values.uid}
+            id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: uid}
         }, {
             id: 8,
             name: 'Отмена последнего открытого документа',
             route: ROUTE_EQUIPMENT_KKT_CANCEL_LAST_DOCUMENT,
-            param: {uid: values.uid}
+            param: {uid: uid}
         }])
-    }, [values])
+    }, [uid])
 
     const chapter_list = [{id: 0, name: 'Информация о ККТ'}, {id: 1, name: 'Регистрация ККТ'}, {
         id: 2, name: 'Чек'
@@ -197,146 +173,315 @@ export default function KKTForm({props}) {
     const [chapter_value, set_chapter_value] = useState(0)
     const [report_value, set_report_value] = useState(0)
 
-    return <Box>
-        <Typography variant="h6" color="textSecondary" margin={1}>
-            Касса
-        </Typography>
-        <Box sx={{width: '700px', display: 'flex', flexDirection: 'column'}}>
-            <Box sx={{width: 'inherit', display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{flex: 3, marginRight: '5px'}}>
-                    <ButtonGroup color='secondary' variant='contained' sx={{marginBottom: 1}}>
-                        <Button color={page === 0 ? 'primary' : 'secondary'}
-                                onClick={() => set_page(0)}>Информация</Button>
-                        <Button color={page === 1 ? 'primary' : 'secondary'}
-                                onClick={() => set_page(1)}>Обслуживание</Button>
-                        <Button color={page === 2 ? 'primary' : 'secondary'}
-                                onClick={() => set_page(2)}>Драйвер</Button>
-                    </ButtonGroup>
-                    <Box sx={{display: page === 0 ? 'block' : 'none', width: 'inherit'}}>
-                        <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
-                            <TextField variant='filled' label='Заводской номер' value={props.label}
-                                       sx={{marginBottom: 1}}/>
-                            <Box sx={{
-                                marginBottom: 1, width: 'inherit', display: 'flex', justifyContent: 'space-between'
-                            }}>
-                                <TextField value={values.ip} variant='filled' sx={{flex: 3}} label='IP'/>
-                                <TextField value={values.port} variant='filled' sx={{flex: 1, marginLeft: 1}}
-                                           label='PORT'/>
-                            </Box>
-                            <TextField value={values.mac} variant='filled' label='MAC' sx={{marginBottom: 1}}/>
-                            <FormGroup sx={{marginBottom: 1, display: 'flex', flexDirection: 'row', width: 'inherit'}}>
-                                <FormControlLabel checked={values.type_to_kino} control={<Switch/>} label="То кино!"/>
-                                <FormControlLabel checked={values.type_horeca} control={<Switch/>} label="Общепит"/>
-                                <FormControlLabel checked={values.type_mirage} control={<Switch/>}
-                                                  label="Мираж Синема"/>
-                                <FormControlLabel checked={values.type_pushkarta} control={<Switch/>}
-                                                  label="Пушкинская карта"/>
-                                <FormControlLabel checked={values.type_rent} control={<Switch/>} label="Аренда"/>
-                            </FormGroup>
-                            <TextField variant='filled' label='Организация' sx={{marginBottom: 1}}/>
-                        </FormGroup>
-                    </Box>
-                    <Box sx={{display: page === 1 ? 'block' : 'none', width: 'inherit'}}>
-                        <Box>
-                            В разработке...
-                        </Box>
-                    </Box>
-                    <Box sx={{display: page === 2 ? 'block' : 'none', width: 'inherit'}}>
-                        <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
-                            <FormControl variant='filled' color='secondary' sx={{marginBottom: 1, width: 'inherit'}}>
-                                <InputLabel id="equipment-chapter-label">Функции драйвера</InputLabel>
-                                <Select
-                                    onChange={(event) => {
-                                        set_chapter_value(event.target.value)
+    if (loading) {
+        return <Loader/>
+    } else {
+        return <Box
+            sx={{padding: '10px'}}
+            id="modal-kkt"
+            component="form"
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={{width: '700px', display: 'flex', flexDirection: 'column'}}>
+                <Box sx={{width: 'inherit', display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{flex: 3, marginRight: '5px'}}>
+                        <ButtonGroup color='secondary' variant='contained' sx={{marginBottom: 1}}>
+                            <Button color={page === 0 ? 'primary' : 'secondary'}
+                                    onClick={() => set_page(0)}>Информация</Button>
+                            <Button color={page === 1 ? 'primary' : 'secondary'}
+                                    onClick={() => set_page(1)}>Обслуживание</Button>
+                            <Button color={page === 2 ? 'primary' : 'secondary'}
+                                    onClick={() => set_page(2)}>Драйвер</Button>
+                        </ButtonGroup>
+                        <Box sx={{display: page === 0 ? 'block' : 'none', width: 'inherit'}}>
+                            <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
+                                <ControlledTextField
+                                    control={control}
+                                    name="number"
+                                    label="Заводской номер"
+                                    numeric
+                                    rules={{
+                                        required: 'Укажите заводской номер ККТ',
+                                        pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
                                     }}
-                                    labelId="equipment-chapter-label"
-                                    id="equipment-chapter-select"
-                                    value={chapter_value}
-                                    label="Раздел"
-                                    variant='filled'>
-                                    {chapter_list.map(discount_group => <MenuItem sx={{color: 'black'}}
-                                                                                  key={discount_group.id}
-                                                                                  value={discount_group.id}>{discount_group.name}</MenuItem>)}
-                                </Select>
-                            </FormControl>
-                            <Box sx={{
-                                display: chapter_value === 0 ? 'flex' : 'none',
-                                width: 'inherit',
-                                flexDirection: 'column'
-                            }}>
-                                <Box sx={{width: 'inherit', marginBottom: 1, display: 'flex', flexDirection: 'column'}}>
-                                    <FormControl variant='filled' color='secondary'
-                                                 sx={{marginBottom: 1, width: 'inherit'}}>
-                                        <InputLabel sx={{width: 'inherit'}} id="equipment-chapter-1-label">Тип
-                                            запроса</InputLabel>
-                                        <Select
-                                            onChange={(event) => {
-                                                set_request_type_value(event.target.value)
-                                            }}
-                                            labelId="equipment-chapter-1-label"
-                                            id="equipment-chapter-1-select"
-                                            value={request_type_value}
-                                            label={chapter_list[chapter_value]}
-                                            variant='filled'>
-                                            {request_type_list.map(discount_group => <MenuItem sx={{color: 'black'}}
-                                                                                               key={discount_group.id}
-                                                                                               value={discount_group.id}>{discount_group.name}</MenuItem>)}
-                                        </Select>
-                                    </FormControl>
-                                    <TextField multiline sx={{width: 'inherit', marginBottom: 1, flex: 1}}/>
-                                    <Button sx={{width: 'inherit'}} variant='contained' color='secondary'
-                                            onClick={() => {
-                                            }}>Прочитать</Button>
+                                />
+                                <Box sx={{width: 'inherit', display: 'flex'}}>
+                                    <ControlledTextField
+                                        sx={{flex: 2, marginRight: '4px'}}
+                                        control={control}
+                                        name="ip"
+                                        label="IP"
+                                        rules={{
+                                            required: 'Укажите IP-адрес', pattern: {
+                                                value: /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/,
+                                                message: 'Введите корректный IPv4 (пример: 192.168.0.1)'
+                                            }
+                                        }}
+                                    />
+                                    <ControlledTextField
+                                        sx={{flex: 1}}
+                                        control={control}
+                                        name="port"
+                                        label="PORT"
+                                        numeric
+                                        rules={{
+                                            required: 'Укажите порт',
+                                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                                        }}
+                                    />
                                 </Box>
+                                <ControlledTextField
+                                    control={control}
+                                    name="mac"
+                                    label="MAC-адрес"
+                                    sx={{width: '100%'}}
+                                />
+                                <FormGroup
+                                    sx={{marginBottom: 1, display: 'flex', flexDirection: 'row', width: 'inherit'}}>
+
+                                    <ControlledSwitch
+                                        control={control}
+                                        name="type_to_kino"
+                                        label="То кино"
+                                        color="secondary"
+                                    />
+                                    <ControlledSwitch
+                                        control={control}
+                                        name="type_horeca"
+                                        label="Общепит"
+                                        color="secondary"
+                                    />
+                                    <ControlledSwitch
+                                        control={control}
+                                        name="type_mirage"
+                                        label="Мираж"
+                                        color="secondary"
+                                    />
+                                    <ControlledSwitch
+                                        control={control}
+                                        name="type_rent"
+                                        label="Аренда"
+                                        color="secondary"
+                                    />
+                                </FormGroup>
+                                <ControlledLazySelect
+                                    control={control}
+                                    name="uid_organization"
+                                    label="Организация"
+                                    type="organizations"
+                                    filial={filial}
+                                    rules={{required: 'Укажите организацию'}}
+                                />
+                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                                    <ControlledTextField
+                                        sx={{flex: 1, marginRight: '4px'}}
+                                        control={control}
+                                        name="rn"
+                                        label="Регистрационный номер"
+                                        numeric
+                                        rules={{
+                                            required: 'Укажите регистрационнный номер ККТ',
+                                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                                        }}
+                                    />
+                                    <ControlledTextField
+                                        sx={{flex: 1}}
+                                        control={control}
+                                        name="fn"
+                                        label="Номер фискального накопителя"
+                                        numeric
+                                        rules={{
+                                            required: 'Укажите номер фискального накопителя',
+                                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'}
+                                        }}
+                                    />
+                                </Box>
+                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                                    <ControlledLazySelect
+                                        sx={{flex: 1, marginRight: '4px'}}
+                                        control={control}
+                                        name="uid_store"
+                                        label="Торговая точка"
+                                        type="stores"
+                                        filial={filial}
+                                        extraFields={['name_store']}
+                                        rules={{required: 'Укажите торговую точку продажи'}}
+                                        onChange={(uid, extra) => {
+                                            setValue('name_store', extra.name_store || '')
+                                        }}
+                                    />
+                                    <ControlledLazySelect
+                                        sx={{flex: 1}}
+                                        control={control}
+                                        name="uid_channel"
+                                        label="Канал продажи"
+                                        type="sales_channels"
+                                        filial={filial}
+                                        extraFields={['title']}
+                                        rules={{required: 'Укажите канал продажи'}}
+                                        onChange={(uid, extra) => {
+                                            setValue('channel_name', extra.title || '')
+                                        }}
+                                    />
+                                </Box>
+                                <ControlledLazySelect
+                                    sx={{flex: 1}}
+                                    control={control}
+                                    name="uid_department"
+                                    label="Подразделение"
+                                    type="stores"
+                                    filial={filial}
+                                    extraFields={['name_department']}
+                                    rules={{required: 'Укажите подразделение продажи'}}
+                                    onChange={(uid, extra) => {
+                                        setValue('name_department', extra.name_department || '')
+                                    }}
+                                />
+                                <ControlledLazySelect
+                                    control={control}
+                                    name="uid_wallet"
+                                    label="Касса"
+                                    type="wallets"
+                                    filial={filial}
+                                    rules={{required: 'Укажите кассу'}}
+                                    fullWidth
+                                />
+                                <ControlledTextField
+                                    control={control}
+                                    name="location"
+                                    label="Расположение"
+                                    sx={{width: '100%'}}
+                                />
+                            </FormGroup>
+                        </Box>
+                        <Box sx={{display: page === 1 ? 'block' : 'none', width: 'inherit'}}>
+                            <Box>
+                                В разработке...
                             </Box>
-                            <Box sx={{display: chapter_value === 1 ? 'flex' : 'none', width: 'inherit'}}>
-                                <Box></Box>
-                            </Box>
-                            <Box sx={{display: chapter_value === 2 ? 'flex' : 'none', width: 'inherit'}}>
-                                <Box></Box>
-                            </Box>
-                            <Box sx={{
-                                display: chapter_value === 3 ? 'flex' : 'none',
-                                width: 'inherit',
-                                flexDirection: 'column'
-                            }}>
+                        </Box>
+                        <Box sx={{display: page === 2 ? 'block' : 'none', width: 'inherit'}}>
+                            <FormGroup sx={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
                                 <FormControl variant='filled' color='secondary'
                                              sx={{marginBottom: 1, width: 'inherit'}}>
-                                    <InputLabel id="discounts-group-select-label">Тип отчета</InputLabel>
+                                    <InputLabel id="equipment-chapter-label">Функции драйвера</InputLabel>
                                     <Select
                                         onChange={(event) => {
-                                            set_report_value(event.target.value)
+                                            set_chapter_value(event.target.value)
                                         }}
-                                        labelId="discounts-group-select-label"
-                                        id="discounts-group-select"
-                                        value={report_value}
-                                        label="Отчеты"
+                                        labelId="equipment-chapter-label"
+                                        id="equipment-chapter-select"
+                                        value={chapter_value}
+                                        label="Раздел"
                                         variant='filled'>
-                                        {report_list.map(option => <MenuItem sx={{color: 'black'}}
-                                                                             key={option.id}
-                                                                             value={option.id}>{option.name}</MenuItem>)}
+                                        {chapter_list.map(discount_group => <MenuItem sx={{color: 'black'}}
+                                                                                      key={discount_group.id}
+                                                                                      value={discount_group.id}>{discount_group.name}</MenuItem>)}
                                     </Select>
                                 </FormControl>
-                                <Button fullWidth variant='contained' color='secondary'
-                                        onClick={() => {
-                                        }}>Сформировать отчет</Button>
-                            </Box>
-                        </FormGroup>
+                                <Box sx={{
+                                    display: chapter_value === 0 ? 'flex' : 'none',
+                                    width: 'inherit',
+                                    flexDirection: 'column'
+                                }}>
+                                    <Box sx={{
+                                        width: 'inherit', marginBottom: 1, display: 'flex', flexDirection: 'column'
+                                    }}>
+                                        <FormControl variant='filled' color='secondary'
+                                                     sx={{marginBottom: 1, width: 'inherit'}}>
+                                            <InputLabel sx={{width: 'inherit'}} id="equipment-chapter-1-label">Тип
+                                                запроса</InputLabel>
+                                            <Select
+                                                onChange={(event) => {
+                                                    set_request_type_value(event.target.value)
+                                                }}
+                                                labelId="equipment-chapter-1-label"
+                                                id="equipment-chapter-1-select"
+                                                value={request_type_value}
+                                                label={chapter_list[chapter_value]}
+                                                variant='filled'>
+                                                {request_type_list.map(discount_group => <MenuItem sx={{color: 'black'}}
+                                                                                                   key={discount_group.id}
+                                                                                                   value={discount_group.id}>{discount_group.name}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
+                                        <TextField multiline sx={{width: 'inherit', marginBottom: 1, flex: 1}}/>
+                                        <Button sx={{width: 'inherit'}} variant='contained' color='secondary'
+                                                onClick={() => {
+                                                }}>Прочитать</Button>
+                                    </Box>
+                                </Box>
+                                <Box sx={{display: chapter_value === 1 ? 'flex' : 'none', width: 'inherit'}}>
+                                    <Box></Box>
+                                </Box>
+                                <Box sx={{display: chapter_value === 2 ? 'flex' : 'none', width: 'inherit'}}>
+                                    <Box></Box>
+                                </Box>
+                                <Box sx={{
+                                    display: chapter_value === 3 ? 'flex' : 'none',
+                                    width: 'inherit',
+                                    flexDirection: 'column'
+                                }}>
+                                    <FormControl variant='filled' color='secondary'
+                                                 sx={{marginBottom: 1, width: 'inherit'}}>
+                                        <InputLabel id="discounts-group-select-label">Тип отчета</InputLabel>
+                                        <Select
+                                            onChange={(event) => {
+                                                set_report_value(event.target.value)
+                                            }}
+                                            labelId="discounts-group-select-label"
+                                            id="discounts-group-select"
+                                            value={report_value}
+                                            label="Отчеты"
+                                            variant='filled'>
+                                            {report_list.map(option => <MenuItem sx={{color: 'black'}}
+                                                                                 key={option.id}
+                                                                                 value={option.id}>{option.name}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <Button fullWidth variant='contained' color='secondary'
+                                            onClick={() => {
+                                            }}>Сформировать отчет</Button>
+                                </Box>
+                            </FormGroup>
+                        </Box>
+                    </Box>
+                    <Box sx={{flex: 1, marginLeft: '5px', display: 'flex', flexDirection: 'column'}}>
+                        {fast_commands.map(el => {
+                            return <Button variant='outlined' color='secondary' sx={{marginBottom: '5px'}} fullWidth
+                                           key={el.id} onClick={() => {
+                                dispatch(equipment_action(filial, el.route, el.param))
+                            }}>{el.name}</Button>
+                        })}
                     </Box>
                 </Box>
-                <Box sx={{flex: 1, marginLeft: '5px', display: 'flex', flexDirection: 'column'}}>
-                    {fast_commands.map(el => {
-                        return <Button variant='outlined' color='secondary' sx={{marginBottom: '5px'}} fullWidth
-                                       key={el.id} onClick={() => {
-                            dispatch(equipment_action(filial, el.route, el.param))
-                        }}>{el.name}</Button>
-                    })}
+                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                    <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
+                    <Button fullWidth variant='contained' color='error' sx={{marginLeft: 1}}>Удалить</Button>
                 </Box>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
-                <Button fullWidth variant='contained' color='error' sx={{marginLeft: 1}}>Удалить</Button>
+        </Box>
+    }
+}
+
+function Loader() {
+    return <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
+                <Skeleton variant="text" width={'100%'} height={40}/>
             </Box>
         </Box>
+        <Skeleton variant="rectangular" width={'615px'} height={50}/>
     </Box>
 }
