@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {setOrdersCinema} from "../../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
-import {useEffect, useState} from "react";
+import {useEffect, useState} from "react"
 import {cinema_orders_get, common_order_find} from "../../../../../service/fetch_service.js"
 import Loader from "../../../../../ui/Loader.jsx"
 

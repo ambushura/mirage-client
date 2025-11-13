@@ -1,9 +1,9 @@
 import {Box, Button, Typography} from "@mui/material"
 import {useSelector} from "react-redux"
-import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx";
-import {useForm} from "react-hook-form";
-import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx";
-import ControlledTextField from "../../../../ui/ControlledTextField.jsx";
+import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
+import {useForm} from "react-hook-form"
+import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
+import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 
 const Operation = () => {
 

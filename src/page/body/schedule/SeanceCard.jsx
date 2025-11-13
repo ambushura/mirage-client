@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom"
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 import PlaceLabel from "./PlaceLabel.jsx"
 import dynamic_price from '../../../images/dynamic_price.svg'
-import {useSelector} from "react-redux";
+import {useSelector} from "react-redux"
 
 const SeanceCard = (props) => {
 

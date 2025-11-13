@@ -7,7 +7,7 @@ import {cleanSlips, cleanZPinpads, setSlips, setZPinpads} from "../../../../redu
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import dayjs from "dayjs"
 import Loader from "../../../../ui/Loader.jsx"
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom"
 
 const ZPinpads = () => {
 

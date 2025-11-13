@@ -5,7 +5,7 @@ import Item from "./Item.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
 import {useDispatch, useSelector} from "react-redux"
 import {horeca_menu_get} from "../../../service/fetch_service.js"
-import Loader from "../../../ui/Loader.jsx";
+import Loader from "../../../ui/Loader.jsx"
 
 export default function Menu() {
 

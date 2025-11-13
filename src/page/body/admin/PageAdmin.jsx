@@ -15,7 +15,7 @@ import Order from "../../right-panel/Order.jsx"
 import Sales from "./documents/Sales.jsx"
 import ZBook from "./documents/ZBook.jsx"
 import Receipt from "./documents/Receipt.jsx"
-import Slip from "./documents/Slip.jsx";
+import Slip from "./documents/Slip.jsx"
 
 const PageAdmin = () => {
 
@@ -34,7 +34,7 @@ const PageAdmin = () => {
 
     return <Box id='content-box' style={{
         overflowY: 'auto',
-        width: ['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page) && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw',
+        width: ['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(current_page) && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw',
     }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>

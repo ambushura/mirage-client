@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import {setHall} from "../../../../redux/hallsReducer.js"
 import {Box} from "@mui/material"
 import {cinema_hall_get} from "../../../../service/fetch_service.js"
-import Loader from "../../../../ui/Loader.jsx";
+import Loader from "../../../../ui/Loader.jsx"
 
 const PageHalls = () => {
 

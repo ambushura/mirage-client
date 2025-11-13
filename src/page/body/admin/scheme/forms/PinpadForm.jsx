@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {v4} from "uuid"
 import ControlledLazySelect from "../../../../../ui/ControlledLazySelect.jsx"
 import ControlledTextField from "../../../../../ui/ControlledTextField.jsx"
-import dayjs from "dayjs";
+import dayjs from "dayjs"
 
 export default function PinpadForm({props}) {
 

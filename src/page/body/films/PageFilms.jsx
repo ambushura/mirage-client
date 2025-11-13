@@ -5,7 +5,7 @@ import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect} from "react"
 import {cinema_films_get} from "../../../service/fetch_service.js"
 import {cleanFilms, setFilms} from "../../../redux/scheduleReducer.js"
-import Order from "../../right-panel/Order.jsx";
+import Order from "../../right-panel/Order.jsx"
 
 const PageFilms = () => {
 

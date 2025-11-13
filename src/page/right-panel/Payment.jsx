@@ -32,7 +32,7 @@ import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
 import EditDocumentIcon from '@mui/icons-material/EditDocument'
 import PaymentIcon from '@mui/icons-material/Payment'
 import LazySelect from "../../ui/LazySelect.jsx"
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom"
 
 const Payment = (props) => {
 

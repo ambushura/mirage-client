@@ -8,7 +8,7 @@ import dayjs from "dayjs"
 import CakeIcon from '@mui/icons-material/Cake'
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import Loader from "../../../../ui/Loader.jsx"
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom"
 
 const Zbooks = () => {
 

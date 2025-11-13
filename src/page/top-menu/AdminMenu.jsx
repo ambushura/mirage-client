@@ -677,7 +677,6 @@ export function ZBookMenu() {
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
                     navigate(-1)
-                    //navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                 }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_zBook}</Button>
         </ButtonGroup>
@@ -715,7 +714,6 @@ export function ReceiptMenu() {
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
                     navigate(-1)
-                    //navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                 }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_receipt}</Button>
         </ButtonGroup>
@@ -762,7 +760,6 @@ export function SlipMenu() {
                 startIcon={<KeyboardArrowLeftIcon/>}
                 onClick={() => {
                     navigate(-1)
-                    //navigate(`/admin/acquiring/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                 }}>Назад</Button>
             <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_slip}</Button>
         </ButtonGroup>
