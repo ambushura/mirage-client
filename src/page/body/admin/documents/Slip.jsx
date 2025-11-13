@@ -11,6 +11,7 @@ import {v4} from "uuid"
 import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {setCaptionSlip, setReceiptOrder, setSlipOrder} from "../../../../redux/documentsReducer.js"
 import dayjs from "dayjs"
+import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
 
 const Slip = () => {
 
@@ -158,7 +159,7 @@ const Slip = () => {
                         label="Дата смены"
                         rules={{required: 'Укажите дату смены'}}
                     />
-                    <ControlledDatePicker
+                    <ControlledDateTimePicker
                         control={control}
                         name="date_create"
                         label="Дата создания"
