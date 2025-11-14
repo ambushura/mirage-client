@@ -85,7 +85,7 @@ function App() {
         equipment_workplace: WorkplaceForm,
         seance_cancellation: SeanceCancellation,
         creator_change: StaffList,
-        pinpads: OthersPaymentTypes,
+        others_payment_types: OthersPaymentTypes,
         documents_operation: Operation,
         documents_operation_close_shift: OperationCloseShift,
         dialog_delete_order: Dialog,

@@ -29,7 +29,6 @@ import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
 import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
-import EditDocumentIcon from '@mui/icons-material/EditDocument'
 import PaymentIcon from '@mui/icons-material/Payment'
 import LazySelect from "../../ui/LazySelect.jsx"
 import {useNavigate} from "react-router-dom"
@@ -66,19 +65,6 @@ const Payment = (props) => {
                     uid_printer: '',
                     hidden: '',
                     uid: 'Другие способы',
-                    kkt: {number: ''},
-                    pinpad: {number: ''}
-                })
-                fetching_result.data.list.push({
-                    name: 'Заявление',
-                    uid_kkt: '',
-                    uid_pinpad: '',
-                    uid_work_place: '',
-                    uid_filial: '',
-                    uid_printer_kkt: '',
-                    uid_printer: '',
-                    hidden: '',
-                    uid: 'Заявление',
                     kkt: {number: ''},
                     pinpad: {number: ''}
                 })
@@ -211,7 +197,7 @@ const Payment = (props) => {
 
         return <Box>
             <Box className='payment-items-group-title-name'>
-                {chapter1 !== 'success' ? (<Checkbox
+                {chapter1 !== 'success' ? <Checkbox
                     checked={payment_group[chapter0][chapter1][chapter2].selected}
                     onChange={() => {
                         const payment_group_new = structuredClone(payment_group)
@@ -224,7 +210,7 @@ const Payment = (props) => {
                         }
                         set_payment_group(payment_group_new)
                     }}
-                />) : <Box sx={{width: '10px'}}></Box>}
+                /> : <Box sx={{width: '10px'}}></Box>}
                 {title}
             </Box>
 
@@ -257,7 +243,6 @@ const Payment = (props) => {
                                         set_payment_group(payment_group_new)
                                     }}
                                 />) : null}
-
                                 <Box className='payment-items-group-item-0'>{item.name}</Box>
                                 <Box className='payment-items-group-item-1'>{item.quantity}</Box>
                                 <Box className='payment-items-group-item-2'>{item.price} р</Box>
@@ -384,7 +369,7 @@ const Payment = (props) => {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if (pm.uid !== 'Заявление' && pm.uid !== 'Другие способы') {
+                                            if (pm.uid !== 'Другие способы') {
                                                 if (item.name_payment_type !== pm.name && payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
                                                     ok = false
                                                 }
@@ -406,30 +391,28 @@ const Payment = (props) => {
                         })
                         if (ok) {
                             return <Button
-                                startIcon={pm.uid === 'Заявление' ? <EditDocumentIcon/> : pm.uid === 'Другие способы' ?
-                                    <PaymentIcon/> : null}
-                                variant={pm.uid === 'Заявление' || pm.uid === 'Другие способы' ? 'contained' : 'outlined'}
-                                color={pm.uid === 'Заявление' ? 'primary' : 'secondary'}
+                                startIcon={pm.uid === 'Другие способы' ? <PaymentIcon/> : null}
+                                variant={pm.uid === 'Другие способы' ? 'contained' : 'outlined'}
+                                color='secondary'
                                 key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
                                 className='payment-path'
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: pm.uid === 'Заявление' || pm.uid === 'Другие способы' ? 'row' : 'column',
+                                    flexDirection: pm.uid === 'Другие способы' ? 'row' : 'column',
                                     alignItems: 'center'
                                 }}
                                 onClick={() => {
-                                    if (pm.uid === 'Заявление') {
-
-                                    } else if (pm.uid === 'Другие способы') {
+                                    if (pm.uid === 'Другие способы') {
                                         dispatch(openModal({
-                                            type: 'pinpads', props: {type: props.type, order: props.order, pay}
+                                            type: 'others_payment_types',
+                                            props: {type: props.type, order: props.order, pay, payment_group}
                                         }))
                                     } else {
                                         pay(pm)
                                     }
                                 }}>
                                 <span>{pm.name}</span>
-                                {pm.uid !== 'Заявление' && pm.uid !== 'Другие способы' ? <span
+                                {pm.uid !== 'Другие способы' ? <span
                                     style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
                                     {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
                                 </span> : null}
