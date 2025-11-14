@@ -135,7 +135,7 @@ const ScheduleMenu = () => {
                     handleOnChahge={handleOnChahge}
                 />
             </Popover>
-            <Box
+            {!kiosk && <Box
                 className='top-menu-content-types'
                 size='small'
                 sx={{display: 'flex', flexWrap: 'noWrap'}}>
@@ -148,7 +148,7 @@ const ScheduleMenu = () => {
                                    }}
                                    sx={{marginRight: '4px'}}>{type.title}</Button>
                 })}
-            </Box>
+            </Box>}
             {uid_user !== null ? <ButtonGroup
                 variant='contained'
                 color='secondary'

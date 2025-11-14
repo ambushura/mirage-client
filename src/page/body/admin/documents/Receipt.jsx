@@ -83,6 +83,8 @@ const Receipt = () => {
             rn: '',
             date_shift_claim: null,
             comment: '',
+            date_shift_confirm: '',
+            need_to_confirm: false,
             items: [],
         }
     })
@@ -453,6 +455,19 @@ const Receipt = () => {
                             label="Напечатан"
                             color="secondary"
                         />
+                        <Box sx={{backgroundColor: '#aee3ff', padding: '10px', borderRadius: '12px'}}>
+                            <ControlledSwitch
+                                control={control}
+                                name="need_to_confirm"
+                                label="Нуждается в подтверждении"
+                                color="primary"
+                            />
+                            <ControlledDatePicker
+                                control={control}
+                                name="date_shift_confirm"
+                                label="Дата смены фактическая"
+                            />
+                        </Box>
                     </Box>
                 </Box>
                 <Box sx={{flex: 1}}>
