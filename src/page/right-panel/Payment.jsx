@@ -229,7 +229,7 @@ const Payment = (props) => {
             </Box>
 
             <AnimatePresence>
-                {grouped_items.length > 0 && (<motion.div
+                {grouped_items.length > 0 && <motion.div
                     className='payment-items-group-item'
                     initial={!has_mounted.current}
                     animate="visible"
@@ -307,7 +307,7 @@ const Payment = (props) => {
                             </Box> : null}
                         </Box>
                     </motion.div>)}
-                </motion.div>)}
+                </motion.div>}
             </AnimatePresence>
         </Box>
     }
@@ -384,7 +384,7 @@ const Payment = (props) => {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if (pm.uid !== 'Заявление') {
+                                            if (pm.uid !== 'Заявление' && pm.uid !== 'Другие способы') {
                                                 if (item.name_payment_type !== pm.name && payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
                                                     ok = false
                                                 }
