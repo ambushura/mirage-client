@@ -152,8 +152,9 @@ export function ShowFastSearch() {
         <TextField
             label='QR, номер заказа, телефон'
             sx={{minWidth: '400px'}}
-            variant='filled' color="textSecondary"
-            value={order_search_value ?? ""}
+            variant='filled'
+            color="textSecondary"
+            value={order_search_value ?? ''}
             onChange={(event) => {
                 if (event.target.value === '') {
                     dispatch(setOrderSearchValue(null))
@@ -161,19 +162,21 @@ export function ShowFastSearch() {
                     dispatch(setOrderSearchValue(event.target.value))
                 }
             }}
-            slotProps={{
-                endAdornment: order_search_value && <InputAdornment position="end">
-                    <IconButton
-                        onClick={() => dispatch(setOrderSearchValue(null))}
-                        edge="end"
-                        size="small"
-                    >
-                        <ClearIcon/>
-                    </IconButton>
-                </InputAdornment>,
-            }}/>
+            InputProps={{
+                endAdornment: order_search_value !== null && <>
+                    {order_search_value && <InputAdornment position="end">
+                        <IconButton
+                            onClick={() => dispatch(setOrderSearchValue(null))}
+                            edge="end"
+                            size="small"
+                        >
+                            <ClearIcon/>
+                        </IconButton>
+                    </InputAdornment>}
+                </>
+            }}
+        />
     </Box>
-
 }
 
 export function ShowFilters() {
@@ -671,6 +674,7 @@ export function ZBookMenu() {
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
     const caption_zBook = useSelector(state => state.documents.caption_zBook)
+    const {uid} = useSelector(state => state.interface.params)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         <ButtonGroup sx={{marginRight: '4px'}}>
@@ -688,14 +692,14 @@ export function ZBookMenu() {
                 dispatch(setTriggerSubmitZBook(true))
                 navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
             }}>Сохранить</Button>
-            <Button startIcon={<DeleteForeverIcon/>}
-                    variant='contained'
-                    color='error'
-                    onClick={() => {
-                        dispatch(setTriggerDeleteZBook(true))
-                        navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                    }}
-                    sx={{marginRight: '2px'}}>Удалить</Button>
+            {uid !== 'new' && <Button startIcon={<DeleteForeverIcon/>}
+                                      variant='contained'
+                                      color='error'
+                                      onClick={() => {
+                                          dispatch(setTriggerDeleteZBook(true))
+                                          navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                                      }}
+                                      sx={{marginRight: '2px'}}>Удалить</Button>}
         </Box>
     </Box>
 }
@@ -709,6 +713,7 @@ export function OperationMenu() {
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
     const caption_operation = useSelector(state => state.documents.caption_operation)
+    const {uid} = useSelector(state => state.interface.params)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         <ButtonGroup sx={{marginRight: '4px'}}>
@@ -726,14 +731,14 @@ export function OperationMenu() {
                 dispatch(setTriggerSubmitOperation(true))
                 navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
             }}>Сохранить</Button>
-            <Button startIcon={<DeleteForeverIcon/>}
-                    variant='contained'
-                    color='error'
-                    onClick={() => {
-                        dispatch(setTriggerDeleteOperation(true))
-                        navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                    }}
-                    sx={{marginRight: '2px'}}>Удалить</Button>
+            {uid !== 'new' && <Button startIcon={<DeleteForeverIcon/>}
+                                      variant='contained'
+                                      color='error'
+                                      onClick={() => {
+                                          dispatch(setTriggerDeleteOperation(true))
+                                          navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                                      }}
+                                      sx={{marginRight: '2px'}}>Удалить</Button>}
         </Box>
     </Box>
 }
@@ -746,6 +751,7 @@ export function ReceiptMenu() {
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
     const {receipt_order, caption_receipt} = useSelector(state => state.documents)
+    const {uid} = useSelector(state => state.interface.params)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         <ButtonGroup sx={{marginRight: '4px'}}>
@@ -772,14 +778,14 @@ export function ReceiptMenu() {
                 dispatch(setTriggerSubmitReceipt(true))
                 navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
             }}>Сохранить</Button>
-            <Button startIcon={<DeleteForeverIcon/>}
-                    variant='contained'
-                    color='error'
-                    onClick={() => {
-                        dispatch(setTriggerDeleteReceipt(true))
-                        navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                    }}
-                    sx={{marginRight: '2px'}}>Удалить</Button>
+            {uid !== 'new' && <Button startIcon={<DeleteForeverIcon/>}
+                                      variant='contained'
+                                      color='error'
+                                      onClick={() => {
+                                          dispatch(setTriggerDeleteReceipt(true))
+                                          navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                                      }}
+                                      sx={{marginRight: '2px'}}>Удалить</Button>}
         </Box>
     </Box>
 }
@@ -792,6 +798,7 @@ export function SlipMenu() {
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const wp = useSelector(state => state.interface.wp)
     const {slip_order, caption_slip} = useSelector(state => state.documents)
+    const {uid} = useSelector(state => state.interface.params)
 
     return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         <ButtonGroup sx={{marginRight: '4px'}}>
@@ -818,14 +825,14 @@ export function SlipMenu() {
                 dispatch(setTriggerSubmitSlip(true))
                 navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
             }}>Сохранить</Button>
-            <Button startIcon={<DeleteForeverIcon/>}
-                    variant='contained'
-                    color='error'
-                    onClick={() => {
-                        dispatch(setTriggerDeleteSlip(true))
-                        navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
-                    }}
-                    sx={{marginRight: '2px'}}>Удалить</Button>
+            {uid !== 'new' && <Button startIcon={<DeleteForeverIcon/>}
+                                      variant='contained'
+                                      color='error'
+                                      onClick={() => {
+                                          dispatch(setTriggerDeleteSlip(true))
+                                          navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                                      }}
+                                      sx={{marginRight: '2px'}}>Удалить</Button>}
         </Box>
     </Box>
 }
