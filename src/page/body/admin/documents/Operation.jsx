@@ -40,7 +40,7 @@ const Operation = () => {
             id: uid === 'new' ? v4() : '',
             uid_wallet_in: '',
             uid_wallet_out: '',
-            sum_in: 0,
+            sum: 0,
             comment: ''
         }
     })
@@ -90,9 +90,7 @@ const Operation = () => {
         const prepared = {
             ...data,
             uid_wallet_in: data.uid_wallet_in !== '' ? data.uid_wallet_in : null,
-            uid_wallet_out: data.uid_wallet_out !== '' ? data.uid_wallet_out : null,
-            sum_in: data.uid_wallet_in !== '' ? parseFloat(data.sum_in) : null,
-            sum_out: data.uid_wallet_out !== '' ? (-1) * parseFloat(data.sum_in) : null,
+            uid_wallet_out: data.uid_wallet_out !== '' ? data.uid_wallet_out : null, //sum_in: data.uid_wallet_in !== '' ? parseFloat(data.sum_in) : null,
         }
         if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
             .startOf('day')
@@ -140,32 +138,30 @@ const Operation = () => {
                 rules={{required: 'Укажите дату смены'}}
                 sx={{flex: 1, marginRight: '10px'}}
             />
-            <Box sx={{flex: 1}}>
+            <Box sx={{flex: 1, marginRight: '10px'}}>
                 <ControlledLazySelect
                     control={control}
                     name="uid_wallet_out"
                     label="Касса источник"
                     type="wallets"
                     filial={filial}
-                    sx={{marginRight: '10px'}}
                     fullWidth
                 />
             </Box>
-            <Box sx={{flex: 1}}>
+            <Box sx={{flex: 1, marginRight: '10px'}}>
                 <ControlledLazySelect
                     control={control}
                     name="uid_wallet_in"
                     label="Касса приемник"
                     type="wallets"
                     filial={filial}
-                    sx={{marginRight: '10px'}}
                     fullWidth
                 />
             </Box>
             <Box sx={{flex: 1}}>
                 <ControlledMoneyField
                     control={control}
-                    name="sum_in"
+                    name="sum"
                     label="Сумма"
                     fullWidth
                 />
