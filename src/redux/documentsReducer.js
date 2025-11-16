@@ -41,6 +41,11 @@ const initialState = {
     operations_details: false,
     operations: {wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined},
 
+    // Операция по кассе
+    trigger_submit_operation: false,
+    trigger_delete_operation: false,
+    caption_operation: null,
+
     // Продажи
     sales: {columns: [], rows: [], columnGroupingModel: []},
 }
@@ -118,6 +123,12 @@ export const dataSlice = createSlice({
             state.caption_slip = payload
         }, setSlipOrder(state, {payload}) {
             state.slip_order = payload
+        }, setTriggerSubmitOperation(state, {payload}) {
+            state.trigger_submit_operation = payload
+        }, setTriggerDeleteOperation(state, {payload}) {
+            state.trigger_delete_operation = payload
+        }, setCaptionOperation(state, {payload}) {
+            state.caption_operation = payload
         },
     },
 })
@@ -152,10 +163,12 @@ export const {
     cleanSlips,
     setSales,
     cleanSales,
-    setCaptionZAcquiring,
     setTriggerSubmitSlip,
     setTriggerDeleteSlip,
     setCaptionSlip,
-    setSlipOrder
+    setSlipOrder,
+    setTriggerSubmitOperation,
+    setTriggerDeleteOperation,
+    setCaptionOperation
 } = dataSlice.actions
 export default dataSlice.reducer

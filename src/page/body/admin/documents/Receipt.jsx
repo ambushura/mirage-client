@@ -12,7 +12,7 @@ import ControlledSwitch from "../../../../ui/ControlledSwitch.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import ControlledDateTimePicker from "../../../../ui/ControlledDateTimePicker.jsx"
-import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
+import {openModal} from "../../../../redux/interfaceReducer.js"
 import {
     setCaptionReceipt,
     setReceiptOrder,
@@ -160,7 +160,6 @@ const Receipt = () => {
         if (prepared.moment) prepared.moment = dayjs(prepared.moment)
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
         dispatch(common_documents_receipt_save(filial, prepared))
-        dispatch(closeModal())
         dispatch(setReceiptsUpdated())
     }
 

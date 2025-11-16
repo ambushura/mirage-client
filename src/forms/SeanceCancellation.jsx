@@ -15,8 +15,9 @@ export default function SeanceCancellation({props}) {
     }, {uid: 1, name: '2 - Зрители не пришли'}, {uid: 2, name: '3 - Эвакуация'}, {
         uid: 3, name: '4 - Поломка звука в зале'
     }, {uid: 4, name: '5 - Поломка проектора в зале'}, {uid: 5, name: '6 - Отключение электричества в зале'}, {
-        uid: 6, name: '7 - Поломка проектора в зале'
-    }, {uid: 7, name: '8 - Потоп'}, {uid: 8, name: '9 - Прочее'},])
+        uid: 6,
+        name: '8 - Потоп'
+    }, {uid: 7, name: '9 - Прочее'},])
     const [current_cancellation_reason, set_current_cancellation_reason] = useState(null)
     const [comment, set_comment] = useState(null)
 

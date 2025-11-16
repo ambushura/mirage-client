@@ -6,12 +6,17 @@ import {cleanOperations, setOperations} from "../../../../redux/documentsReducer
 import {ruRU} from "@mui/x-data-grid/locales"
 import {common_documents_operations_get} from "../../../../service/fetch_service.js"
 import Loader from "../../../../ui/Loader.jsx"
+import {useNavigate} from "react-router-dom"
 
 const Operations = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const filial = useSelector(state => state.data.filial)
+    const {city, filial} = useSelector(state => state.data)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
+
     const {columns, rows, column_grouping_model} = useSelector(state => state.documents.operations)
     const {operations_page, operations_details, operations_update} = useSelector(state => state.documents)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
@@ -78,6 +83,11 @@ const Operations = () => {
                     }, '& .MuiDataGrid-columnHeaderTitle': {
                         fontSize: '0.9rem',
                     },
+                }}
+                onRowDoubleClick={(params) => {
+                    if (!params.row.is_total_row) {
+                        navigate(`/admin/operation/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
+                    }
                 }}
             />
         }

@@ -16,6 +16,7 @@ import Sales from "./documents/Sales.jsx"
 import ZBook from "./documents/ZBook.jsx"
 import Receipt from "./documents/Receipt.jsx"
 import Slip from "./documents/Slip.jsx"
+import Operation from "./documents/Operation.jsx";
 
 const PageAdmin = () => {
 
@@ -47,6 +48,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/receipt' && <Receipt/>}
                 {current_page === 'admin/slip' && <Slip/>}
                 {current_page === 'admin/operations' && <Operations/>}
+                {current_page === 'admin/operation' && <Operation/>}
                 {current_page === 'admin/egais' && <Egais/>}
                 {current_page === 'admin/staff' && <PageStaff/>}
                 {current_page === 'admin/halls' && <PageHalls/>}

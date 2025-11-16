@@ -1,61 +1,136 @@
-import {Box, Button, Typography} from "@mui/material"
-import {useSelector} from "react-redux"
+import {Box} from "@mui/material"
+import {useDispatch, useSelector} from "react-redux"
 import ControlledLazySelect from "../../../../ui/ControlledLazySelect.jsx"
 import {useForm} from "react-hook-form"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
+import {common_documents_operation_get, common_documents_operation_save} from "../../../../service/fetch_service.js"
+import {
+    setCaptionOperation,
+    setOperationsUpdate,
+    setTriggerSubmitOperation
+} from "../../../../redux/documentsReducer.js"
+import {useEffect, useState} from "react"
+import {addNotification} from "../../../../redux/notifierReducer.js"
+import dayjs from "dayjs"
+import {v4} from "uuid"
+import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
 
 const Operation = () => {
 
-    const filial = useSelector(state => state.data.filial)
+    // Служебные функции
+    const dispatch = useDispatch()
 
+    // Данные из стора
+    const filial = useSelector(state => state.data.filial)
+    const {uid} = useSelector(state => state.interface.params)
+
+    // Состояние загрузки документа
+    const [loading, set_loading] = useState(true)
+
+    // Триггеры сохранения/удаления документа
+    const {trigger_submit_operation, trigger_delete_operation} = useSelector(state => state.documents)
+
+    // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            id: '', wallet_in: '', wallet_out: '', sum: 0, comment: ''
+            uid_filial: uid === 'new' ? filial.uid : '',
+            id: uid === 'new' ? v4() : '',
+            uid_wallet_in: '',
+            uid_wallet_out: '',
+            sum_in: 0,
+            comment: ''
         }
     })
 
+    // Загрузка документа в форму при открытии
+    useEffect(() => {
+        const fetchData = async () => {
+            set_loading(true)
+            try {
+                if (uid === 'new') {
+                    reset()
+                } else {
+                    const data = await dispatch(common_documents_operation_get(filial, uid))
+                    if (data?.data) {
+                        reset({
+                            ...data.data,
+                        })
+                    }
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки операции по кассе:', err)
+            } finally {
+                set_loading(false)
+            }
+        }
+        fetchData()
+    }, [uid, filial, dispatch, reset])
+
+    // Наблюдаемые переменные
+    const date_shift = watch('date_shift')
+
+    // Триггер сохранения документа
+    useEffect(() => {
+        if (trigger_submit_operation) {
+            handleSubmit(onSubmit)()
+            dispatch(setTriggerSubmitOperation(false))
+            dispatch(addNotification({
+                message: `Операция по кассе ${uid === 'new' ? '' : ' от ' + dayjs(date_shift).format('DD.MM.YY')} сохранена`,
+                severity: 'info',
+                autoHide: true
+            }))
+        }
+    }, [trigger_submit_operation])
+
+    // Функция сохранения документа
     const onSubmit = (data) => {
-        // const prepared = {
-        //     ...data,
-        //     sno: parseInt(data.sno, 10),
-        //     fd: parseFloat(data.fd),
-        //     number: parseFloat(data.number),
-        //     shift_number: parseFloat(data.shift_number),
-        //     uid_order_cinema: data.uid_order_cinema === '' ? null : data.uid_order_cinema,
-        //     uid_order_food: data.uid_order_food === '' ? null : data.uid_order_food,
-        // }
-        // if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
-        //     .startOf('day')
-        //     .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        // if (prepared.date_create) prepared.date_create = dayjs(prepared.date_create)
-        //     .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        // if (prepared.moment) prepared.moment = dayjs(prepared.moment)
-        //     .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        // dispatch(common_documents_receipt_save(filial, prepared))
-        // dispatch(closeModal())
-        // dispatch(setReceiptsUpdated())
+        const prepared = {
+            ...data,
+            uid_wallet_in: data.uid_wallet_in !== '' ? data.uid_wallet_in : null,
+            uid_wallet_out: data.uid_wallet_out !== '' ? data.uid_wallet_out : null,
+            sum_in: data.uid_wallet_in !== '' ? parseFloat(data.sum_in) : null,
+            sum_out: data.uid_wallet_out !== '' ? (-1) * parseFloat(data.sum_in) : null,
+        }
+        if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
+            .startOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
+        dispatch(common_documents_operation_save(filial, prepared))
+        dispatch(setOperationsUpdate())
     }
 
+    // Триггер удаления документа
+
+    // Триггер заголовка документа в меню
+    useEffect(() => {
+        dispatch(setCaptionOperation(`ОПЕРАЦИЯ ПО КАССЕ ${uid === 'new' ? ' * ' : dayjs(date_shift).format('DD.MM.YY')}`))
+        return () => {
+            dispatch(setCaptionOperation(null))
+        }
+    }, [uid])
+
     return <Box
-        sx={{minWidth: '700px', maxHeight: '700px', overflowY: 'auto'}}
+        sx={{padding: '10px'}}
         id="modal-operation"
         component="form"
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h6" color="textSecondary" margin={1}>
-            ОПЕРАЦИЯ ПО КАССЕ
-        </Typography>
         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
+            <ControlledDatePicker
+                control={control}
+                name="date_shift"
+                label="Дата смены"
+                rules={{required: 'Укажите дату смены'}}
+                sx={{flex: 1, marginRight: '10px'}}
+            />
             <Box sx={{flex: 1}}>
                 <ControlledLazySelect
                     control={control}
-                    name="wallet_in"
+                    name="uid_wallet_in"
                     label="Касса источник"
                     type="wallets"
                     filial={filial}
-                    rules={{required: 'Укажите кассу-источник'}}
                     sx={{marginRight: '10px'}}
                     fullWidth
                 />
@@ -63,11 +138,10 @@ const Operation = () => {
             <Box sx={{flex: 1}}>
                 <ControlledLazySelect
                     control={control}
-                    name="wallet_out"
+                    name="uid_wallet_out"
                     label="Касса приёмник"
                     type="wallets"
                     filial={filial}
-                    rules={{required: 'Укажите кассу-приёмник'}}
                     sx={{marginRight: '10px'}}
                     fullWidth
                 />
@@ -75,7 +149,7 @@ const Operation = () => {
             <Box sx={{flex: 1}}>
                 <ControlledMoneyField
                     control={control}
-                    name="sum"
+                    name="sum_in"
                     label="Сумма"
                     fullWidth
                 />
@@ -90,9 +164,6 @@ const Operation = () => {
                 multiline
                 rows={3}
             />
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Button fullWidth variant='contained' color='secondary'>Сохранить</Button>
         </Box>
     </Box>
 }

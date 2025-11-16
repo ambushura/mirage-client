@@ -51,6 +51,7 @@ const AppRoutes = ({current_page}) => {
         "admin/receipt": uid_user !== null && <PageAdmin/>,
         "admin/slip": uid_user !== null && <PageAdmin/>,
         "admin/operations": uid_user !== null && <PageAdmin/>,
+        "admin/operation": uid_user !== null && <PageAdmin/>,
         "admin/halls": uid_user !== null && <PageAdmin/>,
         "admin/scheme": uid_user !== null && <PageAdmin/>,
         "admin/egais": uid_user !== null && <PageAdmin/>,

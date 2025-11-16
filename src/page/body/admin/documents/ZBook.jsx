@@ -1,5 +1,5 @@
 import {Box, Skeleton} from "@mui/material"
-import {closeModal, openModal} from "../../../../redux/interfaceReducer.js"
+import {openModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {common_documents_z_book_get, common_documents_z_book_save} from "../../../../service/fetch_service.js"
@@ -132,7 +132,6 @@ const ZBook = () => {
             sum_non_zero_total_of_outcome: parseFloat(data.sum_non_zero_total_of_outcome) || 0,
         }
         dispatch(common_documents_z_book_save(filial, prepared))
-        dispatch(closeModal())
         dispatch(setZBooksUpdate())
     }
 

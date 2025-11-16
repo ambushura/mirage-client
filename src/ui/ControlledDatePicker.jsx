@@ -15,7 +15,6 @@ const ControlledDatePicker = ({control, name, label, rules = {}, sx = {}}) => <C
         arrow
         slotProps={{tooltip: tooltip_error}}
     >
-        <span>
         <DatePicker
             {...field}
             label={label}
@@ -27,7 +26,6 @@ const ControlledDatePicker = ({control, name, label, rules = {}, sx = {}}) => <C
                 },
             }}
         />
-        </span>
     </Tooltip>}
 />
 

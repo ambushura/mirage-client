@@ -70,9 +70,11 @@ import {
     setCurrentPinpad,
     setOperationsDetails,
     setOperationsPage,
+    setTriggerDeleteOperation,
     setTriggerDeleteReceipt,
     setTriggerDeleteSlip,
     setTriggerDeleteZBook,
+    setTriggerSubmitOperation,
     setTriggerSubmitReceipt,
     setTriggerSubmitSlip,
     setTriggerSubmitZBook
@@ -407,7 +409,7 @@ export function CreateDeleteButtons() {
                             navigate(`/admin/receipt/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                             break
                         case 'documents_operation':
-                            dispatch(openModal({type: 'documents_operation', props: {uid: 'new'}}))
+                            navigate(`/admin/operation/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                             break
                         case 'documents_operation_close_shift':
                             dispatch(openModal({type: 'documents_operation_close_shift', props: {uid: 'new'}}))
@@ -698,6 +700,44 @@ export function ZBookMenu() {
     </Box>
 }
 
+export function OperationMenu() {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const city = useSelector(state => state.data.city)
+    const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const wp = useSelector(state => state.interface.wp)
+    const caption_operation = useSelector(state => state.documents.caption_operation)
+
+    return <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+        <ButtonGroup sx={{marginRight: '4px'}}>
+            <Button
+                variant='contained' color='secondary'
+                startIcon={<KeyboardArrowLeftIcon/>}
+                onClick={() => {
+                    navigate(-1)
+                }}>Назад</Button>
+            <Button variant='outlined' color='secondary' sx={{textWrap: 'nowrap'}}>{caption_operation}</Button>
+        </ButtonGroup>
+        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Button variant='contained' color='secondary' sx={{marginRight: 1}}
+                    startIcon={<SaveIcon/>} onClick={() => {
+                dispatch(setTriggerSubmitOperation(true))
+                navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+            }}>Сохранить</Button>
+            <Button startIcon={<DeleteForeverIcon/>}
+                    variant='contained'
+                    color='error'
+                    onClick={() => {
+                        dispatch(setTriggerDeleteOperation(true))
+                        navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
+                    }}
+                    sx={{marginRight: '2px'}}>Удалить</Button>
+        </Box>
+    </Box>
+}
+
 export function ReceiptMenu() {
 
     const dispatch = useDispatch()
@@ -808,6 +848,7 @@ export default function AdminMenu() {
             {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
             {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu/>}
             {current_page === 'admin/slip' && filial !== undefined && <SlipMenu/>}
+            {current_page === 'admin/operation' && filial !== undefined && <OperationMenu/>}
             {current_page === 'admin/operations' && <Operations/>}
             {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
             {((current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema') || order_search_value !== null) &&

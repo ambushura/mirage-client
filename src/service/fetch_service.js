@@ -40,6 +40,8 @@ import {
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_CATALOG_GET,
     ROUTE_COMMON_CITIES_GET,
+    ROUTE_COMMON_DOCUMENTS_OPERATION_GET,
+    ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE,
     ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT,
     ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET,
     ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE,
@@ -1055,6 +1057,32 @@ export const common_documents_operations_get = (filial, page, update, details) =
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET}`,
         params: {page, update, details},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_operation_get = (filial, uid) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_GET}`,
+        params: {uid},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_operation_save = (filial, operation) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'post',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE}`,
+        data: operation,
         filial,
         wp,
         kiosk,

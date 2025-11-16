@@ -38,7 +38,6 @@ import {BilletCheckForm} from "./page/body/admin/scheme/forms/BilletCheckForm.js
 import {WorkplaceForm} from "./page/body/admin/scheme/forms/WorkplaceForm.jsx"
 import TableOptions from "./forms/TableOptions.jsx"
 import Dialog from "./forms/Dialog.jsx"
-import Operation from "./page/body/admin/documents/Operation.jsx"
 import {useSetCityAndFilial} from "./hooks/common/useSetCityAndFilial.js"
 import StaffList from "./forms/StaffList.jsx"
 import OthersPaymentTypes from "./page/right-panel/OthersPaymentTypes.jsx"
@@ -86,7 +85,6 @@ function App() {
         seance_cancellation: SeanceCancellation,
         creator_change: StaffList,
         others_payment_types: OthersPaymentTypes,
-        documents_operation: Operation,
         documents_operation_close_shift: OperationCloseShift,
         dialog_delete_order: Dialog,
         dialog_save_order: Dialog,
@@ -153,6 +151,9 @@ function App() {
 
                 <Route path="/admin/operations/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/operations"/>}/>
+
+                <Route path="/admin/operation/:param_city/:param_filial/:uid"
+                       element={<AppRoutes current_page="admin/operation"/>}/>
 
                 <Route path="/admin/halls/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="admin/halls"/>}/>
