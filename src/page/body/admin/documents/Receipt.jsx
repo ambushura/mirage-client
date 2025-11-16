@@ -83,7 +83,7 @@ const Receipt = () => {
             rn: '',
             date_shift_claim: null,
             comment: '',
-            date_shift_confirm: '',
+            date_shift_confirm: null,
             need_to_confirm: false,
             items: [],
         }
@@ -103,6 +103,7 @@ const Receipt = () => {
                             ...data.data,
                             date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
                             date_shift: data.data.date_shift ? dayjs(parceZone(data.data.date_shift)) : null,
+                            date_shift_confirm: data.data.date_shift_confirm ? dayjs(parceZone(data.data.date_shift_confirm)) : null,
                             moment: data.data.moment ? dayjs(parceZone(data.data.moment)) : null,
                             price: data.data.price ? parseFloat(data.data.price) : 0,
                             sum_discount: data.data.sum_discount ? parseFloat(data.data.sum_discount) : 0,
