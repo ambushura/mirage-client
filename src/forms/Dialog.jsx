@@ -9,6 +9,7 @@ import {
 } from '@mui/material'
 import {
     cinema_order_delete,
+    common_documents_operation_delete,
     common_documents_receipt_delete,
     common_documents_z_book_delete,
     horeca_order_delete
@@ -16,7 +17,7 @@ import {
 import {closeModal} from "../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
 import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../redux/ordersReducer.js"
-import {setReceiptsUpdated, setZBooksUpdate} from "../redux/documentsReducer.js"
+import {setOperationsUpdate, setReceiptsUpdated, setZBooksUpdate} from "../redux/documentsReducer.js"
 
 const Dialog = ({props}) => {
 
@@ -48,6 +49,9 @@ const Dialog = ({props}) => {
                 dispatch(common_documents_z_book_delete(props.filial, props.uid))
                 dispatch(setZBooksUpdate())
                 break
+            case 'dialog_delete_operation':
+                dispatch(common_documents_operation_delete(props.filial, props.uid))
+                dispatch(setOperationsUpdate())
             default:
                 break
         }

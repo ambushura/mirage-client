@@ -8,6 +8,7 @@ import {common_documents_operation_get, common_documents_operation_save} from ".
 import {
     setCaptionOperation,
     setOperationsUpdate,
+    setTriggerDeleteOperation,
     setTriggerSubmitOperation
 } from "../../../../redux/documentsReducer.js"
 import {useEffect, useState} from "react"
@@ -15,6 +16,7 @@ import {addNotification} from "../../../../redux/notifierReducer.js"
 import dayjs from "dayjs"
 import {v4} from "uuid"
 import ControlledDatePicker from "../../../../ui/ControlledDatePicker.jsx"
+import {openModal} from "../../../../redux/interfaceReducer.js"
 
 const Operation = () => {
 
@@ -100,6 +102,20 @@ const Operation = () => {
     }
 
     // Триггер удаления документа
+    useEffect(() => {
+        if (trigger_delete_operation) {
+            dispatch(openModal({
+                type: 'dialog_delete_operation', props: {
+                    type: 'YesNo',
+                    action: 'dialog_delete_operation',
+                    question: 'Вы уверены, что хотите удалить эту операцию по кассе?',
+                    filial: filial,
+                    uid: uid,
+                }
+            }))
+        }
+        return () => dispatch(setTriggerDeleteOperation(false))
+    }, [trigger_delete_operation])
 
     // Триггер заголовка документа в меню
     useEffect(() => {
@@ -127,7 +143,7 @@ const Operation = () => {
             <Box sx={{flex: 1}}>
                 <ControlledLazySelect
                     control={control}
-                    name="uid_wallet_in"
+                    name="uid_wallet_out"
                     label="Касса источник"
                     type="wallets"
                     filial={filial}
@@ -138,8 +154,8 @@ const Operation = () => {
             <Box sx={{flex: 1}}>
                 <ControlledLazySelect
                     control={control}
-                    name="uid_wallet_out"
-                    label="Касса приёмник"
+                    name="uid_wallet_in"
+                    label="Касса приемник"
                     type="wallets"
                     filial={filial}
                     sx={{marginRight: '10px'}}

@@ -40,6 +40,7 @@ import {
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_CATALOG_GET,
     ROUTE_COMMON_CITIES_GET,
+    ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE,
     ROUTE_COMMON_DOCUMENTS_OPERATION_GET,
     ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE,
     ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT,
@@ -1069,6 +1070,19 @@ export const common_documents_operation_get = (filial, uid) => async (dispatch, 
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_GET}`,
+        params: {uid},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
+
+export const common_documents_operation_delete = (filial, uid) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE}`,
         params: {uid},
         filial,
         wp,
