@@ -7,6 +7,7 @@ import {v4} from "uuid"
 import ControlledLazySelect from "../../../../../ui/ControlledLazySelect.jsx"
 import ControlledTextField from "../../../../../ui/ControlledTextField.jsx"
 import dayjs from "dayjs"
+import {ROUTE_EQUIPMENT_PINPAD_Z} from "../../../../../service/fetch_routes.js"
 
 export default function PinpadForm({props}) {
 
@@ -83,13 +84,15 @@ export default function PinpadForm({props}) {
     // Триггер удаления документа
 
     // Вспомогательные функции
-    const [fast_commands, set_fast_commands] = useState([{
-        id: 0, name: 'Проверка связи с терминалом', route: '', param: {uid: uid}
-    }, {
-        id: 1, name: 'Проверка связи с хостом', route: '', param: {uid: uid}
-    }, {id: 2, name: 'Оплата/Отмена (1 рубль)', route: '', param: {uid: uid}}, {
-        id: 3, name: 'Сверка итогов', route: '', param: {uid: uid}
-    }])
+    const [fast_commands, set_fast_commands] = useState([])
+
+    useEffect(() => {
+        set_fast_commands([{id: 0, name: 'Проверка связи с терминалом', route: '', param: {uid}}, {
+            id: 1, name: 'Проверка связи с хостом', route: '', param: {uid}
+        }, {id: 2, name: 'Оплата/Отмена (1 рубль)', route: '', param: {uid}}, {
+            id: 3, name: 'Сверка итогов', route: ROUTE_EQUIPMENT_PINPAD_Z, param: {uid}
+        }])
+    }, [uid])
 
     return <Box sx={{minWidth: '600px'}}>
         <Typography variant="h6" color="textSecondary" margin={1}>

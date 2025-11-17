@@ -117,32 +117,23 @@ export default function KKTForm({props}) {
     // Триггер удаления документа
 
     // Вспомогательные функции
-    const [fast_commands, set_fast_commands] = useState([{id: 0, name: 'Суточный отчет', route: '', param: {}}, {
-        id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {}
-    }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {}}, {
-        id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {}
-    }, {id: 4, name: 'Тест связи с ККТ', route: '', param: {}}, {
-        id: 5, name: 'Тест связи с ОФД', route: '', param: {}
-    }, {id: 6, name: 'Синхронизировать время с сервером', route: '', param: {}}, {
-        id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {}
-    }])
-
+    const [fast_commands, set_fast_commands] = useState([])
     useEffect(() => {
         set_fast_commands([{
-            id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid: uid}
-        }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid: uid}}, {
-            id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid: uid}
+            id: 1, name: 'Х-отчет', route: ROUTE_EQUIPMENT_KKT_X, param: {uid}
+        }, {id: 2, name: 'Отчет о закрытии смены', route: ROUTE_EQUIPMENT_KKT_Z, param: {uid}}, {
+            id: 3, name: 'Открыть денежный ящик', route: ROUTE_EQUIPMENT_KKT_OPEN_BOX, param: {uid}
         }, {id: 4, name: 'Тест связи с ККТ', route: '', param: {}}, {
             id: 5, name: 'Тест связи с ОФД', route: '', param: {}
         }, {
-            id: 6, name: 'Синхронизировать время с сервером', route: ROUTE_EQUIPMENT_KKT_CLOCK_RESET, param: {uid: uid}
+            id: 6, name: 'Синхронизировать время с сервером', route: ROUTE_EQUIPMENT_KKT_CLOCK_RESET, param: {uid}
         }, {
-            id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid: uid}
+            id: 7, name: 'Перезагрузка', route: ROUTE_EQUIPMENT_KKT_REBOOT, param: {uid}
         }, {
             id: 8,
             name: 'Отмена последнего открытого документа',
             route: ROUTE_EQUIPMENT_KKT_CANCEL_LAST_DOCUMENT,
-            param: {uid: uid}
+            param: {uid}
         }])
     }, [uid])
 

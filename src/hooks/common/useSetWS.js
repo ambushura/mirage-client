@@ -19,6 +19,7 @@ import {addNotification} from "../../redux/notifierReducer.js"
 import {setKitchenOrders, setOrderSearchValue, setOrdersHorecaUpdate} from "../../redux/ordersReducer.js"
 import {setBooking} from "../../redux/scheduleReducer.js"
 import dayjs from "dayjs"
+import {resetWP, turnOffWP, turnOnWP} from "../../redux/interfaceReducer.js"
 
 export function useSetWS() {
     const dispatch = useDispatch()
@@ -49,12 +50,15 @@ export function useSetWS() {
         shouldReconnect: () => true, retryOnError: true, pause: !wsUrl
     })
 
+    // Оповещения
     const [kitchen_add_position] = useSound(sound_kitchen_add_positon)
+
+    // Работа с рабочими местами
+    const {reset_wp, turn_on_wp, turn_off_wp} = useSelector(state => state.interface)
 
     // Обработка сообщений
     useEffect(() => {
         if (!lastMessage || !wsUrl) return
-
         try {
             const data = JSON.parse(lastMessage.data)
 
@@ -238,4 +242,19 @@ export function useSetWS() {
             }))
         }
     }, [current_page, param_date, pre_order, horder, seance, wsUrl, sendMessage])
+
+    useEffect(() => {
+        if (reset_wp !== null) {
+            sendMessage(JSON.stringify({type: 10, wp: reset_wp}))
+            dispatch(resetWP(null))
+        }
+        if (turn_on_wp !== null) {
+            sendMessage(JSON.stringify({type: 11, wp: turn_on_wp}))
+            dispatch(turnOnWP(null))
+        }
+        if (turn_off_wp !== null) {
+            sendMessage(JSON.stringify({type: 12, wp: turn_off_wp}))
+            dispatch(turnOffWP(null))
+        }
+    }, [reset_wp, turn_on_wp, turn_off_wp, sendMessage])
 }

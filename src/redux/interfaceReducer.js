@@ -60,6 +60,11 @@ const initialState = {
     },
     top_menu: TOP_MENU,
     kiosk_checkout: 0,
+
+    // Работа с рабочими местами
+    reset_wp: null,
+    turn_on_wp: null,
+    turn_off_wp: null,
 }
 
 const interfaceSlice = createSlice({
@@ -104,6 +109,12 @@ const interfaceSlice = createSlice({
             state.need_update = payload
         }, setKioskCheckout(state, {payload}) {
             state.kiosk_checkout = payload
+        }, resetWP: (state, {payload}) => {
+            state.reset_wp = payload
+        }, turnOnWP: (state, {payload}) => {
+            state.turn_on_wp = payload
+        }, turnOffWP: (state, {payload}) => {
+            state.turn_off_wp = payload
         }
     },
 })
@@ -123,7 +134,10 @@ export const {
     closeModal,
     setDev,
     setNeedUpdate,
-    setKioskCheckout
+    setKioskCheckout,
+    resetWP,
+    turnOnWP,
+    turnOffWP
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

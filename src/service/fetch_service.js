@@ -74,6 +74,9 @@ import {
     ROUTE_EQUIPMENT_KKT_Z,
     ROUTE_EQUIPMENT_PINPAD_X,
     ROUTE_EQUIPMENT_PINPAD_Z,
+    ROUTE_EQUIPMENT_WORKPLACE_RESET,
+    ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
+    ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
     ROUTE_HORECA_KITCHEN_GET,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_MENU_GET,
@@ -748,6 +751,12 @@ export const equipment_action = (filial, route, params) => async (dispatch, getS
             case ROUTE_EQUIPMENT_KKT_TICKETS_PRINT:
                 dispatch(setCurrentPreOrder(data))
                 dispatch(setOrdersCinemaUpdate())
+                break
+            case ROUTE_EQUIPMENT_WORKPLACE_TURN_ON:
+                break
+            case ROUTE_EQUIPMENT_WORKPLACE_RESET:
+                break
+            case ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF:
                 break
         }
     })
