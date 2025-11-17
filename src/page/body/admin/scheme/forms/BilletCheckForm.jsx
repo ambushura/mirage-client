@@ -1,4 +1,4 @@
-import {Box, Button, IconButton, InputAdornment, TextField, Typography} from "@mui/material"
+import {Box, IconButton, InputAdornment, TextField, Typography} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {Visibility, VisibilityOff} from "@mui/icons-material"
@@ -87,13 +87,6 @@ export function BilletCheckForm({props}) {
                     </InputAdornment>)
                 }}
             />
-
-            <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
-                <Button sx={{flex: 1, marginRight: '2px'}} variant='contained' color="secondary"
-                        onClick={() => (obj)}>Сохранить</Button>
-                <Button sx={{flex: 1, marginLeft: '2px'}} variant="contained" color="error"
-                        onClick={() => (obj)}>Удалить</Button>
-            </Box>
 
             <Box>
                 {obj.sessions.map(session => {
