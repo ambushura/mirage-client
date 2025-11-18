@@ -89,13 +89,6 @@ const ScheduleMenu = () => {
             }}
                 sx={{marginRight: '4px'}} startIcon={<KeyboardArrowLeftIcon/>}>Назад</Button> : <></>}
             <ButtonGroup size='medium' variant="contained" color="secondary" sx={{marginRight: '5px'}}>
-                <Button
-                    onClick={() => {
-                        const now = new Date()
-                        const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
-                        const current_param_date = from_dayjs_to_str(date)
-                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
-                    }}>Сегодня</Button>
                 {(!kiosk || (kiosk && dayjs(param_date).add(-1, 'day') >= dayjs(get_date_shift(new Date())))) && <Button
                     onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
@@ -113,6 +106,13 @@ const ScheduleMenu = () => {
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                     }}><KeyboardArrowRightIcon/></Button>
+                {dayjs(param_date).diff(dayjs(get_date_shift(new Date()))) !== 0 && <Button
+                    onClick={() => {
+                        const now = new Date()
+                        const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
+                        const current_param_date = from_dayjs_to_str(date)
+                        navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
+                    }}>Сегодня</Button>}
             </ButtonGroup>
             <Popover
                 id={id}

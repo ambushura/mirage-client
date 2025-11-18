@@ -63,12 +63,10 @@ const HallMap = (props) => {
         if (its_second_screen) return
         if (node.type === 'place') {
             if (current_page === 'seance') {
-                if ((kiosk && props.pre_order.items.length < 5) || !kiosk) {
-                    if (props.set_time_remaining !== undefined) {
-                        props.set_time_remaining(100)
-                    }
-                    dispatch(cinema_position_add(props.city, props.filial, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
+                if (props.set_time_remaining !== undefined) {
+                    props.set_time_remaining(100)
                 }
+                dispatch(cinema_position_add(props.city, props.filial, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
             } else {
                 if (mode === 'block') {
                     dispatch(cinema_place_block(props.filial, props.hall, node.id))

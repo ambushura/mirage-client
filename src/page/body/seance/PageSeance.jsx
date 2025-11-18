@@ -36,7 +36,7 @@ const PageSeance = () => {
             fetch()
         }
         return () => dispatch(setBooking([]))
-    }, [dispatch, filial, seance, pre_order.ver])
+    }, [dispatch, filial, seance, pre_order.in_base])
 
     useEffect(() => {
         const fetch = async () => {
