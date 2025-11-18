@@ -1,7 +1,6 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import cover from "../../../images/cover.png"
-import DeleteIcon from '@mui/icons-material/Delete'
 import SeanceTitle from "../../../components/cinema/SeanceTitle.jsx"
 
 const Ticket = (props) => {
@@ -43,9 +42,6 @@ const Ticket = (props) => {
                 </Box>
                 <Box className='checkout-order-ticket-body-3'>
                     <Box className='checkout-order-ticket-body-3-price'>{ticket.price} Р</Box>
-                    <Box className='checkout-order-ticket-body-3-delete' onClick={() => {
-
-                    }}><DeleteIcon sx={{color: '#8B919B'}}/></Box>
                 </Box>
             </Box>
         </Box>

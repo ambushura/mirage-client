@@ -24,11 +24,11 @@ const HallMap = (props) => {
 
     const [nodes, setNodes, onNodesChange] = useNodesState([])
     const [edges, setEdges, onEdgesChange] = useEdgesState([])
-    const [ready, setReady] = useState(false) // состояние для fade-in
+    const [ready, setReady] = useState(false)
 
     const onConnect = useCallback((params) => setEdges(addEdge(params, edges)), [edges],)
 
-    const its_second_screen = useSelector(state => state.interface.its_second_screen)
+    const {its_second_screen, kiosk} = useSelector(state => state.interface)
 
     const {fitView} = useReactFlow()
 
@@ -63,10 +63,12 @@ const HallMap = (props) => {
         if (its_second_screen) return
         if (node.type === 'place') {
             if (current_page === 'seance') {
-                if (props.set_time_remaining !== undefined) {
-                    props.set_time_remaining(100)
+                if ((kiosk && props.pre_order.items.length < 5) || !kiosk) {
+                    if (props.set_time_remaining !== undefined) {
+                        props.set_time_remaining(100)
+                    }
+                    dispatch(cinema_position_add(props.city, props.filial, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
                 }
-                dispatch(cinema_position_add(props.city, props.filial, props.seance.uid, props.pre_order.uid, node.id, props.pre_order.ver))
             } else {
                 if (mode === 'block') {
                     dispatch(cinema_place_block(props.filial, props.hall, node.id))

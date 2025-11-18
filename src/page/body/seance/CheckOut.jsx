@@ -33,10 +33,10 @@ const CheckOut = () => {
                         <Box className="checkout-order-tickets-box">
                             <Box className="checkout-order-tickets">
                                 {pre_order.items.map(ticket => {
-                                    return (<Ticket
+                                    return <Ticket
                                         key={ticket.uid}
                                         ticket={ticket}
-                                    />)
+                                    />
                                 })}
                             </Box>
                         </Box>

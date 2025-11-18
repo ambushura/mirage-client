@@ -20,18 +20,20 @@ import {
     setPreOrderTimeRemaining
 } from "../../redux/ordersReducer.js"
 import SeanceTitle from "../../components/cinema/SeanceTitle.jsx"
-import {ticket_count} from "../../service/advanced.js"
+import {get_date_shift, ticket_count} from "../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {setKioskCheckout} from "../../redux/interfaceReducer.js"
 import Loader from "../../ui/Loader.jsx"
 import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
+import dayjs from "dayjs";
 
 const CheckoutMenu = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const filial = useSelector(state => state.data.filial)
+    const wp = useSelector(state => state.interface.wp)
+    const {city, filial} = useSelector(state => state.data)
     const uid_user = useSelector(state => state.auth.uid)
     const pre_order = useSelector(state => state.orders.pre_order)
     const pre_order_paying = useSelector(state => state.orders.pre_order_paying)
@@ -45,7 +47,7 @@ const CheckoutMenu = () => {
     useEffect(() => {
         if (uid_user === null) {
             if (pre_order_time_remaining <= 1) {
-                navigate(-1)
+                if (city !== undefined && filial !== undefined) navigate(`/films/${city.code}/${filial.eais}/${dayjs(get_date_shift(new Date())).format('YYYY-MM-DD')}/?${wp !== null ? 'wp=' + wp : ''}&kiosk`)
                 dispatch(cinema_order_delete(filial, pre_order.uid, pre_order.ver))
             }
         }
