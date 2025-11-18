@@ -127,6 +127,8 @@ const CheckoutMenu = () => {
                 </Box>
             </Box>}
             {kiosk_checkout === 1 && <Box id='seance-title'>
+                <Box sx={{fontSize: '150%'}}>Внимание! Вы покупатете билет на
+                    сеанс {dayjs(pre_order.seance_beginning).format("D MMMM")}!</Box>
                 <Box id="checkout-total">
                     <Box id='checkout-total-box'>
                         <Box className="checkout-order-title-box">

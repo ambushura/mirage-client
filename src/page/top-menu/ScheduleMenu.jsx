@@ -6,7 +6,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
-import {date_dayjs, from_dayjs_to_str, to_str_DAY} from "../../service/advanced.js"
+import {date_dayjs, from_dayjs_to_str, get_date_shift, to_str_DAY} from "../../service/advanced.js"
 import Calendar from "../../ui/Calendar.jsx"
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
@@ -35,8 +35,7 @@ const ScheduleMenu = () => {
     const dispatch = useDispatch()
 
     // Данные из хранилища
-    const city = useSelector(state => state.data.city)
-    const filial = useSelector(state => state.data.filial)
+    const {city, filial} = useSelector(state => state.data)
     const film = useSelector(state => state.schedule.film)
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -97,12 +96,12 @@ const ScheduleMenu = () => {
                         const current_param_date = from_dayjs_to_str(date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
                     }}>Сегодня</Button>
-                <Button
+                {(!kiosk || (kiosk && dayjs(param_date).add(-1, 'day') >= dayjs(get_date_shift(new Date())))) && <Button
                     onClick={() => {
                         const current_date = dayjs(param_date).add(-1, 'day')
                         const current_param_date = from_dayjs_to_str(current_date)
                         navigate(`/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}/${current_page === 'film' ? film.uid + '/' : ''}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`)
-                    }}><KeyboardArrowLeftIcon/></Button>
+                    }}><KeyboardArrowLeftIcon/></Button>}
                 <Button
                     aria-describedby={id} onClick={handleClick}
                     endIcon={<KeyboardArrowDownIcon/>}>
