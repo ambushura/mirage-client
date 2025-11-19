@@ -10,7 +10,7 @@ import {
 import {useDispatch, useSelector} from "react-redux"
 import {cinema_order_delete, common_order_pay} from "../../service/fetch_service.js"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {
     ORDER_TIME_OUT,
@@ -25,7 +25,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {setKioskCheckout} from "../../redux/interfaceReducer.js"
 import Loader from "../../ui/Loader.jsx"
 import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
-import dayjs from "dayjs";
+import dayjs from "dayjs"
 
 const CheckoutMenu = () => {
 
@@ -70,6 +70,18 @@ const CheckoutMenu = () => {
     useEffect(() => {
         dispatch(setPreOrderTimeRemaining(ORDER_TIME_REMAINING))
     }, [pre_order.ver])
+
+    const [payStarted, setPayStarted] = useState(false)
+    useEffect(() => {
+        if (!payStarted) return
+        if (!pre_order_paying) {
+            if (kiosk_payment_error === null) {
+                navigate(`/films/${city.code}/${filial.eais}/${dayjs(get_date_shift(new Date())).format('YYYY-MM-DD')}/?${wp ? 'wp=' + wp : ''}&kiosk`)
+            }
+            setPayStarted(false)
+        }
+
+    }, [payStarted, pre_order_paying, kiosk_payment_error, city, filial, wp])
 
     if (seance !== undefined && hall !== null) {
         return <Box className='seance-header-kiosk glass-effect'>
@@ -139,6 +151,7 @@ const CheckoutMenu = () => {
                     <Button onClick={async () => {
                         await dispatch(setKioskPaymentError(null))
                         await dispatch(setPreOrderPaying(true))
+                        setPayStarted(true)
                         await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group))
                         await dispatch(setPreOrderPaying(false))
                     }} variant='contained' color='primary' sx={{

@@ -14,7 +14,9 @@ const CheckOut = () => {
     const kiosk_payment_error = useSelector(state => state.orders.kiosk_payment_error)
 
     useEffect(() => {
-        dispatch(common_orders_receipts_get(filial, 'cinema', pre_order.uid))
+        if (pre_order.in_base) {
+            dispatch(common_orders_receipts_get(filial, 'cinema', pre_order.uid))
+        }
         return () => {
             dispatch(setKioskPaymentError(null))
         }

@@ -134,6 +134,11 @@ const Header = () => {
         }
     }, [current_page])
 
+    const [show_slider, set_show_slider] = useState(false)
+    useEffect(() => {
+        set_show_slider(kiosk && !kiosk_checkout && current_page !== "seance")
+    }, [kiosk, kiosk_checkout, current_page])
+
     const its_second_screen = useSelector(state => state.interface.its_second_screen)
 
     if (its_second_screen) {
@@ -156,7 +161,7 @@ const Header = () => {
         </header>
     } else {
         return <header id="header" className='glass-effect'>
-            {kiosk && !kiosk_checkout && current_page !== 'seance' && <TopSlider/>}
+            {show_slider && <TopSlider/>}
             {((!kiosk || (kiosk && !['seance'].includes(current_page)))) &&
                 <Box id="main-menu" style={{justifyContent: kiosk ? 'center' : 'space-between'}}>
                     <ButtonGroup id="header-menu-list" variant="contained" color='secondary' size='small'>
