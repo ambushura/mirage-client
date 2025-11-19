@@ -76,7 +76,8 @@ export default function PageFilm() {
                             <Box className='seances-body-description'>
                                 <Box
                                     className='seances-body-description-name'>{film.name}</Box>
-                                <Box className='seances-body-description-genre'>ужасы, триллеры</Box>
+                                <Box
+                                    className='seances-body-description-genre'>{film.duration} мин. {film.rate_age}+</Box>
                                 <Box>{film.description}</Box>
                             </Box>
                             {film_seances.map(filial_data => {

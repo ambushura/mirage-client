@@ -22,7 +22,7 @@ const FilmCard = (props) => {
         </Box>
         <Box className='film-description'>
             <Box className='film-description-name'>{props.film.name}</Box>
-            <Box className='film-description-genre'>ужасы, триллер</Box>
+            <Box className='film-description-genre'>{props.film.duration} мин.</Box>
         </Box>
     </NavLink>
 }
