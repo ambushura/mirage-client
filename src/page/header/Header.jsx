@@ -164,7 +164,8 @@ const Header = () => {
             {show_slider && <TopSlider/>}
             {((!kiosk || (kiosk && !['seance'].includes(current_page)))) &&
                 <Box id="main-menu" style={{justifyContent: kiosk ? 'center' : 'space-between'}}>
-                    <ButtonGroup id="header-menu-list" variant="contained" color='secondary' size='small'>
+                    <ButtonGroup id="header-menu-list" variant="contained" color={!kiosk ? 'secondary' : 'primary'}
+                                 size={!kiosk ? 'small' : 'large'}>
                         {uid_user === null ? top_menu[0].map(el => <NavLink key={el.id} className='link'
                                                                             to={el.path}>
                             {main_button(el)}

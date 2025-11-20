@@ -170,7 +170,7 @@ const OrderCinema = ({order}) => {
                     marginRight: '4px',
                     flex: 1,
                 }}>
-                    <span>{dayjs.utc(order.date_create).format("DD.MM")}</span>
+                    <span>{dayjs.utc(order.date_create).format("DD.MM.YY")}</span>
                     <span>{dayjs.utc(order.date_create).format("HH:mm")}</span>
                     <span style={{color: '#8B919B'}}> {dayjs.utc(order.date_change).format("HH:mm")}</span>
                 </Box>
@@ -189,7 +189,7 @@ const OrderCinema = ({order}) => {
             }}>
                 <Box sx={{
                     fontWeight: 'bold', marginRight: '10px'
-                }}>{order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box>
+                }}>{dayjs(order.seance_date_shift).format("DD.MM.YY")} · {order.film_name} {order.film_copy_type} {order.film_rate_age}+</Box>
                 <Box
                     sx={{
                         fontWeight: 'bold', color: '#8B919B'
