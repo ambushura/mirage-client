@@ -71,7 +71,7 @@ export function useSetSecondScreen() {
         }
     }, [dispatch, filial, show_horder, uid_horder, ver_horder])
 
-    useEffect(() => {
+    useEffect((update_booking) => {
         const fetch = async () => {
             const fetching_result = await dispatch(second_screen_booking_get(filial, uid_seance, uid_pre_order, ver_pre_order))
             if (fetching_result.loading) {
@@ -81,6 +81,6 @@ export function useSetSecondScreen() {
         if (filial !== undefined && uid_seance !== null) {
             fetch()
         }
-    }, [dispatch, filial, uid_pre_order, uid_seance, ver_pre_order])
+    }, [dispatch, filial, uid_pre_order, uid_seance, ver_pre_order, update_booking])
 
 }

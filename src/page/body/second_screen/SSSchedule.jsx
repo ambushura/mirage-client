@@ -15,11 +15,12 @@ const SsSchedule = () => {
     const schedule = useSelector(state => state.second_screen.schedule || [])
 
     if (schedule.length === 0) {
-        return <Box>Расписание загружается</Box>
+        return <Box className='empty-box' sx={{color: 'black'}}>Пока не придумали, что вам показать в этот день :(</Box>
     }
 
     return <Box className="ss-schedule">
         {schedule.map(film => {
+
             const seances = film.seances || []
             const mainSeances = seances.slice(0, 3)
             const extraSeances = seances.slice(3)
@@ -43,7 +44,7 @@ const SsSchedule = () => {
 
                 <div className="bottom-cards">
                     {mainSeances.map(seance => <div key={seance.uid} className="card glass-effect">
-                        {dayjs(seance.beginning).format("HH:mm")}
+                        {dayjs.utc(seance.beginning).format("HH:mm")}
                         <br/><span className='card-price'>от {minPrice(seance.tariff) || 0}</span>
                     </div>)}
                 </div>
