@@ -11,8 +11,8 @@
 
 .movie-block {
     position: relative;
-    width: 224px;
-    height: 268px;
+    height: 201px;
+    width: 168px;
     overflow: hidden;
     border-radius: 18px;
     margin: 15px 15px 0 0;
@@ -22,8 +22,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 174px;
-    height: 268px;
+    width: 131px;
+    height: 201px;
     object-fit: cover;
     border-radius: 10px 0 0 10px;
 }
@@ -40,7 +40,7 @@
     position: absolute;
     top: 65px;
     left: 0;
-    width: 174px;
+    width: 131px;
     height: 30px;
     display: flex;
     justify-content: space-around;
@@ -62,7 +62,7 @@
 .film-title {
     position: absolute;
     bottom: 0px;
-    width: 174px;
+    width: 131px;
     color: white;
     text-align: center;
     padding: 16px 0;
@@ -70,6 +70,7 @@
     backdrop-filter: blur(10px) saturate(120%);
     -webkit-backdrop-filter: blur(10px) saturate(120%);
     will-change: backdrop-filter;
+    font-size: 75%;
 }
 
 /* Нижние карточки */
@@ -77,7 +78,7 @@
     position: absolute;
     top: 8px;
     left: 0;
-    width: 174px;
+    width: 131px;
     display: flex;
     justify-content: center;
     gap: 6px;
@@ -87,7 +88,7 @@
     color: #fff;
     padding: 4px 6px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 10px;
     text-align: center;
     line-height: 1.2;
 }
@@ -123,7 +124,7 @@
     color: #fff;
     text-align: center;
     padding: 8px 0;
-    font-size: 14px;
+    font-size: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     white-space: nowrap;
 }

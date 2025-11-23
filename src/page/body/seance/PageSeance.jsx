@@ -39,38 +39,28 @@ const PageSeance = () => {
     }, [dispatch, filial, seance, pre_order.in_base])
 
     useEffect(() => {
-        const fetch = async () => {
-            const fetching_result = await dispatch(cinema_seance_get(filial, uid_seance))
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
-                dispatch(setSeance(fetching_result.data))
+        dispatch(setSeance(undefined))
+        if (!filial || !uid_seance) return
+        const load = async () => {
+            const r = await dispatch(cinema_seance_get(filial, uid_seance))
+            if (!r.error && r.data) {
+                dispatch(setSeance(r.data))
             }
         }
-        dispatch(setSeance(undefined))
-        if (filial !== undefined && uid_seance !== undefined) {
-            fetch()
-        }
-        return () => dispatch(setSeance(undefined))
-    }, [dispatch, filial, uid_seance])
+        load()
+    }, [uid_seance, filial])
 
     useEffect(() => {
-        const fetch = async () => {
-            const fetching_result = await dispatch(cinema_hall_get(filial, seance.uid_hall, 'cinema'))
-            if (fetching_result.loading) {
-                // TODO Крутилка
-            } else if (fetching_result.error === null && fetching_result.data !== null) {
-                dispatch(setHall(fetching_result.data))
+        dispatch(setHall(null))
+        if (!seance?.uid_hall || !filial) return
+        const load = async () => {
+            const r = await dispatch(cinema_hall_get(filial, seance.uid_hall, 'cinema'))
+            if (!r.error && r.data) {
+                dispatch(setHall(r.data))
             }
         }
-        dispatch(setHall(null))
-        if (filial !== undefined && seance !== undefined) {
-            fetch()
-        }
-        return () => {
-            dispatch(setHall(null))
-        }
-    }, [dispatch, filial, seance])
+        load()
+    }, [filial, seance?.uid_hall])
 
     useEffect(() => {
         dispatch(setPreOrderTimeRemaining(ORDER_TIME_REMAINING))

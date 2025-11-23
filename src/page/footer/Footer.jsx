@@ -18,7 +18,7 @@ const Footer = () => {
 
     return <footer id="footer" className='glass-effect'>
         <div>© «МИРАЖ СИНЕМА» {new Date().getFullYear()}</div>
-        <div>{wp}</div>
+        {!its_second_screen && <div>{wp}</div>}
         {!kiosk && !its_second_screen && <div style={{position: 'absolute', right: 0}}>
             <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} size='small' variant='outlined'
                     color='secondary'
