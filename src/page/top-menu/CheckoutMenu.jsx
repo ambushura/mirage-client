@@ -83,6 +83,14 @@ const CheckoutMenu = () => {
 
     }, [payStarted, pre_order_paying, kiosk_payment_error, city, filial, wp])
 
+    const pay = async () => {
+        await dispatch(setKioskPaymentError(null))
+        await dispatch(setPreOrderPaying(true))
+        setPayStarted(true)
+        await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group))
+        await dispatch(setPreOrderPaying(false))
+    }
+
     if (seance !== undefined && hall !== null) {
         return <Box className='seance-header-kiosk glass-effect'>
             <Box className='order-panel'>
@@ -139,7 +147,7 @@ const CheckoutMenu = () => {
                 </Box>
             </Box>}
             {kiosk_checkout === 1 && <Box id='seance-title'>
-                <Box sx={{fontSize: '150%'}}>Внимание! Вы покупатете билет на
+                <Box sx={{fontSize: '150%'}}>Внимание! Вы покупаете билет на
                     сеанс {dayjs(pre_order.seance_beginning).format("D MMMM")}!</Box>
                 <Box id="checkout-total">
                     <Box id='checkout-total-box'>
@@ -149,43 +157,52 @@ const CheckoutMenu = () => {
                         </Box>
                     </Box>
                     <Button onClick={async () => {
-                        await dispatch(setKioskPaymentError(null))
-                        await dispatch(setPreOrderPaying(true))
-                        setPayStarted(true)
-                        await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group))
-                        await dispatch(setPreOrderPaying(false))
+                        if (dayjs(pre_order.seance_date_shift).isSame(dayjs(get_date_shift(new Date())), 'day')) {
+                            await pay()
+                        } else {
+                            dispatch(setKioskCheckout(2))
+                        }
                     }} variant='contained' color='primary' sx={{
-                        width: '100%', marginTop: '10px'
+                        marginTop: '10px', width: '250px'
                     }}>{kiosk_payment_error === null ? 'Оплатить' : 'Повторить оплату'}</Button>
                 </Box>
-                <MuiDialog
-                    open={pre_order_paying}
-                    onClose={() => {
-                    }}
-                    aria-labelledby="paying-process"
-                    slotProps={{
-                        sx: {backgroundColor: '#EFEFEF', color: 'black', minWidth: '500px'}
-                    }}>
-                    <Box sx={{
-                        display: 'flex', flexDirection: 'row', justifyContent: 'space-around', minWidth: '500px'
-                    }}>
-                        <Box>
-                            <Loader size={1.8}/>
-                        </Box>
-                        <Box>
-                            <DialogTitle sx={{fontSize: '200%', fontWeight: 900, paddingBottom: 0}}>Оплата
-                                заказа</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText sx={{fontSize: '100%', fontWeight: 900}}>
-                                    Следуйте инструкциям на пинпаде
-                                </DialogContentText>
-                            </DialogContent>
-                        </Box>
-                    </Box>
-                </MuiDialog>
             </Box>}
+            {kiosk_checkout === 2 && <Box id='seance-title'>
+                <Box sx={{fontSize: '200%'}}>Внимание!</Box>
+                <Box sx={{fontSize: '200%'}}>Вы покупаете билеты на сеанс, который
+                    пройдет {dayjs(pre_order.seance_beginning).format("D MMMM, dddd")}.<br/>
+                    Денежные средства возвращаются в течение 30 банковских дней.</Box>
+                <Button sx={{width: '250px'}} variant='contained' color='primary' onClick={async () => {
+                    await pay()
+                }}>Да, подтверждаю</Button>
+            </Box>}
+            <MuiDialog
+                open={pre_order_paying}
+                onClose={() => {
+                }}
+                aria-labelledby="paying-process"
+                slotProps={{
+                    sx: {backgroundColor: '#EFEFEF', color: 'black', minWidth: '500px'}
+                }}>
+                <Box sx={{
+                    display: 'flex', flexDirection: 'row', justifyContent: 'space-around', minWidth: '500px'
+                }}>
+                    <Box>
+                        <Loader size={1.8}/>
+                    </Box>
+                    <Box>
+                        <DialogTitle sx={{fontSize: '200%', fontWeight: 900, paddingBottom: 0}}>Оплата
+                            заказа</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText sx={{fontSize: '100%', fontWeight: 900}}>
+                                Следуйте инструкциям на пинпаде
+                            </DialogContentText>
+                        </DialogContent>
+                    </Box>
+                </Box>
+            </MuiDialog>
         </Box>
     }
 }
 
-export default CheckoutMenu;
+export default CheckoutMenu
