@@ -116,7 +116,7 @@ export function ScrollingSessions({seances}) {
     return <Box className="scrolling-sessions" ref={wrapperRef}>
         <div className="scroll-content" ref={containerRef}>
             {seances.map(seance => <Box key={seance.uid} className="session">
-                {dayjs(seance.beginning).format("HH:mm")}
+                {dayjs.utc(seance.beginning).format("HH:mm")}
                 <br/><span className='card-price'>от {minPrice(seance.tariff) || 0}</span>
             </Box>)}
         </div>
