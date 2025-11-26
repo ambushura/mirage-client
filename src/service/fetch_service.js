@@ -69,6 +69,7 @@ import {
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_COMMON_PAYMENT_MAP_GET,
     ROUTE_COMMON_PAYMENT_METHODS_GET,
+    ROUTE_EQUIPMENT_CANDY_STATE_GET,
     ROUTE_EQUIPMENT_KKT_BILL_PRINT,
     ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
     ROUTE_EQUIPMENT_KKT_Z,
@@ -115,6 +116,7 @@ import {setHall} from "../redux/hallsReducer.js"
 import {setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate} from "../redux/documentsReducer.js"
 import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} from "../redux/secondScreenReducer.js"
 import {setNeedUpdate} from "../redux/interfaceReducer.js"
+import {setCandy} from "../redux/dataReducer.js"
 
 export const TIMEOUT = 10000
 
@@ -1456,4 +1458,19 @@ export const common_documents_slip_get = (filial, uid) => async (dispatch, getSt
         kiosk,
         version,
     }, data => data)
+}
+
+export const equipment_candy_state_get = (filial) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_EQUIPMENT_CANDY_STATE_GET}`,
+        params: {},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => {
+        dispatch(setCandy(data))
+    })
 }

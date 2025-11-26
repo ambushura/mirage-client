@@ -38,7 +38,7 @@ const initialState = {
     kiosk: false,
     its_second_screen: false,
     wp: null,
-    version: '1.000',
+    version: '1.001',
     need_update: false,
     dev: true,
     app_width: undefined,
