@@ -90,7 +90,7 @@ const Operation = () => {
         const prepared = {
             ...data,
             uid_wallet_in: data.uid_wallet_in !== '' ? data.uid_wallet_in : null,
-            uid_wallet_out: data.uid_wallet_out !== '' ? data.uid_wallet_out : null, //sum_in: data.uid_wallet_in !== '' ? parseFloat(data.sum_in) : null,
+            uid_wallet_out: data.uid_wallet_out !== '' ? data.uid_wallet_out : null,
         }
         if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
             .startOf('day')
