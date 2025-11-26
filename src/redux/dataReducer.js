@@ -11,7 +11,7 @@ export const dataSlice = createSlice({
         }, setCity: (state, {payload}) => {
             state.city = payload ?? undefined
         }, setFilial: (state, {payload}) => {
-            state.filial = payload ?? {wp: null, candy: null}
+            state.filial = payload ?? undefined
         }, setCandy: (state, {payload}) => {
             state.candy = payload ?? {wp: null, candy: null}
         }
