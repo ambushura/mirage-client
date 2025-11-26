@@ -81,6 +81,6 @@ export function useSetSecondScreen() {
         if (filial !== undefined && uid_seance !== null) {
             fetch()
         }
-    }, [dispatch, filial, uid_pre_order, uid_seance, ver_pre_order])
+    }, [dispatch, filial, uid_pre_order, uid_seance, ver_pre_order, current_page])
 
 }

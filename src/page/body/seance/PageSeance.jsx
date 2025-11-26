@@ -39,28 +39,36 @@ const PageSeance = () => {
     }, [dispatch, filial, seance, pre_order.in_base])
 
     useEffect(() => {
-        dispatch(setSeance(undefined))
         if (!filial || !uid_seance) return
+        let cancelled = false
+        dispatch(setSeance(undefined))
         const load = async () => {
             const r = await dispatch(cinema_seance_get(filial, uid_seance))
-            if (!r.error && r.data) {
+            if (!cancelled && !r.error && r.data) {
                 dispatch(setSeance(r.data))
             }
         }
         load()
+        return () => {
+            cancelled = true
+        }
     }, [uid_seance, filial])
 
     useEffect(() => {
-        dispatch(setHall(null))
-        if (!seance?.uid_hall || !filial) return
+        if (!seance || !seance.uid_hall || !filial) return
+        let cancelled = false
         const load = async () => {
             const r = await dispatch(cinema_hall_get(filial, seance.uid_hall, 'cinema'))
-            if (!r.error && r.data) {
+            if (!cancelled && !r.error && r.data) {
                 dispatch(setHall(r.data))
             }
         }
         load()
-    }, [filial, seance?.uid_hall])
+        return () => {
+            cancelled = true
+            dispatch(setHall(null))
+        }
+    }, [filial, seance?.uid_hall, seance?.uid])
 
     useEffect(() => {
         dispatch(setPreOrderTimeRemaining(ORDER_TIME_REMAINING))

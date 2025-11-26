@@ -49,7 +49,6 @@ export const secondScreenSlice = createSlice({
         }, setSSSeance: (state, action) => {
             state.seance = action.payload.seance
             state.hall = action.payload.hall
-            state.booking = action.payload.booking
         }, setSSPreOrder: (state, action) => {
             state.pre_order = action.payload
         }, setSSHorder: (state, action) => {
