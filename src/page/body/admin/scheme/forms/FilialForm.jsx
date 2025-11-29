@@ -13,10 +13,8 @@ export function FilialForm({props}) {
     const [candy_update, set_candy_update] = useState(0)
 
     useEffect(() => {
+        dispatch(setCandy({wp: null, candy: null}))
         dispatch(equipment_candy_state_get(filial))
-        return () => {
-            dispatch(setCandy({wp: null, candy: null}))
-        }
     }, [candy_update])
 
     return <Box>
@@ -30,9 +28,11 @@ export function FilialForm({props}) {
                 </Typography>
                 <Box sx={{fontSize: '80%'}}>{candy.wp !== null && 'Рабочее место: ' + candy.wp}</Box>
                 <Box
-                    sx={{fontSize: '80%'}}>{candy.candy !== null && 'Последнее обращение: ' + dayjs(candy.candy).format("YY:MM:DD HH:MM:ss")}</Box>
-                <Box>{candy.wp === null && 'Рабочее место: не обнаружено'}</Box>
-                <Box sx={{marginBottom: '4px'}}>{candy.candy === null && 'Последнее обращение: не обнаружено'}</Box>
+                    sx={{fontSize: '80%'}}>{candy.candy !== null && 'Последнее обращение: ' + dayjs(candy.candy).format("YY:MM:DD HH:mm:ss")}</Box>
+                <Box sx={{fontSize: '80%'}}>{candy.wp === null && 'Рабочее место: не обнаружено'}</Box>
+                <Box sx={{
+                    fontSize: '80%', marginBottom: '4px'
+                }}>{candy.candy === null && 'Последнее обращение: не обнаружено'}</Box>
                 <Button variant='contained' color='secondary' onClick={() => {
                     set_candy_update(prev => prev += 1)
                 }}>Проверить состояние конфеты</Button>
