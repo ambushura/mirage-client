@@ -39,6 +39,7 @@ const HallMap = (props) => {
                 const updated_data = {
                     ...node.data,
                     state: bookingForNode?.state ?? node.data.state,
+                    source: bookingForNode?.source,
                     city: props.city,
                     filial: props.filial,
                 }
@@ -50,7 +51,7 @@ const HallMap = (props) => {
             setEdges(props.hall.edges)
             setTimeout(() => {
                 fitView({padding: 0.2})
-                setReady(true) // показываем после fitView
+                setReady(true)
             }, 0)
         }
     }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial, fitView])

@@ -121,7 +121,7 @@ export function useSetWS() {
                 case 'cinema':
                     if (data.action === 'position_add' && current_page === 'seance' && seance.uid === data.uid_seance) {
                         (async () => {
-                            const fetching_result = await dispatch(cinema_seance_booking_get(filial, data.uid_seance, pre_order.uid))
+                            const fetching_result = await dispatch(cinema_seance_booking_get(filial, data.uid_seance, pre_order.uid, false))
                             if (fetching_result.data) dispatch(setBooking(fetching_result.data))
                         })()
                     }

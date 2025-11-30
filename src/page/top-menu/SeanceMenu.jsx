@@ -5,13 +5,17 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import {useNavigate} from "react-router-dom"
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import {openModal} from "../../redux/interfaceReducer.js"
+import {cinema_seance_booking_get} from "../../service/fetch_service.js";
+import {setBooking} from "../../redux/scheduleReducer.js";
 
 const SeanceMenu = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const filial = useSelector(state => state.data.filial)
     const seance = useSelector(state => state.schedule.seance)
     const user = useSelector(state => state.auth.uid)
+    const pre_order = useSelector(state => state.orders.pre_order)
 
     return seance !== undefined && <Box id="top-menu">
         <Box sx={{
@@ -62,10 +66,20 @@ const SeanceMenu = () => {
             </Box>
             {!seance.canceled && seance.opened && user !== null &&
                 <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Button variant='outlined' color='secondary' sx={{marginRight: '4px'}} onClick={async () => {
+                        if (seance !== undefined) {
+                            const fetching_result = await dispatch(cinema_seance_booking_get(filial, seance.uid, pre_order.uid, true))
+                            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
+                                dispatch(setBooking(fetching_result.data))
+                            }
+                        }
+                    }}>Уточнить брони</Button>
                     <Button variant='contained' color='primary' onClick={() => {
-                        dispatch(openModal({
-                            type: 'seance_cancellation', props: {uid_seance: seance.uid, ver: seance.ver}
-                        }))
+                        if (seance !== undefined) {
+                            dispatch(openModal({
+                                type: 'seance_cancellation', props: {uid_seance: seance.uid, ver: seance.ver}
+                            }))
+                        }
                     }}>Отменить сеанс</Button>
                 </Box>}
         </Box>

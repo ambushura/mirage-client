@@ -819,12 +819,12 @@ export const cinema_halls_filters_get = (filial, date_shift) => async (dispatch,
     }, data => data)
 }
 
-export const cinema_seance_booking_get = (filial, uid_seance, uid_order) => async (dispatch, getState) => {
+export const cinema_seance_booking_get = (filial, uid_seance, uid_order, full) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`,
-        params: {uid_seance, uid_order},
+        params: {uid_seance, uid_order, full},
         filial,
         wp,
         kiosk,

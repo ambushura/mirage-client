@@ -1,4 +1,7 @@
 import {Box} from "@mui/material"
+import LaptopWindowsIcon from '@mui/icons-material/LaptopWindows'
+import SmartphoneIcon from '@mui/icons-material/Smartphone'
+import LanguageIcon from '@mui/icons-material/Language'
 
 export function Place({data}) {
 
@@ -7,42 +10,55 @@ export function Place({data}) {
         1: {body: 'linear-gradient(180deg, #34363b 0%, #767b83 100%)', handler: '#414650'}, // сломанное
         2: {body: 'linear-gradient(180deg, #a0171e 0%, #e3000b 100%)', handler: '#e3000b'}, // занятое
         3: {body: 'linear-gradient(180deg, #ce810c 0%, #f0960e 100%)', handler: '#f0960e'}, // выбранное
+        4: {body: 'linear-gradient(180deg, #fd4300 0%, #fd4300 100%)', handler: '#fd4300'}, // занятое (неоплаченное)
+    }
+
+    const sourceIcon = {
+        w: <LaptopWindowsIcon size={14} color="black"/>,
+        k: <SmartphoneIcon size={14} color="black"/>,
+        s: <LanguageIcon size={14} color="black"/>,
     }
 
     const handler_array = () => {
         const heads_array = new Array(data.heads).fill(0)
-        return (
-            <>
-                {heads_array.map((head, i) => {
-                    return (
-                        <div key={`${data.uid}${i}`}
-                             style={{
-                                 backgroundColor: place_color[data.state].handler,
-                                 width: '16px',
-                                 height: '6px',
-                                 border: '1px solid black',
-                                 borderRadius: '4px',
-                             }}>
-                        </div>
-                    )
-                })}
-            </>
-        )
+        return <>
+            {heads_array.map((head, i) => {
+                return <div key={`${data.uid}${i}`}
+                            style={{
+                                backgroundColor: place_color[data.state].handler,
+                                width: '16px',
+                                height: '6px',
+                                border: '1px solid black',
+                                borderRadius: '4px',
+                            }}>
+                </div>
+            })}
+        </>
     }
 
     return <Box
         key={data.uid}
         className='place'
         sx={{
-            width: `${data.width}px`,
-            height: `${data.height}px`
+            width: `${data.width}px`, height: `${data.height}px`
         }}>
-        <Box className='place-body' sx={{background: place_color[data.state].body}}>
+        <Box className='place-body' style={{background: place_color[data.state].body}}>
+            {data.source && <Box
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    pointerEvents: "none",
+                }}
+            >
+                {sourceIcon[data.source]}
+            </Box>}
             <Box className='place-label'>
                 <Box className='place-heads'>
                     {handler_array()}
                 </Box>
-                {data.number}
+                {data.source === undefined ? data.number : ''}
             </Box>
         </Box>
     </Box>

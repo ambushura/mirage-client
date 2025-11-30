@@ -26,7 +26,7 @@ const PageSeance = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(cinema_seance_booking_get(filial, seance.uid, pre_order.uid))
+            const fetching_result = await dispatch(cinema_seance_booking_get(filial, seance.uid, pre_order.uid, false))
             if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
                 dispatch(setBooking(fetching_result.data))
             }
