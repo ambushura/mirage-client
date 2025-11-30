@@ -52,6 +52,7 @@ const Dialog = ({props}) => {
             case 'dialog_delete_operation':
                 dispatch(common_documents_operation_delete(props.filial, props.uid))
                 dispatch(setOperationsUpdate())
+                break
             default:
                 break
         }
