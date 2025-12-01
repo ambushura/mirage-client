@@ -2170,3 +2170,22 @@
     letter-spacing: 0.02857em;
     font-size: 0.875rem;
 }
+
+
+/* Общий итог (верхний уровень) */
+.MuiDataGrid-row.row-total-grand {
+    background: #cac6c6 !important;
+    font-weight: 700;
+}
+
+/* Итог по owner (организация / сотрудник) */
+.MuiDataGrid-row.row-total-owner {
+    background: #f3f7ff !important;
+    font-weight: 600;
+}
+
+/* Итог по KKT */
+.MuiDataGrid-row.row-total-kkt {
+    background: #eefaf3 !important;
+    font-weight: 600;
+}

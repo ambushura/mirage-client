@@ -1193,12 +1193,12 @@ export const common_documents_pinpads_get = (filial, date_shift, update) => asyn
     }, data => data)
 }
 
-export const common_documents_sales_get = (filial, date_shift, update) => async (dispatch, getState) => {
+export const common_documents_sales_get = (filial, date_shift, variant, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SALES_GET}`,
-        params: {date_shift, update},
+        params: {date_shift, variant, update},
         filial,
         wp,
         kiosk,

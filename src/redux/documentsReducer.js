@@ -47,6 +47,7 @@ const initialState = {
     caption_operation: null,
 
     // Продажи
+    sales_variant: 'detailed',
     sales: {columns: [], rows: [], columnGroupingModel: []},
 }
 
@@ -110,7 +111,7 @@ export const dataSlice = createSlice({
         }, cleanSlips: (state) => {
             state.slips = {date_shift: '', uid_pinpad: '', slips: []}
         }, setSales: (state, {payload}) => {
-            state.sales = {...state.sales, ...payload}
+            state.sales = payload
         }, cleanSales: (state) => {
             state.sales = {columns: [], rows: [], columnGroupingModel: []}
         }, setCaptionZAcquiring(state, {payload}) {
@@ -129,7 +130,9 @@ export const dataSlice = createSlice({
             state.trigger_delete_operation = payload
         }, setCaptionOperation(state, {payload}) {
             state.caption_operation = payload
-        },
+        }, setSalesVariant(state, {payload}) {
+            state.sales_variant = payload
+        }
     },
 })
 
@@ -169,6 +172,7 @@ export const {
     setSlipOrder,
     setTriggerSubmitOperation,
     setTriggerDeleteOperation,
-    setCaptionOperation
+    setCaptionOperation,
+    setSalesVariant
 } = dataSlice.actions
 export default dataSlice.reducer

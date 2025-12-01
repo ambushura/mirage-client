@@ -70,6 +70,7 @@ import {
     setCurrentPinpad,
     setOperationsDetails,
     setOperationsPage,
+    setSalesVariant,
     setTriggerDeleteOperation,
     setTriggerDeleteReceipt,
     setTriggerDeleteSlip,
@@ -837,6 +838,18 @@ export function SlipMenu() {
     </Box>
 }
 
+export function SalesMenu() {
+
+    const dispatch = useDispatch()
+
+    const {sales_variant} = useSelector(state => state.documents)
+
+    return <ButtonGroup variant='contained'>
+        <Button color={sales_variant === 'detailed' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setSalesVariant('detailed'))}>Детальный</Button>
+    </ButtonGroup>
+}
+
 export default function AdminMenu() {
 
     const current_page = useSelector(state => state.interface.current_page)
@@ -851,6 +864,7 @@ export default function AdminMenu() {
                 <DateParamAdmin/>}
             {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
             {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
+            {current_page === 'admin/sales' && <SalesMenu/>}
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
             {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu/>}
