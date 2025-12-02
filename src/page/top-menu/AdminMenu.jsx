@@ -846,7 +846,7 @@ export function SalesMenu() {
 
     return <ButtonGroup variant='contained'>
         <Button color={sales_variant === 'detailed' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setSalesVariant('detailed'))}>Детальный</Button>
+                onClick={() => dispatch(setSalesVariant('detailed'))}>Выручка</Button>
     </ButtonGroup>
 }
 

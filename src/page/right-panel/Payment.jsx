@@ -370,7 +370,7 @@ const Payment = (props) => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
                                             if (pm.uid !== 'Другие способы') {
-                                                if (item.name_payment_type !== pm.name && payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
+                                                if (item.name_payment_type !== pm.name && payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) || pm.hidden) {
                                                     ok = false
                                                 }
                                             }
@@ -381,7 +381,7 @@ const Payment = (props) => {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if ((payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) && pm.uid === 'Заявление') || (item.name_payment_type !== null && item.name_payment_type !== pm.name)) {
+                                            if ((payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) && pm.uid === 'Заявление') || (item.name_payment_type !== null && item.name_payment_type !== pm.name) || pm.hidden) {
                                                 ok = false
                                             }
                                         })

@@ -25,7 +25,7 @@ export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
 }, {id: "kitchen", name: "Кухня", path: ""}, {
     id: "admin", name: "Кинокомплекс", path: [{id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""}, {
         id: "admin/orders/horeca", name: "Заказы (товары)", path: ""
-    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {id: "admin/sales", name: "Выручка", path: ""}, {
+    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {id: "admin/sales", name: "Отчеты", path: ""}, {
         id: "admin/zbooks", name: "Кассовые документы", path: ""
     }, {id: "admin/acquiring", name: "Эквайринг", path: ""}, {
         id: "admin/operations", name: "Операции по кассам", path: ""
@@ -39,8 +39,8 @@ const initialState = {
     its_second_screen: false,
     wp: null,
     version: '1.001',
-    need_update: false,
-    dev: false,
+    need_update: true,
+    dev: true,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,

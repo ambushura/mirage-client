@@ -99,7 +99,7 @@ const OthersPaymentTypes = ({props}) => {
                                 className='payment-path'
                                 sx={{margin: '0 0 4px 4px'}}
                                 onClick={() => {
-                                    if (pm.name === 'Безналичные (б/т)' || pm.name === 'На расчетный счет') {
+                                    if (pm.name === 'Безналичные (б/т)' || pm.name === 'На расчетный счет' || pm.name === 'Наличные' || pm.name === 'Безналичные') {
                                         props.pay(pm)
                                         dispatch(closeModal())
                                     } else {

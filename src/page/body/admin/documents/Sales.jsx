@@ -38,6 +38,7 @@ const Sales = () => {
     } else if (sales_variant === 'detailed') {
         return <Box sx={{minHeight: '100%'}}>
             {rows.length > 1 ? <DataGridPro
+                hideFooter
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 rows={rows}
                 columns={columns}
@@ -48,6 +49,7 @@ const Sales = () => {
                 density="compact"
                 disableSelectionOnClick
                 hideFooterSelectedRowCount
+                experimentalFeatures={{columnGrouping: true}}
                 columnVisibilityModel={columnVisibilityModel}
                 onColumnVisibilityModelChange={setColumnVisibilityModel}
                 getRowClassName={(params) => {
