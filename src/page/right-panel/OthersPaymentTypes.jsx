@@ -107,10 +107,11 @@ const OthersPaymentTypes = ({props}) => {
                                     }
                                 }}>
                                 <Box>
-                                    {pm.name === 'Безналичные (б/т)' ? <>
+                                    {pm.name === 'Безналичные (б/т)' || pm.name === 'Наличные' || pm.name === 'Безналичные' ? <>
                                         <Box>{pm.name}</Box>
                                         <Box sx={{fontSize: '70%'}}>ККТ ...{pm.kkt.number.slice(-4)}</Box>
-                                        <Box sx={{fontSize: '70%'}}>Пинпад ...{pm.pinpad.number.slice(-4)}</Box>
+                                        {pm.name !== 'Наличные' &&
+                                            <Box sx={{fontSize: '70%'}}>Пинпад ...{pm.pinpad.number.slice(-4)}</Box>}
                                     </> : pm.name === 'На расчетный счет' ? <Box>
                                         {pm.name}
                                         <Box sx={{fontSize: '70%'}}>ККТ ...{pm.kkt.number.slice(-4)}</Box>

@@ -39,7 +39,7 @@ const initialState = {
     its_second_screen: false,
     wp: null,
     version: '1.001',
-    need_update: true,
+    need_update: false,
     dev: true,
     app_width: undefined,
     app_height: undefined,
