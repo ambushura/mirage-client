@@ -55,19 +55,6 @@ const Payment = (props) => {
         const fetch = async () => {
             let fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type, false))
             if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
-                fetching_result.data.list.push({
-                    name: 'Другие способы',
-                    uid_kkt: '',
-                    uid_pinpad: '',
-                    uid_work_place: '',
-                    uid_filial: '',
-                    uid_printer_kkt: '',
-                    uid_printer: '',
-                    hidden: '',
-                    uid: 'Другие способы',
-                    kkt: {number: ''},
-                    pinpad: {number: ''}
-                })
                 set_payment_methods(fetching_result)
             }
         }
@@ -181,9 +168,9 @@ const Payment = (props) => {
 
             switch (chapter0) {
                 case 'for_payment':
-                    return groupAndSum(group, ["name", "unit_name", "price", "sum_discount", "uid_discount"], ["quantity", "sum"])
+                    return groupAndSum(group, ["name", "unit_name", "price", "sum_discount", "uid_discount", "name_payment_type"], ["quantity", "sum"])
                 case 'for_returning':
-                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "sum_discount", "uid_discount", "uid_return_reason", "name_return_reason", "comment_return_reason"], ["quantity", "sum"])
+                    return groupAndSum(group, ["uid", "name", "unit_name", "price", "sum_discount", "uid_discount", "uid_return_reason", "name_return_reason", "comment_return_reason", "name_payment_type"], ["quantity", "sum"])
                 default:
                     return []
             }
@@ -365,13 +352,31 @@ const Payment = (props) => {
                         const chapter2_array = ['mark_egais_items', 'horeca_items', 'cinema_items']
                         let ok = true
                         chapter0_array.forEach((chapter0) => {
-                            if (chapter0 === 'for_returning') {
+                            if (chapter0 === 'for_payment') {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if (pm.uid !== 'Другие способы') {
-                                                if (item.name_payment_type !== pm.name && payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) || pm.hidden) {
-                                                    ok = false
+                                            if (pm.hidden) {
+                                                ok = false
+                                            } else {
+                                                if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
+                                                    if (item.name_payment_type === null) {
+                                                        if (['Сервис', 'Отложенная оплата', 'Смешанная'].includes(item.name_payment_type)) {
+                                                            ok = false
+                                                        }
+                                                    } else {
+                                                        if (['СБП', 'Безналичные'].includes(item.name_payment_type) && pm.name !== 'Безналичные') {
+                                                            ok = false
+                                                        } else if (['Наличные'].includes(item.name_payment_type) && pm.name !== 'Наличные') {
+                                                            ok = false
+                                                        } else if (['Безналичные (б/т)'].includes(item.name_payment_type) && pm.name !== 'Безналичные (б/т)') {
+                                                            ok = false
+                                                        } else if (['На расчетный счет'].includes(item.name_payment_type) && pm.name !== 'На расчетный счет') {
+                                                            ok = false
+                                                        } else if (['Сервис', 'Отложенная оплата', 'Смешанная'].includes(item.name_payment_type)) {
+                                                            ok = false
+                                                        }
+                                                    }
                                                 }
                                             }
                                         })
@@ -381,8 +386,24 @@ const Payment = (props) => {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if ((payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) && pm.uid === 'Заявление') || (item.name_payment_type !== null && item.name_payment_type !== 'СБП' && item.name_payment_type !== pm.name) || (item.name_payment_type !== null && item.name_payment_type === 'СБП' && pm.name !== 'Безналичные') || pm.hidden) {
+                                            if (pm.hidden) {
                                                 ok = false
+                                            } else {
+                                                if (payment_group[chapter0][chapter1][chapter2].items.includes(item.uid)) {
+                                                    if (item.name_payment_type === null) {
+                                                        ok = false
+                                                    } else {
+                                                        if (['Безналичные'].includes(item.name_payment_type) && pm.name !== 'Безналичные') {
+                                                            ok = false
+                                                        } else if (['Безналичные (б/т)'].includes(item.name_payment_type) && pm.name !== 'Безналичные (б/т)') {
+                                                            ok = false
+                                                        } else if (['Наличные'].includes(item.name_payment_type) && pm.name !== 'Наличные') {
+                                                            ok = false
+                                                        } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная', 'СБП'].includes(item.name_payment_type)) {
+                                                            ok = false
+                                                        }
+                                                    }
+                                                }
                                             }
                                         })
                                     })
@@ -391,34 +412,42 @@ const Payment = (props) => {
                         })
                         if (ok) {
                             return <Button
-                                startIcon={pm.uid === 'Другие способы' ? <PaymentIcon/> : null}
-                                variant={pm.uid === 'Другие способы' ? 'contained' : 'outlined'}
+                                variant={'outlined'}
                                 color='secondary'
                                 key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
                                 className='payment-path'
                                 sx={{
-                                    display: 'flex',
-                                    flexDirection: pm.uid === 'Другие способы' ? 'row' : 'column',
-                                    alignItems: 'center'
+                                    display: 'flex', flexDirection: 'column', alignItems: 'center'
                                 }}
                                 onClick={() => {
-                                    if (pm.uid === 'Другие способы') {
-                                        dispatch(openModal({
-                                            type: 'others_payment_types',
-                                            props: {type: props.type, order: props.order, pay, payment_group}
-                                        }))
-                                    } else {
-                                        pay(pm)
-                                    }
+                                    pay(pm)
                                 }}>
                                 <span>{pm.name}</span>
-                                {pm.uid !== 'Другие способы' ? <span
+                                <span
                                     style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
                                     {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
-                                </span> : null}
+                                </span>
                             </Button>
                         }
                     })}
+            {show_payment_types && !payment_methods.loading && payment_methods.error === null && payment_methods.data !== null && payment_methods.data.list.length > 0 &&
+                <Button
+                    startIcon={<PaymentIcon/>}
+                    variant={'contained'}
+                    color='secondary'
+                    key={'Другие способы'}
+                    className='payment-path'
+                    sx={{
+                        display: 'flex', flexDirection: 'row', alignItems: 'center'
+                    }}
+                    onClick={() => {
+                        dispatch(openModal({
+                            type: 'others_payment_types',
+                            props: {type: props.type, order: props.order, pay, payment_group}
+                        }))
+                    }}>
+                    <span>Другие способы</span>
+                </Button>}
         </Box>
         <Box className='payment-items'>
             <Fade in={payment_group.for_payment.slip_without_receipt.count > 0} timeout={500} unmountOnExit>
