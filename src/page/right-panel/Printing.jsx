@@ -4,7 +4,11 @@ import {useEffect, useState} from "react"
 import {common_printers_get, equipment_action} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import BookingItem from "./BookingItem.jsx"
-import {ROUTE_EQUIPMENT_KKT_BILL_PRINT, ROUTE_EQUIPMENT_KKT_TICKETS_PRINT} from "../../service/fetch_routes.js"
+import {
+    ROUTE_EQUIPMENT_KKT_BILL_PRINT,
+    ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
+    ROUTE_EQUIPMENT_PRINTER_BILL_PRINT
+} from "../../service/fetch_routes.js"
 import {selectUidCinema} from "../../redux/ordersReducer.js"
 
 const Printing = (props) => {
@@ -88,11 +92,23 @@ const Printing = (props) => {
         </span>
             </Button>)}
             {sortedKP.map(printer => <Button
+                onClick={() => {
+                    dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PRINTER_BILL_PRINT, {
+                        uid: printer.kitchen_point.uid, uid_order: props.order.uid
+                    }))
+                }}
                 variant={printer.local ? 'contained' : 'outlined'}
-                color='secondary'
+                color='info'
                 key={printer.kitchen_point.uid}
                 className='payment-path'
-                sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 4px 4px 0'}}>
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    margin: '0 4px 4px 0',
+                    maxWidth: '130px',
+                    overflow: 'hidden'
+                }}>
                 <span>{printer.kitchen_point.name}</span>
                 <span style={{fontSize: '70%'}}>
             <Box sx={{overflow: 'hidden'}}>Принтер {printer.kitchen_point.name}</Box>

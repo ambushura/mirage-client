@@ -381,7 +381,7 @@ const Payment = (props) => {
                                 chapter1_array.forEach(chapter1 => {
                                     chapter2_array.forEach(chapter2 => {
                                         props.order[chapter0][chapter1][chapter2].forEach(item => {
-                                            if ((payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) && pm.uid === 'Заявление') || (item.name_payment_type !== null && item.name_payment_type !== pm.name) || pm.hidden) {
+                                            if ((payment_group[chapter0][chapter1][chapter2].items.includes(item.uid) && pm.uid === 'Заявление') || (item.name_payment_type !== null && item.name_payment_type !== 'СБП' && item.name_payment_type !== pm.name) || (item.name_payment_type !== null && item.name_payment_type === 'СБП' && pm.name !== 'Безналичные') || pm.hidden) {
                                                 ok = false
                                             }
                                         })

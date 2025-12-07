@@ -99,3 +99,4 @@ export const ROUTE_COMMON_DOCUMENTS_SLIPS_GET = '/api/common/documents/slips/get
 export const ROUTE_COMMON_DOCUMENTS_SALES_GET = '/api/common/documents/sales/get'
 export const ROUTE_COMMON_DOCUMENTS_SLIP_GET = '/api/common/documents/slip/get'
 export const ROUTE_EQUIPMENT_CANDY_STATE_GET = '/api/equipment/candy/state/get'
+export const ROUTE_EQUIPMENT_PRINTER_BILL_PRINT = '/api/equipment/printer/bill/print'
