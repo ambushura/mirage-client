@@ -59,13 +59,13 @@ const OthersPaymentTypes = ({props}) => {
                                 if (item.name_payment_type === null) {
                                     set_need_report(false)
                                 } else {
-                                    if (['Безналичные'].includes(item.name_payment_type)) {
+                                    if (['Безналичные', 'СБП'].includes(item.name_payment_type)) {
                                         set_need_report(false)
                                     } else if (['Безналичные (б/т)'].includes(item.name_payment_type)) {
                                         set_need_report(false)
                                     } else if (['Наличные'].includes(item.name_payment_type)) {
                                         set_need_report(false)
-                                    } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная', 'СБП'].includes(item.name_payment_type)) {
+                                    } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная'].includes(item.name_payment_type)) {
                                         // Возврат по заявлению
                                     }
                                 }
@@ -135,13 +135,13 @@ const OthersPaymentTypes = ({props}) => {
                                                     if (item.name_payment_type === null) {
                                                         ok = false
                                                     } else {
-                                                        if (['Безналичные'].includes(item.name_payment_type) && pm.name !== 'Безналичные') {
+                                                        if (['Безналичные', 'СБП'].includes(item.name_payment_type) && pm.name !== 'Безналичные') {
                                                             ok = false
                                                         } else if (['Безналичные (б/т)'].includes(item.name_payment_type) && pm.name !== 'Безналичные (б/т)') {
                                                             ok = false
                                                         } else if (['Наличные'].includes(item.name_payment_type) && pm.name !== 'Наличные') {
                                                             ok = false
-                                                        } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная', 'СБП'].includes(item.name_payment_type)) {
+                                                        } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная'].includes(item.name_payment_type)) {
                                                             ok = false
                                                         }
                                                     }

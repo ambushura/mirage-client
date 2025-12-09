@@ -13,8 +13,10 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {
+    NEW_EMPTY_ORDER,
     ORDER_TIME_OUT,
     ORDER_TIME_REMAINING,
+    setCurrentPreOrder,
     setKioskPaymentError,
     setPreOrderPaying,
     setPreOrderTimeRemaining
@@ -49,6 +51,7 @@ const CheckoutMenu = () => {
             if (pre_order_time_remaining <= 1) {
                 if (city !== undefined && filial !== undefined) navigate(`/films/${city.code}/${filial.eais}/${dayjs(get_date_shift(new Date())).format('YYYY-MM-DD')}/?${wp !== null ? 'wp=' + wp : ''}&kiosk`)
                 dispatch(cinema_order_delete(filial, pre_order.uid, pre_order.ver))
+                dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
             }
         }
     }, [dispatch, filial, navigate, uid_user, pre_order, pre_order_time_remaining])
@@ -87,7 +90,7 @@ const CheckoutMenu = () => {
         await dispatch(setKioskPaymentError(null))
         await dispatch(setPreOrderPaying(true))
         setPayStarted(true)
-        await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group))
+        await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group, false))
         await dispatch(setPreOrderPaying(false))
     }
 
@@ -98,6 +101,7 @@ const CheckoutMenu = () => {
                     if (kiosk_checkout === 0) {
                         navigate(-1)
                         dispatch(cinema_order_delete(filial, pre_order.uid, pre_order.ver))
+                        dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                     } else {
                         dispatch(setKioskCheckout(0))
                     }
@@ -147,8 +151,6 @@ const CheckoutMenu = () => {
                 </Box>
             </Box>}
             {kiosk_checkout === 1 && <Box id='seance-title'>
-                <Box sx={{fontSize: '150%'}}>Внимание! Вы покупаете билет на
-                    сеанс {dayjs(pre_order.seance_beginning).format("D MMMM")}!</Box>
                 <Box id="checkout-total">
                     <Box id='checkout-total-box'>
                         <Box className="checkout-order-title-box">

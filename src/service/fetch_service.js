@@ -118,7 +118,7 @@ import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} fr
 import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 
-export const TIMEOUT = 10000
+export const TIMEOUT = 30000
 
 export const makeRequest = async (dispatch, config, onSuccess) => {
 
@@ -645,9 +645,6 @@ export const common_list_get = (filial, type) => async (dispatch, getState) => {
                 dispatch(setPinpadList(data))
                 dispatch(setZPinpadsUpdate())
                 break
-            case 'return_reasons':
-                dispatch(setReturnReasonsList(data))
-                break
             case 'kitchen_points':
                 dispatch(setKitchenPointsList(data))
                 break
@@ -669,7 +666,7 @@ export const common_lazy_list_get = (filial, type) => async (dispatch, getState)
     return res?.data || []
 }
 
-export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group, uid_return_reason, comment_return_reason) => async (dispatch, getState) => {
+export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group, return_before, uid_return_reason, comment_return_reason) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     await makeRequest(dispatch, {
         method: 'post',
@@ -681,7 +678,8 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
             ver,
             payment_group,
             uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
-            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason
+            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
+            return_before,
         } : {
             uid_filial: filial.uid,
             uid_payment_type: pm.uid_payment_type,
@@ -696,6 +694,7 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
             payment_group,
             uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
             comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
+            return_before,
         },
         timeout: TIMEOUT * 6 * 3,
         wp,
@@ -703,23 +702,36 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
         kiosk,
         version,
     }, data => {
-        if (data.order !== null) {
-            dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
-            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-        }
-        if (data.errors.length === 0) {
-            dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
-            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-        } else {
-            data.errors.forEach(error => {
-                if (kiosk) {
-                    dispatch(setKioskPaymentError(error))
+        // Киоск
+        if (kiosk) {
+            if (type === 'cinema') {
+                if (data.errors.length === 0) {
+                    dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
                 } else {
+                    if (data.order !== null) {
+                        dispatch(setCurrentPreOrder(data.order))
+                    }
+                }
+                data.errors.forEach(error => {
+                    dispatch(setKioskPaymentError(error))
+                })
+            }
+        } else {
+            // Рабочее место
+            if (data.errors.length === 0) {
+                dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+            } else {
+                if (data.order !== null) {
+                    dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+                    dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+                }
+                data.errors.forEach(error => {
                     dispatch(addNotification({
                         message: error, severity: 'error', autoHide: true
                     }))
-                }
-            })
+                })
+            }
         }
     })
 }

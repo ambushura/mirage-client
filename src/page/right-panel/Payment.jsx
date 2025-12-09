@@ -1,4 +1,4 @@
-import {Box, Button, Fade, TextField} from "@mui/material"
+import {Box, Button, Fade, FormControlLabel, Switch, TextField} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import {
@@ -51,6 +51,12 @@ const Payment = (props) => {
     const [uid_current_return_reasons, set_uid_current_return_reasons] = useState('')
     const [comment_return_reasons, set_comment_return_reasons] = useState('')
 
+    // Для возвратов, вместо отмен
+    const [return_before, set_return_before] = useState(false)
+    const handleReturnBefore = (event) => {
+        set_return_before(event.target.checked)
+    }
+
     useEffect(() => {
         const fetch = async () => {
             let fetching_result = await dispatch(common_payment_methods_get(filial, props.order.uid, props.type, false))
@@ -77,7 +83,7 @@ const Payment = (props) => {
 
     const pay = async (pm) => {
         await dispatch(props.type === 'cinema' ? setPreOrderPaying(true) : setHorderPaying(true))
-        await dispatch(common_order_pay(filial, pm, props.type === 'cinema' ? props.order.uid : props.order.uid, props.type === 'cinema' ? props.order.ver : props.order.ver, props.type, payment_group, uid_current_return_reasons, comment_return_reasons))
+        await dispatch(common_order_pay(filial, pm, props.type === 'cinema' ? props.order.uid : props.order.uid, props.type === 'cinema' ? props.order.ver : props.order.ver, props.type, payment_group, return_before, uid_current_return_reasons, comment_return_reasons))
         await dispatch(props.type === 'cinema' ? setPreOrderPaying(false) : setHorderPaying(false))
     }
 
@@ -126,6 +132,14 @@ const Payment = (props) => {
                         set_uid_current_return_reasons(uid)
                     }}
                     getLabel={item => `${item.title}`}
+                />
+                <FormControlLabel
+                    sx={{minWidth: '130px', margin: '0', backgroundColor: '#e9e9e9', borderBottom: '1px #878787 solid'}}
+                    control={<Switch
+                        checked={return_before}
+                        onChange={handleReturnBefore}
+                    />}
+                    label={return_before ? "Возврат" : "Отмена"}
                 />
             </Box>
             <TextField
@@ -393,13 +407,13 @@ const Payment = (props) => {
                                                     if (item.name_payment_type === null) {
                                                         ok = false
                                                     } else {
-                                                        if (['Безналичные'].includes(item.name_payment_type) && pm.name !== 'Безналичные') {
+                                                        if (['Безналичные', 'СБП'].includes(item.name_payment_type) && pm.name !== 'Безналичные') {
                                                             ok = false
                                                         } else if (['Безналичные (б/т)'].includes(item.name_payment_type) && pm.name !== 'Безналичные (б/т)') {
                                                             ok = false
                                                         } else if (['Наличные'].includes(item.name_payment_type) && pm.name !== 'Наличные') {
                                                             ok = false
-                                                        } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная', 'СБП'].includes(item.name_payment_type)) {
+                                                        } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная'].includes(item.name_payment_type)) {
                                                             ok = false
                                                         }
                                                     }
