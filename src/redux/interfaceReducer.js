@@ -35,7 +35,6 @@ export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
 },],]
 
 const initialState = {
-    kiosk: false,
     its_second_screen: false,
     wp: null,
     version: '1.001',
@@ -65,6 +64,10 @@ const initialState = {
     reset_wp: null,
     turn_on_wp: null,
     turn_off_wp: null,
+
+    // Киоск
+    kiosk: false,
+    inactivity_time: 0,
 }
 
 const interfaceSlice = createSlice({
@@ -115,6 +118,13 @@ const interfaceSlice = createSlice({
             state.turn_on_wp = payload
         }, turnOffWP: (state, {payload}) => {
             state.turn_off_wp = payload
+        }, // Киоск
+        setInactivityTime: (state, {payload}) => {
+            state.inactivity_time = payload
+        }, decrementInactivityTime(state) {
+            if (state.inactivity_time > 0) {
+                state.inactivity_time--
+            }
         }
     },
 })
@@ -137,7 +147,9 @@ export const {
     setKioskCheckout,
     resetWP,
     turnOnWP,
-    turnOffWP
+    turnOffWP,
+    setInactivityTime,
+    decrementInactivityTime
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer
