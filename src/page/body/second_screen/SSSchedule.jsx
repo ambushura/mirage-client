@@ -14,28 +14,30 @@ const SsSchedule = () => {
 
     const filial = useSelector(state => state.data.filial)
     const schedule = useSelector(state => state.second_screen.schedule || [])
-    const [k, set_k] = useState(2)
+    const [k, set_k] = useState(1)
 
     useEffect(() => {
         const div = document.getElementById('app')
         if (!div) return
         const observer = new ResizeObserver(() => {
             const {width, height} = div.getBoundingClientRect()
-            if (width >= 1366 && width < 1440) {
-                set_k(1.1)
-            } else if (width >= 1440 && width < 1600) {
-                set_k(1.3)
-            } else if (width >= 1600 && width < 1920) {
-                set_k(1.5)
-            } else if (width >= 1920) {
+            if (filial !== undefined && (filial.eais === '2876' || filial.eais === '2877')) {
                 set_k(1.8)
             } else {
-                set_k(0.8)
+                if (width >= 1366 && width < 1440) {
+                    set_k(1.1)
+                } else if (width >= 1440 && width < 1920) {
+                    set_k(1.4)
+                } else if (width >= 1920) {
+                    set_k(1.6)
+                } else {
+                    set_k(0.8)
+                }
             }
         })
         observer.observe(div)
         return () => observer.disconnect()
-    }, [])
+    }, [filial])
 
     if (schedule.length === 0) {
         return <Box className='empty-box' sx={{color: 'black'}}>Пока не придумали, что вам показать в этот день :(</Box>
