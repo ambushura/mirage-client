@@ -1,7 +1,7 @@
 import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import "../../../css/ss.css"
-import {useEffect, useRef} from "react"
+import {useEffect, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import cover from "../../../images/cover.png"
 import dayjs from "dayjs"
@@ -11,8 +11,31 @@ function minPrice(tariff) {
 }
 
 const SsSchedule = () => {
+
     const filial = useSelector(state => state.data.filial)
     const schedule = useSelector(state => state.second_screen.schedule || [])
+    const [k, set_k] = useState(2)
+
+    useEffect(() => {
+        const div = document.getElementById('app')
+        if (!div) return
+        const observer = new ResizeObserver(() => {
+            const {width, height} = div.getBoundingClientRect()
+            if (width >= 1366 && width < 1440) {
+                set_k(1.1)
+            } else if (width >= 1440 && width < 1600) {
+                set_k(1.3)
+            } else if (width >= 1600 && width < 1920) {
+                set_k(1.5)
+            } else if (width >= 1920) {
+                set_k(1.8)
+            } else {
+                set_k(0.8)
+            }
+        })
+        observer.observe(div)
+        return () => observer.disconnect()
+    }, [])
 
     if (schedule.length === 0) {
         return <Box className='empty-box' sx={{color: 'black'}}>Пока не придумали, что вам показать в этот день :(</Box>
@@ -26,26 +49,32 @@ const SsSchedule = () => {
             const extraSeances = seances.slice(3)
 
             return <Box key={film.uid} className="movie-block glass-effect"
-                        sx={{width: extraSeances.length > 0 ? 'calc(168px * 1.8)' : 'calc(131px * 1.8)'}}>
+                        sx={{
+                            width: extraSeances.length > 0 ? `calc(168px * ${k})` : `calc(131px * ${k})`,
+                            height: `calc(201px * ${k})`
+                        }}>
                 <img
+                    style={{width: `calc(131px * ${k})`, height: `calc(201px * ${k})`}}
                     className={`poster ${extraSeances.length > 0 ? ' poster-grad' : ''}`}
                     src={`${film.cover_link === '' ? cover : `http://${filial.media_ip}:${filial.media_port}${film.cover_link}`}`}
                     alt={film.name}
                 />
 
-                <div className="top-bar">
+                <div className="top-bar" style={{width: `calc(131px * ${k})`}}>
                     <div className="top-item glass-effect">{film.rate_age}+</div>
                     <div className="top-item glass-effect">{film.copy_type}</div>
                 </div>
 
-                <Box className="film-title">
+                <Box className="film-title" sx={{width: `calc(131px * ${k})`, fontSize: `calc(10px * ${k})`}}>
                     {film.name}
                 </Box>
 
-                <div className="bottom-cards">
-                    {mainSeances.map(seance => <div key={seance.uid} className="card glass-effect">
+                <div className="bottom-cards" style={{width: `calc(131px * ${k})`}}>
+                    {mainSeances.map(seance => <div key={seance.uid} className="card glass-effect"
+                                                    style={{fontSize: `calc(9px * ${k})`}}>
                         {dayjs.utc(seance.beginning).format("HH:mm")}
-                        <br/><span className='card-price'>от {minPrice(seance.tariff) || 0}</span>
+                        <br/><span className='card-price'
+                                   style={{fontSize: `calc(6px * ${k})`}}>от {minPrice(seance.tariff) || 0}</span>
                     </div>)}
                 </div>
 
@@ -57,7 +86,7 @@ const SsSchedule = () => {
                         exit={{opacity: 0, x: 30}}
                         transition={{duration: 0.4, ease: "easeOut"}}
                     >
-                        <ScrollingSessions seances={extraSeances}/>
+                        <ScrollingSessions seances={extraSeances} k={k}/>
                     </motion.div>}
                 </AnimatePresence>
             </Box>
@@ -65,7 +94,7 @@ const SsSchedule = () => {
     </Box>
 }
 
-export function ScrollingSessions({seances}) {
+export function ScrollingSessions({seances, k}) {
 
     const containerRef = useRef(null)
     const wrapperRef = useRef(null)
@@ -115,9 +144,10 @@ export function ScrollingSessions({seances}) {
 
     return <Box className="scrolling-sessions" ref={wrapperRef}>
         <div className="scroll-content" ref={containerRef}>
-            {seances.map(seance => <Box key={seance.uid} className="session">
+            {seances.map(seance => <Box key={seance.uid} className="session" sx={{fontSize: `calc(9px * ${k})`}}>
                 {dayjs.utc(seance.beginning).format("HH:mm")}
-                <br/><span className='card-price'>от {minPrice(seance.tariff) || 0}</span>
+                <br/><span className='card-price'
+                           style={{fontSize: `calc(6px * ${k})`}}>от {minPrice(seance.tariff) || 0}</span>
             </Box>)}
         </div>
     </Box>
