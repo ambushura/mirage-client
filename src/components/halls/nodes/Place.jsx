@@ -14,9 +14,9 @@ export function Place({data}) {
     }
 
     const sourceIcon = {
-        w: <LaptopWindowsIcon size={14} color="black"/>,
-        k: <SmartphoneIcon size={14} color="black"/>,
-        s: <LanguageIcon size={14} color="black"/>,
+        w: <LaptopWindowsIcon color="black"/>,
+        k: <SmartphoneIcon color="black"/>,
+        s: <LanguageIcon color="black"/>,
     }
 
     const handler_array = () => {
