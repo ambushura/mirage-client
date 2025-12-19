@@ -37,7 +37,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
                             display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'
                         }}>{item.take_away &&
                             <Box sx={{fontSize: '120%', marginRight: '5px'}}>С СОБОЙ</Box>}{item.course > 0 &&
-                            <Box sx={{fontSize: '120%'}}>{item.course} КУРС</Box>}</Box>
+                            <Box sx={{fontSize: '120%'}}>{item.course + 1} КУРС</Box>}</Box>
                         <Box sx={{
                             fontWeight: 'bold', overflow: 'hidden'
                         }}>{item.quantity} {item.unit_name}</Box>

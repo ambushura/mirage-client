@@ -111,7 +111,6 @@ const Printing = (props) => {
                 }}>
                 <span>{printer.kitchen_point.name}</span>
                 <span style={{fontSize: '70%'}}>
-            <Box sx={{overflow: 'hidden'}}>Принтер {printer.kitchen_point.name}</Box>
         </span>
             </Button>)}
         </Box>

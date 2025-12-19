@@ -75,6 +75,7 @@ import {
     ROUTE_EQUIPMENT_KKT_Z,
     ROUTE_EQUIPMENT_PINPAD_X,
     ROUTE_EQUIPMENT_PINPAD_Z,
+    ROUTE_EQUIPMENT_PRINTER_BILL_PRINT,
     ROUTE_EQUIPMENT_WORKPLACE_RESET,
     ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
     ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
@@ -759,6 +760,10 @@ export const equipment_action = (filial, route, params) => async (dispatch, getS
                 dispatch(setZPinpadsUpdate())
                 break
             case ROUTE_EQUIPMENT_KKT_BILL_PRINT:
+                dispatch(setCurrentHorder(data))
+                dispatch(setOrdersHorecaUpdate())
+                break
+            case ROUTE_EQUIPMENT_PRINTER_BILL_PRINT:
                 dispatch(setCurrentHorder(data))
                 dispatch(setOrdersHorecaUpdate())
                 break

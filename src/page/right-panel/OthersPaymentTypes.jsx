@@ -141,7 +141,9 @@ const OthersPaymentTypes = ({props}) => {
                                                             ok = false
                                                         } else if (['Наличные'].includes(item.name_payment_type) && pm.name !== 'Наличные') {
                                                             ok = false
-                                                        } else if (['Сервис', 'Отложенная оплата', 'На расчетный счет', 'Смешанная'].includes(item.name_payment_type)) {
+                                                        } else if (['На расчетный счет'].includes(item.name_payment_type) && pm.name !== 'На расчетный счет') {
+                                                            ok = false
+                                                        } else if (['Сервис', 'Отложенная оплата', 'Смешанная'].includes(item.name_payment_type)) {
                                                             ok = false
                                                         }
                                                     }

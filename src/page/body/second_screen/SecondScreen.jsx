@@ -5,7 +5,6 @@ import {FOOTER_HEIGHT, HEADER_HEIGHT, setSecondScreen} from "../../../redux/inte
 import {useSetSecondScreen} from "./useSetSecondScreen.js"
 import SSSeance from "./SSSeance.jsx"
 import {Box} from "@mui/material"
-import background from "../../../images/background.jpg"
 import SSOrder from "./SSOrder.jsx"
 
 export default function SecondScreen() {
@@ -43,9 +42,10 @@ export default function SecondScreen() {
     return <Box id='content-box'
                 sx={{
                     overflow: 'hidden',
-                    backgroundImage: current_page === 'seance' ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})` : `url(${background})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    //backgroundImage: current_page === 'seance' ? `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${background})` : `url(${background})`,
+                    //backgroundSize: "cover",
+                    //backgroundPosition: "center",
+                    backgroundColor: 'black'
                 }}>
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>

@@ -26,7 +26,7 @@ const SsSchedule = () => {
             const extraSeances = seances.slice(3)
 
             return <Box key={film.uid} className="movie-block glass-effect"
-                        sx={{width: extraSeances.length > 0 ? '168px' : '131px'}}>
+                        sx={{width: extraSeances.length > 0 ? 'calc(168px * 1.8)' : 'calc(131px * 1.8)'}}>
                 <img
                     className={`poster ${extraSeances.length > 0 ? ' poster-grad' : ''}`}
                     src={`${film.cover_link === '' ? cover : `http://${filial.media_ip}:${filial.media_port}${film.cover_link}`}`}

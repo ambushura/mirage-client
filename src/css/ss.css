@@ -11,8 +11,8 @@
 
 .movie-block {
     position: relative;
-    height: 201px;
-    width: 168px;
+    height: calc(201px * 1.8);
+    width: calc(168px * 1.8);
     overflow: hidden;
     border-radius: 18px;
     margin: 15px 15px 0 0;
@@ -22,8 +22,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 131px;
-    height: 201px;
+    width: calc(131px * 1.8);
+    height: calc(201px * 1.8);
     object-fit: cover;
     border-radius: 10px 0 0 10px;
 }
@@ -40,7 +40,7 @@
     position: absolute;
     top: 65px;
     left: 0;
-    width: 131px;
+    width: calc(131px * 1.8);
     height: 30px;
     display: flex;
     justify-content: space-around;
@@ -62,7 +62,7 @@
 .film-title {
     position: absolute;
     bottom: 0px;
-    width: 131px;
+    width: calc(131px * 1.8);
     color: white;
     text-align: center;
     padding: 16px 0;
@@ -70,7 +70,7 @@
     backdrop-filter: blur(10px) saturate(120%);
     -webkit-backdrop-filter: blur(10px) saturate(120%);
     will-change: backdrop-filter;
-    font-size: 75%;
+    font-size: 90%;
 }
 
 /* Нижние карточки */
@@ -78,7 +78,7 @@
     position: absolute;
     top: 8px;
     left: 0;
-    width: 131px;
+    width: calc(131px * 1.8);
     display: flex;
     justify-content: center;
     gap: 6px;
@@ -88,13 +88,14 @@
     color: #fff;
     padding: 4px 6px;
     border-radius: 6px;
-    font-size: 10px;
+    font-size: 14px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 2;
 }
 
 .card-price {
-    font-size: 8px;
+    font-size: 10px;
+    font-weight: 200;
 }
 
 /* Вертикальная лента */
@@ -124,7 +125,7 @@
     color: #fff;
     text-align: center;
     padding: 8px 0;
-    font-size: 10px;
+    font-size: 14px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     white-space: nowrap;
 }
