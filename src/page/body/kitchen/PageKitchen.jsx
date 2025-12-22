@@ -19,6 +19,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
             key={`${order.uid}${order.ver}`}
             variants={itemVariants}
             style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
+            <Box sx={{width: '100%', textAlign: 'center', paddingTop: '4px'}}>{order.user_name}</Box>
             <Box className='kitchen-order-header glass'>
                 <Box sx={{ml: '4px'}}>{order.number}</Box>
                 <Box>{dayjs.utc(order.date_create).format("HH:mm")}</Box>
