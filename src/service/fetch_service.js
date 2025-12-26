@@ -79,6 +79,7 @@ import {
     ROUTE_EQUIPMENT_WORKPLACE_RESET,
     ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
     ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
+    ROUTE_HALL_RENT,
     ROUTE_HORECA_KITCHEN_GET,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_MENU_GET,
@@ -119,7 +120,7 @@ import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} fr
 import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 
-export const TIMEOUT = 30000
+export const TIMEOUT = 10000
 
 export const makeRequest = async (dispatch, config, onSuccess) => {
 
@@ -1490,4 +1491,18 @@ export const equipment_candy_state_get = (filial) => async (dispatch, getState) 
     }, data => {
         dispatch(setCandy(data))
     })
+}
+
+export const get_hall_rent_sum = (filial, film_uid, start, end, its_card, premiere) => async () => {
+    const params = {
+        film_uid, start, end, its_card, premiere
+    }
+    try {
+        const response = await axios.get(`http://10.101.2.21${ROUTE_HALL_RENT}`, {
+            params, timeout: 10000
+        })
+        return response.data
+    } catch (error) {
+        return {error: error.message || "Ошибка запроса стоимости сеанса"}
+    }
 }

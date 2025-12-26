@@ -43,7 +43,8 @@ const initialState = {
     schedule_filters_price: [0, 10000],
 
     // Дополнительные
-    show_free_space: false
+    show_free_space: false,
+
 }
 
 export const scheduleSlice = createSlice({
@@ -111,7 +112,7 @@ export const scheduleSlice = createSlice({
         }, // Дополнительные
         setShowFreeSpace: (state, action) => {
             state.show_free_space = action.payload
-        }
+        },
     },
 })
 

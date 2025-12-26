@@ -27,6 +27,7 @@ import {
     setShowFreeSpace
 } from "../../redux/scheduleReducer.js"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 const ScheduleMenu = () => {
 
@@ -170,11 +171,18 @@ const ScheduleMenu = () => {
                         dispatch(setScheduleFiltersTime([0, 100]))
                         dispatch(setScheduleFiltersPrice([0, 10000]))
                     }}><FilterAltOffIcon/></Button> : null}
-                {current_page === 'schedule' ? <Button variant='contained' sx={{color: 'white'}}
-                                                       color={show_free_space ? 'primary' : 'secondary'}
-                                                       startIcon={<FormatLineSpacingIcon/>} onClick={() => {
+                {current_page === 'schedule' && <Button variant='contained' sx={{color: 'white'}}
+                                                        color={show_free_space ? 'primary' : 'secondary'}
+                                                        startIcon={<FormatLineSpacingIcon/>} onClick={() => {
                     dispatch(setShowFreeSpace(!show_free_space))
-                }}>Сводобные слоты</Button> : null}
+                }}>Сводобные слоты</Button>}
+                {current_page === 'schedule' && <Button size='large' onClick={() => {
+                    dispatch(openModal({
+                        type: 'seance_settings', props: {
+                            action: 'new', beginning: '', ending: '', uid_hall: '', name_hall: '',
+                        }
+                    }))
+                }}><AddCircleOutlineIcon/></Button>}
             </ButtonGroup> : null}
         </Box>
     </Box>

@@ -18,11 +18,7 @@ const NewSeance = ({beginning, ending, uid_hall, name_hall}) => {
             onClick={() => {
                 dispatch(openModal({
                     type: 'seance_settings', props: {
-                        action: 'new_seance',
-                        beginning: beginning,
-                        ending: ending,
-                        uid_hall: uid_hall,
-                        name_hall: name_hall,
+                        uid: 'new', beginning: beginning, ending: ending, uid_hall: uid_hall, name_hall: name_hall,
                     }
                 }))
             }}>{beginning !== null ? beginning.format('HH:mm') : '...'}-{ending !== null ? ending.format('HH:mm') : '...'}
