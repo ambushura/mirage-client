@@ -27,33 +27,27 @@ export default function Seance({props}) {
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
-            beginning: '',
-            ending: '',
-            comment: null,
-            content_type: 'rent',
-            copy_type: '',
-            date_shift: param_date,
-            film_name: '',
-            hall_full_name: '',
-            hidden_on_kiosk: true,
-            hidden_on_site: true,
-            hidden_on_work_place: false,
-            name_film: '',
-            name_hall: '',
-            opened: true,
-            rate_age: 18,
-            ref: v4(),
-            rent: true,
-            sum: 0,
-            uid: v4(),
-            uid_filial: filial.uid,
-            uid_film: '',
+
+            // Время
+            date_shift: param_date, beginning: '', ending: '', duration: 0,
+
+            // Фильм
+            uid_film: '', copy_type: '',
+
+            // Зал
             uid_hall: '',
-            ver: v4(),
-            duration: 0, // Дополнительные
-            ready: false,
-            its_card: false,
-            premiere: false,
+
+            // Сумма
+            sum: 0,
+
+            // Прочее
+            comment: null,
+
+            // uid
+            uid: v4(), uid_filial: filial.uid,
+
+            // Дополнительные
+            ready: false, its_card: false, premiere: false,
         }
     })
 
@@ -61,8 +55,14 @@ export default function Seance({props}) {
     const onSubmit = (data) => {
         const prepared = {
             ...data
-
         }
+        if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift)
+            .startOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
+        if (prepared.beginning) prepared.beginning = dayjs(prepared.beginning)
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
+        if (prepared.ending) prepared.ending = dayjs(prepared.ending)
+            .format('YYYY-MM-DDTHH:mm:ss+00:00')
         dispatch(cinema_seance_create7(filial, prepared))
     }
 
@@ -164,6 +164,7 @@ export default function Seance({props}) {
                         name="beginning"
                         label="Начало"
                         sx={{width: '100%', marginRight: '10px'}}
+                        rules={{required: 'Когда начнется сеанс?'}}
                     />
                 </Box>
                 <Box sx={{flex: 1}}>
@@ -172,6 +173,13 @@ export default function Seance({props}) {
                         name="ending"
                         label="Окончание"
                         sx={{width: '100%'}}
+                        rules={{
+                            required: 'Когда сеанс закончится?', validate: value => {
+                                if (!beginning) return 'Когда начнется сеанс?'
+                                if (!value) return 'Когда сеанс закончится?'
+                                return dayjs(value).isAfter(dayjs(beginning)) || 'Сеанс должен закончиться не раньше, чем начнется'
+                            }
+                        }}
                     />
                 </Box>
             </Box>
