@@ -9,7 +9,7 @@ import ControlledMoneyField from "../../ui/ControlledMoneyField.jsx"
 import ControlledDateTimePicker from "../../ui/ControlledDateTimePicker.jsx"
 import ControlledTextField from "../../ui/ControlledTextField.jsx"
 import ControlledSwitch from "../../ui/ControlledSwitch.jsx"
-import {get_hall_rent_sum} from "../../service/fetch_service.js"
+import {cinema_seance_create7, get_hall_rent_sum} from "../../service/fetch_service.js"
 import {useEffect, useState} from "react"
 
 dayjs.locale('ru')
@@ -22,47 +22,35 @@ export default function Seance({props}) {
     // Данные из стора
     const filial = useSelector(state => state.data.filial)
     const {uid} = useSelector(state => state.interface.params)
+    const param_date = useSelector(state => state.interface.params.param_date)
 
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
             beginning: '',
             ending: '',
-            canceled: false,
-            cancellation_reason: null,
             comment: null,
             content_type: 'rent',
             copy_type: '',
-            cover_link: '',
-            date_change: '',
-            date_create: '',
-            date_shift: '',
-            deleted: false,
+            date_shift: param_date,
             film_name: '',
-            format: '',
             hall_full_name: '',
-            hidden_on_kiosk: false,
-            hidden_on_site: false,
+            hidden_on_kiosk: true,
+            hidden_on_site: true,
             hidden_on_work_place: false,
             name_film: '',
             name_hall: '',
             opened: true,
-            promotion_name: '',
-            rate_age: 0,
+            rate_age: 18,
             ref: v4(),
             rent: true,
-            tariff: [],
-            tariff_day: '',
-            tariff_time: '',
+            sum: 0,
             uid: v4(),
-            uid_0: v4(),
-            uid_1: v4(),
-            uid_2: v4(),
-            uid_filial: uid === 'new' ? filial.uid : '',
+            uid_filial: filial.uid,
             uid_film: '',
             uid_hall: '',
-            ver: '',
-            duration: 0,
+            ver: v4(),
+            duration: 0, // Дополнительные
             ready: false,
             its_card: false,
             premiere: false,
@@ -72,11 +60,10 @@ export default function Seance({props}) {
     // Функция сохранения документа
     const onSubmit = (data) => {
         const prepared = {
-            ...data, uid: uid === 'new' ? v4() : data.id, uid_filial: uid === 'new' ? filial.uid : data.uid_filial,
+            ...data
 
         }
-        //dispatch(common_documents_z_book_save(filial, prepared))
-        //dispatch(setZBooksUpdate())
+        dispatch(cinema_seance_create7(filial, prepared))
     }
 
     // Наблюдаемые переменные
@@ -109,7 +96,7 @@ export default function Seance({props}) {
 
     return <Box
         sx={{padding: '10px'}}
-        id="modal-kkt"
+        id="modal-seance"
         component="form"
         noValidate
         autoComplete="off"
