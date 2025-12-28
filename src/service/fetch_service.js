@@ -35,7 +35,8 @@ import {
     ROUTE_CINEMA_POSITION_ADD_COMMENT,
     ROUTE_CINEMA_POSITION_DELETE_COMMENT,
     ROUTE_CINEMA_SCHEDULE_GET_HALLS,
-    ROUTE_CINEMA_SEANCE_CLOSE, ROUTE_CINEMA_SEANCE_CREATE7,
+    ROUTE_CINEMA_SEANCE_CLOSE,
+    ROUTE_CINEMA_SEANCE_CREATE7,
     ROUTE_CINEMA_SEANCE_GET,
     ROUTE_CINEMA_SEANCE_GET_BOOKING,
     ROUTE_COMMON_CATALOG_GET,
@@ -1493,6 +1494,7 @@ export const equipment_candy_state_get = (filial) => async (dispatch, getState) 
     })
 }
 
+// 7 зал
 export const cinema_seance_create7 = (filial, seance) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
@@ -1506,7 +1508,6 @@ export const cinema_seance_create7 = (filial, seance) => async (dispatch, getSta
     }, data => data)
 }
 
-// 7 зал
 export const get_hall_rent_sum = (filial, film_uid, start, end, its_card, premiere) => async () => {
     const params = {
         film_uid, start, end, its_card, premiere

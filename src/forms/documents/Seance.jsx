@@ -11,6 +11,7 @@ import ControlledTextField from "../../ui/ControlledTextField.jsx"
 import ControlledSwitch from "../../ui/ControlledSwitch.jsx"
 import {cinema_seance_create7, get_hall_rent_sum} from "../../service/fetch_service.js"
 import {useEffect, useState} from "react"
+import {closeModal} from "../../redux/interfaceReducer.js";
 
 dayjs.locale('ru')
 
@@ -21,7 +22,6 @@ export default function Seance({props}) {
 
     // Данные из стора
     const filial = useSelector(state => state.data.filial)
-    const {uid} = useSelector(state => state.interface.params)
     const param_date = useSelector(state => state.interface.params.param_date)
 
     // Форма
@@ -52,7 +52,7 @@ export default function Seance({props}) {
     })
 
     // Функция сохранения документа
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const prepared = {
             ...data
         }
@@ -63,7 +63,10 @@ export default function Seance({props}) {
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
         if (prepared.ending) prepared.ending = dayjs(prepared.ending)
             .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        dispatch(cinema_seance_create7(filial, prepared))
+        const result = await dispatch(cinema_seance_create7(filial, prepared))
+        if (result?.data) {
+            dispatch(closeModal())
+        }
     }
 
     // Наблюдаемые переменные
@@ -71,12 +74,12 @@ export default function Seance({props}) {
     const uid_film = watch('uid_film')
     const beginning = watch('beginning')
     const ending = watch('ending')
+    const sum = watch('sum')
     const its_card = watch('its_card')
     const premiere = watch('premiere')
 
     const [gotten_price, set_gotten_price] = useState(false)
     useEffect(() => {
-
         set_gotten_price(false)
 
         async function get_price() {
@@ -177,7 +180,16 @@ export default function Seance({props}) {
                             required: 'Когда сеанс закончится?', validate: value => {
                                 if (!beginning) return 'Когда начнется сеанс?'
                                 if (!value) return 'Когда сеанс закончится?'
-                                return dayjs(value).isAfter(dayjs(beginning)) || 'Сеанс должен закончиться не раньше, чем начнется'
+                                const start = dayjs(beginning)
+                                const end = dayjs(value)
+                                if (!end.isAfter(start)) {
+                                    return 'Сеанс должен закончиться позже начала'
+                                }
+                                const diffHours = end.diff(start, 'hour', true)
+                                if (diffHours > 12) {
+                                    return 'Длительность сеанса не может превышать 12 часов'
+                                }
+                                return true
                             }
                         }}
                     />
@@ -218,7 +230,8 @@ export default function Seance({props}) {
             />
         </Box>
         <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-            <Button sx={{flex: 1}} variant='contained' color='secondary' type='submit'>Сохранить</Button>
+            {gotten_price && sum > 0 &&
+                <Button sx={{flex: 1}} variant='contained' color='secondary' type='submit'>Сохранить</Button>}
         </Box>
     </Box>
 }
