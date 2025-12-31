@@ -11,7 +11,8 @@ import ControlledTextField from "../../ui/ControlledTextField.jsx"
 import ControlledSwitch from "../../ui/ControlledSwitch.jsx"
 import {cinema_seance_create7, get_hall_rent_sum} from "../../service/fetch_service.js"
 import {useEffect, useState} from "react"
-import {closeModal} from "../../redux/interfaceReducer.js";
+import {closeModal} from "../../redux/interfaceReducer.js"
+import {setScheduleUpdate} from "../../redux/scheduleReducer.js"
 
 dayjs.locale('ru')
 
@@ -66,6 +67,7 @@ export default function Seance({props}) {
         const result = await dispatch(cinema_seance_create7(filial, prepared))
         if (result?.data) {
             dispatch(closeModal())
+            dispatch(setScheduleUpdate())
         }
     }
 
@@ -74,6 +76,7 @@ export default function Seance({props}) {
     const uid_film = watch('uid_film')
     const beginning = watch('beginning')
     const ending = watch('ending')
+    const duration = watch('duration')
     const sum = watch('sum')
     const its_card = watch('its_card')
     const premiere = watch('premiere')
@@ -96,6 +99,26 @@ export default function Seance({props}) {
             get_price()
         }
     }, [uid_film, uid_hall, beginning, ending, its_card, premiere])
+
+    useEffect(() => {
+        if (!beginning || !duration) return
+        const start = dayjs(beginning)
+        if (!start.isValid()) return
+        const calculatedEnding = start.add(Number(duration), 'minute')
+        if (!ending) {
+            setValue('ending', calculatedEnding.toDate(), {
+                shouldValidate: true, shouldDirty: true,
+            })
+            return
+        }
+        const currentEnding = dayjs(ending)
+        const diff = currentEnding.diff(calculatedEnding, 'minute')
+        if (Math.abs(diff) <= 1) {
+            setValue('ending', calculatedEnding.toDate(), {
+                shouldValidate: true, shouldDirty: true,
+            })
+        }
+    }, [beginning, duration])
 
     return <Box
         sx={{padding: '10px'}}

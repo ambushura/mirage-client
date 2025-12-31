@@ -47,6 +47,8 @@ const PageSchedule = () => {
     const seance_price = useSelector(state => state.schedule.schedule_filters_price)
     const film_types_selected = useSelector(state => state.schedule.schedule_filters_film_types_selected)
 
+    const schedule_update = useSelector(state => state.schedule.schedule_update)
+
     useEffect(() => {
         let active = true
         const fetch = async (f) => {
@@ -67,7 +69,7 @@ const PageSchedule = () => {
             active = false
             dispatch(cleanSchedule())
         }
-    }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time])
+    }, [city, dispatch, filial, film_age, film_copy_types_selected, film_types_selected, films_selected, hall_type_regular, hall_type_vip, halls_selected, param_date, seance_canceled, seance_closed, seance_opened, seance_price, seance_time, schedule_update])
 
     const [schedule_empty, set_schedule_empty] = useState(true)
     useEffect(() => {

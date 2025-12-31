@@ -115,3 +115,46 @@ export function get_date_shift(now) {
     date.setHours(0, 0, 0, 0)
     return date
 }
+
+export function buttonColor(inn) {
+    switch (inn) {
+
+        // Общепит
+        case '816337562':
+        case '7805682119':
+        case '7814839207':
+        case '7805682398':
+        case '7842118084':
+        case '7840057005':
+        case '7840113490':
+        case '7802827214':
+        case '7840057051':
+        case '7802823636':
+        case '7802823629':
+        case '7802803326':
+        case '7802805669':
+        case '7802809261':
+        case '7802747907':
+        case '7813685917':
+        case '7802492374':
+        case '7816337731':
+            return '#45B97C'
+
+        // Токино
+        case '7840110308':
+        case '7802868130':
+        case '7802938073':
+        case '7801728838':
+        case '7802938098':
+        case '7802967476':
+            return '#ff7700'
+
+        // МП
+        case '4703146762':
+            return '#E3000B'
+
+        default:
+            return 'ref'
+    }
+
+}

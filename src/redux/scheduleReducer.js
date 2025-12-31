@@ -6,6 +6,7 @@ const initialState = {
     film: null,
     film_seances: [],
     schedule: [],
+    schedule_update: 0,
     schedule_reloading: false,
     seance: undefined,
 
@@ -112,7 +113,9 @@ export const scheduleSlice = createSlice({
         }, // Дополнительные
         setShowFreeSpace: (state, action) => {
             state.show_free_space = action.payload
-        },
+        }, setScheduleUpdate: (state, action) => {
+            state.schedule_update += 1
+        }
     },
 })
 
@@ -140,5 +143,6 @@ export const {
     setScheduleFiltersPrice,
     setScheduleFiltersFilmCopyTypes,
     setShowFreeSpace,
+    setScheduleUpdate,
 } = scheduleSlice.actions
 export default scheduleSlice.reducer

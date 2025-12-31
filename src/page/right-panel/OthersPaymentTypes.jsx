@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux"
 import {closeModal} from "../../redux/interfaceReducer.js"
 import Loader from "../../ui/Loader.jsx"
 import EditDocumentIcon from "@mui/icons-material/EditDocument"
+import CircleIcon from "@mui/icons-material/Circle"
+import {buttonColor} from "../../service/advanced.js"
 
 const YandexFood = () => <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
     <path
@@ -157,26 +159,29 @@ const OthersPaymentTypes = ({props}) => {
                         if (ok) {
                             return <Button
                                 startIcon={pm.uid === 'Заявление' ?
-                                    <EditDocumentIcon/> : pm.name === 'Отложенная оплата' ? <YandexFood/> : null}
+                                    <EditDocumentIcon/> : pm.name === 'Отложенная оплата' ?
+                                        <YandexFood/> : pm.name !== 'На расчетный счет' ? <CircleIcon
+                                            sx={{color: buttonColor(pm.inn), width: '30px', height: '30px'}}/> : null}
                                 variant={pm.name === 'На расчетный счет' ? 'contained' : 'outlined'}
                                 color={'secondary'}
+                                sx={{margin: '0 4px 4px 0'}}
                                 key={pm.uid_kkt ?? pm.uid_pinpad ?? pm.uid}
                                 className={'payment-path'}
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: pm.name !== 'Отложенная оплата' ? 'column' : 'row',
-                                    alignItems: 'center',
-                                    margin: '0 4px 4px 0'
-                                }}
                                 onClick={() => {
                                     props.pay(pm)
                                     dispatch(closeModal())
                                 }}>
-                                <span>{pm.name === 'Отложенная оплата' ? 'Яндекс.Еда' : pm.name}</span>
-                                {!['Отложенная оплата', 'На расчетный счет'].includes(pm.name) && <span
-                                    style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
-                                    {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: pm.name !== 'Отложенная оплата' ? 'column' : 'row',
+                                    alignItems: 'center',
+                                }}>
+                                    <span>{pm.name === 'Отложенная оплата' ? 'Яндекс.Еда' : pm.name}</span>
+                                    {!['Отложенная оплата', 'На расчетный счет'].includes(pm.name) && <span
+                                        style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
+                                        {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
                                 </span>}
+                                </div>
                             </Button>
                         }
                     })}

@@ -32,6 +32,8 @@ import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
 import PaymentIcon from '@mui/icons-material/Payment'
 import LazySelect from "../../ui/LazySelect.jsx"
 import {useNavigate} from "react-router-dom"
+import CircleIcon from "@mui/icons-material/Circle";
+import {buttonColor} from "../../service/advanced.js";
 
 const Payment = (props) => {
 
@@ -426,21 +428,24 @@ const Payment = (props) => {
                         })
                         if (ok) {
                             return <Button
+                                startIcon={<CircleIcon
+                                    sx={{color: buttonColor(pm.inn), width: '30px', height: '30px'}}/>}
                                 variant={'outlined'}
                                 color='secondary'
                                 key={`${pm.uid}${pm.uid_kkt}${pm.uid_pinpad}`}
                                 className='payment-path'
-                                sx={{
-                                    display: 'flex', flexDirection: 'column', alignItems: 'center'
-                                }}
                                 onClick={() => {
                                     pay(pm)
                                 }}>
-                                <span>{pm.name}</span>
-                                <span
-                                    style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
-                                    {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
-                                </span>
+                                <div style={{
+                                    display: 'flex', flexDirection: 'column', alignItems: 'center'
+                                }}>
+                                    <span>{pm.name}</span>
+                                    <span
+                                        style={{fontSize: '70%'}}><div>ККТ ...{pm.kkt.number.slice(-4)}</div>
+                                        {pm.pinpad !== null ? <div>Пинпад ...{pm.pinpad.number.slice(-4)}</div> : null}
+                                    </span>
+                                </div>
                             </Button>
                         }
                     })}
