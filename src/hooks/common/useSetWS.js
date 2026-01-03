@@ -128,7 +128,7 @@ export function useSetWS() {
                     break
 
                 case 'kitchen':
-                    if (current_page === 'kitchen' && param_date === dayjs(data.date_shift).format('YYYY-MM-D')) {
+                    if (current_page === 'kitchen' && param_date === dayjs(data.date_shift).format('YYYY-M-D')) {
                         (async () => {
                             const fetching_result = await dispatch(horeca_kitchen_get(filial, param_date_admin, uid_kitchen_points_selected))
                             if (fetching_result.data) dispatch(setKitchenOrders(fetching_result.data))

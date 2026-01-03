@@ -26,7 +26,7 @@ export default function Seance({props}) {
     const param_date = useSelector(state => state.interface.params.param_date)
 
     // Форма
-    const {handleSubmit, setValue, control, reset, watch} = useForm({
+    const {handleSubmit, setValue, control, reset, watch, formState: {touchedFields}} = useForm({
         defaultValues: {
 
             // Время
@@ -104,20 +104,15 @@ export default function Seance({props}) {
         if (!beginning || !duration) return
         const start = dayjs(beginning)
         if (!start.isValid()) return
-        const calculatedEnding = start.add(Number(duration), 'minute')
-        if (!ending) {
-            setValue('ending', calculatedEnding.toDate(), {
-                shouldValidate: true, shouldDirty: true,
-            })
-            return
-        }
-        const currentEnding = dayjs(ending)
-        const diff = currentEnding.diff(calculatedEnding, 'minute')
-        if (Math.abs(diff) <= 1) {
-            setValue('ending', calculatedEnding.toDate(), {
-                shouldValidate: true, shouldDirty: true,
-            })
-        }
+        if (touchedFields.ending) return
+
+        const calculatedEnding = start
+            .add(Number(duration), 'minute')
+            .toDate()
+
+        setValue('ending', calculatedEnding, {
+            shouldValidate: true, shouldDirty: true,
+        })
     }, [beginning, duration])
 
     return <Box

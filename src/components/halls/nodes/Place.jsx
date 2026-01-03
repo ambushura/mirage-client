@@ -2,6 +2,7 @@ import {Box} from "@mui/material"
 import LaptopWindowsIcon from '@mui/icons-material/LaptopWindows'
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 import LanguageIcon from '@mui/icons-material/Language'
+import AccessibleIcon from '@mui/icons-material/Accessible'
 
 export function Place({data}) {
 
@@ -14,7 +15,7 @@ export function Place({data}) {
     }
 
     const sourceIcon = {
-        w: <LaptopWindowsIcon color="black"/>, k: <SmartphoneIcon color="black"/>, s: <LanguageIcon color="black"/>,
+        w: <LaptopWindowsIcon color="white"/>, k: <SmartphoneIcon color="white"/>, s: <LanguageIcon color="white"/>,
     }
 
     const handler_array = () => {
@@ -34,6 +35,8 @@ export function Place({data}) {
         </>
     }
 
+    const isInvalidPlace = typeof data.place_type_name === 'string' && data.place_type_name.toLowerCase().includes('инвалид')
+
     return <Box
         key={data.uid}
         className='place'
@@ -41,22 +44,22 @@ export function Place({data}) {
             width: `${data.width}px`, height: `${data.height}px`
         }}>
         <Box className='place-body' style={{background: place_color[data.state].body}}>
-            {data.source && <Box
+            <Box
                 sx={{
                     position: "absolute",
                     top: "50%",
                     left: "50%",
-                    transform: "translate(-50%, -50%)",
+                    transform: "translate(-50%, -50%) scale(0.66)",
                     pointerEvents: "none",
+                    transformOrigin: 'center',
                 }}
-            >
-                {sourceIcon[data.source]}
-            </Box>}
+            >{data.source ? sourceIcon[data.source] : isInvalidPlace ? <AccessibleIcon color='white'/> : null}
+            </Box>
             <Box className='place-label'>
                 <Box className='place-heads'>
                     {handler_array()}
                 </Box>
-                {data.source === undefined ? data.number : ''}
+                {data.source === undefined && !isInvalidPlace ? data.number : ''}
             </Box>
         </Box>
     </Box>
