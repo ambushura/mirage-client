@@ -47,7 +47,7 @@ const initialState = {
     caption_operation: null,
 
     // Продажи
-    sales_variant: 'detailed',
+    report_variant: 'sales_short',
     sales: {columns: [], rows: [], columnGroupingModel: []},
 }
 
@@ -130,8 +130,8 @@ export const dataSlice = createSlice({
             state.trigger_delete_operation = payload
         }, setCaptionOperation(state, {payload}) {
             state.caption_operation = payload
-        }, setSalesVariant(state, {payload}) {
-            state.sales_variant = payload
+        }, setReportVariant(state, {payload}) {
+            state.report_variant = payload
         }
     },
 })
@@ -173,6 +173,6 @@ export const {
     setTriggerSubmitOperation,
     setTriggerDeleteOperation,
     setCaptionOperation,
-    setSalesVariant
+    setReportVariant
 } = dataSlice.actions
 export default dataSlice.reducer

@@ -70,7 +70,7 @@ import {
     setCurrentPinpad,
     setOperationsDetails,
     setOperationsPage,
-    setSalesVariant,
+    setReportVariant,
     setTriggerDeleteOperation,
     setTriggerDeleteReceipt,
     setTriggerDeleteSlip,
@@ -838,15 +838,17 @@ export function SlipMenu() {
     </Box>
 }
 
-export function SalesMenu() {
+export function ReportsMenu() {
 
     const dispatch = useDispatch()
 
-    const {sales_variant} = useSelector(state => state.documents)
+    const {report_variant} = useSelector(state => state.documents)
 
-    return <ButtonGroup variant='contained'>
-        <Button color={sales_variant === 'detailed' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setSalesVariant('detailed'))}>Выручка</Button>
+    return <ButtonGroup variant='contained' color='secondary'>
+        <Button color={report_variant === 'sales_short' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales_short'))}>Выручка (краткий)</Button>
+        <Button color={report_variant === 'sales_full' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales_full'))}>Выручка (полный)</Button>
     </ButtonGroup>
 }
 
@@ -860,11 +862,11 @@ export default function AdminMenu() {
 
     if (uid_user !== null) {
         return <Box id='top-menu'>
-            {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring', 'admin/sales'].includes(current_page) &&
+            {['admin/orders/cinema', 'admin/orders/horeca', 'kitchen', 'admin/scheme', 'admin/zbooks', 'admin/acquiring', 'admin/reports'].includes(current_page) &&
                 <DateParamAdmin/>}
             {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
             {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
-            {current_page === 'admin/sales' && <SalesMenu/>}
+            {current_page === 'admin/reports' && <ReportsMenu/>}
             {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
             {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
             {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu/>}

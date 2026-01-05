@@ -179,8 +179,8 @@ function App() {
                 <Route path="/admin/z_acquiring/:param_city/:param_filial/:uid/"
                        element={<AppRoutes current_page="admin/z_acquiring"/>}/>
 
-                <Route path="/admin/sales/:param_city/:param_filial/:param_date_admin/"
-                       element={<AppRoutes current_page="admin/sales"/>}/>
+                <Route path="/admin/reports/:param_city/:param_filial/:param_date_admin/"
+                       element={<AppRoutes current_page="admin/reports"/>}/>
 
                 <Route path='/second_screen/:param_city/:param_filial/:param_date/'
                        element={<AppRoutes current_page="second_screen"/>}/>

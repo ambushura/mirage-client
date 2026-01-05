@@ -6,14 +6,14 @@ import {DataGridPro} from "@mui/x-data-grid-pro"
 import {Box} from "@mui/material"
 import {ruRU} from "@mui/x-data-grid/locales"
 
-const Sales = () => {
+const Reports = () => {
 
     const dispatch = useDispatch()
 
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
     const {columns, rows, columnGroupingModel} = useSelector(state => state.documents.sales)
-    const {sales_variant} = useSelector(state => state.documents)
+    const {report_variant} = useSelector(state => state.documents)
     const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
     const [columnVisibilityModel, setColumnVisibilityModel] = useState({
@@ -23,7 +23,7 @@ const Sales = () => {
     // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_documents_sales_get(filial, param_date_admin, sales_variant, 0))
+            const fetching_result = await dispatch(common_documents_sales_get(filial, param_date_admin, report_variant, 0))
             set_fetching(fetching_result)
             if (fetching_result.data !== null) {
                 dispatch(setSales(fetching_result.data))
@@ -31,11 +31,11 @@ const Sales = () => {
         }
         dispatch(cleanSales())
         if (filial !== undefined) fetch()
-    }, [dispatch, filial, param_date_admin, sales_variant])
+    }, [dispatch, filial, param_date_admin, report_variant])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
-    } else if (sales_variant === 'detailed') {
+    } else if (report_variant === 'sales_full') {
         return <Box sx={{minHeight: '100%'}}>
             {rows.length > 1 ? <DataGridPro
                 hideFooter
@@ -71,4 +71,4 @@ const Sales = () => {
 
 }
 
-export default Sales
+export default Reports

@@ -12,7 +12,7 @@ import PageHalls from "./halls/PageHalls.jsx"
 import PageScheme from "./scheme/PageScheme.jsx"
 import ZPinpads from "./documents/ZPinpads.jsx"
 import Order from "../../right-panel/Order.jsx"
-import Sales from "./documents/Sales.jsx"
+import Reports from "./documents/Reports.jsx"
 import ZBook from "./documents/ZBook.jsx"
 import Receipt from "./documents/Receipt.jsx"
 import Slip from "./documents/Slip.jsx"
@@ -40,7 +40,7 @@ const PageAdmin = () => {
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <Box id='content-header'></Box>
             <Box id='content'
-                 style={['admin/operations', 'admin/zbooks', 'admin/acquiring', 'admin/sales'].includes(current_page) ? {height: 'var(--page-height)'} : null}>
+                 style={['admin/operations', 'admin/zbooks', 'admin/acquiring', 'admin/reports'].includes(current_page) ? {height: 'var(--page-height)'} : null}>
                 {current_page === 'admin/orders/cinema' && <OrdersCinema update_cinema={update_cinema}/>}
                 {current_page === 'admin/orders/horeca' && <OrdersHoreca update_horeca={update_horeca}/>}
                 {current_page === 'admin/zbooks' && <Zbooks/>}
@@ -54,7 +54,7 @@ const PageAdmin = () => {
                 {current_page === 'admin/halls' && <PageHalls/>}
                 {current_page === 'admin/scheme' && <PageScheme/>}
                 {current_page === 'admin/acquiring' && <ZPinpads/>}
-                {current_page === 'admin/sales' && <Sales/>}
+                {current_page === 'admin/reports' && <Reports/>}
             </Box>
             <Box id='content-footer'></Box>
             {['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(current_page) &&

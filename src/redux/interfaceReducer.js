@@ -17,7 +17,7 @@ export const MOBILE_WIDTH = 1024
 export const HEADER_HEIGHT = [200, 70]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ["films", "film", "schedule", "second_screen"]
-export const PARAM_DATA_ADMIN_SHIFT = ['kitchen', "admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/scheme", "admin/staff", "admin/acquiring", 'admin/sales']
+export const PARAM_DATA_ADMIN_SHIFT = ['kitchen', "admin/orders/cinema", "admin/orders/horeca", "admin/egais", "admin/zbooks", "admin/operations", "admin/halls", "admin/scheme", "admin/staff", "admin/acquiring", 'admin/reports']
 export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
     id: "schedule", name: "Расписание", path: ""
 },], [{id: "films", name: "Фильмы", path: ""}, {id: "schedule", name: "Расписание", path: ""}, {
@@ -25,7 +25,7 @@ export const TOP_MENU = [[{id: "films", name: "Фильмы", path: ""}, {
 }, {id: "kitchen", name: "Кухня", path: ""}, {
     id: "admin", name: "Кинокомплекс", path: [{id: "admin/orders/cinema", name: "Заказы (услуги)", path: ""}, {
         id: "admin/orders/horeca", name: "Заказы (товары)", path: ""
-    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {id: "admin/sales", name: "Отчеты", path: ""}, {
+    }, {id: "admin/egais", name: "ЕГАИС", path: ""}, {id: "admin/reports", name: "Отчеты", path: ""}, {
         id: "admin/zbooks", name: "Кассовые документы", path: ""
     }, {id: "admin/acquiring", name: "Эквайринг", path: ""}, {
         id: "admin/operations", name: "Операции по кассам", path: ""
@@ -39,7 +39,7 @@ const initialState = {
     wp: null,
     version: '1.001',
     need_update: false,
-    dev: false,
+    dev: true,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,

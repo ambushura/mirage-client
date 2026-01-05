@@ -10,10 +10,10 @@ import LiquorIcon from '@mui/icons-material/Liquor'
 import {WhiteMenuItem} from "./ThemeContext.jsx"
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import ConstructionIcon from '@mui/icons-material/Construction'
-import SavingsIcon from '@mui/icons-material/Savings'
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 import WalletIcon from '@mui/icons-material/Wallet'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
 
 const List = (props) => {
 
@@ -123,8 +123,8 @@ const List = (props) => {
                                                                         <ConstructionIcon/> : el.id === 'admin/egais' ?
                                                                             <LiquorIcon/> : el.id === 'admin/acquiring' ?
                                                                                 <AccountBalanceIcon/> : el.id === 'admin/staff' ?
-                                                                                    <AssignmentIndIcon/> : el.id === 'admin/sales' ?
-                                                                                        <SavingsIcon/> : null}
+                                                                                    <AssignmentIndIcon/> : el.id === 'admin/reports' ?
+                                                                                        <StackedLineChartIcon/> : null}
                                             </ListItemIcon>
                                             <ListItemText>
                                                 {el.name}
