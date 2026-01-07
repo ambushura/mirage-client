@@ -845,10 +845,14 @@ export function ReportsMenu() {
     const {report_variant} = useSelector(state => state.documents)
 
     return <ButtonGroup variant='contained' color='secondary'>
+        <Button color={report_variant === 'schedule' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('schedule'))}>Расписание, посещаемость</Button>
+        <Button color={report_variant === 'sales_items' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales_items'))}>Продажи</Button>
         <Button color={report_variant === 'sales_short' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('sales_short'))}>Выручка (краткий)</Button>
+                onClick={() => dispatch(setReportVariant('sales_short'))}>Суточный</Button>
         <Button color={report_variant === 'sales_full' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('sales_full'))}>Выручка (полный)</Button>
+                onClick={() => dispatch(setReportVariant('sales_full'))}>Выручка</Button>
     </ButtonGroup>
 }
 

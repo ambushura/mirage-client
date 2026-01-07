@@ -50,7 +50,6 @@ import {
     ROUTE_COMMON_DOCUMENTS_RECEIPT_GET,
     ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE,
     ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
-    ROUTE_COMMON_DOCUMENTS_SALES_GET,
     ROUTE_COMMON_DOCUMENTS_SLIP_GET,
     ROUTE_COMMON_DOCUMENTS_SLIPS_GET,
     ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE,
@@ -70,6 +69,7 @@ import {
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_COMMON_PAYMENT_MAP_GET,
     ROUTE_COMMON_PAYMENT_METHODS_GET,
+    ROUTE_COMMON_REPORTS_SALES_GET,
     ROUTE_EQUIPMENT_CANDY_STATE_GET,
     ROUTE_EQUIPMENT_KKT_BILL_PRINT,
     ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
@@ -1212,11 +1212,10 @@ export const common_documents_pinpads_get = (filial, date_shift, update) => asyn
     }, data => data)
 }
 
-export const common_documents_sales_get = (filial, date_shift, variant, update) => async (dispatch, getState) => {
+export const common_reports_sales_get = (filial, date_shift, variant, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SALES_GET}`,
+        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SALES_GET}`,
         params: {date_shift, variant, update},
         filial,
         wp,

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
-import {common_documents_sales_get} from "../../../../service/fetch_service.js"
+import {common_reports_sales_get} from "../../../../service/fetch_service.js"
 import {cleanSales, setSales} from "../../../../redux/documentsReducer.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {Box} from "@mui/material"
@@ -23,7 +23,7 @@ const Reports = () => {
     // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_documents_sales_get(filial, param_date_admin, report_variant, 0))
+            const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, report_variant, 0))
             set_fetching(fetching_result)
             if (fetching_result.data !== null) {
                 dispatch(setSales(fetching_result.data))
