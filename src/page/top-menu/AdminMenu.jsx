@@ -853,7 +853,7 @@ export function ReportsMenu() {
                 onClick={() => dispatch(setReportVariant('sales_short'))}>Суточный</Button>
         <Button color={report_variant === 'sales_items' ? 'primary' : 'secondary'}
                 onClick={() => dispatch(setReportVariant('sales_items'))}>Продажи</Button>
-        <Button color={report_variant === 'sales_full' ? 'primary' : 'secondary'}
+        <Button color={report_variant === 'sales' ? 'primary' : 'secondary'}
                 onClick={() => dispatch(setReportVariant('sales'))}>Выручка</Button>
     </ButtonGroup>
 }

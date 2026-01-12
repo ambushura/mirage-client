@@ -1212,20 +1212,6 @@ export const common_documents_pinpads_get = (filial, date_shift, update) => asyn
     }, data => data)
 }
 
-export const common_reports_sales_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SALES_GET}`,
-        params: {date_shift, update},
-        filial,
-        wp,
-        kiosk,
-        version,
-    }, data => data)
-}
-
-
 export const horeca_modifications_get = (filial, uid_menu) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
@@ -1520,4 +1506,19 @@ export const get_hall_rent_sum = (filial, film_uid, start, end, its_card, premie
     } catch (error) {
         return {error: error.message || "Ошибка запроса стоимости сеанса"}
     }
+}
+
+// Отчеты
+
+export const common_reports_sales_get = (filial, date_shift, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SALES_GET}`,
+        params: {date_shift, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
 }
