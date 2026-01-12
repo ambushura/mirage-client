@@ -13,7 +13,7 @@ const Reports = () => {
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
 
-    const {report_variant} = useSelector(state => state.reports)
+    const {report_variant, update} = useSelector(state => state.reports)
 
     // Выручка
     const sales_columns = useSelector(state => state.reports.sales.columns)
@@ -46,7 +46,7 @@ const Reports = () => {
             }
         }
         if (filial !== undefined && report_variant !== null) fetch()
-    }, [dispatch, filial, param_date_admin, report_variant])
+    }, [dispatch, filial, param_date_admin, report_variant, update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>

@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
 
-    report_variant: 'schedule',
+    report_variant: 'schedule', update: 0,
 
     // Выручка
     sales: {columns: [], rows: [], columnGroupingModel: []}, sales_columnVisibilityModel: {type: false, level: false},
@@ -15,6 +15,8 @@ export const dataSlice = createSlice({
     name: "documents", initialState, reducers: {
         setReportVariant(state, {payload}) {
             state.report_variant = payload
+        }, setUpdate(state, {payload}) {
+            state.update += 1
         },
 
         // Выручка
@@ -29,7 +31,7 @@ export const dataSlice = createSlice({
 })
 
 export const {
-    setReportVariant,
+    setReportVariant, setUpdate,
 
     // Выручка
     setSales, cleanSales, set_sales_columnVisibilityModel,
