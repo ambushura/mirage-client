@@ -49,7 +49,7 @@ const Reports = () => {
     }, [dispatch, filial, param_date_admin, report_variant, update])
 
     if (filial === undefined) {
-        return <Box className='empty-box'>Выберите филиал...</Box>
+        return <Box className='empty-box' sx={{}}>Выберите филиал...</Box>
     } else if (report_variant === 'sales') {
         return <Box sx={{minHeight: '100%'}}>
             {sales_rows.length > 1 ? <DataGridPro

@@ -845,24 +845,21 @@ export function ReportsMenu() {
 
     const {report_variant} = useSelector(state => state.reports)
 
-    return <>
-        <Button color='secondary' variant='outlined' sx={{marginRight: '4px'}}
-                startIcon={<RestartAltIcon/>} onClick={() => {
+    return <ButtonGroup variant='contained' color='secondary'>
+        <Button size='large' color='secondary' variant='contained' onClick={() => {
             dispatch(setUpdate())
-        }}>Сформировать</Button>
-        <ButtonGroup variant='contained' color='secondary'>
-            <Button color={report_variant === 'schedule' ? 'primary' : 'secondary'}
-                    onClick={() => dispatch(setReportVariant('schedule'))}>Расписание</Button>
-            <Button color={report_variant === 'attendance' ? 'primary' : 'secondary'}
-                    onClick={() => dispatch(setReportVariant('attendance'))}>Посещаемость</Button>
-            <Button color={report_variant === 'sales_short' ? 'primary' : 'secondary'}
-                    onClick={() => dispatch(setReportVariant('sales_short'))}>Суточный</Button>
-            <Button color={report_variant === 'sales_items' ? 'primary' : 'secondary'}
-                    onClick={() => dispatch(setReportVariant('sales_items'))}>Продажи</Button>
-            <Button color={report_variant === 'sales' ? 'primary' : 'secondary'}
-                    onClick={() => dispatch(setReportVariant('sales'))}>Выручка</Button>
-        </ButtonGroup>
-    </>
+        }}><RestartAltIcon/></Button>
+        <Button color={report_variant === 'schedule' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('schedule'))}>Расписание</Button>
+        <Button color={report_variant === 'attendance' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('attendance'))}>Посещаемость</Button>
+        <Button color={report_variant === 'sales_short' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales_short'))}>Суточный</Button>
+        <Button color={report_variant === 'sales_items' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales_items'))}>Продажи</Button>
+        <Button color={report_variant === 'sales' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales'))}>Выручка</Button>
+    </ButtonGroup>
 }
 
 export default function AdminMenu() {
