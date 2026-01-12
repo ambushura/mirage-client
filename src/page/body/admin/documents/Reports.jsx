@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {common_reports_sales_get} from "../../../../service/fetch_service.js"
-import {cleanSales, setSales} from "../../../../redux/documentsReducer.js"
+import {cleanSales, set_sales_columnVisibilityModel, setSales} from "../../../../redux/reportsReducer.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {Box} from "@mui/material"
 import {ruRU} from "@mui/x-data-grid/locales"
@@ -12,37 +12,52 @@ const Reports = () => {
 
     const filial = useSelector(state => state.data.filial)
     const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
-    const {columns, rows, columnGroupingModel} = useSelector(state => state.documents.sales)
-    const {report_variant} = useSelector(state => state.documents)
-    const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
-    const [columnVisibilityModel, setColumnVisibilityModel] = useState({
-        type: false, level: false
-    })
+    const {report_variant} = useSelector(state => state.reports)
+
+    // Выручка
+    const sales_columns = useSelector(state => state.reports.sales.columns)
+    const sales_rows = useSelector(state => state.reports.sales.rows)
+    const sales_columnGroupingModel = useSelector(state => state.reports.sales.columnGroupingModel)
+    const sales_columnVisibilityModel = useSelector(state => state.reports.sales_columnVisibilityModel)
+
+    // Расписание
+    const schedule_columns = useSelector(state => state.reports.schedule.columns)
+    const schedule_rows = useSelector(state => state.reports.schedule.rows)
+    const schedule_columnGroupingModel = useSelector(state => state.reports.schedule.columnGroupingModel)
+    const schedule_columnVisibilityModel = useSelector(state => state.reports.schedule_columnVisibilityModel)
+
+    const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
 
     // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, report_variant, 0))
-            set_fetching(fetching_result)
-            if (fetching_result.data !== null) {
-                dispatch(setSales(fetching_result.data))
+            dispatch(cleanSales())
+            switch (report_variant) {
+                case 'sales':
+                    const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, 0))
+                    set_fetching(fetching_result)
+                    if (fetching_result.data !== null) {
+                        dispatch(setSales(fetching_result.data))
+                    }
+                    break
+                default:
+                    break
             }
         }
-        dispatch(cleanSales())
-        if (filial !== undefined) fetch()
+        if (filial !== undefined && report_variant !== null) fetch()
     }, [dispatch, filial, param_date_admin, report_variant])
 
     if (filial === undefined) {
         return <Box className='empty-box'>Выберите филиал...</Box>
-    } else if (report_variant === 'sales_full') {
+    } else if (report_variant === 'sales') {
         return <Box sx={{minHeight: '100%'}}>
-            {rows.length > 1 ? <DataGridPro
+            {sales_rows.length > 1 ? <DataGridPro
                 hideFooter
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                rows={rows}
-                columns={columns}
-                columnGroupingModel={columnGroupingModel}
+                rows={sales_rows}
+                columns={sales_columns}
+                columnGroupingModel={sales_columnGroupingModel}
                 getRowId={(row) => {
                     return `${row.owner_uid || 'total'}|${row.kkt_uid || 'kkt'}|${row.type}|${row.level}`
                 }}
@@ -50,8 +65,8 @@ const Reports = () => {
                 disableSelectionOnClick
                 hideFooterSelectedRowCount
                 experimentalFeatures={{columnGrouping: true}}
-                columnVisibilityModel={columnVisibilityModel}
-                onColumnVisibilityModelChange={setColumnVisibilityModel}
+                columnVisibilityModel={sales_columnVisibilityModel}
+                onColumnVisibilityModelChange={set_sales_columnVisibilityModel}
                 getRowClassName={(params) => {
                     const {is_total_owner, is_total_kkt} = params.row
                     if (is_total_owner && is_total_kkt) {
@@ -66,6 +81,22 @@ const Reports = () => {
                     return ''
                 }}
             /> : <Box className='empty-box' sx={{height: '100%'}}>Выручка отсутствует в смене...</Box>}
+        </Box>
+    } else if (report_variant === 'schedule') {
+        return <Box sx={{minHeight: '100%'}}>
+            {schedule_rows.length > 1 ? <DataGridPro
+                hideFooter
+                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                rows={schedule_rows}
+                columns={schedule_columns}
+                columnGroupingModel={schedule_columnGroupingModel}
+                density="compact"
+                disableSelectionOnClick
+                hideFooterSelectedRowCount
+                experimentalFeatures={{columnGrouping: true}}
+                columnVisibilityModel={schedule_columnVisibilityModel}
+                onColumnVisibilityModelChange={setColumnVisibilityModel}
+            /> : <Box className='empty-box' sx={{height: '100%'}}>Расписание отсутствует в смене...</Box>}
         </Box>
     }
 

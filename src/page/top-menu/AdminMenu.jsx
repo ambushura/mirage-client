@@ -70,7 +70,6 @@ import {
     setCurrentPinpad,
     setOperationsDetails,
     setOperationsPage,
-    setReportVariant,
     setTriggerDeleteOperation,
     setTriggerDeleteReceipt,
     setTriggerDeleteSlip,
@@ -88,6 +87,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SaveIcon from '@mui/icons-material/Save'
+import {setReportVariant} from "../../redux/reportsReducer.js"
 
 export function AdminHallsList() {
 
@@ -842,17 +842,19 @@ export function ReportsMenu() {
 
     const dispatch = useDispatch()
 
-    const {report_variant} = useSelector(state => state.documents)
+    const {report_variant} = useSelector(state => state.reports)
 
     return <ButtonGroup variant='contained' color='secondary'>
         <Button color={report_variant === 'schedule' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('schedule'))}>Расписание, посещаемость</Button>
-        <Button color={report_variant === 'sales_items' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('sales_items'))}>Продажи</Button>
+                onClick={() => dispatch(setReportVariant('schedule'))}>Расписание</Button>
+        <Button color={report_variant === 'attendance' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('attendance'))}>Посещаемость</Button>
         <Button color={report_variant === 'sales_short' ? 'primary' : 'secondary'}
                 onClick={() => dispatch(setReportVariant('sales_short'))}>Суточный</Button>
+        <Button color={report_variant === 'sales_items' ? 'primary' : 'secondary'}
+                onClick={() => dispatch(setReportVariant('sales_items'))}>Продажи</Button>
         <Button color={report_variant === 'sales_full' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('sales_full'))}>Выручка</Button>
+                onClick={() => dispatch(setReportVariant('sales'))}>Выручка</Button>
     </ButtonGroup>
 }
 
