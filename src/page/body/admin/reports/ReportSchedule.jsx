@@ -32,8 +32,8 @@ const ReportSchedule = () => {
         if (filial !== undefined && report_variant !== null) fetch()
     }, [dispatch, filial, param_date_admin, report_variant, update])
 
-    return <Box sx={{minHeight: '100%'}}>
-        {schedule_rows.length > 1 ? <DataGridPro
+    return (<Box sx={{height: '100%', display: 'flex'}}>
+        {schedule_rows.length > 1 ? (<DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             rows={schedule_rows}
@@ -45,9 +45,29 @@ const ReportSchedule = () => {
             experimentalFeatures={{columnGrouping: true}}
             columnVisibilityModel={set_scheduleColumnVisibilityModel}
             onColumnVisibilityModelChange={set_scheduleColumnVisibilityModel}
-            getRowClassName={(params) => params.row.type === 'hall' ? 'row-hall' : ''}
-        /> : <Box className='empty-box' sx={{height: '100%'}}>Расписание отсутствует в смене...</Box>}
-    </Box>
+            getRowClassName={(params) => {
+                if (params.row.type === 'hall') return 'row-seance-hall'
+                switch (params.row.state) {
+                    case 'Закрыт':
+                        return 'row-seance-closed'
+                    case 'Отменен':
+                        return 'row-seance-canceled'
+                    case 'В продаже':
+                        return 'row-seance-sale'
+                    default:
+                        return ''
+                }
+            }}
+            pinnedColumns={{
+                left: ['beginning', 'ending'],
+            }}
+            sx={{
+                flex: 1,
+            }}
+        />) : (<Box className="empty-box" sx={{height: '100%'}}>
+            Расписание отсутствует в смене...
+        </Box>)}
+    </Box>)
 }
 
 export default ReportSchedule

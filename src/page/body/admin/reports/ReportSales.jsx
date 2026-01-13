@@ -46,7 +46,7 @@ const ReportSales = () => {
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
-            columnVisibilityModel={set_salesColumnVisibilityModel}
+            columnVisibilityModel={sales_columnVisibilityModel}
             onColumnVisibilityModelChange={set_salesColumnVisibilityModel}
             getRowClassName={(params) => {
                 const {is_total_owner, is_total_kkt} = params.row

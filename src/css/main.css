@@ -2192,7 +2192,33 @@
 }
 
 /* РАСПИСАНИЕ ОТЧЕТ */
-.MuiDataGrid-row.row-hall {
-    background: #eefaf3 !important;
-    font-weight: 700;
+.row-seance-hall {
+    font-size: 120% !important;
+}
+
+.row-seance-closed {
+    background-color: #e0e0e0 !important;
+    color: #666 !important;
+}
+
+.row-seance-canceled {
+    background-color: #ffd6d6 !important;
+    color: #b00000 !important;
+}
+
+.row-seance-sale {
+    background-color: #95f1c0 !important;
+    color: #000 !important;
+}
+
+.MuiDataGrid-row.row-seance-closed:hover {
+    background-color: #d5d5d5 !important;
+}
+
+.MuiDataGrid-row.row-seance-canceled:hover {
+    background-color: #ffbdbd !important;
+}
+
+.MuiDataGrid-row.row-seance-sale:hover {
+    background-color: #7bd6a6 !important;
 }
