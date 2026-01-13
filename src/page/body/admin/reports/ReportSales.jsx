@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {cleanSales, set_sales_columnVisibilityModel, setSales} from "../../../../redux/reportsReducer.js"
+import {cleanSales, set_salesColumnVisibilityModel, setSales} from "../../../../redux/reportsReducer.js"
 import {common_reports_sales_get} from "../../../../service/fetch_service.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
@@ -24,16 +24,9 @@ const ReportSales = () => {
     useEffect(() => {
         const fetch = async () => {
             dispatch(cleanSales())
-            switch (report_variant) {
-                case 'sales':
-                    const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, 0))
-                    set_fetching(fetching_result)
-                    if (fetching_result.data !== null) {
-                        dispatch(setSales(fetching_result.data))
-                    }
-                    break
-                default:
-                    break
+            const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, 0))
+            if (fetching_result.data !== null) {
+                dispatch(setSales(fetching_result.data))
             }
         }
         if (filial !== undefined && report_variant !== null) fetch()
@@ -53,8 +46,8 @@ const ReportSales = () => {
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
-            columnVisibilityModel={sales_columnVisibilityModel}
-            onColumnVisibilityModelChange={set_sales_columnVisibilityModel}
+            columnVisibilityModel={set_salesColumnVisibilityModel}
+            onColumnVisibilityModelChange={set_salesColumnVisibilityModel}
             getRowClassName={(params) => {
                 const {is_total_owner, is_total_kkt} = params.row
                 if (is_total_owner && is_total_kkt) {

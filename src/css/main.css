@@ -2172,6 +2172,7 @@
 }
 
 
+/* ВЫРУЧКА ОТЧЕТ */
 /* Общий итог (верхний уровень) */
 .MuiDataGrid-row.row-total-grand {
     background: #cac6c6 !important;
@@ -2188,4 +2189,10 @@
 .MuiDataGrid-row.row-total-kkt {
     background: #eefaf3 !important;
     font-weight: 600;
+}
+
+/* РАСПИСАНИЕ ОТЧЕТ */
+.MuiDataGrid-row.row-hall {
+    background: #eefaf3 !important;
+    font-weight: 700;
 }

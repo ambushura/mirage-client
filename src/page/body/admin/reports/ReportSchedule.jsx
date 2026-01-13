@@ -1,19 +1,36 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Box} from "@mui/material"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import {common_reports_schedule_get} from "../../../../service/fetch_service.js"
+import {cleanSchedule, set_scheduleColumnVisibilityModel, setSchedule} from "../../../../redux/reportsReducer.js"
 
 const ReportSchedule = () => {
 
-    const filial = useSelector(state => state.data.filial)
+    const dispatch = useDispatch()
 
-    const {report_variant} = useSelector(state => state.reports)
+    const filial = useSelector(state => state.data.filial)
+    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+
+    const {report_variant, update} = useSelector(state => state.reports)
 
     const schedule_columns = useSelector(state => state.reports.schedule.columns)
     const schedule_rows = useSelector(state => state.reports.schedule.rows)
     const schedule_columnGroupingModel = useSelector(state => state.reports.schedule.columnGroupingModel)
     const schedule_columnVisibilityModel = useSelector(state => state.reports.schedule_columnVisibilityModel)
+
+    // Загрузка данных
+    useEffect(() => {
+        const fetch = async () => {
+            dispatch(cleanSchedule())
+            const fetching_result = await dispatch(common_reports_schedule_get(filial, param_date_admin, 0))
+            if (fetching_result.data !== null) {
+                dispatch(setSchedule(fetching_result.data))
+            }
+        }
+        if (filial !== undefined && report_variant !== null) fetch()
+    }, [dispatch, filial, param_date_admin, report_variant, update])
 
     return <Box sx={{minHeight: '100%'}}>
         {schedule_rows.length > 1 ? <DataGridPro
@@ -26,8 +43,9 @@ const ReportSchedule = () => {
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
-            columnVisibilityModel={schedule_columnVisibilityModel}
-            onColumnVisibilityModelChange={setColumnVisibilityModel}
+            columnVisibilityModel={set_scheduleColumnVisibilityModel}
+            onColumnVisibilityModelChange={set_scheduleColumnVisibilityModel}
+            getRowClassName={(params) => params.row.type === 'hall' ? 'row-hall' : ''}
         /> : <Box className='empty-box' sx={{height: '100%'}}>Расписание отсутствует в смене...</Box>}
     </Box>
 }
