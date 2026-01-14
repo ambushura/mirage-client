@@ -150,10 +150,48 @@ export const ordersSlice = createSlice({
             state.horder_paying = payload
         }, setOrdersCinema(state, {payload}) {
             state.orders_cinema = payload
+        }, updateOrdersCinema(state, {payload}) {
+            const incomingOrders = payload.orders || []
+            if (!state.orders_cinema) {
+                state.orders_cinema = payload
+                return
+            }
+            const currentOrders = state.orders_cinema.orders || []
+            const ordersMap = new Map(currentOrders.map(order => [order.uid, order]))
+            for (const order of incomingOrders) {
+                const prev = ordersMap.get(order.uid)
+                if (!prev || prev.ver !== order.ver) {
+                    ordersMap.set(order.uid, order)
+                }
+            }
+            state.orders_cinema.orders = Array.from(ordersMap.values())
+            state.orders_cinema.total_count = payload.total_count
         }, setOrdersCinemaPage(state, {payload}) {
             state.orders_cinema_page = payload
         }, setOrdersHoreca(state, {payload}) {
             state.orders_horeca = payload
+        }, updateOrdersHoreca(state, {payload}) {
+            const incoming = payload.orders || []
+            if (!state.orders_horeca) {
+                state.orders_horeca = payload
+                return
+            }
+            const current = state.orders_horeca.orders || []
+            const currentMap = new Map(current.map(order => [order.uid, order]))
+            const result = []
+            for (const order of incoming) {
+                const prev = currentMap.get(order.uid)
+                if (!prev) {
+                    result.push(order)
+                } else if (prev.ver !== order.ver) {
+                    result.push(order)
+                } else {
+                    result.push(prev)
+                }
+                currentMap.delete(order.uid)
+            }
+            state.orders_horeca.orders = result
+            state.orders_horeca.total_count = payload.total_count
         }, setOrdersHorecaPage(state, {payload}) {
             state.orders_horeca_page = payload
         }, // Фильтры общепит (загрузка)
@@ -327,5 +365,7 @@ export const {
     setPreOrderTimeRemaining,
     setKitchenPointsList,
     setUidKitchenPointsSelected,
+    updateOrdersCinema,
+    updateOrdersHoreca,
 } = ordersSlice.actions
 export default ordersSlice.reducer

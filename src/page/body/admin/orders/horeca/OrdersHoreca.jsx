@@ -1,7 +1,7 @@
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import OrderHoreca from "./OrderHoreca.jsx"
-import {setOrdersHoreca} from "../../../../../redux/ordersReducer.js"
+import {setOrdersHoreca, updateOrdersHoreca} from "../../../../../redux/ordersReducer.js"
 import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect, useState} from "react"
 import {common_order_find, horeca_orders_get} from "../../../../../service/fetch_service.js"
@@ -49,7 +49,20 @@ const OrdersHoreca = () => {
         return () => {
             dispatch(setOrdersHoreca({orders: [], total_count: 0}))
         }
-    }, [dispatch, filial, halls_selected, kitchen_points_selected, kitchen_state_selected, order_search_value, page, param_date_admin, staff_selected, state_selected, update, workplaces_selected])
+    }, [dispatch, filial, halls_selected, kitchen_points_selected, kitchen_state_selected, order_search_value, page, param_date_admin, staff_selected, state_selected, workplaces_selected])
+
+    useEffect(() => {
+        const fetch_orders = async () => {
+            const fetching_result = await dispatch(horeca_orders_get(filial, update, page, param_date_admin, staff_selected.map(({uid}) => uid), state_selected.map(({uid}) => uid), halls_selected.map(({uid}) => uid), workplaces_selected.map(({uid}) => uid), kitchen_points_selected.map(({uid}) => uid), kitchen_state_selected.map(({uid}) => uid)))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data != null) {
+                dispatch(updateOrdersHoreca(fetching_result.data))
+            }
+            set_fetching(fetching_result)
+        }
+        if (filial !== undefined && order_search_value === null) {
+            fetch_orders()
+        }
+    }, [dispatch, filial, update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>

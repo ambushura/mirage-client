@@ -1,6 +1,6 @@
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {setOrdersCinema} from "../../../../../redux/ordersReducer.js"
+import {setOrdersCinema, updateOrdersCinema} from "../../../../../redux/ordersReducer.js"
 import OrderCinema from "./OrderCinema.jsx"
 import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect, useState} from "react"
@@ -51,7 +51,20 @@ const OrdersCinema = () => {
             fetch_order()
         }
         dispatch(setOrdersCinema({orders: [], total_count: 0}))
-    }, [dispatch, filial, update, page, buyer_emails_selected, buyer_phone_numbers_selected, from_kiosk_selected, from_site_selected, from_wp_selected, halls_selected, param_date_admin, seances_selected, staff_selected, state_selected, workplaces_selected, order_search_value])
+    }, [dispatch, filial, page, buyer_emails_selected, buyer_phone_numbers_selected, from_kiosk_selected, from_site_selected, from_wp_selected, halls_selected, param_date_admin, seances_selected, staff_selected, state_selected, workplaces_selected, order_search_value])
+
+    useEffect(() => {
+        const fetch_orders = async () => {
+            const fetching_result = await dispatch(cinema_orders_get(filial, update, page, param_date_admin, staff_selected.map(({uid}) => uid), state_selected.map(({uid}) => uid), seances_selected.map(({uid}) => uid), halls_selected.map(({uid}) => uid), workplaces_selected.map(({uid}) => uid), buyer_emails_selected, buyer_phone_numbers_selected, from_site_selected, from_kiosk_selected, from_wp_selected))
+            if (!fetching_result.loading && fetching_result.error === null && fetching_result.data != null) {
+                dispatch(updateOrdersCinema(fetching_result.data))
+            }
+            set_fetching(fetching_result)
+        }
+        if (filial !== undefined && order_search_value === null) {
+            fetch_orders()
+        }
+    }, [dispatch, filial, update])
 
     if (filial === undefined) {
         return <Box className='empty-box'>
