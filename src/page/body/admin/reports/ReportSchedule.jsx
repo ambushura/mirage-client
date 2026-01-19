@@ -32,8 +32,8 @@ const ReportSchedule = () => {
         if (filial !== undefined && report_variant !== null) fetch()
     }, [dispatch, filial, param_date_admin, report_variant, update])
 
-    return (<Box sx={{height: '100%', display: 'flex'}}>
-        {schedule_rows.length > 1 ? (<DataGridPro
+    return <Box sx={{height: '100%', display: 'flex'}}>
+        {schedule_rows.length > 1 ? <DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             rows={schedule_rows}
@@ -64,10 +64,10 @@ const ReportSchedule = () => {
             sx={{
                 flex: 1,
             }}
-        />) : (<Box className="empty-box" sx={{height: '100%'}}>
+        /> : <Box className="empty-box" sx={{height: '100%'}}>
             Расписание отсутствует в смене...
-        </Box>)}
-    </Box>)
+        </Box>}
+    </Box>
 }
 
 export default ReportSchedule

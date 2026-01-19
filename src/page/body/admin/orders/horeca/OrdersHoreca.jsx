@@ -42,12 +42,11 @@ const OrdersHoreca = () => {
             set_fetching(fetching_result)
         }
         if (filial !== undefined && order_search_value === null) {
+            dispatch(setOrdersHoreca({orders: [], total_count: 0}))
             fetch_orders()
         } else if (filial !== undefined && order_search_value !== null) {
-            fetch_order()
-        }
-        return () => {
             dispatch(setOrdersHoreca({orders: [], total_count: 0}))
+            fetch_order()
         }
     }, [dispatch, filial, halls_selected, kitchen_points_selected, kitchen_state_selected, order_search_value, page, param_date_admin, staff_selected, state_selected, workplaces_selected])
 

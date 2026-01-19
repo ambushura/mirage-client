@@ -46,11 +46,12 @@ const OrdersCinema = () => {
             set_fetching(fetching_result)
         }
         if (filial !== undefined && order_search_value === null) {
+            dispatch(setOrdersCinema({orders: [], total_count: 0}))
             fetch_orders()
         } else if (filial !== undefined && order_search_value !== null) {
+            dispatch(setOrdersCinema({orders: [], total_count: 0}))
             fetch_order()
         }
-        dispatch(setOrdersCinema({orders: [], total_count: 0}))
     }, [dispatch, filial, page, buyer_emails_selected, buyer_phone_numbers_selected, from_kiosk_selected, from_site_selected, from_wp_selected, halls_selected, param_date_admin, seances_selected, staff_selected, state_selected, workplaces_selected, order_search_value])
 
     useEffect(() => {

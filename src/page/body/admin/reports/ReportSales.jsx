@@ -32,16 +32,13 @@ const ReportSales = () => {
         if (filial !== undefined && report_variant !== null) fetch()
     }, [dispatch, filial, param_date_admin, report_variant, update])
 
-    return <Box sx={{minHeight: '100%'}}>
+    return <Box sx={{minHeight: '100%', display: 'flex'}}>
         {sales_rows.length > 1 ? <DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-            rows={sales_rows}
+            rows={sales_rows.map((r, i) => ({...r, id: i}))}
             columns={sales_columns}
             columnGroupingModel={sales_columnGroupingModel}
-            getRowId={(row) => {
-                return `${row.owner_uid || 'total'}|${row.kkt_uid || 'kkt'}|${row.type}|${row.level}`
-            }}
             density="compact"
             disableSelectionOnClick
             hideFooterSelectedRowCount
@@ -49,17 +46,27 @@ const ReportSales = () => {
             columnVisibilityModel={sales_columnVisibilityModel}
             onColumnVisibilityModelChange={set_salesColumnVisibilityModel}
             getRowClassName={(params) => {
-                const {is_total_owner, is_total_kkt} = params.row
-                if (is_total_owner && is_total_kkt) {
+                const label = params.row.label
+                // ВСЕГО
+                if (label === 'ВСЕГО') {
                     return 'row-total-grand'
                 }
-                if (is_total_owner) {
+                // Организация
+                if (!label.startsWith('  └─') && !label.startsWith('    └─')) {
                     return 'row-total-owner'
                 }
-                if (is_total_kkt) {
-                    return 'row-total-kkt'
+                // Пользователь
+                if (label.startsWith('  └─') && !label.startsWith('    └─')) {
+                    return 'row-user'
+                }
+                // ККТ
+                if (label.startsWith('    └─')) {
+                    return 'row-kkt'
                 }
                 return ''
+            }}
+            sx={{
+                flex: 1,
             }}
         /> : <Box className='empty-box' sx={{height: '100%'}}>Выручка отсутствует в смене...</Box>}
     </Box>

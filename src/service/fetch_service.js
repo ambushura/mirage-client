@@ -122,7 +122,7 @@ import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} fr
 import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 
-export const TIMEOUT = 10000
+export const TIMEOUT = 30000
 
 export const makeRequest = async (dispatch, config, onSuccess) => {
 
@@ -700,7 +700,7 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
             comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
             return_before,
         },
-        timeout: TIMEOUT * 6 * 3,
+        timeout: TIMEOUT * 6 * 2,
         wp,
         filial,
         kiosk,
@@ -746,7 +746,7 @@ export const equipment_action = (filial, route, params) => async (dispatch, getS
         method: 'get',
         url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${route}`,
         params: params,
-        timeout: TIMEOUT * 6 * 3,
+        timeout: TIMEOUT * 6 * 2,
         wp,
         filial,
         kiosk,

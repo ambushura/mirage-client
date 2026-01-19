@@ -2173,23 +2173,29 @@
 
 
 /* ВЫРУЧКА ОТЧЕТ */
-/* Общий итог (верхний уровень) */
-.MuiDataGrid-row.row-total-grand {
-    background: #cac6c6 !important;
-    font-weight: 700;
+.row-total-grand {
+    background-color: #7EDFC1;
+    color: #1A202C;
+    font-weight: bold;
 }
 
-/* Итог по owner (организация / сотрудник) */
-.MuiDataGrid-row.row-total-owner {
-    background: #f3f7ff !important;
+.row-total-owner {
+    background-color: #A1EBD8;
+    color: #1A202C;
     font-weight: 600;
 }
 
-/* Итог по KKT */
-.MuiDataGrid-row.row-total-kkt {
-    background: #eefaf3 !important;
-    font-weight: 600;
+.row-user {
+    background-color: #C8F3EC;
+    color: #1A202C;
 }
+
+.row-kkt {
+    background-color: #E6FFFA;
+    color: #1A202C;
+    font-style: italic;
+}
+
 
 /* РАСПИСАНИЕ ОТЧЕТ */
 .row-seance-hall {
