@@ -68,6 +68,9 @@ const initialState = {
     // Киоск
     kiosk: false,
     inactivity_time: 0,
+
+    // Центр
+    master: false,
 }
 
 const interfaceSlice = createSlice({
@@ -118,13 +121,20 @@ const interfaceSlice = createSlice({
             state.turn_on_wp = payload
         }, turnOffWP: (state, {payload}) => {
             state.turn_off_wp = payload
-        }, // Киоск
+        },
+
+        // Киоск
         setInactivityTime: (state, {payload}) => {
             state.inactivity_time = payload
         }, decrementInactivityTime(state) {
             if (state.inactivity_time > 0) {
                 state.inactivity_time--
             }
+        },
+
+        // Центр
+        setMaster: (state, {payload}) => {
+            state.master = payload
         }
     },
 })
@@ -149,7 +159,10 @@ export const {
     turnOnWP,
     turnOffWP,
     setInactivityTime,
-    decrementInactivityTime
+    decrementInactivityTime,
+
+    // Центр
+    setMaster
 } = interfaceSlice.actions
 
 export default interfaceSlice.reducer

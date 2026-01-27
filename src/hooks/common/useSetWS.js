@@ -133,7 +133,6 @@ export function useSetWS() {
                             const fetching_result = await dispatch(horeca_kitchen_get(filial, param_date_admin, uid_kitchen_points_selected))
                             if (fetching_result.data) dispatch(setKitchenOrders(fetching_result.data))
                         })()
-
                         switch (data.action) {
                             case 'add_position':
                                 dispatch(addNotification({

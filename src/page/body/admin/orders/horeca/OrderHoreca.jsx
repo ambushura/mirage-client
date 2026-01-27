@@ -146,10 +146,14 @@ const OrderHoreca = ({order}) => {
         }}>
             <Box sx={{flexGrow: 1}}>
                 <Box sx={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                     fontWeight: 'bold',
-                    marginLeft: '12px',
+                    paddingLeft: '12px',
                     textDecoration: horder.uid === order.uid ? 'underline' : null
-                }}>{order.number}</Box>
+                }}><span>{order.number}</span> <span>Счет {order.current_number}</span></Box>
                 <Box sx={{
                     overflow: 'hidden', marginLeft: '12px', fontSize: '80%', fontWeight: 'bold'
                 }}>{order.name_creator}</Box>
@@ -180,8 +184,9 @@ const OrderHoreca = ({order}) => {
             padding: '4px 0', maxHeight: '40px', overflowX: 'hidden', overflowY: 'auto', wordBreak: 'break-word'
         }}><CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.comment}</Box> : null}
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
-            {order.buyer_email !== null ? <Box><AlternateEmailIcon
-                sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
+            {order.buyer_email !== null ? <Box>
+                <AlternateEmailIcon
+                    sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_email}
             </Box> : null}
             {order.buyer_phone_number !== null ? <Box><PhoneEnabledIcon
                 sx={{width: '15px', height: '15px', marginRight: '5px'}}/>{order.buyer_phone_number}

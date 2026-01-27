@@ -611,6 +611,10 @@
     padding: 2px 4px 4px 4px;
 }
 
+.menu-item {
+    flex: 1;
+}
+
 .menu-breadcrumbs, .menu-folders, .menu-items {
     display: flex;
     flex-wrap: wrap;
@@ -639,7 +643,7 @@
     font-size: 80%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
 }
 
 .menu-breadcrumb {
@@ -1891,7 +1895,7 @@
 }
 
 .kitchen-order-header {
-    padding: 8px;
+    padding: 4px 8px 0 8px;
     font-size: 100%;
     font-weight: bold;
     display: flex;

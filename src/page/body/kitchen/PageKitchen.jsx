@@ -2,13 +2,17 @@ import {Box, Button} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import dayjs from "dayjs"
 import {horeca_kitchen_get, horeca_kitchen_push} from "../../../service/fetch_service.js"
-import {useEffect, useState} from "react"
+import {memo, useEffect, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import {setKitchenOrders} from "../../../redux/ordersReducer.js"
 import Loader from "../../../ui/Loader.jsx"
 import SkipNextIcon from '@mui/icons-material/SkipNext'
+import {openModal} from "../../../redux/interfaceReducer.js"
+import duration from "dayjs/plugin/duration"
 
-const KitchenOrderList = ({orders, showButtons, dispatch}) => {
+dayjs.extend(duration)
+
+const KitchenOrderList = ({orders, showButtons, dispatch, showTimer}) => {
 
     const filial = useSelector(state => state.data.filial)
     const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
@@ -19,11 +23,15 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
             key={`${order.uid}${order.ver}`}
             variants={itemVariants}
             style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
-            <Box sx={{width: '100%', textAlign: 'center', paddingTop: '4px'}}>{order.user_name}</Box>
             <Box className='kitchen-order-header glass'>
-                <Box sx={{ml: '4px'}}>{order.number}</Box>
-                <Box>{dayjs.utc(order.date_create).format("HH:mm")}</Box>
-                <Box>{dayjs.utc(order.date_change).format("HH:mm")}</Box>
+                <Button variant='text' color='secondary' sx={{fontSize: '150%'}} onClick={() => {
+                    dispatch(openModal({type: 'kitchen_print', props: {uid: 'new'}}))
+                }}>Счет {order.number}</Button>
+                <Box sx={{flex: 1, paddingLeft: '12px', overflow: 'hidden'}}>
+                    <Box sx={{fontWeight: '500'}}>создан в {dayjs.utc(order.date_create).format("HH:mm")}</Box>
+                    {showTimer && <Box sx={{color: '#8B919B'}}><ElapsedTime from={dayjs.utc(order.date_create)}/></Box>}
+                    <Box sx={{width: '100%'}}>{order.user_name}</Box>
+                </Box>
             </Box>
             <Box className='kitchen-order-body'>
                 {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`}
@@ -58,7 +66,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch}) => {
 }
 
 const KitchenSection = ({
-                            orders, showButtons = true, dispatch
+                            orders, showButtons = true, dispatch, showTimer
                         }) => <Box className='kitchen-section'>
     <AnimatePresence>
         {orders.length > 0 && <motion.div
@@ -69,7 +77,8 @@ const KitchenSection = ({
             variants={containerVariants}>
             <KitchenOrderList orders={orders}
                               showButtons={showButtons}
-                              dispatch={dispatch}/>
+                              dispatch={dispatch}
+                              showTimer={showTimer}/>
         </motion.div>}
     </AnimatePresence>
 </Box>
@@ -115,18 +124,21 @@ const PageKitchen = () => {
                             <Box sx={{flex: 1}}>
                                 <Box className='kitchen-section-header glass'>ОЖИДАЙТЕ</Box>
                                 <KitchenSection orders={kitchen_orders.waiting}
-                                                dispatch={dispatch}/>
+                                                dispatch={dispatch}
+                                                showTimer={false}/>
                             </Box>
                             <Box sx={{flex: 1}}>
                                 <Box className='kitchen-section-header glass'>НАЧНИТЕ ГОТОВИТЬ</Box>
                                 <KitchenSection orders={kitchen_orders.cooking}
-                                                dispatch={dispatch}/>
+                                                dispatch={dispatch}
+                                                showTimer={true}/>
                             </Box>
                             <Box sx={{flex: 1}}>
                                 <Box className='kitchen-section-header glass'>ГОТОВЫ</Box>
                                 <KitchenSection orders={kitchen_orders.completed}
                                                 dispatch={dispatch}
-                                                showButtons={false}/>
+                                                showButtons={false}
+                                                showTimer={false}/>
                             </Box>
                         </Box>
                     </> : <Box className='empty-box'>Ничего не нужно готовить...</Box>}
@@ -153,3 +165,35 @@ const itemVariants = {
         }
     }
 }
+
+export const ElapsedTime = memo(({from}) => {
+    const [now, setNow] = useState(() => dayjs())
+
+    useEffect(() => {
+        const id = setInterval(() => setNow(dayjs()), 1000)
+        return () => clearInterval(id)
+    }, [])
+
+    const localFrom = dayjs.isDayjs(from) ? from.local() : dayjs.utc(from).local()
+    const diffMs = Math.max(0, now.diff(localFrom))
+    const d = dayjs.duration(diffMs)
+    const diffMinutes = d.asMinutes()
+
+    let color = '#e90007'
+    if (diffMinutes <= 10) {
+        color = 'green'
+    } else if (diffMinutes <= 15) {
+        color = '№ff8100'
+    }
+
+    let text = ''
+    if (d.asMinutes() < 1) {
+        text = `${d.seconds()} с`
+    } else if (d.asHours() < 1) {
+        text = `${d.minutes()} м ${d.seconds()} с`
+    } else {
+        text = `${Math.floor(d.asHours())} ч ${d.minutes()} м ${d.seconds()} с`
+    }
+
+    return <span style={{color}}>{text}</span>
+})
