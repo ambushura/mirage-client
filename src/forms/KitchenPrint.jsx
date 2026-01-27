@@ -2,8 +2,9 @@ import {useDispatch, useSelector} from "react-redux"
 import {common_printers_get, equipment_action} from "../service/fetch_service.js"
 import {Box, Button} from "@mui/material"
 import {useEffect, useState} from "react"
+import {ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT} from "../service/fetch_routes.js"
 
-const KitchenPrint = (props) => {
+const KitchenPrint = ({props}) => {
 
     const dispatch = useDispatch()
     const filial = useSelector(state => state.data.filial)
@@ -42,7 +43,7 @@ const KitchenPrint = (props) => {
             }}>
             {sortedKP.map(printer => <Button
                 onClick={() => {
-                    dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PRINTER_BILL_PRINT, {
+                    dispatch(equipment_action(filial, ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT, {
                         uid: printer.kitchen_point.uid, uid_order: props.order.uid
                     }))
                 }}

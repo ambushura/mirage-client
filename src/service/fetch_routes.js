@@ -102,3 +102,4 @@ export const ROUTE_EQUIPMENT_PRINTER_BILL_PRINT = '/api/equipment/printer/bill/p
 export const ROUTE_HALL_RENT = '/pl/hs/pl/RentSum'
 export const ROUTE_COMMON_REPORTS_SALES_GET = '/api/common/reports/sales/get'
 export const ROUTE_COMMON_REPORTS_SCHEDULE_GET = '/api/common/reports/schedule/get'
+export const ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT = '/api/equipment/printer/kitchen_print'

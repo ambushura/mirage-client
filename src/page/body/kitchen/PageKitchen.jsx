@@ -12,7 +12,7 @@ import duration from "dayjs/plugin/duration"
 
 dayjs.extend(duration)
 
-const KitchenOrderList = ({orders, showButtons, dispatch, showTimer}) => {
+const KitchenOrderList = ({orders, showButtons, dispatch, showTimer, printKitchen}) => {
 
     const filial = useSelector(state => state.data.filial)
     const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
@@ -25,7 +25,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch, showTimer}) => {
             style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
             <Box className='kitchen-order-header glass'>
                 <Button variant='text' color='secondary' sx={{fontSize: '150%'}} onClick={() => {
-                    dispatch(openModal({type: 'kitchen_print', props: {uid: 'new'}}))
+                    if (printKitchen) dispatch(openModal({type: 'kitchen_print', props: {order: order}}))
                 }}>Счет {order.number}</Button>
                 <Box sx={{flex: 1, paddingLeft: '12px', overflow: 'hidden'}}>
                     <Box sx={{fontWeight: '500'}}>создан в {dayjs.utc(order.date_create).format("HH:mm")}</Box>
@@ -37,9 +37,10 @@ const KitchenOrderList = ({orders, showButtons, dispatch, showTimer}) => {
                 {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`}
                                                    className='kitchen-position'
                                                    style={{borderBottom: i !== order.items.length - 1 && !item.canceled ? '1px dashed #b1b1b7' : 'none'}}>
-                    {showButtons && <Button variant='outlined' color='secondary'
+                    {showButtons && <Button variant='text' color='secondary'
                                             className='kitchen-button'
-                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected, order.ver))}><SkipNextIcon/></Button>}
+                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected, order.ver))}><SkipNextIcon
+                        fontSize={'large'}/></Button>}
                     <Box className={`${item.canceled ? 'kitchen-item-canceled' : ''}`}
                          sx={{display: 'flex', flexDirection: 'column'}}>
                         <Box sx={{
@@ -66,7 +67,7 @@ const KitchenOrderList = ({orders, showButtons, dispatch, showTimer}) => {
 }
 
 const KitchenSection = ({
-                            orders, showButtons = true, dispatch, showTimer
+                            orders, showButtons = true, dispatch, showTimer, printKitchen
                         }) => <Box className='kitchen-section'>
     <AnimatePresence>
         {orders.length > 0 && <motion.div
@@ -78,7 +79,8 @@ const KitchenSection = ({
             <KitchenOrderList orders={orders}
                               showButtons={showButtons}
                               dispatch={dispatch}
-                              showTimer={showTimer}/>
+                              showTimer={showTimer}
+                              printKitchen={printKitchen}/>
         </motion.div>}
     </AnimatePresence>
 </Box>
@@ -125,20 +127,23 @@ const PageKitchen = () => {
                                 <Box className='kitchen-section-header glass'>ОЖИДАЙТЕ</Box>
                                 <KitchenSection orders={kitchen_orders.waiting}
                                                 dispatch={dispatch}
-                                                showTimer={false}/>
+                                                showTimer={false}
+                                                printKitchen={false}/>
                             </Box>
                             <Box sx={{flex: 1}}>
                                 <Box className='kitchen-section-header glass'>НАЧНИТЕ ГОТОВИТЬ</Box>
                                 <KitchenSection orders={kitchen_orders.cooking}
                                                 dispatch={dispatch}
-                                                showTimer={true}/>
+                                                showTimer={true}
+                                                printKitchen={false}/>
                             </Box>
                             <Box sx={{flex: 1}}>
                                 <Box className='kitchen-section-header glass'>ГОТОВЫ</Box>
                                 <KitchenSection orders={kitchen_orders.completed}
                                                 dispatch={dispatch}
                                                 showButtons={false}
-                                                showTimer={false}/>
+                                                showTimer={false}
+                                                printKitchen={true}/>
                             </Box>
                         </Box>
                     </> : <Box className='empty-box'>Ничего не нужно готовить...</Box>}
