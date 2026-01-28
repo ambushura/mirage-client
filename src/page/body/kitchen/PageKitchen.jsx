@@ -18,51 +18,58 @@ const KitchenOrderList = ({orders, showButtons, dispatch, showTimer, printKitche
     const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
 
     return <>
-        {orders.map(order => <motion.div
-            className={`kitchen-order ${order.canceled ? 'kitchen-order-canceled' : ''}`}
-            key={`${order.uid}${order.ver}`}
-            variants={itemVariants}
-            style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
-            <Box className='kitchen-order-header glass'>
-                <Button variant='text' color='secondary' sx={{fontSize: '150%'}} onClick={() => {
-                    if (printKitchen) dispatch(openModal({type: 'kitchen_print', props: {order: order}}))
-                }}>Счет {order.number}</Button>
-                <Box sx={{flex: 1, paddingLeft: '12px', overflow: 'hidden'}}>
-                    <Box sx={{fontWeight: '500'}}>создан в {dayjs.utc(order.date_create).format("HH:mm")}</Box>
-                    {showTimer && <Box sx={{color: '#8B919B'}}><ElapsedTime from={dayjs.utc(order.date_create)}/></Box>}
-                    <Box sx={{width: '100%'}}>{order.user_name}</Box>
-                </Box>
-            </Box>
-            <Box className='kitchen-order-body'>
-                {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`}
-                                                   className='kitchen-position'
-                                                   style={{borderBottom: i !== order.items.length - 1 && !item.canceled ? '1px dashed #b1b1b7' : 'none'}}>
-                    {showButtons && <Button variant='text' color='secondary'
-                                            className='kitchen-button'
-                                            onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected, order.ver))}><SkipNextIcon
-                        fontSize={'large'}/></Button>}
-                    <Box className={`${item.canceled ? 'kitchen-item-canceled' : ''}`}
-                         sx={{display: 'flex', flexDirection: 'column'}}>
-                        <Box sx={{
-                            display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'
-                        }}>{item.take_away &&
-                            <Box sx={{fontSize: '120%', marginRight: '5px'}}>С СОБОЙ</Box>}{item.course > 0 &&
-                            <Box sx={{fontSize: '120%'}}>{item.course + 1} КУРС</Box>}</Box>
-                        <Box sx={{
-                            fontWeight: 'bold', overflow: 'hidden'
-                        }}>{item.quantity} {item.unit_name}</Box>
-                        <Box sx={{overflow: 'hidden', flex: 1}}>{item.name}</Box>
-                        <Box>{item.comment}</Box>
-                        {item.modifications !== null ? <Box sx={{
-                            display: 'flex', flexDirection: 'row', flexWrap: 'wrap'
-                        }}>{item.modifications.map(modification => {
-                            return <Box key={modification}
-                                        sx={{fontWeight: 'bold', padding: '4px 4px 0 0'}}>{modification}</Box>
-                        })}</Box> : null}
+        {orders.map(order => {
+            if (order.items.length > 0) {
+                return <motion.div
+                    className={`kitchen-order ${order.canceled && order.items.length > 3 ? 'kitchen-order-canceled' : order.canceled && order.items.length <= 3 ? 'kitchen-order-1-line-canceled' : ''}`}
+                    key={`${order.uid}${order.ver}`}
+                    variants={itemVariants}
+                    style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
+                    <Box className='kitchen-order-header glass'>
+                        <Box sx={{borderBottom: '2px solid #4a4a4b'}}>
+                            <Button variant='text' color='secondary' sx={{fontSize: '150%'}} onClick={() => {
+                                if (printKitchen) dispatch(openModal({type: 'kitchen_print', props: {order: order}}))
+                            }}>Счет {order.number}</Button>
+                        </Box>
+                        <Box sx={{flex: 1, paddingLeft: '12px', overflow: 'hidden'}}>
+                            <Box sx={{fontWeight: '500'}}>создан в {dayjs.utc(order.date_create).format("HH:mm")}</Box>
+                            {showTimer &&
+                                <Box sx={{color: '#8B919B'}}><ElapsedTime from={dayjs.utc(order.date_create)}/></Box>}
+                            <Box sx={{width: '100%'}}>{order.user_name}</Box>
+                        </Box>
                     </Box>
-                </Box>)}
-            </Box>
-        </motion.div>)}
+                    <Box className='kitchen-order-body'>
+                        {order.items.map((item, i) => <Box key={`${item.uid}${order.ver}`}
+                                                           className='kitchen-position'
+                                                           style={{borderBottom: i !== order.items.length - 1 && !item.canceled ? '1px dashed #b1b1b7' : 'none'}}>
+                            {showButtons && <Button variant='text' color='secondary'
+                                                    className='kitchen-button'
+                                                    onClick={() => dispatch(horeca_kitchen_push(filial, order.uid, item.uid, uid_kitchen_points_selected, order.ver))}><SkipNextIcon
+                                fontSize={'large'}/></Button>}
+                            <Box className={`${item.canceled ? 'kitchen-item-canceled' : ''}`}
+                                 sx={{display: 'flex', flexDirection: 'column'}}>
+                                <Box sx={{
+                                    display: 'flex', justifyContent: 'space-between', fontWeight: 'bold'
+                                }}>{item.take_away &&
+                                    <Box sx={{fontSize: '120%', marginRight: '5px'}}>С СОБОЙ</Box>}{item.course > 0 &&
+                                    <Box sx={{fontSize: '120%'}}>{item.course + 1} КУРС</Box>}</Box>
+                                <Box sx={{
+                                    fontWeight: 'bold', overflow: 'hidden'
+                                }}>{item.quantity} {item.unit_name}</Box>
+                                <Box sx={{overflow: 'hidden', flex: 1}}>{item.name}</Box>
+                                <Box>{item.comment}</Box>
+                                {item.modifications !== null ? <Box sx={{
+                                    display: 'flex', flexDirection: 'row', flexWrap: 'wrap'
+                                }}>{item.modifications.map(modification => {
+                                    return <Box key={modification}
+                                                sx={{fontWeight: 'bold', padding: '4px 4px 0 0'}}>{modification}</Box>
+                                })}</Box> : null}
+                            </Box>
+                        </Box>)}
+                    </Box>
+                </motion.div>
+            }
+        })}
     </>
 }
 
@@ -121,16 +128,9 @@ const PageKitchen = () => {
             {}
             {!fetching.loading && fetching.error === null && fetching.data !== null &&
                 <Box id='content' sx={{height: 'calc(var(--page-height) - var(--footer-height)) !important'}}>
-                    {kitchen_orders !== null && (kitchen_orders.waiting.length > 0 || kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
+                    {kitchen_orders !== null && (kitchen_orders.cooking.length > 0 || kitchen_orders.completed.length > 0) ? <>
                         <Box className='kitchen-orders'>
-                            <Box sx={{flex: 1}}>
-                                <Box className='kitchen-section-header glass'>ОЖИДАЙТЕ</Box>
-                                <KitchenSection orders={kitchen_orders.waiting}
-                                                dispatch={dispatch}
-                                                showTimer={false}
-                                                printKitchen={false}/>
-                            </Box>
-                            <Box sx={{flex: 1}}>
+                            <Box sx={{flex: 2}}>
                                 <Box className='kitchen-section-header glass'>НАЧНИТЕ ГОТОВИТЬ</Box>
                                 <KitchenSection orders={kitchen_orders.cooking}
                                                 dispatch={dispatch}

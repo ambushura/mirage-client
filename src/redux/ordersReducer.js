@@ -194,7 +194,9 @@ export const ordersSlice = createSlice({
             state.orders_horeca.total_count = payload.total_count
         }, setOrdersHorecaPage(state, {payload}) {
             state.orders_horeca_page = payload
-        }, // Фильтры общепит (загрузка)
+        },
+
+        // Фильтры общепит (загрузка)
         setOrdersHorecaFiltersStaff(state, {payload}) {
             state.orders_horeca_filters_staff = payload
         }, setOrdersHorecaFiltersHalls(state, {payload}) {
@@ -203,7 +205,9 @@ export const ordersSlice = createSlice({
             state.orders_horeca_filters_workplaces = payload
         }, setOrdersHorecaFiltersKitchenPoints(state, {payload}) {
             state.orders_horeca_filters_kitchen_points = payload
-        }, // Фильтры общепит (выбор)
+        },
+
+        // Фильтры общепит (выбор)
         setOrdersHorecaFiltersStateSelect(state, {payload}) {
             state.orders_horeca_filters_state_selected = payload
         }, setOrdersHorecaFiltersStaffSelect(state, {payload}) {
@@ -216,7 +220,9 @@ export const ordersSlice = createSlice({
             state.orders_horeca_filters_kitchen_points_selected = payload
         }, setOrdersHorecaFiltersKitchenStateSelect(state, {payload}) {
             state.orders_horeca_filters_kitchen_state_selected = payload
-        }, // Фильтры кино (загрузка)
+        },
+
+        // Фильтры кино (загрузка)
         setOrdersCinemaFiltersStaff(state, {payload}) {
             state.orders_cinema_filters_staff = payload
         }, setOrdersCinemaFiltersSeances(state, {payload}) {
@@ -229,7 +235,9 @@ export const ordersSlice = createSlice({
             state.orders_cinema_filters_buyer_emails = payload
         }, setOrdersCinemaFiltersBuyerPhoneNumbers(state, {payload}) {
             state.orders_cinema_filters_buyer_phone_numbers = payload
-        }, // Фильтры кино (выбор)
+        },
+
+        // Фильтры кино (выбор)
         setOrdersCinemaFiltersStaffSelect(state, {payload}) {
             state.orders_cinema_filters_staff_selected = payload
         }, setOrdersCinemaFiltersStateSelect(state, {payload}) {
@@ -254,13 +262,12 @@ export const ordersSlice = createSlice({
             state.orders_cinema_update = state.orders_cinema_update + 1
         }, setOrdersHorecaUpdate(state) {
             state.orders_horeca_update = state.orders_horeca_update + 1
-        }, // Кухня
+        },
+
+        // Кухня
         setKitchenOrders(state, {payload}) {
             const data = JSON.parse(JSON.stringify(payload))
             if (data !== null) {
-                data.waiting.sort((a, b) => {
-                    return new Date(a.date_create) - new Date(b.date_create)
-                })
                 data.cooking.sort((a, b) => {
                     return new Date(a.date_create) - new Date(b.date_create)
                 })
@@ -269,22 +276,33 @@ export const ordersSlice = createSlice({
                 })
                 state.kitchen_orders = data
             }
+        }, updateKitchenOrder(state, {payload}) {
+            if (!payload) return
+            const sections = ['cooking', 'completed']
+            sections.forEach(section => {
+                const currentOrders = state.kitchen_orders?.[section] || []
+                const updatedOrders = payload[section] || []
+                const currentMap = new Map(currentOrders.map(o => [o.uid, o]))
+                updatedOrders.forEach(order => {
+                    if (currentMap.has(order.uid)) {
+                        const index = currentOrders.findIndex(o => o.uid === order.uid)
+                        currentOrders[index] = order
+                    } else {
+                        currentOrders.push(order)
+                    }
+                })
+                state.kitchen_orders[section] = currentOrders.filter(o => Array.isArray(o.items) && o.items.length > 0)
+            })
         }, pushKitchenPositions(state, {payload}) {
             const kitchen_orders_copied = JSON.parse(JSON.stringify(state.kitchen_orders))
             if (kitchen_orders_copied !== null) {
                 if (kitchen_orders_copied.uid_filial === payload.uid_filial) {
-                    const waiting = JSON.parse(JSON.stringify(kitchen_orders_copied.waiting)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
                     const cooking = JSON.parse(JSON.stringify(kitchen_orders_copied.cooking)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
                     const completed = JSON.parse(JSON.stringify(kitchen_orders_copied.completed)).filter(order_deleted => order_deleted.uid !== payload.uid_order)
-                    payload.waiting.length > 0 ? waiting.push(payload.waiting[0]) : null
                     payload.cooking.length > 0 ? cooking.push(payload.cooking[0]) : null
                     payload.completed.length > 0 ? completed.push(payload.completed[0]) : null
-                    kitchen_orders_copied.waiting = waiting
                     kitchen_orders_copied.cooking = cooking
                     kitchen_orders_copied.completed = completed
-                    kitchen_orders_copied.waiting.sort((a, b) => {
-                        return new Date(a.date_create) - new Date(b.date_create)
-                    })
                     kitchen_orders_copied.cooking.sort((a, b) => {
                         return new Date(a.date_create) - new Date(b.date_create)
                     })
@@ -357,6 +375,7 @@ export const {
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setKitchenOrders,
+    updateKitchenOrder,
     pushKitchenPositions,
     setOrderSearchValue,
     setKioskPaymentError,

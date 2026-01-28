@@ -84,6 +84,7 @@ import {
     ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
     ROUTE_HALL_RENT,
     ROUTE_HORECA_KITCHEN_GET,
+    ROUTE_HORECA_KITCHEN_ORDER_GET,
     ROUTE_HORECA_KITCHEN_PUSH,
     ROUTE_HORECA_MENU_GET,
     ROUTE_HORECA_MODIFICATIONS_GET,
@@ -1298,6 +1299,18 @@ export const horeca_kitchen_get = (filial, date_shift, uid_kitchen_points_select
     }, data => data)
 }
 
+export const horeca_kitchen_order_get = (filial, date_shift, uid_order, uid_kitchen_points_selected) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_ORDER_GET}`,
+        params: {date_shift, uid_order, uid_kitchen_points_selected},
+        filial,
+        wp,
+        kiosk,
+        version,
+    }, data => data)
+}
 export const cinema_schedule_halls_get = (filial, date_shift, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     return await makeRequest(dispatch, {
