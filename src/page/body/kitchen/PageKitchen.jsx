@@ -27,9 +27,12 @@ const KitchenOrderList = ({orders, showButtons, dispatch, showTimer, printKitche
                     style={{overflowY: `${order.canceled ? 'hidden' : 'auto'}`}}>
                     <Box className='kitchen-order-header glass'>
                         <Box sx={{borderBottom: '2px solid #4a4a4b'}}>
-                            <Button variant='text' color='secondary' sx={{fontSize: '150%'}} onClick={() => {
-                                if (printKitchen) dispatch(openModal({type: 'kitchen_print', props: {order: order}}))
-                            }}>Счет {order.number}</Button>
+                            <Button disabled={order.canceled} variant='text' color='secondary' sx={{fontSize: '150%'}}
+                                    onClick={() => {
+                                        if (printKitchen) dispatch(openModal({
+                                            type: 'kitchen_print', props: {order: order}
+                                        }))
+                                    }}>Счет {order.number}</Button>
                         </Box>
                         <Box sx={{flex: 1, paddingLeft: '12px', overflow: 'hidden'}}>
                             <Box sx={{fontWeight: '500'}}>создан в {dayjs.utc(order.date_create).format("HH:mm")}</Box>
@@ -179,7 +182,7 @@ export const ElapsedTime = memo(({from}) => {
         return () => clearInterval(id)
     }, [])
 
-    const localFrom = dayjs.isDayjs(from) ? from.local() : dayjs.utc(from).local()
+    const localFrom = dayjs(new Date(new Date(from.$y, from.$M, from.$D, from.$H, from.$m, from.$s)))
     const diffMs = Math.max(0, now.diff(localFrom))
     const d = dayjs.duration(diffMs)
     const diffMinutes = d.asMinutes()
@@ -188,16 +191,19 @@ export const ElapsedTime = memo(({from}) => {
     if (diffMinutes <= 10) {
         color = 'green'
     } else if (diffMinutes <= 15) {
-        color = '№ff8100'
+        color = '#ff8100'
     }
 
     let text = ''
     if (d.asMinutes() < 1) {
         text = `${d.seconds()} с`
+
     } else if (d.asHours() < 1) {
         text = `${d.minutes()} м ${d.seconds()} с`
+
     } else {
         text = `${Math.floor(d.asHours())} ч ${d.minutes()} м ${d.seconds()} с`
+
     }
 
     return <span style={{color}}>{text}</span>
