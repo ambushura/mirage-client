@@ -9,9 +9,9 @@ const initialState = {
     sales: {columns: [], rows: [], columnGroupingModel: []},
     sales_columnVisibilityModel: {type: false, level: false},
 
-    // Суточный
-    shift: {columns: [], rows: [], columnGroupingModel: []},
-    shift_columnVisibilityModel: {type: false, level: false},
+    // Суточный 1 раздел
+    shift_1: {columns: [], rows: [], columnGroupingModel: []},
+    shift_1_columnVisibilityModel: {type: false, level: false},
 
     // Расписание
     schedule: {columns: [], rows: [], columnGroupingModel: []},
@@ -36,12 +36,12 @@ export const dataSlice = createSlice({
         },
 
         // Суточный
-        setShift: (state, {payload}) => {
-            state.shift = payload
-        }, cleanShift: (state) => {
-            state.shift = {columns: [], rows: [], columnGroupingModel: []}
-        }, set_shiftColumnVisibilityModel: (state, {payload}) => {
-            state.shift_columnVisibilityModel = payload
+        setShift1: (state, {payload}) => {
+            state.shift_1 = payload
+        }, cleanShift1: (state) => {
+            state.shift_1 = {columns: [], rows: [], columnGroupingModel: []}
+        }, set_shift1ColumnVisibilityModel: (state, {payload}) => {
+            state.shift_1_columnVisibilityModel = payload
         },
 
         // Расписание
@@ -62,7 +62,7 @@ export const {
     setSales, cleanSales, set_salesColumnVisibilityModel,
 
     // Суточный
-    setShift, cleanShift, set_shiftColumnVisibilityModel,
+    setShift1, cleanShift1, set_shift1ColumnVisibilityModel,
 
     // Расписаниe
     setSchedule, cleanSchedule, set_scheduleColumnVisibilityModel
