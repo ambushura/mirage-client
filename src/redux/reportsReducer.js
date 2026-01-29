@@ -2,10 +2,16 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const initialState = {
 
-    report_variant: 'schedule', update: 0,
+    report_variant: 'schedule',
+    update: 0,
 
     // Выручка
-    sales: {columns: [], rows: [], columnGroupingModel: []}, sales_columnVisibilityModel: {type: false, level: false},
+    sales: {columns: [], rows: [], columnGroupingModel: []},
+    sales_columnVisibilityModel: {type: false, level: false},
+
+    // Суточный
+    shift: {columns: [], rows: [], columnGroupingModel: []},
+    shift_columnVisibilityModel: {type: false, level: false},
 
     // Расписание
     schedule: {columns: [], rows: [], columnGroupingModel: []},
@@ -29,6 +35,15 @@ export const dataSlice = createSlice({
             state.sales_columnVisibilityModel = payload
         },
 
+        // Суточный
+        setShift: (state, {payload}) => {
+            state.shift = payload
+        }, cleanShift: (state) => {
+            state.shift = {columns: [], rows: [], columnGroupingModel: []}
+        }, set_shiftColumnVisibilityModel: (state, {payload}) => {
+            state.shift_columnVisibilityModel = payload
+        },
+
         // Расписание
         setSchedule: (state, {payload}) => {
             state.schedule = payload
@@ -45,6 +60,9 @@ export const {
 
     // Выручка
     setSales, cleanSales, set_salesColumnVisibilityModel,
+
+    // Суточный
+    setShift, cleanShift, set_shiftColumnVisibilityModel,
 
     // Расписаниe
     setSchedule, cleanSchedule, set_scheduleColumnVisibilityModel
