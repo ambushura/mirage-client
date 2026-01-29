@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {cleanShift1, set_shift1ColumnVisibilityModel, setShift1} from "../../../../redux/reportsReducer.js"
+import {cleanShift, set_shiftColumnVisibilityModel, setShift} from "../../../../redux/reportsReducer.js"
 import {common_reports_shift_get} from "../../../../service/fetch_service.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
@@ -20,13 +20,18 @@ const ReportShift = () => {
     const shift_1_columnGroupingModel = useSelector(state => state.reports.shift_1.columnGroupingModel)
     const shift_1_columnVisibilityModel = useSelector(state => state.reports.shift_1_columnVisibilityModel)
 
+    const shift_2_columns = useSelector(state => state.reports.shift_2.columns)
+    const shift_2_rows = useSelector(state => state.reports.shift_2.rows)
+    const shift_2_columnGroupingModel = useSelector(state => state.reports.shift_2.columnGroupingModel)
+    const shift_2_columnVisibilityModel = useSelector(state => state.reports.shift_2_columnVisibilityModel)
+
     // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
-            dispatch(cleanShift1())
+            dispatch(cleanShift())
             const fetching_result = await dispatch(common_reports_shift_get(filial, param_date_admin, 0))
             if (fetching_result.data !== null) {
-                dispatch(setShift1(fetching_result.data))
+                dispatch(setShift(fetching_result.data))
             }
         }
         if (filial !== undefined && report_variant !== null) fetch()
@@ -34,8 +39,9 @@ const ReportShift = () => {
 
     return <Box
         sx={{
-            minHeight: '100%', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', alignContent: 'flex-start'
+            minHeight: '100%', overflowX: 'auto',
         }}>
+        <Box className='report-title glass'>1. РАЗДЕЛ CВЕРКА (продажи и ОФД)</Box>
         {shift_1_rows.length > 0 ? <DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
@@ -47,10 +53,10 @@ const ReportShift = () => {
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
             columnVisibilityModel={shift_1_columnVisibilityModel}
-            onColumnVisibilityModelChange={set_shift1ColumnVisibilityModel}
+            onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
             getRowClassName={(params) => params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : ''}
             sx={{
-                width: '100%', margin: '0 4px 4px 0', '& .row-diff-red': {
+                width: 'calc(100% - 8px)', margin: '0 4px 4px 4px', '& .row-diff-red': {
                     backgroundColor: 'rgba(255, 0, 0, 0.2)', '&:hover': {
                         backgroundColor: 'rgba(255, 0, 0, 0.3)',
                     },
@@ -59,28 +65,45 @@ const ReportShift = () => {
             pinnedColumns={{
                 left: ['number_kkt'],
             }}
-        /> : <Box className='empty-box' sx={{height: '100%'}}>Нет данных для формирования суточного отчета...</Box>}
-        {shift_1_rows.length > 0 ? <DataGridPro
+        /> : <Box className='report-title-text'>Нет данных...</Box>}
+        <Box className='report-title glass'>2. РАЗДЕЛ СВЕРКА (продажи и банк)</Box>
+        {shift_2_rows.length > 0 ? <DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-            rows={shift_1_rows.map((r, i) => ({...r, id: i}))}
-            columns={shift_1_columns}
-            columnGroupingModel={shift_1_columnGroupingModel}
+            rows={shift_2_rows.map((r, i) => ({...r, id: i}))}
+            columns={shift_2_columns}
+            columnGroupingModel={shift_2_columnGroupingModel}
             density="compact"
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
-            columnVisibilityModel={shift_1_columnVisibilityModel}
-            onColumnVisibilityModelChange={set_shift1ColumnVisibilityModel}
-            getRowClassName={(params) => params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : ''}
+            columnVisibilityModel={shift_2_columnVisibilityModel}
+            onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
+            getRowClassName={(params) => {
+                switch (params.row.status) {
+                    case 'РУЧНАЯ ПРОВЕРКА':
+                        return 'row-diff-orange'
+                    case 'СВЕРКА ВЫПОЛНЕНА':
+                        return ''
+                    default:
+                        return 'row-diff-red'
+                }
+            }}
             sx={{
-                width: '100%', margin: '0 4px 4px 0', '& .row-diff-red': {
-                    backgroundColor: 'rgba(255, 0, 0, 0.2)', '&:hover': {
-                        backgroundColor: 'rgba(255, 0, 0, 0.3)',
+                width: 'calc(100% - 8px)', margin: '0 4px 4px 4px', '& .row-diff-red': {
+                    backgroundColor: '#FF000033', '&:hover': {
+                        backgroundColor: '#FF00004C',
+                    },
+                }, '& .row-diff-orange': {
+                    backgroundColor: '#FF730033', '&:hover': {
+                        backgroundColor: 'rgba(234,106,1,0.2)',
                     },
                 },
             }}
-        /> : <Box className='empty-box' sx={{height: '100%'}}>Нет данных для формирования суточного отчета...</Box>}
+            pinnedColumns={{
+                left: ['number'],
+            }}
+        /> : <Box className='report-title-text'>Нет данных...</Box>}
     </Box>
 }
 

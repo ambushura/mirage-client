@@ -306,3 +306,28 @@ body {
         -webkit-mask-size: cover;
     }
 }
+
+/* ============================= */
+/*             ОТЧЕТЫ            */
+/* ============================= */
+.report-title {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    position: sticky;
+    top: 0;
+    align-items: center;
+    padding-left: 12px;
+}
+
+.report-title-text {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    position: sticky;
+    top: 50px;
+    align-items: center;
+    padding-left: 12px;
+    font-weight: normal;
+    font-size: 80%;
+}

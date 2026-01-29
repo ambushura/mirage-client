@@ -152,7 +152,7 @@ export default ZPinpads
 export const columns_zpinpads = [{field: 'id', headerName: 'UID документа', width: 10}, {
     field: 'name_organization', headerName: 'Организация', width: 100
 }, {field: 'inn', headerName: 'ИНН', width: 100}, {
-    field: 'pinpad_number', headerName: 'ID пинпад', width: 100
+    field: 'number_pinpad', headerName: 'ID пинпад', width: 100
 }, {field: 'date_shift', headerName: 'Смена', width: 90}, {
     field: 'slip_15', headerName: '15', type: 'number', width: 100
 }, {
