@@ -49,6 +49,8 @@ const ReportShift = () => {
             columns={shift_1_columns}
             columnGroupingModel={shift_1_columnGroupingModel}
             density="compact"
+            rowHeight={28}
+            headerHeight={28}
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
@@ -74,6 +76,8 @@ const ReportShift = () => {
             columns={shift_2_columns}
             columnGroupingModel={shift_2_columnGroupingModel}
             density="compact"
+            rowHeight={28}
+            headerHeight={28}
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
