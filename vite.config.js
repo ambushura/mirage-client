@@ -7,19 +7,11 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: true,
-    sourcemap: true,
-    port: 3000,
-  },
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-    target: 'esnext',
-    assetsDir: 'assets',
-    rollupOptions: {
-      input: path.resolve(__dirname, 'index.html')
+    plugins: [react()], server: {
+        host: true, sourcemap: true, port: 3000,
+    }, build: {
+        outDir: 'dist', emptyOutDir: true, target: 'esnext', assetsDir: 'assets', rollupOptions: {
+            input: path.resolve(__dirname, 'index.html')
+        }
     }
-  }
 })
