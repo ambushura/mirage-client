@@ -25,6 +25,11 @@ const ReportShift = () => {
     const shift_2_columnGroupingModel = useSelector(state => state.reports.shift_2.columnGroupingModel)
     const shift_2_columnVisibilityModel = useSelector(state => state.reports.shift_2_columnVisibilityModel)
 
+    const shift_3_columns = useSelector(state => state.reports.shift_3.columns)
+    const shift_3_rows = useSelector(state => state.reports.shift_3.rows)
+    const shift_3_columnGroupingModel = useSelector(state => state.reports.shift_3.columnGroupingModel)
+    const shift_3_columnVisibilityModel = useSelector(state => state.reports.shift_3_columnVisibilityModel)
+
     // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
@@ -106,6 +111,25 @@ const ReportShift = () => {
             }}
             pinnedColumns={{
                 left: ['number'],
+            }}
+        /> : <Box className='report-title-text'>Нет данных...</Box>}
+        <Box className='report-title glass'>3. РАЗДЕЛ ВЫРУЧКА</Box>
+        {shift_3_rows.length > 3 ? <DataGridPro
+            hideFooter
+            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+            rows={shift_3_rows.map((r, i) => ({...r, id: i}))}
+            columns={shift_3_columns}
+            columnGroupingModel={shift_3_columnGroupingModel}
+            density="compact"
+            rowHeight={28}
+            headerHeight={28}
+            disableSelectionOnClick
+            hideFooterSelectedRowCount
+            experimentalFeatures={{columnGrouping: true}}
+            columnVisibilityModel={shift_3_columnVisibilityModel}
+            onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
+            pinnedColumns={{
+                left: ['label'],
             }}
         /> : <Box className='report-title-text'>Нет данных...</Box>}
     </Box>

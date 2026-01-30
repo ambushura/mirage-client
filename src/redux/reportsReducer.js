@@ -9,11 +9,13 @@ const initialState = {
     sales: {columns: [], rows: [], columnGroupingModel: []},
     sales_columnVisibilityModel: {type: false, level: false},
 
-    // Суточный 1 раздел
+    // Суточный
     shift_1: {columns: [], rows: [], columnGroupingModel: []},
     shift_1_columnVisibilityModel: {type: false, level: false},
     shift_2: {columns: [], rows: [], columnGroupingModel: []},
     shift_2_columnVisibilityModel: {type: false, level: false},
+    shift_3: {columns: [], rows: [], columnGroupingModel: []},
+    shift_3_columnVisibilityModel: {type: false, level: false},
 
     // Расписание
     schedule: {columns: [], rows: [], columnGroupingModel: []},
@@ -41,12 +43,15 @@ export const dataSlice = createSlice({
         setShift: (state, {payload}) => {
             state.shift_1 = payload.chapter1
             state.shift_2 = payload.chapter2
+            state.shift_3 = payload.chapter3
         }, cleanShift: (state) => {
             state.shift_1 = {columns: [], rows: [], columnGroupingModel: []}
             state.shift_2 = {columns: [], rows: [], columnGroupingModel: []}
+            state.shift_3 = {columns: [], rows: [], columnGroupingModel: []}
         }, set_shiftColumnVisibilityModel: (state, {payload}) => {
             state.shift_1_columnVisibilityModel = payload
             state.shift_2_columnVisibilityModel = payload
+            state.shift_3_columnVisibilityModel = payload
         },
 
         // Расписание
@@ -71,5 +76,6 @@ export const {
 
     // Расписаниe
     setSchedule, cleanSchedule, set_scheduleColumnVisibilityModel
+
 } = dataSlice.actions
 export default dataSlice.reducer
