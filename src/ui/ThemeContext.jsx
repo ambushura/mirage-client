@@ -100,13 +100,7 @@ export const Theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    fontWeight: 'bold',
-                    borderRadius: '12px',
-                    textTransform: 'none',
-                    height: '60px',
-                    whiteSpace: 'normal',
-                    wordBreak: 'break-word',
-                    overflowWrap: 'break-word',
+                    fontWeight: 'bold', borderRadius: '12px', textTransform: 'none', height: '60px',
                 },
             }
         }, MuiButtonGroup: {
