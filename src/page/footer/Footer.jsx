@@ -3,17 +3,11 @@ import {openModal} from "../../redux/interfaceReducer.js"
 import {Button} from "@mui/material"
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew"
 import RestartAltIcon from "@mui/icons-material/RestartAlt"
-import sounds_on from "/src/sounds/on.mp3"
-import {useState} from "react"
-import useSound from "use-sound"
 
 const Footer = () => {
 
     const dispatch = useDispatch()
     const {wp, kiosk, its_second_screen} = useSelector(state => state.interface)
-
-    const [play] = useSound(sounds_on)
-    const [unlocked, set_unlocked] = useState(false)
 
     return <footer id="footer" className='glass-effect'>
         <div>© «МИРАЖ СИНЕМА» {new Date().getFullYear()}</div>
