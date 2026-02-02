@@ -22,4 +22,4 @@ const RowLabel = ({data}) => {
     </Box>
 }
 
-export default RowLabel;
+export default RowLabel

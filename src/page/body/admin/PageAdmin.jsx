@@ -16,7 +16,7 @@ import Reports from "./reports/Reports.jsx"
 import ZBook from "./documents/ZBook.jsx"
 import Receipt from "./documents/Receipt.jsx"
 import Slip from "./documents/Slip.jsx"
-import Operation from "./documents/Operation.jsx";
+import Operation from "./documents/Operation.jsx"
 
 const PageAdmin = () => {
 
