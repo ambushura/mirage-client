@@ -6,7 +6,6 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt"
 import sounds_on from "/src/sounds/on.mp3"
 import {useState} from "react"
 import useSound from "use-sound"
-import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 
 const Footer = () => {
 
@@ -20,12 +19,6 @@ const Footer = () => {
         <div>© «МИРАЖ СИНЕМА» {new Date().getFullYear()}</div>
         {!its_second_screen && <div>{wp}</div>}
         {!kiosk && !its_second_screen && <div style={{position: 'absolute', right: 0}}>
-            <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} size='small' variant='outlined'
-                    color='secondary'
-                    onClick={() => {
-                        play()
-                        set_unlocked(true)
-                    }}><VolumeUpIcon/></Button>
             <Button style={{minWidth: '28px', height: '42px', marginRight: '4px'}} variant='outlined' size='small'
                     color='secondary' onClick={() => {
                 dispatch(openModal({
