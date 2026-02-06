@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {common_reports_sales_get} from "../../../service/fetch_service.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
+import LocationPinIcon from "@mui/icons-material/LocationPin"
 
 const Revenue = () => {
 
@@ -42,7 +43,7 @@ export const FilialRevenue = ({filial}) => {
     }, [dispatch, filial])
 
     return <Box sx={{minHeight: '100%'}}>
-        <Box className='center-title-filial'>{filial.name}</Box>
+        <Box className='center-title-filial'><Box sx={{marginRight: '5px'}}><LocationPinIcon/></Box>{filial.name}</Box>
         {sales.rows.length > 1 ? <DataGridPro
             cellSelection
             disableRowSelectionOnClick

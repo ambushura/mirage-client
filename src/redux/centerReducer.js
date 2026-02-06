@@ -13,7 +13,9 @@ const initialState = {
         id: 'horeca', title: 'Общепит', icon: 2, submenu: [{
             id: 'orders', title: 'Заказы', icon: 0
         }, {
-            id: 'orp', title: 'Отчеты о розничных продажах', icon: 0
+            id: 'sales', title: 'Отчеты о розничных продажах', icon: 0
+        }, {
+            id: 'recipes', title: 'Калькуляции', icon: 0
         }]
     },], current_page: ['shift', 'revenue'],
 }

@@ -5,6 +5,7 @@ import {common_reports_shift_get} from "../../../service/fetch_service.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {set_shiftColumnVisibilityModel} from "../../../redux/reportsReducer.js"
+import LocationPinIcon from '@mui/icons-material/LocationPin'
 
 const Results = () => {
 
@@ -52,7 +53,7 @@ export const FilialResults = ({filial}) => {
     }, [dispatch, filial])
 
     return <Box sx={{minHeight: '100%', display: 'flex', flexDirection: 'column'}}>
-        <Box className='center-title-filial'>{filial.name}</Box>
+        <Box className='center-title-filial'><Box sx={{marginRight: '5px'}}><LocationPinIcon/></Box>{filial.name}</Box>
         <Box className='center-title-chapter'>1. РАЗДЕЛ CВЕРКА (продажи и ОФД)</Box>
         {shift_1.rows.length > 1 ? <>
             <DataGridPro
