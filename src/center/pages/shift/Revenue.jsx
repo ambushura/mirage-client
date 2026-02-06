@@ -35,24 +35,14 @@ export const FilialRevenue = ({filial}) => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_reports_sales_get(filial, '2026-02-05', 0))
             if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
-                const data = fetching_result.data
-                const columns = data.columns.map(column => {
-                    if (column.field === 'label') {
-                        return {
-                            ...column, headerName: filial.name
-                        }
-                    }
-                    return column
-                })
-                set_sales({
-                    ...data, columns
-                })
+                set_sales(fetching_result.data)
             }
         }
         if (filial !== undefined) fetch()
     }, [dispatch, filial])
 
-    return <Box sx={{minHeight: '100%', display: 'flex'}}>
+    return <Box sx={{minHeight: '100%'}}>
+        <Box className='center-title-filial'>{filial.name}</Box>
         {sales.rows.length > 1 ? <DataGridPro
             cellSelection
             disableRowSelectionOnClick
@@ -62,8 +52,8 @@ export const FilialRevenue = ({filial}) => {
             columns={sales.columns}
             columnGroupingModel={sales.columnGroupingModel}
             density="compact"
-            rowHeight={28}
-            headerHeight={28}
+            rowHeight={30}
+            headerHeight={30}
             hideFooterSelectedRowCount
             columnVisibilityModel={columnVisibilityModel}
             onColumnVisibilityModelChange={(model) => {
@@ -96,7 +86,9 @@ export const FilialRevenue = ({filial}) => {
                     pointerEvents: 'auto'
                 }
             }}
-
+            pinnedColumns={{
+                left: ['label'],
+            }}
         /> : <Box>Выручка отсутствует в смене...</Box>}
     </Box>
 }

@@ -96,8 +96,8 @@ const Zbooks = () => {
                         columns={columns_receipts}
                         pageSize={20}
                         pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
-                        headerHeight={28}
+                        rowHeight={30}
+                        headerHeight={30}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         columnVisibilityModel={columnVisibilityModelReceipts}
                         onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModelReceipts(newModel)}
@@ -138,8 +138,8 @@ const Zbooks = () => {
                         columns={columns}
                         pageSize={20}
                         pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
-                        headerHeight={28}
+                        rowHeight={30}
+                        headerHeight={30}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         columnVisibilityModel={columnVisibilityModelZBooks}
                         onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModelZBooks(newModel)}

@@ -40,8 +40,8 @@ const ReportSales = () => {
             columns={sales_columns}
             columnGroupingModel={sales_columnGroupingModel}
             density="compact"
-            rowHeight={28}
-            headerHeight={28}
+            rowHeight={30}
+            headerHeight={30}
             disableSelectionOnClick
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}

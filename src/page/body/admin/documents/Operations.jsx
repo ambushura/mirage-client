@@ -62,8 +62,8 @@ const Operations = () => {
                 rows={rows}
                 columns={columnsWithCustomRender}
                 hideFooter
-                rowHeight={26}
-                headerHeight={28}
+                rowHeight={30}
+                headerHeight={30}
                 loading={fetching.loading}
                 columnGroupingModel={column_grouping_model}
                 experimentalFeatures={{columnGrouping: true}}

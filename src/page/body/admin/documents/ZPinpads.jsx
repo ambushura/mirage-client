@@ -75,8 +75,8 @@ const ZPinpads = () => {
                         columns={columns_slips}
                         pageSize={20}
                         pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
-                        headerHeight={28}
+                        rowHeight={30}
+                        headerHeight={30}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         columnVisibilityModel={{
                             id: false,
@@ -122,8 +122,8 @@ const ZPinpads = () => {
                         columns={columns_zpinpads}
                         pageSize={20}
                         pageSizeOptions={[10, 25, 50]}
-                        rowHeight={26}
-                        headerHeight={28}
+                        rowHeight={30}
+                        headerHeight={30}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         columnVisibilityModel={{
                             id: false

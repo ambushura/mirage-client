@@ -486,8 +486,8 @@ const Receipt = () => {
                         columns={columns_items}
                         pageSize={20}
                         pageSizeOptions={[10, 25, 50]}
-                        rowHeight={28}
-                        headerHeight={28}
+                        rowHeight={30}
+                        headerHeight={30}
                         columnVisibilityModel={{
                             id: false,
                             unit_code: false,

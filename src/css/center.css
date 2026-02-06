@@ -34,6 +34,29 @@
 
 }
 
+.center-title-filial {
+    height: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    background-color: #f2f2f2;
+}
+
+.center-title-chapter {
+    height: 40px;
+    position: sticky;
+    top: 40px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    background-color: #f2f2f2;
+}
 
 /* ============================== */
 /*              СКРОЛЛ            */
