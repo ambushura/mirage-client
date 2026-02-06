@@ -17,7 +17,7 @@
     --page-display: flex;
     --bgr-seance-card: #E0E0E0;
     --bgr-seance-card-tariff: #EEEEEE;
-    --bgr-scroll: #E0E0E0;
+    --bgr-scroll: #c11313;
     --bgr-footer-header: #2e3239;
     --top-menu-justify-content: flex-start;
 }
@@ -28,7 +28,7 @@
 :root[authorized="false"] {
     --bgr-seance-card: #1C1F23;
     --bgr-seance-card-tariff: #2E3239;
-    --bgr-scroll: #616161;
+    --bgr-scroll: #d10000;
     --bgr-footer-header: transparent;
     --top-menu-justify-content: center;
 }
@@ -2195,24 +2195,23 @@
 
 /* ВЫРУЧКА ОТЧЕТ */
 .row-total-grand {
-    background-color: #7EDFC1;
+    background-color: #d6e5cb;
     color: #1A202C;
     font-weight: bold;
 }
 
 .row-total-owner {
-    background-color: #A1EBD8;
+    background-color: #f0f6ef;
     color: #1A202C;
-    font-weight: 600;
 }
 
 .row-user {
-    background-color: #C8F3EC;
+    background-color: #ffffff;
     color: #1A202C;
 }
 
 .row-kkt {
-    background-color: #E6FFFA;
+    background-color: #ffffff;
     color: #1A202C;
     font-style: italic;
 }

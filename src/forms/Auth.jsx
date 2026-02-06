@@ -7,10 +7,12 @@ import DialpadIcon from '@mui/icons-material/Dialpad'
 import KeyboardIcon from '@mui/icons-material/Keyboard'
 import {addNotification} from "../redux/notifierReducer.js"
 import {login} from "../service/fetch_service.js"
+import {useNavigate} from "react-router-dom"
 
 const Auth = ({auth_opened}) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const filial = useSelector(state => state.data.filial)
 
@@ -20,7 +22,7 @@ const Auth = ({auth_opened}) => {
     const [username, set_username] = useState('')
     const [password, set_password] = useState('')
 
-    const apply = () => {
+    const apply = async () => {
         if (filial === undefined) {
             dispatch(addNotification({
                 message: "Выберите филиал для входа в систему", severity: 'error', autoHide: true
@@ -34,7 +36,10 @@ const Auth = ({auth_opened}) => {
                 message: "Пароль не может бысть пустым", severity: 'error', autoHide: true
             }))
         } else {
-            dispatch(login(filial, login_auth, pincode_auth, username, password))
+            const decode = await dispatch(login(filial, login_auth, pincode_auth, username, password))
+            if (decode.center) {
+                navigate('/center/shift/revenue')
+            }
             dispatch(setAuthOpened(false))
         }
         set_username('')

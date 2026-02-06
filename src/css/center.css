@@ -1,0 +1,55 @@
+:root {
+    --center-header-height: 55px;
+    --side-panel-width: 55px;
+    --cetner-bgr-scroll: #2e3239;
+}
+
+#center-header {
+    width: 100vw;
+    height: var(--center-header-height);
+    background-color: #fbed9a;
+    position: absolute;
+    top: 0;
+}
+
+#center-side-panel {
+    width: var(--side-panel-width);
+    height: 100vh;
+    background-color: #fbed9a;
+    position: absolute;
+    right: 0;
+}
+
+#center-page {
+    width: calc(100vw - var(--side-panel-width));
+    height: calc(100vh - var(--center-header-height));
+    position: absolute;
+    top: var(--center-header-height);
+    left: 0;
+}
+
+#center-submenu {
+    width: calc(100vw - var(--center-header-height));
+    height: var(--center-header-height);
+
+}
+
+
+/* ============================== */
+/*              СКРОЛЛ            */
+/* ============================== */
+.center-scroll::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+}
+
+.center-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--cetner-bgr-scroll);
+    border-radius: 0;
+}
+
+.center-scroll::-webkit-scrollbar-track,
+.center-scroll::-webkit-scrollbar-corner {
+    background: transparent;
+}

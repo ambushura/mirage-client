@@ -16,6 +16,7 @@ import './css/new-main.css'
 import './css/checkout.css'
 import './css/films.css'
 import './css/seance.css'
+import './css/center.css'
 
 import {ruRU} from "@mui/x-date-pickers/locales"
 import dayjs from "dayjs"

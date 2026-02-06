@@ -4,6 +4,11 @@ import {createTheme, MenuItem, styled} from "@mui/material"
 import {useFullScreen} from "../hooks/interface/useFullScreen.js"
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import StoreIcon from '@mui/icons-material/Store'
+import MovieIcon from '@mui/icons-material/Movie'
+import FastfoodIcon from '@mui/icons-material/Fastfood'
+import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
+import FunctionsIcon from '@mui/icons-material/Functions'
 
 const ThemeContext = createContext()
 
@@ -196,3 +201,5 @@ export const tooltip_error = {
         bgcolor: 'error.main', color: '#fff', fontSize: 13, boxShadow: 3, '& .MuiTooltip-arrow': {color: 'error.main'}
     }
 }
+
+export const center_menu_icons = [<StoreIcon/>, <MovieIcon/>, <FastfoodIcon/>, <CurrencyRubleIcon/>, <FunctionsIcon/>]

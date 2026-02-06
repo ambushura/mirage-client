@@ -36,16 +36,18 @@ export function useSetWS() {
     const kiosk = useSelector(state => state.interface.kiosk)
     const uid_kitchen_points_selected = useSelector(state => state.orders.uid_kitchen_points_selected)
 
+    const center = useSelector(state => state.auth.center)
+
     const wsUrl = useMemo(() => {
         if (!filial) return null
         const base = dev ? `ws://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.ws_port}` : `ws://${filial.ip}:${ROUTE_MAIN_HOST.ws_port}/ws`
         return `${base}?wp=${wp}${its_second_screen ? '&ss=true' : ''}`
     }, [filial, wp, its_second_screen, dev])
 
-    const {
-        sendMessage, lastMessage, readyState
-    } = useWebSocket(wsUrl ?? 'ws://placeholder', {
-        shouldReconnect: () => true, retryOnError: true, pause: !wsUrl
+    const pauseWS = center || !wsUrl
+
+    const {sendMessage, lastMessage, readyState} = useWebSocket(wsUrl ?? 'ws://placeholder', {
+        shouldReconnect: () => true, retryOnError: true, pause: pauseWS
     })
 
     // Работа с рабочими местами
@@ -53,7 +55,7 @@ export function useSetWS() {
 
     // Обработка сообщений
     useEffect(() => {
-        if (!lastMessage || !wsUrl) return
+        if (!lastMessage || pauseWS) return
         try {
             const data = JSON.parse(lastMessage.data)
 
@@ -203,10 +205,10 @@ export function useSetWS() {
         } catch (e) {
             console.error(e)
         }
-    }, [lastMessage, wsUrl])
+    }, [lastMessage, wsUrl, pauseWS])
 
     useEffect(() => {
-        if (!wsUrl) return
+        if (pauseWS) return
         if ((current_page === 'seance' && seance) || current_page !== 'seance') {
             sendMessage(JSON.stringify({
                 type: 0, second_screen: {
@@ -225,6 +227,7 @@ export function useSetWS() {
     }, [current_page, param_date, pre_order, horder, seance, wsUrl, sendMessage])
 
     useEffect(() => {
+        if (pauseWS) return
         if (reset_wp !== null) {
             sendMessage(JSON.stringify({type: 10, wp: reset_wp}))
             dispatch(resetWP(null))

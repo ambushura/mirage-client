@@ -33,28 +33,41 @@ const HallMap = (props) => {
     const {fitView} = useReactFlow()
 
     useEffect(() => {
-        if (props.hall !== null) {
-            const nodesWithBooking = props.hall.nodes.map(node => {
-                const bookingForNode = props.booking.find(b => b.uid_place === node.id) || null
-                const updated_data = {
-                    ...node.data,
-                    state: bookingForNode?.state ?? node.data.state,
-                    source: bookingForNode?.source,
-                    city: props.city,
-                    filial: props.filial,
-                }
+        if (!props.hall) return
+        setNodes(props.hall.nodes)
+        setEdges(props.hall.edges)
+        requestAnimationFrame(() => {
+            fitView({padding: 0.2})
+            setReady(true)
+        })
+    }, [props.hall])
+
+    useEffect(() => {
+        if (!props.booking || !props.hall) return
+        setNodes(nds => nds.map(node => {
+            const bookingForNode = props.booking.find(b => b.uid_place === node.id)
+            if (bookingForNode) {
                 return {
-                    ...node, data: updated_data,
+                    ...node, data: {
+                        ...node.data,
+                        state: bookingForNode.state,
+                        source: bookingForNode.source,
+                        city: props.city,
+                        filial: props.filial,
+                    }
                 }
-            })
-            setNodes(nodesWithBooking)
-            setEdges(props.hall.edges)
-            setTimeout(() => {
-                fitView({padding: 0.2})
-                setReady(true)
-            }, 0)
-        }
-    }, [props.hall, props.booking, setEdges, setNodes, props.city, props.filial, fitView])
+            }
+            const old_place = props.hall.nodes.find(n => n.id === node.id)
+            if (old_place) {
+                return {
+                    ...node, data: {
+                        ...old_place.data, city: props.city, filial: props.filial,
+                    }
+                }
+            }
+            return node
+        }))
+    }, [props.booking, props.hall, props.city, props.filial])
 
     const nodeTypes = {
         place: Place, row_label: RowLabel, screen: Screen, table: Place

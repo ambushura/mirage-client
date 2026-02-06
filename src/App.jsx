@@ -46,6 +46,11 @@ import {LicenseInfo} from '@mui/x-license'
 import OperationCloseShift from "./forms/OperationCloseShift.jsx"
 import {useInactivityAction} from "./hooks/interface/useInactivityAction.js"
 import KitchenPrint from "./forms/KitchenPrint.jsx"
+import CenterHeader from "./center/CenterHeader.jsx"
+import CenterSidePanel from "./center/CenterSidePanel.jsx"
+import CenterHoreca from "./center/pages/horeca/CenterHoreca.jsx"
+import CenterShift from "./center/pages/shift/CenterShift.jsx"
+import CenterCinema from "./center/pages/cinema/CenterCinema.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -63,50 +68,33 @@ function App() {
     const {cities} = useSelector(state => state.data)
     const {modal_opened, modal_type, modal_props, need_update} = useSelector(state => state.interface)
     const param_date = useSelector(state => state.interface.params.param_date)
-
-    const modalComponents = {
-        table_options: TableOptions,
-        quantity: Quantity,
-        comment_order: CommentOrder,
-        comment_position: CommentPosition,
-        calc: Calc,
-        discounts: Discounts,
-        add_contact: Contact,
-        mark_hosts: MarkHosts,
-        mark_info: MarkInfo,
-        egais_settings: EgaisSettings,
-        horeca_filters: HorecaFilters,
-        cinema_filters: CinemaFilters,
-        schedule_filters: ScheduleFilters,
-        seance_settings: Seance,
-        equipment_billet_check: BilletCheckForm,
-        equipment_filial: FilialForm,
-        equipment_kitchen_point: KitchenPointForm,
-        equipment_kkt: KKTForm,
-        equipment_pinpad: PinpadForm,
-        equipment_workplace: WorkplaceForm,
-        seance_cancellation: SeanceCancellation,
-        creator_change: StaffList,
-        others_payment_types: OthersPaymentTypes,
-        documents_operation_close_shift: OperationCloseShift,
-        dialog_delete_order: Dialog,
-        dialog_save_order: Dialog,
-        dialog_delete_receipts: Dialog,
-        dialog_delete_z_book: Dialog,
-        dialog_delete_operation: Dialog,
-        dialog_reboot: Dialog,
-        dialog_shutdown: Dialog,
-        kitchen_print: KitchenPrint,
-    }
+    const center = useSelector(state => state.auth.center)
 
     const ModalContent = useMemo(() => {
-        const Component = modalComponents[modal_type]
+        const Component = ModalComponents[modal_type]
         return Component ? <Component props={modal_props}/> : null
-    }, [modalComponents, modal_type, modal_props])
+    }, [ModalComponents, modal_type, modal_props])
 
-    const defaultRedirect = cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/"
+    const defaultRedirectKK = cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/"
 
-    if (need_update) {
+    if (center) {
+
+        return <Box id="app">
+            <CenterHeader/>
+            <CenterSidePanel/>
+            <Box id='center-page'>
+                <Routes>
+                    <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
+                    <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
+                    <Route path="/center/horeca/orders" element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
+                    <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
+                    <Route path="*" element={<NotFound/>}/>
+                </Routes>
+            </Box>
+        </Box>
+
+    } else if (need_update) {
+
         return <div className="bgr-wrapper">
             <div className="bgr-wavy-bg"/>
             <Button sx={{borderRadius: '50%'}} color='secondary' className="bgr-glass-btn" onClick={() => {
@@ -117,11 +105,13 @@ function App() {
             }}>· Версия приложения была обновлена, нажмите на кнопку, чтобы продолжить работу ·
             </div>
         </div>
+
     } else {
+
         return <Box id="app">
             <Header/>
             <Routes>
-                <Route path="/" element={<Navigate replace to={defaultRedirect}/>}/>
+                <Route path="/" element={<Navigate replace to={defaultRedirectKK}/>}/>
                 <Route path="/films/:param_city/:param_filial/:param_date"
                        element={<AppRoutes current_page="films"/>}/>
                 <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
@@ -130,7 +120,7 @@ function App() {
                        element={<AppRoutes current_page="schedule"/>}/>
                 <Route path="/seance/:param_city/:param_filial/:uid_seance"
                        element={<AppRoutes current_page="seance"/>}/>
-                <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirect}/>}/>
+                <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirectKK}/>}/>
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
                 <Route path="/kitchen/:param_city/:param_filial/:param_date_admin/"
@@ -196,7 +186,43 @@ function App() {
                 <Box id="modal">{ModalContent}</Box>
             </Modal>
         </Box>
+
     }
 }
 
 export default App
+
+export const ModalComponents = {
+    table_options: TableOptions,
+    quantity: Quantity,
+    comment_order: CommentOrder,
+    comment_position: CommentPosition,
+    calc: Calc,
+    discounts: Discounts,
+    add_contact: Contact,
+    mark_hosts: MarkHosts,
+    mark_info: MarkInfo,
+    egais_settings: EgaisSettings,
+    horeca_filters: HorecaFilters,
+    cinema_filters: CinemaFilters,
+    schedule_filters: ScheduleFilters,
+    seance_settings: Seance,
+    equipment_billet_check: BilletCheckForm,
+    equipment_filial: FilialForm,
+    equipment_kitchen_point: KitchenPointForm,
+    equipment_kkt: KKTForm,
+    equipment_pinpad: PinpadForm,
+    equipment_workplace: WorkplaceForm,
+    seance_cancellation: SeanceCancellation,
+    creator_change: StaffList,
+    others_payment_types: OthersPaymentTypes,
+    documents_operation_close_shift: OperationCloseShift,
+    dialog_delete_order: Dialog,
+    dialog_save_order: Dialog,
+    dialog_delete_receipts: Dialog,
+    dialog_delete_z_book: Dialog,
+    dialog_delete_operation: Dialog,
+    dialog_reboot: Dialog,
+    dialog_shutdown: Dialog,
+    kitchen_print: KitchenPrint,
+}
