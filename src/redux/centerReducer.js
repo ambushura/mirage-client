@@ -1,6 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit"
 import dayjs from "dayjs"
 
+const today = dayjs().format('YYYY-MM-DD')
+
 const main_menu = [{
     id: 'shift', title: 'Смена', icon: 0, submenu: [{
         id: 'revenue', title: 'Выручка', icon: 3
@@ -31,7 +33,7 @@ const initialState = {
     filial: null,
 
     // Периоды
-    date_shift_beginning: dayjs(new Date()).format("YYYY-MM-DD"), date_ending: dayjs(new Date()).format("YYYY-MM-DD"),
+    date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
 }
 
 export const centerSlice = createSlice({
@@ -54,9 +56,18 @@ export const centerSlice = createSlice({
 
         // Периода
         setPeriod(state, action) {
-            state.date_shift_beginning = action.payload[0].format('YYYY-MM-DD')
-            state.date_shift_end = action.payload[1].format('YYYY-MM-DD')
-        }
+            const [start, end] = action.payload
+            state.date_shift_beginning = start
+            state.date_shift_end = end
+            state.date_shift_valid = true
+        }, clearPeriod(state) {
+            state.date_shift_beginning = null
+            state.date_shift_end = null
+            state.date_shift_valid = false
+        }, dateShiftAccepted(state) {
+            if (!state.date_shift_valid) return
+            state.date_shift_accepted += 1
+        },
     },
 })
 
@@ -69,6 +80,6 @@ export const {
     setFilial, setFilials, setFilialsSelected,
 
     // Периоды
-    setPeriod
+    setPeriod, dateShiftAccepted, clearPeriod
 } = centerSlice.actions
 export default centerSlice.reducer

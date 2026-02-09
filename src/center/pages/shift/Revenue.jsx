@@ -32,7 +32,9 @@ export const FilialRevenue = ({filial}) => {
 
     const dispatch = useDispatch()
 
-    const {date_shift_beginning, date_shift_end} = useSelector(state => state.center)
+    const {
+        date_shift_beginning, date_shift_end, date_shift_accepted
+    } = useSelector(state => state.center)
 
     const [sales, set_sales] = useState({columns: [], rows: [], columnGroupingModel: []})
     const [columnVisibilityModel, set_columnVisibilityModel] = useState({type: false, level: false})
@@ -45,7 +47,10 @@ export const FilialRevenue = ({filial}) => {
             }
         }
         if (filial !== undefined) fetch()
-    }, [dispatch, filial, date_shift_beginning, date_shift_end])
+        return () => {
+            set_sales({columns: [], rows: [], columnGroupingModel: []})
+        }
+    }, [dispatch, filial, date_shift_accepted])
 
     return <Box sx={{minHeight: '100%'}}>
         <Box className='center-title-filial'><Box sx={{marginRight: '5px'}}><LocationPinIcon/></Box>{filial.name}</Box>
