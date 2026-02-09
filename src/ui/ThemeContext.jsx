@@ -4,11 +4,11 @@ import {createTheme, MenuItem, styled} from "@mui/material"
 import {useFullScreen} from "../hooks/interface/useFullScreen.js"
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import StoreIcon from '@mui/icons-material/Store'
 import MovieIcon from '@mui/icons-material/Movie'
 import FastfoodIcon from '@mui/icons-material/Fastfood'
-import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble'
-import FunctionsIcon from '@mui/icons-material/Functions'
+import MenuIcon from '@mui/icons-material/Menu'
+import AssessmentIcon from '@mui/icons-material/Assessment'
+import FolderIcon from '@mui/icons-material/Folder'
 
 const ThemeContext = createContext()
 
@@ -117,13 +117,7 @@ export const Theme = createTheme({
         }, MuiPaper: {
             styleOverrides: {
                 root: {
-                    borderRadius: '12px', '&::-webkit-scrollbar': {
-                        width: '50px', height: '50px', backgroundColor: 'transparent'
-                    }, '&::-webkit-scrollbar-track': {
-                        backgroundColor: 'transparent',
-                    }, '&::-webkit-scrollbar-thumb': {
-                        backgroundColor: 'var(--bgr-scroll)', borderRadius: '12px',
-                    }, scrollbarWidth: 'thin', scrollbarColor: 'var(--bgr-scroll) transparent',
+                    borderRadius: '8px'
                 }
             }
         }, MuiList: {
@@ -202,4 +196,4 @@ export const tooltip_error = {
     }
 }
 
-export const center_menu_icons = [<StoreIcon/>, <MovieIcon/>, <FastfoodIcon/>, <CurrencyRubleIcon/>, <FunctionsIcon/>]
+export const center_menu_icons = [<MenuIcon/>, <MovieIcon/>, <FastfoodIcon/>, <AssessmentIcon/>, <FolderIcon/>]

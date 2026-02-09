@@ -1,7 +1,8 @@
 import React from 'react'
 import Revenue from "./Revenue.jsx"
 import Results from "./Results.jsx"
-import {useSetCurrentPage} from "../../useSetCurrentPage.js";
+import {useSetCurrentPage} from "../../useSetCurrentPage.js"
+import CenterRevenueHeader from "./CenterRevenueHeader.jsx"
 
 const CenterShift = ({current_page}) => {
 
@@ -9,7 +10,10 @@ const CenterShift = ({current_page}) => {
 
     switch (current_page[1]) {
         case 'revenue':
-            return <Revenue/>
+            return <>
+                <CenterRevenueHeader/>
+                <Revenue/>
+            </>
         case 'results':
             return <Results/>
         default:

@@ -66,8 +66,8 @@ const List = (props) => {
             placement="bottom-start"
             transition
             disablePortal>
-            {({TransitionProps, placement}) => (<Grow {...TransitionProps}
-                                                      style={{transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'}}>
+            {({TransitionProps, placement}) => <Grow {...TransitionProps}
+                                                     style={{transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'}}>
                 <Paper sx={{backgroundColor: '#1b1d20', maxHeight: 600, overflowY: 'auto'}}>
                     <ClickAwayListener onClickAway={handleClose}>
                         <MenuList
@@ -135,7 +135,7 @@ const List = (props) => {
                         </MenuList>
                     </ClickAwayListener>
                 </Paper>
-            </Grow>)}
+            </Grow>}
         </Popper>
     </Fragment>
 }

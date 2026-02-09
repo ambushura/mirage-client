@@ -9,14 +9,17 @@ import LocationPinIcon from "@mui/icons-material/LocationPin"
 const Revenue = () => {
 
     const cities = useSelector(state => state.data.cities)
+    const filials_selected = useSelector(state => state.center.filials_selected)
 
     return <Box className='center-scroll' sx={{width: '100%', height: '100%', overflow: 'auto'}}>
         {cities.map(city => {
             return <>
                 {city.filials.map(filial => {
-                    return <Box key={filial.uid}>
-                        <FilialRevenue filial={filial}/>
-                    </Box>
+                    if (filials_selected.includes(filial.uid)) {
+                        return <Box key={filial.uid}>
+                            <FilialRevenue filial={filial}/>
+                        </Box>
+                    }
                 })}
             </>
         })}
@@ -29,18 +32,20 @@ export const FilialRevenue = ({filial}) => {
 
     const dispatch = useDispatch()
 
+    const {date_shift_beginning, date_shift_end} = useSelector(state => state.center)
+
     const [sales, set_sales] = useState({columns: [], rows: [], columnGroupingModel: []})
     const [columnVisibilityModel, set_columnVisibilityModel] = useState({type: false, level: false})
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(common_reports_sales_get(filial, '2026-02-05', 0))
+            const fetching_result = await dispatch(common_reports_sales_get(filial, date_shift_beginning, date_shift_end, 0))
             if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
                 set_sales(fetching_result.data)
             }
         }
         if (filial !== undefined) fetch()
-    }, [dispatch, filial])
+    }, [dispatch, filial, date_shift_beginning, date_shift_end])
 
     return <Box sx={{minHeight: '100%'}}>
         <Box className='center-title-filial'><Box sx={{marginRight: '5px'}}><LocationPinIcon/></Box>{filial.name}</Box>

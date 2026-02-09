@@ -1,13 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Box, Button, ButtonGroup} from "@mui/material"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
+import {setFilials} from "../redux/centerReducer.js"
 
 const CenterHeader = () => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const {main_menu, current_page} = useSelector(state => state.center)
+
+    const cities = useSelector(state => state.data.cities)
+
+    // Филиалы
+    useEffect(() => {
+        const filials_list = []
+        if (cities !== undefined) {
+            cities.forEach((city) => {
+                city.filials.forEach((filial) => {
+                    filials_list.push({uid: filial.uid, title: filial.name})
+                })
+            })
+            dispatch(setFilials(filials_list))
+        }
+    }, [cities])
 
     return <Box id='center-header'>
         <CMenu>

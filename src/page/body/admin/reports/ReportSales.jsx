@@ -24,7 +24,7 @@ const ReportSales = () => {
     useEffect(() => {
         const fetch = async () => {
             dispatch(cleanSales())
-            const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, 0))
+            const fetching_result = await dispatch(common_reports_sales_get(filial, param_date_admin, param_date_admin, 0))
             if (fetching_result.data !== null) {
                 dispatch(setSales(fetching_result.data))
             }

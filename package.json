@@ -19,6 +19,7 @@
     "@mui/x-data-grid": "^8.10.2",
     "@mui/x-data-grid-pro": "^8.11.3",
     "@mui/x-date-pickers": "^8.10.2",
+    "@mui/x-date-pickers-pro": "^8.27.0",
     "@mui/x-license": "^8.11.3",
     "@reduxjs/toolkit": "^2.5.1",
     "@xyflow/react": "^12.8.2",

@@ -1699,13 +1699,13 @@ export const get_hall_rent_sum = (filial, film_uid, start, end, its_card, premie
 
 // Отчеты
 
-export const common_reports_sales_get = (filial, date_shift, update) => async (dispatch, getState) => {
+export const common_reports_sales_get = (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SALES_GET}`,
-        params: {date_shift, update},
+        params: {date_shift_beginning, date_shift_ending, update},
         filial,
         wp,
         kiosk,
