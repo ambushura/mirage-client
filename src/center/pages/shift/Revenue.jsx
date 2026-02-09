@@ -72,18 +72,22 @@ export const FilialRevenue = ({filial}) => {
             }}
             getRowClassName={(params) => {
                 const label = params.row.label
+
                 // ВСЕГО
                 if (label === 'ВСЕГО') {
                     return 'row-total-grand'
                 }
+
                 // Организация
                 if (!label.startsWith('  └─') && !label.startsWith('    └─')) {
                     return 'row-total-owner'
                 }
+
                 // Пользователь
                 if (label.startsWith('  └─') && !label.startsWith('    └─')) {
                     return 'row-user'
                 }
+
                 // ККТ
                 if (label.startsWith('    └─')) {
                     return 'row-kkt'
@@ -100,6 +104,7 @@ export const FilialRevenue = ({filial}) => {
             pinnedColumns={{
                 left: ['label'],
             }}
-        /> : <Box>Выручка отсутствует в смене...</Box>}
+        /> : <Box className='center-title-filial' sx={{paddingLeft: '15px', fontWeight: 300}}>Выручка отсутствует в
+            смене...</Box>}
     </Box>
 }

@@ -30,6 +30,7 @@ const CenterRevenueHeader = () => {
             setValue={setFilialsSelected}
             sx={{width: 200, ml: '10px'}}/>
         <DateRangePicker
+            label='Дата смены'
             sx={{width: 300, ml: '10px'}}
             value={draftRange}
             onChange={(value) => {
