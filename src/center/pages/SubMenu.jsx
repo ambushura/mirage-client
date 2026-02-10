@@ -32,7 +32,7 @@ const SubMenu = ({type}) => {
         dispatch(setDateShift(dayjs(date_shift).add(1, "day").format("YYYY-MM-DD")))
     }
 
-    return <Box sx={{height: 80, display: 'flex', alignItems: 'center'}}>
+    return <Box sx={{height: 'var(--center-submenu-height)', display: 'flex', alignItems: 'center'}}>
         {type.includes('filials') && <MultiSelect
             label='Филиалы'
             type='filials'

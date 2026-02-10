@@ -9,11 +9,11 @@ const main_menu = [{
     }, {id: 'results', title: 'Отчет управляющего', icon: 3}]
 }, {
     id: 'horeca', title: 'Общепит', icon: 2, submenu: [{
+        id: 'goods', title: 'Номенклатура', icon: 0
+    }, {
         id: 'orders', title: 'Заказы', icon: 4
     }, {
         id: 'sales', title: 'Отчеты о розничных продажах', icon: 4
-    }, {
-        id: 'recipes', title: 'Калькуляции', icon: 0
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 1, submenu: [{
@@ -36,7 +36,10 @@ const initialState = {
     date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
 
     // Дата смены
-    date_shift: today
+    date_shift: today,
+
+    // Папки
+    tree: [], expanded_tree: [],
 }
 
 export const centerSlice = createSlice({
@@ -75,6 +78,13 @@ export const centerSlice = createSlice({
         // Дата смены
         setDateShift(state, action) {
             state.date_shift = action.payload
+        },
+
+        // Папки
+        setTree(state, action) {
+            state.tree = action.payload
+        }, setExpendedTree(state, action) {
+            state.expanded_tree = action.payload
         }
     },
 })
@@ -91,6 +101,9 @@ export const {
     setPeriod, dateShiftAccepted, clearPeriod,
 
     // Дата смены
-    setDateShift
+    setDateShift,
+
+    // Папки
+    setTree, setExpendedTree
 } = centerSlice.actions
 export default centerSlice.reducer

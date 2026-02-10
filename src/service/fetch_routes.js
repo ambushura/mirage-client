@@ -105,3 +105,6 @@ export const ROUTE_COMMON_REPORTS_SALES_GET = '/api/common/reports/sales/get'
 export const ROUTE_COMMON_REPORTS_SHIFT_GET = '/api/common/reports/shift/get'
 export const ROUTE_COMMON_REPORTS_SCHEDULE_GET = '/api/common/reports/schedule/get'
 export const ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT = '/api/equipment/printer/kitchen_print'
+
+// Центр
+export const ROUTE_CENTER_HORECA_GOODS_TREE_GET = '/api/center/horeca/goods/tree/get'

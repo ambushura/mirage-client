@@ -86,6 +86,8 @@ function App() {
                 <Routes>
                     <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
                     <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
+                    <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
+                    <Route path="/center/horeca/sales" element={<CenterHoreca current_page={['horeca', 'sales']}/>}/>
                     <Route path="/center/horeca/orders" element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
                     <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
                     <Route path="*" element={<NotFound/>}/>

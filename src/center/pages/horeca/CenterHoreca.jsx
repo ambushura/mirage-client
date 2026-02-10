@@ -1,18 +1,33 @@
 import React from 'react'
-import {Box} from "@mui/material"
-import {useSetCurrentPage} from "../../useSetCurrentPage.js";
+import {useSetCurrentPage} from "../../useSetCurrentPage.js"
+import SubMenu from "../SubMenu.jsx"
+import Goods from "./Goods.jsx"
+import OrdersHoreca from "./OrdersHoreca.jsx"
+import Sales from "./Sales.jsx"
 
 const CenterHoreca = ({current_page}) => {
 
     useSetCurrentPage(current_page)
 
-    return <Box>
-        <Box id='center-submenu'>
-            <Box>
-
-            </Box>
-        </Box>
-    </Box>
+    switch (current_page[1]) {
+        case 'goods':
+            return <>
+                <SubMenu type={['filials']}/>
+                <Goods/>
+            </>
+        case 'sales':
+            return <>
+                <SubMenu type={[]}/>
+                <Sales/>
+            </>
+        case 'orders':
+            return <>
+                <SubMenu type={[]}/>
+                <OrdersHoreca/>
+            </>
+        default:
+            return null
+    }
 }
 
 export default CenterHoreca

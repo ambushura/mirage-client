@@ -39,10 +39,10 @@ export function useSetWS() {
     const center = useSelector(state => state.auth.center)
 
     const wsUrl = useMemo(() => {
-        if (!filial) return null
+        if (!filial?.uid) return null
         const base = dev ? `ws://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.ws_port}` : `ws://${filial.ip}:${ROUTE_MAIN_HOST.ws_port}/ws`
         return `${base}?wp=${wp}${its_second_screen ? '&ss=true' : ''}`
-    }, [filial, wp, its_second_screen, dev])
+    }, [filial?.uid, wp, its_second_screen, dev])
 
     const pauseWS = center || !wsUrl
 

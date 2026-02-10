@@ -3,7 +3,8 @@ import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
-import {setFilials} from "../redux/centerReducer.js"
+import {setFilials, setTree} from "../redux/centerReducer.js"
+import {center_horeca_goods_tree_get} from "../service/fetch_service.js";
 
 const CenterHeader = () => {
 
@@ -25,6 +26,18 @@ const CenterHeader = () => {
             dispatch(setFilials(filials_list))
         }
     }, [cities])
+
+    // Папки
+    useEffect(() => {
+        const fetch = async () => {
+            const fetching_result = await dispatch(center_horeca_goods_tree_get({ip: '10.101.3.88', port: '60000'}, 0))
+            if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
+                const data = fetching_result.data
+                dispatch(setTree(data))
+            }
+        }
+        fetch()
+    }, [dispatch])
 
     return <Box id='center-header'>
         <CMenu>
