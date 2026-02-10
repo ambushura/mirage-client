@@ -2,7 +2,7 @@ import React from 'react'
 import Revenue from "./Revenue.jsx"
 import Results from "./Results.jsx"
 import {useSetCurrentPage} from "../../useSetCurrentPage.js"
-import CenterRevenueHeader from "./CenterRevenueHeader.jsx"
+import SubMenu from "../SubMenu.jsx"
 
 const CenterShift = ({current_page}) => {
 
@@ -11,11 +11,14 @@ const CenterShift = ({current_page}) => {
     switch (current_page[1]) {
         case 'revenue':
             return <>
-                <CenterRevenueHeader/>
+                <SubMenu type={['period', 'filials']}/>
                 <Revenue/>
             </>
         case 'results':
-            return <Results/>
+            return <>
+                <SubMenu type={['date_shift', 'filials']}/>
+                <Results/>
+            </>
         default:
             return null
     }

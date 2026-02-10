@@ -6,7 +6,7 @@ const today = dayjs().format('YYYY-MM-DD')
 const main_menu = [{
     id: 'shift', title: 'Смена', icon: 0, submenu: [{
         id: 'revenue', title: 'Выручка', icon: 3
-    }, {id: 'results', title: 'Сверка', icon: 3}]
+    }, {id: 'results', title: 'Отчет управляющего', icon: 3}]
 }, {
     id: 'cinema', title: 'Кино', icon: 1, submenu: [{
         id: 'orders', title: 'Заказы', icon: 4
@@ -34,6 +34,9 @@ const initialState = {
 
     // Периоды
     date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
+
+    // Дата смены
+    date_shift: today
 }
 
 export const centerSlice = createSlice({
@@ -68,6 +71,11 @@ export const centerSlice = createSlice({
             if (!state.date_shift_valid) return
             state.date_shift_accepted += 1
         },
+
+        // Дата смены
+        setDateShift(state, action) {
+            state.date_shift = action.payload
+        }
     },
 })
 
@@ -80,6 +88,9 @@ export const {
     setFilial, setFilials, setFilialsSelected,
 
     // Периоды
-    setPeriod, dateShiftAccepted, clearPeriod
+    setPeriod, dateShiftAccepted, clearPeriod,
+
+    // Дата смены
+    setDateShift
 } = centerSlice.actions
 export default centerSlice.reducer
