@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {common_reports_shift_get} from "../../../service/fetch_service.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {set_shiftColumnVisibilityModel} from "../../../redux/reportsReducer.js"
 import LocationPinIcon from '@mui/icons-material/LocationPin'
 
 const Results = () => {
@@ -74,7 +73,7 @@ export const FilialResults = ({filial}) => {
                     hideFooterSelectedRowCount
                     experimentalFeatures={{columnGrouping: true}}
                     columnVisibilityModel={shift_1_columnVisibilityModel}
-                    onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
+                    onColumnVisibilityModelChange={set_shift_1_columnVisibilityModel}
                     getRowClassName={(params) => params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : ''}
                     sx={{
                         width: '100%', margin: '0 4px 4px 4px', '& .row-diff-red': {
@@ -142,7 +141,7 @@ export const FilialResults = ({filial}) => {
             hideFooterSelectedRowCount
             experimentalFeatures={{columnGrouping: true}}
             columnVisibilityModel={shift_3_columnVisibilityModel}
-            onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
+            onColumnVisibilityModelChange={set_shift_3_columnVisibilityModel}
             pinnedColumns={{
                 left: ['label'],
             }}
