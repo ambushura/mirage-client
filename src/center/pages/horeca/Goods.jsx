@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react'
-import {Box, ListItem, ListItemIcon, ListItemText} from "@mui/material"
+import {Box, ListItem, ListItemText} from "@mui/material"
 import {SimpleTreeView, TreeItem} from '@mui/x-tree-view'
 import {useDispatch, useSelector} from "react-redux"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import {setExpendedTree, setGoods, setUidCurrentFolder} from "../../../redux/centerReducer.js"
+import {setExpandedTree, setGoods, setUidCurrentFolder} from "../../../redux/centerReducer.js"
 import {center_horeca_goods_get} from "../../../service/fetch_service.js"
 import List from '@mui/material/List'
-import LabelIcon from '@mui/icons-material/Label'
 
 const Goods = () => {
 
     const dispatch = useDispatch()
 
-    const {tree, expanded_tree, uid_current_folder, goods, uid_current_good} = useSelector(state => state.center)
+    const {
+        root_filial, tree, expanded_tree, uid_current_folder, goods, uid_current_good
+    } = useSelector(state => state.center)
 
     const renderTree = (nodes) => nodes.map(node => <TreeItem
         key={node.uid}
@@ -38,9 +39,7 @@ const Goods = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(center_horeca_goods_get({
-                ip: '10.101.3.88', port: '60000'
-            }, uid_current_folder, 0))
+            const fetching_result = await dispatch(center_horeca_goods_get(root_filial, uid_current_folder, 0))
             if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
                 const data = fetching_result.data
                 dispatch(setGoods(data))
@@ -69,7 +68,7 @@ const Goods = () => {
                     slots={{collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}}
                     defaultExpandedItems={[]}
                     expandedItems={expanded_tree}
-                    onExpandedItemsChange={(e, ids) => dispatch(setExpendedTree(ids))}
+                    onExpandedItemsChange={(e, ids) => dispatch(setExpandedTree(ids))}
                     onSelectedItemsChange={(e, ids) => {
                         dispatch(setUidCurrentFolder(ids))
                     }}
@@ -87,9 +86,6 @@ const Goods = () => {
         }}>
             <List dense>
                 {goods.map((item, i) => <ListItem>
-                    <ListItemIcon>
-                        <LabelIcon/>
-                    </ListItemIcon>
                     <ListItemText
                         primary={item.name}
                         secondary={item.unit_name}

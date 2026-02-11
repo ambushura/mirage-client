@@ -23,6 +23,12 @@ const main_menu = [{
 
 const initialState = {
 
+    // Центральный филиал
+    root_filial: {ip: '10.101.3.88', port: '60000'},
+
+    // Отладка
+    //root_filial: {ip: '10.101.2.21', port: '60000'},
+
     // Меню
     main_menu: main_menu, current_page: ['shift', 'revenue'],
 
@@ -48,6 +54,11 @@ const initialState = {
 export const centerSlice = createSlice({
 
     name: 'center', initialState, reducers: {
+
+        // Центральный филиал
+        setRootFilial: (state, action) => {
+            state.root_filial = action.payload
+        },
 
         // Меню
         setCurrentPage: (state, action) => {
@@ -86,7 +97,7 @@ export const centerSlice = createSlice({
         // Папки
         setTree(state, action) {
             state.tree = action.payload
-        }, setExpendedTree(state, action) {
+        }, setExpandedTree(state, action) {
             state.expanded_tree = action.payload
         }, setUidCurrentFolder(state, action) {
             state.uid_current_folder = action.payload
@@ -103,6 +114,9 @@ export const centerSlice = createSlice({
 
 export const {
 
+    // Центральный филиал
+    setRootFilial,
+
     // Меню
     setCurrentPage,
 
@@ -116,7 +130,7 @@ export const {
     setDateShift,
 
     // Папки
-    setTree, setExpendedTree, setUidCurrentFolder,
+    setTree, setExpandedTree, setUidCurrentFolder,
 
     // Номенклатура
     setGoods, setUidCurrentGood
