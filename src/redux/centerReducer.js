@@ -39,7 +39,10 @@ const initialState = {
     date_shift: today,
 
     // Папки
-    tree: [], expanded_tree: [],
+    tree: [], expanded_tree: [], uid_current_folder: null,
+
+    // Номенклатура
+    goods: [], uid_current_good: null,
 }
 
 export const centerSlice = createSlice({
@@ -85,6 +88,15 @@ export const centerSlice = createSlice({
             state.tree = action.payload
         }, setExpendedTree(state, action) {
             state.expanded_tree = action.payload
+        }, setUidCurrentFolder(state, action) {
+            state.uid_current_folder = action.payload
+        },
+
+        // Номенклатура
+        setGoods(state, action) {
+            state.goods = action.payload
+        }, setUidCurrentGood(state, action) {
+            state.uid_current_good = action.payload
         }
     },
 })
@@ -104,6 +116,10 @@ export const {
     setDateShift,
 
     // Папки
-    setTree, setExpendedTree
+    setTree, setExpendedTree, setUidCurrentFolder,
+
+    // Номенклатура
+    setGoods, setUidCurrentGood
+
 } = centerSlice.actions
 export default centerSlice.reducer

@@ -61,11 +61,7 @@ export function CButtonMenu(props) {
     return <Button
         {...props}
         sx={{
-            height: '55px',
-            borderRadius: '0px',
-            boxShadow: 'none',
-            fontWeight: 400,
-            padding: '0 15px 0 15px', ...props.sx,
+            height: '55px', borderRadius: '0px', boxShadow: 'none', padding: '0 15px 0 15px', ...props.sx,
         }}
     />
 }

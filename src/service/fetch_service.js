@@ -17,6 +17,7 @@ import {addNotification} from "../redux/notifierReducer.js"
 import {loginSuccess, logout} from "../redux/authReducer.js"
 import {
     COMMON_PRINTERS_GET,
+    ROUTE_CENTER_HORECA_GOODS_GET,
     ROUTE_CENTER_HORECA_GOODS_TREE_GET,
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_DISCOUNTS_GET,
@@ -1753,6 +1754,21 @@ export const center_horeca_goods_tree_get = (filial, update) => async (dispatch,
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_TREE_GET}`,
         params: {update},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
+}
+
+export const center_horeca_goods_get = (filial, uid_folder, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_GET}`,
+        params: {uid_folder, update},
         filial,
         wp,
         kiosk,

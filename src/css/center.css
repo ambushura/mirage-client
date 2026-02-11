@@ -11,6 +11,7 @@
     background-color: #fbed9a;
     position: absolute;
     top: 0;
+    font-weight: bold;
 }
 
 #center-side-panel {
@@ -19,6 +20,7 @@
     background-color: #fbed9a;
     position: absolute;
     right: 0;
+    font-weight: bold;
 }
 
 #center-page {
