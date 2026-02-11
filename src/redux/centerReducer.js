@@ -9,11 +9,11 @@ const main_menu = [{
     }, {id: 'results', title: 'Отчет управляющего', icon: 3}]
 }, {
     id: 'horeca', title: 'Общепит', icon: 2, submenu: [{
-        id: 'goods', title: 'Номенклатура', icon: 0
+        id: 'goods', title: 'Номенклатура', icon: 4
     }, {
         id: 'orders', title: 'Заказы', icon: 4
     }, {
-        id: 'sales', title: 'Отчеты о розничных продажах', icon: 4
+        id: 'sales', title: 'Отчеты о розничных продажах', icon: 3
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 1, submenu: [{
