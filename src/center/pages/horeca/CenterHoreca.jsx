@@ -17,12 +17,12 @@ const CenterHoreca = ({current_page}) => {
             </>
         case 'sales':
             return <>
-                <SubMenu type={[]}/>
+                <SubMenu type={['filial', 'date_shift']}/>
                 <Sales/>
             </>
         case 'orders':
             return <>
-                <SubMenu type={[]}/>
+                <SubMenu type={['filial', 'date_shift']}/>
                 <OrdersHoreca/>
             </>
         default:

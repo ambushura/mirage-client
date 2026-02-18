@@ -36,7 +36,7 @@ const initialState = {
     filials: [], filials_selected: [],
 
     // Филиал
-    filial: null,
+    filial: null, filial_selected: null,
 
     // Периоды
     date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
@@ -67,7 +67,12 @@ export const centerSlice = createSlice({
 
         // Филиалы
         setFilial: (state, action) => {
-            state.filial = action.payload
+            state.filial_selected = action.payload
+            state.filials.forEach((filial) => {
+                if (filial.uid === action.payload) {
+                    state.filial = filial
+                }
+            })
         }, setFilials(state, action) {
             state.filials = action.payload
         }, setFilialsSelected(state, action) {

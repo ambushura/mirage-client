@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react'
-import {Box, ListItem, ListItemText} from "@mui/material"
+import {Box} from "@mui/material"
 import {SimpleTreeView, TreeItem} from '@mui/x-tree-view'
 import {useDispatch, useSelector} from "react-redux"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import {setExpandedTree, setGoods, setUidCurrentFolder} from "../../../redux/centerReducer.js"
 import {center_horeca_goods_get} from "../../../service/fetch_service.js"
-import List from '@mui/material/List'
 
 const Goods = () => {
 
@@ -29,12 +28,30 @@ const Goods = () => {
                 fontWeight: 300,
             }}
             title={node.name}
-            onClick={(e) => e.stopPropagation()}
         >
             {node.name}
         </Box>}
     >
         {node.children?.length > 0 && renderTree(node.children)}
+    </TreeItem>)
+
+    const renderGoods = (nodes) => nodes.map(node => <TreeItem
+        key={node.uid}
+        itemId={node.uid}
+        label={<Box
+            sx={{
+                userSelect: 'text',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                fontWeight: 300,
+            }}
+            title={node.name}
+        >
+            {node.name} <span style={{fontSize: '90%', fontWeight: 'bold'}}>{node.unit_name}</span>
+        </Box>}
+    >
     </TreeItem>)
 
     useEffect(() => {
@@ -56,15 +73,12 @@ const Goods = () => {
         <Box sx={{flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5px'}}>
             <Box sx={{
                 paddingRight: '5px',
-                width: 400,
-                maxWidth: 400,
                 height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
                 overflow: 'auto',
                 borderRight: '1px solid #e0e0e0'
             }}
                  className='center-scroll'>
                 <SimpleTreeView
-                    sx={{maxWidth: '400px'}}
                     slots={{collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}}
                     defaultExpandedItems={[]}
                     expandedItems={expanded_tree}
@@ -77,21 +91,26 @@ const Goods = () => {
                 </SimpleTreeView>
             </Box>
         </Box>
-        <Box className='center-scroll' sx={{
-            flex: 1,
-            minWidth: '400px',
-            maxHeight: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
-            padding: '0 5px',
-            overflow: 'auto',
-        }}>
-            <List dense>
-                {goods.map((item, i) => <ListItem>
-                    <ListItemText
-                        primary={item.name}
-                        secondary={item.unit_name}
-                    />
-                </ListItem>)}
-            </List>
+        <Box sx={{flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5px'}}>
+            <Box sx={{
+                paddingRight: '5px',
+                height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
+                overflow: 'auto',
+                borderRight: '1px solid #e0e0e0'
+            }}
+                 className='center-scroll'>
+                <SimpleTreeView
+                    slots={{collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}}
+                    defaultExpandedItems={[]}
+                    expandedItems={goods}
+                    onExpandedItemsChange={(e, ids) => dispatch(setExpandedTree(ids))}
+                    onSelectedItemsChange={(e, ids) => {
+
+                    }}
+                >
+                    {renderGoods(goods)}
+                </SimpleTreeView>
+            </Box>
         </Box>
         <Box sx={{flex: 1, padding: '0 5px', overflow: 'auto'}}>
             <Box>Калькуляции</Box>

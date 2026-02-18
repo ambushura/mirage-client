@@ -3,7 +3,7 @@ import {Box} from "@mui/material"
 
 const OrdersHoreca = () => {
     return <Box>
-        Заказы
+        Заказы еда
     </Box>
 }
 

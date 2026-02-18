@@ -12,6 +12,7 @@
     position: absolute;
     top: 0;
     font-weight: bold;
+    z-index: 999;
 }
 
 #center-side-panel {
@@ -21,6 +22,7 @@
     position: absolute;
     right: 0;
     font-weight: bold;
+    z-index: 999;
 }
 
 #center-page {
