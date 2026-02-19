@@ -49,6 +49,9 @@ const initialState = {
 
     // Номенклатура
     goods: [], uid_current_good: null,
+
+    // Хорека заказы
+    orders_horeca: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}, order_horeca: {}
 }
 
 export const centerSlice = createSlice({
@@ -67,12 +70,8 @@ export const centerSlice = createSlice({
 
         // Филиалы
         setFilial: (state, action) => {
-            state.filial_selected = action.payload
-            state.filials.forEach((filial) => {
-                if (filial.uid === action.payload) {
-                    state.filial = filial
-                }
-            })
+            state.filial_selected = action.payload[0]
+            state.filial = action.payload[1]
         }, setFilials(state, action) {
             state.filials = action.payload
         }, setFilialsSelected(state, action) {
@@ -113,6 +112,15 @@ export const centerSlice = createSlice({
             state.goods = action.payload
         }, setUidCurrentGood(state, action) {
             state.uid_current_good = action.payload
+        },
+
+        // Заказы хорека
+        cleanOrdersHoreca(state, action) {
+            state.orders_horeca = {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}
+        }, setOrdersHoreca(state, action) {
+            state.orders_horeca = action.payload
+        }, setOrderHoreca(state, action) {
+            state.order_horeca = action.payload
         }
     },
 })
@@ -138,7 +146,10 @@ export const {
     setTree, setExpandedTree, setUidCurrentFolder,
 
     // Номенклатура
-    setGoods, setUidCurrentGood
+    setGoods, setUidCurrentGood,
+
+    // Заказы хорека
+    cleanOrdersHoreca, setOrdersHoreca, setOrderHoreca,
 
 } = centerSlice.actions
 export default centerSlice.reducer

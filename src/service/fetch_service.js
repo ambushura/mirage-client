@@ -19,6 +19,7 @@ import {
     COMMON_PRINTERS_GET,
     ROUTE_CENTER_HORECA_GOODS_GET,
     ROUTE_CENTER_HORECA_GOODS_TREE_GET,
+    ROUTE_CENTER_HORECA_ORDERS_GET,
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_DISCOUNTS_GET,
     ROUTE_CINEMA_DISCOUNTS_GROUPS_GET,
@@ -1769,6 +1770,21 @@ export const center_horeca_goods_get = (filial, uid_folder, update) => async (di
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_GET}`,
         params: {uid_folder, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
+}
+
+export const center_horeca_orders_get = (filial, date_shift, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDERS_GET}`,
+        params: {date_shift, update},
         filial,
         wp,
         kiosk,

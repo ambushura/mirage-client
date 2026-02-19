@@ -20,6 +20,9 @@ const SubMenu = ({type}) => {
 
     const dispatch = useDispatch()
 
+    // Города
+    const cities = useSelector(state => state.data.cities)
+
     // Филиалы
     const filials = useSelector(state => state.center.filials)
     const filials_selected = useSelector(state => state.center.filials_selected)
@@ -52,6 +55,28 @@ const SubMenu = ({type}) => {
             items_selected={filials_selected}
             setValue={setFilialsSelected}
             sx={{width: 200, ml: '10px'}}/>}
+        {type.includes('filial') && <FormControl sx={{width: '300px', ml: '10px'}}>
+            <InputLabel id="center-filial-select-label">Филиал</InputLabel>
+            <Select
+                labelId="center-filial-select-label"
+                id="center-filial-select"
+                value={filial !== null ? filial.uid : null}
+                label="Филиал"
+                onChange={(e) => {
+                    cities.forEach((city) => {
+                        city.filials.forEach(filial => {
+                            if (filial.uid === e.target.value) {
+                                dispatch(setFilial([e.target.value, filial]))
+                            }
+                        })
+                    })
+                }}
+            >
+                {filials.map((item, index) => {
+                    return <MenuItem value={item.uid} key={item.uid}>{item.title}</MenuItem>
+                })}
+            </Select>
+        </FormControl>}
         {type.includes('period') && <DateRangePicker
             label='Дата смены'
             sx={{width: 300, ml: '10px'}}
@@ -69,44 +94,29 @@ const SubMenu = ({type}) => {
                 dispatch(dateShiftAccepted())
             }}
         />}
-        {type.includes('date_shift') && <Stack direction="row" alignItems="center" spacing={1} sx={{ml: '10px'}}>
-            <IconButton onClick={prevDay}>
-                <ArrowBackIosNewIcon fontSize="small"/>
-            </IconButton>
-            <DatePicker
-                label="Дата смены"
-                sx={{width: 160}}
-                value={date_shift ? dayjs(date_shift) : null}
-                onChange={(newValue) => {
-                    if (!newValue || !newValue.isValid()) return
-                    dispatch(setDateShift(newValue.format('YYYY-MM-DD')))
-                }}
-                slotProps={{
-                    textField: {
-                        variant: "outlined", color: "secondary"
-                    }
-                }}
-            />
-            <IconButton onClick={nextDay}>
-                <ArrowForwardIosIcon fontSize="small"/>
-            </IconButton>
-        </Stack>}
-        {type.includes('filial') && <FormControl sx={{width: '300px'}}>
-            <InputLabel id="center-filial-select-label">Филиал</InputLabel>
-            <Select
-                labelId="center-filial-select-label"
-                id="center-filial-select"
-                value={filial !== null ? filial.uid : null}
-                label="Филиал"
-                onChange={(e) => {
-                    dispatch(setFilial(e.target.value))
-                }}
-            >
-                {filials.map((item, index) => {
-                    return <MenuItem value={item.uid} key={item.uid}>{item.title}</MenuItem>
-                })}
-            </Select>
-        </FormControl>}
+        {type.includes('date_shift') &&
+            <Stack direction="row" alignItems="center" spacing={1} sx={{minWidth: 150, maxWidth: 150, ml: '10px'}}>
+                <IconButton onClick={prevDay}>
+                    <ArrowBackIosNewIcon fontSize="small"/>
+                </IconButton>
+                <DatePicker
+                    label="Дата смены"
+                    value={date_shift ? dayjs(date_shift) : null}
+                    sx={{minWidth: 150}}
+                    onChange={(newValue) => {
+                        if (!newValue || !newValue.isValid()) return
+                        dispatch(setDateShift(newValue.format('YYYY-MM-DD')))
+                    }}
+                    slotProps={{
+                        textField: {
+                            variant: "outlined", color: "secondary"
+                        }
+                    }}
+                />
+                <IconButton onClick={nextDay}>
+                    <ArrowForwardIosIcon fontSize="small"/>
+                </IconButton>
+            </Stack>}
     </Box>
 }
 
