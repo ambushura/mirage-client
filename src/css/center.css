@@ -8,7 +8,7 @@
 #center-header {
     width: 100vw;
     height: var(--center-header-height);
-    background-color: #fbed9a;
+    background-color: #f2f2f2;
     position: absolute;
     top: 0;
     font-weight: bold;
@@ -18,7 +18,7 @@
 #center-side-panel {
     width: var(--side-panel-width);
     height: 100vh;
-    background-color: #fbed9a;
+    background-color: #f2f2f2;
     position: absolute;
     right: 0;
     font-weight: bold;

@@ -60,7 +60,7 @@ const SubMenu = ({type}) => {
             <Select
                 labelId="center-filial-select-label"
                 id="center-filial-select"
-                value={filial !== null ? filial.uid : null}
+                value={filial !== null ? filial.uid : ''}
                 label="Филиал"
                 onChange={(e) => {
                     cities.forEach((city) => {

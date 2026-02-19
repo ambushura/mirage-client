@@ -30,28 +30,39 @@ const initialState = {
     //root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
-    main_menu: main_menu, current_page: ['shift', 'revenue'],
+    main_menu: main_menu,
+    current_page: ['shift', 'revenue'],
 
     // Филиалы
-    filials: [], filials_selected: [],
+    filials: [],
+    filials_selected: [],
 
     // Филиал
-    filial: null, filial_selected: null,
+    filial: null,
+    filial_selected: '',
 
     // Периоды
-    date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
+    date_shift_beginning: today,
+    date_shift_end: today,
+    date_shift_valid: true,
+    date_shift_accepted: 0,
 
     // Дата смены
     date_shift: today,
 
     // Папки
-    tree: [], expanded_tree: [], uid_current_folder: null,
+    tree: [],
+    expanded_tree: [],
+    uid_current_folder: null,
 
     // Номенклатура
-    goods: [], uid_current_good: null,
+    goods: [],
+    uid_current_good: null,
 
     // Хорека заказы
-    orders_horeca: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}, order_horeca: {}
+    orders_horeca: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
+    order_horeca: null,
+    uid_current_order_horeca: null,
 }
 
 export const centerSlice = createSlice({
@@ -96,6 +107,9 @@ export const centerSlice = createSlice({
         // Дата смены
         setDateShift(state, action) {
             state.date_shift = action.payload
+            // Очищаем заказ хорека
+            state.uid_current_order_horeca = null
+            state.order_horeca = null
         },
 
         // Папки
@@ -115,12 +129,20 @@ export const centerSlice = createSlice({
         },
 
         // Заказы хорека
-        cleanOrdersHoreca(state, action) {
+        cleanOrdersHoreca(state) {
             state.orders_horeca = {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}
         }, setOrdersHoreca(state, action) {
             state.orders_horeca = action.payload
+        },
+
+        // Текущий заказ хорека
+        setUidCurrentOrderHoreca(state, action) {
+            state.uid_current_order_horeca = action.payload
         }, setOrderHoreca(state, action) {
             state.order_horeca = action.payload
+        }, cleanOrderHoreca(state) {
+            state.uid_current_order_horeca = null
+            state.order_horeca = null
         }
     },
 })
@@ -149,7 +171,10 @@ export const {
     setGoods, setUidCurrentGood,
 
     // Заказы хорека
-    cleanOrdersHoreca, setOrdersHoreca, setOrderHoreca,
+    cleanOrdersHoreca, setOrdersHoreca,
+
+    // Текущий заказ хорека
+    setUidCurrentOrderHoreca, setOrderHoreca, cleanOrderHoreca,
 
 } = centerSlice.actions
 export default centerSlice.reducer
