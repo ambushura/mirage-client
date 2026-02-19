@@ -29,7 +29,9 @@ const OrdersHoreca = () => {
         }
     }, [dispatch, filial, date_shift])
 
-    return <Box sx={{padding: '0 10px', display: "flex", justifyContent: "space-between"}}>
+    return <Box sx={{
+        padding: '0 10px', display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap'
+    }}>
         {orders_horeca.rows.length > 0 ? <DataGridPro
             cellSelection
             disableRowSelectionOnClick
@@ -46,16 +48,21 @@ const OrdersHoreca = () => {
             onColumnVisibilityModelChange={() => {
             }}
             sx={{
-                flex: 3, border: 0, borderRadius: '0', '& .MuiDataGrid-cell': {
+                height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
+                flex: 3,
+                border: 0,
+                borderRadius: '0',
+                '& .MuiDataGrid-cell': {
                     userSelect: 'text'
-                }, '& .MuiDataGrid-cellContent': {
+                },
+                '& .MuiDataGrid-cellContent': {
                     pointerEvents: 'auto'
                 }
             }}
 
         /> : <Box className='center-title-filial' sx={{paddingLeft: '15px', fontWeight: 300}}>Заказы отсутствуют в
             смене...</Box>}
-        {<Box sx={{flex: 2}}>Текущий заказ</Box>}
+        {<Box sx={{flex: 2, ml: 1, backgroundColor: 'white'}}>Текущий заказ</Box>}
     </Box>
 }
 

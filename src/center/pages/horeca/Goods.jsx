@@ -25,7 +25,6 @@ const Goods = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                fontWeight: 300,
             }}
             title={node.name}
         >
@@ -45,11 +44,10 @@ const Goods = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                fontWeight: 300,
             }}
             title={node.name}
         >
-            {node.name} <span style={{fontSize: '90%', fontWeight: 'bold'}}>{node.unit_name}</span>
+            {node.name} <span style={{fontSize: '90%', fontWeight: 100}}>{node.unit_name}</span>
         </Box>}
     >
     </TreeItem>)

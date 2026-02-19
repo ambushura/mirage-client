@@ -13,7 +13,7 @@ const main_menu = [{
     }, {
         id: 'orders', title: 'Заказы', icon: 4
     }, {
-        id: 'sales', title: 'Отчеты о розничных продажах', icon: 3
+        id: 'sales', title: 'Итоги смены', icon: 3
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 1, submenu: [{
