@@ -13,7 +13,9 @@ const main_menu = [{
     }, {
         id: 'orders', title: 'Заказы', icon: 4
     }, {
-        id: 'sales', title: 'Итоги смены', icon: 3
+        id: 'sales', title: 'Итоги смены (склад)', icon: 3
+    }, {
+        id: 'revenue', title: 'Итоги смены (выручка)', icon: 3
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 1, submenu: [{
@@ -63,6 +65,7 @@ const initialState = {
     orders_horeca: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
     order_horeca: null,
     uid_current_order_horeca: null,
+    order_horeca_items_expended: [],
 }
 
 export const centerSlice = createSlice({
@@ -143,6 +146,8 @@ export const centerSlice = createSlice({
         }, cleanOrderHoreca(state) {
             state.uid_current_order_horeca = null
             state.order_horeca = null
+        }, setHorecaOrderItemsExpended(state, action) {
+            state.order_horeca_items_expended = action.payload
         }
     },
 })
@@ -174,7 +179,7 @@ export const {
     cleanOrdersHoreca, setOrdersHoreca,
 
     // Текущий заказ хорека
-    setUidCurrentOrderHoreca, setOrderHoreca, cleanOrderHoreca,
+    setUidCurrentOrderHoreca, setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
 
 } = centerSlice.actions
 export default centerSlice.reducer

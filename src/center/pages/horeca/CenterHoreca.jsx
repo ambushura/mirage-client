@@ -17,7 +17,7 @@ const CenterHoreca = ({current_page}) => {
             </>
         case 'sales':
             return <>
-                <SubMenu type={['filial', 'date_shift']}/>
+                <SubMenu type={['filial', 'date_shift', 'horeca_sales']}/>
                 <Sales/>
             </>
         case 'orders':

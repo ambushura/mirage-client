@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {
     cleanOrderHoreca,
     cleanOrdersHoreca,
+    setHorecaOrderItemsExpended,
     setOrderHoreca,
     setOrdersHoreca,
     setUidCurrentOrderHoreca
@@ -18,7 +19,7 @@ const OrdersHoreca = () => {
     const dispatch = useDispatch()
 
     const {
-        filial, date_shift, orders_horeca, uid_current_order_horeca, order_horeca
+        filial, date_shift, orders_horeca, uid_current_order_horeca, order_horeca, order_horeca_items_expended
     } = useSelector(state => state.center)
 
     // Заказы
@@ -69,6 +70,7 @@ const OrdersHoreca = () => {
     }}>
         {orders_horeca.rows.length > 0 ? <DataGridPro
             cellSelection
+            checkboxSelection
             disableRowSelectionOnClick
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
@@ -76,15 +78,15 @@ const OrdersHoreca = () => {
             columns={formattedColumns}
             columnGroupingModel={orders_horeca.column_grouping_model}
             density="compact"
-            rowHeight={30}
-            headerHeight={30}
+            rowHeight={42}
+            headerHeight={42}
             hideFooterSelectedRowCount
             columnVisibilityModel={orders_horeca.column_visibility_model}
             onColumnVisibilityModelChange={() => {
             }}
             sx={{
                 height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
-                flex: 3,
+                flex: 1,
                 border: 0,
                 borderRadius: '0',
                 '& .MuiDataGrid-cell': {
@@ -92,6 +94,12 @@ const OrdersHoreca = () => {
                 },
                 '& .MuiDataGrid-cellContent': {
                     pointerEvents: 'auto'
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                    fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
+                },
+                '& .MuiDataGrid-columnHeaderTitle': {
+                    whiteSpace: 'normal', lineHeight: 1.2
                 }
             }}
             onRowClick={(params) => {
@@ -100,7 +108,7 @@ const OrdersHoreca = () => {
         /> : <Box className='center-title-filial' sx={{paddingLeft: '15px', fontWeight: 300}}>Заказы отсутствуют в
             смене...</Box>}
         {<Box sx={{
-            flex: 2,
+            flex: 1,
             ml: 1,
             backgroundColor: 'white',
             display: 'flex',
@@ -115,22 +123,36 @@ const OrdersHoreca = () => {
                 <Box></Box>
                 <Box>
                     {order_horeca.items?.rows?.length > 0 && <DataGridPro
+                        editMode='cell'
+                        checkboxSelection
                         rows={order_horeca.items.rows}
                         columns={order_horeca.items.columns}
                         columnGroupingModel={order_horeca.items.column_grouping_model}
                         columnVisibilityModel={order_horeca.items.column_visibility_model}
                         treeData
                         getTreeDataPath={getTreeDataPath}
-                        rowHeight={50}
-                        headerHeight={50}
+                        rowHeight={42}
+                        headerHeight={42}
                         density="compact"
                         hideFooter
                         disableRowSelectionOnClick
+                        treeDataExpandedRowIds={order_horeca_items_expended}
+                        onTreeDataExpandedRowIdsChange={newExpanded => {
+                            dispatch(setHorecaOrderItemsExpended(newExpanded))
+                        }}
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                         groupingColDef={{width: 100, minWidth: 100, headerName: "№"}}
                         sx={{
-                            flex: 1, border: 0, '& .MuiDataGrid-cell': {
+                            flex: 1, border: 0, borderRadius: 0, '& .MuiDataGrid-cell': {
                                 userSelect: 'text'
+                            }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
+                                width: 18, height: 18,
+                            }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
+                                fontSize: 16
+                            }, '& .MuiDataGrid-columnHeaders': {
+                                fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
+                            }, '& .MuiDataGrid-columnHeaderTitle': {
+                                whiteSpace: 'normal', lineHeight: 1.2
                             }
                         }}
                     />}

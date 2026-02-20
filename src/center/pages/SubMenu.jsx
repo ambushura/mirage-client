@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Box, FormControl, IconButton, InputLabel, MenuItem, Select, Stack} from "@mui/material"
+import {Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, Stack} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import dayjs from "dayjs"
 import MultiSelect from "../../ui/MultiSelect.jsx"
@@ -15,6 +15,8 @@ import {DateRangePicker} from "@mui/x-date-pickers-pro/DateRangePicker"
 import {DatePicker} from "@mui/x-date-pickers"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 
 const SubMenu = ({type}) => {
 
@@ -95,14 +97,13 @@ const SubMenu = ({type}) => {
             }}
         />}
         {type.includes('date_shift') &&
-            <Stack direction="row" alignItems="center" spacing={1} sx={{minWidth: 150, maxWidth: 150, ml: '10px'}}>
+            <Stack direction="row" alignItems="center" spacing={1} sx={{minWidth: 250, maxWidth: 250, ml: '10px'}}>
                 <IconButton onClick={prevDay}>
                     <ArrowBackIosNewIcon fontSize="small"/>
                 </IconButton>
                 <DatePicker
                     label="Дата смены"
                     value={date_shift ? dayjs(date_shift) : null}
-                    sx={{minWidth: 150}}
                     onChange={(newValue) => {
                         if (!newValue || !newValue.isValid()) return
                         dispatch(setDateShift(newValue.format('YYYY-MM-DD')))
@@ -117,6 +118,15 @@ const SubMenu = ({type}) => {
                     <ArrowForwardIosIcon fontSize="small"/>
                 </IconButton>
             </Stack>}
+        {type.includes('horeca_sales') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<CloudDownloadIcon/>}>Остатки</Button>
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<CloudUploadIcon/>}>Оприходование</Button>
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<CloudUploadIcon/>}>Перемещение</Button>
+        </Box>}
+        {type.includes('horeca_revenue') && <Box></Box>}
     </Box>
 }
 
