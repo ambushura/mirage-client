@@ -30,7 +30,7 @@ const CenterHoreca = ({current_page}) => {
             </>
         case 'order':
             return <>
-                <SubMenu type={[]}/>
+                <SubMenu type={['back', 'save', 'recipe_update']}/>
                 <Order/>
             </>
         default:

@@ -17,9 +17,14 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import {useNavigate} from "react-router-dom"
+import SaveIcon from '@mui/icons-material/Save'
+import PolylineIcon from '@mui/icons-material/Polyline'
 
 const SubMenu = ({type}) => {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     // Города
@@ -119,14 +124,27 @@ const SubMenu = ({type}) => {
                 </IconButton>
             </Stack>}
         {type.includes('horeca_sales') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+            <Button variant='outlined' color='success' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+            <Button variant='outlined' color='success' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Оприходование</Button>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+            <Button variant='outlined' color='success' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Перемещение</Button>
         </Box>}
         {type.includes('horeca_revenue') && <Box></Box>}
+        {type.includes('back') && <Box>
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<ArrowBackIcon/>} onClick={() => {
+                navigate(-1)
+            }}>Назад</Button>
+        </Box>}
+        {type.includes('save') && <Box>
+            <Button variant='outlined' color='info' sx={{ml: '10px'}} startIcon={<SaveIcon/>}>Сохранить</Button>
+        </Box>}
+        {type.includes('recipe_update') && <Box>
+            <Button variant='outlined' color='success' sx={{ml: '10px'}}
+                    startIcon={<PolylineIcon/>}>Пересобрать</Button>
+        </Box>}
     </Box>
 }
 

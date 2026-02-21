@@ -8,7 +8,7 @@
 #center-header {
     width: 100vw;
     height: var(--center-header-height);
-    background-color: #f2f2f2;
+    background-color: #d3d3d3;
     position: absolute;
     top: 0;
     font-weight: bold;
@@ -18,7 +18,7 @@
 #center-side-panel {
     width: var(--side-panel-width);
     height: 100vh;
-    background-color: #f2f2f2;
+    background-color: #d3d3d3;
     position: absolute;
     right: 0;
     font-weight: bold;
@@ -84,4 +84,19 @@
 
 .center-horeca-order-ref {
     background-color: #dfdfdf;
+}
+
+.center-horeca-page {
+    margin: 0 10px 10px 10px;
+    max-height: calc(100vh - var(--center-header-height));
+    min-height: calc(100vh - var(--center-header-height));
+}
+
+.center-horeca-page-part {
+    min-width: calc(25% - 5px);
+    max-width: calc(25% - 5px);
+    margin-right: 5px;
+    min-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
+    max-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
+    background-color: white;
 }

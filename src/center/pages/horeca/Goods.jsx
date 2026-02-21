@@ -65,17 +65,9 @@ const Goods = () => {
         }
     }, [dispatch, uid_current_folder])
 
-    return <Box sx={{
-        display: 'flex', flexDirection: 'row', flexWrap: 'wrap', maxHeight: 'calc(100vh - var(--center-submenu-height))'
-    }}>
-        <Box sx={{flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5px'}}>
-            <Box sx={{
-                paddingRight: '5px',
-                height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
-                overflow: 'auto',
-                borderRight: '1px solid #e0e0e0'
-            }}
-                 className='center-scroll'>
+    return <Box className='center-horeca-page' sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+        <Box className='center-horeca-page-part'>
+            <Box sx={{height: '100%', overflowY: 'auto'}} className='center-scroll'>
                 <SimpleTreeView
                     slots={{collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}}
                     defaultExpandedItems={[]}
@@ -89,14 +81,8 @@ const Goods = () => {
                 </SimpleTreeView>
             </Box>
         </Box>
-        <Box sx={{flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5px'}}>
-            <Box sx={{
-                paddingRight: '5px',
-                height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
-                overflow: 'auto',
-                borderRight: '1px solid #e0e0e0'
-            }}
-                 className='center-scroll'>
+        <Box className='center-horeca-page-part'>
+            <Box sx={{height: '100%', overflowY: 'auto'}} className='center-scroll'>
                 <SimpleTreeView
                     slots={{collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}}
                     defaultExpandedItems={[]}
@@ -110,16 +96,14 @@ const Goods = () => {
                 </SimpleTreeView>
             </Box>
         </Box>
-        <Box sx={{flex: 1, padding: '0 5px', overflow: 'auto'}}>
+        <Box className='center-horeca-page-part'>
             <Box>Калькуляции</Box>
             <Box>
-                Содержимое
             </Box>
         </Box>
-        <Box sx={{flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5px'}}>
+        <Box className='center-horeca-page-part'>
             <Box>Ингредиенты</Box>
             <Box>
-                Содержимое
             </Box>
         </Box>
     </Box>

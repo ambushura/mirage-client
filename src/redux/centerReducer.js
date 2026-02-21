@@ -155,6 +155,7 @@ export const centerSlice = createSlice({
             state.order_horeca = payload
         }, cleanOrderHoreca(state) {
             state.order_horeca = null
+            state.params.uid_horeca_order = null
         }, setHorecaOrderItemsExpended(state, {payload}) {
             state.order_horeca_items_expended = payload
         }

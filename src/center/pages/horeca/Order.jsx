@@ -13,6 +13,8 @@ const Order = () => {
         params, filial, order_horeca, order_horeca_items_expended
     } = useSelector(state => state.center)
 
+    if (filial === null) return
+
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(center_horeca_order_get(filial, params.uid_horeca_order, 0))
@@ -27,14 +29,19 @@ const Order = () => {
     }, [dispatch, filial, params.uid_horeca_order])
 
     if (order_horeca !== null) {
-        console.log(order_horeca.items.rows.map(r => r.path))
-        return <Box>
-            <Box>
+        return <Box sx={{
+            width: '100%',
+            height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
+            padding: '0 10px',
+            display: "flex",
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap'
+        }}>
+            <Box sx={{width: '400px', backgroundColor: 'white'}}>
                 <Box>Счет {order_horeca.current_number}</Box>
             </Box>
-            <Box></Box>
-            <Box></Box>
-            <Box sx={{overflowY: 'auto'}}>
+            <Box sx={{width: 'calc(100% - 400px - 10px)', ml: '10px', overflowY: 'auto'}}>
                 {order_horeca.items?.rows?.length > 0 && <DataGridPro
                     sortingMode="server"
                     disableColumnSorting
@@ -61,15 +68,23 @@ const Order = () => {
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                     groupingColDef={{width: 100, minWidth: 100, headerName: "№"}}
                     sx={{
-                        flex: 1, border: 0, borderRadius: 0, '& .MuiDataGrid-cell': {
+                        width: 'calc(100% - 10px)',
+                        height: 'calc(100% - 10px)',
+                        border: 0,
+                        borderRadius: 0,
+                        '& .MuiDataGrid-cell': {
                             userSelect: 'text'
-                        }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
+                        },
+                        '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
                             width: 18, height: 18,
-                        }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
+                        },
+                        '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
                             fontSize: 16
-                        }, '& .MuiDataGrid-columnHeaders': {
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
                             fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-                        }, '& .MuiDataGrid-columnHeaderTitle': {
+                        },
+                        '& .MuiDataGrid-columnHeaderTitle': {
                             whiteSpace: 'normal', lineHeight: 1.2
                         }
                     }}
