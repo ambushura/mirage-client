@@ -26,11 +26,8 @@ const Order = () => {
         }
     }, [dispatch, filial, params.uid_horeca_order])
 
-    const getTreeDataPath = (row) => {
-        return row.path ? row.path.split(".") : [row.path]
-    }
-
     if (order_horeca !== null) {
+        console.log(order_horeca.items.rows.map(r => r.path))
         return <Box>
             <Box>
                 <Box>Счет {order_horeca.current_number}</Box>
@@ -39,6 +36,8 @@ const Order = () => {
             <Box></Box>
             <Box sx={{overflowY: 'auto'}}>
                 {order_horeca.items?.rows?.length > 0 && <DataGridPro
+                    sortingMode="server"
+                    disableColumnSorting
                     editMode='cell'
                     checkboxSelection
                     rows={order_horeca.items.rows}
@@ -46,7 +45,10 @@ const Order = () => {
                     columnGroupingModel={order_horeca.items.column_grouping_model}
                     columnVisibilityModel={order_horeca.items.column_visibility_model}
                     treeData
-                    getTreeDataPath={getTreeDataPath}
+                    getRowClassName={(params) => params.row.is_leaf === false ? 'center-horeca-order-ref' : ''}
+                    getTreeDataPath={(row) => {
+                        return row.path ? row.path.split(".") : [row.path]
+                    }}
                     rowHeight={42}
                     headerHeight={42}
                     density="compact"

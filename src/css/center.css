@@ -81,3 +81,7 @@
 .center-scroll::-webkit-scrollbar-corner {
     background: transparent !important;
 }
+
+.center-horeca-order-ref {
+    background-color: #dfdfdf;
+}
