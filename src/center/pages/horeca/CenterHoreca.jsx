@@ -4,9 +4,12 @@ import SubMenu from "../SubMenu.jsx"
 import Goods from "./Goods.jsx"
 import OrdersHoreca from "./OrdersHoreca.jsx"
 import Sales from "./Sales.jsx"
+import Order from "./Order.jsx"
+import {useSetCenterParams} from "../../CenterHeader.jsx"
 
 const CenterHoreca = ({current_page}) => {
 
+    useSetCenterParams()
     useSetCurrentPage(current_page)
 
     switch (current_page[1]) {
@@ -24,6 +27,11 @@ const CenterHoreca = ({current_page}) => {
             return <>
                 <SubMenu type={['filial', 'date_shift']}/>
                 <OrdersHoreca/>
+            </>
+        case 'order':
+            return <>
+                <SubMenu type={[]}/>
+                <Order/>
             </>
         default:
             return null

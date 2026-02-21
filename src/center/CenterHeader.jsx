@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react'
 import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useParams, useSearchParams} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
-import {setFilials, setTree} from "../redux/centerReducer.js"
-import {center_horeca_goods_tree_get} from "../service/fetch_service.js";
+import {setFilials, setParams, setSearchParams, setTree} from "../redux/centerReducer.js"
+import {center_horeca_goods_tree_get} from "../service/fetch_service.js"
 
 const CenterHeader = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {main_menu, current_page} = useSelector(state => state.center)
-
     const cities = useSelector(state => state.data.cities)
 
     // Филиалы
@@ -71,4 +70,21 @@ export function CMenu(props) {
         {...props}
         sx={{height: '55px', boxShadow: 'none', ...props.sx,}}
     />
+}
+
+export function useSetCenterParams() {
+
+    const params = useParams()
+    const [search_params] = useSearchParams()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setParams(params))
+    }, [dispatch, params])
+
+    useEffect(() => {
+        const obj = Object.fromEntries(search_params.entries())
+        dispatch(setSearchParams(obj))
+    }, [dispatch, search_params])
+
 }

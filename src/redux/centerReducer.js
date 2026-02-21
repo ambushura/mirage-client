@@ -25,6 +25,12 @@ const main_menu = [{
 
 const initialState = {
 
+    // Параметры
+    search_params: {},
+    params: {
+        uid_horeca_order: null,
+    },
+
     // Центральный филиал
     root_filial: {ip: '10.101.3.88', port: '60000'},
 
@@ -64,13 +70,19 @@ const initialState = {
     // Хорека заказы
     orders_horeca: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
     order_horeca: null,
-    uid_current_order_horeca: null,
     order_horeca_items_expended: [],
 }
 
 export const centerSlice = createSlice({
 
     name: 'center', initialState, reducers: {
+
+        // Параментры
+        setParams: (state, {payload}) => {
+            Object.assign(state.params, payload)
+        }, setSearchParams: (state, {payload}) => {
+            state.search_params = payload
+        },
 
         // Центральный филиал
         setRootFilial: (state, action) => {
@@ -139,20 +151,20 @@ export const centerSlice = createSlice({
         },
 
         // Текущий заказ хорека
-        setUidCurrentOrderHoreca(state, action) {
-            state.uid_current_order_horeca = action.payload
-        }, setOrderHoreca(state, action) {
-            state.order_horeca = action.payload
+        setOrderHoreca(state, {payload}) {
+            state.order_horeca = payload
         }, cleanOrderHoreca(state) {
-            state.uid_current_order_horeca = null
             state.order_horeca = null
-        }, setHorecaOrderItemsExpended(state, action) {
-            state.order_horeca_items_expended = action.payload
+        }, setHorecaOrderItemsExpended(state, {payload}) {
+            state.order_horeca_items_expended = payload
         }
     },
 })
 
 export const {
+
+    // Параметры
+    setParams, setSearchParams,
 
     // Центральный филиал
     setRootFilial,
@@ -179,7 +191,7 @@ export const {
     cleanOrdersHoreca, setOrdersHoreca,
 
     // Текущий заказ хорека
-    setUidCurrentOrderHoreca, setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
+    setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
 
 } = centerSlice.actions
 export default centerSlice.reducer

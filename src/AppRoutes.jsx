@@ -13,6 +13,7 @@ import PageSchedule from "./page/body/schedule/PageSchedule.jsx"
 import PageHoreca from "./page/body/menu/PageHoreca.jsx"
 import PageKitchen from "./page/body/kitchen/PageKitchen.jsx"
 import SecondScreen from "./page/body/second_screen/SecondScreen.jsx"
+import {useSetWS} from "./hooks/common/useSetWS.js"
 
 const AppRoutes = ({current_page}) => {
 
@@ -20,6 +21,8 @@ const AppRoutes = ({current_page}) => {
 
     const params = useParams()
     const [search_params] = useSearchParams()
+
+    useSetWS()
 
     useEffect(() => {
         dispatch(setCurrentPage(current_page))

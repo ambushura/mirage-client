@@ -22,7 +22,6 @@ import {
 
 import {useSetSizeWindow} from "./hooks/interface/useSetSizeWindow.js"
 import {useSetTopMenu} from "./hooks/interface/useSetTopMenu.js"
-import {useSetWS} from "./hooks/common/useSetWS.js"
 import {useReset} from "./hooks/common/useReset.js"
 import {closeModal} from "./redux/interfaceReducer.js"
 import MarkInfo from "./forms/markirovka/MarkInfo.jsx"
@@ -58,7 +57,6 @@ function App() {
 
     const dispatch = useDispatch()
 
-    useSetWS()
     useSetCityAndFilial()
     useSetSizeWindow()
     useSetTopMenu()
@@ -88,7 +86,10 @@ function App() {
                     <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
                     <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
                     <Route path="/center/horeca/sales" element={<CenterHoreca current_page={['horeca', 'sales']}/>}/>
-                    <Route path="/center/horeca/orders" element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
+                    <Route path="/center/horeca/orders"
+                           element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
+                    <Route path="/center/horeca/orders/:uid_horeca_order"
+                           element={<CenterHoreca current_page={['horeca', 'order']}/>}/>
                     <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
@@ -226,5 +227,5 @@ export const ModalComponents = {
     dialog_delete_operation: Dialog,
     dialog_reboot: Dialog,
     dialog_shutdown: Dialog,
-    kitchen_print: KitchenPrint,
+    kitchen_print: KitchenPrint
 }
