@@ -38,9 +38,6 @@ const Order = () => {
             justifyContent: 'space-between',
             flexWrap: 'wrap'
         }}>
-            <Box sx={{width: '400px', backgroundColor: 'white'}}>
-                <Box>Счет {order_horeca.current_number}</Box>
-            </Box>
             <Box sx={{width: 'calc(100% - 400px - 10px)', ml: '10px', overflowY: 'auto'}}>
                 {order_horeca.items?.rows?.length > 0 && <DataGridPro
                     sortingMode="server"
@@ -89,6 +86,9 @@ const Order = () => {
                         }
                     }}
                 />}
+            </Box>
+            <Box sx={{width: '400px', backgroundColor: 'white'}}>
+                <Box>Счет {order_horeca.current_number}</Box>
             </Box>
         </Box>
     }

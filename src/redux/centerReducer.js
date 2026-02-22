@@ -13,7 +13,7 @@ const main_menu = [{
     }, {
         id: 'orders', title: 'Заказы', icon: 4
     }, {
-        id: 'sales', title: 'Итоги смены (склад)', icon: 3
+        id: 'sales', title: 'Итоги смены (товары)', icon: 3
     }, {
         id: 'revenue', title: 'Итоги смены (выручка)', icon: 3
     }]

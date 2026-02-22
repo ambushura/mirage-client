@@ -124,11 +124,11 @@ const SubMenu = ({type}) => {
                 </IconButton>
             </Stack>}
         {type.includes('horeca_sales') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='success' sx={{ml: '10px'}}
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
-            <Button variant='outlined' color='success' sx={{ml: '10px'}}
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Оприходование</Button>
-            <Button variant='outlined' color='success' sx={{ml: '10px'}}
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Перемещение</Button>
         </Box>}
         {type.includes('horeca_revenue') && <Box></Box>}
@@ -142,7 +142,7 @@ const SubMenu = ({type}) => {
             <Button variant='outlined' color='info' sx={{ml: '10px'}} startIcon={<SaveIcon/>}>Сохранить</Button>
         </Box>}
         {type.includes('recipe_update') && <Box>
-            <Button variant='outlined' color='success' sx={{ml: '10px'}}
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<PolylineIcon/>}>Пересобрать</Button>
         </Box>}
     </Box>
