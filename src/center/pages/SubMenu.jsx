@@ -21,6 +21,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {useNavigate} from "react-router-dom"
 import SaveIcon from '@mui/icons-material/Save'
 import PolylineIcon from '@mui/icons-material/Polyline'
+import LockIcon from '@mui/icons-material/Lock'
+import LockOpenIcon from '@mui/icons-material/LockOpen'
 
 const SubMenu = ({type}) => {
 
@@ -123,15 +125,22 @@ const SubMenu = ({type}) => {
                     <ArrowForwardIosIcon fontSize="small"/>
                 </IconButton>
             </Stack>}
-        {type.includes('horeca_sales') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+        {type.includes('store_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
+            <Button variant='outlined' color='info' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Оприходование</Button>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Перемещение</Button>
         </Box>}
-        {type.includes('horeca_revenue') && <Box></Box>}
+        {type.includes('shift_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
+            <Button variant='outlined' color='info' sx={{ml: '10px'}}
+                    startIcon={<CloudUploadIcon/>}>Выгрузить в 1С</Button>
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<LockIcon/>}>Заблокировать</Button>
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<LockOpenIcon/>}>Разблокировать</Button>
+        </Box>}
         {type.includes('back') && <Box>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<ArrowBackIcon/>} onClick={() => {

@@ -23,7 +23,7 @@ const OrdersHoreca = () => {
                 dispatch(setOrdersHoreca(fetching_result.data))
             }
         }
-        if (filial !== null) fetch()
+        fetch()
         return () => {
             dispatch(cleanOrdersHoreca())
         }

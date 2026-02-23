@@ -13,8 +13,6 @@ const Order = () => {
         params, filial, order_horeca, order_horeca_items_expended
     } = useSelector(state => state.center)
 
-    if (filial === null) return
-
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(center_horeca_order_get(filial, params.uid_horeca_order, 0))
@@ -22,7 +20,7 @@ const Order = () => {
                 dispatch(setOrderHoreca(fetching_result.data))
             }
         }
-        if (filial !== null && params.uid_horeca_order !== null) fetch()
+        if (params.uid_horeca_order !== null) fetch()
         return () => {
             dispatch(cleanOrderHoreca(null))
         }

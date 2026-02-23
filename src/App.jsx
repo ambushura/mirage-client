@@ -85,7 +85,10 @@ function App() {
                     <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
                     <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
                     <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
-                    <Route path="/center/horeca/sales" element={<CenterHoreca current_page={['horeca', 'sales']}/>}/>
+                    <Route path="/center/horeca/store_state"
+                           element={<CenterHoreca current_page={['horeca', 'store_state']}/>}/>
+                    <Route path="/center/horeca/shift_state"
+                           element={<CenterHoreca current_page={['horeca', 'shift_state']}/>}/>
                     <Route path="/center/horeca/orders"
                            element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
                     <Route path="/center/horeca/orders/:uid_horeca_order"

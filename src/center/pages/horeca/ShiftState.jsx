@@ -1,10 +1,10 @@
 import React from 'react'
 import {Box} from "@mui/material"
 
-const Sales = () => {
+const ShiftState = () => {
     return <Box>
-
+        ОРП
     </Box>
 }
 
-export default Sales
+export default ShiftState

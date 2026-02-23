@@ -21,6 +21,7 @@ import {
     ROUTE_CENTER_HORECA_GOODS_TREE_GET,
     ROUTE_CENTER_HORECA_ORDER_GET,
     ROUTE_CENTER_HORECA_ORDERS_GET,
+    ROUTE_CENTER_HORECA_STORE_STATE_GET,
     ROUTE_CINEMA_DISCOUNTS_APPLY,
     ROUTE_CINEMA_DISCOUNTS_GET,
     ROUTE_CINEMA_DISCOUNTS_GROUPS_GET,
@@ -1801,6 +1802,21 @@ export const center_horeca_order_get = (filial, uid_order, update) => async (dis
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDER_GET}`,
         params: {uid_order, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
+}
+
+export const center_horeca_store_state_get = (filial, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_STORE_STATE_GET}`,
+        params: {update},
         filial,
         wp,
         kiosk,
