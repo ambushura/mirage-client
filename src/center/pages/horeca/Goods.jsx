@@ -97,14 +97,8 @@ const Goods = () => {
             </Box>
         </Box>
         <Box className='center-horeca-page-part'>
-            <Box>Калькуляции</Box>
-            <Box>
-            </Box>
         </Box>
         <Box className='center-horeca-page-part'>
-            <Box>Ингредиенты</Box>
-            <Box>
-            </Box>
         </Box>
     </Box>
 }

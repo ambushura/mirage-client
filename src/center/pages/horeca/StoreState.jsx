@@ -35,17 +35,18 @@ const StoreState = () => {
     const columnGroupingModel = useMemo(() => store_state?.column_grouping_model ?? [], [store_state])
     const columnVisibilityModel = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state])
 
-    return (<Box sx={{
+    return <Box sx={{
         width: "100%", height: "100%", ml: "10px", overflow: "hidden"
     }}>
-        {rows.length > 0 && (<DataGridPro
+        {rows.length > 0 && <DataGridPro
             rows={rows}
             columns={columns}
             columnGroupingModel={columnGroupingModel}
             columnVisibilityModel={columnVisibilityModel}
 
             treeData
-            getTreeDataPath={(row) => row.path ?? []}
+            getTreeDataPath={(row) => row.path}
+            getRowId={(row) => row.id}
 
             sortingMode="server"
             disableColumnSorting
@@ -61,37 +62,10 @@ const StoreState = () => {
 
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
 
-            // 🔥 Сворачиваемая колонка структуры
-            groupingColDef={{
-                width: 250, headerName: "Структура",
-
-                renderCell: (params) => {
-                    const row = params.row
-
-                    // красивый hierarchy 1.2.3
-                    const hierarchy = row.path?.join(".") ?? ""
-
-                    return (<div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        fontWeight: row.children?.length ? 600 : 400
-                    }}>
-                        {/* стандартная кнопка expand/collapse */}
-                        {params.defaultRender && params.defaultRender}
-
-                        <span>{hierarchy}</span>
-                    </div>)
-                }
-            }}
-
             getRowClassName={(params) => {
-                if (params.row.children?.length) return "store-parent-row"
-
-                if (params.row.quantity_delta > 0) return "store-delta-positive"
-
-                if (params.row.quantity_delta < 0) return "store-delta-negative"
-
+                if (params.row.level === 1) return "center-store-state-level-1"
+                if (params.row.level === 2) return "center-store-state-level-2"
+                if (params.row.level === 3) return "center-store-state-level-3"
                 return ""
             }}
 
@@ -114,8 +88,8 @@ const StoreState = () => {
                     backgroundColor: "#f0fff4"
                 }
             }}
-        />)}
-    </Box>)
+        />}
+    </Box>
 }
 
 export default StoreState

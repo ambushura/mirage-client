@@ -100,3 +100,12 @@
     max-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
     background-color: white;
 }
+
+.center-store-state-level-1 {
+    background-color: #d6e5ca;
+}
+
+.center-store-state-level-2 {
+    background-color: #f0f6ef;
+    font-weight: bold;
+}
