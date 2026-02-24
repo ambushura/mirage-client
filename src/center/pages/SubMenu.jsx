@@ -23,6 +23,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import PolylineIcon from '@mui/icons-material/Polyline'
 import LockIcon from '@mui/icons-material/Lock'
 import LockOpenIcon from '@mui/icons-material/LockOpen'
+import CachedIcon from '@mui/icons-material/Cached'
 
 const SubMenu = ({type}) => {
 
@@ -57,6 +58,9 @@ const SubMenu = ({type}) => {
     const filial = useSelector(state => state.center.filial)
 
     return <Box sx={{height: 'var(--center-submenu-height)', display: 'flex', alignItems: 'center'}}>
+        {type.includes('update') && <Box>
+            <Button variant='outlined' color='secondary' size='small' sx={{ml: '10px'}}><CachedIcon/></Button>
+        </Box>}
         {type.includes('filials') && <MultiSelect
             label='Филиалы'
             type='filials'
@@ -126,7 +130,7 @@ const SubMenu = ({type}) => {
                 </IconButton>
             </Stack>}
         {type.includes('store_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='info' sx={{ml: '10px'}}
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Оприходование</Button>
@@ -134,7 +138,7 @@ const SubMenu = ({type}) => {
                     startIcon={<CloudUploadIcon/>}>Перемещение</Button>
         </Box>}
         {type.includes('shift_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='info' sx={{ml: '10px'}}
+            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Выгрузить в 1С</Button>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<LockIcon/>}>Заблокировать</Button>

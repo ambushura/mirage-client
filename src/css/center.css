@@ -87,25 +87,21 @@
 }
 
 .center-horeca-page {
-    margin: 0 10px 10px 10px;
-    max-height: calc(100vh - var(--center-header-height));
-    min-height: calc(100vh - var(--center-header-height));
+    margin: 0 10px;
+    max-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
+    min-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
 }
 
 .center-horeca-page-part {
     min-width: calc(25% - 5px);
     max-width: calc(25% - 5px);
     margin-right: 5px;
-    min-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
-    max-height: calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px);
     background-color: white;
+    max-height: inherit;
+    min-height: inherit;
 }
 
-.center-store-state-level-1 {
-    background-color: #d6e5ca;
-}
-
+.center-store-state-level-1,
 .center-store-state-level-2 {
-    background-color: #f0f6ef;
     font-weight: bold;
 }

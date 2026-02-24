@@ -1,44 +1,33 @@
-import React, {useEffect, useMemo} from "react"
+import React, {useMemo} from "react"
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {DataGridPro} from "@mui/x-data-grid-pro"
+import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-
-import {center_horeca_store_state_get} from "../../../service/fetch_service.js"
-import {cleanStoreState, setStoreState} from "../../../redux/centerReducer.js"
+import {setStoreStateExpended} from "../../../redux/centerReducer.js"
+import {useTreeExpansionSync} from "../../hooks/useTreeExpansionSync.js"
 
 const StoreState = () => {
 
+    const apiRef = useGridApiRef()
+
     const dispatch = useDispatch()
-    const {filial, store_state} = useSelector(state => state.center)
-
-    useEffect(() => {
-        if (!filial) return
-
-        const load = async () => {
-            const result = await dispatch(center_horeca_store_state_get(filial, 0))
-
-            if (!result.loading && result.data && !result.error) {
-                dispatch(setStoreState(result.data))
-            }
-        }
-
-        load()
-
-        return () => {
-            dispatch(cleanStoreState(null))
-        }
-    }, [dispatch, filial])
+    const {store_state, store_state_expended} = useSelector(state => state.center)
 
     const rows = useMemo(() => store_state?.rows ?? [], [store_state])
     const columns = useMemo(() => store_state?.columns ?? [], [store_state])
     const columnGroupingModel = useMemo(() => store_state?.column_grouping_model ?? [], [store_state])
     const columnVisibilityModel = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state])
 
+    useTreeExpansionSync({
+        apiRef, rows, expanded: store_state_expended, set_expanded: (ids) => dispatch(setStoreStateExpended(ids))
+    })
+
     return <Box sx={{
         width: "100%", height: "100%", ml: "10px", overflow: "hidden"
     }}>
-        {rows.length > 0 && <DataGridPro
+        {<DataGridPro
+            apiRef={apiRef}
+
             rows={rows}
             columns={columns}
             columnGroupingModel={columnGroupingModel}
@@ -70,22 +59,20 @@ const StoreState = () => {
             }}
 
             sx={{
-                width: "100%", height: "100%", border: 0, borderRadius: 0,
-
-                "& .MuiDataGrid-cell": {
-                    userSelect: "text"
-                },
-
-                "& .MuiDataGrid-columnHeaders": {
-                    fontSize: "12px", fontWeight: 600, backgroundColor: "#f7f7f7"
-                },
-
-                "& .store-delta-positive": {
+                width: "100%", height: "100%", border: 0, borderRadius: 0, "& .store-delta-positive": {
                     backgroundColor: "#fff5f5"
-                },
-
-                "& .store-delta-negative": {
+                }, "& .store-delta-negative": {
                     backgroundColor: "#f0fff4"
+                }, '& .MuiDataGrid-cell': {
+                    userSelect: 'text'
+                }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
+                    width: 18, height: 18,
+                }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
+                    fontSize: 16
+                }, '& .MuiDataGrid-columnHeaders': {
+                    fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
+                }, '& .MuiDataGrid-columnHeaderTitle': {
+                    whiteSpace: 'normal', lineHeight: 1.2
                 }
             }}
         />}

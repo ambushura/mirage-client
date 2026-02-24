@@ -3,14 +3,21 @@ import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate, useParams, useSearchParams} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
-import {setFilials, setParams, setSearchParams, setTree} from "../redux/centerReducer.js"
-import {center_horeca_goods_tree_get} from "../service/fetch_service.js"
+import {
+    cleanStoreState,
+    setFilials,
+    setParams,
+    setSearchParams,
+    setStoreState,
+    setTree
+} from "../redux/centerReducer.js"
+import {center_horeca_goods_tree_get, center_horeca_store_state_get} from "../service/fetch_service.js"
 
 const CenterHeader = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {main_menu, current_page} = useSelector(state => state.center)
+    const {filial, main_menu, current_page} = useSelector(state => state.center)
     const cities = useSelector(state => state.data.cities)
 
     // Филиалы
@@ -37,6 +44,21 @@ const CenterHeader = () => {
         }
         fetch()
     }, [dispatch])
+
+    // Итоги смены (распределение + остатки)
+    useEffect(() => {
+        if (!filial) return
+        const fetch = async () => {
+            const result = await dispatch(center_horeca_store_state_get(filial, 0))
+            if (!result.loading && result.data && !result.error) {
+                dispatch(setStoreState(result.data))
+            }
+        }
+        fetch()
+        return () => {
+            dispatch(cleanStoreState(null))
+        }
+    }, [dispatch, filial])
 
     return <Box id='center-header'>
         <CMenu>

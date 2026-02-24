@@ -40,13 +40,8 @@ const OrdersHoreca = () => {
         return col
     })
 
-    return <Box sx={{
-        height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height))',
-        padding: '0 10px',
-        display: "flex",
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap'
+    return <Box className='center-horeca-page' sx={{
+        display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap'
     }}>
         {orders_horeca.rows.length > 0 ? <DataGridPro
             hideFooter
@@ -73,7 +68,7 @@ const OrdersHoreca = () => {
             onRowClick={(params) => {
                 navigate(`/center/horeca/orders/${params.row.id}`)
             }}
-        /> : <Box className='center-title-filial' sx={{paddingLeft: '15px', fontWeight: 300}}>Заказы отсутствуют в
+        /> : <Box className='center-title-filial' sx={{pl: '10px', fontWeight: 300}}>Заказы отсутствуют в
             смене...</Box>}
     </Box>
 }

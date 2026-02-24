@@ -74,6 +74,7 @@ const initialState = {
 
     // Склад (распределение + остатки)
     store_state: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
+    store_state_expended: [],
 }
 
 export const centerSlice = createSlice({
@@ -168,6 +169,8 @@ export const centerSlice = createSlice({
             state.store_state = action.payload
         }, cleanStoreState(state, action) {
             state.store_state = {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}
+        }, setStoreStateExpended(state, action) {
+            state.store_state_expended = action.payload
         }
     },
 })
@@ -205,7 +208,7 @@ export const {
     setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
 
     // Склад (распределение + остатки)
-    setStoreState, cleanStoreState
+    setStoreState, cleanStoreState, setStoreStateExpended
 
 } = centerSlice.actions
 export default centerSlice.reducer
