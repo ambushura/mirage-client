@@ -40,10 +40,10 @@ const OrdersHoreca = () => {
         return col
     })
 
-    return <Box className='center-horeca-page' sx={{
-        display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap'
+    return <Box className='center-horeca-page center-scroll' sx={{
+        display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', overflow: 'auto'
     }}>
-        {orders_horeca.rows.length > 0 ? <DataGridPro
+        {<DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             rows={orders_horeca.rows}
@@ -57,7 +57,7 @@ const OrdersHoreca = () => {
             onColumnVisibilityModelChange={() => {
             }}
             sx={{
-                height: 'calc(100% - 10px)', flex: 1, border: 0, borderRadius: '0', '& .MuiDataGrid-cellContent': {
+                minHeight: 'inherit', flex: 1, border: 0, borderRadius: '0', '& .MuiDataGrid-cellContent': {
                     pointerEvents: 'auto'
                 }, '& .MuiDataGrid-columnHeaders': {
                     fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
@@ -68,8 +68,7 @@ const OrdersHoreca = () => {
             onRowClick={(params) => {
                 navigate(`/center/horeca/orders/${params.row.id}`)
             }}
-        /> : <Box className='center-title-filial' sx={{pl: '10px', fontWeight: 300}}>Заказы отсутствуют в
-            смене...</Box>}
+        />}
     </Box>
 }
 

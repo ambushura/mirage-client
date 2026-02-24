@@ -1,4 +1,5 @@
 export const ROUTE_MAIN_HOST = {ip: '10.101.3.88', port: 60000, payment_port: 60001, ws_port: 60002}
+export const ROUTE_CENTER_HOST = {ip: '10.101.2.21', port: 60000, payment_port: 60001, ws_port: 60002}
 export const ROUTE_COMMON_LOGIN = "/api/common/login"
 export const ROUTE_COMMON_CITIES_GET = "/api/common/cities/get"
 export const ROUTE_COMMON_ORDER_ADD_CONTACT = "/api/common/order/add/contact"

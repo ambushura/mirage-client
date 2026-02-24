@@ -59,7 +59,7 @@ const StoreState = () => {
             }}
 
             sx={{
-                width: "100%", height: "100%", border: 0, borderRadius: 0, "& .store-delta-positive": {
+                width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {
                     backgroundColor: "#fff5f5"
                 }, "& .store-delta-negative": {
                     backgroundColor: "#f0fff4"

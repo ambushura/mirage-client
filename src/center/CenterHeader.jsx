@@ -12,6 +12,7 @@ import {
     setTree
 } from "../redux/centerReducer.js"
 import {center_horeca_goods_tree_get, center_horeca_store_state_get} from "../service/fetch_service.js"
+import {ROUTE_CENTER_HOST} from "../service/fetch_routes.js";
 
 const CenterHeader = () => {
 
@@ -36,7 +37,9 @@ const CenterHeader = () => {
     // Папки
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(center_horeca_goods_tree_get({ip: '10.101.3.88', port: '60000'}, 0))
+            const fetching_result = await dispatch(center_horeca_goods_tree_get({
+                ip: ROUTE_CENTER_HOST.ip, port: ROUTE_CENTER_HOST.port
+            }, 0))
             if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
                 const data = fetching_result.data
                 dispatch(setTree(data))
