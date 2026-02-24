@@ -12,13 +12,12 @@ import {
     setTree
 } from "../redux/centerReducer.js"
 import {center_horeca_goods_tree_get, center_horeca_store_state_get} from "../service/fetch_service.js"
-import {ROUTE_CENTER_HOST} from "../service/fetch_routes.js";
 
 const CenterHeader = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {filial, main_menu, current_page} = useSelector(state => state.center)
+    const {root_filial, filial, main_menu, current_page} = useSelector(state => state.center)
     const cities = useSelector(state => state.data.cities)
 
     // Филиалы
@@ -37,9 +36,7 @@ const CenterHeader = () => {
     // Папки
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(center_horeca_goods_tree_get({
-                ip: ROUTE_CENTER_HOST.ip, port: ROUTE_CENTER_HOST.port
-            }, 0))
+            const fetching_result = await dispatch(center_horeca_goods_tree_get(root_filial, 0))
             if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
                 const data = fetching_result.data
                 dispatch(setTree(data))
@@ -52,7 +49,7 @@ const CenterHeader = () => {
     useEffect(() => {
         if (!filial) return
         const fetch = async () => {
-            const result = await dispatch(center_horeca_store_state_get(filial, 0))
+            const result = await dispatch(center_horeca_store_state_get(root_filial, 0))
             if (!result.loading && result.data && !result.error) {
                 dispatch(setStoreState(result.data))
             }
