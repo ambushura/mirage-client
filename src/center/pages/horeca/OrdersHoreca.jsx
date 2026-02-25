@@ -40,7 +40,7 @@ const OrdersHoreca = () => {
         return col
     })
 
-    return <Box className='center-horeca-page center-scroll' sx={{
+    return <Box className='center-horeca-page' sx={{
         display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', overflow: 'auto'
     }}>
         {<DataGridPro
@@ -57,11 +57,18 @@ const OrdersHoreca = () => {
             onColumnVisibilityModelChange={() => {
             }}
             sx={{
-                minHeight: 'inherit', flex: 1, border: 0, borderRadius: '0', '& .MuiDataGrid-cellContent': {
+                height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px)',
+                minHeight: 'inherit',
+                flex: 1,
+                border: 0,
+                borderRadius: '0',
+                '& .MuiDataGrid-cellContent': {
                     pointerEvents: 'auto'
-                }, '& .MuiDataGrid-columnHeaders': {
+                },
+                '& .MuiDataGrid-columnHeaders': {
                     fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-                }, '& .MuiDataGrid-columnHeaderTitle': {
+                },
+                '& .MuiDataGrid-columnHeaderTitle': {
                     whiteSpace: 'normal', lineHeight: 1.2
                 }
             }}

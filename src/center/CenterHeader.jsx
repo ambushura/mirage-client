@@ -17,7 +17,7 @@ const CenterHeader = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {root_filial, filial, main_menu, current_page} = useSelector(state => state.center)
+    const {root_filial, filial, main_menu, current_page, date_shift} = useSelector(state => state.center)
     const cities = useSelector(state => state.data.cities)
 
     // Филиалы
@@ -49,7 +49,7 @@ const CenterHeader = () => {
     useEffect(() => {
         if (!filial) return
         const fetch = async () => {
-            const result = await dispatch(center_horeca_store_state_get(root_filial, 0))
+            const result = await dispatch(center_horeca_store_state_get(filial, date_shift, 0))
             if (!result.loading && result.data && !result.error) {
                 dispatch(setStoreState(result.data))
             }
@@ -58,7 +58,7 @@ const CenterHeader = () => {
         return () => {
             dispatch(cleanStoreState(null))
         }
-    }, [dispatch, filial])
+    }, [dispatch, filial, date_shift])
 
     return <Box id='center-header'>
         <CMenu>

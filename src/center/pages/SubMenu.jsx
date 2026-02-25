@@ -84,6 +84,10 @@ const SubMenu = ({type}) => {
                         })
                     })
                 }}
+                MenuProps={{
+                    PaperProps: {style: {maxHeight: 800}, className: 'center-scroll'},
+
+                }}
             >
                 {filials.map((item, index) => {
                     return <MenuItem value={item.uid} key={item.uid}>{item.title}</MenuItem>

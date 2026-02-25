@@ -1810,13 +1810,13 @@ export const center_horeca_order_get = (filial, uid_order, update) => async (dis
     }, data => data)
 }
 
-export const center_horeca_store_state_get = (filial, update) => async (dispatch, getState) => {
+export const center_horeca_store_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
     return await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_STORE_STATE_GET}`,
-        params: {update},
+        params: {update, date_shift},
         filial,
         wp,
         kiosk,
