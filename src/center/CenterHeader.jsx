@@ -15,6 +15,8 @@ const CenterHeader = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {root_filial, filial, main_menu, current_page, date_shift} = useSelector(state => state.center)
+    const {orders_horeca_page, orders_horeca_page_size} = useSelector(state => state.center)
+
     const cities = useSelector(state => state.data.cities)
 
     // Филиалы
@@ -45,8 +47,8 @@ const CenterHeader = () => {
     // Заказы
     useEffect(() => {
         if (!filial) return
-        dispatch(center_horeca_orders_get(filial, date_shift, 0))
-    }, [dispatch, filial, date_shift])
+        dispatch(center_horeca_orders_get(filial, date_shift, 0, orders_horeca_page, orders_horeca_page_size))
+    }, [dispatch, filial, date_shift, orders_horeca_page, orders_horeca_page_size])
 
     // Итоги смены (распределение + остатки)
     useEffect(() => {

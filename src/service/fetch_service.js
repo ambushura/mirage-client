@@ -1787,14 +1787,14 @@ export const center_horeca_goods_get = (filial, uid_folder, update) => async (di
     }, data => data)
 }
 
-export const center_horeca_orders_get = (filial, date_shift, update) => async (dispatch, getState) => {
+export const center_horeca_orders_get = (filial, date_shift, update, orders_horeca_page, orders_horeca_page_size) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
     dispatch(setOrdersHorecaLoadingState({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDERS_GET}`,
-        params: {date_shift, update},
+        params: {date_shift, update, page: orders_horeca_page, page_size: orders_horeca_page_size},
         filial,
         wp,
         kiosk,

@@ -26,7 +26,8 @@ const main_menu = [{
 const initialState = {
 
     // Параметры
-    search_params: {}, params: {
+    search_params: {},
+    params: {
         uid_horeca_order: null,
     },
 
@@ -37,35 +38,52 @@ const initialState = {
     root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
-    main_menu: main_menu, current_page: ['shift', 'revenue'],
+    main_menu: main_menu,
+    current_page: ['shift', 'revenue'],
 
     // Филиалы
-    filials: [], filials_selected: [],
+    filials: [],
+    filials_selected: [],
 
     // Филиал
-    filial: null, filial_selected: '',
+    filial: null,
+    filial_selected: '',
 
     // Периоды
-    date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
+    date_shift_beginning: today,
+    date_shift_end: today,
+    date_shift_valid: true,
+    date_shift_accepted: 0,
 
     // Дата смены
     date_shift: today,
 
     // Папки
-    tree: [], expanded_tree: [], uid_current_folder: null,
+    tree: [],
+    expanded_tree: [],
+    uid_current_folder: null,
 
     // Номенклатура
-    goods: [], uid_current_good: null,
+    goods: [],
+    uid_current_good: null,
 
     // Хорека заказы
-    orders_horeca_loading: {loading: false, error: null}, orders_horeca: {
-        columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
-    }, order_horeca: null, order_horeca_items_expended: [],
+    orders_horeca_page: 1,
+    orders_horeca_page_size: 20,
+    orders_horeca_loading: {loading: false, error: null},
+    orders_horeca: {
+        total: 0, columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    },
+    order_horeca: null,
+    order_horeca_items_expended: [],
 
     // Склад (распределение + остатки)
-    store_state_loading: {loading: false, error: null}, store_state: {
+    store_state_loading: {loading: false, error: null},
+    store_state: {
         columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
-    }, store_state_expended: [], uid_current_store: [],
+    },
+    store_state_expended: [],
+    uid_current_store: [],
 }
 
 export const centerSlice = createSlice({
@@ -141,6 +159,10 @@ export const centerSlice = createSlice({
         // Заказы хорека
         setOrdersHorecaLoadingState(state, action) {
             state.orders_horeca_loading = action.payload
+        }, setOrdersHorecaPage(state, action) {
+            state.orders_horeca_page = action.payload
+        }, setOrdersHorecaPageSize(state, action) {
+            state.orders_horeca_page_size = action.payload
         }, cleanOrdersHoreca(state) {
             state.orders_horeca = {
                 columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
@@ -203,7 +225,7 @@ export const {
     setGoods, setUidCurrentGood,
 
     // Заказы хорека
-    setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHoreca,
+    setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHoreca, setOrdersHorecaPage, setOrdersHorecaPageSize,
 
     // Текущий заказ хорека
     setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,

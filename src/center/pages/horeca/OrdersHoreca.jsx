@@ -1,16 +1,20 @@
 import React from 'react'
 import {Box} from "@mui/material"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
+import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../redux/centerReducer.js"
 
 const OrdersHoreca = () => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const {orders_horeca_loading, orders_horeca} = useSelector(state => state.center)
+    const {
+        orders_horeca_loading, orders_horeca, orders_horeca_page, orders_horeca_page_size
+    } = useSelector(state => state.center)
 
     const formattedColumns = orders_horeca.columns.map(col => {
         if (col.type === 'date' || col.type === 'dateTime') {
@@ -28,7 +32,6 @@ const OrdersHoreca = () => {
     }}>
         <DataGridPro
             loading={orders_horeca_loading.loading}
-            hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             rows={orders_horeca.rows}
             columns={formattedColumns}
@@ -62,6 +65,19 @@ const OrdersHoreca = () => {
             onRowClick={(params) => {
                 navigate(`/center/horeca/orders/${params.row.id}`)
             }}
+            paginationMode="server"
+            pagination
+            pageSize={orders_horeca_page_size || 20}
+            rowsPerPageOptions={[10, 20, 50, 100]}
+            onPaginationModelChange={(model) => {
+                dispatch(setOrdersHorecaPage(model.page + 1))
+                dispatch(setOrdersHorecaPageSize(model.pageSize))
+            }}
+            paginationModel={{
+                page: (orders_horeca_page || 1) - 1, pageSize: orders_horeca_page_size || 20
+            }}
+            pageSizeOptions={[10, 20, 50, 100]}
+            rowCount={orders_horeca.total || 0}
         />
     </Box>
 }
