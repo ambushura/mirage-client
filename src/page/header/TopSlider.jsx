@@ -4,7 +4,7 @@ const TopSlider = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0)
     const interval = 1000 * 10
-    const images = ["/images/top-banner-1.jpg"]
+    const images = ['/images/top-banner-1.jpg', '/images/top-banner-2.jpg', '/images/top-banner-3.jpg', '/images/top-banner-4.jpg']
 
     const nextSlide = () => {
         setCurrentIndex((prevIndex) => prevIndex === images.length - 1 ? 0 : prevIndex + 1)

@@ -24,6 +24,7 @@ import PolylineIcon from '@mui/icons-material/Polyline'
 import LockIcon from '@mui/icons-material/Lock'
 import LockOpenIcon from '@mui/icons-material/LockOpen'
 import CachedIcon from '@mui/icons-material/Cached'
+import {center_horeca_store_rest_get} from "../../service/fetch_service.js"
 
 const SubMenu = ({type}) => {
 
@@ -56,6 +57,9 @@ const SubMenu = ({type}) => {
 
     // Филиал
     const filial = useSelector(state => state.center.filial)
+
+    // Склад (распределение + остатки)
+    const {uid_current_store} = useSelector(state => state.center)
 
     return <Box sx={{height: 'var(--center-submenu-height)', display: 'flex', alignItems: 'center'}}>
         {type.includes('update') && <Box>
@@ -134,7 +138,10 @@ const SubMenu = ({type}) => {
                 </IconButton>
             </Stack>}
         {type.includes('store_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+            <Button onClick={() => {
+                const result = dispatch(center_horeca_store_rest_get(filial, date_shift, uid_current_store))
+            }}
+                    variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudUploadIcon/>}>Оприходование</Button>

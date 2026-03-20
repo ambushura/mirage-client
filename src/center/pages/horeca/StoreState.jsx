@@ -3,7 +3,7 @@ import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {setStoreStateExpended} from "../../../redux/centerReducer.js"
+import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/centerReducer.js"
 import {useTreeExpansionSync} from "../../hooks/useTreeExpansionSync.js"
 
 const StoreState = () => {
@@ -21,6 +21,16 @@ const StoreState = () => {
     useTreeExpansionSync({
         apiRef, rows, expanded: store_state_expended, set_expanded: (ids) => dispatch(setStoreStateExpended(ids))
     })
+
+    const handleSelectionChange = () => {
+        const uid_store_array = []
+        apiRef.current?.getSelectedRows().forEach((row) => {
+            if (row.level === 1) {
+                uid_store_array.push(row.uid_store)
+            }
+        })
+        dispatch(setUidCurrentStore(uid_store_array))
+    }
 
     return <Box sx={{
         width: "100%", height: "100%", ml: "10px", overflow: "hidden"
@@ -57,6 +67,8 @@ const StoreState = () => {
                 if (params.row.level === 3) return "center-store-state-level-3"
                 return ""
             }}
+
+            onRowSelectionModelChange={handleSelectionChange}
 
             sx={{
                 width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {

@@ -31,11 +31,11 @@ const initialState = {
         uid_horeca_order: null,
     },
 
-    // Центральный филиал
-    root_filial: {ip: '10.101.3.88', port: '60000'},
-
     // Отладка
-    //root_filial: {ip: '10.101.2.21', port: '60000'},
+    //root_filial: {ip: '10.101.3.88', port: '60000'},
+
+    // Центральный филиал
+    root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu,
@@ -75,6 +75,7 @@ const initialState = {
     // Склад (распределение + остатки)
     store_state: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
     store_state_expended: [],
+    uid_current_store: [],
 }
 
 export const centerSlice = createSlice({
@@ -171,6 +172,8 @@ export const centerSlice = createSlice({
             state.store_state = {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}
         }, setStoreStateExpended(state, action) {
             state.store_state_expended = action.payload
+        }, setUidCurrentStore(state, action) {
+            state.uid_current_store = action.payload
         }
     },
 })
@@ -208,7 +211,7 @@ export const {
     setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
 
     // Склад (распределение + остатки)
-    setStoreState, cleanStoreState, setStoreStateExpended
+    setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore
 
 } = centerSlice.actions
 export default centerSlice.reducer
