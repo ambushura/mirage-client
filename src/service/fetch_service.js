@@ -131,6 +131,7 @@ import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} fr
 import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 import {jwtDecode} from "jwt-decode"
+import {setStoreState, setStoreStateLoadingState} from "../redux/centerReducer.js";
 
 export const TIMEOUT = 30000
 
@@ -1814,7 +1815,8 @@ export const center_horeca_order_get = (filial, uid_order, update) => async (dis
 export const center_horeca_store_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
+    dispatch(setStoreStateLoadingState({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_STORE_STATE_GET}`,
         params: {update, date_shift},
@@ -1823,7 +1825,13 @@ export const center_horeca_store_state_get = (filial, date_shift, update) => asy
         kiosk,
         version,
         center,
-    }, data => data)
+    })
+    dispatch(setStoreStateLoadingState(false))
+    if (res.error) {
+        dispatch(setStoreStateLoadingState({loading: false, error: res.error}))
+        return
+    }
+    dispatch(setStoreState(res.data))
 }
 
 export const center_horeca_store_rest_get = (filial, date_shift, uid_store, update) => async (dispatch, getState) => {

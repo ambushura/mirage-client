@@ -73,7 +73,9 @@ const initialState = {
     order_horeca_items_expended: [],
 
     // Склад (распределение + остатки)
-    store_state: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
+    store_state: {
+        loading: false, error: null, columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    },
     store_state_expended: [],
     uid_current_store: [],
 }
@@ -166,10 +168,20 @@ export const centerSlice = createSlice({
         },
 
         // Склад (распределение + остатки)
-        setStoreState(state, action) {
+        setStoreStateLoadingState(state, action) {
+            state.store_state.loading = action.payload.loading
+            state.store_state.error = action.payload.error
+        }, setStoreState(state, action) {
             state.store_state = action.payload
-        }, cleanStoreState(state, action) {
-            state.store_state = {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}
+        }, cleanStoreState(state) {
+            state.store_state = {
+                loading: false,
+                error: null,
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            }
         }, setStoreStateExpended(state, action) {
             state.store_state_expended = action.payload
         }, setUidCurrentStore(state, action) {
@@ -211,7 +223,7 @@ export const {
     setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
 
     // Склад (распределение + остатки)
-    setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore
+    setStoreStateLoadingState, setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore
 
 } = centerSlice.actions
 export default centerSlice.reducer

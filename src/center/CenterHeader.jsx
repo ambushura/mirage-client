@@ -3,14 +3,7 @@ import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate, useParams, useSearchParams} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
-import {
-    cleanStoreState,
-    setFilials,
-    setParams,
-    setSearchParams,
-    setStoreState,
-    setTree
-} from "../redux/centerReducer.js"
+import {cleanStoreState, setFilials, setParams, setSearchParams, setTree} from "../redux/centerReducer.js"
 import {center_horeca_goods_tree_get, center_horeca_store_state_get} from "../service/fetch_service.js"
 
 const CenterHeader = () => {
@@ -48,15 +41,9 @@ const CenterHeader = () => {
     // Итоги смены (распределение + остатки)
     useEffect(() => {
         if (!filial) return
-        const fetch = async () => {
-            const result = await dispatch(center_horeca_store_state_get(filial, date_shift, 0))
-            if (!result.loading && result.data && !result.error) {
-                dispatch(setStoreState(result.data))
-            }
-        }
-        fetch()
+        dispatch(center_horeca_store_state_get(filial, date_shift, 0))
         return () => {
-            dispatch(cleanStoreState(null))
+            dispatch(cleanStoreState())
         }
     }, [dispatch, filial, date_shift])
 

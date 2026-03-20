@@ -38,6 +38,8 @@ const StoreState = () => {
         {<DataGridPro
             apiRef={apiRef}
 
+            loading={store_state.loading}
+
             rows={rows}
             columns={columns}
             columnGroupingModel={columnGroupingModel}
