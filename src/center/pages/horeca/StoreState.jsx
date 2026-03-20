@@ -11,7 +11,7 @@ const StoreState = () => {
     const apiRef = useGridApiRef()
 
     const dispatch = useDispatch()
-    const {store_state, store_state_expended} = useSelector(state => state.center)
+    const {store_state_loading, store_state, store_state_expended} = useSelector(state => state.center)
 
     const rows = useMemo(() => store_state?.rows ?? [], [store_state])
     const columns = useMemo(() => store_state?.columns ?? [], [store_state])
@@ -35,10 +35,10 @@ const StoreState = () => {
     return <Box sx={{
         width: "100%", height: "100%", ml: "10px", overflow: "hidden"
     }}>
-        {<DataGridPro
+        <DataGridPro
             apiRef={apiRef}
 
-            loading={store_state.loading}
+            loading={store_state_loading.loading}
 
             rows={rows}
             columns={columns}
@@ -55,7 +55,6 @@ const StoreState = () => {
 
             checkboxSelection
             disableRowSelectionOnClick
-            hideFooter
 
             rowHeight={40}
             headerHeight={40}
@@ -89,7 +88,8 @@ const StoreState = () => {
                     whiteSpace: 'normal', lineHeight: 1.2
                 }
             }}
-        />}
+
+        />
     </Box>
 }
 

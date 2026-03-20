@@ -26,8 +26,7 @@ const main_menu = [{
 const initialState = {
 
     // Параметры
-    search_params: {},
-    params: {
+    search_params: {}, params: {
         uid_horeca_order: null,
     },
 
@@ -38,46 +37,35 @@ const initialState = {
     root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
-    main_menu: main_menu,
-    current_page: ['shift', 'revenue'],
+    main_menu: main_menu, current_page: ['shift', 'revenue'],
 
     // Филиалы
-    filials: [],
-    filials_selected: [],
+    filials: [], filials_selected: [],
 
     // Филиал
-    filial: null,
-    filial_selected: '',
+    filial: null, filial_selected: '',
 
     // Периоды
-    date_shift_beginning: today,
-    date_shift_end: today,
-    date_shift_valid: true,
-    date_shift_accepted: 0,
+    date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
 
     // Дата смены
     date_shift: today,
 
     // Папки
-    tree: [],
-    expanded_tree: [],
-    uid_current_folder: null,
+    tree: [], expanded_tree: [], uid_current_folder: null,
 
     // Номенклатура
-    goods: [],
-    uid_current_good: null,
+    goods: [], uid_current_good: null,
 
     // Хорека заказы
-    orders_horeca: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
-    order_horeca: null,
-    order_horeca_items_expended: [],
+    orders_horeca_loading: {loading: false, error: null}, orders_horeca: {
+        columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    }, order_horeca: null, order_horeca_items_expended: [],
 
     // Склад (распределение + остатки)
-    store_state: {
-        loading: false, error: null, columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
-    },
-    store_state_expended: [],
-    uid_current_store: [],
+    store_state_loading: {loading: false, error: null}, store_state: {
+        columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    }, store_state_expended: [], uid_current_store: [],
 }
 
 export const centerSlice = createSlice({
@@ -151,8 +139,12 @@ export const centerSlice = createSlice({
         },
 
         // Заказы хорека
-        cleanOrdersHoreca(state) {
-            state.orders_horeca = {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}}
+        setOrdersHorecaLoadingState(state, action) {
+            state.orders_horeca_loading = action.payload
+        }, cleanOrdersHoreca(state) {
+            state.orders_horeca = {
+                columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+            }
         }, setOrdersHoreca(state, action) {
             state.orders_horeca = action.payload
         },
@@ -169,18 +161,12 @@ export const centerSlice = createSlice({
 
         // Склад (распределение + остатки)
         setStoreStateLoadingState(state, action) {
-            state.store_state.loading = action.payload.loading
-            state.store_state.error = action.payload.error
+            state.store_state_loading = action.payload
         }, setStoreState(state, action) {
             state.store_state = action.payload
         }, cleanStoreState(state) {
             state.store_state = {
-                loading: false,
-                error: null,
-                columns: [],
-                rows: [],
-                column_grouping_model: [],
-                column_visibility_model: {}
+                columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
             }
         }, setStoreStateExpended(state, action) {
             state.store_state_expended = action.payload
@@ -217,7 +203,7 @@ export const {
     setGoods, setUidCurrentGood,
 
     // Заказы хорека
-    cleanOrdersHoreca, setOrdersHoreca,
+    setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHoreca,
 
     // Текущий заказ хорека
     setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,

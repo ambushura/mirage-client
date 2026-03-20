@@ -1,8 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Box} from "@mui/material"
-import {useDispatch, useSelector} from "react-redux"
-import {cleanOrdersHoreca, setOrdersHoreca,} from "../../../redux/centerReducer.js"
-import {center_horeca_orders_get} from "../../../service/fetch_service.js"
+import {useSelector} from "react-redux"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
@@ -11,23 +9,8 @@ import {useNavigate} from "react-router-dom"
 const OrdersHoreca = () => {
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
-    const {filial, date_shift, orders_horeca} = useSelector(state => state.center)
-
-    // Заказы
-    useEffect(() => {
-        const fetch = async () => {
-            const fetching_result = await dispatch(center_horeca_orders_get(filial, date_shift, 0))
-            if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
-                dispatch(setOrdersHoreca(fetching_result.data))
-            }
-        }
-        fetch()
-        return () => {
-            dispatch(cleanOrdersHoreca())
-        }
-    }, [dispatch, filial, date_shift])
+    const {orders_horeca_loading, orders_horeca} = useSelector(state => state.center)
 
     const formattedColumns = orders_horeca.columns.map(col => {
         if (col.type === 'date' || col.type === 'dateTime') {
@@ -43,7 +26,8 @@ const OrdersHoreca = () => {
     return <Box className='center-horeca-page' sx={{
         display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', overflow: 'auto'
     }}>
-        {<DataGridPro
+        <DataGridPro
+            loading={orders_horeca_loading.loading}
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             rows={orders_horeca.rows}
@@ -56,6 +40,9 @@ const OrdersHoreca = () => {
             columnVisibilityModel={orders_horeca.column_visibility_model}
             onColumnVisibilityModelChange={() => {
             }}
+            sortingMode="server"
+            disableColumnSorting
+            editMode="cell"
             sx={{
                 height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px)',
                 minHeight: 'inherit',
@@ -75,7 +62,7 @@ const OrdersHoreca = () => {
             onRowClick={(params) => {
                 navigate(`/center/horeca/orders/${params.row.id}`)
             }}
-        />}
+        />
     </Box>
 }
 

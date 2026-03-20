@@ -131,7 +131,12 @@ import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} fr
 import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 import {jwtDecode} from "jwt-decode"
-import {setStoreState, setStoreStateLoadingState} from "../redux/centerReducer.js";
+import {
+    setOrdersHoreca,
+    setOrdersHorecaLoadingState,
+    setStoreState,
+    setStoreStateLoadingState
+} from "../redux/centerReducer.js"
 
 export const TIMEOUT = 30000
 
@@ -1785,7 +1790,8 @@ export const center_horeca_goods_get = (filial, uid_folder, update) => async (di
 export const center_horeca_orders_get = (filial, date_shift, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
+    dispatch(setOrdersHorecaLoadingState({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDERS_GET}`,
         params: {date_shift, update},
@@ -1794,7 +1800,13 @@ export const center_horeca_orders_get = (filial, date_shift, update) => async (d
         kiosk,
         version,
         center,
-    }, data => data)
+    })
+    dispatch(setOrdersHorecaLoadingState({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setOrdersHoreca(res.data))
+    }
 }
 
 export const center_horeca_order_get = (filial, uid_order, update) => async (dispatch, getState) => {
@@ -1826,12 +1838,12 @@ export const center_horeca_store_state_get = (filial, date_shift, update) => asy
         version,
         center,
     })
-    dispatch(setStoreStateLoadingState(false))
-    if (res.error) {
-        dispatch(setStoreStateLoadingState({loading: false, error: res.error}))
-        return
+    dispatch(setStoreStateLoadingState({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setStoreState(res.data))
     }
-    dispatch(setStoreState(res.data))
 }
 
 export const center_horeca_store_rest_get = (filial, date_shift, uid_store, update) => async (dispatch, getState) => {
