@@ -105,3 +105,7 @@
 .center-store-state-level-2 {
     font-weight: bold;
 }
+
+.center-store-quantity-need-error {
+    color: #d63a41 !important;
+}

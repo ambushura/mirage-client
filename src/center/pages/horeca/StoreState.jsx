@@ -63,10 +63,20 @@ const StoreState = () => {
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
 
             getRowClassName={(params) => {
-                if (params.row.level === 1) return "center-store-state-level-1"
-                if (params.row.level === 2) return "center-store-state-level-2"
-                if (params.row.level === 3) return "center-store-state-level-3"
-                return ""
+                const classes = []
+                if (params.row.quantity_need < 0) {
+                    classes.push("center-store-quantity-need-error")
+                }
+                if (params.row.level === 1) {
+                    classes.push("center-store-state-level-1")
+                }
+                if (params.row.level === 2) {
+                    classes.push("center-store-state-level-2")
+                }
+                if (params.row.level === 3) {
+                    classes.push("center-store-state-level-3")
+                }
+                return classes.join(" ")
             }}
 
             onRowSelectionModelChange={handleSelectionChange}
@@ -86,6 +96,12 @@ const StoreState = () => {
                     fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
                 }, '& .MuiDataGrid-columnHeaderTitle': {
                     whiteSpace: 'normal', lineHeight: 1.2
+                }
+            }}
+
+            slotProps={{
+                virtualScroller: {
+                    className: "center-scroll"
                 }
             }}
 
