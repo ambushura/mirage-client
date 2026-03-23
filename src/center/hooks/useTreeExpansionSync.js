@@ -1,7 +1,7 @@
 import {useEffect} from "react"
 
 export const useTreeExpansionSync = ({
-                                         apiRef, rows, expanded, set_expanded
+                                         apiRef, rows, expanded, set_expanded, defaultLevel = 2
                                      }) => {
 
     useEffect(() => {
@@ -21,7 +21,18 @@ export const useTreeExpansionSync = ({
     }, [apiRef, expanded])
 
     useEffect(() => {
-        if (rows === undefined || expanded === undefined || !rows.length || !expanded.length) return
+        if (!rows?.length) return
+        if (expanded?.length) return
+        const initialExpanded = rows
+            .filter(row => row.level < defaultLevel)
+            .map(row => row.id)
+        if (initialExpanded.length) {
+            set_expanded(initialExpanded)
+        }
+    }, [rows])
+
+    useEffect(() => {
+        if (!rows?.length || !expanded?.length) return
         const timer = setTimeout(() => {
             expanded.forEach(id => {
                 apiRef.current?.setRowChildrenExpansion(id, true)

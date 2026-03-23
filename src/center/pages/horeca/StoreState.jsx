@@ -19,7 +19,11 @@ const StoreState = () => {
     const column_visibility_model = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state?.column_visibility_model])
 
     useTreeExpansionSync({
-        apiRef, rows, expanded: store_state_expended, set_expanded: (ids) => dispatch(setStoreStateExpended(ids))
+        apiRef,
+        rows,
+        expanded: store_state_expended,
+        set_expanded: (ids) => dispatch(setStoreStateExpended(ids)),
+        defaultLevel: 2
     })
 
     const handleSelectionChange = () => {

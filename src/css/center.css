@@ -110,6 +110,10 @@
     font-weight: bold;
 }
 
+.center-store-state-level-1 {
+    background-color: #d6e5cb;
+}
+
 .center-store-quantity-need-error {
     color: #d63a41 !important;
 }
