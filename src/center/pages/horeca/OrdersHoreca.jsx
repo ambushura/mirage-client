@@ -60,7 +60,7 @@ const OrdersHoreca = () => {
                 },
                 '& .MuiDataGrid-columnHeaderTitle': {
                     whiteSpace: 'normal', lineHeight: 1.2
-                }
+                },
             }}
             onRowClick={(params) => {
                 navigate(`/center/horeca/orders/${params.row.id}`)

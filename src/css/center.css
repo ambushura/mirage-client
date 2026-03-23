@@ -1,6 +1,6 @@
 :root {
     --center-header-height: 40px;
-    --side-panel-width: 40px;
+    --side-panel-width: 60px;
     --cetner-bgr-scroll: #2e3239;
     --center-submenu-height: 80px;
 }
@@ -72,7 +72,7 @@
     background-color: transparent !important;
 }
 
-.center-scroll::-webkit-scrollbar-thumb {
+.center-scroll::-webkit-scrollbar-thumb, .MuiDataGrid-scrollbar::-webkit-scrollbar-thumb {
     background-color: var(--cetner-bgr-scroll) !important;
     border-radius: 0 !important;
 }

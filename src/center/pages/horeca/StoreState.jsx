@@ -98,13 +98,26 @@ const StoreState = () => {
                     whiteSpace: 'normal', lineHeight: 1.2
                 }
             }}
-
-            slotProps={{
-                virtualScroller: {
-                    className: "center-scroll"
-                }
+            slots={{
+                // переопределяем scrollbars
+                scrollbar: (scrollProps) => (<div
+                    {...scrollProps}
+                    style={{
+                        background: '#f0f0f0',
+                        width: scrollProps.orientation === 'vertical' ? 8 : '100%',
+                        height: scrollProps.orientation === 'horizontal' ? 8 : '100%',
+                        borderRadius: 12,
+                    }}
+                    className="center-scroll"
+                >
+                    <div
+                        className="center-scroll-thumb"
+                        style={{
+                            background: '#999', borderRadius: 12,
+                        }}
+                    />
+                </div>)
             }}
-
         />
     </Box>
 }

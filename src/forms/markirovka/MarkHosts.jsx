@@ -52,13 +52,13 @@ const MarkHosts = () => {
         }
     }, [])
 
-    return (<Box component="form"
-                 noValidate
-                 autoComplete="off"
-                 onSubmit={(e) => {
-                     e.preventDefault()
-                 }}
-                 sx={{width: `${cdn_columns_wight.reduce((a, b) => a + b, 0) + 2}px`}}>
+    return <Box component="form"
+                noValidate
+                autoComplete="off"
+                onSubmit={(e) => {
+                    e.preventDefault()
+                }}
+                sx={{width: `${cdn_columns_wight.reduce((a, b) => a + b, 0) + 2}px`}}>
         <Typography variant="h6" color="textSecondary" margin={1}>Доступность площадок ГИСМТ &#34;Честный
             знак&#34;</Typography>
         <Box sx={{width: '100%', height: '400px', marginBottom: '8px'}}>
@@ -79,7 +79,7 @@ const MarkHosts = () => {
                 dispatch(markirovka_cdn_info_update(filial))
             }}>Обновить список CDN-площадок</Button>
         </Box>
-    </Box>)
+    </Box>
 }
 
 export default MarkHosts

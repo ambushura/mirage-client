@@ -158,7 +158,7 @@ export const Theme = createTheme({
                     WebkitBackdropFilter: 'blur(10px)',
                 }
             }
-        }
+        },
     },
 })
 
