@@ -4,7 +4,7 @@ import dayjs from "dayjs"
 const today = dayjs().format('YYYY-MM-DD')
 
 const main_menu = [{
-    id: 'shift', title: 'Смена', icon: 0, submenu: [{
+    id: 'shift', title: 'Кинокомплекс', icon: 0, submenu: [{
         id: 'revenue', title: 'Выручка', icon: 3
     }, {id: 'results', title: 'Отчет управляющего', icon: 3}]
 }, {
