@@ -13,9 +13,11 @@ const main_menu = [{
     }, {
         id: 'orders', title: 'Заказы', icon: 4
     }, {
-        id: 'store_state', title: 'Производство', icon: 3
+        id: 'store_state', title: 'Наличие на складах', icon: 5
     }, {
-        id: 'shift_state', title: 'Отчеты о розничных продажах', icon: 3
+        id: 'store_production', title: 'Производство', icon: 5
+    }, {
+        id: 'shift_state', title: 'Отчеты о розничных продажах', icon: 5
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 1, submenu: [{
@@ -32,10 +34,10 @@ const initialState = {
     },
 
     // Отладка
-    root_filial: {ip: '10.101.3.88', port: '60000'},
+    //root_filial: {ip: '10.101.3.88', port: '60000'},
 
     // Центральный филиал
-    //root_filial: {ip: '10.101.2.21', port: '60000'},
+    root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu,

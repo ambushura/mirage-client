@@ -50,6 +50,7 @@ import CenterSidePanel from "./center/CenterSidePanel.jsx"
 import CenterHoreca from "./center/pages/horeca/CenterHoreca.jsx"
 import CenterShift from "./center/pages/shift/CenterShift.jsx"
 import CenterCinema from "./center/pages/cinema/CenterCinema.jsx"
+import {ScrollStyles} from "./ui/ThemeContext.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -80,6 +81,7 @@ function App() {
         return <Box id="app">
             <CenterHeader/>
             <CenterSidePanel/>
+            <ScrollStyles/>
             <Box id='center-page'>
                 <Routes>
                     <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
@@ -87,6 +89,8 @@ function App() {
                     <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
                     <Route path="/center/horeca/store_state"
                            element={<CenterHoreca current_page={['horeca', 'store_state']}/>}/>
+                    <Route path="/center/horeca/store_production"
+                           element={<CenterHoreca current_page={['horeca', 'store_production']}/>}/>
                     <Route path="/center/horeca/shift_state"
                            element={<CenterHoreca current_page={['horeca', 'shift_state']}/>}/>
                     <Route path="/center/horeca/orders"

@@ -15,8 +15,8 @@ const StoreState = () => {
 
     const rows = useMemo(() => store_state?.rows ?? [], [store_state?.rows])
     const columns = useMemo(() => store_state?.columns ?? [], [store_state?.columns])
-    const columnGroupingModel = useMemo(() => store_state?.column_grouping_model ?? [], [store_state?.column_grouping_model])
-    const columnVisibilityModel = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state?.column_visibility_model])
+    const column_grouping_model = useMemo(() => store_state?.column_grouping_model ?? [], [store_state?.column_grouping_model])
+    const column_visibility_model = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state?.column_visibility_model])
 
     useTreeExpansionSync({
         apiRef, rows, expanded: store_state_expended, set_expanded: (ids) => dispatch(setStoreStateExpended(ids))
@@ -33,7 +33,7 @@ const StoreState = () => {
     }
 
     return <Box sx={{
-        width: "100%", height: "100%", ml: "10px", overflow: "hidden"
+        width: 'calc(100% - 20px)', height: "100%", ml: "10px", overflow: "hidden"
     }}>
         <DataGridPro
             apiRef={apiRef}
@@ -42,8 +42,8 @@ const StoreState = () => {
 
             rows={rows}
             columns={columns}
-            columnGroupingModel={columnGroupingModel}
-            columnVisibilityModel={columnVisibilityModel}
+            columnGroupingModel={column_grouping_model}
+            columnVisibilityModel={column_visibility_model}
 
             treeData
             getTreeDataPath={(row) => row.path}
@@ -98,26 +98,7 @@ const StoreState = () => {
                     whiteSpace: 'normal', lineHeight: 1.2
                 }
             }}
-            slots={{
-                // переопределяем scrollbars
-                scrollbar: (scrollProps) => (<div
-                    {...scrollProps}
-                    style={{
-                        background: '#f0f0f0',
-                        width: scrollProps.orientation === 'vertical' ? 8 : '100%',
-                        height: scrollProps.orientation === 'horizontal' ? 8 : '100%',
-                        borderRadius: 12,
-                    }}
-                    className="center-scroll"
-                >
-                    <div
-                        className="center-scroll-thumb"
-                        style={{
-                            background: '#999', borderRadius: 12,
-                        }}
-                    />
-                </div>)
-            }}
+
         />
     </Box>
 }

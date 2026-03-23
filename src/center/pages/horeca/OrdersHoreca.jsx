@@ -28,7 +28,12 @@ const OrdersHoreca = () => {
     })
 
     return <Box className='center-horeca-page' sx={{
-        display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', overflow: 'auto'
+        display: "flex",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px)',
+        overflow: 'hidden',
     }}>
         <DataGridPro
             loading={orders_horeca_loading.loading}
@@ -47,18 +52,11 @@ const OrdersHoreca = () => {
             disableColumnSorting
             editMode="cell"
             sx={{
-                height: 'calc(100vh - var(--center-header-height) - var(--center-submenu-height) - 10px)',
-                minHeight: 'inherit',
-                flex: 1,
-                border: 0,
-                borderRadius: '0',
-                '& .MuiDataGrid-cellContent': {
+                minHeight: 'inherit', flex: 1, border: 0, borderRadius: '0', '& .MuiDataGrid-cellContent': {
                     pointerEvents: 'auto'
-                },
-                '& .MuiDataGrid-columnHeaders': {
+                }, '& .MuiDataGrid-columnHeaders': {
                     fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-                },
-                '& .MuiDataGrid-columnHeaderTitle': {
+                }, '& .MuiDataGrid-columnHeaderTitle': {
                     whiteSpace: 'normal', lineHeight: 1.2
                 },
             }}

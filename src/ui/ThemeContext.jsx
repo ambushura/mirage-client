@@ -9,6 +9,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood'
 import MenuIcon from '@mui/icons-material/Menu'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import FolderIcon from '@mui/icons-material/Folder'
+import ArticleIcon from '@mui/icons-material/Article'
 
 const ThemeContext = createContext()
 
@@ -186,6 +187,35 @@ export const EMPTY_TABLE_STYLE = {
     }
 }
 
+export const ScrollStyles = () => <style>
+    {`
+      .MuiDataGrid-scrollbar {
+        background-color: transparent !important;
+      }
+      .MuiDataGrid-scrollbarContent {
+        background-color: transparent !important;
+        border-radius: 12px;
+      }
+      .MuiDataGrid-scrollbarContent:hover {
+        background-color: #53af16 !important;
+      }
+      .MuiDataGrid-scrollbar--vertical {
+        width: 12px !important;
+        min-width: 12px !important;
+      }
+      .MuiDataGrid-scrollbar--horizontal {
+        height: 12px !important;
+        min-height: 12px !important;
+      }
+      .MuiDataGrid-scrollbar--vertical::-webkit-scrollbar {
+        background-color: transparent !important;
+      }
+      .MuiDataGrid-scrollbar--horizontal::-webkit-scrollbar {
+        background-color: transparent !important;
+      }
+    `}
+</style>
+
 export const WhiteMenuItem = styled(MenuItem)({
     color: 'white', fontWeight: 'bold'
 })
@@ -196,4 +226,5 @@ export const tooltip_error = {
     }
 }
 
-export const center_menu_icons = [<MenuIcon/>, <MovieIcon/>, <FastfoodIcon/>, <AssessmentIcon/>, <FolderIcon/>]
+export const center_menu_icons = [<MenuIcon/>, <MovieIcon/>, <FastfoodIcon/>, <AssessmentIcon/>, <FolderIcon/>,
+    <ArticleIcon/>]

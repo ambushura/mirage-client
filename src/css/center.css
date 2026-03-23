@@ -6,22 +6,26 @@
 }
 
 #center-header {
-    width: 100vw;
+    width: calc(100vw - var(--side-panel-width));
     height: var(--center-header-height);
     background-color: #fbed9e;
     border-bottom: 1px solid #c9be7f;
     position: absolute;
     top: 0;
+    right: 0;
     z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #center-side-panel {
     width: var(--side-panel-width);
     height: 100vh;
     background-color: #fbed9e;
-    border-left: 1px solid #c9be7f;
+    border-right: 1px solid #c9be7f;
     position: absolute;
-    right: 0;
+    left: 0;
     z-index: 999;
 }
 
@@ -30,7 +34,7 @@
     height: calc(100vh - var(--center-header-height));
     position: absolute;
     top: var(--center-header-height);
-    left: 0;
+    left: var(--side-panel-width);
 }
 
 #center-submenu {

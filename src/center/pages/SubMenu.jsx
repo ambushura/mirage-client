@@ -63,7 +63,8 @@ const SubMenu = ({type}) => {
 
     return <Box sx={{height: 'var(--center-submenu-height)', display: 'flex', alignItems: 'center'}}>
         {type.includes('update') && <Box>
-            <Button variant='outlined' color='secondary' size='small' sx={{ml: '10px'}}><CachedIcon/></Button>
+            <Button variant='outlined' color='secondary' size='small' sx={{ml: '10px'}}
+                    startIcon={<CachedIcon/>}>Обновить</Button>
         </Box>}
         {type.includes('filials') && <MultiSelect
             label='Филиалы'
