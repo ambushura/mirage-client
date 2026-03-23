@@ -13,10 +13,10 @@ const StoreState = () => {
     const dispatch = useDispatch()
     const {store_state_loading, store_state, store_state_expended} = useSelector(state => state.center)
 
-    const rows = useMemo(() => store_state?.rows ?? [], [store_state])
-    const columns = useMemo(() => store_state?.columns ?? [], [store_state])
-    const columnGroupingModel = useMemo(() => store_state?.column_grouping_model ?? [], [store_state])
-    const columnVisibilityModel = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state])
+    const rows = useMemo(() => store_state?.rows ?? [], [store_state?.rows])
+    const columns = useMemo(() => store_state?.columns ?? [], [store_state?.columns])
+    const columnGroupingModel = useMemo(() => store_state?.column_grouping_model ?? [], [store_state?.column_grouping_model])
+    const columnVisibilityModel = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state?.column_visibility_model])
 
     useTreeExpansionSync({
         apiRef, rows, expanded: store_state_expended, set_expanded: (ids) => dispatch(setStoreStateExpended(ids))

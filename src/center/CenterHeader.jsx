@@ -57,36 +57,40 @@ const CenterHeader = () => {
     }, [dispatch, filial, date_shift])
 
     return <Box id='center-header'>
-        <CMenu>
+        <MMenu>
             {main_menu.find(el => el.id === current_page[0])?.submenu.map(item => {
-                return <CButtonMenu
+                return <MButtonMenu
                     onClick={() => {
                         navigate(`center/${current_page[0]}/${item.id}`)
                     }}
                     color='secondary'
                     variant={current_page[1] === item.id ? "contained" : "text"}
                     key={item.id}
-                    startIcon={center_menu_icons[item.icon]}>{item.title}</CButtonMenu>
+                    startIcon={center_menu_icons[item.icon]}>{item.title}</MButtonMenu>
             })}
-        </CMenu>
+        </MMenu>
     </Box>
 }
 
 export default CenterHeader
 
-export function CButtonMenu(props) {
+export function MButtonMenu(props) {
     return <Button
         {...props}
         sx={{
-            height: '55px', borderRadius: '0px', boxShadow: 'none', padding: '0 15px 0 15px', ...props.sx,
+            height: '40px',
+            fontWeight: 400,
+            borderRadius: '0px',
+            boxShadow: 'none',
+            padding: '0 15px 0 15px', ...props.sx,
         }}
     />
 }
 
-export function CMenu(props) {
+export function MMenu(props) {
     return <ButtonGroup
         {...props}
-        sx={{height: '55px', boxShadow: 'none', ...props.sx,}}
+        sx={{height: '40px', boxShadow: 'none', ...props.sx,}}
     />
 }
 

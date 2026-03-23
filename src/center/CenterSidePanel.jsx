@@ -40,13 +40,13 @@ export default CenterSidePanel
 export function CButtonMainMenu(props) {
     return <Button
         {...props}
-        sx={{minHeight: '56px', width: '56px', borderRadius: '0px', boxShadow: 'none', ...props.sx,}}
+        sx={{minHeight: '40px', width: '40px', borderRadius: '0px', boxShadow: 'none', ...props.sx,}}
     />
 }
 
 export function CMainMenu(props) {
     return <ButtonGroup
         {...props}
-        sx={{minHeight: '56px', width: '56px', boxShadow: 'none', ...props.sx,}}
+        sx={{minHeight: '40px', width: '40px', boxShadow: 'none', ...props.sx,}}
     />
 }

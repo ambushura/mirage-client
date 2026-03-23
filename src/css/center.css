@@ -1,6 +1,6 @@
 :root {
-    --center-header-height: 55px;
-    --side-panel-width: 55px;
+    --center-header-height: 40px;
+    --side-panel-width: 40px;
     --cetner-bgr-scroll: #2e3239;
     --center-submenu-height: 80px;
 }
@@ -8,20 +8,20 @@
 #center-header {
     width: 100vw;
     height: var(--center-header-height);
-    background-color: #d3d3d3;
+    background-color: #fbed9e;
+    border-bottom: 1px solid #c9be7f;
     position: absolute;
     top: 0;
-    font-weight: bold;
     z-index: 999;
 }
 
 #center-side-panel {
     width: var(--side-panel-width);
     height: 100vh;
-    background-color: #d3d3d3;
+    background-color: #fbed9e;
+    border-left: 1px solid #c9be7f;
     position: absolute;
     right: 0;
-    font-weight: bold;
     z-index: 999;
 }
 
@@ -35,7 +35,7 @@
 
 #center-submenu {
     width: calc(100vw - var(--center-header-height));
-    height: var(--center-header-height);
+    height: calc(var(--center-header-height) - 1px);
 
 }
 

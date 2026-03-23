@@ -3,7 +3,7 @@ import {Box} from "@mui/material"
 
 const ShiftState = () => {
     return <Box>
-        ОРП
+
     </Box>
 }
 
