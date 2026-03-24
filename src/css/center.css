@@ -8,8 +8,8 @@
 #center-header {
     width: calc(100vw - var(--side-panel-width));
     height: var(--center-header-height);
-    background-color: #fbed9e;
-    border-bottom: 1px solid #c9be7f;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #bfbfbf;
     position: absolute;
     top: 0;
     right: 0;
@@ -22,8 +22,8 @@
 #center-side-panel {
     width: var(--side-panel-width);
     height: 100vh;
-    background-color: #fbed9e;
-    border-right: 1px solid #c9be7f;
+    background-color: #f2f2f2;
+    border-right: 1px solid #bfbfbf;
     position: absolute;
     left: 0;
     z-index: 999;
@@ -105,13 +105,18 @@
     min-height: inherit;
 }
 
-.center-store-state-level-1,
-.center-store-state-level-2 {
-    font-weight: bold;
+.center-store-state-level-1 {
+    background-color: #f0f6ef;
+    font-weight: 600;
 }
 
-.center-store-state-level-1 {
-    background-color: #d6e5cb;
+.center-store-state-level-2 {
+    font-weight: 600;
+}
+
+.center-store-state-level-3 {
+    font-weight: 100;
+    font-style: italic;
 }
 
 .center-store-quantity-need-error {

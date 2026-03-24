@@ -27,6 +27,8 @@ const CenterSidePanel = () => {
                         width: '180px',
                         borderRadius: '0px',
                         boxShadow: 'none',
+                        justifyContent: 'flex-start',
+                        padding: '16px',
                     }}
                     onClick={() => {
                         navigate(`center/${item.id}/${item?.submenu[0].id}`)

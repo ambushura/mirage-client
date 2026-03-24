@@ -53,10 +53,12 @@ const ReportSales = () => {
                 if (label === 'ВСЕГО') {
                     return 'row-total-grand'
                 }
+
                 // Организация
                 if (!label.startsWith('  └─') && !label.startsWith('    └─')) {
                     return 'row-total-owner'
                 }
+
                 // Пользователь
                 if (label.startsWith('  └─') && !label.startsWith('    └─')) {
                     return 'row-user'
