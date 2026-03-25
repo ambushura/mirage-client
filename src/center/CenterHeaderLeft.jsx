@@ -4,7 +4,7 @@ import {useSelector} from "react-redux"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
 import {useNavigate} from "react-router-dom"
 
-const CenterSidePanel = () => {
+const CenterHeaderLeft = () => {
 
     const navigate = useNavigate()
 
@@ -13,7 +13,7 @@ const CenterSidePanel = () => {
     return <Box id='center-side-panel'>
         <ButtonGroup orientation='vertical' sx={{
             minHeight: '60px',
-            width: '180px',
+            width: 'var(--side-panel-width)',
             boxShadow: 'none',
             paddingTop: 'var(--center-header-height)',
             display: 'flex',
@@ -24,7 +24,7 @@ const CenterSidePanel = () => {
                 return <Button
                     sx={{
                         minHeight: '60px',
-                        width: '180px',
+                        width: 'var(--side-panel-width)',
                         borderRadius: '0px',
                         boxShadow: 'none',
                         justifyContent: 'flex-start',
@@ -42,4 +42,4 @@ const CenterSidePanel = () => {
     </Box>
 }
 
-export default CenterSidePanel
+export default CenterHeaderLeft

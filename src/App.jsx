@@ -45,8 +45,8 @@ import {LicenseInfo} from '@mui/x-license'
 import OperationCloseShift from "./forms/OperationCloseShift.jsx"
 import {useInactivityAction} from "./hooks/interface/useInactivityAction.js"
 import KitchenPrint from "./forms/KitchenPrint.jsx"
-import CenterHeader from "./center/CenterHeader.jsx"
-import CenterSidePanel from "./center/CenterSidePanel.jsx"
+import CenterHeaderTop from "./center/CenterHeaderTop.jsx"
+import CenterHeaderLeft from "./center/CenterHeaderLeft.jsx"
 import CenterHoreca from "./center/pages/horeca/CenterHoreca.jsx"
 import CenterShift from "./center/pages/shift/CenterShift.jsx"
 import CenterCinema from "./center/pages/cinema/CenterCinema.jsx"
@@ -79,13 +79,15 @@ function App() {
     if (center) {
 
         return <Box id="app">
-            <CenterHeader/>
-            <CenterSidePanel/>
+            <CenterHeaderTop/>
+            <CenterHeaderLeft/>
             <ScrollStyles/>
             <Box id='center-page'>
                 <Routes>
                     <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
                     <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
+                    <Route path="/center/shift/operations"
+                           element={<CenterShift current_page={['shift', 'operations']}/>}/>
                     <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
                     <Route path="/center/horeca/store_state"
                            element={<CenterHoreca current_page={['horeca', 'store_state']}/>}/>

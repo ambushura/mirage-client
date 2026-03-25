@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import FolderIcon from '@mui/icons-material/Folder'
 import ArticleIcon from '@mui/icons-material/Article'
+import CircleIcon from '@mui/icons-material/Circle'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 
 const ThemeContext = createContext()
 
@@ -227,4 +229,4 @@ export const tooltip_error = {
 }
 
 export const center_menu_icons = [<MenuIcon/>, <MovieIcon/>, <FastfoodIcon/>, <AssessmentIcon/>, <FolderIcon/>,
-    <ArticleIcon/>]
+    <ArticleIcon/>, <CircleIcon/>, <DashboardIcon/>]

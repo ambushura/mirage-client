@@ -12,7 +12,7 @@ import {
 import {logout} from "../redux/authReducer.js"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 
-const CenterHeader = () => {
+const CenterHeaderTop = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -89,7 +89,7 @@ const CenterHeader = () => {
     </Box>
 }
 
-export default CenterHeader
+export default CenterHeaderTop
 
 export function useSetCenterParams() {
 

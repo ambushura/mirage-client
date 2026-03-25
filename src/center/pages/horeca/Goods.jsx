@@ -25,6 +25,7 @@ const Goods = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                fontWeight: 100,
             }}
             title={node.name}
         >
@@ -44,6 +45,7 @@ const Goods = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                fontWeight: 100,
             }}
             title={node.name}
         >

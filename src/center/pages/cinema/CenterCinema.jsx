@@ -1,5 +1,5 @@
 import React from 'react'
-import {useSetCurrentPage} from "../../useSetCurrentPage.js"
+import {useSetCurrentPage} from "../../hooks/useSetCurrentPage.js"
 import SubMenu from "../SubMenu.jsx"
 import OrdersCinema from "./OrdersCinema.jsx"
 

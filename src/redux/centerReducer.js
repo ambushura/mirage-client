@@ -4,11 +4,11 @@ import dayjs from "dayjs"
 const today = dayjs().format('YYYY-MM-DD')
 
 const main_menu = [{
-    id: 'shift', title: 'Кинокомплекс', icon: 0, submenu: [{
+    id: 'shift', title: 'Кинокомплекс', icon: 7, submenu: [{
         id: 'revenue', title: 'Выручка', icon: 3
-    }, {id: 'results', title: 'Отчет управляющего', icon: 3}]
+    }, {id: 'results', title: 'Отчет управляющего', icon: 3}, {id: 'operations', title: 'Операции по кассе', icon: 3}]
 }, {
-    id: 'horeca', title: 'Общепит', icon: 2, submenu: [{
+    id: 'horeca', title: 'Общепит', icon: 6, submenu: [{
         id: 'goods', title: 'Номенклатура', icon: 4
     }, {
         id: 'orders', title: 'Заказы', icon: 4
@@ -20,7 +20,7 @@ const main_menu = [{
         id: 'shift_state', title: 'Отчеты о розничных продажах', icon: 5
     }]
 }, {
-    id: 'cinema', title: 'Кино', icon: 1, submenu: [{
+    id: 'cinema', title: 'Кино', icon: 6, submenu: [{
         id: 'orders', title: 'Заказы', icon: 4
     }]
 },]
@@ -34,10 +34,10 @@ const initialState = {
     },
 
     // Отладка
-    //root_filial: {ip: '10.101.3.88', port: '60000'},
+    root_filial: {ip: '10.101.3.88', port: '60000'},
 
     // Центральный филиал
-    root_filial: {ip: '10.101.2.21', port: '60000'},
+    //root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu,
