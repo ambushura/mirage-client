@@ -1,7 +1,7 @@
 import {Fragment, useEffect} from 'react'
 import {Button, ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuList, Paper, Popper} from "@mui/material"
-import Filial from "../page/header/Filial.jsx"
-import City from "../page/header/City.jsx"
+import Filial from "../frontend/page/header/Filial.jsx"
+import City from "../frontend/page/header/City.jsx"
 import {useNavigate} from "react-router-dom"
 import EqualizerIcon from "@mui/icons-material/Equalizer"
 import ChairIcon from "@mui/icons-material/Chair"

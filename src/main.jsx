@@ -11,12 +11,12 @@ import Notifier from './ui/Notifier.jsx'
 import {Theme, ThemeBlackWhite} from './ui/ThemeContext.jsx'
 
 import 'dayjs/locale/ru'
-import './css/main.css'
-import './css/new-main.css'
-import './css/checkout.css'
-import './css/films.css'
-import './css/seance.css'
-import './css/center.css'
+import './ui/css/main.css'
+import './ui/css/new-main.css'
+import './ui/css/checkout.css'
+import './ui/css/films.css'
+import './ui/css/seance.css'
+import './ui/css/center.css'
 
 import {ruRU} from "@mui/x-date-pickers/locales"
 import dayjs from "dayjs"
