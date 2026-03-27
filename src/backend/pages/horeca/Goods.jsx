@@ -4,7 +4,7 @@ import {SimpleTreeView, TreeItem} from '@mui/x-tree-view'
 import {useDispatch, useSelector} from "react-redux"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import {setExpandedTree, setGoods, setUidCurrentFolder} from "../../../redux/centerReducer.js"
+import {setExpandedTree, setGoods, setUidCurrentFolder} from "../../../redux/center/centerReducer.js"
 import {center_horeca_goods_get} from "../../../service/fetch_service.js"
 
 const Goods = () => {

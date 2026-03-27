@@ -1,40 +1,20 @@
-import React, {useMemo} from "react"
+import React, {useMemo} from 'react'
 import {Box} from "@mui/material"
-import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerReducer.js"
-import {useTreeExpansionSync} from "../../hooks/useTreeExpansionSync.js"
+import {useDispatch, useSelector} from "react-redux"
 
-const StoreState = () => {
+const ProductionState = () => {
 
     const apiRef = useGridApiRef()
 
     const dispatch = useDispatch()
-    const {store_state_loading, store_state, store_state_expended} = useSelector(state => state.center)
+    const {production_state_loading, production_state, production_state_expended} = useSelector(state => state.center)
 
-    const rows = useMemo(() => store_state?.rows ?? [], [store_state?.rows])
-    const columns = useMemo(() => store_state?.columns ?? [], [store_state?.columns])
-    const column_grouping_model = useMemo(() => store_state?.column_grouping_model ?? [], [store_state?.column_grouping_model])
-    const column_visibility_model = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state?.column_visibility_model])
-
-    useTreeExpansionSync({
-        apiRef,
-        rows,
-        expanded: store_state_expended,
-        set_expanded: (ids) => dispatch(setStoreStateExpended(ids)),
-        defaultLevel: 2
-    })
-
-    const handleSelectionChange = () => {
-        const uid_store_array = []
-        apiRef.current?.getSelectedRows().forEach((row) => {
-            if (row.level === 1) {
-                uid_store_array.push(row.uid_store)
-            }
-        })
-        dispatch(setUidCurrentStore(uid_store_array))
-    }
+    const rows = useMemo(() => production_state?.rows ?? [], [production_state?.rows])
+    const columns = useMemo(() => production_state?.columns ?? [], [production_state?.columns])
+    const column_grouping_model = useMemo(() => production_state?.column_grouping_model ?? [], [production_state?.column_grouping_model])
+    const column_visibility_model = useMemo(() => production_state?.column_visibility_model ?? {}, [production_state?.column_visibility_model])
 
     return <Box sx={{
         width: 'calc(100% - 20px)', height: "100%", ml: "10px", overflow: "hidden"
@@ -42,7 +22,7 @@ const StoreState = () => {
         <DataGridPro
             apiRef={apiRef}
 
-            loading={store_state_loading.loading}
+            loading={production_state_loading.loading}
 
             rows={rows}
             columns={columns}
@@ -86,7 +66,8 @@ const StoreState = () => {
             onCellDoubleClick={() => {
                 alert('Привет')
             }}
-            onRowSelectionModelChange={handleSelectionChange}
+            onRowSelectionModelChange={() => {
+            }}
 
             sx={{
                 width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {
@@ -110,4 +91,4 @@ const StoreState = () => {
     </Box>
 }
 
-export default StoreState
+export default ProductionState

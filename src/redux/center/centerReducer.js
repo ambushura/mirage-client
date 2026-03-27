@@ -79,13 +79,27 @@ const initialState = {
     order_horeca: null,
     order_horeca_items_expended: [],
 
-    // Склад (распределение + остатки)
+    // Наличие на складах
     store_state_loading: {loading: false, error: null},
     store_state: {
         columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
     },
     store_state_expended: [],
     uid_current_store: [],
+
+    // Производство
+    production_state_loading: {loading: false, error: null},
+    production_state: {
+        columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    },
+    production_state_expended: [],
+
+    // Отчеты о розничных продажах
+    shift_state_loading: {loading: false, error: null},
+    shift_state: {
+        columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    },
+    shift_state_expended: [],
 }
 
 export const centerSlice = createSlice({
@@ -183,7 +197,7 @@ export const centerSlice = createSlice({
             state.order_horeca_items_expended = payload
         },
 
-        // Склад (распределение + остатки)
+        // Наличие на складах
         setStoreStateLoadingState(state, action) {
             state.store_state_loading = action.payload
         }, setStoreState(state, action) {
@@ -196,7 +210,34 @@ export const centerSlice = createSlice({
             state.store_state_expended = action.payload
         }, setUidCurrentStore(state, action) {
             state.uid_current_store = action.payload
+        },
+
+        // Производство
+        setProductionStateLoadingState(state, action) {
+            state.production_state_loading = action.payload
+        }, setProductionState(state, action) {
+            state.production_state = action.payload
+        }, cleanProductionState(state) {
+            state.production_state = {
+                columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+            }
+        }, setProductionStateExpended(state, action) {
+            state.store_state_expended = action.payload
+        },
+
+        // Отчеты о розничных продажах
+        setShiftStateLoadingState(state, action) {
+            state.shift_state_loading = action.payload
+        }, setShiftState(state, action) {
+            state.shift_state = action.payload
+        }, cleanShiftState(state) {
+            state.production_state = {
+                columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+            }
+        }, setShiftStateExpended(state, action) {
+            state.shift_state_expended = action.payload
         }
+
     },
 })
 
@@ -232,8 +273,13 @@ export const {
     // Текущий заказ хорека
     setOrderHoreca, cleanOrderHoreca, setHorecaOrderItemsExpended,
 
-    // Склад (распределение + остатки)
-    setStoreStateLoadingState, setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore
+    // Наличие на складах
+    setStoreStateLoadingState, setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore,
 
+    // Производство
+    setProductionStateLoadingState, setProductionState, cleanProductionState, setProductionStateExpended,
+
+    // Отчеты о розничных продажах
+    setShiftStateLoadingState, setShiftState, cleanShiftState, setShiftStateExpended
 } = centerSlice.actions
 export default centerSlice.reducer

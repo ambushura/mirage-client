@@ -21,6 +21,8 @@ import {
     ROUTE_CENTER_HORECA_GOODS_TREE_GET,
     ROUTE_CENTER_HORECA_ORDER_GET,
     ROUTE_CENTER_HORECA_ORDERS_GET,
+    ROUTE_CENTER_HORECA_PRODUCTION_STATE_GET,
+    ROUTE_CENTER_HORECA_SHIFT_STATE_GET,
     ROUTE_CENTER_HORECA_STORE_REST_GET,
     ROUTE_CENTER_HORECA_STORE_STATE_GET,
     ROUTE_CINEMA_DISCOUNTS_APPLY,
@@ -134,9 +136,13 @@ import {jwtDecode} from "jwt-decode"
 import {
     setOrdersHoreca,
     setOrdersHorecaLoadingState,
+    setProductionState,
+    setProductionStateLoadingState,
+    setShiftState,
+    setShiftStateLoadingState,
     setStoreState,
     setStoreStateLoadingState
-} from "../redux/centerReducer.js"
+} from "../redux/center/centerReducer.js"
 
 export const TIMEOUT = 30000
 
@@ -1859,4 +1865,50 @@ export const center_horeca_store_rest_get = (filial, date_shift, uid_store, upda
         version,
         center,
     }, data => data)
+}
+
+// Производство
+export const center_horeca_production_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    dispatch(setProductionStateLoadingState({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_PRODUCTION_STATE_GET}`,
+        params: {update, date_shift},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    })
+    dispatch(setProductionStateLoadingState({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setProductionState(res.data))
+    }
+}
+
+// Отчет о розничных продажах
+export const center_horeca_shift_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    dispatch(setShiftStateLoadingState({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_SHIFT_STATE_GET}`,
+        params: {update, date_shift},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    })
+    dispatch(setShiftStateLoadingState({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setShiftState(res.data))
+    }
 }

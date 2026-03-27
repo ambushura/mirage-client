@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Box} from "@mui/material"
 import {DataGridPro} from "@mui/x-data-grid-pro"
-import {cleanOrderHoreca, setHorecaOrderItemsExpended, setOrderHoreca} from "../../../redux/centerReducer.js"
+import {cleanOrderHoreca, setHorecaOrderItemsExpended, setOrderHoreca} from "../../../redux/center/centerReducer.js"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {center_horeca_order_get} from "../../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"

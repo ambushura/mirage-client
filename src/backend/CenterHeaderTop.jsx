@@ -3,10 +3,12 @@ import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate, useParams, useSearchParams} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
-import {setFilials, setParams, setSearchParams, setTree} from "../redux/centerReducer.js"
+import {setFilials, setParams, setSearchParams, setTree} from "../redux/center/centerReducer.js"
 import {
     center_horeca_goods_tree_get,
     center_horeca_orders_get,
+    center_horeca_production_state_get,
+    center_horeca_shift_state_get,
     center_horeca_store_state_get
 } from "../service/fetch_service.js"
 import {logout} from "../redux/authReducer.js"
@@ -57,6 +59,18 @@ const CenterHeaderTop = () => {
     useEffect(() => {
         if (!filial) return
         dispatch(center_horeca_store_state_get(filial, date_shift, 0))
+    }, [dispatch, filial, date_shift])
+
+    // Производство
+    useEffect(() => {
+        if (!filial) return
+        dispatch(center_horeca_production_state_get(filial, date_shift, 0))
+    }, [dispatch, filial, date_shift])
+
+    // Производство
+    useEffect(() => {
+        if (!filial) return
+        dispatch(center_horeca_shift_state_get(filial, date_shift, 0))
     }, [dispatch, filial, date_shift])
 
     return <Box id='center-header'>

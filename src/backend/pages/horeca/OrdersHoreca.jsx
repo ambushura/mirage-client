@@ -5,7 +5,7 @@ import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
 import {useNavigate} from "react-router-dom"
-import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../redux/centerReducer.js"
+import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../redux/center/centerReducer.js"
 
 const OrdersHoreca = () => {
 

@@ -10,7 +10,7 @@ import {
     setFilial,
     setFilialsSelected,
     setPeriod
-} from "../../redux/centerReducer.js"
+} from "../../redux/center/centerReducer.js"
 import {DateRangePicker} from "@mui/x-date-pickers-pro/DateRangePicker"
 import {DatePicker} from "@mui/x-date-pickers"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"

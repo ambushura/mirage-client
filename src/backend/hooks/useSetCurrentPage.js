@@ -1,6 +1,6 @@
 import {useEffect} from "react"
 import {useDispatch} from "react-redux"
-import {setCurrentPage} from "../../redux/centerReducer.js"
+import {setCurrentPage} from "../../redux/center/centerReducer.js"
 
 export function useSetCurrentPage(current_page) {
     const dispatch = useDispatch()

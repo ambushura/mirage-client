@@ -8,7 +8,7 @@ import Order from "./Order.jsx"
 import {useSetCenterParams} from "../../CenterHeaderTop.jsx"
 import ShiftState from "./ShiftState.jsx"
 import {useSelector} from "react-redux"
-import StoreProduction from "./StoreProduction.jsx"
+import ProductionState from "./ProductionState.jsx"
 
 const CenterHoreca = ({current_page}) => {
 
@@ -31,7 +31,7 @@ const CenterHoreca = ({current_page}) => {
         case 'store_production':
             return <>
                 <SubMenu type={['update', 'filial', 'date_shift', 'store_production']}/>
-                {filial !== null && <StoreProduction/>}
+                {filial !== null && <ProductionState/>}
             </>
         case 'shift_state':
             return <>

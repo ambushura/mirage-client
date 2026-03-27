@@ -12,7 +12,7 @@ import documentsReducer from "./documentsReducer.js"
 import secondScreen from "./secondScreenReducer.js"
 import equipmentReducer from "./equipmentReducer.js"
 import reportsReducer from "./reportsReducer.js"
-import centerReducer from "./centerReducer.js"
+import centerReducer from "./center/centerReducer.js"
 
 export const store = configureStore({
     reducer: {
