@@ -99,7 +99,9 @@ export const FilialRevenue = ({filial}) => {
                     userSelect: 'text'
                 }, '& .MuiDataGrid-cellContent': {
                     pointerEvents: 'auto'
-                }
+                }, '& .MuiDataGrid-scrollbar--horizontal': {
+                    position: 'relative'
+                },
             }}
             pinnedColumns={{
                 left: ['label'],

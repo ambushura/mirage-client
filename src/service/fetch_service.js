@@ -9,6 +9,7 @@ import {
     setKioskPaymentError,
     setKitchenPointsList,
     setOrdersCinemaUpdate,
+    setOrdersHoreca,
     setOrdersHorecaUpdate,
     setPreOrderPreparing
 } from "../redux/ordersReducer.js"
@@ -134,7 +135,6 @@ import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 import {jwtDecode} from "jwt-decode"
 import {
-    setOrdersHoreca,
     setOrdersHorecaLoadingState,
     setProductionState,
     setProductionStateLoadingState,
@@ -142,7 +142,7 @@ import {
     setShiftStateLoadingState,
     setStoreState,
     setStoreStateLoadingState
-} from "../redux/center/centerReducer.js"
+} from "../redux/center/centerHorecaReducer.js"
 
 export const TIMEOUT = 30000
 

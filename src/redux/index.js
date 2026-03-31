@@ -13,6 +13,8 @@ import secondScreen from "./secondScreenReducer.js"
 import equipmentReducer from "./equipmentReducer.js"
 import reportsReducer from "./reportsReducer.js"
 import centerReducer from "./center/centerReducer.js"
+import centerCinemaReducer from "./center/centerCinemaReducer.js"
+import centerHorecaReducer from "./center/centerHorecaReducer.js"
 
 export const store = configureStore({
     reducer: {
@@ -30,6 +32,8 @@ export const store = configureStore({
         equipment: equipmentReducer,
         reports: reportsReducer,
         center: centerReducer,
+        center_cinema: centerCinemaReducer,
+        center_horeca: centerHorecaReducer,
     },
 })
 

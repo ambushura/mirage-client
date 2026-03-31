@@ -47,10 +47,11 @@ import {useInactivityAction} from "./frontend/hooks/interface/useInactivityActio
 import KitchenPrint from "./frontend/forms/KitchenPrint.jsx"
 import CenterHeaderTop from "./backend/CenterHeaderTop.jsx"
 import CenterHeaderLeft from "./backend/CenterHeaderLeft.jsx"
-import CenterHoreca from "./backend/pages/horeca/CenterHoreca.jsx"
+import Center from "./backend/pages/horeca/Center.jsx"
 import CenterShift from "./backend/pages/shift/CenterShift.jsx"
 import CenterCinema from "./backend/pages/cinema/CenterCinema.jsx"
 import {ScrollStyles} from "./ui/ThemeContext.jsx"
+import Order from "./backend/pages/horeca/Order.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -72,7 +73,7 @@ function App() {
     const ModalContent = useMemo(() => {
         const Component = ModalComponents[modal_type]
         return Component ? <Component props={modal_props}/> : null
-    }, [ModalComponents, modal_type, modal_props])
+    }, [modal_type, modal_props])
 
     const defaultRedirectKK = cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/"
 
@@ -88,21 +89,26 @@ function App() {
                     <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
                     <Route path="/center/shift/operations"
                            element={<CenterShift current_page={['shift', 'operations']}/>}/>
-                    <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
+                    <Route path="/center/horeca/goods" element={<Center current_page={['horeca', 'goods']}/>}/>
                     <Route path="/center/horeca/store_state"
-                           element={<CenterHoreca current_page={['horeca', 'store_state']}/>}/>
+                           element={<Center current_page={['horeca', 'store_state']}/>}/>
                     <Route path="/center/horeca/store_production"
-                           element={<CenterHoreca current_page={['horeca', 'store_production']}/>}/>
+                           element={<Center current_page={['horeca', 'store_production']}/>}/>
                     <Route path="/center/horeca/shift_state"
-                           element={<CenterHoreca current_page={['horeca', 'shift_state']}/>}/>
+                           element={<Center current_page={['horeca', 'shift_state']}/>}/>
                     <Route path="/center/horeca/orders"
-                           element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
+                           element={<Center current_page={['horeca', 'orders']}/>}/>
                     <Route path="/center/horeca/orders/:uid_horeca_order"
-                           element={<CenterHoreca current_page={['horeca', 'order']}/>}/>
+                           element={<Center current_page={['horeca', 'order']}/>}/>
                     <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </Box>
+            <Modal
+                keepMounted open={modal_opened}
+                onClose={() => dispatch(closeModal())}>
+                <Box id="modal">{ModalContent}</Box>
+            </Modal>
         </Box>
 
     } else if (need_update) {
@@ -236,5 +242,6 @@ export const ModalComponents = {
     dialog_delete_operation: Dialog,
     dialog_reboot: Dialog,
     dialog_shutdown: Dialog,
-    kitchen_print: KitchenPrint
+    kitchen_print: KitchenPrint,
+    center_order_horeca: Order,
 }

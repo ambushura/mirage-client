@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {Box, Button, ButtonGroup} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
-import {useNavigate, useParams, useSearchParams} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
-import {setFilials, setParams, setSearchParams, setTree} from "../redux/center/centerReducer.js"
+import {setFilials} from "../redux/center/centerReducer.js"
 import {
     center_horeca_goods_tree_get,
     center_horeca_orders_get,
@@ -13,16 +13,18 @@ import {
 } from "../service/fetch_service.js"
 import {logout} from "../redux/authReducer.js"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"
+import {setTree} from "../redux/center/centerHorecaReducer.js"
 
 const CenterHeaderTop = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {root_filial, filial, main_menu, current_page, date_shift} = useSelector(state => state.center)
-    const {orders_horeca_page, orders_horeca_page_size} = useSelector(state => state.center)
+
     const param_date = useSelector(state => state.interface.params.param_date)
 
     const cities = useSelector(state => state.data.cities)
+    const {root_filial, filial, main_menu, current_page, date_shift} = useSelector(state => state.center)
+    const {orders_horeca_page, orders_horeca_page_size} = useSelector(state => state.center)
 
     // Филиалы
     useEffect(() => {
@@ -55,7 +57,7 @@ const CenterHeaderTop = () => {
         dispatch(center_horeca_orders_get(filial, date_shift, 0, orders_horeca_page, orders_horeca_page_size))
     }, [dispatch, filial, date_shift, orders_horeca_page, orders_horeca_page_size])
 
-    // Итоги смены (распределение + остатки)
+    // Наличие на складах
     useEffect(() => {
         if (!filial) return
         dispatch(center_horeca_store_state_get(filial, date_shift, 0))
@@ -104,20 +106,3 @@ const CenterHeaderTop = () => {
 }
 
 export default CenterHeaderTop
-
-export function useSetCenterParams() {
-
-    const params = useParams()
-    const [search_params] = useSearchParams()
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(setParams(params))
-    }, [dispatch, params])
-
-    useEffect(() => {
-        const obj = Object.fromEntries(search_params.entries())
-        dispatch(setSearchParams(obj))
-    }, [dispatch, search_params])
-
-}

@@ -1,45 +1,44 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box} from "@mui/material"
 import {DataGridPro} from "@mui/x-data-grid-pro"
-import {cleanOrderHoreca, setHorecaOrderItemsExpended, setOrderHoreca} from "../../../redux/center/centerReducer.js"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {center_horeca_order_get} from "../../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 
-const Order = () => {
+const Order = ({props}) => {
 
     const dispatch = useDispatch()
-    const {
-        params, filial, order_horeca, order_horeca_items_expended
-    } = useSelector(state => state.center)
+    const [order, set_order] = useState(null)
+    const [order_expended, set_order_expended] = useState([])
+    const filial = useSelector(state => state.center.filial)
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(center_horeca_order_get(filial, params.uid_horeca_order, 0))
+            const fetching_result = await dispatch(center_horeca_order_get(filial, props.uid, 0))
             if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
-                dispatch(setOrderHoreca(fetching_result.data))
+                set_order(fetching_result.data)
             }
         }
-        if (params.uid_horeca_order !== null) fetch()
+        if (props.uid !== null) fetch()
         return () => {
-            dispatch(cleanOrderHoreca(null))
+            set_order(null)
         }
-    }, [dispatch, filial, params.uid_horeca_order])
+    }, [dispatch])
 
-    if (order_horeca !== null) {
+    if (order !== null) {
         return <Box className='center-horeca-page' sx={{
             display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap',
         }}>
             <Box sx={{width: 'calc(100% - 400px - 10px)', overflowY: 'auto'}}>
-                {order_horeca.items?.rows?.length > 0 && <DataGridPro
+                {order.items?.rows?.length > 0 && <DataGridPro
                     sortingMode="server"
                     disableColumnSorting
                     editMode='cell'
                     checkboxSelection
-                    rows={order_horeca.items.rows}
-                    columns={order_horeca.items.columns}
-                    columnGroupingModel={order_horeca.items.column_grouping_model}
-                    columnVisibilityModel={order_horeca.items.column_visibility_model}
+                    rows={order.items.rows}
+                    columns={order.items.columns}
+                    columnGroupingModel={order.items.column_grouping_model}
+                    columnVisibilityModel={order.items.column_visibility_model}
                     treeData
                     getRowClassName={(params) => params.row.is_leaf === false ? 'center-horeca-order-ref' : ''}
                     getTreeDataPath={(row) => {
@@ -50,9 +49,9 @@ const Order = () => {
                     density="compact"
                     hideFooter
                     disableRowSelectionOnClick
-                    treeDataExpandedRowIds={order_horeca_items_expended}
+                    treeDataExpandedRowIds={order_expended}
                     onTreeDataExpandedRowIdsChange={newExpanded => {
-                        dispatch(setHorecaOrderItemsExpended(newExpanded))
+                        set_order_expended(newExpanded)
                     }}
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                     groupingColDef={{width: 100, minWidth: 100, headerName: "№"}}

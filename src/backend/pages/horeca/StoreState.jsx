@@ -3,8 +3,8 @@ import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerReducer.js"
 import {useTreeExpansionSync} from "../../hooks/useTreeExpansionSync.js"
+import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerHorecaReducer.js";
 
 const StoreState = () => {
 

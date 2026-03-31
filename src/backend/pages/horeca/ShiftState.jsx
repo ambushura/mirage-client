@@ -1,13 +1,12 @@
 import React, {useMemo} from 'react'
 import {Box} from "@mui/material"
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 
 const ShiftState = () => {
     const apiRef = useGridApiRef()
 
-    const dispatch = useDispatch()
     const {shift_state_loading, shift_state, shift_state_expended} = useSelector(state => state.center)
 
     const rows = useMemo(() => shift_state?.rows ?? [], [shift_state?.rows])

@@ -80,6 +80,8 @@ export const FilialResults = ({filial}) => {
                             backgroundColor: 'rgba(255, 0, 0, 0.2)', '&:hover': {
                                 backgroundColor: 'rgba(255, 0, 0, 0.3)',
                             },
+                        }, '& .MuiDataGrid-scrollbar--horizontal': {
+                            position: 'relative'
                         },
                     }}
                     pinnedColumns={{
@@ -121,6 +123,8 @@ export const FilialResults = ({filial}) => {
                     backgroundColor: '#FF730033', '&:hover': {
                         backgroundColor: 'rgba(234,106,1,0.2)',
                     },
+                }, '& .MuiDataGrid-scrollbar--horizontal': {
+                    position: 'relative'
                 },
             }}
             pinnedColumns={{

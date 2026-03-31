@@ -4,13 +4,13 @@ import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
-import {useNavigate} from "react-router-dom"
-import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../redux/center/centerReducer.js"
+import {openModal} from "../../../redux/interfaceReducer.js"
+import {setOrdersHorecaPage} from "../../../redux/ordersReducer.js";
+import {setOrdersHorecaPageSize} from "../../../redux/center/centerHorecaReducer.js";
 
-const OrdersHoreca = () => {
+const Orders = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const {
         orders_horeca_loading, orders_horeca, orders_horeca_page, orders_horeca_page_size
@@ -61,7 +61,7 @@ const OrdersHoreca = () => {
                 },
             }}
             onRowClick={(params) => {
-                navigate(`/center/horeca/orders/${params.row.id}`)
+                dispatch(openModal({type: 'center_order_horeca', props: {uid: params.row.id}}))
             }}
             paginationMode="server"
             pagination
@@ -80,4 +80,4 @@ const OrdersHoreca = () => {
     </Box>
 }
 
-export default OrdersHoreca
+export default Orders

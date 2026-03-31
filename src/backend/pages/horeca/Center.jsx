@@ -2,15 +2,15 @@ import React from 'react'
 import {useSetCurrentPage} from "../../hooks/useSetCurrentPage.js"
 import SubMenu from "../SubMenu.jsx"
 import Goods from "./Goods.jsx"
-import OrdersHoreca from "./OrdersHoreca.jsx"
+import Orders from "./Orders.jsx"
 import StoreState from "./StoreState.jsx"
 import Order from "./Order.jsx"
-import {useSetCenterParams} from "../../CenterHeaderTop.jsx"
 import ShiftState from "./ShiftState.jsx"
 import {useSelector} from "react-redux"
 import ProductionState from "./ProductionState.jsx"
+import {useSetCenterParams} from "../../hooks/useSetCenterParams.js"
 
-const CenterHoreca = ({current_page}) => {
+const Center = ({current_page}) => {
 
     useSetCenterParams()
     useSetCurrentPage(current_page)
@@ -41,7 +41,7 @@ const CenterHoreca = ({current_page}) => {
         case 'orders':
             return <>
                 <SubMenu type={['update', 'filial', 'date_shift']}/>
-                {filial !== null && <OrdersHoreca/>}
+                {filial !== null && <Orders/>}
             </>
         case 'order':
             return <>
@@ -53,4 +53,4 @@ const CenterHoreca = ({current_page}) => {
     }
 }
 
-export default CenterHoreca
+export default Center
