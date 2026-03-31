@@ -13,7 +13,7 @@ const Orders = () => {
     const dispatch = useDispatch()
 
     const {
-        orders_horeca_loading, orders_horeca, orders_horeca_page, orders_horeca_page_size
+        orders_horeca, orders_horeca_loading, orders_horeca_page, orders_horeca_page_size
     } = useSelector(state => state.center_horeca)
 
     const formattedColumns = orders_horeca.columns.map(col => {

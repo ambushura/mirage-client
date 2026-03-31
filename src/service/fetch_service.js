@@ -9,7 +9,6 @@ import {
     setKioskPaymentError,
     setKitchenPointsList,
     setOrdersCinemaUpdate,
-    setOrdersHoreca,
     setOrdersHorecaUpdate,
     setPreOrderPreparing
 } from "../redux/ordersReducer.js"
@@ -135,6 +134,7 @@ import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 import {jwtDecode} from "jwt-decode"
 import {
+    setOrdersHorecaCenter,
     setOrdersHorecaLoadingState,
     setProductionState,
     setProductionStateLoadingState,
@@ -1811,7 +1811,7 @@ export const center_horeca_orders_get = (filial, date_shift, update, orders_hore
         loading: false, error: res.error
     }))
     if (!res.error) {
-        dispatch(setOrdersHoreca(res.data))
+        dispatch(setOrdersHorecaCenter(res.data))
     }
 }
 

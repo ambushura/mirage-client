@@ -74,7 +74,7 @@ export const centerSlice = createSlice({
             state.orders_horeca = {
                 columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
             }
-        }, setOrdersHoreca(state, action) {
+        }, setOrdersHorecaCenter(state, action) {
             state.orders_horeca = action.payload
         },
 
@@ -130,7 +130,7 @@ export const {
     setGoods, setUidCurrentGood,
 
     // Заказы хорека
-    setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHoreca, setOrdersHorecaPage, setOrdersHorecaPageSize,
+    setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHorecaCenter, setOrdersHorecaPage, setOrdersHorecaPageSize,
 
     // Наличие на складах
     setStoreStateLoadingState, setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore,

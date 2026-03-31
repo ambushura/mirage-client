@@ -11,8 +11,9 @@ const Goods = () => {
 
     const dispatch = useDispatch()
 
+    const {root_filial} = useSelector(state => state.center)
     const {
-        root_filial, tree, expanded_tree, uid_current_folder, goods, uid_current_good
+        tree, expanded_tree, uid_current_folder, goods, uid_current_good
     } = useSelector(state => state.center_horeca)
 
     const renderTree = (nodes) => nodes.map(node => <TreeItem
