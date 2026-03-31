@@ -4,14 +4,14 @@ import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {useTreeExpansionSync} from "../../hooks/useTreeExpansionSync.js"
-import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerHorecaReducer.js";
+import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerHorecaReducer.js"
 
 const StoreState = () => {
 
     const apiRef = useGridApiRef()
 
     const dispatch = useDispatch()
-    const {store_state_loading, store_state, store_state_expended} = useSelector(state => state.center)
+    const {store_state_loading, store_state, store_state_expended} = useSelector(state => state.center_horeca)
 
     const rows = useMemo(() => store_state?.rows ?? [], [store_state?.rows])
     const columns = useMemo(() => store_state?.columns ?? [], [store_state?.columns])

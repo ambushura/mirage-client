@@ -5,8 +5,8 @@ import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
 import {openModal} from "../../../redux/interfaceReducer.js"
-import {setOrdersHorecaPage} from "../../../redux/ordersReducer.js";
-import {setOrdersHorecaPageSize} from "../../../redux/center/centerHorecaReducer.js";
+import {setOrdersHorecaPage} from "../../../redux/ordersReducer.js"
+import {setOrdersHorecaPageSize} from "../../../redux/center/centerHorecaReducer.js"
 
 const Orders = () => {
 
@@ -14,7 +14,7 @@ const Orders = () => {
 
     const {
         orders_horeca_loading, orders_horeca, orders_horeca_page, orders_horeca_page_size
-    } = useSelector(state => state.center)
+    } = useSelector(state => state.center_horeca)
 
     const formattedColumns = orders_horeca.columns.map(col => {
         if (col.type === 'date' || col.type === 'dateTime') {

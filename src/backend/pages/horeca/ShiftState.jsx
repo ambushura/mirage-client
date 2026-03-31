@@ -7,7 +7,7 @@ import {ruRU} from "@mui/x-data-grid/locales"
 const ShiftState = () => {
     const apiRef = useGridApiRef()
 
-    const {shift_state_loading, shift_state, shift_state_expended} = useSelector(state => state.center)
+    const {shift_state_loading, shift_state, shift_state_expended} = useSelector(state => state.center_horeca)
 
     const rows = useMemo(() => shift_state?.rows ?? [], [shift_state?.rows])
     const columns = useMemo(() => shift_state?.columns ?? [], [shift_state?.columns])

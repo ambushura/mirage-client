@@ -13,7 +13,7 @@ const Goods = () => {
 
     const {
         root_filial, tree, expanded_tree, uid_current_folder, goods, uid_current_good
-    } = useSelector(state => state.center)
+    } = useSelector(state => state.center_horeca)
 
     const renderTree = (nodes) => nodes.map(node => <TreeItem
         key={node.uid}
