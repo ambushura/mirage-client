@@ -5,8 +5,7 @@ import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
 import {openModal} from "../../../redux/interfaceReducer.js"
-import {setOrdersHorecaPage} from "../../../redux/ordersReducer.js"
-import {setOrdersHorecaPageSize} from "../../../redux/center/centerHorecaReducer.js"
+import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../redux/center/centerHorecaReducer.js"
 
 const Orders = () => {
 

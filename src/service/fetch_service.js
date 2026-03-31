@@ -134,6 +134,8 @@ import {setNeedUpdate} from "../redux/interfaceReducer.js"
 import {setCandy} from "../redux/dataReducer.js"
 import {jwtDecode} from "jwt-decode"
 import {
+    setGoods,
+    setGoodsLoading,
     setOrdersHorecaCenter,
     setOrdersHorecaLoadingState,
     setProductionState,
@@ -141,7 +143,9 @@ import {
     setShiftState,
     setShiftStateLoadingState,
     setStoreState,
-    setStoreStateLoadingState
+    setStoreStateLoadingState,
+    setTree,
+    setTreeLoading
 } from "../redux/center/centerHorecaReducer.js"
 
 export const TIMEOUT = 30000
@@ -1766,7 +1770,8 @@ export const common_reports_schedule_get = (filial, date_shift, update) => async
 export const center_horeca_goods_tree_get = (filial, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
+    dispatch(setTreeLoading({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_TREE_GET}`,
         params: {update},
@@ -1775,13 +1780,20 @@ export const center_horeca_goods_tree_get = (filial, update) => async (dispatch,
         kiosk,
         version,
         center,
-    }, data => data)
+    })
+    dispatch(setTreeLoading({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setTree(res.data))
+    }
 }
 
 export const center_horeca_goods_get = (filial, uid_folder, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
+    dispatch(setGoodsLoading({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_GET}`,
         params: {uid_folder, update},
@@ -1790,7 +1802,13 @@ export const center_horeca_goods_get = (filial, uid_folder, update) => async (di
         kiosk,
         version,
         center,
-    }, data => data)
+    })
+    dispatch(setGoodsLoading({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setGoods(res.data))
+    }
 }
 
 export const center_horeca_orders_get = (filial, date_shift, update, orders_horeca_page, orders_horeca_page_size) => async (dispatch, getState) => {

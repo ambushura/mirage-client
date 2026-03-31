@@ -9,9 +9,7 @@ const ProductionState = () => {
     const apiRef = useGridApiRef()
 
     const {
-        production_state_loading,
-        production_state,
-        production_state_expended
+        production_state_loading, production_state, production_state_expended
     } = useSelector(state => state.center_horeca)
 
     const rows = useMemo(() => production_state?.rows ?? [], [production_state?.rows])

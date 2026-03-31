@@ -28,9 +28,7 @@ const main_menu = [{
 const initialState = {
 
     // Параметры
-    search_params: {}, params: {
-        uid_horeca_order: null,
-    },
+    search_params: {}, params: {},
 
     // Отладка
     root_filial: {ip: '10.101.3.88', port: '60000'},
@@ -104,6 +102,7 @@ export const centerSlice = createSlice({
         // Дата смены
         setDateShift(state, action) {
             state.date_shift = action.payload
+
             // Очищаем заказ хорека
             state.uid_current_order_horeca = null
             state.order_horeca = null

@@ -3,18 +3,20 @@ import {createSlice} from "@reduxjs/toolkit"
 const initialState = {
 
     // Папки
+    tree_loading: {loading: false, error: null},
     tree: [],
     expanded_tree: [],
     uid_current_folder: null,
 
     // Номенклатура
+    goods_loading: {loading: false, error: null},
     goods: [],
     uid_current_good: null,
 
     // Хорека заказы
+    orders_horeca_loading: {loading: false, error: null},
     orders_horeca_page: 1,
     orders_horeca_page_size: 20,
-    orders_horeca_loading: {loading: false, error: null},
     orders_horeca: {
         total: 0, columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
     },
@@ -48,7 +50,9 @@ export const centerSlice = createSlice({
     name: 'center_horeca', initialState, reducers: {
 
         // Папки
-        setTree(state, action) {
+        setTreeLoading(state, payload) {
+            state.tree_loading = payload
+        }, setTree(state, action) {
             state.tree = action.payload
         }, setExpandedTree(state, action) {
             state.expanded_tree = action.payload
@@ -57,7 +61,9 @@ export const centerSlice = createSlice({
         },
 
         // Номенклатура
-        setGoods(state, action) {
+        setGoodsLoading(state, payload) {
+            state.goods_loading = payload
+        }, setGoods(state, action) {
             state.goods = action.payload
         }, setUidCurrentGood(state, action) {
             state.uid_current_good = action.payload
@@ -124,10 +130,10 @@ export const centerSlice = createSlice({
 export const {
 
     // Папки
-    setTree, setExpandedTree, setUidCurrentFolder,
+    setTreeLoading, setTree, setExpandedTree, setUidCurrentFolder,
 
     // Номенклатура
-    setGoods, setUidCurrentGood,
+    setGoodsLoading, setGoods, setUidCurrentGood,
 
     // Заказы хорека
     setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHorecaCenter, setOrdersHorecaPage, setOrdersHorecaPageSize,

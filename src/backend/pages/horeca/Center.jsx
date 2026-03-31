@@ -1,19 +1,20 @@
-import React from 'react'
-import {useSetCurrentPage} from "../../hooks/useSetCurrentPage.js"
+import React, {useEffect} from 'react'
 import SubMenu from "../SubMenu.jsx"
 import Goods from "./Goods.jsx"
 import Orders from "./Orders.jsx"
 import StoreState from "./StoreState.jsx"
-import Order from "./Order.jsx"
 import ShiftState from "./ShiftState.jsx"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import ProductionState from "./ProductionState.jsx"
-import {useSetCenterParams} from "../../hooks/useSetCenterParams.js"
+import {setCurrentPage} from "../../../redux/center/centerReducer.js"
 
 const Center = ({current_page}) => {
 
-    useSetCenterParams()
-    useSetCurrentPage(current_page)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setCurrentPage(current_page))
+    }, [current_page])
 
     const {filial} = useSelector(state => state.center)
 
@@ -42,11 +43,6 @@ const Center = ({current_page}) => {
             return <>
                 <SubMenu type={['update', 'filial', 'date_shift']}/>
                 {filial !== null && <Orders/>}
-            </>
-        case 'order':
-            return <>
-                <SubMenu type={['update', 'back', 'save', 'recipe_update']}/>
-                {filial !== null && <Order/>}
             </>
         default:
             return null

@@ -59,10 +59,11 @@ export const FilialOperation = ({filial}) => {
             checkboxSelection
             rows={operations.rows}
             columns={operations.columns}
+            density="compact"
             hideFooter
             autoHeight
-            rowHeight={30}
-            headerHeight={30}
+            rowHeight={32}
+            headerHeight={32}
             columnGroupingModel={operations.column_grouping_model}
             experimentalFeatures={{columnGrouping: true}}
             getRowClassName={(params) => params.row.isTotalRow ? 'total-row' : ''}

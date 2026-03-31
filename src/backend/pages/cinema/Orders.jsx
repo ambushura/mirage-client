@@ -1,10 +1,10 @@
 import React from 'react'
 import {Box} from "@mui/material"
 
-const OrdersCinema = () => {
+const Orders = () => {
     return <Box>
 
     </Box>
 }
 
-export default OrdersCinema
+export default Orders

@@ -47,9 +47,8 @@ import {useInactivityAction} from "./frontend/hooks/interface/useInactivityActio
 import KitchenPrint from "./frontend/forms/KitchenPrint.jsx"
 import CenterHeaderTop from "./backend/CenterHeaderTop.jsx"
 import CenterHeaderLeft from "./backend/CenterHeaderLeft.jsx"
-import Center from "./backend/pages/horeca/Center.jsx"
-import CenterShift from "./backend/pages/shift/CenterShift.jsx"
-import CenterCinema from "./backend/pages/cinema/CenterCinema.jsx"
+import CenterHoreca from "./backend/pages/horeca/Center.jsx"
+import Center from "./backend/pages/shift/Center.jsx"
 import {ScrollStyles} from "./ui/ThemeContext.jsx"
 import Order from "./backend/pages/horeca/Order.jsx"
 
@@ -85,22 +84,32 @@ function App() {
             <ScrollStyles/>
             <Box id='center-page'>
                 <Routes>
-                    <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
-                    <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
+                    <Route path="/center/shift/revenue" element={<Center current_page={['shift', 'revenue']}/>}/>
+
+                    <Route path="/center/shift/results" element={<Center current_page={['shift', 'results']}/>}/>
+
                     <Route path="/center/shift/operations"
-                           element={<CenterShift current_page={['shift', 'operations']}/>}/>
-                    <Route path="/center/horeca/goods" element={<Center current_page={['horeca', 'goods']}/>}/>
+                           element={<Center current_page={['shift', 'operations']}/>}/>
+
+                    <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
+
                     <Route path="/center/horeca/store_state"
-                           element={<Center current_page={['horeca', 'store_state']}/>}/>
+                           element={<CenterHoreca current_page={['horeca', 'store_state']}/>}/>
+
                     <Route path="/center/horeca/store_production"
-                           element={<Center current_page={['horeca', 'store_production']}/>}/>
+                           element={<CenterHoreca current_page={['horeca', 'store_production']}/>}/>
+
                     <Route path="/center/horeca/shift_state"
-                           element={<Center current_page={['horeca', 'shift_state']}/>}/>
+                           element={<CenterHoreca current_page={['horeca', 'shift_state']}/>}/>
+
                     <Route path="/center/horeca/orders"
-                           element={<Center current_page={['horeca', 'orders']}/>}/>
+                           element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
+
                     <Route path="/center/horeca/orders/:uid_horeca_order"
-                           element={<Center current_page={['horeca', 'order']}/>}/>
-                    <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
+                           element={<CenterHoreca current_page={['horeca', 'order']}/>}/>
+
+                    <Route path="/center/cinema/orders" element={<CenterHoreca current_page={['cinema', 'orders']}/>}/>
+
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </Box>

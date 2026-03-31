@@ -23,6 +23,7 @@
     "@mui/x-license": "^8.11.3",
     "@mui/x-tree-view": "^8.27.0",
     "@reduxjs/toolkit": "^2.5.1",
+    "@types/react-redux": "^7.1.34",
     "@xyflow/react": "^12.8.2",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
