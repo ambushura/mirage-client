@@ -102,10 +102,6 @@ export const centerSlice = createSlice({
         // Дата смены
         setDateShift(state, action) {
             state.date_shift = action.payload
-
-            // Очищаем заказ хорека
-            state.uid_current_order_horeca = null
-            state.order_horeca = null
         },
 
     },
