@@ -16,6 +16,7 @@ const CenterHeaderTop = () => {
 
     const {main_menu, current_page} = useSelector(state => state.center)
     const param_date = useSelector(state => state.interface.params.param_date)
+    const cities = useSelector(state => state.data.cities)
 
     return <Box id='center-header'>
         <ButtonGroup sx={{height: '40px', boxShadow: 'none'}}>

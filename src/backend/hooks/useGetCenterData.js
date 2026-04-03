@@ -94,6 +94,7 @@ export function useGetCenterData() {
 
         if (!center) return
         if (!filial) return
+        if (current_page[0] !== 'horeca') return
         if (current_page[1] !== 'store_production') return
 
         dispatch(center_horeca_production_state_get(filial, date_shift, 0))
@@ -105,6 +106,7 @@ export function useGetCenterData() {
 
         if (!center) return
         if (!filial) return
+        if (current_page[0] !== 'horeca') return
         if (current_page[1] !== 'shift_state') return
 
         dispatch(center_horeca_shift_state_get(filial, date_shift, 0))
