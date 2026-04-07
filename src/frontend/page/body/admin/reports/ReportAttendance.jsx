@@ -32,7 +32,7 @@ const ReportAttendance = () => {
         if (filial !== undefined && report_variant !== null) fetch()
     }, [dispatch, filial, param_date_admin, report_variant, update])
 
-    return <Box sx={{minHeight: '100%', display: 'flex'}}>
+    return <Box sx={{height: '100%', display: 'flex'}}>
         <DataGridPro
             hideFooter
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
@@ -54,16 +54,12 @@ const ReportAttendance = () => {
             }}
             sx={{flex: 1}}
             getRowClassName={(params) => {
-                if (params.row.type === 'hall') return 'row-seance-hall'
-                switch (params.row.state) {
-                    case 'Закрыт':
-                        return 'row-seance-closed'
-                    case 'Отменен':
-                        return 'row-seance-canceled'
-                    case 'В продаже':
-                        return 'row-seance-sale'
-                    default:
-                        return ''
+                if (params.row.percent <= 10) {
+                    return 'row-attendance-10'
+                } else if (params.row.percent <= 30) {
+                    return 'row-attendance-30'
+                } else if (params.row.percent >= 30) {
+                    return 'row-attendance-31'
                 }
             }}
             defaultGroupingExpansionDepth={1}
