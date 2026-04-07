@@ -64,11 +64,6 @@ export const centerSlice = createSlice({
             state.search_params = payload
         },
 
-        // Центральный филиал
-        setRootFilial: (state, action) => {
-            state.root_filial = action.payload
-        },
-
         // Меню
         setCurrentPage: (state, action) => {
             state.current_page = action.payload
@@ -111,9 +106,6 @@ export const {
 
     // Параметры
     setParams, setSearchParams,
-
-    // Центральный филиал
-    setRootFilial,
 
     // Меню
     setCurrentPage,

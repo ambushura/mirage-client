@@ -3,6 +3,7 @@ import {Box} from "@mui/material"
 import ReportSales from "./ReportSales.jsx"
 import ReportSchedule from "./ReportSchedule.jsx"
 import ReportShift from "./ReportShift.jsx"
+import ReportAttendance from "./ReportAttendance.jsx"
 
 const Reports = () => {
 
@@ -17,6 +18,8 @@ const Reports = () => {
         return <ReportShift/>
     } else if (report_variant === 'schedule') {
         return <ReportSchedule/>
+    } else if (report_variant === 'attendance') {
+        return <ReportAttendance/>
     }
 
 }

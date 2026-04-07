@@ -77,6 +77,7 @@ import {
     ROUTE_COMMON_ORDERS_GET_RECEIPTS,
     ROUTE_COMMON_PAYMENT_MAP_GET,
     ROUTE_COMMON_PAYMENT_METHODS_GET,
+    ROUTE_COMMON_REPORTS_ATTENDANCE_GET,
     ROUTE_COMMON_REPORTS_SALES_GET,
     ROUTE_COMMON_REPORTS_SCHEDULE_GET,
     ROUTE_COMMON_REPORTS_SHIFT_GET,
@@ -1758,6 +1759,21 @@ export const common_reports_schedule_get = (filial, date_shift, update) => async
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SCHEDULE_GET}`,
         params: {date_shift, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
+}
+
+export const common_reports_attendance_get = (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_ATTENDANCE_GET}`,
+        params: {date_shift_beginning, date_shift_ending, update},
         filial,
         wp,
         kiosk,

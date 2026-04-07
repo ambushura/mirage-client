@@ -39,12 +39,13 @@ const CenterHeaderTop = () => {
             })}
         </ButtonGroup>
         <Button
+            startIcon={<ExitToAppIcon/>}
             variant='text' color='secondary'
-            sx={{maxWidth: '40px', minWidth: '40px', maxHeight: '40px', borderRadius: 0}}
+            sx={{maxHeight: '40px', borderRadius: 0}}
             onClick={() => {
                 navigate(cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/")
                 dispatch(logout())
-            }}><ExitToAppIcon/></Button>
+            }}>Выход</Button>
     </Box>
 }
 

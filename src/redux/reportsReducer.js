@@ -20,6 +20,10 @@ const initialState = {
     // Расписание
     schedule: {columns: [], rows: [], columnGroupingModel: []},
     schedule_columnVisibilityModel: {type: false, level: false},
+
+    // Посещаемость
+    attendance: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: []},
+
 }
 
 export const dataSlice = createSlice({
@@ -61,6 +65,13 @@ export const dataSlice = createSlice({
             state.schedule = {columns: [], rows: [], columnGroupingModel: []}
         }, set_scheduleColumnVisibilityModel: (state, {payload}) => {
             state.schedule_columnVisibilityModel = payload
+        },
+
+        // Посещаемость
+        setAttendance: (state, {payload}) => {
+            state.attendance = payload
+        }, cleanAttendance: (state) => {
+            state.attendance = {columns: [], rows: [], columnGroupingModel: []}
         }
     },
 })
@@ -74,8 +85,11 @@ export const {
     // Суточный
     setShift, cleanShift, set_shiftColumnVisibilityModel,
 
-    // Расписаниe
-    setSchedule, cleanSchedule, set_scheduleColumnVisibilityModel
+    // Расписание
+    setSchedule, cleanSchedule, set_scheduleColumnVisibilityModel,
+
+    // Посещаемость
+    setAttendance, cleanAttendance
 
 } = dataSlice.actions
 export default dataSlice.reducer
