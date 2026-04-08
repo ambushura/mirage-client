@@ -2250,17 +2250,17 @@
 }
 
 /* ПОСЕЩАЕМОСТЬ */
-.row-attendance-10 {
+.row-attendance-30 {
+    background-color: #c3e8ff !important;
+    color: #000 !important;
+}
+
+.row-attendance-70 {
     background-color: #95f1c0 !important;
     color: #000 !important;
 }
 
-.row-attendance-30 {
-    background-color: #fff2d6 !important;
-    color: #c36f00 !important;
-}
-
-.row-attendance-31 {
+.row-attendance-71 {
     background-color: #ffd6d6 !important;
-    color: #b00000 !important;
+    color: #000 !important;
 }

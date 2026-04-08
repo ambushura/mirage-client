@@ -54,12 +54,12 @@ const ReportAttendance = () => {
             }}
             sx={{flex: 1}}
             getRowClassName={(params) => {
-                if (params.row.percent <= 10) {
-                    return 'row-attendance-10'
-                } else if (params.row.percent <= 30) {
+                if (params.row.percent <= 30) {
                     return 'row-attendance-30'
-                } else if (params.row.percent >= 30) {
-                    return 'row-attendance-31'
+                } else if (params.row.percent <= 70) {
+                    return 'row-attendance-70'
+                } else if (params.row.percent >= 70) {
+                    return 'row-attendance-71'
                 }
             }}
             defaultGroupingExpansionDepth={1}
