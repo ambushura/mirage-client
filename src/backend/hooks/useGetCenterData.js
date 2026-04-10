@@ -48,7 +48,6 @@ export function useGetCenterData() {
                 })
             })
         })
-
         dispatch(setFilials(filials_list))
 
     }, [center, cities, dispatch])

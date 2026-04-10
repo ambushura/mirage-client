@@ -39,5 +39,5 @@ export const useTreeExpansionSync = ({
             })
         }, 0)
         return () => clearTimeout(timer)
-    }, [rows, expanded])
+    }, [rows, expanded, apiRef])
 }
