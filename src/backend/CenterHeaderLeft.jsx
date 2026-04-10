@@ -1,44 +1,34 @@
-import React from 'react'
-import {Box, Button, ButtonGroup} from "@mui/material"
+import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
 import {useNavigate} from "react-router-dom"
+import Paper from '@mui/material/Paper'
+import MenuList from '@mui/material/MenuList'
+import MenuItem from '@mui/material/MenuItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
 
 const CenterHeaderLeft = () => {
 
     const navigate = useNavigate()
-
     const {main_menu, current_page} = useSelector(state => state.center)
 
     return <Box id='center-side-panel'>
-        <ButtonGroup orientation='vertical' sx={{
-            minHeight: '60px',
-            width: 'var(--side-panel-width)',
-            boxShadow: 'none',
-            paddingTop: 'var(--center-header-height)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-        }}>
-            {main_menu.map(item => {
-                return <Button
-                    sx={{
-                        minHeight: '60px',
-                        width: 'var(--side-panel-width)',
-                        borderRadius: '0px',
-                        boxShadow: 'none',
-                        justifyContent: 'flex-start',
-                        padding: '16px',
-                    }}
-                    onClick={() => {
-                        navigate(`center/${item.id}/${item?.submenu[0].id}`)
-                    }}
-                    color='secondary'
-                    variant={current_page[0] === item.id ? "contained" : "text"}
-                    key={item.id}
-                    startIcon={center_menu_icons[item.icon]}>{item.title}</Button>
-            })}
-        </ButtonGroup>
+        <Paper id='center-side-panel-menu'>
+            <MenuList>
+                {main_menu.map(item => {
+                    return <MenuItem
+                        key={item.id}
+                        selected={current_page[0] === item.id}
+                        onClick={() => {
+                            navigate(`center/${item.id}/${item?.submenu[0].id}`)
+                        }}>
+                        <ListItemIcon>{center_menu_icons[item.icon]}</ListItemIcon>
+                        <ListItemText>{item.title}</ListItemText>
+                    </MenuItem>
+                })}
+            </MenuList>
+        </Paper>
     </Box>
 }
 

@@ -74,7 +74,7 @@ function App() {
         return Component ? <Component props={modal_props}/> : null
     }, [modal_type, modal_props])
 
-    const defaultRedirectKK = cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/"
+    const defaultRedirectKK = cities.length ? `/films/2/all/${param_date}/` : "/"
 
     if (center) {
 

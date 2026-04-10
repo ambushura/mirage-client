@@ -1,11 +1,14 @@
-import React from 'react'
-import {Box, Button, ButtonGroup} from "@mui/material"
+import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
 import {logout} from "../redux/authReducer.js"
-import ExitToAppIcon from "@mui/icons-material/ExitToApp"
 import {useGetCenterData} from "./hooks/useGetCenterData.js"
+import MenuItem from '@mui/material/MenuItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import MenuList from '@mui/material/MenuList'
+import Logout from '@mui/icons-material/Logout'
 
 const CenterHeaderTop = () => {
 
@@ -19,33 +22,28 @@ const CenterHeaderTop = () => {
     const cities = useSelector(state => state.data.cities)
 
     return <Box id='center-header'>
-        <ButtonGroup sx={{height: '40px', boxShadow: 'none'}}>
-            {main_menu.find(el => el.id === current_page[0])?.submenu.map(item => {
-                return <Button
-                    sx={{
-                        height: '40px',
-                        fontWeight: 400,
-                        borderRadius: '0px',
-                        boxShadow: 'none',
-                        padding: '0 15px 0 15px'
-                    }}
-                    onClick={() => {
-                        navigate(`center/${current_page[0]}/${item.id}`)
-                    }}
-                    color='secondary'
-                    variant={current_page[1] === item.id ? "contained" : "text"}
-                    key={item.id}
-                    startIcon={center_menu_icons[item.icon]}>{item.title}</Button>
-            })}
-        </ButtonGroup>
-        <Button
-            startIcon={<ExitToAppIcon/>}
-            variant='text' color='secondary'
-            sx={{maxHeight: '40px', borderRadius: 0}}
-            onClick={() => {
-                navigate(cities.length ? `/films/${cities[0].code}/all/${param_date}/` : "/")
-                dispatch(logout())
-            }}>Выход</Button>
+        <MenuList id='center-header-menu'>
+            {main_menu.find(el => el.id === current_page[0])?.submenu.map(item => (<MenuItem
+                key={item.id}
+                selected={current_page[1] === item.id}
+                onClick={() => navigate(`center/${current_page[0]}/${item.id}`)}
+            >
+                <ListItemIcon sx={{minWidth: 32}}>
+                    {center_menu_icons[item.icon]}
+                </ListItemIcon>
+                <ListItemText>{item.title}</ListItemText>
+            </MenuItem>))}
+            <MenuItem sx={{marginLeft: 'auto'}}
+                      onClick={() => {
+                          navigate(cities.length ? `/films/${cities[2].code}/all/${param_date}/` : "/")
+                          dispatch(logout())
+                      }}>
+                <ListItemIcon>
+                    <Logout fontSize="small"/>
+                </ListItemIcon>
+                Выход
+            </MenuItem>
+        </MenuList>
     </Box>
 }
 

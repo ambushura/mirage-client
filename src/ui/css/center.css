@@ -1,10 +1,11 @@
 :root {
     --center-header-height: 40px;
-    --side-panel-width: 150px;
+    --side-panel-width: 170px;
     --cetner-bgr-scroll: #c1c1c1;
     --center-submenu-height: 80px;
 }
 
+/* ШАПКА */
 #center-header {
     width: calc(100vw - var(--side-panel-width));
     height: var(--center-header-height);
@@ -19,16 +20,38 @@
     justify-content: space-between;
 }
 
+#center-header-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    height: inherit !important;
+    width: 100% !important;
+}
+
+/* ЛЕВАЯ ПАНЕЛЬ */
 #center-side-panel {
     width: var(--side-panel-width);
+    min-height: 60px;
     height: 100vh;
     background-color: #f2f2f2;
     border-right: 1px solid #bfbfbf;
     position: absolute;
     left: 0;
     z-index: 999;
+    padding-top: var(--center-header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
+#center-side-panel-menu {
+    width: inherit !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* СТРАНИЦА */
 #center-page {
     width: calc(100vw - var(--side-panel-width));
     height: calc(100vh - var(--center-header-height));
