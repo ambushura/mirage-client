@@ -31,10 +31,10 @@ const initialState = {
     search_params: {}, params: {},
 
     // Отладка
-    //root_filial: {ip: '10.101.3.88', port: '60000'},
+    root_filial: {ip: '10.101.3.88', port: '60000'},
 
     // Центральный филиал
-    root_filial: {ip: '10.101.2.21', port: '60000'},
+    //root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu, current_page: ['shift', 'revenue'],
@@ -44,6 +44,9 @@ const initialState = {
 
     // Филиал
     filial: null, filial_selected: '',
+
+    // Организации
+    organizations: [], organizations_selected: [],
 
     // Периоды
     date_shift_beginning: today, date_shift_end: today, date_shift_valid: true, date_shift_accepted: 0,
@@ -79,6 +82,13 @@ export const centerSlice = createSlice({
             state.filials_selected = action.payload
         },
 
+        // Организации
+        setOrganizations: (state, action) => {
+            state.organizations = action.payload
+        }, setOrganizationsSelected(state, action) {
+            state.organizations_selected = action.payload
+        },
+
         // Периода
         setPeriod(state, action) {
             const [start, end] = action.payload
@@ -112,6 +122,9 @@ export const {
 
     // Филиалы
     setFilial, setFilials, setFilialsSelected,
+
+    // Организации
+    setOrganizations, setOrganizationsSelected,
 
     // Периоды
     setPeriod, dateShiftAccepted, clearPeriod,

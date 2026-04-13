@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormControl, IconButton, InputLabel, ListItemText, MenuItem, Select} from "@mui/material"
 import ClearIcon from '@mui/icons-material/Clear'
 import Checkbox from "@mui/material/Checkbox"
@@ -38,8 +37,7 @@ const MultiSelect = ({label, items, items_selected, setValue, sx}) => {
                 PaperProps: {style: {maxHeight: 800}, className: 'center-scroll'},
 
             }}
-            variant='outlined'
-        >
+            variant='outlined'>
             <MenuItem value="__ALL__">
                 <Checkbox
                     color="secondary"
@@ -48,7 +46,6 @@ const MultiSelect = ({label, items, items_selected, setValue, sx}) => {
                 />
                 <ListItemText primary="Все"/>
             </MenuItem>
-
             {items.map((item) => <MenuItem key={item.uid} value={item.uid}>
                 <Checkbox
                     color="secondary"

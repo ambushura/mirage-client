@@ -1,12 +1,13 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect} from "react"
-import {setFilials, setParams, setSearchParams} from "../../redux/center/centerReducer.js"
+import {setFilials, setOrganizations, setParams, setSearchParams} from "../../redux/center/centerReducer.js"
 import {
     center_horeca_goods_tree_get,
     center_horeca_orders_get,
     center_horeca_production_state_get,
     center_horeca_shift_state_get,
-    center_horeca_store_state_get
+    center_horeca_store_state_get,
+    common_lazy_list_get
 } from "../../service/fetch_service.js"
 import {useParams, useSearchParams} from "react-router-dom"
 
@@ -51,6 +52,19 @@ export function useGetCenterData() {
         dispatch(setFilials(filials_list))
 
     }, [center, cities, dispatch])
+
+    // Организации
+    useEffect(() => {
+        if (!center) return
+        if (!cities) return
+
+        const fetch = async () => {
+            const data = await dispatch(common_lazy_list_get(root_filial, 'organizations'))
+            if (Array.isArray(data)) dispatch(setOrganizations(data))
+        }
+
+        fetch()
+    }, [center, cities, dispatch, filial, root_filial])
 
     // Хорека / папки
     useEffect(() => {

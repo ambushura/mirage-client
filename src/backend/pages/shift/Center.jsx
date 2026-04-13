@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import Revenue from "./Revenue.jsx"
 import Results from "./Results.jsx"
-import SubMenu from "../SubMenu.jsx"
+import SubMenu from "../../SubMenu.jsx"
 import Operations from "./Operations.jsx"
 import {useDispatch} from "react-redux"
 import {setCurrentPage} from "../../../redux/center/centerReducer.js"
