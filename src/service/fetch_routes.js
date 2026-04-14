@@ -111,6 +111,7 @@ export const ROUTE_COMMON_REPORTS_ATTENDANCE_GET = '/api/common/reports/attendan
 export const ROUTE_CENTER_HORECA_GOODS_TREE_GET = '/api/center/horeca/goods/tree/get'
 export const ROUTE_CENTER_HORECA_GOODS_GET = '/api/center/horeca/goods/get'
 export const ROUTE_CENTER_HORECA_GOODS_RECIPES_GET = '/api/center/horeca/goods/recipes/get'
+export const ROUTE_CENTER_HORECA_GOODS_RECIPE_GET = '/api/center/horeca/goods/recipe/get'
 export const ROUTE_CENTER_HORECA_ORDERS_GET = '/api/center/horeca/orders/get'
 export const ROUTE_CENTER_HORECA_ORDER_GET = '/api/center/horeca/order/get'
 export const ROUTE_CENTER_HORECA_STORE_STATE_GET = '/api/center/horeca/store_state/get'

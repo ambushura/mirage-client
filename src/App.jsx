@@ -52,6 +52,7 @@ import CenterShift from "./backend/pages/shift/Center.jsx"
 import {ScrollStyles} from "./ui/ThemeContext.jsx"
 import Order from "./backend/pages/horeca/Order.jsx"
 import CenterCinema from "./backend/pages/cinema/Center.jsx"
+import Recipe from "./backend/pages/horeca/Recipe.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -254,4 +255,5 @@ export const ModalComponents = {
     dialog_shutdown: Dialog,
     kitchen_print: KitchenPrint,
     center_order_horeca: Order,
+    center_recipe: Recipe,
 }

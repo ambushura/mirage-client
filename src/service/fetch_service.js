@@ -18,6 +18,7 @@ import {loginSuccess, logout} from "../redux/authReducer.js"
 import {
     COMMON_PRINTERS_GET,
     ROUTE_CENTER_HORECA_GOODS_GET,
+    ROUTE_CENTER_HORECA_GOODS_RECIPE_GET,
     ROUTE_CENTER_HORECA_GOODS_RECIPES_GET,
     ROUTE_CENTER_HORECA_GOODS_TREE_GET,
     ROUTE_CENTER_HORECA_ORDER_GET,
@@ -1850,6 +1851,21 @@ export const center_horeca_goods_recipes_get = (filial, uid_good, update) => asy
     if (!res.error) {
         dispatch(setGoodsRecipes(res.data))
     }
+}
+
+export const center_horeca_goods_recipe_get = (filial, ref, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_RECIPE_GET}`,
+        params: {ref, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
 }
 
 export const center_horeca_orders_get = (filial, date_shift, update, orders_horeca_page, orders_horeca_page_size) => async (dispatch, getState) => {

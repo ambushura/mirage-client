@@ -12,6 +12,7 @@ import {
     setUidCurrentFolder,
     setUidCurrentGood
 } from "../../../redux/center/centerHorecaReducer.js"
+import {openModal} from "../../../redux/interfaceReducer.js";
 
 const treeSlots = {collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}
 
@@ -71,6 +72,8 @@ const Goods = () => {
         dispatch(setExpandedRecipesTree(getAllIds(goods_recipes)))
     }, [dispatch, goods_recipes])
 
+    const findNode = (nodes, id) => nodes.reduce((found, node) => found || (node.id === id ? node : findNode(node.children || [], id)), null)
+
     return <Box className='center-horeca-page' sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
         {[{
             title: 'Папки',
@@ -95,17 +98,19 @@ const Goods = () => {
             title: 'Калькуляции',
             expandedItems: goods_recipes_expanded,
             onExpandedItemsChange: (e, id) => dispatch(setExpandedRecipesTree(id)),
-            onSelectedItemsChange: () => {
+            onSelectedItemsChange: (e, id) => {
+                const node = findNode(goods_recipes, id)
+                dispatch(openModal({type: 'center_recipe', props: {ref: node?.ref}}))
             },
             render: renderRecipes(goods_recipes),
-        },].map(({title, render, ...treeProps}) => (<Box key={title} className='center-horeca-page-part'>
+        },].map(({title, render, ...treeProps}) => <Box key={title} className='center-horeca-page-part'>
             <Box className='center-horeca-page-part-title'>{title}</Box>
             <Box sx={{height: 'calc(100% - 30px)', overflowY: 'auto'}} className='center-scroll'>
                 <SimpleTreeView slots={treeSlots} defaultExpandedItems={[]} {...treeProps}>
                     {render}
                 </SimpleTreeView>
             </Box>
-        </Box>))}
+        </Box>)}
         <Box className='center-horeca-page-part'/>
     </Box>
 }
