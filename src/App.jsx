@@ -48,9 +48,10 @@ import KitchenPrint from "./frontend/forms/KitchenPrint.jsx"
 import CenterHeaderTop from "./backend/CenterHeaderTop.jsx"
 import CenterHeaderLeft from "./backend/CenterHeaderLeft.jsx"
 import CenterHoreca from "./backend/pages/horeca/Center.jsx"
-import Center from "./backend/pages/shift/Center.jsx"
+import CenterShift from "./backend/pages/shift/Center.jsx"
 import {ScrollStyles} from "./ui/ThemeContext.jsx"
 import Order from "./backend/pages/horeca/Order.jsx"
+import CenterCinema from "./backend/pages/cinema/Center.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -84,12 +85,12 @@ function App() {
             <ScrollStyles/>
             <Box id='center-page'>
                 <Routes>
-                    <Route path="/center/shift/revenue" element={<Center current_page={['shift', 'revenue']}/>}/>
+                    <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
 
-                    <Route path="/center/shift/results" element={<Center current_page={['shift', 'results']}/>}/>
+                    <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
 
                     <Route path="/center/shift/operations"
-                           element={<Center current_page={['shift', 'operations']}/>}/>
+                           element={<CenterShift current_page={['shift', 'operations']}/>}/>
 
                     <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
 
@@ -108,7 +109,7 @@ function App() {
                     <Route path="/center/horeca/orders/:uid_horeca_order"
                            element={<CenterHoreca current_page={['horeca', 'order']}/>}/>
 
-                    <Route path="/center/cinema/orders" element={<CenterHoreca current_page={['cinema', 'orders']}/>}/>
+                    <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
 
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>

@@ -14,7 +14,7 @@ const Center = ({current_page}) => {
 
     useEffect(() => {
         dispatch(setCurrentPage(current_page))
-    }, [current_page])
+    }, [current_page, dispatch])
 
     const {filial} = useSelector(state => state.center)
 
