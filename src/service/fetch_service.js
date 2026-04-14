@@ -18,6 +18,7 @@ import {loginSuccess, logout} from "../redux/authReducer.js"
 import {
     COMMON_PRINTERS_GET,
     ROUTE_CENTER_HORECA_GOODS_GET,
+    ROUTE_CENTER_HORECA_GOODS_RECIPES_GET,
     ROUTE_CENTER_HORECA_GOODS_TREE_GET,
     ROUTE_CENTER_HORECA_ORDER_GET,
     ROUTE_CENTER_HORECA_ORDERS_GET,
@@ -137,6 +138,8 @@ import {jwtDecode} from "jwt-decode"
 import {
     setGoods,
     setGoodsLoading,
+    setGoodsRecipes,
+    setGoodsRecipesLoading,
     setOrdersHorecaCenter,
     setOrdersHorecaLoadingState,
     setProductionState,
@@ -1824,6 +1827,28 @@ export const center_horeca_goods_get = (filial, uid_folder, update) => async (di
     }))
     if (!res.error) {
         dispatch(setGoods(res.data))
+    }
+}
+
+export const center_horeca_goods_recipes_get = (filial, uid_good, update) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    dispatch(setGoodsRecipesLoading({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_RECIPES_GET}`,
+        params: {uid_good, update},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    })
+    dispatch(setGoodsRecipesLoading({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setGoodsRecipes(res.data))
     }
 }
 

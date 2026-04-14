@@ -13,6 +13,16 @@ const initialState = {
     goods: [],
     uid_current_good: null,
 
+    // Калькуляции
+    goods_recipes_loading: {loading: false, error: null},
+    goods_recipes: [],
+    goods_recipes_expanded: [],
+    uid_current_recipe: null,
+
+    // Ингредиенты
+    goods_recipes_ingredients_loading: {loading: false, error: null},
+    goods_recipes_ingredients: [],
+
     // Хорека заказы
     orders_horeca_loading: {loading: false, error: null},
     orders_horeca_page: 1,
@@ -68,6 +78,20 @@ export const centerSlice = createSlice({
         }, setUidCurrentGood(state, action) {
             state.uid_current_good = action.payload
         },
+
+        // Калькуляции
+        setGoodsRecipesLoading(state, action) {
+            state.goods_recipes_loading = action.payload
+        }, setGoodsRecipes(state, action) {
+            state.goods_recipes = action.payload
+        }, setUidCurrentRecipe(state, action) {
+            state.uid_current_recipe = action.payload
+        }, setExpandedRecipesTree(state, action) {
+            state.goods_recipes_expanded = action.payload
+        },
+
+        // Ингредиенты
+
 
         // Заказы хорека
         setOrdersHorecaLoadingState(state, action) {
@@ -134,6 +158,11 @@ export const {
 
     // Номенклатура
     setGoodsLoading, setGoods, setUidCurrentGood,
+
+    // Калькуляции
+    setGoodsRecipesLoading, setGoodsRecipes, setUidCurrentRecipe, setExpandedRecipesTree,
+
+    // Ингредиенты
 
     // Заказы хорека
     setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHorecaCenter, setOrdersHorecaPage, setOrdersHorecaPageSize,

@@ -5,23 +5,27 @@ const today = dayjs().format('YYYY-MM-DD')
 
 const main_menu = [{
     id: 'shift', title: 'Кинокомплекс', icon: 7, submenu: [{
-        id: 'revenue', title: 'Выручка', icon: 3
-    }, {id: 'results', title: 'Отчет управляющего', icon: 3}, {id: 'operations', title: 'Операции по кассе', icon: 3}]
+        id: 'revenue', title: '1. Выручка', icon: 3
+    }, {id: 'results', title: '2. Отчет управляющего', icon: 3}, {
+        id: 'operations',
+        title: '3. Операции по кассе',
+        icon: 3
+    }]
 }, {
     id: 'horeca', title: 'Общепит', icon: 6, submenu: [{
-        id: 'goods', title: 'Номенклатура', icon: 4
+        id: 'goods', title: '1. Калькуляции', icon: 4
     }, {
-        id: 'orders', title: 'Заказы', icon: 4
+        id: 'orders', title: '2. Заказы', icon: 4
     }, {
-        id: 'store_state', title: 'Наличие на складах', icon: 5
+        id: 'store_state', title: '3. Наличие на складах', icon: 5
     }, {
-        id: 'store_production', title: 'Производство', icon: 5
+        id: 'store_production', title: '4. Производство', icon: 5
     }, {
-        id: 'shift_state', title: 'Отчеты о розничных продажах', icon: 5
+        id: 'shift_state', title: '5. Отчеты о розничных продажах', icon: 5
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 6, submenu: [{
-        id: 'orders', title: 'Заказы', icon: 4
+        id: 'orders', title: '1. Заказы', icon: 4
     }]
 },]
 
@@ -31,10 +35,10 @@ const initialState = {
     search_params: {}, params: {},
 
     // Отладка
-    root_filial: {ip: '10.101.3.88', port: '60000'},
+    //root_filial: {ip: '10.101.3.88', port: '60000'},
 
     // Центральный филиал
-    //root_filial: {ip: '10.101.2.21', port: '60000'},
+    root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu, current_page: ['shift', 'revenue'],
