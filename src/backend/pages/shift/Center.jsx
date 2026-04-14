@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import Revenue from "./Revenue.jsx"
 import Results from "./Results.jsx"
 import SubMenu from "../../SubMenu.jsx"

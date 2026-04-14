@@ -35,10 +35,10 @@ const initialState = {
     search_params: {}, params: {},
 
     // Отладка
-    //root_filial: {ip: '10.101.3.88', port: '60000'},
+    root_filial: {ip: '10.101.3.88', port: '60000'},
 
     // Центральный филиал
-    root_filial: {ip: '10.101.2.21', port: '60000'},
+    //root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu, current_page: ['shift', 'revenue'],

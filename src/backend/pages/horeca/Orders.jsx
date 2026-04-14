@@ -1,4 +1,3 @@
-import React from 'react'
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {DataGridPro} from "@mui/x-data-grid-pro"

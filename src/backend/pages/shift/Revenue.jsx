@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {common_reports_sales_get} from "../../../service/fetch_service.js"
