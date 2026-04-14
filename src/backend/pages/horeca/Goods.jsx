@@ -43,7 +43,8 @@ const Goods = () => {
 
     const renderGoods = (nodes) => nodes.map(({uid, name, unit_name}) => (
         <TreeItem key={uid} itemId={uid} label={<TreeLabel title={name}>
-            {name} <span style={{fontSize: '90%'}}>{unit_name}</span>
+            {name} {unit_name &&
+            <span style={{fontSize: '90%', backgroundColor: '#c1c1c1', padding: ' 0 4px'}}>{unit_name}</span>}
         </TreeLabel>}/>))
 
     const renderRecipes = (nodes) => nodes.map(({id, name, period, children}) => (

@@ -7,9 +7,7 @@ const main_menu = [{
     id: 'shift', title: 'Кинокомплекс', icon: 7, submenu: [{
         id: 'revenue', title: '1. Выручка', icon: 3
     }, {id: 'results', title: '2. Отчет управляющего', icon: 3}, {
-        id: 'operations',
-        title: '3. Операции по кассе',
-        icon: 3
+        id: 'operations', title: '3. Операции по кассе', icon: 3
     }]
 }, {
     id: 'horeca', title: 'Общепит', icon: 6, submenu: [{
@@ -35,10 +33,10 @@ const initialState = {
     search_params: {}, params: {},
 
     // Отладка
-    root_filial: {ip: '10.101.3.88', port: '60000'},
+    //root_filial: {ip: '10.101.3.88', port: '60000'},
 
     // Центральный филиал
-    //root_filial: {ip: '10.101.2.21', port: '60000'},
+    root_filial: {ip: '10.101.2.21', port: '60000'},
 
     // Меню
     main_menu: main_menu, current_page: ['shift', 'revenue'],
