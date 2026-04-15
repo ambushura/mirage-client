@@ -73,7 +73,7 @@ const SubMenu = ({type}) => {
             items_selected={filials_selected}
             setValue={setFilialsSelected}
             sx={{width: 200, ml: '10px'}}/>}
-        {type.includes('filials') && <MultiSelect
+        {type.includes('organizations') && <MultiSelect
             label='Организации'
             type='organizations'
             items={organizations}

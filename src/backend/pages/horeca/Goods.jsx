@@ -12,7 +12,7 @@ import {
     setUidCurrentFolder,
     setUidCurrentGood
 } from "../../../redux/center/centerHorecaReducer.js"
-import {openModal} from "../../../redux/interfaceReducer.js";
+import {openModal} from "../../../redux/interfaceReducer.js"
 
 const treeSlots = {collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}
 
@@ -23,10 +23,7 @@ const TreeLabel = ({title, children}) => <Box sx={{
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontWeight: 100
-}}
-                                              title={title}>
-    {children}
-</Box>
+}} title={title}>{children}</Box>
 
 const getAllIds = (nodes) => nodes.flatMap(({id, children}) => [id, ...(children?.length ? getAllIds(children) : [])])
 
@@ -44,14 +41,18 @@ const Goods = () => {
 
     const renderGoods = (nodes) => nodes.map(({uid, name, unit_name}) => (
         <TreeItem key={uid} itemId={uid} label={<TreeLabel title={name}>
-            {name} {unit_name &&
-            <span style={{fontSize: '90%', backgroundColor: '#c1c1c1', padding: ' 0 4px'}}>{unit_name}</span>}
+            {unit_name && <span
+                style={{
+                    fontSize: '90%', backgroundColor: '#c1c1c1', padding: ' 0 4px', marginRight: '4px'
+                }}>{unit_name}</span>}{name}
         </TreeLabel>}/>))
 
     const renderRecipes = (nodes) => nodes.map(({id, name, period, children}) => (
         <TreeItem key={id} itemId={id} label={<TreeLabel title={name}>
             {children?.length ? name : <><span
-                style={{marginRight: '4px', fontWeight: 'bold'}}>{period}</span><span>{name}</span></>}
+                style={{
+                    backgroundColor: '#c1c1c1', padding: ' 0 4px', marginRight: '4px'
+                }}>{period}</span><span>{name}</span></>}
         </TreeLabel>}>
             {children?.length > 0 && renderRecipes(children)}
         </TreeItem>))

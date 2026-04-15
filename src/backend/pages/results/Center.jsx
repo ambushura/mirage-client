@@ -1,8 +1,8 @@
-import {useEffect} from 'react'
-import SubMenu from "../../SubMenu.jsx"
-import Orders from "./Orders.jsx"
 import {setCurrentPage} from "../../../redux/center/centerReducer.js"
+import {useEffect} from 'react'
 import {useDispatch} from "react-redux"
+import Cashbox from "./Cashbox.jsx"
+import SubMenu from "../../SubMenu.jsx"
 
 const Center = ({current_page}) => {
 
@@ -13,10 +13,10 @@ const Center = ({current_page}) => {
     }, [current_page, dispatch])
 
     switch (current_page[1]) {
-        case 'orders':
+        case 'cashbox':
             return <>
-                <SubMenu type={['filials', 'organizations']}/>
-                <Orders/>
+                <SubMenu type={['update', 'filials', 'organizations']}/>
+                <Cashbox/>
             </>
         default:
             return null

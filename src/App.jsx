@@ -53,6 +53,7 @@ import {ScrollStyles} from "./ui/ThemeContext.jsx"
 import Order from "./backend/pages/horeca/Order.jsx"
 import CenterCinema from "./backend/pages/cinema/Center.jsx"
 import Recipe from "./backend/pages/horeca/Recipe.jsx"
+import CenterResults from "./backend/pages/results/Center.jsx";
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
@@ -86,6 +87,7 @@ function App() {
             <ScrollStyles/>
             <Box id='center-page'>
                 <Routes>
+
                     <Route path="/center/shift/revenue" element={<CenterShift current_page={['shift', 'revenue']}/>}/>
 
                     <Route path="/center/shift/results" element={<CenterShift current_page={['shift', 'results']}/>}/>
@@ -107,12 +109,16 @@ function App() {
                     <Route path="/center/horeca/orders"
                            element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
 
-                    <Route path="/center/horeca/orders/:uid_horeca_order"
-                           element={<CenterHoreca current_page={['horeca', 'order']}/>}/>
+                    <Route path="/center/horeca/store_diff"
+                           element={<CenterHoreca current_page={['horeca', 'store_diff']}/>}/>
 
                     <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']}/>}/>
 
+                    <Route path="/center/results/cashbox"
+                           element={<CenterResults current_page={['results', 'cashbox']}/>}/>
+
                     <Route path="*" element={<NotFound/>}/>
+
                 </Routes>
             </Box>
             <Modal
@@ -140,18 +146,27 @@ function App() {
         return <Box id="app">
             <Header/>
             <Routes>
+
                 <Route path="/" element={<Navigate replace to={defaultRedirectKK}/>}/>
+
                 <Route path="/films/:param_city/:param_filial/:param_date"
                        element={<AppRoutes current_page="films"/>}/>
+
                 <Route path="/film/:param_city/:param_filial/:param_date/:uid_film"
                        element={<AppRoutes current_page="film"/>}/>
+
                 <Route path="/schedule/:param_city/:param_filial/:param_date"
                        element={<AppRoutes current_page="schedule"/>}/>
+
                 <Route path="/seance/:param_city/:param_filial/:uid_seance"
                        element={<AppRoutes current_page="seance"/>}/>
+
                 <Route path="/seance/:param_city/:param_filial" element={<Navigate replace to={defaultRedirectKK}/>}/>
+
                 <Route path="/seance/:param_city/:param_filial/" element={<NotFound/>}/>
+
                 <Route path="/mkitchen/:param_city/:param_filial/" element={<AppRoutes current_page="mkitchen"/>}/>
+
                 <Route path="/kitchen/:param_city/:param_filial/:param_date_admin/"
                        element={<AppRoutes current_page="kitchen"/>}/>
 
@@ -207,6 +222,7 @@ function App() {
                        element={<AppRoutes current_page="second_screen"/>}/>
 
                 <Route path="*" element={<NotFound/>}/>
+
             </Routes>
             <Footer/>
             <Modal

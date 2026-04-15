@@ -7,6 +7,7 @@ import ShiftState from "./ShiftState.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import ProductionState from "./ProductionState.jsx"
 import {setCurrentPage} from "../../../redux/center/centerReducer.js"
+import StoreDiff from "./StoreDiff.jsx";
 
 const Center = ({current_page}) => {
 
@@ -21,7 +22,7 @@ const Center = ({current_page}) => {
     switch (current_page[1]) {
         case 'goods':
             return <>
-                <SubMenu type={['update', 'filials']}/>
+                <SubMenu type={['update', 'filials', 'organizations']}/>
                 <Goods/>
             </>
         case 'store_state':
@@ -43,6 +44,11 @@ const Center = ({current_page}) => {
             return <>
                 <SubMenu type={['update', 'filial', 'date_shift']}/>
                 {filial !== null && <Orders/>}
+            </>
+        case 'store_diff':
+            return <>
+                <SubMenu type={['update', 'filial']}/>
+                {filial !== null && <StoreDiff/>}
             </>
         default:
             return null

@@ -20,12 +20,18 @@ const main_menu = [{
         id: 'store_production', title: '4. Производство', icon: 5
     }, {
         id: 'shift_state', title: '5. Отчеты о розничных продажах', icon: 5
+    }, {
+        id: 'store_diff', title: '6. Отклонения', icon: 5
     }]
 }, {
     id: 'cinema', title: 'Кино', icon: 6, submenu: [{
         id: 'orders', title: '1. Заказы', icon: 4
     }]
-},]
+}, {
+    id: 'results', title: 'Регламенты', icon: 6, submenu: [{
+        id: 'cashbox', title: '1. Касса', icon: 4
+    }]
+}]
 
 const initialState = {
 
