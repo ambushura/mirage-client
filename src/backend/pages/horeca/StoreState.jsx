@@ -29,7 +29,7 @@ const StoreState = () => {
     const handleSelectionChange = () => {
         const uid_store_array = []
         apiRef.current?.getSelectedRows().forEach((row) => {
-            if (row.level === 1) {
+            if (row.level === 2) {
                 uid_store_array.push(row.uid_store)
             }
         })
@@ -68,24 +68,17 @@ const StoreState = () => {
 
             getRowClassName={(params) => {
                 const classes = []
-                if (params.row.quantity_need < 0) {
+                if (params.row.quantity_need < 0 && params.row.level > 1) {
                     classes.push("center-store-quantity-need-error")
                 }
-                if (params.row.level === 1) {
-                    classes.push("center-store-state-level-1")
-                }
-                if (params.row.level === 2) {
-                    classes.push("center-store-state-level-2")
-                }
-                if (params.row.level === 3) {
-                    classes.push("center-store-state-level-3")
-                }
+                classes.push(`center-store-state-level-${params.row.level}`)
                 return classes.join(" ")
             }}
 
-            onCellDoubleClick={() => {
-                alert('Привет')
-            }}
+            //onCellDoubleClick={() => {
+            //>/    alert('Привет')
+            //}}
+
             onRowSelectionModelChange={handleSelectionChange}
 
             sx={{

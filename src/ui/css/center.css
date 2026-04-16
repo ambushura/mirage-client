@@ -136,17 +136,22 @@
 }
 
 .center-store-state-level-1 {
+    background-color: #e4f0dd;
+    font-weight: 600;
+    font-size: 110%;
+}
+
+.center-store-state-level-2 {
     background-color: #f0f6ef;
     font-weight: 600;
 }
 
-.center-store-state-level-2 {
+.center-store-state-level-3 {
     font-weight: 600;
 }
 
-.center-store-state-level-3 {
+.center-store-state-level-4 {
     font-weight: 100;
-    font-style: italic;
 }
 
 .center-store-quantity-need-error {

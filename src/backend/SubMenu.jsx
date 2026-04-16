@@ -47,10 +47,15 @@ const SubMenu = ({type}) => {
         // Дата смены
         date_shift_beginning, date_shift_end, date_shift_accepted, date_shift,
 
-        // Склад (распределение + остатки)
+    } = useSelector(state => state.center)
+
+    // Хорека
+    const {
+
+        // Наличие на складах
         uid_current_store
 
-    } = useSelector(state => state.center)
+    } = useSelector(state => state.center_horeca)
 
     // Интервал
     const [draftRange, setDraftRange] = useState([null, null])

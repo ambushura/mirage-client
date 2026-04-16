@@ -49,15 +49,7 @@ const ShiftState = () => {
                 if (params.row.quantity_need < 0) {
                     classes.push("center-store-quantity-need-error")
                 }
-                if (params.row.level === 1) {
-                    classes.push("center-store-state-level-1")
-                }
-                if (params.row.level === 2) {
-                    classes.push("center-store-state-level-2")
-                }
-                if (params.row.level === 3) {
-                    classes.push("center-store-state-level-3")
-                }
+                classes.push(`center-store-state-level-${params.row.level}`)
                 return classes.join(" ")
             }}
 
