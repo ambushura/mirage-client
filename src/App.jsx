@@ -53,7 +53,7 @@ import {ScrollStyles} from "./ui/ThemeContext.jsx"
 import Order from "./backend/pages/horeca/Order.jsx"
 import CenterCinema from "./backend/pages/cinema/Center.jsx"
 import Recipe from "./backend/pages/horeca/Recipe.jsx"
-import CenterResults from "./backend/pages/results/Center.jsx";
+import CenterResults from "./backend/pages/results/Center.jsx"
 
 LicenseInfo.setLicenseKey('9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI=')
 
