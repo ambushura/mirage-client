@@ -1,4 +1,4 @@
-import {Box, DialogTitle, IconButton} from "@mui/material"
+import {Box, Button, ButtonGroup, DialogTitle, IconButton} from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {center_horeca_goods_recipe_get} from "../../../service/fetch_service.js"
@@ -112,7 +112,7 @@ const Recipe = ({props}) => {
             autoComplete="off">
 
             <DialogTitle sx={{m: 0, p: '10px'}}>
-                Калькуляция № {code}
+                Калькуляция {code}
                 <IconButton
                     aria-label="close"
                     onClick={() => {
@@ -161,7 +161,7 @@ const Recipe = ({props}) => {
                 headerHeight={40}
                 density="compact"
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                sx={{...sxTable, mb: '10px'}}
+                sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
                 processRowUpdate={(newRow) => {
                     const updatedRows = ingredients.rows.map(r => r.id === newRow.id ? newRow : r)
                     setValue('ingredients.rows', updatedRows, {shouldDirty: true})
@@ -188,6 +188,12 @@ const Recipe = ({props}) => {
                     sx={{width: '190px'}}
                 />
             </Box>
+
+            <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end', mb: '10px'}}>
+                <Button variant='save'>Сохранить</Button>
+                <Button variant='reread'>Перечитать</Button>
+                <Button variant='delete'>Удалить</Button>
+            </ButtonGroup>
 
         </Box>
     }

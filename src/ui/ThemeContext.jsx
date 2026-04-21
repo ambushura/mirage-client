@@ -112,8 +112,26 @@ export const Theme = createTheme({
                 },
             }, variants: [{
                 props: {variant: '_1c', color: 'secondary'}, style: {
-                    backgroundColor: '#F6D601', color: '#00', '&:hover': {
+                    backgroundColor: '#F6D601', color: '#000', '&:hover': {
                         backgroundColor: '#dfc727',
+                    },
+                },
+            }, {
+                props: {variant: 'save'}, style: {
+                    backgroundColor: '#E6F4EA', color: '#1B5E20', '&:hover': {
+                        backgroundColor: '#D7ECD9',
+                    },
+                },
+            }, {
+                props: {variant: 'reread'}, style: {
+                    backgroundColor: '#E8F0FE', color: '#1A3E72', '&:hover': {
+                        backgroundColor: '#DCE7FD',
+                    },
+                },
+            }, {
+                props: {variant: 'delete'}, style: {
+                    backgroundColor: '#FDECEC', color: '#7A1C1C', '&:hover': {
+                        backgroundColor: '#FADADA',
                     },
                 },
             },],
