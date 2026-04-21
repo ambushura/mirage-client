@@ -1,8 +1,10 @@
-import {Box} from "@mui/material"
+import {Box, DialogTitle, IconButton} from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {center_horeca_goods_recipe_get} from "../../../service/fetch_service.js"
 import AsyncAutocomplete from "../../../ui/AsyncAutocomplete.jsx"
+import CloseIcon from "@mui/icons-material/Close";
+import {closeModal} from "../../../redux/interfaceReducer.js";
 
 const Recipe = ({props}) => {
 
@@ -23,17 +25,32 @@ const Recipe = ({props}) => {
     }, [recipe])
 
     return <Box>
-        <Box>Калькуляция</Box>
-        <Box>{recipe?.code}</Box>
+
+        <DialogTitle sx={{m: 0, p: '10px'}}>
+            Калькуляция {recipe?.code}
+            <IconButton
+                aria-label="close"
+                onClick={() => {
+                    dispatch(closeModal())
+                }}
+                sx={{
+                    position: "absolute", right: 8, top: 8, color: (theme) => theme.palette.grey[500],
+                }}
+            >
+                <CloseIcon/>
+            </IconButton>
+        </DialogTitle>
 
         <AsyncAutocomplete
             value={good}
             onChange={setGood}
             filial={root_filial}
             type="goods"
+            variant="filled"
             sx={{width: 400}}
             label="Блюдо"
         />
+
     </Box>
 }
 

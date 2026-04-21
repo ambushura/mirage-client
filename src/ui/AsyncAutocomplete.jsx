@@ -2,6 +2,7 @@ import {Autocomplete, CircularProgress, TextField} from "@mui/material"
 import {useAsyncSelect} from "./useAsyncSelect"
 
 export default function AsyncAutocomplete({
+                                              variant,
                                               sx,
                                               filial,
                                               type,
@@ -35,6 +36,7 @@ export default function AsyncAutocomplete({
         renderOption={(props, option) => <li {...props} key={option.uid}>{option.name}</li>}
 
         renderInput={(params) => <TextField
+            variant={variant}
             {...params}
             label={label}
             InputProps={{
