@@ -110,7 +110,13 @@ export const Theme = createTheme({
                 root: {
                     fontWeight: 'bold', borderRadius: '12px', textTransform: 'none', height: '60px',
                 },
-            }
+            }, variants: [{
+                props: {variant: '_1c', color: 'secondary'}, style: {
+                    backgroundColor: '#F6D601', color: '#00', '&:hover': {
+                        backgroundColor: '#dfc727',
+                    },
+                },
+            },],
         }, MuiButtonGroup: {
             styleOverrides: {
                 root: {
@@ -228,5 +234,6 @@ export const tooltip_error = {
     }
 }
 
-export const center_menu_icons = [<MenuIcon/>, <MovieIcon/>, <FastfoodIcon/>, <AssessmentIcon/>, <FolderIcon/>,
-    <ArticleIcon/>, <CircleIcon/>, <DashboardIcon/>]
+export const center_menu_icons = [<MenuIcon key='1'/>, <MovieIcon key='2'/>, <FastfoodIcon key='2'/>,
+    <AssessmentIcon key='3'/>, <FolderIcon key='4'/>, <ArticleIcon key='5'/>, <CircleIcon key='6'/>,
+    <DashboardIcon key='7'/>]

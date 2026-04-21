@@ -22,9 +22,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {useNavigate} from "react-router-dom"
 import SaveIcon from '@mui/icons-material/Save'
 import PolylineIcon from '@mui/icons-material/Polyline'
-import LockIcon from '@mui/icons-material/Lock'
-import LockOpenIcon from '@mui/icons-material/LockOpen'
 import CachedIcon from '@mui/icons-material/Cached'
+import EditIcon from '@mui/icons-material/Edit'
 import {center_horeca_store_rest_get} from "../service/fetch_service.js"
 
 const SubMenu = ({type}) => {
@@ -152,20 +151,19 @@ const SubMenu = ({type}) => {
             <Button onClick={() => {
                 const result = dispatch(center_horeca_store_rest_get(filial, date_shift, uid_current_store))
             }}
-                    variant='outlined' color='secondary' sx={{ml: '10px'}}
+                    variant='_1c' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
-                    startIcon={<CloudUploadIcon/>}>Оприходование</Button>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
-                    startIcon={<CloudUploadIcon/>}>Перемещение</Button>
+            <Button
+                variant='outlined' color='secondary' sx={{ml: '10px'}}
+                startIcon={<EditIcon/>}>Редактировать</Button>
         </Box>}
         {type.includes('shift_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
-                    startIcon={<CloudUploadIcon/>}>Выгрузить в 1С</Button>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
-                    startIcon={<LockIcon/>}>Заблокировать</Button>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
-                    startIcon={<LockOpenIcon/>}>Разблокировать</Button>
+            <Button variant='_1c' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<CloudUploadIcon/>}>Выгрузить</Button>
+        </Box>}
+        {type.includes('store_production') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
+            <Button variant='_1c' color='secondary' sx={{ml: '10px'}}
+                    startIcon={<CloudUploadIcon/>}>Выгрузить</Button>
         </Box>}
         {type.includes('back') && <Box>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
