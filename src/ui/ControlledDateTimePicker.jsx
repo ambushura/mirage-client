@@ -1,10 +1,10 @@
 import {Controller} from "react-hook-form"
-import {Tooltip} from "@mui/material"
+import {Box, Tooltip} from "@mui/material"
 import {DateTimePicker} from "@mui/x-date-pickers"
 import dayjs from "dayjs"
 import {tooltip_error} from "../ui/ThemeContext.jsx"
 
-const ControlledDateTimePicker = ({control, name, label, rules = {}, sx = {}}) => <Controller
+const ControlledDateTimePicker = ({control, name, label, rules = {}, sx = {}, readOnly}) => <Controller
     name={name}
     control={control}
     rules={rules}
@@ -15,21 +15,22 @@ const ControlledDateTimePicker = ({control, name, label, rules = {}, sx = {}}) =
         arrow
         slotProps={{tooltip: tooltip_error}}
     >
-        <span>
-        <DateTimePicker
-            {...field}
-            label={label}
-            value={field.value ? dayjs(field.value) : null}
-            onChange={(val) => field.onChange(val ? val.toISOString() : null)}
-            slotProps={{
-                textField: {
-                    variant: 'filled', error: !!fieldState.error, fullWidth: true, sx: {mb: 1, ...sx}
-                },
-            }}
-            format="DD.MM.YYYY HH:mm"
-            ampm={false}
-        />
-        </span>
+        <Box sx={sx}>
+            <DateTimePicker
+                {...field}
+                readOnly={readOnly}
+                label={label}
+                value={field.value ? dayjs(field.value) : null}
+                onChange={(val) => field.onChange(val ? val.toISOString() : null)}
+                slotProps={{
+                    textField: {
+                        variant: 'filled', error: !!fieldState.error, fullWidth: true, sx: {mb: 1, ...sx}
+                    },
+                }}
+                format="DD.MM.YYYY HH:mm"
+                ampm={false}
+            />
+        </Box>
     </Tooltip>}
 />
 

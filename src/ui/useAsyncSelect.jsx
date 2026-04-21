@@ -5,6 +5,8 @@ import {useSelector} from "react-redux"
 
 export function useAsyncSelect({filial, type, value, limit = 20, delay = 300}) {
 
+    const MAX_CACHE = 50
+
     const {wp, kiosk, version} = useSelector(state => state.interface)
     const {center} = useSelector(state => state.center)
 
@@ -14,18 +16,12 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 300}) {
 
     const cache = useRef(new Map())
     const abortRef = useRef(null)
-
     const token = localStorage.getItem("token")
 
     const headers = useMemo(() => ({
         Authorization: token, uid_filial: filial?.uid ?? "", wp, kiosk: String(kiosk), version, center: String(center),
     }), [token, filial, wp, kiosk, version, center])
 
-    const MAX_CACHE = 50
-
-    // ======================
-    // ПОИСК
-    // ======================
     const fetchOptions = useMemo(() => debounce(async (search) => {
 
         if (!filial) return
@@ -84,19 +80,16 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 300}) {
         fetchOptions(inputValue)
     }, [inputValue, fetchOptions])
 
-    // ======================
-    // ЗАГРУЗКА
-    // ======================
     useEffect(() => {
 
-        if (!value?.uid || !filial) return
+        if (!value || !filial) return
 
         const controller = new AbortController()
 
         const loadById = async () => {
             try {
                 const res = await axios.get(`http://${filial.ip}:${filial.port}/api/catalog/load`, {
-                    params: {value: value.uid, type}, headers, signal: controller.signal
+                    params: {value: value, type}, headers, signal: controller.signal
                 })
 
                 const item = res.data

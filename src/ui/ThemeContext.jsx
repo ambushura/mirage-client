@@ -237,3 +237,21 @@ export const tooltip_error = {
 export const center_menu_icons = [<MenuIcon key='1'/>, <MovieIcon key='2'/>, <FastfoodIcon key='2'/>,
     <AssessmentIcon key='3'/>, <FolderIcon key='4'/>, <ArticleIcon key='5'/>, <CircleIcon key='6'/>,
     <DashboardIcon key='7'/>]
+
+export const sxTable = {
+    width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {
+        backgroundColor: "#fff5f5"
+    }, "& .store-delta-negative": {
+        backgroundColor: "#f0fff4"
+    }, '& .MuiDataGrid-cell': {
+        userSelect: 'text'
+    }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
+        width: 18, height: 18,
+    }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
+        fontSize: 16
+    }, '& .MuiDataGrid-columnHeaders': {
+        fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
+    }, '& .MuiDataGrid-columnHeaderTitle': {
+        whiteSpace: 'normal', lineHeight: 1.2
+    }
+}

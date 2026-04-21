@@ -6,6 +6,7 @@ import {ruRU} from "@mui/x-data-grid/locales"
 import {useTreeExpansionSync} from "../../hooks/useTreeExpansionSync.js"
 import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerHorecaReducer.js"
 import {openModal} from "../../../redux/interfaceReducer.js"
+import {sxTable} from "../../../ui/ThemeContext.jsx"
 
 const StoreState = () => {
 
@@ -54,24 +55,6 @@ const StoreState = () => {
         return classes.join(" ")
     }, [])
 
-    const sx = useMemo(() => ({
-        width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {
-            backgroundColor: "#fff5f5"
-        }, "& .store-delta-negative": {
-            backgroundColor: "#f0fff4"
-        }, '& .MuiDataGrid-cell': {
-            userSelect: 'text'
-        }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
-            width: 18, height: 18,
-        }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
-            fontSize: 16
-        }, '& .MuiDataGrid-columnHeaders': {
-            fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-        }, '& .MuiDataGrid-columnHeaderTitle': {
-            whiteSpace: 'normal', lineHeight: 1.2
-        }
-    }), [])
-
     return <Box sx={{
         width: 'calc(100% - 20px)', height: "100%", ml: "10px", overflow: "hidden"
     }}>
@@ -95,7 +78,7 @@ const StoreState = () => {
             getRowClassName={getRowClassName}
             onCellDoubleClick={handleCellDoubleClick}
             onRowSelectionModelChange={handleSelectionChange}
-            sx={sx}
+            sx={sxTable}
         />
     </Box>
 }

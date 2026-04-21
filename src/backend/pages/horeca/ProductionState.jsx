@@ -3,6 +3,7 @@ import {Box} from "@mui/material"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {useSelector} from "react-redux"
+import {sxTable} from "../../../ui/ThemeContext.jsx"
 
 const ProductionState = () => {
 
@@ -62,23 +63,7 @@ const ProductionState = () => {
             onRowSelectionModelChange={() => {
             }}
 
-            sx={{
-                width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {
-                    backgroundColor: "#fff5f5"
-                }, "& .store-delta-negative": {
-                    backgroundColor: "#f0fff4"
-                }, '& .MuiDataGrid-cell': {
-                    userSelect: 'text'
-                }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
-                    width: 18, height: 18,
-                }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
-                    fontSize: 16
-                }, '& .MuiDataGrid-columnHeaders': {
-                    fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-                }, '& .MuiDataGrid-columnHeaderTitle': {
-                    whiteSpace: 'normal', lineHeight: 1.2
-                }
-            }}
+            sx={sxTable}
 
         />
     </Box>

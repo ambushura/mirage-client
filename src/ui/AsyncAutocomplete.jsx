@@ -13,28 +13,26 @@ export default function AsyncAutocomplete({
                                           }) {
 
     const {options, loading, inputValue, setInputValue} = useAsyncSelect({filial, type, value})
+    const selected = options.find(o => o.uid === value) ?? null
 
     return <Autocomplete
-
+        noOptionsText="Ничего не найдено"
+        loadingText="Загрузка..."
+        openText="Открыть"
+        closeText="Закрыть"
+        clearText="Очистить"
         sx={sx}
         options={options}
-        value={value}
+        value={selected}
         loading={loading}
         getOptionLabel={getOptionLabel}
         isOptionEqualToValue={(a, b) => a?.uid === b?.uid}
         inputValue={inputValue}
-        noOptionsText={inputValue ? 'Ничего не найдено' : 'Начните ввод'}
-        loadingText='Загрузка...'
-        onInputChange={(e, val) => {
-            setInputValue(val)
-        }}
-
+        onInputChange={(e, val) => setInputValue(val)}
         onChange={(e, val) => {
-            onChange?.(val ?? null)
+            onChange?.(val?.uid ?? null)
         }}
-
         renderOption={(props, option) => <li {...props} key={option.uid}>{option.name}</li>}
-
         renderInput={(params) => <TextField
             variant={variant}
             {...params}
