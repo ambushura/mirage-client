@@ -1,5 +1,5 @@
 import {Box, Button, ButtonGroup, DialogTitle, IconButton} from "@mui/material"
-import {useEffect, useState} from "react"
+import {useEffect, useMemo, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {center_horeca_goods_recipe_get} from "../../../service/fetch_service.js"
 import AsyncAutocomplete from "../../../ui/AsyncAutocomplete.jsx"
@@ -20,6 +20,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+import axios from "axios"
 
 const Recipe = ({props}) => {
 
@@ -42,7 +43,6 @@ const Recipe = ({props}) => {
 
             design: '', cooking_method: '', comment: '',
 
-            ingredients: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []},
         }
     })
 
@@ -62,6 +62,7 @@ const Recipe = ({props}) => {
                             date_update: data.data.date_update ? dayjs(parceZone(data.data.date_update)) : null,
                             period: data.data.period ? dayjs(parceZone(data.data.period)) : null,
                         })
+                        setIngredients(data.data.ingredients)
                     }
                 }
             } catch (err) {
@@ -75,7 +76,10 @@ const Recipe = ({props}) => {
 
     // Наблюдаемые переменные
     const code = watch('code')
-    const ingredients = watch('ingredients')
+
+    const [ingredients, setIngredients] = useState({
+        rows: [], columns: [], column_grouping_model: [], column_visibility_model: []
+    })
 
     // Триггер сохранения документа
     const [trigger_submit_receipt, set_trigger_submit_receipt] = useState(0)
@@ -105,30 +109,94 @@ const Recipe = ({props}) => {
     }, [dispatch, props.ref, root_filial, trigger_delete_receipt])
 
     const enhancedColumns = ingredients.columns.map(col => {
-        if (col.field === 'name_good') {
+        if (col.field === 'uid_good') {
             return {
-                ...col, editable: true, renderCell: (params) => {
-                    return params.row.name_good || ''
-                }, renderEditCell: (params) => <AsyncAutocomplete
-                    value={params.value}
-                    onChange={(val, option) => {
-                        params.api.updateRows([{
-                            id: params.id, uid_good: val, name_good: option?.name ?? ''
-                        }])
-                        params.api.stopCellEditMode({
-                            id: params.id, field: params.field
-                        })
-                    }}
-                    sx={{width: 'calc(100% - 4px)', height: '100%'}}
-                    filial={root_filial}
-                    type='goods'
-                    variant='standard'
-                    source='table'
-                />
+                ...col, editable: true,
+
+                // Отображение ячейки
+                renderCell: (params) => {
+                    const item = goodsMap.get(params.row.uid_good)
+                    return item?.name || '...'
+                },
+
+                // Редактирование ячейки
+                renderEditCell: (params) => {
+                    return (<AsyncAutocomplete
+                        value={params.value}
+                        filial={root_filial}
+                        type="goods"
+                        variant="standard"
+                        source="table"
+                        sx={{width: '100%', height: '100%'}}
+                        onChange={(val) => {
+                            setIngredients(prev => ({
+                                ...prev, rows: prev.rows.map(row => row.id === params.id ? {
+                                    ...row, uid_good: val ?? null,
+                                } : row)
+                            }))
+                            params.api.stopCellEditMode({
+                                id: params.id, field: params.field
+                            })
+                        }}
+                    />)
+                }
             }
         }
         return col
     })
+
+
+    const [goodsMap, setGoodsMap] = useState(new Map())
+
+    const {wp, kiosk, version} = useSelector(state => state.interface)
+    const {center} = useSelector(state => state.center)
+    const token = localStorage.getItem("token")
+
+    const headers = useMemo(() => ({
+        Authorization: token,
+        uid_filial: root_filial?.uid ?? "",
+        wp,
+        kiosk: String(kiosk),
+        version,
+        center: String(center),
+    }), [token, root_filial, wp, kiosk, version, center])
+
+
+    useEffect(() => {
+        if (!ingredients.rows?.length) return
+
+        const missingIds = ingredients.rows
+            .map(r => r.uid_good)
+            .filter(id => id && !goodsMap.has(id))
+
+        if (missingIds.length === 0) return
+
+        const load = async () => {
+            try {
+                const res = await axios.get(`http://${root_filial.ip}:${root_filial.port}/api/catalog/load`, {
+                    params: {
+                        type: 'goods', value: missingIds
+                    }, headers
+                })
+
+                const data = res.data
+
+                data.forEach(item => {
+                    setGoodsMap(prev => {
+                        const next = new Map(prev)
+                        next.set(item.uid, item)
+                        return next
+                    })
+                })
+
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+        load()
+
+    }, [ingredients.rows, root_filial, headers])
 
 
     if (loading) {
@@ -195,11 +263,6 @@ const Recipe = ({props}) => {
                 density="compact"
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
-                processRowUpdate={(newRow) => {
-                    const updatedRows = ingredients.rows.map(r => r.id === newRow.id ? newRow : r)
-                    setValue('ingredients.rows', updatedRows, {shouldDirty: true})
-                    return newRow
-                }}
                 slots={{toolbar: RecipeToolbar}}
                 slotProps={{
                     toolbar: {
@@ -223,6 +286,7 @@ const Recipe = ({props}) => {
                         })
                     }
                 }}
+
             />
 
             <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>

@@ -3,7 +3,7 @@ import axios from "axios"
 import debounce from "lodash/debounce"
 import {useSelector} from "react-redux"
 
-export function useAsyncSelect({filial, type, value, limit = 20, delay = 300}) {
+export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
 
     const MAX_CACHE = 50
 
@@ -28,10 +28,7 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 300}) {
 
         const q = search?.trim()
 
-        if (!q) {
-            setOptions([])
-            return
-        }
+        if (!q) return
 
         if (cache.current.has(q)) {
             setOptions(cache.current.get(q))
@@ -89,15 +86,15 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 300}) {
         const loadById = async () => {
             try {
                 const res = await axios.get(`http://${filial.ip}:${filial.port}/api/catalog/load`, {
-                    params: {value: value, type}, headers, signal: controller.signal
+                    params: {value: [value], type}, headers, signal: controller.signal
                 })
 
                 const item = res.data
-                if (!item) return
+                if (!item || item?.length === 0) return
 
                 setOptions(prev => {
-                    if (!prev.find(o => o.uid === item.uid)) {
-                        return [item, ...prev]
+                    if (!prev.find(o => o.uid === item[0].uid)) {
+                        return [item[0], ...prev]
                     }
                     return prev
                 })
