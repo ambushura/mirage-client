@@ -123,7 +123,7 @@ export const Theme = createTheme({
                     },
                 },
             }, {
-                props: {variant: 'reread'}, style: {
+                props: {variant: 'copy'}, style: {
                     backgroundColor: '#E8F0FE', color: '#1A3E72', '&:hover': {
                         backgroundColor: '#DCE7FD',
                     },
@@ -134,7 +134,19 @@ export const Theme = createTheme({
                         backgroundColor: '#FADADA',
                     },
                 },
-            },],
+            }, {
+                props: {variant: 'tb_add'}, style: {
+                    backgroundColor: '#E8F0FE', color: '#1A3E72', '&:hover': {
+                        backgroundColor: '#DCE7FD',
+                    }, height: '50%'
+                },
+            }, {
+                props: {variant: 'tb_delete'}, style: {
+                    backgroundColor: '#FDECEC', color: '#7A1C1C', '&:hover': {
+                        backgroundColor: '#FADADA',
+                    }, height: '50%'
+                },
+            }],
         }, MuiButtonGroup: {
             styleOverrides: {
                 root: {

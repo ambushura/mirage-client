@@ -15,6 +15,11 @@ import Loader from "../../../ui/Loader.jsx"
 import dayjs from "dayjs"
 import {parceZone} from "../../../service/advanced.js"
 import ControlledDateTimePicker from "../../../ui/ControlledDateTimePicker.jsx"
+import SaveIcon from '@mui/icons-material/Save'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 
 const Recipe = ({props}) => {
 
@@ -99,6 +104,33 @@ const Recipe = ({props}) => {
         return () => dispatch(setTriggerDeleteReceipt(false))
     }, [dispatch, props.ref, root_filial, trigger_delete_receipt])
 
+    const enhancedColumns = ingredients.columns.map(col => {
+        if (col.field === 'name_good') {
+            return {
+                ...col, editable: true, renderCell: (params) => {
+                    return params.row.name_good || ''
+                }, renderEditCell: (params) => <AsyncAutocomplete
+                    value={params.value}
+                    onChange={(val, option) => {
+                        params.api.updateRows([{
+                            id: params.id, uid_good: val, name_good: option?.name ?? ''
+                        }])
+                        params.api.stopCellEditMode({
+                            id: params.id, field: params.field
+                        })
+                    }}
+                    sx={{width: 'calc(100% - 4px)', height: '100%'}}
+                    filial={root_filial}
+                    type='goods'
+                    variant='standard'
+                    source='table'
+                />
+            }
+        }
+        return col
+    })
+
+
     if (loading) {
 
         return <Loader/>
@@ -106,6 +138,7 @@ const Recipe = ({props}) => {
     } else {
 
         return <Box
+
             id="modal-recipe"
             component="form"
             noValidate
@@ -118,7 +151,7 @@ const Recipe = ({props}) => {
                     onClick={() => {
                         dispatch(closeModal())
                     }}
-                    sx={{position: "absolute", right: 8, top: 8, color: (theme) => theme.palette.grey[500]}}>
+                    sx={{position: "absolute", right: 8, top: 8}}>
                     <CloseIcon/>
                 </IconButton>
             </DialogTitle>
@@ -148,17 +181,17 @@ const Recipe = ({props}) => {
             </Box>
 
             <DataGridPro
+                showToolbar
+                autoHeight
                 loading={loading}
                 rows={ingredients.rows}
-                columns={ingredients.columns}
+                columns={enhancedColumns}
                 columnGroupingModel={ingredients.column_grouping_model}
                 columnVisibilityModel={ingredients.column_visibility_model}
                 getRowId={(row) => row.id}
                 editMode="cell"
                 checkboxSelection
                 disableRowSelectionOnClick
-                rowHeight={40}
-                headerHeight={40}
                 density="compact"
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
@@ -167,9 +200,33 @@ const Recipe = ({props}) => {
                     setValue('ingredients.rows', updatedRows, {shouldDirty: true})
                     return newRow
                 }}
+                slots={{toolbar: RecipeToolbar}}
+                slotProps={{
+                    toolbar: {
+                        onAdd: () => {
+                            const newRow = {
+                                id: v4(), name: '', quantity: 0
+                            }
+                            setValue('ingredients.rows', [...ingredients.rows, newRow], {
+                                shouldDirty: true
+                            })
+                        }
+                    }
+                }}
+                onCellMouseDown={(params, event) => {
+                    if (!params.isEditable) return
+                    const isEditing = params.api.getCellMode(params.id, params.field) === 'edit'
+                    if (!isEditing) {
+                        event.preventDefault()
+                        params.api.startCellEditMode({
+                            id: params.id, field: params.field
+                        })
+                    }
+                }}
             />
 
             <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+
                 <ControlledDateTimePicker
                     readOnly={true}
                     control={control}
@@ -185,18 +242,34 @@ const Recipe = ({props}) => {
                     name="date_update"
                     label="Изменен"
                     rules={{required: 'Укажите дату'}}
-                    sx={{width: '190px'}}
+                    sx={{width: '190px', mr: '10px'}}
                 />
-            </Box>
 
-            <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end', mb: '10px'}}>
-                <Button variant='save'>Сохранить</Button>
-                <Button variant='reread'>Перечитать</Button>
-                <Button variant='delete'>Удалить</Button>
-            </ButtonGroup>
+                <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>
+                    <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>
+                    <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>
+                </ButtonGroup>
+
+            </Box>
 
         </Box>
     }
+}
+
+const RecipeToolbar = ({onAdd}) => {
+    return <Box sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        p: 1,
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        backgroundColor: 'background.paper'
+    }}>
+        <Button onClick={onAdd} variant="tb_add" size="small" startIcon={<AddIcon/>}>Добавить</Button>
+        <Button onClick={onAdd} variant="tb_delete" size="small" startIcon={<RemoveIcon/>}>Удалить</Button>
+    </Box>
 }
 
 export default Recipe

@@ -2,6 +2,7 @@ import {Autocomplete, CircularProgress, TextField} from "@mui/material"
 import {useAsyncSelect} from "./useAsyncSelect"
 
 export default function AsyncAutocomplete({
+                                              source,
                                               variant,
                                               sx,
                                               filial,
@@ -14,14 +15,24 @@ export default function AsyncAutocomplete({
 
     const {options, loading, inputValue, setInputValue} = useAsyncSelect({filial, type, value})
     const selected = options.find(o => o.uid === value) ?? null
-
     return <Autocomplete
+        autoFocus
+        openOnFocus
+        blurOnSelect
         noOptionsText="Ничего не найдено"
         loadingText="Загрузка..."
         openText="Открыть"
         closeText="Закрыть"
         clearText="Очистить"
-        sx={sx}
+        sx={[sx, source === 'table' ? {
+            height: '100%', '& .MuiFormControl-root': {
+                height: '100%'
+            }, '& .MuiInputBase-root': {
+                height: '100% !important', padding: '0 4px', display: 'flex', alignItems: 'center'
+            }, '& input': {
+                padding: '4px 6px !important'
+            }
+        } : null]}
         options={options}
         value={selected}
         loading={loading}
@@ -33,16 +44,18 @@ export default function AsyncAutocomplete({
             onChange?.(val?.uid ?? null)
         }}
         renderOption={(props, option) => <li {...props} key={option.uid}>{option.name}</li>}
-        renderInput={(params) => <TextField
-            variant={variant}
-            {...params}
-            label={label}
-            InputProps={{
-                ...params.InputProps, endAdornment: (<>
-                    {loading && <CircularProgress size={18}/>}
-                    {params.InputProps.endAdornment}
-                </>)
-            }}
-        />}
+        renderInput={(params) => {
+            return <TextField
+                variant={variant}
+                {...params}
+                label={source === 'table' ? '' : label}
+                InputProps={{
+                    ...params.InputProps, disableUnderline: source === 'table', endAdornment: <>
+                        {loading && <CircularProgress size={source === 'table' ? 16 : 18}/>}
+                        {params.InputProps.endAdornment}
+                    </>
+                }}
+            />
+        }}
     />
 }
