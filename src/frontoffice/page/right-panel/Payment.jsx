@@ -28,7 +28,7 @@ import {useEffect, useMemo, useRef, useState} from "react"
 import {AnimatePresence, motion} from "framer-motion"
 import Checkbox from "@mui/material/Checkbox"
 import FunctionsIcon from "@mui/icons-material/Functions"
-import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
+import {useSetPaymentGroups} from "../../hooks/useSetPaymentGroups.js"
 import PaymentIcon from '@mui/icons-material/Payment'
 import LazySelect from "../../../ui/LazySelect.jsx"
 import {useNavigate} from "react-router-dom"

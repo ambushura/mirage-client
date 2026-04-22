@@ -26,7 +26,7 @@ import {get_date_shift, ticket_count} from "../../../service/advanced.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {setKioskCheckout} from "../../../redux/interfaceReducer.js"
 import Loader from "../../../ui/Loader.jsx"
-import {useSetPaymentGroups} from "../../hooks/common/useSetPaymentGroups.js"
+import {useSetPaymentGroups} from "../../hooks/useSetPaymentGroups.js"
 import dayjs from "dayjs"
 
 const CheckoutMenu = () => {

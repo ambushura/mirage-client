@@ -1,5 +1,5 @@
 import {Autocomplete, CircularProgress, TextField} from "@mui/material"
-import {useAsyncSelect} from "./useAsyncSelect"
+import {useAsyncSelect} from "./hooks/useAsyncSelect.jsx"
 
 export default function AsyncAutocomplete({
                                               source,

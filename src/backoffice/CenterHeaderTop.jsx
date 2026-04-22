@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {center_menu_icons} from "../ui/ThemeContext.jsx"
 import {logout} from "../redux/authReducer.js"
-import {useGetCenterData} from "./hooks/useGetCenterData.js"
+import {useGetCenterData} from "../ui/hooks/useGetCenterData.js"
 import MenuItem from '@mui/material/MenuItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'

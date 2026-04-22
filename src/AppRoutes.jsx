@@ -5,15 +5,15 @@ import {Box} from "@mui/material"
 
 import {setCurrentPage, setParams, setSearchParams} from "./redux/interfaceReducer.js"
 
-import PageFilms from "./frontend/page/body/films/PageFilms.jsx"
-import PageFilm from "./frontend/page/body/film/PageFilm.jsx"
-import PageSeance from "./frontend/page/body/seance/PageSeance.jsx"
-import PageAdmin from "./frontend/page/body/admin/PageAdmin.jsx"
-import PageSchedule from "./frontend/page/body/schedule/PageSchedule.jsx"
-import PageHoreca from "./frontend/page/body/menu/PageHoreca.jsx"
-import PageKitchen from "./frontend/page/body/kitchen/PageKitchen.jsx"
-import SecondScreen from "./frontend/page/body/second_screen/SecondScreen.jsx"
-import {useSetWS} from "./frontend/hooks/common/useSetWS.js"
+import PageFilms from "./frontoffice/page/body/films/PageFilms.jsx"
+import PageFilm from "./frontoffice/page/body/film/PageFilm.jsx"
+import PageSeance from "./frontoffice/page/body/seance/PageSeance.jsx"
+import PageAdmin from "./frontoffice/page/body/admin/PageAdmin.jsx"
+import PageSchedule from "./frontoffice/page/body/schedule/PageSchedule.jsx"
+import PageHoreca from "./frontoffice/page/body/menu/PageHoreca.jsx"
+import PageKitchen from "./frontoffice/page/body/kitchen/PageKitchen.jsx"
+import SecondScreen from "./frontoffice/page/body/second_screen/SecondScreen.jsx"
+import {useSetWS} from "./frontoffice/hooks/useSetWS.js"
 
 const AppRoutes = ({current_page}) => {
 

@@ -1,5 +1,5 @@
 import {Box, Button, ButtonGroup, DialogTitle, IconButton} from "@mui/material"
-import {useEffect, useMemo, useState} from "react"
+import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {center_horeca_goods_recipe_get} from "../../../service/fetch_service.js"
 import AsyncAutocomplete from "../../../ui/AsyncAutocomplete.jsx"
@@ -20,7 +20,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import axios from "axios"
+import {useCatalogMaps} from "../../../ui/hooks/useCatalogMaps.js"
 
 const Recipe = ({props}) => {
 
@@ -145,59 +145,7 @@ const Recipe = ({props}) => {
         return col
     })
 
-
-    const [goodsMap, setGoodsMap] = useState(new Map())
-
-    const {wp, kiosk, version} = useSelector(state => state.interface)
-    const {center} = useSelector(state => state.center)
-    const token = localStorage.getItem("token")
-
-    const headers = useMemo(() => ({
-        Authorization: token,
-        uid_filial: root_filial?.uid ?? "",
-        wp,
-        kiosk: String(kiosk),
-        version,
-        center: String(center),
-    }), [token, root_filial, wp, kiosk, version, center])
-
-
-    useEffect(() => {
-        if (!ingredients.rows?.length) return
-
-        const missingIds = ingredients.rows
-            .map(r => r.uid_good)
-            .filter(id => id && !goodsMap.has(id))
-
-        if (missingIds.length === 0) return
-
-        const load = async () => {
-            try {
-                const res = await axios.get(`http://${root_filial.ip}:${root_filial.port}/api/catalog/load`, {
-                    params: {
-                        type: 'goods', value: missingIds
-                    }, headers
-                })
-
-                const data = res.data
-
-                data.forEach(item => {
-                    setGoodsMap(prev => {
-                        const next = new Map(prev)
-                        next.set(item.uid, item)
-                        return next
-                    })
-                })
-
-            } catch (e) {
-                console.error(e)
-            }
-        }
-
-        load()
-
-    }, [ingredients.rows, root_filial, headers])
-
+    const goodsMap = useCatalogMaps(ingredients.rows, 'goods')
 
     if (loading) {
 

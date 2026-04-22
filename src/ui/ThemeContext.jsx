@@ -1,7 +1,7 @@
 import {createContext, useEffect, useState} from 'react'
 import {useSelector} from "react-redux"
 import {createTheme, MenuItem, styled} from "@mui/material"
-import {useFullScreen} from "../frontend/hooks/interface/useFullScreen.js"
+import {useFullScreen} from "./hooks/useFullScreen.js"
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import MovieIcon from '@mui/icons-material/Movie'

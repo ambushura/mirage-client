@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useRef} from "react"
 import dayjs from "dayjs"
-import {get_date_shift} from "../../../service/advanced.js"
+import {get_date_shift} from "../../service/advanced.js"
 import {useNavigate} from "react-router-dom"
-import {decrementInactivityTime, setInactivityTime} from "../../../redux/interfaceReducer.js"
+import {decrementInactivityTime, setInactivityTime} from "../../redux/interfaceReducer.js"
 
 export function useInactivityAction() {
 

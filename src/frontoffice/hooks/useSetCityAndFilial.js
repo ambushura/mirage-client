@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux"
-import {setCities, setCity, setFilial} from "../../../redux/dataReducer.js"
-import {common_cities_filials_get} from "../../../service/fetch_service.js"
+import {setCities, setCity, setFilial} from "../../redux/dataReducer.js"
+import {common_cities_filials_get} from "../../service/fetch_service.js"
 import {useEffect} from "react"
 
 export function useSetCityAndFilial() {
