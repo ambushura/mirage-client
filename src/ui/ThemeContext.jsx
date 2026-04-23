@@ -278,16 +278,16 @@ export const sxTable = {
     }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
         width: 18, height: 18,
     }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
-        fontSize: 16
+        fontSize: 14
     }, '& .MuiDataGrid-columnHeaders': {
         fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
     }, '& .MuiDataGrid-columnHeaderTitle': {
         whiteSpace: 'normal', lineHeight: 1.2
     }, '& .MuiDataGrid-cell:focus': {
-        border: 'none', outline: 'none', boxShadow: 'none'
+        outline: 'none', boxShadow: 'none'
     }, '& .MuiDataGrid-cell.MuiDataGrid-cell--editing:focus-within': {
-        border: 'none', outline: 'none', boxShadow: 'none'
+        outline: 'none', boxShadow: 'none'
     }, '& .MuiDataGrid-cell--editing': {
-        border: 'none', boxShadow: 'none'
+        boxShadow: 'none !important'
     }
 }

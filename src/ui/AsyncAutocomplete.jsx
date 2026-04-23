@@ -28,7 +28,12 @@ export default function AsyncAutocomplete({
             height: '100%', '& .MuiFormControl-root': {
                 height: '100%'
             }, '& .MuiInputBase-root': {
-                height: '100% !important', padding: '0 4px', display: 'flex', alignItems: 'center'
+                fontSize: 14,
+                height: '100% !important',
+                padding: '0 3px',
+                display: 'flex',
+                alignItems: 'center',
+                background: 'transparent'
             }, '& input': {
                 padding: '0px 6px !important'
             }
