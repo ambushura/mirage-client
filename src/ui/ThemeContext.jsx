@@ -197,7 +197,17 @@ export const Theme = createTheme({
                     WebkitBackdropFilter: 'blur(10px)',
                 }
             }
-        },
+        }, MuiTabs: {
+            styleOverrides: {
+                root: {
+                    '& .MuiTab-root': {
+                        color: '#919191',
+                    }, '& .MuiTab-root.Mui-selected': {
+                        color: '#171717',
+                    },
+                },
+            },
+        }
     },
 })
 

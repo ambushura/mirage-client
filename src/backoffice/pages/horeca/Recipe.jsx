@@ -201,13 +201,7 @@ const Recipe = ({props}) => {
             <Box sx={{width: '100%', mb: '10px', minHeight: '300px'}}>
                 <TabContext value={current_page}>
                     <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                        <TabList variant='scrollable' sx={{
-                            '& .MuiTab-root': {
-                                color: '#919191',
-                            }, '& .Mui-selected': {
-                                color: '#171717',
-                            },
-                        }} onChange={(e, v) => {
+                        <TabList variant='scrollable' onChange={(e, v) => {
                             set_current_page(v)
                         }}>
                             <Tab label="Рецепт" value='1'/>
@@ -271,7 +265,7 @@ const Recipe = ({props}) => {
                         control={control}
                         name="date_create"
                         label="Создан"
-                        rules={{required: 'Укажите дату'}}
+                        rules={{required: 'Укажите дату создания'}}
                         sx={{width: '190px', mr: '10px'}}
                     />
                     <ControlledDateTimePicker
@@ -279,7 +273,7 @@ const Recipe = ({props}) => {
                         control={control}
                         name="date_update"
                         label="Изменен"
-                        rules={{required: 'Укажите дату'}}
+                        rules={{required: 'Укажите дату изменения'}}
                         sx={{width: '190px', mr: '10px'}}
                     />
                 </Box>
