@@ -27,7 +27,6 @@ export default function AsyncAutocomplete({
 
     return <Autocomplete
         autoFocus
-        openOnFocus
         blurOnSelect
         noOptionsText="Ничего не найдено"
         loadingText="Загрузка..."
