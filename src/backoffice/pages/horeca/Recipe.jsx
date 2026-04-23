@@ -203,7 +203,7 @@ const Recipe = ({props}) => {
                 />
             </Box>
 
-            <Box sx={{width: '100%', mb: '10px', minHeight: 300, maxHeight: 450}}>
+            <Box sx={{width: '100%', mb: '10px', minHeight: 450, maxHeight: 450}}>
                 <TabContext value={current_page} sx={{overflowY: 'auto'}}>
                     <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                         <TabList variant='scrollable' onChange={(e, v) => {

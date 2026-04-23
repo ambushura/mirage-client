@@ -101,7 +101,9 @@ const Goods = () => {
             onExpandedItemsChange: (e, id) => dispatch(setExpandedRecipesTree(id)),
             onSelectedItemsChange: (e, id) => {
                 const node = findNode(goods_recipes, id)
-                dispatch(openModal({type: 'center_recipe', props: {ref: node?.ref}}))
+                if (!node?.children) {
+                    dispatch(openModal({type: 'center_recipe', props: {ref: node?.ref}}))
+                }
             },
             render: renderRecipes(goods_recipes),
         },].map(({title, render, ...treeProps}) => <Box key={title} className='center-horeca-page-part'>
