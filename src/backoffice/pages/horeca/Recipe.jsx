@@ -137,11 +137,9 @@ const Recipe = ({props}) => {
                         source="table"
                         sx={{width: '100%', height: '100%'}}
                         onChange={(val) => {
-                            setIngredients(prev => ({
-                                ...prev, rows: prev.rows.map(row => row.id === params.id ? {
-                                    ...row, uid_good: val ?? null,
-                                } : row)
-                            }))
+                            params.api.setEditCellValue({
+                                id: params.id, field: params.field, value: val ?? null
+                            })
                             params.api.stopCellEditMode({
                                 id: params.id, field: params.field
                             })
@@ -156,6 +154,11 @@ const Recipe = ({props}) => {
     const goodsMap = useCatalogMaps(ingredients.rows, 'goods')
 
     const [current_page, set_current_page] = useState('1')
+
+    // Выделенные строки таблиц
+    const [selected_items, set_selected_items] = useState({
+        type: 'include', ids: new Set()
+    })
 
     if (loading) {
 
@@ -237,7 +240,6 @@ const Recipe = ({props}) => {
                                 columnVisibilityModel={ingredients.column_visibility_model}
                                 getRowId={(row) => row.id}
                                 editMode="cell"
-                                checkboxSelection
                                 disableRowSelectionOnClick
                                 density="compact"
                                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
@@ -247,11 +249,15 @@ const Recipe = ({props}) => {
                                     toolbar: {
                                         onAdd: () => {
                                             const newRow = {
-                                                id: v4(), name: '', quantity: 0
+                                                id: v4(), uid_good: null, quantity: 0
                                             }
-                                            setValue('ingredients.rows', [...ingredients.rows, newRow], {
-                                                shouldDirty: true
-                                            })
+                                            setIngredients(prev => ({
+                                                ...prev, rows: [...prev.rows, newRow]
+                                            }))
+                                        }, onDelete: () => {
+                                            setIngredients(prev => ({
+                                                ...prev, rows: prev.rows.filter(row => !selected_items.ids.has(row.id))
+                                            }))
                                         }
                                     }
                                 }}
@@ -265,7 +271,17 @@ const Recipe = ({props}) => {
                                         })
                                     }
                                 }}
-
+                                checkboxSelection
+                                rowSelectionModel={selected_items}
+                                onRowSelectionModelChange={(selected) => {
+                                    set_selected_items(selected || [])
+                                }}
+                                processRowUpdate={(newRow) => {
+                                    setIngredients(prev => ({
+                                        ...prev, rows: prev.rows.map(row => row.id === newRow.id ? newRow : row)
+                                    }))
+                                    return newRow
+                                }}
                             />
                         </Box>
                     </TabPanel>
@@ -355,7 +371,7 @@ const Recipe = ({props}) => {
     }
 }
 
-const RecipeToolbar = ({onAdd}) => {
+const RecipeToolbar = ({onAdd, onDelete}) => {
     return <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -366,7 +382,7 @@ const RecipeToolbar = ({onAdd}) => {
         backgroundColor: 'background.paper'
     }}>
         <Button onClick={onAdd} variant="tb_add" size="small" startIcon={<AddIcon/>}>Добавить</Button>
-        <Button onClick={onAdd} variant="tb_delete" size="small" startIcon={<RemoveIcon/>}>Удалить</Button>
+        <Button onClick={onDelete} variant="tb_delete" size="small" startIcon={<RemoveIcon/>}>Удалить</Button>
     </Box>
 }
 
