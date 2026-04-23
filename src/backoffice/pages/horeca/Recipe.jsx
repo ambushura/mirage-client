@@ -121,7 +121,7 @@ const Recipe = ({props}) => {
 
                 // Редактирование ячейки
                 renderEditCell: (params) => {
-                    return (<AsyncAutocomplete
+                    return <AsyncAutocomplete
                         value={params.value}
                         filial={root_filial}
                         type="goods"
@@ -138,7 +138,7 @@ const Recipe = ({props}) => {
                                 id: params.id, field: params.field
                             })
                         }}
-                    />)
+                    />
                 }
             }
         }
@@ -187,10 +187,9 @@ const Recipe = ({props}) => {
                     />}
                 />
                 <ControlledDateTimePicker
-                    readOnly={true}
                     control={control}
                     name="period"
-                    label="Дата применения"
+                    label="Применить"
                     rules={{required: 'Укажите дату применения'}}
                     sx={{flex: 1}}
                 />
@@ -237,25 +236,26 @@ const Recipe = ({props}) => {
 
             />
 
-            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
 
-                <ControlledDateTimePicker
-                    readOnly={true}
-                    control={control}
-                    name="date_create"
-                    label="Создан"
-                    rules={{required: 'Укажите дату'}}
-                    sx={{width: '190px', mr: '10px'}}
-                />
-
-                <ControlledDateTimePicker
-                    readOnly={true}
-                    control={control}
-                    name="date_update"
-                    label="Изменен"
-                    rules={{required: 'Укажите дату'}}
-                    sx={{width: '190px', mr: '10px'}}
-                />
+                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <ControlledDateTimePicker
+                        readOnly={true}
+                        control={control}
+                        name="date_create"
+                        label="Создан"
+                        rules={{required: 'Укажите дату'}}
+                        sx={{width: '190px', mr: '10px'}}
+                    />
+                    <ControlledDateTimePicker
+                        readOnly={true}
+                        control={control}
+                        name="date_update"
+                        label="Изменен"
+                        rules={{required: 'Укажите дату'}}
+                        sx={{width: '190px', mr: '10px'}}
+                    />
+                </Box>
 
                 <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>

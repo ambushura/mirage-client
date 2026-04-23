@@ -274,7 +274,7 @@ export const sxTable = {
     }, "& .store-delta-negative": {
         backgroundColor: "#f0fff4"
     }, '& .MuiDataGrid-cell': {
-        userSelect: 'text'
+        userSelect: 'text', fontSize: 14
     }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
         width: 18, height: 18,
     }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
@@ -283,5 +283,11 @@ export const sxTable = {
         fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
     }, '& .MuiDataGrid-columnHeaderTitle': {
         whiteSpace: 'normal', lineHeight: 1.2
+    }, '& .MuiDataGrid-cell:focus': {
+        border: 'none', outline: 'none', boxShadow: 'none'
+    }, '& .MuiDataGrid-cell.MuiDataGrid-cell--editing:focus-within': {
+        border: 'none', outline: 'none', boxShadow: 'none'
+    }, '& .MuiDataGrid-cell--editing': {
+        border: 'none', boxShadow: 'none'
     }
 }

@@ -30,7 +30,7 @@ export default function AsyncAutocomplete({
             }, '& .MuiInputBase-root': {
                 height: '100% !important', padding: '0 4px', display: 'flex', alignItems: 'center'
             }, '& input': {
-                padding: '4px 6px !important'
+                padding: '0px 6px !important'
             }
         } : null]}
         options={options}
