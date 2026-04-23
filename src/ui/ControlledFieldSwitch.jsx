@@ -2,12 +2,14 @@ import {Controller} from "react-hook-form"
 import {FormControlLabel, Switch} from "@mui/material"
 
 const ControlledFieldSwitch = ({
-                                   control, name, label, color = "secondary", sx = {}
+                                   disabled, control, name, label, color = "secondary", sx = {}
                                }) => {
     return <Controller
+        disabled={disabled}
         name={name}
         control={control}
         render={({field}) => <FormControlLabel
+            disabled={disabled}
             sx={sx}
             label={label}
             control={<Switch

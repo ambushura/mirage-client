@@ -3,6 +3,7 @@ import {useAsyncSelect} from "./hooks/useAsyncSelect.jsx"
 import {useEffect, useRef} from "react"
 
 export default function AsyncAutocomplete({
+                                              disabled,
                                               source,
                                               variant,
                                               sx,
@@ -26,6 +27,7 @@ export default function AsyncAutocomplete({
     }, [])
 
     return <Autocomplete
+        disabled={disabled}
         autoFocus
         blurOnSelect
         noOptionsText="Ничего не найдено"

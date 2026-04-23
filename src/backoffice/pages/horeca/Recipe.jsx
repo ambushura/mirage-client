@@ -23,6 +23,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import {useCatalogMaps} from "../../../ui/hooks/useCatalogMaps.js"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
 import ControlledFieldSwitch from "../../../ui/ControlledFieldSwitch.jsx"
+import ControlledTextField from "../../../ui/ControlledTextField.jsx"
 
 const Recipe = ({props}) => {
 
@@ -80,6 +81,7 @@ const Recipe = ({props}) => {
 
     // Наблюдаемые переменные
     const code = watch('code')
+    const isDeleted = watch('deleted')
     const {fields: filials} = useFieldArray({control, name: "filials"})
     const {fields: organizations} = useFieldArray({control, name: "organizations"})
 
@@ -117,7 +119,7 @@ const Recipe = ({props}) => {
     const enhancedColumns = ingredients.columns.map(col => {
         if (col.field === 'uid_good') {
             return {
-                ...col, editable: true,
+                ...col, editable: !isDeleted,
 
                 // Отображение ячейки
                 renderCell: (params) => {
@@ -148,7 +150,7 @@ const Recipe = ({props}) => {
                 }
             }
         }
-        return col
+        return {...col, editable: !['uid_good'].includes(col.field) && !isDeleted}
     })
 
     const goodsMap = useCatalogMaps(ingredients.rows, 'goods')
@@ -167,7 +169,6 @@ const Recipe = ({props}) => {
             component="form"
             noValidate
             autoComplete="off">
-
             <DialogTitle sx={{m: 0, p: '10px'}}>
                 Калькуляция {code}
                 <IconButton
@@ -192,7 +193,15 @@ const Recipe = ({props}) => {
                         label='Блюдо'
                         variant='filled'
                         sx={{flex: 3, mr: '10px'}}
+                        disabled={isDeleted}
                     />}
+                />
+                <ControlledTextField
+                    control={control}
+                    name="out_good"
+                    label="Выход блюда"
+                    sx={{flex: 1, mr: '10px'}}
+                    readOnly={isDeleted}
                 />
                 <ControlledDateTimePicker
                     control={control}
@@ -200,6 +209,7 @@ const Recipe = ({props}) => {
                     label="Применять от"
                     rules={{required: 'Укажите дату применения'}}
                     sx={{flex: 1}}
+                    readOnly={isDeleted}
                 />
             </Box>
 
@@ -212,6 +222,7 @@ const Recipe = ({props}) => {
                             <Tab label="Рецепт" value='1'/>
                             <Tab label="Филиалы" value='2'/>
                             <Tab label="Организации" value='3'/>
+                            <Tab label="Дополнительно" value='4'/>
                         </TabList>
                     </Box>
                     <TabPanel value='1'>
@@ -265,6 +276,7 @@ const Recipe = ({props}) => {
                                 name={`filials.${index}.value`}
                                 label={f.name_filial}
                                 control={control}
+                                disabled={isDeleted}
                             />)}
                         </Box>
                     </TabPanel>
@@ -275,7 +287,36 @@ const Recipe = ({props}) => {
                                 name={`filials.${index}.value`}
                                 label={o.name_organization}
                                 control={control}
+                                disabled={isDeleted}
                             />)}
+                        </Box>
+                    </TabPanel>
+                    <TabPanel value='4'>
+                        <Box className='checkbox-list'>
+                            <ControlledTextField
+                                control={control}
+                                name="comment"
+                                label="Комментарий"
+                                multiline
+                                sx={{width: '100%'}}
+                                readOnly={isDeleted}
+                            />
+                            <ControlledTextField
+                                control={control}
+                                name="cooking_method"
+                                label="Способ приготовления"
+                                multiline
+                                sx={{width: '100%'}}
+                                readOnly={isDeleted}
+                            />
+                            <ControlledTextField
+                                control={control}
+                                name="design"
+                                label="Оформление блюда"
+                                multiline
+                                sx={{width: '100%'}}
+                                readOnly={isDeleted}
+                            />
                         </Box>
                     </TabPanel>
                 </TabContext>
