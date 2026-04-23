@@ -8,7 +8,7 @@ import {closeModal, openModal} from "../../../redux/interfaceReducer.js"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {sxTable} from "../../../ui/ThemeContext.jsx"
-import {Controller, useForm} from "react-hook-form"
+import {Controller, useFieldArray, useForm} from "react-hook-form"
 import {v4} from "uuid"
 import {setTriggerDeleteReceipt} from "../../../redux/documentsReducer.js"
 import Loader from "../../../ui/Loader.jsx"
@@ -22,6 +22,7 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import {useCatalogMaps} from "../../../ui/hooks/useCatalogMaps.js"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
+import ControlledFieldSwitch from "../../../ui/ControlledFieldSwitch.jsx"
 
 const Recipe = ({props}) => {
 
@@ -44,6 +45,7 @@ const Recipe = ({props}) => {
 
             design: '', cooking_method: '', comment: '',
 
+            filials: [], organizations: []
         }
     })
 
@@ -62,6 +64,7 @@ const Recipe = ({props}) => {
                             date_create: data.data.date_create ? dayjs(parceZone(data.data.date_create)) : null,
                             date_update: data.data.date_update ? dayjs(parceZone(data.data.date_update)) : null,
                             period: data.data.period ? dayjs(parceZone(data.data.period)) : null,
+                            filials: data.data.filials || [],
                         })
                         setIngredients(data.data.ingredients)
                     }
@@ -77,6 +80,8 @@ const Recipe = ({props}) => {
 
     // Наблюдаемые переменные
     const code = watch('code')
+    const {fields: filials} = useFieldArray({control, name: "filials"})
+    const {fields: organizations} = useFieldArray({control, name: "organizations"})
 
     const [ingredients, setIngredients] = useState({
         rows: [], columns: [], column_grouping_model: [], column_visibility_model: []
@@ -198,8 +203,8 @@ const Recipe = ({props}) => {
                 />
             </Box>
 
-            <Box sx={{width: '100%', mb: '10px', minHeight: '300px'}}>
-                <TabContext value={current_page}>
+            <Box sx={{width: '100%', mb: '10px', minHeight: 300, maxHeight: 450}}>
+                <TabContext value={current_page} sx={{overflowY: 'auto'}}>
                     <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                         <TabList variant='scrollable' onChange={(e, v) => {
                             set_current_page(v)
@@ -210,50 +215,69 @@ const Recipe = ({props}) => {
                         </TabList>
                     </Box>
                     <TabPanel value='1'>
-                        <DataGridPro
-                            showToolbar
-                            autoHeight
-                            loading={loading}
-                            rows={ingredients.rows}
-                            columns={enhancedColumns}
-                            columnGroupingModel={ingredients.column_grouping_model}
-                            columnVisibilityModel={ingredients.column_visibility_model}
-                            getRowId={(row) => row.id}
-                            editMode="cell"
-                            checkboxSelection
-                            disableRowSelectionOnClick
-                            density="compact"
-                            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                            sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
-                            slots={{toolbar: RecipeToolbar}}
-                            slotProps={{
-                                toolbar: {
-                                    onAdd: () => {
-                                        const newRow = {
-                                            id: v4(), name: '', quantity: 0
+                        <Box sx={{maxHeight: 400, overflowY: 'auto'}}>
+                            <DataGridPro
+                                showToolbar
+                                autoHeight
+                                loading={loading}
+                                rows={ingredients.rows}
+                                columns={enhancedColumns}
+                                columnGroupingModel={ingredients.column_grouping_model}
+                                columnVisibilityModel={ingredients.column_visibility_model}
+                                getRowId={(row) => row.id}
+                                editMode="cell"
+                                checkboxSelection
+                                disableRowSelectionOnClick
+                                density="compact"
+                                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                                sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
+                                slots={{toolbar: RecipeToolbar}}
+                                slotProps={{
+                                    toolbar: {
+                                        onAdd: () => {
+                                            const newRow = {
+                                                id: v4(), name: '', quantity: 0
+                                            }
+                                            setValue('ingredients.rows', [...ingredients.rows, newRow], {
+                                                shouldDirty: true
+                                            })
                                         }
-                                        setValue('ingredients.rows', [...ingredients.rows, newRow], {
-                                            shouldDirty: true
+                                    }
+                                }}
+                                onCellMouseDown={(params, event) => {
+                                    if (!params.isEditable) return
+                                    const isEditing = params.api.getCellMode(params.id, params.field) === 'edit'
+                                    if (!isEditing) {
+                                        event.preventDefault()
+                                        params.api.startCellEditMode({
+                                            id: params.id, field: params.field
                                         })
                                     }
-                                }
-                            }}
-                            onCellMouseDown={(params, event) => {
-                                if (!params.isEditable) return
-                                const isEditing = params.api.getCellMode(params.id, params.field) === 'edit'
-                                if (!isEditing) {
-                                    event.preventDefault()
-                                    params.api.startCellEditMode({
-                                        id: params.id, field: params.field
-                                    })
-                                }
-                            }}
+                                }}
 
-                        />
-
+                            />
+                        </Box>
                     </TabPanel>
-                    <TabPanel value='2'></TabPanel>
-                    <TabPanel value='3'></TabPanel>
+                    <TabPanel value='2'>
+                        <Box className='checkbox-list'>
+                            {filials.map((f, index) => <ControlledFieldSwitch
+                                key={f.uid_filial}
+                                name={`filials.${index}.value`}
+                                label={f.name_filial}
+                                control={control}
+                            />)}
+                        </Box>
+                    </TabPanel>
+                    <TabPanel value='3'>
+                        <Box className='checkbox-list'>
+                            {organizations.map((o, index) => <ControlledFieldSwitch
+                                key={o.inn}
+                                name={`filials.${index}.value`}
+                                label={o.name_organization}
+                                control={control}
+                            />)}
+                        </Box>
+                    </TabPanel>
                 </TabContext>
             </Box>
 
