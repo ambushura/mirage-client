@@ -192,7 +192,7 @@ const Recipe = ({props}) => {
                 <ControlledDateTimePicker
                     control={control}
                     name="period"
-                    label="Применить"
+                    label="Применять от"
                     rules={{required: 'Укажите дату применения'}}
                     sx={{flex: 1}}
                 />
