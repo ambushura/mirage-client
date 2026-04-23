@@ -1,4 +1,4 @@
-import {Box, Button, ButtonGroup, DialogTitle, IconButton} from "@mui/material"
+import {Box, Button, ButtonGroup, DialogTitle, IconButton, Tab} from "@mui/material"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {center_horeca_goods_recipe_get} from "../../../service/fetch_service.js"
@@ -21,6 +21,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import {useCatalogMaps} from "../../../ui/hooks/useCatalogMaps.js"
+import {TabContext, TabList, TabPanel} from "@mui/lab"
 
 const Recipe = ({props}) => {
 
@@ -147,6 +148,8 @@ const Recipe = ({props}) => {
 
     const goodsMap = useCatalogMaps(ingredients.rows, 'goods')
 
+    const [current_page, set_current_page] = useState('1')
+
     if (loading) {
 
         return <Loader/>
@@ -195,46 +198,70 @@ const Recipe = ({props}) => {
                 />
             </Box>
 
-            <DataGridPro
-                showToolbar
-                autoHeight
-                loading={loading}
-                rows={ingredients.rows}
-                columns={enhancedColumns}
-                columnGroupingModel={ingredients.column_grouping_model}
-                columnVisibilityModel={ingredients.column_visibility_model}
-                getRowId={(row) => row.id}
-                editMode="cell"
-                checkboxSelection
-                disableRowSelectionOnClick
-                density="compact"
-                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
-                slots={{toolbar: RecipeToolbar}}
-                slotProps={{
-                    toolbar: {
-                        onAdd: () => {
-                            const newRow = {
-                                id: v4(), name: '', quantity: 0
-                            }
-                            setValue('ingredients.rows', [...ingredients.rows, newRow], {
-                                shouldDirty: true
-                            })
-                        }
-                    }
-                }}
-                onCellMouseDown={(params, event) => {
-                    if (!params.isEditable) return
-                    const isEditing = params.api.getCellMode(params.id, params.field) === 'edit'
-                    if (!isEditing) {
-                        event.preventDefault()
-                        params.api.startCellEditMode({
-                            id: params.id, field: params.field
-                        })
-                    }
-                }}
+            <Box sx={{width: '100%', mb: '10px', minHeight: '300px'}}>
+                <TabContext value={current_page}>
+                    <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                        <TabList variant='scrollable' sx={{
+                            '& .MuiTab-root': {
+                                color: '#919191',
+                            }, '& .Mui-selected': {
+                                color: '#171717',
+                            },
+                        }} onChange={(e, v) => {
+                            set_current_page(v)
+                        }}>
+                            <Tab label="Рецепт" value='1'/>
+                            <Tab label="Филиалы" value='2'/>
+                            <Tab label="Организации" value='3'/>
+                        </TabList>
+                    </Box>
+                    <TabPanel value='1'>
+                        <DataGridPro
+                            showToolbar
+                            autoHeight
+                            loading={loading}
+                            rows={ingredients.rows}
+                            columns={enhancedColumns}
+                            columnGroupingModel={ingredients.column_grouping_model}
+                            columnVisibilityModel={ingredients.column_visibility_model}
+                            getRowId={(row) => row.id}
+                            editMode="cell"
+                            checkboxSelection
+                            disableRowSelectionOnClick
+                            density="compact"
+                            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                            sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
+                            slots={{toolbar: RecipeToolbar}}
+                            slotProps={{
+                                toolbar: {
+                                    onAdd: () => {
+                                        const newRow = {
+                                            id: v4(), name: '', quantity: 0
+                                        }
+                                        setValue('ingredients.rows', [...ingredients.rows, newRow], {
+                                            shouldDirty: true
+                                        })
+                                    }
+                                }
+                            }}
+                            onCellMouseDown={(params, event) => {
+                                if (!params.isEditable) return
+                                const isEditing = params.api.getCellMode(params.id, params.field) === 'edit'
+                                if (!isEditing) {
+                                    event.preventDefault()
+                                    params.api.startCellEditMode({
+                                        id: params.id, field: params.field
+                                    })
+                                }
+                            }}
 
-            />
+                        />
+
+                    </TabPanel>
+                    <TabPanel value='2'></TabPanel>
+                    <TabPanel value='3'></TabPanel>
+                </TabContext>
+            </Box>
 
             <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
 
