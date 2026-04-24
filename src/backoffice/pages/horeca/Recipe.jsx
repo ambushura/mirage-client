@@ -36,6 +36,7 @@ const Recipe = ({props}) => {
     // Состояние загрузки документа
     const [loading, setLoading] = useState(true)
 
+    // Форма документа
     const {handleSubmit, setValue, control, reset, watch} = useForm({
         defaultValues: {
             ref: v4(), ver: null, code: 'Новый', deleted: false, date_create: null, date_change: null,
@@ -66,6 +67,7 @@ const Recipe = ({props}) => {
                             date_update: data.data.date_update ? dayjs(parceZone(data.data.date_update)) : null,
                             period: data.data.period ? dayjs(parceZone(data.data.period)) : null,
                             filials: data.data.filials || [],
+                            organizations: data.data.organizations || [],
                         })
                         setIngredients(data.data.ingredients)
                     }
@@ -96,7 +98,7 @@ const Recipe = ({props}) => {
     // Функция сохранения документа
     const onSubmit = (data) => {
         const prepared = {
-            ...data,
+            ...data, ingredients: ingredients,
         }
     }
 
@@ -167,7 +169,6 @@ const Recipe = ({props}) => {
     } else {
 
         return <Box
-
             id="modal-recipe"
             component="form"
             noValidate
@@ -233,6 +234,8 @@ const Recipe = ({props}) => {
                             <DataGridPro
                                 showToolbar
                                 autoHeight
+                                checkboxSelection
+                                disableRowSelectionOnClick
                                 loading={loading}
                                 rows={ingredients.rows}
                                 columns={enhancedColumns}
@@ -240,7 +243,6 @@ const Recipe = ({props}) => {
                                 columnVisibilityModel={ingredients.column_visibility_model}
                                 getRowId={(row) => row.id}
                                 editMode="cell"
-                                disableRowSelectionOnClick
                                 density="compact"
                                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                                 sx={{...sxTable, mb: '10px', maxHeight: '400px'}}
@@ -271,7 +273,6 @@ const Recipe = ({props}) => {
                                         })
                                     }
                                 }}
-                                checkboxSelection
                                 rowSelectionModel={selected_items}
                                 onRowSelectionModelChange={(selected) => {
                                     set_selected_items(selected || [])
@@ -309,54 +310,34 @@ const Recipe = ({props}) => {
                     </TabPanel>
                     <TabPanel value='4'>
                         <Box className='checkbox-list'>
-                            <ControlledTextField
+                            {[{f: 'comment', n: 'Комментарий'}, {
+                                f: 'cooking_method', n: 'Способ приготовления'
+                            }, {f: 'design', n: 'Оформление блюда'}].map((el, i) => <ControlledTextField
+                                key={i}
                                 control={control}
-                                name="comment"
-                                label="Комментарий"
+                                name={el.f}
+                                label={el.n}
                                 multiline
                                 sx={{width: '100%'}}
                                 readOnly={isDeleted}
-                            />
-                            <ControlledTextField
-                                control={control}
-                                name="cooking_method"
-                                label="Способ приготовления"
-                                multiline
-                                sx={{width: '100%'}}
-                                readOnly={isDeleted}
-                            />
-                            <ControlledTextField
-                                control={control}
-                                name="design"
-                                label="Оформление блюда"
-                                multiline
-                                sx={{width: '100%'}}
-                                readOnly={isDeleted}
-                            />
+                            />)}
                         </Box>
                     </TabPanel>
                 </TabContext>
             </Box>
 
             <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
-
                 <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <ControlledDateTimePicker
-                        readOnly={true}
-                        control={control}
-                        name="date_create"
-                        label="Создан"
-                        rules={{required: 'Укажите дату создания'}}
-                        sx={{width: '190px', mr: '10px'}}
-                    />
-                    <ControlledDateTimePicker
-                        readOnly={true}
-                        control={control}
-                        name="date_update"
-                        label="Изменен"
-                        rules={{required: 'Укажите дату изменения'}}
-                        sx={{width: '190px', mr: '10px'}}
-                    />
+                    {[{f: 'date_create', n: 'Создан'}, {f: 'date_update', n: 'Изменен'}].map((el, i) =>
+                        <ControlledDateTimePicker
+                            key={i}
+                            readOnly={true}
+                            control={control}
+                            name={el.f}
+                            label={el.n}
+                            rules={{required: 'Укажите дату создания'}}
+                            sx={{width: '190px', mr: '10px'}}
+                        />)}
                 </Box>
 
                 <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
