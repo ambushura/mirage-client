@@ -301,7 +301,7 @@ const Recipe = ({props}) => {
                         <Box className='checkbox-list'>
                             {organizations.map((o, index) => <ControlledFieldSwitch
                                 key={o.inn}
-                                name={`filials.${index}.value`}
+                                name={`organizations.${index}.value`}
                                 label={o.name_organization}
                                 control={control}
                                 disabled={isDeleted}

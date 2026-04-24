@@ -123,7 +123,9 @@ const Order = ({props}) => {
                             sx={{width: '190px', mr: '10px'}}
                         />)}
                 </Box>
-                <Footer/>
+                <Footer
+                    saveButton
+                    deleteButton/>
             </Box>
 
         </Box>

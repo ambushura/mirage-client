@@ -5,8 +5,8 @@ import SaveIcon from "@mui/icons-material/Save"
 import {closeModal} from "../redux/interfaceReducer.js"
 import CloseIcon from "@mui/icons-material/Close"
 import {useDispatch} from "react-redux"
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add"
+import RemoveIcon from "@mui/icons-material/Remove"
 
 export function Title({title}) {
     const dispatch = useDispatch()
@@ -23,11 +23,11 @@ export function Title({title}) {
     </DialogTitle>
 }
 
-export function Footer() {
+export function Footer({saveButton, copyButton, deleteButton}) {
     return <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
-        <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>
-        <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>
-        <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>
+        {deleteButton && <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>}
+        {copyButton && <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>}
+        {saveButton && <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>}
     </ButtonGroup>
 }
 
