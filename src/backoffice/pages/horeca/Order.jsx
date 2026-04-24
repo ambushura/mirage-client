@@ -8,7 +8,7 @@ import {ruRU} from "@mui/x-data-grid/locales"
 import {sxTable} from "../../../ui/ThemeContext.jsx"
 import {useState} from "react"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
-import {Footer, LoaderOrder, Title} from "../../Common.jsx"
+import {Footer, LoaderOrder, TableToolbar, Title} from "../../Common.jsx"
 
 const Order = ({props}) => {
 
@@ -31,7 +31,7 @@ const Order = ({props}) => {
 
         // Табличные части
         [{
-            id: 'items',
+            id: 'sale',
             label: 'Товары',
             data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
         }, {
@@ -47,7 +47,7 @@ const Order = ({props}) => {
     const number = watch('number')
 
     // Табличные части
-    const [currentTable, setCurrentTable] = useState('items')
+    const [currentTable, setCurrentTable] = useState('sale')
 
     if (loading) {
         return <LoaderOrder/>
@@ -78,6 +78,8 @@ const Order = ({props}) => {
                         return <TabPanel value={table.id} key={table.id}>
                             <Box sx={{maxHeight: 400, overflowY: 'auto'}}>
                                 <DataGridPro
+                                    showToolbar
+                                    autoHeight
                                     key={table.id}
                                     sortingMode="server"
                                     disableColumnSorting
@@ -98,6 +100,7 @@ const Order = ({props}) => {
                                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                                     groupingColDef={{width: 100, minWidth: 100, headerName: "№"}}
                                     sx={{...sxTable, mb: '10px'}}
+                                    slots={{toolbar: TableToolbar}}
                                 />
                             </Box>
                         </TabPanel>
