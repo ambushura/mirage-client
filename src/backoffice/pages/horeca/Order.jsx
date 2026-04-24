@@ -101,6 +101,7 @@ const Order = ({props}) => {
                                     groupingColDef={{width: 100, minWidth: 100, headerName: "№"}}
                                     sx={{...sxTable, mb: '10px'}}
                                     slots={{toolbar: TableToolbar}}
+                                    loading={loading}
                                 />
                             </Box>
                         </TabPanel>
