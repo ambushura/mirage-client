@@ -15,7 +15,7 @@ const main_menu = [{
     }, {
         id: 'orders', title: '2. Заказы', icon: 4
     }, {
-        id: 'store_state', title: '3. Наличие на складах', icon: 5
+        id: 'store_state', title: '3. Обеспечение производства', icon: 5
     }, {
         id: 'store_production', title: '4. Производство', icon: 5
     }, {

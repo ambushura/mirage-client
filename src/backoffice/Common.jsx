@@ -27,7 +27,7 @@ export function Title({title}) {
 
 export function Footer({control, saveButton, copyButton, deleteButton}) {
     return <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
-        <Box sx={{display: 'flex'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
             {[{f: 'date_create', n: 'Создан'}, {f: 'date_change', n: 'Изменен'}].map((el, i) =>
                 <ControlledDateTimePicker
                     key={i}
@@ -35,17 +35,18 @@ export function Footer({control, saveButton, copyButton, deleteButton}) {
                     control={control}
                     name={el.f}
                     label={el.n}
-                    sx={{width: '190px', mr: '10px'}}
+                    sx={{maxWidth: '190px', mr: '10px'}}
                 />)}
             <ControlledTextField
                 control={control}
                 name={'name_creator'}
                 label={'Автор'}
                 multiline
-                sx={{mr: '10px'}}
+                sx={{maxWidth: '150px', mr: '10px'}}
             />
         </Box>
-        <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
+        <ButtonGroup
+            sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', flexWrap: 'wrap'}}>
             {deleteButton && <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>}
             {copyButton && <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>}
             {saveButton && <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>}
