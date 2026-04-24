@@ -1,13 +1,13 @@
 import {useEffect} from 'react'
 import SubMenu from "../../SubMenu.jsx"
 import Goods from "./Goods.jsx"
-import Orders from "./Orders.jsx"
+import Orders from "./orders/Orders.jsx"
 import StoreState from "./StoreState.jsx"
 import ShiftState from "./ShiftState.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import ProductionState from "./ProductionState.jsx"
 import {setCurrentPage} from "../../../redux/center/centerReducer.js"
-import StoreDiff from "./StoreDiff.jsx";
+import StoreDiff from "./StoreDiff.jsx"
 
 const Center = ({current_page}) => {
 

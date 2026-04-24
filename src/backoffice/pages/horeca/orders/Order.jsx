@@ -1,14 +1,13 @@
-import {center_horeca_order_get} from "../../../service/fetch_service.js"
+import {center_horeca_order_get} from "../../../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
-import {useDocument} from "../../hooks/useDocument.js"
+import {useDocument} from "../../../hooks/useDocument.js"
 import {Box, Tab} from "@mui/material"
-import ControlledDateTimePicker from "../../../ui/ControlledDateTimePicker.jsx"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {sxTable} from "../../../ui/ThemeContext.jsx"
+import {sxTable} from "../../../../ui/ThemeContext.jsx"
 import {useState} from "react"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
-import {Footer, LoaderOrder, TableToolbar, Title} from "../../Common.jsx"
+import {Footer, LoaderOrder, TableToolbar, Title} from "../../../Common.jsx"
 
 const Order = ({props}) => {
 
@@ -110,23 +109,10 @@ const Order = ({props}) => {
             </Box>
 
             {/* Подвал */}
-            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
-                <Box sx={{display: 'flex'}}>
-                    {[{f: 'date_create', n: 'Создан'}, {f: 'date_change', n: 'Изменен'}].map((el, i) =>
-                        <ControlledDateTimePicker
-                            key={i}
-                            readOnly={true}
-                            control={control}
-                            name={el.f}
-                            label={el.n}
-                            rules={{required: 'Укажите дату создания'}}
-                            sx={{width: '190px', mr: '10px'}}
-                        />)}
-                </Box>
-                <Footer
-                    saveButton
-                    deleteButton/>
-            </Box>
+            <Footer
+                control={control}
+                saveButton
+                deleteButton/>
 
         </Box>
     }

@@ -7,6 +7,8 @@ import CloseIcon from "@mui/icons-material/Close"
 import {useDispatch} from "react-redux"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
+import ControlledDateTimePicker from "../ui/ControlledDateTimePicker.jsx"
+import ControlledTextField from "../ui/ControlledTextField.jsx"
 
 export function Title({title}) {
     const dispatch = useDispatch()
@@ -23,12 +25,32 @@ export function Title({title}) {
     </DialogTitle>
 }
 
-export function Footer({saveButton, copyButton, deleteButton}) {
-    return <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
-        {deleteButton && <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>}
-        {copyButton && <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>}
-        {saveButton && <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>}
-    </ButtonGroup>
+export function Footer({control, saveButton, copyButton, deleteButton}) {
+    return <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+        <Box sx={{display: 'flex'}}>
+            {[{f: 'date_create', n: 'Создан'}, {f: 'date_change', n: 'Изменен'}].map((el, i) =>
+                <ControlledDateTimePicker
+                    key={i}
+                    readOnly={true}
+                    control={control}
+                    name={el.f}
+                    label={el.n}
+                    sx={{width: '190px', mr: '10px'}}
+                />)}
+            <ControlledTextField
+                control={control}
+                name={'name_creator'}
+                label={'Автор'}
+                multiline
+                sx={{mr: '10px'}}
+            />
+        </Box>
+        <ButtonGroup sx={{display: 'flex', justifyContent: 'flex-end'}}>
+            {deleteButton && <Button variant='delete' startIcon={<DeleteForeverIcon/>}>Удалить</Button>}
+            {copyButton && <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>}
+            {saveButton && <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>}
+        </ButtonGroup>
+    </Box>
 }
 
 export function LoaderOrder() {
