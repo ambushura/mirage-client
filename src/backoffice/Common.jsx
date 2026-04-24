@@ -1,4 +1,4 @@
-import {Button, ButtonGroup, DialogTitle, IconButton} from "@mui/material"
+import {Box, Button, ButtonGroup, DialogTitle, IconButton, Skeleton} from "@mui/material"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import SaveIcon from "@mui/icons-material/Save"
@@ -27,4 +27,17 @@ export function Footer() {
         <Button variant='copy' startIcon={<ContentCopyIcon/>}>Скопировать</Button>
         <Button variant='save' startIcon={<SaveIcon/>}>Сохранить</Button>
     </ButtonGroup>
+}
+
+export function LoaderOrder() {
+    return <Box sx={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column', p: 2}}>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
+        <Skeleton variant="rectangular" width={300} height={10}/>
+    </Box>
 }
