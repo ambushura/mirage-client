@@ -1,8 +1,7 @@
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
-import dayjs from "dayjs"
-import {parceZone} from "../../service/advanced.js"
+import {transformData} from "../../ui/hooks/common_functions.js"
 
 export function useDocument(link, defaultValues, defaultTables, load) {
 
@@ -49,13 +48,4 @@ export function useDocument(link, defaultValues, defaultTables, load) {
     // Контролируемые элементы
     // Табличные части
     return {loading, control, watch, reset, tables}
-}
-
-const transformData = (data) => {
-    return Object.fromEntries(Object.entries(data).map(([key, value]) => {
-        if (key === 'date_create' || key === 'date_update') {
-            return [key, value ? dayjs(parceZone(value)) : null]
-        }
-        return [key, value]
-    }))
 }

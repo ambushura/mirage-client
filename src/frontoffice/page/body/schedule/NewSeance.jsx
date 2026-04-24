@@ -2,7 +2,7 @@ import {Button} from "@mui/material"
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import {openModal} from "../../../../redux/interfaceReducer.js"
 import {useDispatch} from "react-redux"
-import {duration_title} from "../../../../service/advanced.js"
+import {duration_title} from "../../../../ui/hooks/common_functions.js"
 
 const NewSeance = ({beginning, ending, uid_hall, name_hall}) => {
 

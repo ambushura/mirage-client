@@ -6,7 +6,7 @@ import {closeModal} from "../../../redux/interfaceReducer.js"
 import Loader from "../../../ui/Loader.jsx"
 import EditDocumentIcon from "@mui/icons-material/EditDocument"
 import CircleIcon from "@mui/icons-material/Circle"
-import {buttonColor} from "../../../service/advanced.js"
+import {buttonColor} from "../../../ui/hooks/common_functions.js"
 
 const YandexFood = () => <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
     <path

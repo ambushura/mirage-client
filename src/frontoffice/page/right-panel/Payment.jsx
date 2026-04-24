@@ -33,7 +33,7 @@ import PaymentIcon from '@mui/icons-material/Payment'
 import LazySelect from "../../../ui/LazySelect.jsx"
 import {useNavigate} from "react-router-dom"
 import CircleIcon from "@mui/icons-material/Circle"
-import {buttonColor} from "../../../service/advanced.js"
+import {buttonColor} from "../../../ui/hooks/common_functions.js"
 
 const Payment = (props) => {
 

@@ -20,7 +20,7 @@ import {
     setTriggerDeleteReceipt,
     setTriggerSubmitReceipt,
 } from "../../../../../redux/documentsReducer.js"
-import {parceZone} from "../../../../../service/advanced.js"
+import {parceZone} from "../../../../../ui/hooks/common_functions.js"
 import {v4} from 'uuid'
 import {addNotification} from "../../../../../redux/notifierReducer.js"
 

@@ -13,7 +13,7 @@ import {v4} from "uuid"
 import {setTriggerDeleteReceipt} from "../../../redux/documentsReducer.js"
 import Loader from "../../../ui/Loader.jsx"
 import dayjs from "dayjs"
-import {parceZone} from "../../../service/advanced.js"
+import {parceZone} from "../../../ui/hooks/common_functions.js"
 import ControlledDateTimePicker from "../../../ui/ControlledDateTimePicker.jsx"
 import SaveIcon from '@mui/icons-material/Save'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'

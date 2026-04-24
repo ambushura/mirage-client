@@ -158,3 +158,12 @@ export function buttonColor(inn) {
     }
 
 }
+
+export const transformData = (data) => {
+    return Object.fromEntries(Object.entries(data).map(([key, value]) => {
+        if (key === 'date_create' || key === 'date_update') {
+            return [key, value ? dayjs(parceZone(value)) : null]
+        }
+        return [key, value]
+    }))
+}

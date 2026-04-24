@@ -1,7 +1,7 @@
 import {Box, Button} from "@mui/material"
 import {DatePicker} from "@mui/x-date-pickers"
 import {useState} from "react"
-import {get_date_shift} from "../../service/advanced.js"
+import {get_date_shift} from "../../ui/hooks/common_functions.js"
 import dayjs from "dayjs"
 import {common_documents_operations_close_shift} from "../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"

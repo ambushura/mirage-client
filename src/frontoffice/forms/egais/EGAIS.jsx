@@ -1,6 +1,6 @@
 import {Box, Button, TextField, Typography} from "@mui/material"
 import {closeModal} from "../../../redux/interfaceReducer.js"
-import {ruToEnLayout} from "../../../service/advanced.js"
+import {ruToEnLayout} from "../../../ui/hooks/common_functions.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useState} from "react"
 import {horeca_position_add_mark} from "../../../service/fetch_service.js"

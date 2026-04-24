@@ -22,7 +22,7 @@ import {
     setPreOrderTimeRemaining
 } from "../../../redux/ordersReducer.js"
 import SeanceTitle from "../../components/cinema/SeanceTitle.jsx"
-import {get_date_shift, ticket_count} from "../../../service/advanced.js"
+import {get_date_shift, ticket_count} from "../../../ui/hooks/common_functions.js"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import {setKioskCheckout} from "../../../redux/interfaceReducer.js"
 import Loader from "../../../ui/Loader.jsx"
