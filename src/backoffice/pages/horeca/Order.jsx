@@ -1,15 +1,14 @@
 import {center_horeca_order_get} from "../../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useDocument} from "../../hooks/useDocument.js"
-import {Box, DialogTitle, IconButton, Tab} from "@mui/material"
+import {Box, Tab} from "@mui/material"
 import ControlledDateTimePicker from "../../../ui/ControlledDateTimePicker.jsx"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {sxTable} from "../../../ui/ThemeContext.jsx"
-import {closeModal} from "../../../redux/interfaceReducer.js"
-import CloseIcon from "@mui/icons-material/Close"
 import {useState} from "react"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
+import {Footer, Title} from "../../Common.jsx"
 
 const Order = ({props}) => {
 
@@ -25,7 +24,7 @@ const Order = ({props}) => {
     }
 
     // Форма документа
-    const {loading, control, watch, reset, tables} = useDocument(props.uid,
+    const {loading, control, watch, reset, tables, footer} = useDocument(props.uid,
 
         // Документ
         {number: '', date_create: null, date_update: null},
@@ -53,17 +52,7 @@ const Order = ({props}) => {
         autoComplete="off">
 
         {/* Заголовок */}
-        <DialogTitle sx={{m: 0, p: '10px'}}>
-            Заказ {number}
-            <IconButton
-                aria-label="close"
-                onClick={() => {
-                    dispatch(closeModal())
-                }}
-                sx={{position: "absolute", right: 8, top: 8}}>
-                <CloseIcon/>
-            </IconButton>
-        </DialogTitle>
+        <Title title={`Заказ ${number}`}/>
 
         {/* Шапка */}
 
@@ -110,17 +99,20 @@ const Order = ({props}) => {
         </Box>
 
         {/* Подвал */}
-        <Box sx={{display: 'flex'}}>
-            {[{f: 'date_create', n: 'Создан'}, {f: 'date_change', n: 'Изменен'}].map((el, i) =>
-                <ControlledDateTimePicker
-                    key={i}
-                    readOnly={true}
-                    control={control}
-                    name={el.f}
-                    label={el.n}
-                    rules={{required: 'Укажите дату создания'}}
-                    sx={{width: '190px', mr: '10px'}}
-                />)}
+        <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+            <Box sx={{display: 'flex'}}>
+                {[{f: 'date_create', n: 'Создан'}, {f: 'date_change', n: 'Изменен'}].map((el, i) =>
+                    <ControlledDateTimePicker
+                        key={i}
+                        readOnly={true}
+                        control={control}
+                        name={el.f}
+                        label={el.n}
+                        rules={{required: 'Укажите дату создания'}}
+                        sx={{width: '190px', mr: '10px'}}
+                    />)}
+            </Box>
+            <Footer/>
         </Box>
 
     </Box>
