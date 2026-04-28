@@ -7,7 +7,9 @@ import CloseIcon from "@mui/icons-material/Close"
 import {useDispatch} from "react-redux"
 import ControlledDateTimePicker from "../ui/ControlledDateTimePicker.jsx"
 import ControlledTextField from "../ui/ControlledTextField.jsx"
+import AsyncAutocomplete from "../ui/AsyncAutocomplete.jsx"
 
+// Заголовок документа
 export function Title({title}) {
     const dispatch = useDispatch()
     return <DialogTitle sx={{m: 0, p: '10px'}}>
@@ -23,6 +25,7 @@ export function Title({title}) {
     </DialogTitle>
 }
 
+// Подвал документа
 export function Footer({control, saveButton, copyButton, deleteButton}) {
     return <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -33,14 +36,14 @@ export function Footer({control, saveButton, copyButton, deleteButton}) {
                     control={control}
                     name={el.f}
                     label={el.n}
-                    sx={{maxWidth: '190px', mr: '10px'}}
+                    sx={{mr: '10px'}}
                 />)}
             <ControlledTextField
                 control={control}
                 name={'name_creator'}
                 label={'Автор'}
                 multiline
-                sx={{maxWidth: '150px', mr: '10px'}}
+                sx={{mr: '10px'}}
             />
         </Box>
         <ButtonGroup
@@ -52,6 +55,7 @@ export function Footer({control, saveButton, copyButton, deleteButton}) {
     </Box>
 }
 
+// Загрузчик
 export function LoaderOrder() {
     return <Box sx={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column', p: 2}}>
         <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
@@ -62,5 +66,60 @@ export function LoaderOrder() {
         <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
         <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
         <Skeleton variant="rectangular" width={300} height={10}/>
+    </Box>
+}
+
+// Заполнение полей
+export function EnhanceColumn(filial, col, mapCatalog) {
+    const mapTypes = new Map()
+    mapTypes.set('uid_good', 'goods')
+    if (col.field !== 'uid_good') return col
+    return {
+        ...col, editable: true, renderCell: (params) => {
+            if (['uid_good'].includes(col.field)) return mapCatalog.find(el => el.type === mapTypes.get(col.field) && el.uid === params.row[col.field])?.name; else return '';
+        }, renderEditCell: (params) => <AsyncAutocomplete
+            value={params.value}
+            filial={filial}
+            type={mapTypes.get(col.field)}
+            variant="standard"
+            source="table"
+            sx={{width: '100%', height: '100%'}}
+            onChange={(val) => {
+                params.api.setEditCellValue({
+                    id: params.id, field: params.field, value: val ?? null
+                })
+                params.api.stopCellEditMode({
+                    id: params.id, field: params.field
+                })
+            }}
+        />
+    }
+}
+
+// Табличные части
+export function TableToolbar({left = [], right = []}) {
+    return <Box className='center-toolbar'>
+        <Box>
+            {left.map((btn, i) => <Button
+                key={i}
+                onClick={btn.onClick}
+                variant={btn.variant || 'tb_add'}
+                size="small"
+                startIcon={btn.icon}
+                sx={{mr: 1}}>
+                {btn.label}
+            </Button>)}
+        </Box>
+        <Box>
+            {right.map((btn, i) => <Button
+                key={i}
+                onClick={btn.onClick}
+                variant={btn.variant || 'tb_delete'}
+                size="small"
+                startIcon={btn.icon}
+                sx={{ml: 1}}>
+                {btn.label}
+            </Button>)}
+        </Box>
     </Box>
 }

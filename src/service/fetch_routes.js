@@ -108,6 +108,7 @@ export const ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT = '/api/equipment/printer/kit
 export const ROUTE_COMMON_REPORTS_ATTENDANCE_GET = '/api/common/reports/attendance/get'
 
 // Центр
+export const ROUTE_CENTER_CATALOG_LOAD = '/api/catalog/load'
 export const ROUTE_CENTER_HORECA_GOODS_TREE_GET = '/api/center/horeca/goods/tree/get'
 export const ROUTE_CENTER_HORECA_GOODS_GET = '/api/center/horeca/goods/get'
 export const ROUTE_CENTER_HORECA_GOODS_RECIPES_GET = '/api/center/horeca/goods/recipes/get'

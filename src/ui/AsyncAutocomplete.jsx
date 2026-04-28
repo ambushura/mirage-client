@@ -1,5 +1,5 @@
 import {Autocomplete, CircularProgress, TextField} from "@mui/material"
-import {useAsyncSelect} from "./hooks/useAsyncSelect.jsx"
+import {useAsyncSelect} from "../backoffice/hooks/useAsyncSelect.jsx"
 import {useEffect, useRef} from "react"
 
 export default function AsyncAutocomplete({

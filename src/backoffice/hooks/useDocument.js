@@ -2,12 +2,16 @@ import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import {transformData} from "../../ui/hooks/common_functions.js"
+import {center_catalog_load} from "../../service/fetch_service.js"
 
 export function useDocument(link, defaultValues, defaultTables, load) {
 
     const dispatch = useDispatch()
     const {root_filial, filial} = useSelector(state => state.center)
     const [loading, setLoading] = useState(true)
+
+    // Карта значений
+    const [catalogMap, setCatalogMap] = useState([])
 
     // Документ
     const {handleSubmit, setValue, control, reset, watch} = useForm({
@@ -44,8 +48,37 @@ export function useDocument(link, defaultValues, defaultTables, load) {
         fetchData()
     }, [link])
 
+    useEffect(() => {
+        const loadCatalog = async () => {
+            const map = new Map()
+            tables.forEach(table => {
+                table.data.rows.forEach(row => {
+                    Object.entries(row).forEach(([key, value]) => {
+                        switch (key) {
+                            case 'uid_good':
+                                if (value) {
+                                    map.set(`goods-${value}`, {
+                                        type: 'goods', value
+                                    })
+                                }
+                                break
+                            default:
+                                break
+                        }
+                    })
+                })
+            })
+            const ids = [...map.values()]
+            if (!ids.length) return
+            const res = await dispatch(center_catalog_load(filial, ids))
+            setCatalogMap(res.data)
+        }
+        loadCatalog()
+    }, [dispatch, filial, tables])
+
+
     // Состояние загрузки
     // Контролируемые элементы
     // Табличные части
-    return {loading, control, watch, reset, tables}
+    return {loading, control, watch, reset, tables, catalogMap}
 }

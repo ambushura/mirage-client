@@ -20,15 +20,18 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
 
     const headers = useMemo(() => ({
         Authorization: token, uid_filial: filial?.uid ?? "", wp, kiosk: String(kiosk), version, center: String(center),
-    }), [token, filial, wp, kiosk, version, center])
+    }), [token, filial?.uid, wp, kiosk, version, center])
 
-    const fetchOptions = useMemo(() => debounce(async (search) => {
+    const fetchOptions = useMemo(() => debounce(async search => {
 
         if (!filial) return
 
         const q = search?.trim()
 
-        if (!q) return
+        if (!q) {
+            setOptions([])
+            return
+        }
 
         if (cache.current.has(q)) {
             setOptions(cache.current.get(q))
@@ -36,6 +39,7 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
         }
 
         abortRef.current?.abort()
+
         const controller = new AbortController()
         abortRef.current = controller
 
@@ -43,10 +47,10 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
 
         try {
             const res = await axios.get(`http://${filial.ip}:${filial.port}/api/catalog/search`, {
-                params: {type, value: q, limit}, headers, signal: controller.signal
+                params: {type, value: q, limit}, headers, signal: controller.signal,
             })
 
-            const data = res.data ?? []
+            const data = Array.isArray(res.data) ? res.data : []
 
             if (cache.current.size >= MAX_CACHE) {
                 const first = cache.current.keys().next().value
@@ -57,7 +61,7 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
             setOptions(data)
 
         } catch (err) {
-            if (err.name !== "CanceledError" && err.name !== "AbortError") {
+            if (!axios.isCancel(err) && err.name !== "AbortError") {
                 console.error(err)
             }
         } finally {
@@ -85,22 +89,22 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
 
         const loadById = async () => {
             try {
-                const res = await axios.get(`http://${filial.ip}:${filial.port}/api/catalog/load`, {
-                    params: {value: [value], type}, headers, signal: controller.signal
+                const res = await axios.post(`http://${filial.ip}:${filial.port}/api/catalog/load`, [{type, value}], {
+                    headers, signal: controller.signal,
                 })
 
-                const item = res.data
-                if (!item || item?.length === 0) return
+                const data = Array.isArray(res.data) ? res.data : []
+                const item = data[0]
+
+                if (!item?.uid) return
 
                 setOptions(prev => {
-                    if (!prev.find(o => o.uid === item[0].uid)) {
-                        return [item[0], ...prev]
-                    }
-                    return prev
+                    const exists = prev.some(o => o.uid === item.uid)
+                    return exists ? prev : [item, ...prev]
                 })
 
             } catch (err) {
-                if (err.name !== "CanceledError" && err.name !== "AbortError") {
+                if (!axios.isCancel(err) && err.name !== "AbortError") {
                     console.error(err)
                 }
             }
@@ -113,6 +117,6 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
     }, [value, type, filial, headers])
 
     return {
-        options, loading, inputValue, setInputValue, setOptions
+        options, loading, inputValue, setInputValue, setOptions,
     }
 }
