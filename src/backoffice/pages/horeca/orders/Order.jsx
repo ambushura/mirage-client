@@ -1,17 +1,20 @@
 import {center_horeca_order_get} from "../../../../service/fetch_service.js"
 import {useDispatch, useSelector} from "react-redux"
 import {useDocument} from "../../../hooks/useDocument.js"
-import {Box, Tab} from "@mui/material"
+import {Box, Button, Tab} from "@mui/material"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {sxTable} from "../../../../ui/ThemeContext.jsx"
 import {useState} from "react"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
-import {Footer, LoaderOrder, TableToolbar, Title} from "../../../Common.jsx"
+import {Footer, LoaderOrder, Title} from "../../../Common.jsx"
 import {v4} from "uuid"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
-import ControlledFieldSwitch from "../../../../ui/ControlledFieldSwitch.jsx";
-import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx";
+import ControlledFieldSwitch from "../../../../ui/ControlledFieldSwitch.jsx"
+import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
+import AddIcon from "@mui/icons-material/Add"
+import RemoveIcon from "@mui/icons-material/Remove"
+import CachedIcon from '@mui/icons-material/Cached'
 
 const Order = ({props}) => {
 
@@ -65,8 +68,28 @@ const Order = ({props}) => {
 
         // Табличные части
         [{
-            id: 'sale',
+            id: 'sales',
             label: 'Товары',
+            data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
+        }, {
+            id: 'payments',
+            label: 'Оплаты',
+            data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
+        }, {
+            id: 'returns',
+            label: 'Возвраты',
+            data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
+        }, {
+            id: 'kitchen',
+            label: 'Кухня',
+            data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
+        }, {
+            id: 'mark',
+            label: 'Маркировка',
+            data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
+        }, {
+            id: 'egais',
+            label: 'ЕГАИС',
             data: {rows: [], columns: [], column_grouping_model: [], column_visibility_model: []}
         }, {
             id: 'store',
@@ -81,7 +104,7 @@ const Order = ({props}) => {
     const number = watch('number')
 
     // Табличные части
-    const [currentTable, setCurrentTable] = useState('sale')
+    const [currentTable, setCurrentTable] = useState('sales')
 
     if (loading) {
         return <LoaderOrder/>
@@ -143,10 +166,12 @@ const Order = ({props}) => {
                         return <TabPanel value={table.id} key={table.id}>
                             <Box sx={{maxHeight: 400, overflowY: 'auto'}}>
                                 <DataGridPro
-                                    treeData
+                                    treeData={table.id === 'store'}
                                     loading={loading}
                                     showToolbar
-                                    slots={{toolbar: TableToolbar}}
+                                    slots={{
+                                        toolbar: TableToolbar
+                                    }}
                                     autoHeight
                                     key={table.id}
                                     sortingMode="server"
@@ -165,6 +190,9 @@ const Order = ({props}) => {
                                     getRowClassName={(params) => params.row.is_leaf === false ? 'center-horeca-order-ref' : ''}
                                     getTreeDataPath={(row) => {
                                         return row.path ? row.path.split(".") : [row.path]
+                                    }}
+                                    slotProps={{
+                                        toolbar: getToolbarProps(table.id)
                                     }}
                                 />
                             </Box>
@@ -198,3 +226,60 @@ const Order = ({props}) => {
 }
 
 export default Order
+
+// Табличные части
+export function TableToolbar({left = [], right = []}) {
+    return <Box className='center-toolbar'>
+        <Box>
+            {left.map((btn, i) => <Button
+                key={i}
+                onClick={btn.onClick}
+                variant={btn.variant || 'tb_add'}
+                size="small"
+                startIcon={btn.icon}
+                sx={{mr: 1}}>
+                {btn.label}
+            </Button>)}
+        </Box>
+        <Box>
+            {right.map((btn, i) => <Button
+                key={i}
+                onClick={btn.onClick}
+                variant={btn.variant || 'tb_delete'}
+                size="small"
+                startIcon={btn.icon}
+                sx={{ml: 1}}>
+                {btn.label}
+            </Button>)}
+        </Box>
+    </Box>
+}
+
+export function IngredientsOnAdd() {
+
+}
+
+export function IngredientsOnDelete() {
+
+}
+
+export function IngredientsRebuild() {
+
+}
+
+const getToolbarProps = (id) => {
+    switch (id) {
+        case 'store':
+            return {
+                left: [{label: 'Добавить', icon: <AddIcon/>, onClick: IngredientsOnAdd}, {
+                    label: 'Пересобрать', icon: <CachedIcon/>, onClick: IngredientsRebuild
+                }], right: [{label: 'Удалить', icon: <RemoveIcon/>, onClick: IngredientsOnDelete}]
+            }
+
+        case 'sale':
+            return {left: [], right: []}
+
+        default:
+            return {left: [], right: []}
+    }
+}

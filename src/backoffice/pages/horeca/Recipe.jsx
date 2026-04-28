@@ -352,19 +352,11 @@ const Recipe = ({props}) => {
     }
 }
 
-const RecipeToolbar = ({onAdd, onDelete}) => {
-    return <Box sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        p: 1,
-        borderBottom: '1px solid',
-        borderColor: 'divider',
-        backgroundColor: 'background.paper'
-    }}>
+export default Recipe
+
+export function RecipeToolbar({onAdd, onDelete}) {
+    return <Box className='center-toolbar'>
         <Button onClick={onAdd} variant="tb_add" size="small" startIcon={<AddIcon/>}>Добавить</Button>
         <Button onClick={onDelete} variant="tb_delete" size="small" startIcon={<RemoveIcon/>}>Удалить</Button>
     </Box>
 }
-
-export default Recipe

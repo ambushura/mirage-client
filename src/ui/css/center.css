@@ -157,3 +157,11 @@
 .center-store-quantity-need-error {
     color: #d63a41 !important;
 }
+
+.center-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border: none;
+}
