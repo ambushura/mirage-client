@@ -305,5 +305,7 @@ export const sxTable = {
         outline: 'none', boxShadow: 'none'
     }, '& .MuiDataGrid-cell--editing': {
         boxShadow: 'none !important'
-    }
+    }, '& .MuiDataGrid-scrollbar--horizontal': {
+        position: 'relative'
+    },
 }

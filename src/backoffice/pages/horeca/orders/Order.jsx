@@ -114,10 +114,10 @@ const Order = ({props}) => {
             component="form"
             noValidate
             autoComplete="off"
-            sx={{maxWidth: '960px'}}>
+            sx={{maxWidth: '960px', minWidth: '960px'}}>
 
             {/* Заголовок */}
-            <Title title={'Заказ (horeca)'}/>
+            <Title title={'Заказ HORECA'}/>
 
             {/* Табличные части */}
             <Box sx={{width: '100%', mb: '10px', minHeight: 450, maxHeight: 450}}>
@@ -132,51 +132,50 @@ const Order = ({props}) => {
                         </TabList>
                     </Box>
                     <TabPanel value={'common'}>
-                        <Box sx={{maxHeight: 400, overflowY: 'auto', p: '10px 0'}}>
-                            <ControlledTextField
-                                control={control}
-                                name="number"
-                                label="Номер счета"
-                                sx={{flex: 1, mr: '10px'}}
-                                numeric
-                            />
-                            <ControlledTextField
-                                control={control}
-                                name={'current_number'}
-                                label={'Номер счета'}
-                                sx={{mr: 2}}
-                            />
-                            <ControlledFieldSwitch
-                                name={'canceled'}
-                                label={'Отменен'}
-                                control={control}
-                            />
-                            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                        <Box sx={{
+                            display: 'flex', flexDirection: 'row', maxHeight: 400, overflowY: 'auto', p: '10px 0'
+                        }}>
+                            <Box sx={{display: 'flex', flexDirection: 'column', mr: '10px'}}>
+                                <ControlledTextField
+                                    control={control}
+                                    name="number"
+                                    label="Номер заказа"
+                                    sx={{flex: 1}}
+                                    numeric
+                                />
+                                <ControlledTextField
+                                    control={control}
+                                    name={'current_number'}
+                                    label={'Номер счета'}
+                                    sx={{flex: 1}}
+                                />
+                            </Box>
+                            <Box sx={{display: 'flex', flexDirection: 'column', mr: '10px'}}>
                                 <ControlledTextField
                                     control={control}
                                     name="quantity"
                                     label="Количество"
-                                    sx={{flex: 1, mr: '10px'}}
+                                    sx={{flex: 1}}
                                     numeric
                                 />
                                 <ControlledMoneyField
                                     control={control}
                                     name="price"
                                     label="Цена"
-                                    sx={{flex: 1, mr: '10px'}}
+                                    sx={{flex: 1}}
                                 />
                                 <ControlledMoneyField
                                     control={control}
                                     name="sum_discount"
                                     label="Сумма скидки"
-                                    sx={{flex: 1, mr: '10px'}}
+                                    sx={{flex: 1}}
                                 />
                                 <ControlledMoneyField
                                     control={control}
                                     name="sum"
                                     label="Сумма со скидкой"
                                     readOnly={true}
-                                    sx={{flex: 1, mr: '10px'}}
+                                    sx={{flex: 1}}
                                 />
                             </Box>
                         </Box>
@@ -233,6 +232,18 @@ const Order = ({props}) => {
                         </Box>
                     </TabPanel>
                 </TabContext>
+                <Box>
+                    <ControlledFieldSwitch
+                        name={'deleted'}
+                        label={'Заказ удален'}
+                        control={control}
+                    />
+                    <ControlledFieldSwitch
+                        name={'canceled'}
+                        label={'Заказ отменен'}
+                        control={control}
+                    />
+                </Box>
             </Box>
 
             {/* Подвал */}

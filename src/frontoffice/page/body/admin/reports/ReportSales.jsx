@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {cleanSales, set_salesColumnVisibilityModel, setSales} from "../../../../../redux/reportsReducer.js"
