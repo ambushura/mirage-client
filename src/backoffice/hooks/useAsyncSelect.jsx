@@ -89,7 +89,9 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
 
         const loadById = async () => {
             try {
-                const res = await axios.post(`http://${filial.ip}:${filial.port}/api/catalog/load`, [{type, value}], {
+                const res = await axios.post(`http://${filial.ip}:${filial.port}/api/catalog/load`, [{
+                    type: type, value: value
+                }], {
                     headers, signal: controller.signal,
                 })
 

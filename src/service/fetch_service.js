@@ -1816,7 +1816,7 @@ export const center_catalog_load = (filial, ids) => async (dispatch, getState) =
     return await makeRequest(dispatch, {
         method: 'post',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_LOAD}`,
-        data: {ids},
+        data: ids,
         filial,
         wp,
         kiosk,

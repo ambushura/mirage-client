@@ -76,7 +76,7 @@ export function EnhanceColumn(filial, col, mapCatalog) {
     if (col.field !== 'uid_good') return col
     return {
         ...col, editable: true, renderCell: (params) => {
-            if (['uid_good'].includes(col.field)) return mapCatalog.find(el => el.type === mapTypes.get(col.field) && el.uid === params.row[col.field])?.name; else return '';
+            return mapCatalog.find(el => el.type === mapTypes.get(col.field) && el.uid === params.row[col.field])?.name
         }, renderEditCell: (params) => <AsyncAutocomplete
             value={params.value}
             filial={filial}
