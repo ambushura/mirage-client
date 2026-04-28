@@ -12,8 +12,6 @@ import {v4} from "uuid"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import ControlledFieldSwitch from "../../../../ui/ControlledFieldSwitch.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
-import AddIcon from "@mui/icons-material/Add"
-import RemoveIcon from "@mui/icons-material/Remove"
 import CachedIcon from '@mui/icons-material/Cached'
 
 const Order = ({props}) => {
@@ -64,6 +62,9 @@ const Order = ({props}) => {
             quantity: 0,
             sum_discount: 0,
             sum: 0,
+
+            // Технические
+            ver: ''
         },
 
         // Табличные части
@@ -101,7 +102,6 @@ const Order = ({props}) => {
         load)
 
     // Реквизиты формы
-    const number = watch('number')
 
     // Табличные части
     const [currentTable, setCurrentTable] = useState('sales')
@@ -113,10 +113,11 @@ const Order = ({props}) => {
             id="modal-order"
             component="form"
             noValidate
-            autoComplete="off">
+            autoComplete="off"
+            sx={{maxWidth: '960px'}}>
 
             {/* Заголовок */}
-            <Title title={`Заказ ${number}`}/>
+            <Title title={'Заказ (horeca)'}/>
 
             {/* Табличные части */}
             <Box sx={{width: '100%', mb: '10px', minHeight: 450, maxHeight: 450}}>
@@ -134,6 +135,13 @@ const Order = ({props}) => {
                         <Box sx={{maxHeight: 400, overflowY: 'auto', p: '10px 0'}}>
                             <ControlledTextField
                                 control={control}
+                                name="number"
+                                label="Номер счета"
+                                sx={{flex: 1, mr: '10px'}}
+                                numeric
+                            />
+                            <ControlledTextField
+                                control={control}
                                 name={'current_number'}
                                 label={'Номер счета'}
                                 sx={{mr: 2}}
@@ -143,22 +151,34 @@ const Order = ({props}) => {
                                 label={'Отменен'}
                                 control={control}
                             />
-                            <ControlledMoneyField
-                                control={control}
-                                name="price"
-                                label="Цена"
-                            />
-                            <ControlledMoneyField
-                                control={control}
-                                name="sum_discount"
-                                label="Сумма скидки"
-                            />
-                            <ControlledMoneyField
-                                control={control}
-                                name="sum"
-                                label="Сумма со скидкой"
-                                readOnly={true}
-                            />
+                            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                                <ControlledTextField
+                                    control={control}
+                                    name="quantity"
+                                    label="Количество"
+                                    sx={{flex: 1, mr: '10px'}}
+                                    numeric
+                                />
+                                <ControlledMoneyField
+                                    control={control}
+                                    name="price"
+                                    label="Цена"
+                                    sx={{flex: 1, mr: '10px'}}
+                                />
+                                <ControlledMoneyField
+                                    control={control}
+                                    name="sum_discount"
+                                    label="Сумма скидки"
+                                    sx={{flex: 1, mr: '10px'}}
+                                />
+                                <ControlledMoneyField
+                                    control={control}
+                                    name="sum"
+                                    label="Сумма со скидкой"
+                                    readOnly={true}
+                                    sx={{flex: 1, mr: '10px'}}
+                                />
+                            </Box>
                         </Box>
                     </TabPanel>
                     {tables.map(table => {
@@ -255,11 +275,11 @@ export function TableToolbar({left = [], right = []}) {
     </Box>
 }
 
-export function IngredientsOnAdd() {
+export function PaymentsRebuild() {
 
 }
 
-export function IngredientsOnDelete() {
+export function ReturnsRebuild() {
 
 }
 
@@ -271,14 +291,22 @@ const getToolbarProps = (id) => {
     switch (id) {
         case 'store':
             return {
-                left: [{label: 'Добавить', icon: <AddIcon/>, onClick: IngredientsOnAdd}, {
+                left: [{
                     label: 'Пересобрать', icon: <CachedIcon/>, onClick: IngredientsRebuild
-                }], right: [{label: 'Удалить', icon: <RemoveIcon/>, onClick: IngredientsOnDelete}]
+                }]
             }
-
-        case 'sale':
-            return {left: [], right: []}
-
+        case 'payments':
+            return {
+                left: [{
+                    label: 'Подобрать', icon: <CachedIcon/>, onClick: PaymentsRebuild
+                }], right: []
+            }
+        case 'returns':
+            return {
+                left: [{
+                    label: 'Подобрать', icon: <CachedIcon/>, onClick: ReturnsRebuild
+                }], right: []
+            }
         default:
             return {left: [], right: []}
     }
