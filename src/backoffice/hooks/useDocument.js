@@ -60,6 +60,13 @@ export function useDocument(link, defaultValues, defaultTables, load, setCatalog
                                     })
                                 }
                                 break
+                            case 'uid_payment_type':
+                                if (value) {
+                                    map.set(`payment_types-${value}`, {
+                                        type: 'payment_types', value
+                                    })
+                                }
+                                break
                             default:
                                 break
                         }

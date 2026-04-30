@@ -71,9 +71,10 @@ export function LoaderOrder() {
 
 // Заполнение полей
 export function EnhanceColumn(filial, col, mapCatalog, setCatalogMap) {
-    if (col.field !== 'uid_good') return col
+    if (!['uid_good', 'uid_payment_type'].includes(col.field)) return col
     const mapTypes = new Map()
     mapTypes.set('uid_good', 'goods')
+    mapTypes.set('uid_payment_type', 'payment_types')
     return {
         ...col,
 
