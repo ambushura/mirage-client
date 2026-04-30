@@ -67,6 +67,13 @@ export function useDocument(link, defaultValues, defaultTables, load, setCatalog
                                     })
                                 }
                                 break
+                            case 'uid_discount':
+                                if (value) {
+                                    map.set(`discounts-${value}`, {
+                                        type: 'discounts', value
+                                    })
+                                }
+                                break
                             default:
                                 break
                         }
