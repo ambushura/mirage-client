@@ -60,7 +60,7 @@ export default function Recipe({props}) {
     // Движок
     const {
         loading, control, tables
-    } = useDocument(props.ref, defaultValues, defaultTables, load, setCatalogMap)
+    } = useDocument(root_filial, props.ref, defaultValues, defaultTables, load, setCatalogMap)
 
     // Наблюдаемые переменные
     const {fields: filials} = useFieldArray({control, name: "filials"})

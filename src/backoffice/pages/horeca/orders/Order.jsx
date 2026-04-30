@@ -82,7 +82,7 @@ export default function Order({props}) {
     // Движок
     const {
         loading, control, tables
-    } = useDocument(props.uid, defaultValues, defaultTables, load, setCatalogMap)
+    } = useDocument(filial, props.uid, defaultValues, defaultTables, load, setCatalogMap)
 
     if (loading) {
         return <LoaderOrder/>

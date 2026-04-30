@@ -1,13 +1,12 @@
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import {transformData} from "../../ui/hooks/common_functions.js"
 import {center_catalog_load} from "../../service/fetch_service.js"
 
-export function useDocument(link, defaultValues, defaultTables, load, setCatalogMap) {
+export function useDocument(filial, link, defaultValues, defaultTables, load, setCatalogMap) {
 
     const dispatch = useDispatch()
-    const {root_filial, filial} = useSelector(state => state.center)
     const [loading, setLoading] = useState(true)
 
     // Документ
@@ -86,7 +85,7 @@ export function useDocument(link, defaultValues, defaultTables, load, setCatalog
             setCatalogMap(prevState => [...prevState, ...res.data])
         }
         loadCatalog()
-    }, [dispatch, filial, tables])
+    }, [dispatch, filial, setCatalogMap, tables])
 
     // Состояние загрузки
     // Контролируемые элементы
