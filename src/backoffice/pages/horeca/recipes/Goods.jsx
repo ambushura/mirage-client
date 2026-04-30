@@ -4,15 +4,15 @@ import {SimpleTreeView, TreeItem} from '@mui/x-tree-view'
 import {useDispatch, useSelector} from "react-redux"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import {center_horeca_goods_get, center_horeca_goods_recipes_get} from "../../../service/fetch_service.js"
+import {center_horeca_goods_get, center_horeca_goods_recipes_get} from "../../../../service/fetch_service.js"
 import {
     setExpandedRecipesTree,
     setExpandedTree,
     setGoodsRecipes,
     setUidCurrentFolder,
     setUidCurrentGood
-} from "../../../redux/center/centerHorecaReducer.js"
-import {openModal} from "../../../redux/interfaceReducer.js"
+} from "../../../../redux/center/centerHorecaReducer.js"
+import {openModal} from "../../../../redux/interfaceReducer.js"
 
 const treeSlots = {collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}
 

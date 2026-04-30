@@ -14,6 +14,7 @@ import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import ControlledFieldSwitch from "../../../../ui/ControlledFieldSwitch.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
 
+// Таблицы документа
 const defaultTables = [{id: "sales", label: "Товары"}, {id: "payments", label: "Оплаты"}, {
     id: "returns", label: "Возвраты"
 }, {id: "kitchen", label: "Кухня"}, {id: "mark", label: "Маркировка"}, {id: "egais", label: "ЕГАИС"}, {
@@ -24,6 +25,7 @@ const defaultTables = [{id: "sales", label: "Товары"}, {id: "payments", la
     }
 }))
 
+// Шапка документа
 const defaultValues = {
     buyer_uid: null,
     buyer_card_number: null,
@@ -54,19 +56,30 @@ const defaultValues = {
     ver: ""
 }
 
+// Дополнительные поля
 const buyerFields = [["buyer_email", "Email"], ["buyer_phone_number", "Номер телефона"], ["buyer_card_number", "Номер карты"], ["buyer_s", "Фамилия"], ["buyer_n", "Имя"], ["buyer_o", "Отчество"]]
 
+// Документ
 export default function Order({props}) {
+
+    // Технические функции
     const dispatch = useDispatch()
+
+    // Филиал
     const {filial} = useSelector(state => state.center)
 
+    // Словарь для значений
     const [catalogMap, setCatalogMap] = useState([])
+
+    // Таблица по умолчанию
     const [currentTable, setCurrentTable] = useState("sales")
 
+    // Функция загрузки документа
     const load = useCallback(() => {
         return dispatch(center_horeca_order_get(filial, props.uid, 0))
     }, [dispatch, filial, props.uid])
 
+    // Движок
     const {
         loading, control, tables
     } = useDocument(props.uid, defaultValues, defaultTables, load, setCatalogMap)
@@ -94,8 +107,10 @@ export default function Order({props}) {
                 minHeight: 450,
                 maxHeight: 450
             }}>
+
             <Box>
-                <TabContext value={currentTable}>
+
+            <TabContext value={currentTable}>
                     <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                         <TabList
                             variant="scrollable"
@@ -129,16 +144,18 @@ export default function Order({props}) {
                     </TabPanel>
 
                 </TabContext>
+
             </Box>
 
             <Summary control={control}/>
+
         </Box>
 
         <Footer
             control={control}
             saveButton
-            deleteButton
-        />
+            deleteButton/>
+
     </Box>
 }
 

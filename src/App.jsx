@@ -52,7 +52,7 @@ import CenterShift from "./backoffice/pages/shift/Center.jsx"
 import {ScrollStyles} from "./ui/ThemeContext.jsx"
 import Order from "./backoffice/pages/horeca/orders/Order.jsx"
 import CenterCinema from "./backoffice/pages/cinema/Center.jsx"
-import Recipe from "./backoffice/pages/horeca/Recipe.jsx"
+import Recipe from "./backoffice/pages/horeca/recipes/Recipe.jsx"
 import CenterResults from "./backoffice/pages/results/Center.jsx"
 import ItemsMovement from "./backoffice/pages/horeca/ItemsMovement.jsx"
 

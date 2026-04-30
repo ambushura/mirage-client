@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import SubMenu from "../../SubMenu.jsx"
-import Goods from "./Goods.jsx"
+import Goods from "./recipes/Goods.jsx"
 import Orders from "./orders/Orders.jsx"
 import StoreState from "./StoreState.jsx"
 import ShiftState from "./ShiftState.jsx"
