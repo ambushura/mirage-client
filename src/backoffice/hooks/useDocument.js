@@ -73,6 +73,13 @@ export function useDocument(filial, link, defaultValues, defaultTables, load, se
                                     })
                                 }
                                 break
+                            case 'uid_store':
+                                if (value) {
+                                    map.set(`stores-${value}`, {
+                                        type: 'stores', value
+                                    })
+                                }
+                                break
                             default:
                                 break
                         }
