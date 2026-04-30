@@ -168,6 +168,7 @@ export default function Recipe({props}) {
 
             <Footer
                 control={control}
+                creator={false}
                 saveButton
                 deleteButton/>
 

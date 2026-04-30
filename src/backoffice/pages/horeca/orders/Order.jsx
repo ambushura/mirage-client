@@ -110,7 +110,7 @@ export default function Order({props}) {
 
             <Box>
 
-            <TabContext value={currentTable}>
+                <TabContext value={currentTable}>
                     <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                         <TabList
                             variant="scrollable"
@@ -153,6 +153,7 @@ export default function Order({props}) {
 
         <Footer
             control={control}
+            creator={true}
             saveButton
             deleteButton/>
 

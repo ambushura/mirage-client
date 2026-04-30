@@ -26,7 +26,7 @@ export function Title({title}) {
 }
 
 // Подвал документа
-export function Footer({control, saveButton, copyButton, deleteButton}) {
+export function Footer({control, creator, saveButton, copyButton, deleteButton}) {
     return <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
             {[{f: 'date_create', n: 'Создан'}, {f: 'date_change', n: 'Изменен'}].map((el, i) =>
@@ -38,13 +38,13 @@ export function Footer({control, saveButton, copyButton, deleteButton}) {
                     label={el.n}
                     sx={{mr: '10px'}}
                 />)}
-            <ControlledTextField
+            {creator && <ControlledTextField
                 control={control}
                 name={'name_creator'}
                 label={'Автор'}
                 multiline
                 sx={{mr: '10px'}}
-            />
+            />}
         </Box>
         <ButtonGroup
             sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', flexWrap: 'wrap'}}>
