@@ -108,7 +108,6 @@ export const ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT = '/api/equipment/printer/kit
 export const ROUTE_COMMON_REPORTS_ATTENDANCE_GET = '/api/common/reports/attendance/get'
 
 // Центр
-export const ROUTE_CENTER_CATALOG_LOAD = '/api/catalog/load'
 export const ROUTE_CENTER_HORECA_GOODS_TREE_GET = '/api/center/horeca/goods/tree/get'
 export const ROUTE_CENTER_HORECA_GOODS_GET = '/api/center/horeca/goods/get'
 export const ROUTE_CENTER_HORECA_GOODS_RECIPES_GET = '/api/center/horeca/goods/recipes/get'
@@ -119,3 +118,7 @@ export const ROUTE_CENTER_HORECA_STORE_STATE_GET = '/api/center/horeca/store_sta
 export const ROUTE_CENTER_HORECA_PRODUCTION_STATE_GET = '/api/center/horeca/production_state/get'
 export const ROUTE_CENTER_HORECA_SHIFT_STATE_GET = '/api/center/horeca/shift_state/get'
 export const ROUTE_CENTER_HORECA_STORE_REST_GET = '/api/center/horeca/store_rest/get'
+
+// Дополнительно
+export const ROUTE_CENTER_CATALOG_LOAD = '/api/catalog/load'
+export const ROUTE_CENTER_CATALOG_SEARCH = '/api/catalog/search'

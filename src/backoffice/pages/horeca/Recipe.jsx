@@ -20,7 +20,6 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import {useCatalogMaps} from "../../../ui/hooks/useCatalogMaps.js"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
 import ControlledFieldSwitch from "../../../ui/ControlledFieldSwitch.jsx"
 import ControlledTextField from "../../../ui/ControlledTextField.jsx"
@@ -153,7 +152,7 @@ const Recipe = ({props}) => {
         return {...col, editable: !['uid_good'].includes(col.field) && !isDeleted}
     })
 
-    const goodsMap = useCatalogMaps(ingredients.rows, 'goods')
+    const goodsMap = new Map()//useCatalogMaps(ingredients.rows, 'goods')
 
     const [current_page, set_current_page] = useState('1')
 

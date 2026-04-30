@@ -1,8 +1,10 @@
+import {useEffect, useMemo, useRef} from "react"
 import {Autocomplete, CircularProgress, TextField} from "@mui/material"
+
 import {useAsyncSelect} from "../backoffice/hooks/useAsyncSelect.jsx"
-import {useEffect, useRef} from "react"
 
 export default function AsyncAutocomplete({
+                                              setCatalogMap,
                                               disabled,
                                               source,
                                               variant,
@@ -12,67 +14,93 @@ export default function AsyncAutocomplete({
                                               value,
                                               onChange,
                                               label = "Выбери",
-                                              getOptionLabel = (o) => o?.name ?? ""
+                                              getOptionLabel = option => option?.name ?? ""
                                           }) {
+    const {
+        options, loading, inputValue, setInputValue
+    } = useAsyncSelect({
+        filial, type, value
+    })
 
-    const {options, loading, inputValue, setInputValue} = useAsyncSelect({filial, type, value})
-    const selected = options.find(o => o.uid === value) ?? null
     const inputRef = useRef(null)
 
+    const selected = useMemo(() => options.find(option => option.uid === value) ?? null, [options, value])
+
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             inputRef.current?.focus()
             inputRef.current?.select()
         })
+
+        return () => clearTimeout(timer)
     }, [])
+
+    const handleChange = (_, option) => {
+        if (!option) {
+            onChange?.(null)
+            return
+        }
+
+        setCatalogMap?.(prev => {
+            const exists = prev.some(item => item.uid === option.uid && item.type === type)
+
+            if (exists) return prev
+
+            return [...prev, {
+                uid: option.uid, type, name: option.name
+            }]
+        })
+
+        onChange?.(option.uid)
+    }
 
     return <Autocomplete
         disabled={disabled}
-        autoFocus
         blurOnSelect
+        autoFocus
         noOptionsText="Ничего не найдено"
         loadingText="Загрузка..."
         openText="Открыть"
         closeText="Закрыть"
         clearText="Очистить"
-        sx={[sx, source === 'table' ? {
-            height: '100%', '& .MuiFormControl-root': {
-                height: '100%'
-            }, '& .MuiInputBase-root': {
-                fontSize: 14,
-                height: '100% !important',
-                padding: '0 3px',
-                display: 'flex',
-                alignItems: 'center',
-                background: 'transparent'
-            }, '& input': {
-                padding: '0px 6px !important'
-            }
-        } : null]}
         options={options}
         value={selected}
         loading={loading}
+        inputValue={inputValue}
         getOptionLabel={getOptionLabel}
         isOptionEqualToValue={(a, b) => a?.uid === b?.uid}
-        inputValue={inputValue}
-        onInputChange={(e, val) => setInputValue(val)}
-        onChange={(e, val) => {
-            onChange?.(val?.uid ?? null)
-        }}
-        renderOption={(props, option) => <li {...props} key={option.uid}>{option.name}</li>}
-        renderInput={(params) => {
-            return <TextField
-                inputRef={inputRef}
-                variant={variant}
-                {...params}
-                label={source === 'table' ? '' : label}
-                InputProps={{
-                    ...params.InputProps, disableUnderline: source === 'table', endAdornment: <>
-                        {loading && <CircularProgress size={source === 'table' ? 16 : 18}/>}
-                        {params.InputProps.endAdornment}
-                    </>
-                }}
-            />
-        }}
+        onInputChange={(_, val) => setInputValue(val)}
+        onChange={handleChange}
+        sx={[sx, ...(source === "table" ? [{
+            height: "100%", "& .MuiFormControl-root": {
+                height: "100%"
+            }, "& .MuiInputBase-root": {
+                height: "100% !important",
+                padding: "0 3px",
+                fontSize: 14,
+                display: "flex",
+                alignItems: "center",
+                background: "transparent"
+            }, "& input": {
+                padding: "0 6px !important"
+            }
+        }] : [])]}
+        renderOption={(props, option) => <li {...props} key={option.uid}>
+            {option.name}
+        </li>}
+        renderInput={params => <TextField
+            {...params}
+            inputRef={inputRef}
+            variant={variant}
+            label={source === "table" ? "" : label}
+            InputProps={{
+                ...params.InputProps, disableUnderline: source === "table", endAdornment: <>
+                    {loading && <CircularProgress
+                        size={source === "table" ? 16 : 18}
+                    />}
+                    {params.InputProps.endAdornment}
+                </>
+            }}
+        />}
     />
 }

@@ -4,14 +4,11 @@ import {useForm} from "react-hook-form"
 import {transformData} from "../../ui/hooks/common_functions.js"
 import {center_catalog_load} from "../../service/fetch_service.js"
 
-export function useDocument(link, defaultValues, defaultTables, load) {
+export function useDocument(link, defaultValues, defaultTables, load, setCatalogMap) {
 
     const dispatch = useDispatch()
     const {root_filial, filial} = useSelector(state => state.center)
     const [loading, setLoading] = useState(true)
-
-    // Карта значений
-    const [catalogMap, setCatalogMap] = useState([])
 
     // Документ
     const {handleSubmit, setValue, control, reset, watch} = useForm({
@@ -48,6 +45,7 @@ export function useDocument(link, defaultValues, defaultTables, load) {
         fetchData()
     }, [link])
 
+    // Первоначальные значения в таблице
     useEffect(() => {
         const loadCatalog = async () => {
             const map = new Map()
@@ -71,14 +69,13 @@ export function useDocument(link, defaultValues, defaultTables, load) {
             const ids = [...map.values()]
             if (!ids.length) return
             const res = await dispatch(center_catalog_load(filial, ids))
-            setCatalogMap(res.data)
+            setCatalogMap(prevState => [...prevState, ...res.data])
         }
         loadCatalog()
     }, [dispatch, filial, tables])
 
-
     // Состояние загрузки
     // Контролируемые элементы
     // Табличные части
-    return {loading, control, watch, reset, tables, catalogMap}
+    return {loading, control, watch, reset, tables}
 }

@@ -1,9 +1,9 @@
 import {IconButton, InputAdornment, TextField} from "@mui/material"
 import {IMaskInput} from "react-imask"
-import React from "react"
+import {forwardRef} from "react"
 import CloseIcon from "@mui/icons-material/Close"
 
-const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
     const {onChange, ...other} = props
     return <IMaskInput
         {...other}

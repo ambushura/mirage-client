@@ -70,14 +70,24 @@ export function LoaderOrder() {
 }
 
 // Заполнение полей
-export function EnhanceColumn(filial, col, mapCatalog) {
+export function EnhanceColumn(filial, col, mapCatalog, setCatalogMap) {
+    if (col.field !== 'uid_good') return col
     const mapTypes = new Map()
     mapTypes.set('uid_good', 'goods')
-    if (col.field !== 'uid_good') return col
     return {
-        ...col, editable: true, renderCell: (params) => {
+        ...col,
+
+        // Флаг редактирования ячеек
+        editable: true,
+
+        // Отображение ячеек
+        renderCell: (params) => {
             return mapCatalog.find(el => el.type === mapTypes.get(col.field) && el.uid === params.row[col.field])?.name
-        }, renderEditCell: (params) => <AsyncAutocomplete
+        },
+
+        // Редактирование ячеек
+        renderEditCell: (params) => <AsyncAutocomplete
+            setCatalogMap={setCatalogMap}
             value={params.value}
             filial={filial}
             type={mapTypes.get(col.field)}

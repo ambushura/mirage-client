@@ -18,6 +18,7 @@ import {loginSuccess, logout} from "../redux/authReducer.js"
 import {
     COMMON_PRINTERS_GET,
     ROUTE_CENTER_CATALOG_LOAD,
+    ROUTE_CENTER_CATALOG_SEARCH,
     ROUTE_CENTER_HORECA_GOODS_GET,
     ROUTE_CENTER_HORECA_GOODS_RECIPE_GET,
     ROUTE_CENTER_HORECA_GOODS_RECIPES_GET,
@@ -1726,7 +1727,6 @@ export const get_hall_rent_sum = (filial, film_uid, start, end, its_card, premie
 }
 
 // Отчеты
-
 export const common_reports_sales_get = (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
@@ -1808,21 +1808,6 @@ export const center_horeca_goods_tree_get = (filial, update) => async (dispatch,
     if (!res.error) {
         dispatch(setTree(res.data))
     }
-}
-
-export const center_catalog_load = (filial, ids) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'post',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_LOAD}`,
-        data: ids,
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
 }
 
 export const center_horeca_goods_get = (filial, uid_folder, update) => async (dispatch, getState) => {
@@ -2002,4 +1987,35 @@ export const center_horeca_shift_state_get = (filial, date_shift, update) => asy
     if (!res.error) {
         dispatch(setShiftState(res.data))
     }
+}
+
+// Общие
+export const center_catalog_load = (filial, ids) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'post',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_LOAD}`,
+        data: ids,
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
+}
+
+export const center_catalog_search = (filial, type, value, limit) => async (dispatch, getState) => {
+    const {wp, kiosk, version} = getState().interface
+    const {center} = getState().auth
+    return await makeRequest(dispatch, {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_SEARCH}`,
+        params: {type, value, limit},
+        filial,
+        wp,
+        kiosk,
+        version,
+        center,
+    }, data => data)
 }

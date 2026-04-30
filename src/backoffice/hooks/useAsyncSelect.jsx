@@ -1,14 +1,15 @@
 import {useEffect, useMemo, useRef, useState} from "react"
 import axios from "axios"
 import debounce from "lodash/debounce"
-import {useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
+import {center_catalog_load, center_catalog_search} from "../../service/fetch_service.js"
 
-export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
+export function useAsyncSelect({
+                                   filial, type, value, limit = 20, delay = 500
+                               }) {
+    const dispatch = useDispatch()
 
     const MAX_CACHE = 50
-
-    const {wp, kiosk, version} = useSelector(state => state.interface)
-    const {center} = useSelector(state => state.center)
 
     const [options, setOptions] = useState([])
     const [loading, setLoading] = useState(false)
@@ -16,17 +17,11 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
 
     const cache = useRef(new Map())
     const abortRef = useRef(null)
-    const token = localStorage.getItem("token")
-
-    const headers = useMemo(() => ({
-        Authorization: token, uid_filial: filial?.uid ?? "", wp, kiosk: String(kiosk), version, center: String(center),
-    }), [token, filial?.uid, wp, kiosk, version, center])
 
     const fetchOptions = useMemo(() => debounce(async search => {
-
         if (!filial) return
 
-        const q = search?.trim()
+        const q = search?.trim().toLowerCase()
 
         if (!q) {
             setOptions([])
@@ -46,15 +41,15 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
         setLoading(true)
 
         try {
-            const res = await axios.get(`http://${filial.ip}:${filial.port}/api/catalog/search`, {
-                params: {type, value: q, limit}, headers, signal: controller.signal,
-            })
+            const res = await dispatch(center_catalog_search(filial, type, q, limit, controller.signal))
+
+            if (abortRef.current !== controller) return
 
             const data = Array.isArray(res.data) ? res.data : []
 
             if (cache.current.size >= MAX_CACHE) {
-                const first = cache.current.keys().next().value
-                cache.current.delete(first)
+                const firstKey = cache.current.keys().next().value
+                cache.current.delete(firstKey)
             }
 
             cache.current.set(q, data)
@@ -65,10 +60,11 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
                 console.error(err)
             }
         } finally {
-            setLoading(false)
+            if (abortRef.current === controller) {
+                setLoading(false)
+            }
         }
-
-    }, delay), [delay, filial, type, limit, headers])
+    }, delay), [dispatch, filial, type, limit, delay])
 
     useEffect(() => {
         return () => {
@@ -82,29 +78,30 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
     }, [inputValue, fetchOptions])
 
     useEffect(() => {
+        cache.current.clear()
+        setOptions([])
+    }, [filial, type])
 
+    useEffect(() => {
         if (!value || !filial) return
 
         const controller = new AbortController()
 
         const loadById = async () => {
             try {
-                const res = await axios.post(`http://${filial.ip}:${filial.port}/api/catalog/load`, [{
-                    type: type, value: value
-                }], {
-                    headers, signal: controller.signal,
-                })
+                const res = await dispatch(center_catalog_load(filial, [{type, value}], controller.signal))
 
                 const data = Array.isArray(res.data) ? res.data : []
+
                 const item = data[0]
 
                 if (!item?.uid) return
 
                 setOptions(prev => {
-                    const exists = prev.some(o => o.uid === item.uid)
+                    const exists = prev.some(option => option.uid === item.uid)
+
                     return exists ? prev : [item, ...prev]
                 })
-
             } catch (err) {
                 if (!axios.isCancel(err) && err.name !== "AbortError") {
                     console.error(err)
@@ -115,10 +112,9 @@ export function useAsyncSelect({filial, type, value, limit = 20, delay = 500}) {
         loadById()
 
         return () => controller.abort()
-
-    }, [value, type, filial, headers])
+    }, [dispatch, filial, type, value])
 
     return {
-        options, loading, inputValue, setInputValue, setOptions,
+        options, loading, inputValue, setInputValue, setOptions
     }
 }
