@@ -36,7 +36,9 @@ const main_menu = [{
 const initialState = {
 
     // Параметры
-    search_params: {}, params: {},
+    search_params: {}, params: {
+        uid_order: undefined,
+    },
 
     // Отладка
     root_filial: {ip: '10.101.3.88', port: '60000'},
@@ -68,7 +70,7 @@ export const centerSlice = createSlice({
 
     name: 'center', initialState, reducers: {
 
-        // Параментры
+        // Параметры
         setParams: (state, {payload}) => {
             Object.assign(state.params, payload)
         }, setSearchParams: (state, {payload}) => {

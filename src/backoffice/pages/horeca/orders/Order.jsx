@@ -6,7 +6,7 @@ import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import CachedIcon from "@mui/icons-material/Cached"
 import {sxTable} from "../../../../ui/ThemeContext.jsx"
-import {EnhanceColumn, Footer, LoaderOrder, TableToolbar, Title} from "../../../Common.jsx"
+import {EnhanceColumn, Footer, LoaderOrder, TableToolbar} from "../../../Common.jsx"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
 import ControlledFieldSwitch from "../../../../ui/ControlledFieldSwitch.jsx"
 import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
@@ -14,7 +14,7 @@ import {useForm} from "react-hook-form"
 import {center_catalog_load, center_horeca_order_get} from "../../../../service/fetch_service.js"
 import {fillNameMap, transformData} from "../../../../ui/hooks/common_functions.js"
 
-export default function Order({props}) {
+export default function Order() {
 
     // Технические функции
     const dispatch = useDispatch()
@@ -34,10 +34,13 @@ export default function Order({props}) {
     // Форма
     const {handleSubmit, setValue, control, reset, watch} = useForm()
 
+    const uid_order = useSelector(state => state.center.params.uid_order)
+
     // Загрузка данных с сервера
     useEffect(() => {
-        dispatch(center_horeca_order_get(filial, props.uid, 0))
-    }, [dispatch, filial, props.uid])
+        if (uid_order === undefined) return
+        dispatch(center_horeca_order_get(filial, uid_order, 0))
+    }, [dispatch, filial, uid_order])
 
     // Заполнение карты наименований
     useEffect(() => {
@@ -63,24 +66,12 @@ export default function Order({props}) {
     }
 
     return <Box
-        id="modal-order"
         component="form"
         noValidate
-        autoComplete="off"
-        sx={{maxWidth: 960, minWidth: 960}}>
-
-        <Title title="Заказ HORECA"/>
+        autoComplete="off">
 
         <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                width: "100%",
-                mb: "10px",
-                minHeight: 450,
-                maxHeight: 450
-            }}>
+            sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", mb: "10px"}}>
 
             <Box>
 
@@ -165,7 +156,7 @@ function BuyerTab({control}) {
 function TableTab({table, filial, loading, catalogMap, setCatalogMap}) {
     const columns = useMemo(() => table.columns.map(column => EnhanceColumn(filial, column, catalogMap, setCatalogMap)), [table.columns, filial, catalogMap, setCatalogMap])
     const toolbarProps = useMemo(() => getToolbarProps(table.id), [table.id])
-    return <Box sx={{maxHeight: 400, overflowY: "auto"}}>
+    return <Box sx={{overflowY: "auto"}}>
         <DataGridPro
             treeData={table.id === "store"}
             loading={loading}

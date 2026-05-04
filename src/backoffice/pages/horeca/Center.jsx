@@ -6,16 +6,30 @@ import StoreState from "./StoreState.jsx"
 import ShiftState from "./ShiftState.jsx"
 import {useDispatch, useSelector} from "react-redux"
 import ProductionState from "./ProductionState.jsx"
-import {setCurrentPage} from "../../../redux/center/centerReducer.js"
+import {setCurrentPage, setParams, setSearchParams} from "../../../redux/center/centerReducer.js"
 import StoreDiff from "./StoreDiff.jsx"
+import Order from "./orders/Order.jsx"
+import {useParams, useSearchParams} from "react-router-dom"
+import SelectFilial from "../SelectFilial.jsx";
 
 const Center = ({current_page}) => {
 
     const dispatch = useDispatch()
+    const params = useParams()
+    const [search_params] = useSearchParams()
 
     useEffect(() => {
         dispatch(setCurrentPage(current_page))
     }, [current_page, dispatch])
+
+    useEffect(() => {
+        dispatch(setParams(params))
+    }, [dispatch, params])
+
+    useEffect(() => {
+        const search_params_new = Object.fromEntries(search_params.entries())
+        dispatch(setSearchParams(JSON.stringify(search_params_new)))
+    }, [dispatch, search_params])
 
     const {filial} = useSelector(state => state.center)
 
@@ -43,7 +57,14 @@ const Center = ({current_page}) => {
         case 'orders':
             return <>
                 <SubMenu type={['update', 'filial', 'date_shift']}/>
+                {filial === null && <SelectFilial/>}
                 {filial !== null && <Orders/>}
+            </>
+        case 'order':
+            return <>
+                <SubMenu type={['update', 'back']}/>
+                {filial === null && <SelectFilial/>}
+                {filial !== null && <Order/>}
             </>
         case 'store_diff':
             return <>

@@ -1,13 +1,14 @@
 import {Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
+import {useNavigate} from "react-router-dom"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import dayjs from "dayjs"
-import {openModal} from "../../../../redux/interfaceReducer.js"
 import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../../redux/center/centerHorecaReducer.js"
 
 const Orders = () => {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const {
@@ -72,7 +73,7 @@ const Orders = () => {
                 },
             }}
             onRowClick={(params) => {
-                dispatch(openModal({type: 'center_order_horeca', props: {uid: params.row.id}}))
+                navigate(`/center/horeca/order/${params.row.id}`)
             }}
         />
     </Box>

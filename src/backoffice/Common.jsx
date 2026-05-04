@@ -1,29 +1,10 @@
-import {Box, Button, ButtonGroup, DialogTitle, IconButton, Skeleton} from "@mui/material"
+import {Box, Button, ButtonGroup, Skeleton} from "@mui/material"
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import SaveIcon from "@mui/icons-material/Save"
-import {closeModal} from "../redux/interfaceReducer.js"
-import CloseIcon from "@mui/icons-material/Close"
-import {useDispatch} from "react-redux"
 import ControlledDateTimePicker from "../ui/ControlledDateTimePicker.jsx"
 import ControlledTextField from "../ui/ControlledTextField.jsx"
 import AsyncAutocomplete from "../ui/AsyncAutocomplete.jsx"
-
-// Заголовок документа
-export function Title({title}) {
-    const dispatch = useDispatch()
-    return <DialogTitle sx={{m: 0, p: '10px'}}>
-        {title}
-        <IconButton
-            aria-label="close"
-            onClick={() => {
-                dispatch(closeModal())
-            }}
-            sx={{position: "absolute", right: 8, top: 8}}>
-            <CloseIcon/>
-        </IconButton>
-    </DialogTitle>
-}
 
 // Подвал документа
 export function Footer({control, creator, saveButton, copyButton, deleteButton}) {

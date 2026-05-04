@@ -110,6 +110,9 @@ function App() {
                     <Route path="/center/horeca/orders"
                            element={<CenterHoreca current_page={['horeca', 'orders']}/>}/>
 
+                    <Route path="/center/horeca/order/:uid_order"
+                           element={<CenterHoreca current_page={['horeca', 'order']}/>}/>
+
                     <Route path="/center/horeca/store_diff"
                            element={<CenterHoreca current_page={['horeca', 'store_diff']}/>}/>
 

@@ -8,8 +8,7 @@ import {sxTable} from "../../../../ui/ThemeContext.jsx"
 import {v4} from "uuid"
 import {TabContext, TabList, TabPanel} from "@mui/lab"
 import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
-import {useDocument} from "../../../hooks/useDocument.js"
-import {EnhanceColumn, Footer, LoaderOrder, TableToolbar, Title} from "../../../Common.jsx"
+import {EnhanceColumn, Footer, LoaderOrder, TableToolbar} from "../../../Common.jsx"
 import CachedIcon from "@mui/icons-material/Cached"
 import {IngredientsRebuild, PaymentsRebuild, ReturnsRebuild} from "../orders/Order.jsx"
 import {Controller, useFieldArray} from "react-hook-form"
@@ -76,8 +75,6 @@ export default function Recipe({props}) {
             noValidate
             autoComplete="off"
             sx={{maxWidth: 960, minWidth: 960}}>
-
-            <Title title='Калькуляция'/>
 
             <Box
                 sx={{
