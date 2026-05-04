@@ -27,8 +27,6 @@ export const ticket_count = (count) => {
     }
 }
 
-dayjs.extend(duration)
-
 export function duration_title(beginning, ending) {
     if (beginning !== null && ending !== null) {
         const diffMs = dayjs(ending).diff(dayjs(beginning))
@@ -159,6 +157,7 @@ export function buttonColor(inn) {
 
 }
 
+
 export const transformData = (data) => {
     return Object.fromEntries(Object.entries(data).map(([key, value]) => {
         if (['date_create', 'date_change', 'date_shift'].includes(key)) {
@@ -167,3 +166,50 @@ export const transformData = (data) => {
         return [key, value]
     }))
 }
+
+export const fillNameMap = (tables) => {
+    const map = new Map()
+    let ids = []
+    tables.forEach(table => {
+        table.rows.forEach(row => {
+            Object.entries(row).forEach(([key, value]) => {
+                switch (key) {
+                    case 'uid_good':
+                        if (value) {
+                            map.set(`goods-${value}`, {
+                                type: 'goods', value
+                            })
+                        }
+                        break
+                    case 'uid_payment_type':
+                        if (value) {
+                            map.set(`payment_types-${value}`, {
+                                type: 'payment_types', value
+                            })
+                        }
+                        break
+                    case 'uid_discount':
+                        if (value) {
+                            map.set(`discounts-${value}`, {
+                                type: 'discounts', value
+                            })
+                        }
+                        break
+                    case 'uid_store':
+                        if (value) {
+                            map.set(`stores-${value}`, {
+                                type: 'stores', value
+                            })
+                        }
+                        break
+                    default:
+                        break
+                }
+            })
+        })
+    })
+    ids = [...map.values()]
+    return ids
+}
+
+dayjs.extend(duration)

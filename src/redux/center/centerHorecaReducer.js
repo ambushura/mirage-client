@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
+import {v4} from "uuid"
 
 const initialState = {
 
@@ -19,9 +20,8 @@ const initialState = {
     goods_recipes_expanded: [],
     uid_current_recipe: null,
 
-    // Ингредиенты
+    // Калькуляция
     goods_recipes_ingredients_loading: {loading: false, error: null},
-    goods_recipes_ingredients: [],
 
     // Хорека заказы
     orders_horeca_loading: {loading: false, error: null},
@@ -31,22 +31,118 @@ const initialState = {
         total: 0, columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
     },
 
-    // Наличие на складах
-    store_state_loading: {loading: false, error: null},
-    store_state: {
-        columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
+    // Хорека заказ
+    order_horeca_loading: {loading: false, error: null},
+    order_horeca: {
+
+        buyer_uid: null,
+        buyer_card_number: null,
+        buyer_phone_number: null,
+        buyer_email: null,
+        buyer_n: null,
+        buyer_o: null,
+        buyer_s: null,
+
+        uid: v4(),
+        number: "",
+        date_create: null,
+        date_change: null,
+        uid_creator: null,
+        name_creator: null,
+        date_shift: null,
+
+        current_number: 0,
+
+        canceled: false,
+        deleted: false,
+
+        price: 0,
+        quantity: 0,
+        sum_discount: 0,
+        sum: 0,
+
+        ver: "",
+
+        tables: [
+
+            {
+                id: 'store',
+                title: 'Производство',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            },
+
+            {
+                id: 'sales',
+                title: 'Продажи',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            },
+
+            {
+                id: 'egais',
+                title: 'ЕГАИС',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            },
+
+            {
+                id: 'kitchen',
+                title: 'Кухня',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            },
+
+            {
+                id: 'mark',
+                title: 'Маркировка',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            },
+
+            {
+                id: 'payments',
+                title: 'Оплаты',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            },
+
+            {
+                id: 'returns',
+                title: 'Возвраты',
+                columns: [],
+                rows: [],
+                column_grouping_model: [],
+                column_visibility_model: {}
+            }],
     },
+
+    // Хорека Наличие на складах
+    store_state_loading: {loading: false, error: null},
+    store_state: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}},
     store_state_expended: [],
     uid_current_store: [],
 
-    // Производство
+    // Хорека Производство
     production_state_loading: {loading: false, error: null},
     production_state: {
         columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
     },
     production_state_expended: [],
 
-    // Отчеты о розничных продажах
+    // Хорека Отчеты о розничных продажах
     shift_state_loading: {loading: false, error: null},
     shift_state: {
         columns: [], rows: [], column_grouping_model: [], column_visibility_model: {}
@@ -90,10 +186,10 @@ export const centerSlice = createSlice({
             state.goods_recipes_expanded = action.payload
         },
 
-        // Ингредиенты
+        // Калькуляция
 
 
-        // Заказы хорека
+        // Хорека заказы
         setOrdersHorecaLoadingState(state, action) {
             state.orders_horeca_loading = action.payload
         }, setOrdersHorecaPage(state, action) {
@@ -108,7 +204,14 @@ export const centerSlice = createSlice({
             state.orders_horeca = action.payload
         },
 
-        // Наличие на складах
+        // Хорека заказ
+        setOrderHorecaLoadingState(state, action) {
+            state.order_horeca_loading = action.payload
+        }, setOrderHorecaCenter(state, action) {
+            state.order_horeca = action.payload
+        },
+
+        // Хорека Наличие на складах
         setStoreStateLoadingState(state, action) {
             state.store_state_loading = action.payload
         }, setStoreState(state, action) {
@@ -123,7 +226,7 @@ export const centerSlice = createSlice({
             state.uid_current_store = action.payload
         },
 
-        // Производство
+        // Хорека Производство
         setProductionStateLoadingState(state, action) {
             state.production_state_loading = action.payload
         }, setProductionState(state, action) {
@@ -136,7 +239,7 @@ export const centerSlice = createSlice({
             state.store_state_expended = action.payload
         },
 
-        // Отчеты о розничных продажах
+        // Хорека Отчеты о розничных продажах
         setShiftStateLoadingState(state, action) {
             state.shift_state_loading = action.payload
         }, setShiftState(state, action) {
@@ -162,18 +265,21 @@ export const {
     // Калькуляции
     setGoodsRecipesLoading, setGoodsRecipes, setUidCurrentRecipe, setExpandedRecipesTree,
 
-    // Ингредиенты
+    // Калькуляция
 
-    // Заказы хорека
+    // Хорека заказы
     setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHorecaCenter, setOrdersHorecaPage, setOrdersHorecaPageSize,
 
-    // Наличие на складах
+    // Хорека заказ
+    setOrderHorecaLoadingState, setOrderHorecaCenter, setOrderHorecaCenterTables,
+
+    // Хорека Наличие на складах
     setStoreStateLoadingState, setStoreState, cleanStoreState, setStoreStateExpended, setUidCurrentStore,
 
-    // Производство
+    // Хорека Производство
     setProductionStateLoadingState, setProductionState, cleanProductionState, setProductionStateExpended,
 
-    // Отчеты о розничных продажах
+    // Хорека Отчеты о розничных продажах
     setShiftStateLoadingState, setShiftState, cleanShiftState, setShiftStateExpended
 
 } = centerSlice.actions

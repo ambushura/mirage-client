@@ -49,18 +49,6 @@ const Orders = () => {
             sortingMode="server"
             disableColumnSorting
             editMode="cell"
-            sx={{
-                minHeight: 'inherit', flex: 1, border: 0, borderRadius: '0', '& .MuiDataGrid-cellContent': {
-                    pointerEvents: 'auto'
-                }, '& .MuiDataGrid-columnHeaders': {
-                    fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-                }, '& .MuiDataGrid-columnHeaderTitle': {
-                    whiteSpace: 'normal', lineHeight: 1.2
-                },
-            }}
-            onRowClick={(params) => {
-                dispatch(openModal({type: 'center_order_horeca', props: {uid: params.row.id}}))
-            }}
             paginationMode="server"
             pagination
             pageSize={orders_horeca_page_size || 20}
@@ -74,6 +62,18 @@ const Orders = () => {
             }}
             pageSizeOptions={[10, 20, 50, 100]}
             rowCount={orders_horeca.total || 0}
+            sx={{
+                minHeight: 'inherit', flex: 1, border: 0, borderRadius: '0', '& .MuiDataGrid-cellContent': {
+                    pointerEvents: 'auto'
+                }, '& .MuiDataGrid-columnHeaders': {
+                    fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
+                }, '& .MuiDataGrid-columnHeaderTitle': {
+                    whiteSpace: 'normal', lineHeight: 1.2
+                },
+            }}
+            onRowClick={(params) => {
+                dispatch(openModal({type: 'center_order_horeca', props: {uid: params.row.id}}))
+            }}
         />
     </Box>
 }

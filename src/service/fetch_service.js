@@ -143,6 +143,8 @@ import {
     setGoodsLoading,
     setGoodsRecipes,
     setGoodsRecipesLoading,
+    setOrderHorecaCenter,
+    setOrderHorecaLoadingState,
     setOrdersHorecaCenter,
     setOrdersHorecaLoadingState,
     setProductionState,
@@ -1894,16 +1896,23 @@ export const center_horeca_orders_get = (filial, date_shift, update, orders_hore
 export const center_horeca_order_get = (filial, uid_order, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
+    dispatch(setOrderHorecaLoadingState({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDER_GET}`,
-        params: {uid_order, update},
+        params: {update, uid_order},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
+    })
+    dispatch(setOrderHorecaLoadingState({
+        loading: false, error: res.error
+    }))
+    if (!res.error) {
+        dispatch(setOrderHorecaCenter(res.data))
+    }
 }
 
 export const center_horeca_store_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
