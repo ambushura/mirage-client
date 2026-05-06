@@ -41,18 +41,18 @@ export default function Recipe() {
     const [catalog_map, set_catalog_map] = useState([])
     const [current_table, set_current_table] = useState('ingredients')
 
-    // загрузка заказа на клиент
+    // Загрузка заказа на клиент
     useEffect(() => {
         if (filial === null || ref === undefined) return
         dispatch(center_horeca_goods_recipe_get(filial, ref, 0))
     }, [dispatch, filial, ref])
 
-    // загрузка заказа в форму
+    // Загрузка заказа в форму
     useEffect(() => {
         form.reset(structuredClone(goods_recipe))
     }, [form, goods_recipe])
 
-    // загрузка справочников
+    // Загрузка справочников
     useEffect(() => {
         const ids = FillNameMap(goods_recipe.tables)
         if (!ids.length) return

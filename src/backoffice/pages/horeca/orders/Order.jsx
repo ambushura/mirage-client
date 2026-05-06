@@ -49,18 +49,18 @@ export default function Order() {
     const [catalog_map, set_catalog_map] = useState([])
     const [current_table, set_current_table] = useState('sales')
 
-    // загрузка заказа на клиент
+    // Загрузка заказа на клиент
     useEffect(() => {
         if (filial === null || uid_order === undefined) return
         dispatch(center_horeca_order_get(filial, uid_order, 0))
     }, [dispatch, filial, uid_order])
 
-    // загрузка заказа в форму
+    // Загрузка заказа в форму
     useEffect(() => {
         form.reset(structuredClone(order_horeca))
     }, [form, order_horeca])
 
-    // загрузка справочников
+    // Загрузка справочников
     useEffect(() => {
         const ids = FillNameMap(order_horeca.tables)
         if (!ids.length) return

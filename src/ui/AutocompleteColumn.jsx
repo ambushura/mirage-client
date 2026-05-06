@@ -1,4 +1,4 @@
-import { MapTypes } from '../backoffice/Common.jsx'
+import { FIELD_TYPE_MAP } from '../backoffice/Common.jsx'
 import AsyncAutocomplete from './AsyncAutocomplete.jsx'
 
 const AutocompleteColumn = (filial, col, catalog_map, set_catalog_map) => {
@@ -7,7 +7,7 @@ const AutocompleteColumn = (filial, col, catalog_map, set_catalog_map) => {
         editable: true,
 
         renderCell: (params) => {
-            const item = catalog_map.find((el) => el.type === MapTypes[col.field] && el.uid === params.value)
+            const item = catalog_map.find((el) => el.type === FIELD_TYPE_MAP[col.field] && el.uid === params.value)
             return item?.name ?? params.row[col.field] ?? ''
         },
 
@@ -17,7 +17,7 @@ const AutocompleteColumn = (filial, col, catalog_map, set_catalog_map) => {
                     setCatalogMap={set_catalog_map}
                     value={params.value}
                     filial={filial}
-                    type={MapTypes[col.field]}
+                    type={FIELD_TYPE_MAP[col.field]}
                     variant="standard"
                     source="table"
                     sx={{ width: '100%', height: '100%', backgroundColor: 'transparent !important' }}

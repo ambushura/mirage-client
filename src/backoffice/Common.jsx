@@ -109,6 +109,8 @@ export const FIELD_TYPE_MAP = {
     uid_payment_type: 'payment_types',
     uid_discount: 'discounts',
     uid_store: 'stores',
+    kitchen_uid_store: 'stores',
+    uid_good_group: 'goods_groups',
 }
 
 export const FillNameMap = (tables) => {
@@ -124,13 +126,5 @@ export const FillNameMap = (tables) => {
     })
     return [...map.values()]
 }
-
-export const AutoCompleteCols = ['uid_good', 'uid_payment_type', 'uid_discount', 'uid_store', 'kitchen_uid_store']
+export const AutoCompleteCols = ['uid_good', 'uid_payment_type', 'uid_discount', 'uid_store', 'kitchen_uid_store', 'uid_good_group']
 export const DateTimeCols = ['date_create', 'date_change', 'date_shift']
-export const MapTypes = {
-    uid_good: 'goods',
-    uid_payment_type: 'payment_types',
-    uid_discount: 'discounts',
-    uid_store: 'stores',
-    kitchen_uid_store: 'stores',
-}
