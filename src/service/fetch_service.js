@@ -141,6 +141,8 @@ import {jwtDecode} from "jwt-decode"
 import {
     setGoods,
     setGoodsLoading,
+    setGoodsRecipe,
+    setGoodsRecipeLoading,
     setGoodsRecipes,
     setGoodsRecipesLoading,
     setOrderHorecaCenter,
@@ -156,6 +158,7 @@ import {
     setTree,
     setTreeLoading
 } from "../redux/center/centerHorecaReducer.js"
+
 
 export const TIMEOUT = 30000
 
@@ -1859,7 +1862,8 @@ export const center_horeca_goods_recipes_get = (filial, uid_good, update) => asy
 export const center_horeca_goods_recipe_get = (filial, ref, update) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
+    dispatch(setGoodsRecipeLoading({loading: true, error: null}))
+    const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_RECIPE_GET}`,
         params: {ref, update},
@@ -1868,7 +1872,11 @@ export const center_horeca_goods_recipe_get = (filial, ref, update) => async (di
         kiosk,
         version,
         center,
-    }, data => data)
+    })
+    dispatch(setGoodsRecipeLoading({loading: false, error: res.error}))
+    if (!res.error) {
+        dispatch(setGoodsRecipe(res.data))
+    }
 }
 
 export const center_horeca_orders_get = (filial, date_shift, update, orders_horeca_page, orders_horeca_page_size) => async (dispatch, getState) => {
@@ -1885,9 +1893,7 @@ export const center_horeca_orders_get = (filial, date_shift, update, orders_hore
         version,
         center,
     })
-    dispatch(setOrdersHorecaLoadingState({
-        loading: false, error: res.error
-    }))
+    dispatch(setOrdersHorecaLoadingState({loading: false, error: res.error}))
     if (!res.error) {
         dispatch(setOrdersHorecaCenter(res.data))
     }

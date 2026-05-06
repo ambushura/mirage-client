@@ -98,6 +98,9 @@ function App() {
 
                     <Route path="/center/horeca/goods" element={<CenterHoreca current_page={['horeca', 'goods']}/>}/>
 
+                    <Route path="/center/horeca/recipe/:ref"
+                           element={<CenterHoreca current_page={['horeca', 'recipe']}/>}/>
+
                     <Route path="/center/horeca/store_state"
                            element={<CenterHoreca current_page={['horeca', 'store_state']}/>}/>
 

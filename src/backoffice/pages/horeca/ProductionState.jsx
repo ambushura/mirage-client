@@ -3,7 +3,6 @@ import {Box} from "@mui/material"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {useSelector} from "react-redux"
-import {sxTable} from "../../../ui/ThemeContext.jsx"
 
 const ProductionState = () => {
 
@@ -62,8 +61,6 @@ const ProductionState = () => {
             }}
             onRowSelectionModelChange={() => {
             }}
-
-            sx={sxTable}
 
         />
     </Box>

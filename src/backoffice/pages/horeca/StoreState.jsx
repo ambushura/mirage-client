@@ -6,7 +6,6 @@ import {ruRU} from "@mui/x-data-grid/locales"
 import {useTreeExpansionSync} from "../../../ui/hooks/useTreeExpansionSync.js"
 import {setStoreStateExpended, setUidCurrentStore} from "../../../redux/center/centerHorecaReducer.js"
 import {openModal} from "../../../redux/interfaceReducer.js"
-import {sxTable} from "../../../ui/ThemeContext.jsx"
 
 const StoreState = () => {
 
@@ -78,7 +77,6 @@ const StoreState = () => {
             getRowClassName={getRowClassName}
             onCellDoubleClick={handleCellDoubleClick}
             onRowSelectionModelChange={handleSelectionChange}
-            sx={sxTable}
         />
     </Box>
 }

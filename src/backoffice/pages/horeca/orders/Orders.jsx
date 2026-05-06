@@ -3,8 +3,11 @@ import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import dayjs from "dayjs"
 import {setOrdersHorecaPage, setOrdersHorecaPageSize} from "../../../../redux/center/centerHorecaReducer.js"
+import {useEffect, useState} from "react"
+import {center_catalog_load} from "../../../../service/fetch_service.js"
+import {FillNameMap} from "../../../Common.jsx"
+import {useTableColumns} from "../../../hooks/useTableColumns.js"
 
 const Orders = () => {
 
@@ -15,16 +18,24 @@ const Orders = () => {
         orders_horeca, orders_horeca_loading, orders_horeca_page, orders_horeca_page_size
     } = useSelector(state => state.center_horeca)
 
-    const formattedColumns = orders_horeca.columns.map(col => {
-        if (col.type === 'date' || col.type === 'dateTime') {
-            return {
-                ...col, valueFormatter: (val) => {
-                    return val ? dayjs(val).format('DD.MM.YYYY HH:mm') : ''
-                }
-            }
+    // Филиал
+    const {filial} = useSelector(state => state.center)
+
+    // Словарь для значений
+    const [catalog_map, set_catalog_map] = useState([])
+
+    const columns = useTableColumns(orders_horeca, filial, catalog_map, set_catalog_map)
+
+    // Заполнение карты наименований
+    useEffect(() => {
+        const loadMap = async () => {
+            const ids = FillNameMap([orders_horeca])
+            if (ids.length === 0) return
+            const res = await dispatch(center_catalog_load(filial, ids))
+            set_catalog_map(prev_state => [...prev_state, ...res.data])
         }
-        return col
-    })
+        loadMap()
+    }, [dispatch, filial, orders_horeca])
 
     return <Box className='center-horeca-page' sx={{
         display: "flex",
@@ -38,16 +49,13 @@ const Orders = () => {
             loading={orders_horeca_loading.loading}
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             rows={orders_horeca.rows}
-            columns={formattedColumns}
+            columns={columns}
             columnGroupingModel={orders_horeca.column_grouping_model}
             density="compact"
-            rowHeight={42}
-            headerHeight={42}
             hideFooterSelectedRowCount
             columnVisibilityModel={orders_horeca.column_visibility_model}
             onColumnVisibilityModelChange={() => {
             }}
-            sortingMode="server"
             disableColumnSorting
             editMode="cell"
             paginationMode="server"

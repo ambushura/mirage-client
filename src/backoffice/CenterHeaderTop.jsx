@@ -23,16 +23,16 @@ const CenterHeaderTop = () => {
 
     return <Box id='center-header'>
         <MenuList id='center-header-menu'>
-            {main_menu.find(el => el.id === current_page[0])?.submenu.map(item => (<MenuItem
+            {main_menu.find(el => el.id === current_page[0])?.submenu.map(item => <MenuItem
                 key={item.id}
                 selected={current_page[1] === item.id}
                 onClick={() => navigate(`center/${current_page[0]}/${item.id}`)}
             >
-                <ListItemIcon sx={{minWidth: 32}}>
+                <ListItemIcon sx={{minWidth: 32, color: '#c5c5c5'}}>
                     {center_menu_icons[item.icon]}
                 </ListItemIcon>
                 <ListItemText>{item.title}</ListItemText>
-            </MenuItem>))}
+            </MenuItem>)}
             <MenuItem sx={{marginLeft: 'auto'}}
                       onClick={() => {
                           navigate(cities.length ? `/films/${cities[2].code}/all/${param_date}/` : "/")

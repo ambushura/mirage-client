@@ -13,6 +13,7 @@ import ArticleIcon from '@mui/icons-material/Article'
 import CircleIcon from '@mui/icons-material/Circle'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 
+
 const ThemeContext = createContext()
 
 export const ThemeBlackWhite = ({children}) => {
@@ -135,6 +136,12 @@ export const Theme = createTheme({
                     },
                 },
             }, {
+                props: {variant: 'menu'}, style: {
+                    backgroundColor: '#DEE2E6', color: '#343A40', '&:hover': {
+                        backgroundColor: '#CED4DA',
+                    },
+                },
+            }, {
                 props: {variant: 'tb_add'}, style: {
                     backgroundColor: '#E8F0FE', color: '#1A3E72', '&:hover': {
                         backgroundColor: '#DCE7FD',
@@ -213,33 +220,49 @@ export const Theme = createTheme({
                     padding: 0,
                 }
             }
+        }, MuiDataGrid: {
+            styleOverrides: {
+                root: {
+                    border: 'none', '& .MuiDataGrid-row:hover': {
+                        backgroundColor: 'inherit !important',
+                    }, '& .MuiDataGrid-row.Mui-selected': {
+                        backgroundColor: 'inherit !important',
+                    }, '& .MuiDataGrid-row.Mui-selected:hover': {
+                        backgroundColor: 'inherit !important',
+                    }, '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
+                        outline: 'none',
+                    }, '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
+                        outline: 'none',
+                    }, '& .MuiDataGrid-cell': {
+                        userSelect: 'none',
+                    }, '& .MuiDataGrid-root': {
+                        WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none', userSelect: 'none',
+                    }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
+                        width: 18, height: 18,
+                    }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
+                        fontSize: 14
+                    }, '& .MuiDataGrid-columnHeaders': {
+                        fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
+                    }, '& .MuiDataGrid-columnHeaderTitle': {
+                        whiteSpace: 'normal', lineHeight: 1.2
+                    }, '& .MuiDataGrid-cell:focus': {
+                        outline: 'none', boxShadow: 'none'
+                    }, '& .MuiDataGrid-cell.MuiDataGrid-cell--editing:focus-within': {
+                        outline: 'none', boxShadow: 'none'
+                    }, '& .MuiDataGrid-cell--editing': {
+                        boxShadow: 'none !important'
+                    }, '& .MuiDataGrid-scrollbar--horizontal': {
+                        position: 'relative'
+                    },
+                }, cell: {
+                    '&.MuiDataGrid-cell--editing': {
+                        backgroundColor: 'transparent',
+                    },
+                },
+            },
         }
     },
 })
-
-export const EMPTY_TABLE_STYLE = {
-    // Убираем фон строки при наведении
-    '& .MuiDataGrid-row:hover': {
-        backgroundColor: 'inherit !important',
-    }, // Убираем фон выбранной строки
-    '& .MuiDataGrid-row.Mui-selected': {
-        backgroundColor: 'inherit !important',
-    }, '& .MuiDataGrid-row.Mui-selected:hover': {
-        backgroundColor: 'inherit !important',
-    }, // Убираем фокус (рамку) ячейки
-    '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
-        outline: 'none',
-    }, // Убираем фокус (рамку) заголовка
-    '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
-        outline: 'none',
-    }, // Запрещаем выделение текста мышкой
-    '& .MuiDataGrid-cell': {
-        userSelect: 'none',
-    }, // Убираем выделение текста даже при drag (в некоторых браузерах)
-    '& .MuiDataGrid-root': {
-        WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none', userSelect: 'none',
-    }
-}
 
 export const ScrollStyles = () => <style>
     {`
@@ -266,7 +289,7 @@ export const ScrollStyles = () => <style>
       }
       .MuiDataGrid-scrollbar--horizontal::-webkit-scrollbar {
         background-color: transparent !important;
-      }
+      },
     `}
 </style>
 
@@ -283,29 +306,3 @@ export const tooltip_error = {
 export const center_menu_icons = [<MenuIcon key='1'/>, <MovieIcon key='2'/>, <FastfoodIcon key='2'/>,
     <AssessmentIcon key='3'/>, <FolderIcon key='4'/>, <ArticleIcon key='5'/>, <CircleIcon key='6'/>,
     <DashboardIcon key='7'/>]
-
-export const sxTable = {
-    width: "100%", height: "inherit", border: 0, borderRadius: 0, "& .store-delta-positive": {
-        backgroundColor: "#fff5f5"
-    }, "& .store-delta-negative": {
-        backgroundColor: "#f0fff4"
-    }, '& .MuiDataGrid-cell': {
-        userSelect: 'text', fontSize: 14
-    }, '& .MuiDataGrid-treeDataGroupingCell .MuiIconButton-root': {
-        width: 18, height: 18,
-    }, '& .MuiDataGrid-treeDataGroupingCell .MuiSvgIcon-root': {
-        fontSize: 14
-    }, '& .MuiDataGrid-columnHeaders': {
-        fontSize: '12px', fontWeight: 600, backgroundColor: '#f0f0f0'
-    }, '& .MuiDataGrid-columnHeaderTitle': {
-        whiteSpace: 'normal', lineHeight: 1.2
-    }, '& .MuiDataGrid-cell:focus': {
-        outline: 'none', boxShadow: 'none'
-    }, '& .MuiDataGrid-cell.MuiDataGrid-cell--editing:focus-within': {
-        outline: 'none', boxShadow: 'none'
-    }, '& .MuiDataGrid-cell--editing': {
-        boxShadow: 'none !important'
-    }, '& .MuiDataGrid-scrollbar--horizontal': {
-        position: 'relative'
-    },
-}

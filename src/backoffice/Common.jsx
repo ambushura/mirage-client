@@ -4,7 +4,6 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import SaveIcon from "@mui/icons-material/Save"
 import ControlledDateTimePicker from "../ui/ControlledDateTimePicker.jsx"
 import ControlledTextField from "../ui/ControlledTextField.jsx"
-import AsyncAutocomplete from "../ui/AsyncAutocomplete.jsx"
 
 // Подвал документа
 export function Footer({control, creator, saveButton, copyButton, deleteButton}) {
@@ -38,56 +37,15 @@ export function Footer({control, creator, saveButton, copyButton, deleteButton})
 
 // Загрузчик
 export function LoaderOrder() {
-    return <Box sx={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column', p: 2}}>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10} sx={{mb: 2}}/>
-        <Skeleton variant="rectangular" width={300} height={10}/>
+    return <Box sx={{
+        width: '100%', height: '100%', display: 'flex', justifyContent: 'space-between', flexDirection: 'column', p: 2
+    }}>
+        <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
+        <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
+        <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
+        <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
+        <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
     </Box>
-}
-
-// Заполнение полей
-export function EnhanceColumn(filial, col, mapCatalog, setCatalogMap) {
-    if (!['uid_good', 'uid_payment_type', 'uid_discount', 'uid_store'].includes(col.field)) return col
-    const mapTypes = new Map()
-    mapTypes.set('uid_good', 'goods')
-    mapTypes.set('uid_payment_type', 'payment_types')
-    mapTypes.set('uid_discount', 'discounts')
-    mapTypes.set('uid_store', 'stores')
-    return {
-        ...col,
-
-        // Флаг редактирования ячеек
-        editable: true,
-
-        // Отображение ячеек
-        renderCell: (params) => {
-            return mapCatalog.find(el => el.type === mapTypes.get(col.field) && el.uid === params.row[col.field])?.name
-        },
-
-        // Редактирование ячеек
-        renderEditCell: (params) => <AsyncAutocomplete
-            setCatalogMap={setCatalogMap}
-            value={params.value}
-            filial={filial}
-            type={mapTypes.get(col.field)}
-            variant="standard"
-            source="table"
-            sx={{width: '100%', height: '100%'}}
-            onChange={(val) => {
-                params.api.setEditCellValue({
-                    id: params.id, field: params.field, value: val ?? null
-                })
-                params.api.stopCellEditMode({
-                    id: params.id, field: params.field
-                })
-            }}
-        />
-    }
 }
 
 // Табличные части
@@ -116,4 +74,28 @@ export function TableToolbar({left = [], right = []}) {
             </Button>)}
         </Box>
     </Box>
+}
+
+export const FIELD_TYPE_MAP = {
+    uid_good: 'goods', uid_payment_type: 'payment_types', uid_discount: 'discounts', uid_store: 'stores'
+}
+
+export const FillNameMap = (tables) => {
+    const map = new Map()
+    tables.forEach(table => {
+        table.rows.forEach(row => {
+            Object.entries(row).forEach(([key, value]) => {
+                const type = FIELD_TYPE_MAP[key]
+                if (!type || !value) return
+                map.set(`${type}-${value}`, {type, value})
+            })
+        })
+    })
+    return [...map.values()]
+}
+
+export const AutoCompleteCols = ['uid_good', 'uid_payment_type', 'uid_discount', 'uid_store']
+export const DateTimeCols = ['date_create', 'date_change', 'date_shift']
+export const MapTypes = {
+    uid_good: 'goods', uid_payment_type: 'payment_types', uid_discount: 'discounts', uid_store: 'stores'
 }

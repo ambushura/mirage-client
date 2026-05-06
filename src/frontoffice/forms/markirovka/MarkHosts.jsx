@@ -4,7 +4,6 @@ import {markirovka_cdn_info_get, markirovka_cdn_info_update} from "../../../serv
 import {useEffect, useState} from "react"
 import dayjs from "dayjs"
 import {fillHosts} from "../../../redux/markirovkaReducer.js"
-import {EMPTY_TABLE_STYLE} from "../../../ui/ThemeContext.jsx"
 import {ruRU} from "@mui/x-data-grid/locales"
 import {DataGridPro} from "@mui/x-data-grid-pro"
 
@@ -70,7 +69,6 @@ const MarkHosts = () => {
                 columns={cdn_columns}
                 pageSize={5}
                 pageSizeOptions={[5]}
-                sx={EMPTY_TABLE_STYLE}
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             />
         </Box>

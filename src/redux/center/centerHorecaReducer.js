@@ -18,10 +18,33 @@ const initialState = {
     goods_recipes_loading: {loading: false, error: null},
     goods_recipes: [],
     goods_recipes_expanded: [],
-    uid_current_recipe: null,
 
     // Калькуляция
-    goods_recipes_ingredients_loading: {loading: false, error: null},
+    goods_recipe_loading: {loading: false, error: null},
+    goods_recipe: {
+        ref: v4(),
+        ver: null,
+        code: 'Новый',
+        deleted: false,
+        date_create: null,
+        date_change: null,
+        period: null,
+        uid_good: null,
+        out_good: '',
+        design: '',
+        cooking_method: '',
+        comment: '',
+        filials: [],
+        organizations: [],
+        tables: [{
+            id: 'ingredients',
+            title: 'Рецепт',
+            columns: [],
+            rows: [],
+            column_grouping_model: [],
+            column_visibility_model: {}
+        }]
+    },
 
     // Хорека заказы
     orders_horeca_loading: {loading: false, error: null},
@@ -180,14 +203,16 @@ export const centerSlice = createSlice({
             state.goods_recipes_loading = action.payload
         }, setGoodsRecipes(state, action) {
             state.goods_recipes = action.payload
-        }, setUidCurrentRecipe(state, action) {
-            state.uid_current_recipe = action.payload
         }, setExpandedRecipesTree(state, action) {
             state.goods_recipes_expanded = action.payload
         },
 
         // Калькуляция
-
+        setGoodsRecipeLoading(state, action) {
+            state.goods_recipe_loading = action.payload
+        }, setGoodsRecipe(state, action) {
+            state.goods_recipe = action.payload
+        },
 
         // Хорека заказы
         setOrdersHorecaLoadingState(state, action) {
@@ -263,9 +288,10 @@ export const {
     setGoodsLoading, setGoods, setUidCurrentGood,
 
     // Калькуляции
-    setGoodsRecipesLoading, setGoodsRecipes, setUidCurrentRecipe, setExpandedRecipesTree,
+    setGoodsRecipesLoading, setGoodsRecipes, setExpandedRecipesTree,
 
     // Калькуляция
+    setGoodsRecipeLoading, setGoodsRecipe,
 
     // Хорека заказы
     setOrdersHorecaLoadingState, cleanOrdersHoreca, setOrdersHorecaCenter, setOrdersHorecaPage, setOrdersHorecaPageSize,

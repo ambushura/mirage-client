@@ -10,7 +10,8 @@ import {setCurrentPage, setParams, setSearchParams} from "../../../redux/center/
 import StoreDiff from "./StoreDiff.jsx"
 import Order from "./orders/Order.jsx"
 import {useParams, useSearchParams} from "react-router-dom"
-import SelectFilial from "../SelectFilial.jsx";
+import SelectFilial from "../SelectFilial.jsx"
+import Recipe from "./recipes/Recipe.jsx"
 
 const Center = ({current_page}) => {
 
@@ -39,6 +40,11 @@ const Center = ({current_page}) => {
                 <SubMenu type={['update', 'filials', 'organizations']}/>
                 <Goods/>
             </>
+        case 'recipe':
+            return <>
+                <SubMenu type={['update', 'back']}/>
+                <Recipe/>
+            </>
         case 'store_state':
             return <>
                 <SubMenu type={['update', 'filial', 'date_shift', 'store_state']}/>
@@ -62,7 +68,7 @@ const Center = ({current_page}) => {
             </>
         case 'order':
             return <>
-                <SubMenu type={['update', 'back']}/>
+                <SubMenu type={['update', 'back', 'actions']}/>
                 {filial === null && <SelectFilial/>}
                 {filial !== null && <Order/>}
             </>

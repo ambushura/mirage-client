@@ -25,6 +25,8 @@ import PolylineIcon from '@mui/icons-material/Polyline'
 import CachedIcon from '@mui/icons-material/Cached'
 import EditIcon from '@mui/icons-material/Edit'
 import {center_horeca_store_rest_get} from "../service/fetch_service.js"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 
 const SubMenu = ({type}) => {
 
@@ -68,7 +70,7 @@ const SubMenu = ({type}) => {
 
     return <Box sx={{height: 'var(--center-submenu-height)', display: 'flex', alignItems: 'center'}}>
         {type.includes('update') && <Box>
-            <Button variant='outlined' color='secondary' size='small' sx={{ml: '10px'}}><CachedIcon/></Button>
+            <Button variant='menu' size='small' sx={{ml: '10px'}}><CachedIcon/></Button>
         </Box>}
         {type.includes('filials') && <MultiSelect
             label='Филиалы'
@@ -154,7 +156,7 @@ const SubMenu = ({type}) => {
                     variant='_1c' color='secondary' sx={{ml: '10px'}}
                     startIcon={<CloudDownloadIcon/>}>Остатки</Button>
             <Button
-                variant='outlined' color='secondary' sx={{ml: '10px'}}
+                variant='menu' sx={{ml: '10px'}}
                 startIcon={<EditIcon/>}>Редактировать</Button>
         </Box>}
         {type.includes('shift_state') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
@@ -166,17 +168,19 @@ const SubMenu = ({type}) => {
                     startIcon={<CloudUploadIcon/>}>Выгрузить</Button>
         </Box>}
         {type.includes('back') && <Box>
-            <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
+            <Button variant='menu' sx={{ml: '10px'}}
                     startIcon={<ArrowBackIcon/>} onClick={() => {
                 navigate(-1)
             }}>Назад</Button>
         </Box>}
-        {type.includes('save') && <Box>
-            <Button variant='outlined' color='info' sx={{ml: '10px'}} startIcon={<SaveIcon/>}>Сохранить</Button>
-        </Box>}
         {type.includes('recipe_update') && <Box>
             <Button variant='outlined' color='secondary' sx={{ml: '10px'}}
                     startIcon={<PolylineIcon/>}>Пересобрать</Button>
+        </Box>}
+        {type.includes('actions') && <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap'}}>
+            <Button variant='save' sx={{ml: '10px'}} startIcon={<SaveIcon/>}>Записать</Button>
+            <Button variant='copy' sx={{ml: '10px'}} startIcon={<ContentCopyIcon/>}>Скопировать</Button>
+            <Button variant='delete' sx={{ml: '10px'}} startIcon={<DeleteForeverIcon/>}>Удалить</Button>
         </Box>}
     </Box>
 }

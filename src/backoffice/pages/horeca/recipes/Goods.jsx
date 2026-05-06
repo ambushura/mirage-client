@@ -1,4 +1,5 @@
 import {useEffect} from 'react'
+import {useNavigate} from "react-router-dom"
 import {Box} from "@mui/material"
 import {SimpleTreeView, TreeItem} from '@mui/x-tree-view'
 import {useDispatch, useSelector} from "react-redux"
@@ -12,7 +13,6 @@ import {
     setUidCurrentFolder,
     setUidCurrentGood
 } from "../../../../redux/center/centerHorecaReducer.js"
-import {openModal} from "../../../../redux/interfaceReducer.js"
 
 const treeSlots = {collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}
 
@@ -28,7 +28,10 @@ const TreeLabel = ({title, children}) => <Box sx={{
 const getAllIds = (nodes) => nodes.flatMap(({id, children}) => [id, ...(children?.length ? getAllIds(children) : [])])
 
 const Goods = () => {
+
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+
     const {root_filial} = useSelector(state => state.center)
     const {
         tree, expanded_tree, uid_current_folder, goods, goods_recipes, goods_recipes_expanded, uid_current_good
@@ -102,7 +105,7 @@ const Goods = () => {
             onSelectedItemsChange: (e, id) => {
                 const node = findNode(goods_recipes, id)
                 if (!node?.children) {
-                    dispatch(openModal({type: 'center_recipe', props: {ref: node?.ref}}))
+                    navigate(`/center/horeca/recipe/${node?.ref}`)
                 }
             },
             render: renderRecipes(goods_recipes),
@@ -114,7 +117,6 @@ const Goods = () => {
                 </SimpleTreeView>
             </Box>
         </Box>)}
-        <Box className='center-horeca-page-part'/>
     </Box>
 }
 

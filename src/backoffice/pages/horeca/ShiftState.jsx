@@ -3,7 +3,6 @@ import {Box} from "@mui/material"
 import {useSelector} from "react-redux"
 import {DataGridPro, useGridApiRef} from "@mui/x-data-grid-pro"
 import {ruRU} from "@mui/x-data-grid/locales"
-import {sxTable} from "../../../ui/ThemeContext.jsx"
 
 const ShiftState = () => {
     const apiRef = useGridApiRef()
@@ -59,8 +58,6 @@ const ShiftState = () => {
             }}
             onRowSelectionModelChange={() => {
             }}
-
-            sx={sxTable}
 
         />
     </Box>

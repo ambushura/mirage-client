@@ -23,7 +23,7 @@ const CenterHeaderLeft = () => {
                         onClick={() => {
                             navigate(`center/${item.id}/${item?.submenu[0].id}`)
                         }}>
-                        <ListItemIcon>{center_menu_icons[item.icon]}</ListItemIcon>
+                        <ListItemIcon sx={{color: '#c5c5c5'}}>{center_menu_icons[item.icon]}</ListItemIcon>
                         <ListItemText>{item.title}</ListItemText>
                     </MenuItem>
                 })}
