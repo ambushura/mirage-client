@@ -11,7 +11,11 @@ import {
 import {useCallback, useEffect, useState} from 'react'
 import {Place} from './nodes/Place.jsx'
 import {useDispatch, useSelector} from 'react-redux'
-import {cinema_place_block, cinema_position_add, horeca_table_add,} from '../../../service/fetch_service.js'
+import {
+    cinema_place_block,
+    cinema_position_add,
+    horeca_table_add,
+} from '../../../service/fetch_service.js'
 import RowLabel from './nodes/RowLabel.jsx'
 import Screen from './nodes/Screen.jsx'
 

@@ -4,7 +4,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import {DataGridPro, useGridApiRef} from '@mui/x-data-grid-pro'
 import {ruRU} from '@mui/x-data-grid/locales'
 import {useTreeExpansionSync} from '../../../ui/hooks/useTreeExpansionSync.js'
-import {setStoreStateExpended, setUidCurrentStore,} from '../../../redux/center/centerHorecaReducer.js'
+import {
+    setStoreStateExpended,
+    setUidCurrentStore,
+} from '../../../redux/center/centerHorecaReducer.js'
 import {openModal} from '../../../redux/interfaceReducer.js'
 
 const StoreState = () => {

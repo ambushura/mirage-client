@@ -14,7 +14,11 @@ import {
     pl_estimate_discounts,
 } from '../../service/fetch_service.js'
 import {addNotification} from '../../redux/notifierReducer.js'
-import {setOrderSearchValue, setOrdersHorecaUpdate, updateKitchenOrder,} from '../../redux/ordersReducer.js'
+import {
+    setOrderSearchValue,
+    setOrdersHorecaUpdate,
+    updateKitchenOrder,
+} from '../../redux/ordersReducer.js'
 import {setBooking} from '../../redux/scheduleReducer.js'
 import dayjs from 'dayjs'
 import {resetWP, turnOffWP, turnOnWP} from '../../redux/interfaceReducer.js'

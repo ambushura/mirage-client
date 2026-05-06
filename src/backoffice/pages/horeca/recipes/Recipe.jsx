@@ -1,7 +1,10 @@
 import {Box, Tab} from '@mui/material'
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {center_catalog_load, center_horeca_goods_recipe_get,} from '../../../../service/fetch_service.js'
+import {
+  center_catalog_load,
+  center_horeca_goods_recipe_get,
+} from '../../../../service/fetch_service.js'
 import {DataGridPro} from '@mui/x-data-grid-pro'
 import {ruRU} from '@mui/x-data-grid/locales'
 import ControlledTextField from '../../../../ui/ControlledTextField.jsx'

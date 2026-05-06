@@ -1,9 +1,17 @@
 import {ruRU} from '@mui/x-data-grid/locales'
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {common_documents_pinpads_get, common_documents_slips_get,} from '../../../../../service/fetch_service.js'
+import {
+    common_documents_pinpads_get,
+    common_documents_slips_get,
+} from '../../../../../service/fetch_service.js'
 import {Box} from '@mui/material'
-import {cleanSlips, cleanZPinpads, setSlips, setZPinpads,} from '../../../../../redux/documentsReducer.js'
+import {
+    cleanSlips,
+    cleanZPinpads,
+    setSlips,
+    setZPinpads,
+} from '../../../../../redux/documentsReducer.js'
 import {DataGridPro} from '@mui/x-data-grid-pro'
 import dayjs from 'dayjs'
 import Loader from '../../../../../ui/Loader.jsx'

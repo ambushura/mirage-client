@@ -1,4 +1,12 @@
-import {Autocomplete, Box, FormControlLabel, FormGroup, Slider, TextField, Typography,} from '@mui/material'
+import {
+    Autocomplete,
+    Box,
+    FormControlLabel,
+    FormGroup,
+    Slider,
+    TextField,
+    Typography,
+} from '@mui/material'
 import {useDispatch, useSelector} from 'react-redux'
 import Checkbox from '@mui/material/Checkbox'
 import {

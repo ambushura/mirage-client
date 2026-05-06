@@ -1,7 +1,10 @@
 import {Box, Skeleton} from '@mui/material'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
-import {common_documents_receipt_get, common_documents_receipt_save,} from '../../../../../service/fetch_service.js'
+import {
+    common_documents_receipt_get,
+    common_documents_receipt_save,
+} from '../../../../../service/fetch_service.js'
 import dayjs from 'dayjs'
 import {useForm} from 'react-hook-form'
 import ControlledTextField from '../../../../../ui/ControlledTextField.jsx'

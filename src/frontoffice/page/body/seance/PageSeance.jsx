@@ -1,7 +1,11 @@
 import {useEffect} from 'react'
 import {Box} from '@mui/material'
 import {useDispatch, useSelector} from 'react-redux'
-import {cinema_hall_get, cinema_seance_booking_get, cinema_seance_get,} from '../../../../service/fetch_service.js'
+import {
+    cinema_hall_get,
+    cinema_seance_booking_get,
+    cinema_seance_get,
+} from '../../../../service/fetch_service.js'
 import Hall from '../../../components/halls/Hall.jsx'
 import CheckOut from './CheckOut.jsx'
 import Loader from '../../../../ui/Loader.jsx'

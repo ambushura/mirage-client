@@ -1,8 +1,8 @@
+import {useDispatch, useSelector} from 'react-redux'
+import {openModal} from '../../../redux/interfaceReducer.js'
 import {Button} from '@mui/material'
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
-
-Alt'
 
 const Footer = () => {
   const dispatch = useDispatch()

@@ -3,7 +3,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {DataGridPro} from '@mui/x-data-grid-pro'
 import {ruRU} from '@mui/x-data-grid/locales'
-import {setOrdersHorecaPage, setOrdersHorecaPageSize,} from '../../../../redux/center/centerHorecaReducer.js'
+import {
+  setOrdersHorecaPage,
+  setOrdersHorecaPageSize,
+} from '../../../../redux/center/centerHorecaReducer.js'
 import {useEffect, useState} from 'react'
 import {center_catalog_load} from '../../../../service/fetch_service.js'
 import {FillNameMap} from '../../../Common.jsx'

@@ -4,7 +4,10 @@ import ControlledLazySelect from '../../../../../ui/ControlledLazySelect.jsx'
 import {useForm} from 'react-hook-form'
 import ControlledMoneyField from '../../../../../ui/ControlledMoneyField.jsx'
 import ControlledTextField from '../../../../../ui/ControlledTextField.jsx'
-import {common_documents_operation_get, common_documents_operation_save,} from '../../../../../service/fetch_service.js'
+import {
+    common_documents_operation_get,
+    common_documents_operation_save,
+} from '../../../../../service/fetch_service.js'
 import {
     setCaptionOperation,
     setOperationsUpdate,

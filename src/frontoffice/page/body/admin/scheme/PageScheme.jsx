@@ -1,5 +1,13 @@
 import {useCallback, useEffect} from 'react'
-import {addEdge, Background, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState,} from '@xyflow/react'
+import {
+    addEdge,
+    Background,
+    Controls,
+    MiniMap,
+    ReactFlow,
+    useEdgesState,
+    useNodesState,
+} from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {FilialNode} from './nodes/FilialNode.jsx'
 import {KKTNode} from './nodes/KKTNode.jsx'

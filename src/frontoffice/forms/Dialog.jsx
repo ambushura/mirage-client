@@ -16,8 +16,17 @@ import {
 } from '../../service/fetch_service.js'
 import {closeModal} from '../../redux/interfaceReducer.js'
 import {useDispatch} from 'react-redux'
-import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder,} from '../../redux/ordersReducer.js'
-import {setOperationsUpdate, setReceiptsUpdated, setZBooksUpdate,} from '../../redux/documentsReducer.js'
+import {
+    NEW_EMPTY_HORDER,
+    NEW_EMPTY_ORDER,
+    setCurrentHorder,
+    setCurrentPreOrder,
+} from '../../redux/ordersReducer.js'
+import {
+    setOperationsUpdate,
+    setReceiptsUpdated,
+    setZBooksUpdate,
+} from '../../redux/documentsReducer.js'
 
 const Dialog = ({props}) => {
     const dispatch = useDispatch()

@@ -1,8 +1,16 @@
 import {ruRU} from '@mui/x-data-grid/locales'
 import {useEffect, useState} from 'react'
-import {common_documents_receipts_get, common_documents_zbooks_get,} from '../../../../../service/fetch_service.js'
+import {
+    common_documents_receipts_get,
+    common_documents_zbooks_get,
+} from '../../../../../service/fetch_service.js'
 import {useDispatch, useSelector} from 'react-redux'
-import {cleanReceipts, cleanZBooks, setReceipts, setZBooks,} from '../../../../../redux/documentsReducer.js'
+import {
+    cleanReceipts,
+    cleanZBooks,
+    setReceipts,
+    setZBooks,
+} from '../../../../../redux/documentsReducer.js'
 import {Box} from '@mui/material'
 import dayjs from 'dayjs'
 import CakeIcon from '@mui/icons-material/Cake'

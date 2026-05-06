@@ -1,9 +1,9 @@
-import {Handle} from '@xyflow/react'
+import {Handle, Position} from '@xyflow/react'
 import {Box} from '@mui/material'
 import {WorkplaceSVG} from '../svg/WorkplaceSVG.jsx'
+import {openModal} from '../../../../../../redux/interfaceReducer.js'
+import {useDispatch} from 'react-redux'
 import {KioskSVG} from '../svg/KioskSVG.jsx'
-
-skSVG.jsx'
 
 export const WorkplaceNode = ({ data }) => {
   const dispatch = useDispatch()

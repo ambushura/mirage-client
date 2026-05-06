@@ -133,8 +133,19 @@ import {
 } from './fetch_routes.js'
 import {fillHosts} from '../redux/markirovkaReducer.js'
 import {setHall} from '../redux/hallsReducer.js'
-import {setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate,} from '../redux/documentsReducer.js'
-import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance,} from '../redux/secondScreenReducer.js'
+import {
+    setKKTList,
+    setPinpadList,
+    setZBooksUpdate,
+    setZPinpadsUpdate,
+} from '../redux/documentsReducer.js'
+import {
+    setSSBooking,
+    setSSHorder,
+    setSSPreOrder,
+    setSSSchedule,
+    setSSSeance,
+} from '../redux/secondScreenReducer.js'
 import {setNeedUpdate} from '../redux/interfaceReducer.js'
 import {setCandy} from '../redux/dataReducer.js'
 import {jwtDecode} from 'jwt-decode'

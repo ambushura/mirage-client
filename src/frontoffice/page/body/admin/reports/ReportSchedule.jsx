@@ -4,7 +4,11 @@ import {DataGridPro} from '@mui/x-data-grid-pro'
 import {ruRU} from '@mui/x-data-grid/locales'
 import {useDispatch, useSelector} from 'react-redux'
 import {common_reports_schedule_get} from '../../../../../service/fetch_service.js'
-import {cleanSchedule, set_scheduleColumnVisibilityModel, setSchedule,} from '../../../../../redux/reportsReducer.js'
+import {
+    cleanSchedule,
+    set_scheduleColumnVisibilityModel,
+    setSchedule,
+} from '../../../../../redux/reportsReducer.js'
 
 const ReportSchedule = () => {
     const dispatch = useDispatch()

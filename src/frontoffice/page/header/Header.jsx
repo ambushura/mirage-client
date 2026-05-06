@@ -1,3 +1,4 @@
+import {useDispatch, useSelector} from 'react-redux'
 import {Box, Button, ButtonGroup, Modal} from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -5,8 +6,13 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import TopSlider from './TopSlider.jsx'
 import Auth from '../../forms/Auth.jsx'
+import {useEffect, useRef, useState} from 'react'
+import {MOBILE_WIDTH, setAuthOpened, TOP_MENU} from '../../../redux/interfaceReducer.js'
 import {NavLink} from 'react-router-dom'
 import List from '../../../ui/List.jsx'
+import {logout} from '../../../redux/authReducer.js'
+import dayjs from 'dayjs'
+import {addNotification} from '../../../redux/notifierReducer.js'
 import AppsIcon from '@mui/icons-material/Apps'
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
@@ -18,8 +24,6 @@ import AdminMenu from '../top-menu/AdminMenu.jsx'
 import SeanceMenu from '../top-menu/SeanceMenu.jsx'
 import CheckoutMenu from '../top-menu/CheckoutMenu.jsx'
 import SosIcon from '@mui/icons-material/Sos'
-
-aterial/Sos'
 
 const Header = () => {
   const dispatch = useDispatch()
