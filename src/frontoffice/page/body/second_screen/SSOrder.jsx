@@ -93,11 +93,15 @@ const SsOrder = () => {
                                                     justifyContent: 'space-between',
                                                 }}
                                             >
-                                                <Box sx={{
-                                                    width: '40px',
-                                                    marginRight: '20px',
-                                                    textAlign: 'right'
-                                                }}>1</Box>
+                                                <Box
+                                                    sx={{
+                                                        width: '40px',
+                                                        marginRight: '20px',
+                                                        textAlign: 'right',
+                                                    }}
+                                                >
+                                                    1
+                                                </Box>
                                                 <Box sx={{width: '60px', marginRight: '10px', textAlign: 'right'}}>
                                                     {item.sum} р
                                                 </Box>

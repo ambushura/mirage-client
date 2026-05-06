@@ -120,7 +120,7 @@ function TabsSection({
   return (
       <Box>
         <TabContext value={current_table}>
-          <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+          <Box sx={{borderBottom: 1, borderColor: 'divider', mb: 1}}>
             <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
               <Tab value="common" label="Общие"/>
 
