@@ -1,8 +1,8 @@
 import Hall from '../components/halls/Hall.jsx'
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect, useState} from 'react'
-import {Box, FormControl, InputLabel, MenuItem, Select, Typography} from '@mui/material'
-import {cinema_hall_get, common_orders_filters_halls_get} from '../../service/fetch_service.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material'
+import { cinema_hall_get, common_orders_filters_halls_get } from '../../service/fetch_service.js'
 
 export default function TableOptions() {
     const dispatch = useDispatch()
@@ -53,16 +53,16 @@ export default function TableOptions() {
             horder.uid_hall !== null
         ) {
             set_uid_hall(horder.uid_hall)
-            set_booking([{site: null, state: 3, uid_place: horder.uid_place}])
+            set_booking([{ site: null, state: 3, uid_place: horder.uid_place }])
         }
     }, [halls, horder.uid_hall, horder.uid_place])
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Схемы залов
             </Typography>
-            <FormControl variant="filled" sx={{m: 1, minWidth: '200px'}}>
+            <FormControl variant="filled" sx={{ m: 1, minWidth: '200px' }}>
                 <InputLabel id="halls-select-label">Место гостя</InputLabel>
                 <Select
                     onChange={(event) => {
@@ -76,14 +76,14 @@ export default function TableOptions() {
                 >
                     {halls !== null
                         ? halls.map((hall) => (
-                            <MenuItem sx={{color: 'black'}} key={hall.uid} value={hall.uid}>
-                                {hall.title}
-                            </MenuItem>
-                        ))
+                              <MenuItem sx={{ color: 'black' }} key={hall.uid} value={hall.uid}>
+                                  {hall.title}
+                              </MenuItem>
+                          ))
                         : null}
                 </Select>
             </FormControl>
-            <Box sx={{width: '600px', height: '600px'}}>
+            <Box sx={{ width: '600px', height: '600px' }}>
                 {hall !== null ? (
                     <Hall
                         uid_hall={hall.uid}
@@ -98,6 +98,6 @@ export default function TableOptions() {
                     />
                 ) : null}
             </Box>
-    </Box>
+        </Box>
     )
 }

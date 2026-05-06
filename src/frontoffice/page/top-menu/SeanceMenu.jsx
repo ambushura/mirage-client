@@ -1,12 +1,12 @@
-import {Box, Button} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
+import { Box, Button } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 import SeanceTitle from '../../components/cinema/SeanceTitle.jsx'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import {openModal} from '../../../redux/interfaceReducer.js'
-import {cinema_seance_booking_get} from '../../../service/fetch_service.js'
-import {setBooking} from '../../../redux/scheduleReducer.js'
+import { openModal } from '../../../redux/interfaceReducer.js'
+import { cinema_seance_booking_get } from '../../../service/fetch_service.js'
+import { setBooking } from '../../../redux/scheduleReducer.js'
 
 const SeanceMenu = () => {
     const navigate = useNavigate()
@@ -28,26 +28,20 @@ const SeanceMenu = () => {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                         <Button
                             variant="contained"
                             color="secondary"
                             size="large"
-                            sx={{marginRight: '4px'}}
+                            sx={{ marginRight: '4px' }}
                             onClick={() => {
                                 navigate(-1)
                             }}
-                            startIcon={<KeyboardArrowLeftIcon/>}
+                            startIcon={<KeyboardArrowLeftIcon />}
                         >
                             Назад
                         </Button>
-                        <SeanceTitle
-                            seance={seance}
-                            content_type={true}
-                            day={true}
-                            its_hall_map={true}
-                            age={true}
-                        />
+                        <SeanceTitle seance={seance} content_type={true} day={true} its_hall_map={true} age={true} />
                         <Box
                             sx={{
                                 display: 'flex',
@@ -72,7 +66,7 @@ const SeanceMenu = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <LocationOnIcon/>
+                                <LocationOnIcon />
                                 <span>Зал №{seance.hall_full_name}</span>
                             </Box>
                             <Box
@@ -90,21 +84,17 @@ const SeanceMenu = () => {
                         </Box>
                     </Box>
                     {!seance.canceled && seance.opened && user !== null && (
-                        <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                             <Button
                                 variant="outlined"
                                 color="secondary"
-                                sx={{marginRight: '4px'}}
+                                sx={{ marginRight: '4px' }}
                                 onClick={async () => {
                                     if (seance !== undefined) {
                                         const fetching_result = await dispatch(
                                             cinema_seance_booking_get(filial, seance.uid, pre_order.uid, true)
                                         )
-                                        if (
-                                            !fetching_result.loading &&
-                                            fetching_result.error === null &&
-                                            fetching_result.data !== null
-                                        ) {
+                                        if (!fetching_result.loading && fetching_result.error === null && fetching_result.data !== null) {
                                             dispatch(setBooking(fetching_result.data))
                                         }
                                     }
@@ -120,7 +110,7 @@ const SeanceMenu = () => {
                                         dispatch(
                                             openModal({
                                                 type: 'seance_cancellation',
-                                                props: {uid_seance: seance.uid, ver: seance.ver},
+                                                props: { uid_seance: seance.uid, ver: seance.ver },
                                             })
                                         )
                                     }
@@ -130,7 +120,7 @@ const SeanceMenu = () => {
                             </Button>
                         </Box>
                     )}
-        </Box>
+                </Box>
             </Box>
         )
     )

@@ -1,7 +1,7 @@
-import {createContext, useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
-import {createTheme, MenuItem, styled} from '@mui/material'
-import {useFullScreen} from './hooks/useFullScreen.js'
+import { createContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { createTheme, MenuItem, styled } from '@mui/material'
+import { useFullScreen } from './hooks/useFullScreen.js'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import MovieIcon from '@mui/icons-material/Movie'
@@ -15,7 +15,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 
 const ThemeContext = createContext()
 
-export const ThemeBlackWhite = ({children}) => {
+export const ThemeBlackWhite = ({ children }) => {
     const uid_user = useSelector((state) => state.auth.uid)
     const is_full_screen = useFullScreen()
     const pre_oder = useSelector((state) => state.orders.pre_order)
@@ -100,11 +100,7 @@ export const ThemeBlackWhite = ({children}) => {
         }))
     }, [kiosk])
 
-    return (
-        <ThemeContext.Provider value={{uiState: ui_state, setUiState: set_ui_state}}>
-            {children}
-    </ThemeContext.Provider>
-    )
+    return <ThemeContext.Provider value={{ uiState: ui_state, setUiState: set_ui_state }}>{children}</ThemeContext.Provider>
 }
 
 export const Theme = createTheme({
@@ -137,7 +133,7 @@ export const Theme = createTheme({
             },
             variants: [
                 {
-                    props: {variant: '_1c', color: 'secondary'},
+                    props: { variant: '_1c', color: 'secondary' },
                     style: {
                         backgroundColor: '#F6D601',
                         color: '#000',
@@ -147,7 +143,7 @@ export const Theme = createTheme({
                     },
                 },
                 {
-                    props: {variant: 'save'},
+                    props: { variant: 'save' },
                     style: {
                         backgroundColor: '#E6F4EA',
                         color: '#1B5E20',
@@ -157,7 +153,7 @@ export const Theme = createTheme({
                     },
                 },
                 {
-                    props: {variant: 'copy'},
+                    props: { variant: 'copy' },
                     style: {
                         backgroundColor: '#E8F0FE',
                         color: '#1A3E72',
@@ -167,7 +163,7 @@ export const Theme = createTheme({
                     },
                 },
                 {
-                    props: {variant: 'delete'},
+                    props: { variant: 'delete' },
                     style: {
                         backgroundColor: '#FDECEC',
                         color: '#7A1C1C',
@@ -177,7 +173,7 @@ export const Theme = createTheme({
                     },
                 },
                 {
-                    props: {variant: 'menu'},
+                    props: { variant: 'menu' },
                     style: {
                         backgroundColor: '#DEE2E6',
                         color: '#343A40',
@@ -187,7 +183,7 @@ export const Theme = createTheme({
                     },
                 },
                 {
-                    props: {variant: 'tb_add'},
+                    props: { variant: 'tb_add' },
                     style: {
                         backgroundColor: '#E8F0FE',
                         color: '#1A3E72',
@@ -198,7 +194,7 @@ export const Theme = createTheme({
                     },
                 },
                 {
-                    props: {variant: 'tb_delete'},
+                    props: { variant: 'tb_delete' },
                     style: {
                         backgroundColor: '#FDECEC',
                         color: '#7A1C1C',
@@ -262,8 +258,8 @@ export const Theme = createTheme({
         },
         MuiCheckbox: {
             defaultProps: {
-                icon: <RadioButtonUncheckedIcon/>,
-                checkedIcon: <CheckCircleIcon/>,
+                icon: <RadioButtonUncheckedIcon />,
+                checkedIcon: <CheckCircleIcon />,
             },
         },
         MuiBackdrop: {
@@ -365,7 +361,7 @@ export const Theme = createTheme({
 
 export const ScrollStyles = () => (
     <style>
-    {`
+        {`
       .MuiDataGrid-scrollbar {
         background-color: transparent !important;
       }
@@ -405,17 +401,17 @@ export const tooltip_error = {
         color: '#fff',
         fontSize: 13,
         boxShadow: 3,
-        '& .MuiTooltip-arrow': {color: 'error.main'},
+        '& .MuiTooltip-arrow': { color: 'error.main' },
     },
 }
 
 export const center_menu_icons = [
-    <MenuIcon key="1"/>,
-    <MovieIcon key="2"/>,
-    <FastfoodIcon key="2"/>,
-    <AssessmentIcon key="3"/>,
-    <FolderIcon key="4"/>,
-    <ArticleIcon key="5"/>,
-    <CircleIcon key="6"/>,
-    <DashboardIcon key="7"/>,
+    <MenuIcon key="1" />,
+    <MovieIcon key="2" />,
+    <FastfoodIcon key="2" />,
+    <AssessmentIcon key="3" />,
+    <FolderIcon key="4" />,
+    <ArticleIcon key="5" />,
+    <CircleIcon key="6" />,
+    <DashboardIcon key="7" />,
 ]

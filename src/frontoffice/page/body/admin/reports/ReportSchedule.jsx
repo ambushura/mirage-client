@@ -1,14 +1,10 @@
-import React, {useEffect} from 'react'
-import {Box} from '@mui/material'
-import {DataGridPro} from '@mui/x-data-grid-pro'
-import {ruRU} from '@mui/x-data-grid/locales'
-import {useDispatch, useSelector} from 'react-redux'
-import {common_reports_schedule_get} from '../../../../../service/fetch_service.js'
-import {
-    cleanSchedule,
-    set_scheduleColumnVisibilityModel,
-    setSchedule,
-} from '../../../../../redux/reportsReducer.js'
+import React, { useEffect } from 'react'
+import { Box } from '@mui/material'
+import { DataGridPro } from '@mui/x-data-grid-pro'
+import { ruRU } from '@mui/x-data-grid/locales'
+import { useDispatch, useSelector } from 'react-redux'
+import { common_reports_schedule_get } from '../../../../../service/fetch_service.js'
+import { cleanSchedule, set_scheduleColumnVisibilityModel, setSchedule } from '../../../../../redux/reportsReducer.js'
 
 const ReportSchedule = () => {
     const dispatch = useDispatch()
@@ -16,24 +12,18 @@ const ReportSchedule = () => {
     const filial = useSelector((state) => state.data.filial)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
 
-    const {report_variant, update} = useSelector((state) => state.reports)
+    const { report_variant, update } = useSelector((state) => state.reports)
 
     const schedule_columns = useSelector((state) => state.reports.schedule.columns)
     const schedule_rows = useSelector((state) => state.reports.schedule.rows)
-    const schedule_columnGroupingModel = useSelector(
-        (state) => state.reports.schedule.columnGroupingModel
-    )
-    const schedule_columnVisibilityModel = useSelector(
-        (state) => state.reports.schedule_columnVisibilityModel
-    )
+    const schedule_columnGroupingModel = useSelector((state) => state.reports.schedule.columnGroupingModel)
+    const schedule_columnVisibilityModel = useSelector((state) => state.reports.schedule_columnVisibilityModel)
 
     // Загрузка данных
     useEffect(() => {
         const fetch = async () => {
             dispatch(cleanSchedule())
-            const fetching_result = await dispatch(
-                common_reports_schedule_get(filial, param_date_admin, 0)
-            )
+            const fetching_result = await dispatch(common_reports_schedule_get(filial, param_date_admin, 0))
             if (fetching_result.data !== null) {
                 dispatch(setSchedule(fetching_result.data))
             }
@@ -42,7 +32,7 @@ const ReportSchedule = () => {
     }, [dispatch, filial, param_date_admin, report_variant, update])
 
     return (
-        <Box sx={{height: '100%', display: 'flex'}}>
+        <Box sx={{ height: '100%', display: 'flex' }}>
             {schedule_rows.length > 1 ? (
                 <DataGridPro
                     hideFooter
@@ -53,7 +43,7 @@ const ReportSchedule = () => {
                     density="compact"
                     disableSelectionOnClick
                     hideFooterSelectedRowCount
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     columnVisibilityModel={set_scheduleColumnVisibilityModel}
                     onColumnVisibilityModelChange={set_scheduleColumnVisibilityModel}
                     getRowClassName={(params) => {
@@ -77,11 +67,11 @@ const ReportSchedule = () => {
                     }}
                 />
             ) : (
-                <Box className="empty-box" sx={{height: '100%'}}>
+                <Box className="empty-box" sx={{ height: '100%' }}>
                     Расписание отсутствует в смене...
                 </Box>
             )}
-    </Box>
+        </Box>
     )
 }
 

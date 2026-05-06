@@ -1,10 +1,10 @@
-import {Box} from '@mui/material'
-import {openModal} from '../../../../../../redux/interfaceReducer.js'
-import {Handle, Position} from '@xyflow/react'
-import {useDispatch} from 'react-redux'
-import {KitchenPointSVG} from '../svg/KitchenPointSVG.jsx'
+import { Box } from '@mui/material'
+import { openModal } from '../../../../../../redux/interfaceReducer.js'
+import { Handle, Position } from '@xyflow/react'
+import { useDispatch } from 'react-redux'
+import { KitchenPointSVG } from '../svg/KitchenPointSVG.jsx'
 
-export function KitchenPointNode({data}) {
+export function KitchenPointNode({ data }) {
     const dispatch = useDispatch()
 
     return (
@@ -14,19 +14,19 @@ export function KitchenPointNode({data}) {
                 dispatch(
                     openModal({
                         type: 'equipment_kitchen_point',
-                        props: {uid: data.uid, label: data.label},
+                        props: { uid: data.uid, label: data.label },
                     })
                 )
             }}
         >
-            <Handle type="target" position={Position.Bottom} style={{pointerEvents: 'all'}}/>
+            <Handle type="target" position={Position.Bottom} style={{ pointerEvents: 'all' }} />
             <Box>
                 <Box>Чековый принтер</Box>
                 <Box>
-                    <KitchenPointSVG/>
-        </Box>
+                    <KitchenPointSVG />
+                </Box>
             </Box>
-            <Handle type="source" position={Position.Top} style={{pointerEvents: 'all'}}/>
-    </Box>
+            <Handle type="source" position={Position.Top} style={{ pointerEvents: 'all' }} />
+        </Box>
     )
 }

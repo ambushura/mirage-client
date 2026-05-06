@@ -1,22 +1,22 @@
-import {useEffect, useMemo, useRef} from 'react'
-import {Autocomplete, CircularProgress, TextField} from '@mui/material'
+import { useEffect, useMemo, useRef } from 'react'
+import { Autocomplete, CircularProgress, TextField } from '@mui/material'
 
-import {useAsyncSelect} from '../backoffice/hooks/useAsyncSelect.jsx'
+import { useAsyncSelect } from '../backoffice/hooks/useAsyncSelect.jsx'
 
 export default function AsyncAutocomplete({
-                                              setCatalogMap,
-                                              disabled,
-                                              source,
-                                              variant,
-                                              sx,
-                                              filial,
-                                              type,
-                                              value,
-                                              onChange,
-                                              label = 'Выбери',
-                                              getOptionLabel = (option) => option?.name ?? '',
-                                          }) {
-    const {options, loading, inputValue, setInputValue} = useAsyncSelect({
+    setCatalogMap,
+    disabled,
+    source,
+    variant,
+    sx,
+    filial,
+    type,
+    value,
+    onChange,
+    label = 'Выбери',
+    getOptionLabel = (option) => option?.name ?? '',
+}) {
+    const { options, loading, inputValue, setInputValue } = useAsyncSelect({
         filial,
         type,
         value,
@@ -24,10 +24,7 @@ export default function AsyncAutocomplete({
 
     const inputRef = useRef(null)
 
-    const selected = useMemo(
-        () => options.find((option) => option.uid === value) ?? null,
-        [options, value]
-    )
+    const selected = useMemo(() => options.find((option) => option.uid === value) ?? null, [options, value])
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -84,24 +81,24 @@ export default function AsyncAutocomplete({
                 sx,
                 ...(source === 'table'
                     ? [
-                        {
-                            height: '100%',
-                            '& .MuiFormControl-root': {
-                                height: '100%',
-                            },
-                            '& .MuiInputBase-root': {
-                                height: '100% !important',
-                                padding: '0 3px',
-                                fontSize: 14,
-                                display: 'flex',
-                                alignItems: 'center',
-                                background: 'transparent',
-                            },
-                            '& input': {
-                                padding: '0 6px !important',
-                            },
-                        },
-                    ]
+                          {
+                              height: '100%',
+                              '& .MuiFormControl-root': {
+                                  height: '100%',
+                              },
+                              '& .MuiInputBase-root': {
+                                  height: '100% !important',
+                                  padding: '0 3px',
+                                  fontSize: 14,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  background: 'transparent',
+                              },
+                              '& input': {
+                                  padding: '0 6px !important',
+                              },
+                          },
+                      ]
                     : []),
             ]}
             renderOption={(props, option) => (
@@ -120,7 +117,7 @@ export default function AsyncAutocomplete({
                         disableUnderline: source === 'table',
                         endAdornment: (
                             <>
-                                {loading && <CircularProgress size={source === 'table' ? 16 : 18}/>}
+                                {loading && <CircularProgress size={source === 'table' ? 16 : 18} />}
                                 {params.InputProps.endAdornment}
                             </>
                         ),

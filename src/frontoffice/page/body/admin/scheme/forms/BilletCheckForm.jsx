@@ -1,11 +1,11 @@
-import {Box, IconButton, InputAdornment, TextField, Typography} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect, useState} from 'react'
-import {Visibility, VisibilityOff} from '@mui/icons-material'
+import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import Loader from '../../../../../../ui/Loader.jsx'
-import {common_catalog_get} from '../../../../../../service/fetch_service.js'
+import { common_catalog_get } from '../../../../../../service/fetch_service.js'
 
-export function BilletCheckForm({props}) {
+export function BilletCheckForm({ props }) {
     const dispatch = useDispatch()
 
     const filial = useSelector((state) => state.data.filial)
@@ -18,9 +18,7 @@ export function BilletCheckForm({props}) {
     const [obj, set_obj] = useState(null)
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(
-                common_catalog_get(filial, 'billet_check', props.uid, param_date)
-            )
+            const fetching_result = await dispatch(common_catalog_get(filial, 'billet_check', props.uid, param_date))
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.data !== null) {
@@ -30,23 +28,16 @@ export function BilletCheckForm({props}) {
         fetch()
     }, [dispatch, filial, param_date, props.uid])
 
-    const handleSubmit = () => {
-    }
+    const handleSubmit = () => {}
 
     const handleChange = (field) => (e) => {
-        set_obj((prev) => ({...prev, [field]: e.target.value}))
-        set_errors((prev) => ({...prev, [field]: undefined}))
+        set_obj((prev) => ({ ...prev, [field]: e.target.value }))
+        set_errors((prev) => ({ ...prev, [field]: undefined }))
     }
 
     if (obj !== null) {
         return (
-            <Box
-                component="form"
-                onSubmit={handleSubmit}
-                sx={{width: 500, p: 1}}
-                noValidate
-                autoComplete="off"
-            >
+            <Box component="form" onSubmit={handleSubmit} sx={{ width: 500, p: 1 }} noValidate autoComplete="off">
                 <Typography variant="h6" color="textSecondary">
                     Билетный контролер <strong>{obj.name}</strong>
                 </Typography>
@@ -61,7 +52,7 @@ export function BilletCheckForm({props}) {
                     error={!!errors.name}
                     helperText={errors.name}
                     autoFocus
-                    inputProps={{'aria-label': 'name'}}
+                    inputProps={{ 'aria-label': 'name' }}
                 />
 
                 <TextField
@@ -74,7 +65,7 @@ export function BilletCheckForm({props}) {
                     margin="dense"
                     error={!!errors.password}
                     helperText={errors.password}
-                    inputProps={{'aria-label': 'password'}}
+                    inputProps={{ 'aria-label': 'password' }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -83,7 +74,7 @@ export function BilletCheckForm({props}) {
                                     onClick={toggle_show_password}
                                     edge="end"
                                 >
-                                    {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
                         ),
@@ -100,7 +91,7 @@ export function BilletCheckForm({props}) {
     } else {
         return (
             <Box>
-                <Loader size={2}/>
+                <Loader size={2} />
             </Box>
         )
     }

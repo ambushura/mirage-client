@@ -1,11 +1,6 @@
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect} from 'react'
-import {
-    setFilials,
-    setOrganizations,
-    setParams,
-    setSearchParams,
-} from '../../redux/center/centerReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { setFilials, setOrganizations, setParams, setSearchParams } from '../../redux/center/centerReducer.js'
 import {
     center_horeca_goods_tree_get,
     center_horeca_orders_get,
@@ -14,7 +9,7 @@ import {
     center_horeca_store_state_get,
     common_lazy_list_get,
 } from '../../service/fetch_service.js'
-import {useParams, useSearchParams} from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 export function useGetCenterData() {
     const dispatch = useDispatch()
@@ -25,10 +20,8 @@ export function useGetCenterData() {
     const center = useSelector((state) => state.auth.center)
     const cities = useSelector((state) => state.data.cities)
 
-    const {root_filial, filial, current_page, date_shift} = useSelector((state) => state.center)
-    const {orders_horeca_page, orders_horeca_page_size} = useSelector(
-        (state) => state.center_horeca
-    )
+    const { root_filial, filial, current_page, date_shift } = useSelector((state) => state.center)
+    const { orders_horeca_page, orders_horeca_page_size } = useSelector((state) => state.center_horeca)
 
     // Параметры строки
     useEffect(() => {
@@ -84,9 +77,7 @@ export function useGetCenterData() {
         if (!center) return
         if (!filial) return
 
-        dispatch(
-            center_horeca_orders_get(filial, date_shift, 0, orders_horeca_page, orders_horeca_page_size)
-        )
+        dispatch(center_horeca_orders_get(filial, date_shift, 0, orders_horeca_page, orders_horeca_page_size))
     }, [center, filial, date_shift, orders_horeca_page, orders_horeca_page_size, dispatch])
 
     // Хорека / наличие на складах

@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import {
     common_orders_filters_halls_get,
     common_orders_filters_staff_get,

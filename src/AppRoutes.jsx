@@ -1,9 +1,9 @@
-import {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {useParams, useSearchParams} from 'react-router-dom'
-import {Box} from '@mui/material'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams, useSearchParams } from 'react-router-dom'
+import { Box } from '@mui/material'
 
-import {setCurrentPage, setParams, setSearchParams} from './redux/interfaceReducer.js'
+import { setCurrentPage, setParams, setSearchParams } from './redux/interfaceReducer.js'
 
 import PageFilms from './frontoffice/page/body/films/PageFilms.jsx'
 import PageFilm from './frontoffice/page/body/film/PageFilm.jsx'
@@ -13,9 +13,9 @@ import PageSchedule from './frontoffice/page/body/schedule/PageSchedule.jsx'
 import PageHoreca from './frontoffice/page/body/menu/PageHoreca.jsx'
 import PageKitchen from './frontoffice/page/body/kitchen/PageKitchen.jsx'
 import SecondScreen from './frontoffice/page/body/second_screen/SecondScreen.jsx'
-import {useSetWS} from './frontoffice/hooks/useSetWS.js'
+import { useSetWS } from './frontoffice/hooks/useSetWS.js'
 
-const AppRoutes = ({current_page}) => {
+const AppRoutes = ({ current_page }) => {
     const dispatch = useDispatch()
 
     const params = useParams()
@@ -39,27 +39,27 @@ const AppRoutes = ({current_page}) => {
     const uid_user = useSelector((state) => state.auth.uid)
 
     const pages = {
-        second_screen: <SecondScreen/>,
-        schedule: <PageSchedule/>,
-        films: <PageFilms/>,
-        film: <PageFilm/>,
-        seance: <PageSeance/>,
-        kitchen: <PageKitchen/>,
-        menu: uid_user !== null && <PageHoreca/>,
-        'admin/orders/cinema': uid_user !== null && <PageAdmin/>,
-        'admin/orders/horeca': uid_user !== null && <PageAdmin/>,
-        'admin/zbooks': uid_user !== null && <PageAdmin/>,
-        'admin/zbook': uid_user !== null && <PageAdmin/>,
-        'admin/receipt': uid_user !== null && <PageAdmin/>,
-        'admin/slip': uid_user !== null && <PageAdmin/>,
-        'admin/operations': uid_user !== null && <PageAdmin/>,
-        'admin/operation': uid_user !== null && <PageAdmin/>,
-        'admin/halls': uid_user !== null && <PageAdmin/>,
-        'admin/scheme': uid_user !== null && <PageAdmin/>,
-        'admin/egais': uid_user !== null && <PageAdmin/>,
-        'admin/staff': uid_user !== null && <PageAdmin/>,
-        'admin/acquiring': uid_user !== null && <PageAdmin/>,
-        'admin/reports': uid_user !== null && <PageAdmin/>,
+        second_screen: <SecondScreen />,
+        schedule: <PageSchedule />,
+        films: <PageFilms />,
+        film: <PageFilm />,
+        seance: <PageSeance />,
+        kitchen: <PageKitchen />,
+        menu: uid_user !== null && <PageHoreca />,
+        'admin/orders/cinema': uid_user !== null && <PageAdmin />,
+        'admin/orders/horeca': uid_user !== null && <PageAdmin />,
+        'admin/zbooks': uid_user !== null && <PageAdmin />,
+        'admin/zbook': uid_user !== null && <PageAdmin />,
+        'admin/receipt': uid_user !== null && <PageAdmin />,
+        'admin/slip': uid_user !== null && <PageAdmin />,
+        'admin/operations': uid_user !== null && <PageAdmin />,
+        'admin/operation': uid_user !== null && <PageAdmin />,
+        'admin/halls': uid_user !== null && <PageAdmin />,
+        'admin/scheme': uid_user !== null && <PageAdmin />,
+        'admin/egais': uid_user !== null && <PageAdmin />,
+        'admin/staff': uid_user !== null && <PageAdmin />,
+        'admin/acquiring': uid_user !== null && <PageAdmin />,
+        'admin/reports': uid_user !== null && <PageAdmin />,
     }
 
     return <Box id="page">{pages[current_page] || null}</Box>

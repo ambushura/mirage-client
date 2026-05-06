@@ -1,8 +1,6 @@
-import { Box } fr m '@mui/materia
+import { Box } from '@mui/material'
 
-
-
-const StoreDiff = () =>
+const StoreDiff = () => {
     return <Box></Box>
 }
 

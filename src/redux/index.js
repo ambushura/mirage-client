@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import scheduleSlice from './scheduleReducer.js'
 import ordersSlice from './ordersReducer.js'
 import dataSlice from './dataReducer.js'

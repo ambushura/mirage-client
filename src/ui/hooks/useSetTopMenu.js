@@ -1,6 +1,6 @@
-import {useEffect} from 'react'
-import {PARAM_DATE_SHIFT, setTopMenu} from '../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
+import { useEffect } from 'react'
+import { PARAM_DATE_SHIFT, setTopMenu } from '../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
 
 export function useSetTopMenu() {
     const dispatch = useDispatch()
@@ -9,7 +9,7 @@ export function useSetTopMenu() {
     const top_menu = useSelector((state) => state.interface.top_menu)
     const param_date = useSelector((state) => state.interface.params.param_date)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
-    const {wp, kiosk} = useSelector((state) => state.interface)
+    const { wp, kiosk } = useSelector((state) => state.interface)
 
     useEffect(() => {
         if (city !== undefined) {

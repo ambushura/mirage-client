@@ -1,8 +1,8 @@
-import {Box, Button, Stack, Typography} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {setCash, setTotal} from '../../redux/ordersReducer.js'
-import {useEffect, useState} from 'react'
-import {closeModal} from '../../redux/interfaceReducer.js'
+import { Box, Button, Stack, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCash, setTotal } from '../../redux/ordersReducer.js'
+import { useEffect, useState } from 'react'
+import { closeModal } from '../../redux/interfaceReducer.js'
 
 const Calc = () => {
     const dispatch = useDispatch()
@@ -30,11 +30,8 @@ const Calc = () => {
     }, [dispatch, pre_order.ver, horder.ver])
 
     return (
-        <Box sx={{width: 220, mx: 'auto', textAlign: 'center', color: 'white', overflow: 'hidden'}}>
-            <Typography
-                variant="h5"
-                sx={{mb: 2, fontWeight: 'bold', color: 'black'}}
-            >{`${cash + ' Р' || '0'}`}</Typography>
+        <Box sx={{ width: 220, mx: 'auto', textAlign: 'center', color: 'white', overflow: 'hidden' }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', color: 'black' }}>{`${cash + ' Р' || '0'}`}</Typography>
             <Stack spacing={1}>
                 {[
                     [7, 8, 9],
@@ -49,8 +46,7 @@ const Calc = () => {
                                 variant="contained"
                                 color="secondary"
                                 sx={{
-                                    marginRight:
-                                        value !== 9 && value !== 6 && value !== 3 && value !== '000' ? '8px' : 0,
+                                    marginRight: value !== 9 && value !== 6 && value !== 3 && value !== '000' ? '8px' : 0,
                                     flex: 1,
                                     fontSize: value !== '000' && value !== '00' ? '150%' : '100%',
                                 }}
@@ -66,7 +62,7 @@ const Calc = () => {
                 <Stack direction="row" justifyContent="center">
                     <Button
                         fullWidth
-                        sx={{flex: 1, marginRight: '8px'}}
+                        sx={{ flex: 1, marginRight: '8px' }}
                         variant="contained"
                         color="secondary"
                         onClick={() => dispatch(closeModal())}
@@ -75,7 +71,7 @@ const Calc = () => {
                     </Button>
                     <Button
                         fullWidth
-                        sx={{flex: 1}}
+                        sx={{ flex: 1 }}
                         variant="contained"
                         color="error"
                         onClick={() => dispatch(setCash(['clean', total]))}
@@ -84,7 +80,7 @@ const Calc = () => {
                     </Button>
                 </Stack>
             </Stack>
-    </Box>
+        </Box>
     )
 }
 

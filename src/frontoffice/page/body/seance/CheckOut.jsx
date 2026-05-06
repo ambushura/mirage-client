@@ -1,9 +1,9 @@
-import {useDispatch, useSelector} from 'react-redux'
-import {Box} from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { Box } from '@mui/material'
 import Ticket from './Ticket.jsx'
-import {common_orders_receipts_get} from '../../../../service/fetch_service.js'
-import {useEffect} from 'react'
-import {setKioskPaymentError} from '../../../../redux/ordersReducer.js'
+import { common_orders_receipts_get } from '../../../../service/fetch_service.js'
+import { useEffect } from 'react'
+import { setKioskPaymentError } from '../../../../redux/ordersReducer.js'
 
 const CheckOut = () => {
     const dispatch = useDispatch()
@@ -22,8 +22,8 @@ const CheckOut = () => {
     }, [dispatch, filial, pre_order.uid])
 
     return (
-        <Box id="content-box" sx={{overflowY: 'auto'}}>
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        <Box id="content-box" sx={{ overflowY: 'auto' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Box id="content-header"></Box>
                 <Box id="content">
                     <Box id="checkout-order">
@@ -37,7 +37,7 @@ const CheckOut = () => {
                             <Box className="checkout-order-tickets-box">
                                 <Box className="checkout-order-tickets">
                                     {pre_order.items.map((ticket) => {
-                                        return <Ticket key={ticket.uid} ticket={ticket}/>
+                                        return <Ticket key={ticket.uid} ticket={ticket} />
                                     })}
                                 </Box>
                             </Box>
@@ -47,7 +47,7 @@ const CheckOut = () => {
                 </Box>
                 <Box id="content-footer"></Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

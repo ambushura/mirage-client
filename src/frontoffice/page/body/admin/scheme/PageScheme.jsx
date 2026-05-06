@@ -1,23 +1,15 @@
-import {useCallback, useEffect} from 'react'
-import {
-    addEdge,
-    Background,
-    Controls,
-    MiniMap,
-    ReactFlow,
-    useEdgesState,
-    useNodesState,
-} from '@xyflow/react'
+import { useCallback, useEffect } from 'react'
+import { addEdge, Background, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import {FilialNode} from './nodes/FilialNode.jsx'
-import {KKTNode} from './nodes/KKTNode.jsx'
-import {PinpadNode} from './nodes/PinpadNode.jsx'
-import {WorkplaceNode} from './nodes/WorkplaceNode.jsx'
-import {Box} from '@mui/material'
-import {KitchenPointNode} from './nodes/KitchenPointNode.jsx'
-import {BilletCheckNode} from './nodes/BilletCheckNode.jsx'
-import {useDispatch, useSelector} from 'react-redux'
-import {common_payment_map_get} from '../../../../../service/fetch_service.js'
+import { FilialNode } from './nodes/FilialNode.jsx'
+import { KKTNode } from './nodes/KKTNode.jsx'
+import { PinpadNode } from './nodes/PinpadNode.jsx'
+import { WorkplaceNode } from './nodes/WorkplaceNode.jsx'
+import { Box } from '@mui/material'
+import { KitchenPointNode } from './nodes/KitchenPointNode.jsx'
+import { BilletCheckNode } from './nodes/BilletCheckNode.jsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { common_payment_map_get } from '../../../../../service/fetch_service.js'
 
 const PageScheme = () => {
     const dispatch = useDispatch()
@@ -57,7 +49,7 @@ const PageScheme = () => {
         return <Box className="empty-box">Выберите филиал...</Box>
     } else {
         return (
-            <Box style={{width: '100%', height: 'var(--page-height)'}}>
+            <Box style={{ width: '100%', height: 'var(--page-height)' }}>
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -70,9 +62,9 @@ const PageScheme = () => {
                     minZoom={0.4}
                     maxZoom={2}
                 >
-                    <Controls/>
-                    <MiniMap/>
-                    <Background/>
+                    <Controls />
+                    <MiniMap />
+                    <Background />
                 </ReactFlow>
             </Box>
         )

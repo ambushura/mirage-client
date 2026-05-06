@@ -1,22 +1,18 @@
-import {Box, Button} from '@mui/material'
+import { Box, Button } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import LooksOneIcon from '@mui/icons-material/LooksOne'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalculateIcon from '@mui/icons-material/Calculate'
-import {openModal} from '../../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {
-    common_position_delete_comment,
-    horeca_position_change_state,
-    horeca_position_delete,
-} from '../../../service/fetch_service.js'
+import { openModal } from '../../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { common_position_delete_comment, horeca_position_change_state, horeca_position_delete } from '../../../service/fetch_service.js'
 import LooksTwoIcon from '@mui/icons-material/LooksTwo'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import Looks4Icon from '@mui/icons-material/Looks4'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
-import {selectUidHoreca} from '../../../redux/ordersReducer.js'
-import {CZIcon, EGAISIcon} from '../top-menu/HorecaMenu.jsx'
+import { selectUidHoreca } from '../../../redux/ordersReducer.js'
+import { CZIcon, EGAISIcon } from '../top-menu/HorecaMenu.jsx'
 
 const HorecaItem = (props) => {
     const dispatch = useDispatch()
@@ -33,12 +29,7 @@ const HorecaItem = (props) => {
             Отдать гостю
         </Box>,
     ]
-    const course = [
-        <LooksOneIcon key="0"/>,
-        <LooksTwoIcon key="1"/>,
-        <Looks3Icon key="2"/>,
-        <Looks4Icon key="3"/>,
-    ]
+    const course = [<LooksOneIcon key="0" />, <LooksTwoIcon key="1" />, <Looks3Icon key="2" />, <Looks4Icon key="3" />]
     const uid_selected = useSelector((state) => state.orders.uid_horeca_selected)
 
     return (
@@ -67,7 +58,7 @@ const HorecaItem = (props) => {
                         )
                     }
                 >
-                    <CalculateIcon/>
+                    <CalculateIcon />
                 </Button>
                 <Box
                     className="order-box-horeca-item-1-1"
@@ -87,7 +78,7 @@ const HorecaItem = (props) => {
                     <Box>{props.item.name}</Box>
                 </Box>
                 <Box className="order-box-horeca-item-1-1-sum">
-                    <Box sx={{color: '#8B919B'}}>
+                    <Box sx={{ color: '#8B919B' }}>
                         {props.item.quantity.toFixed(3).toLocaleString('ru-RU')} {props.item.unit_name}
                     </Box>
                     <Box>{Math.round(props.item.price.sum).toLocaleString('ru-RU')} р</Box>
@@ -107,37 +98,32 @@ const HorecaItem = (props) => {
                                     uid_order: props.order.uid,
                                     uid_position: props.item.uid,
                                     comment: props.item.comment,
-                                    modifications:
-                                        props.item.kitchen !== null ? props.item.kitchen.modifications : [],
+                                    modifications: props.item.kitchen !== null ? props.item.kitchen.modifications : [],
                                 },
                             })
                         )
                     }
                 >
-                    <BorderColorIcon/>
+                    <BorderColorIcon />
                 </Button>
                 <Button
                     variant="text"
                     color="secondary"
-                    onClick={() =>
-                        dispatch(
-                            horeca_position_delete(filial, props.order.uid, props.item.uid, props.order.ver)
-                        )
-                    }
+                    onClick={() => dispatch(horeca_position_delete(filial, props.order.uid, props.item.uid, props.order.ver))}
                 >
-                    <DeleteIcon/>
+                    <DeleteIcon />
                 </Button>
             </Box>
             {props.item.price.uid_discount !== null ? (
                 <Box className="order-horeca-item-discount">
                     <div>{props.item.price.name_discount}</div>
-                    <div style={{marginLeft: '4px'}}>{props.item.price.sum_discount} р</div>
+                    <div style={{ marginLeft: '4px' }}>{props.item.price.sum_discount} р</div>
                 </Box>
             ) : null}
             {props.item.mark !== null ? (
                 <Box className="order-box-horeca-item-2">
                     <Button variant="text" color="secondary">
-                        <CZIcon/>
+                        <CZIcon />
                     </Button>
                     <Box
                         className="order-box-horeca-item-2-2"
@@ -146,7 +132,7 @@ const HorecaItem = (props) => {
                                 dispatch(
                                     openModal({
                                         type: 'mark_info',
-                                        props: {item: props.item},
+                                        props: { item: props.item },
                                     })
                                 )
                             }
@@ -156,9 +142,7 @@ const HorecaItem = (props) => {
                     </Box>
                     <Button variant="text" color="secondary">
                         {props.item.mark.value !== null && (
-                            <CheckCircleOutlineIcon
-                                sx={{color: props.item.mark_payment_available ? 'green' : 'red'}}
-                            />
+                            <CheckCircleOutlineIcon sx={{ color: props.item.mark_payment_available ? 'green' : 'red' }} />
                         )}
                     </Button>
                 </Box>
@@ -168,7 +152,7 @@ const HorecaItem = (props) => {
             {props.item.egais !== null ? (
                 <Box className="order-box-horeca-item-3">
                     <Button variant="text" color="secondary">
-                        <EGAISIcon/>
+                        <EGAISIcon />
                     </Button>
                     <Box className="order-box-horeca-item-3-2">
                         {props.item.egais.value === '' ? 'Отсканируйте акцизную марку' : props.item.egais.value}
@@ -179,33 +163,23 @@ const HorecaItem = (props) => {
             )}
             {props.item.comment !== null ? (
                 <Box className="order-box-horeca-item-4">
-                    <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', flex: 1}}>
-                        <span style={{textAlign: 'center'}}>{props.item.comment}</span>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', flex: 1 }}>
+                        <span style={{ textAlign: 'center' }}>{props.item.comment}</span>
                     </Box>
                     <Button
                         color="secondary"
                         variant="text"
                         onClick={() =>
-                            dispatch(
-                                common_position_delete_comment(
-                                    filial,
-                                    'horeca',
-                                    props.order.uid,
-                                    props.item.uid,
-                                    props.order.ver
-                                )
-                            )
+                            dispatch(common_position_delete_comment(filial, 'horeca', props.order.uid, props.item.uid, props.order.ver))
                         }
                     >
-                        <DeleteIcon/>
+                        <DeleteIcon />
                     </Button>
                 </Box>
             ) : (
                 <></>
             )}
-            {props.item.kitchen !== null &&
-            props.item.kitchen.modifications !== null &&
-            props.item.kitchen.modifications.length > 0 ? (
+            {props.item.kitchen !== null && props.item.kitchen.modifications !== null && props.item.kitchen.modifications.length > 0 ? (
                 <Box className="modifications">
                     {props.item.kitchen.modifications.map((modification) => {
                         return (
@@ -222,32 +196,16 @@ const HorecaItem = (props) => {
                         variant="text"
                         color={props.item.kitchen.take_away ? 'info' : 'secondary'}
                         onClick={() =>
-                            dispatch(
-                                horeca_position_change_state(
-                                    filial,
-                                    props.order.uid,
-                                    props.item.uid,
-                                    'away',
-                                    props.order.ver
-                                )
-                            )
+                            dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'away', props.order.ver))
                         }
                     >
-                        <ShoppingBagIcon/>
+                        <ShoppingBagIcon />
                     </Button>
                     <Button
                         variant="text"
                         color={props.item.kitchen.course > 0 ? 'info' : 'secondary'}
                         onClick={() =>
-                            dispatch(
-                                horeca_position_change_state(
-                                    filial,
-                                    props.order.uid,
-                                    props.item.uid,
-                                    'course',
-                                    props.order.ver
-                                )
-                            )
+                            dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'course', props.order.ver))
                         }
                     >
                         {course[props.item.kitchen.course]}
@@ -256,15 +214,7 @@ const HorecaItem = (props) => {
                         variant="text"
                         color="info"
                         onClick={() =>
-                            dispatch(
-                                horeca_position_change_state(
-                                    filial,
-                                    props.order.uid,
-                                    props.item.uid,
-                                    'cook',
-                                    props.order.ver
-                                )
-                            )
+                            dispatch(horeca_position_change_state(filial, props.order.uid, props.item.uid, 'cook', props.order.ver))
                         }
                     >
                         {state[props.item.kitchen.state]}
@@ -276,7 +226,7 @@ const HorecaItem = (props) => {
                     ) : null}
                 </Box>
             ) : null}
-    </li>
+        </li>
     )
 }
 

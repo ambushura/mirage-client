@@ -1,22 +1,17 @@
-import {useMemo} from 'react'
-import {Box} from '@mui/material'
-import {DataGridPro, useGridApiRef} from '@mui/x-data-grid-pro'
-import {ruRU} from '@mui/x-data-grid/locales'
-import {useSelector} from 'react-redux'
+import { useMemo } from 'react'
+import { Box } from '@mui/material'
+import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro'
+import { ruRU } from '@mui/x-data-grid/locales'
+import { useSelector } from 'react-redux'
 
 const ProductionState = () => {
     const apiRef = useGridApiRef()
 
-    const {production_state_loading, production_state, production_state_expended} = useSelector(
-        (state) => state.center_horeca
-    )
+    const { production_state_loading, production_state, production_state_expended } = useSelector((state) => state.center_horeca)
 
     const rows = useMemo(() => production_state?.rows ?? [], [production_state?.rows])
     const columns = useMemo(() => production_state?.columns ?? [], [production_state?.columns])
-    const column_grouping_model = useMemo(
-        () => production_state?.column_grouping_model ?? [],
-        [production_state?.column_grouping_model]
-    )
+    const column_grouping_model = useMemo(() => production_state?.column_grouping_model ?? [], [production_state?.column_grouping_model])
     const column_visibility_model = useMemo(
         () => production_state?.column_visibility_model ?? {},
         [production_state?.column_visibility_model]
@@ -61,10 +56,9 @@ const ProductionState = () => {
                 onCellDoubleClick={() => {
                     alert('Привет')
                 }}
-                onRowSelectionModelChange={() => {
-                }}
+                onRowSelectionModelChange={() => {}}
             />
-    </Box>
+        </Box>
     )
 }
 

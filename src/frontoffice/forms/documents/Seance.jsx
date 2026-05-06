@@ -1,22 +1,22 @@
-import {Box, Button, Typography} from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 import ControlledLazySelect from '../../../ui/ControlledLazySelect.jsx'
-import {useDispatch, useSelector} from 'react-redux'
-import {useForm} from 'react-hook-form'
-import {v4} from 'uuid'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { v4 } from 'uuid'
 import ControlledMoneyField from '../../../ui/ControlledMoneyField.jsx'
 import ControlledDateTimePicker from '../../../ui/ControlledDateTimePicker.jsx'
 import ControlledTextField from '../../../ui/ControlledTextField.jsx'
 import ControlledSwitch from '../../../ui/ControlledSwitch.jsx'
-import {cinema_seance_create7, get_hall_rent_sum} from '../../../service/fetch_service.js'
-import {useEffect, useState} from 'react'
-import {closeModal} from '../../../redux/interfaceReducer.js'
-import {setScheduleUpdate} from '../../../redux/scheduleReducer.js'
+import { cinema_seance_create7, get_hall_rent_sum } from '../../../service/fetch_service.js'
+import { useEffect, useState } from 'react'
+import { closeModal } from '../../../redux/interfaceReducer.js'
+import { setScheduleUpdate } from '../../../redux/scheduleReducer.js'
 
 dayjs.locale('ru')
 
-export default function Seance({props}) {
+export default function Seance({ props }) {
     // Служебные функции
     const dispatch = useDispatch()
 
@@ -31,7 +31,7 @@ export default function Seance({props}) {
         control,
         reset,
         watch,
-        formState: {touchedFields},
+        formState: { touchedFields },
     } = useForm({
         defaultValues: {
             // Время
@@ -69,14 +69,9 @@ export default function Seance({props}) {
         const prepared = {
             ...data,
         }
-        if (prepared.date_shift)
-            prepared.date_shift = dayjs(prepared.date_shift)
-                .startOf('day')
-                .format('YYYY-MM-DDTHH:mm:ss+00:00')
-        if (prepared.beginning)
-            prepared.beginning = dayjs(prepared.beginning).format('YYYY-MM-DDTHH:mm:ss+00:00')
-        if (prepared.ending)
-            prepared.ending = dayjs(prepared.ending).format('YYYY-MM-DDTHH:mm:ss+00:00')
+        if (prepared.date_shift) prepared.date_shift = dayjs(prepared.date_shift).startOf('day').format('YYYY-MM-DDTHH:mm:ss+00:00')
+        if (prepared.beginning) prepared.beginning = dayjs(prepared.beginning).format('YYYY-MM-DDTHH:mm:ss+00:00')
+        if (prepared.ending) prepared.ending = dayjs(prepared.ending).format('YYYY-MM-DDTHH:mm:ss+00:00')
         const result = await dispatch(cinema_seance_create7(filial, prepared))
         if (result?.data) {
             dispatch(closeModal())
@@ -137,15 +132,8 @@ export default function Seance({props}) {
     }, [beginning, duration])
 
     return (
-        <Box
-            sx={{padding: '10px'}}
-            id="modal-seance"
-            component="form"
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            <Box sx={{width: '700px', display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{ padding: '10px' }} id="modal-seance" component="form" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={{ width: '700px', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h6" color="textSecondary" margin={1}>
                     Сеанс
                 </Typography>
@@ -156,13 +144,13 @@ export default function Seance({props}) {
                     type="halls"
                     filial={filial}
                     extraFields={['vip']}
-                    rules={{required: 'Укажите зал'}}
+                    rules={{ required: 'Укажите зал' }}
                     onChange={(uid, extra) => {
                         setValue('vip', extra.vip || '')
                     }}
-                    sx={{width: '100%'}}
+                    sx={{ width: '100%' }}
                 />
-                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                     <ControlledLazySelect
                         control={control}
                         name="uid_film"
@@ -170,13 +158,13 @@ export default function Seance({props}) {
                         type="films"
                         filial={filial}
                         extraFields={['copy_type', 'duration', 'premiere']}
-                        rules={{required: 'Укажите фильм'}}
+                        rules={{ required: 'Укажите фильм' }}
                         onChange={(uid, extra) => {
                             setValue('copy_type', extra.copy_type || '')
                             setValue('duration', extra.duration || 0)
                             setValue('premiere', extra.premiere || false)
                         }}
-                        sx={{flex: 3, marginRight: '10px'}}
+                        sx={{ flex: 3, marginRight: '10px' }}
                     />
                     <ControlledTextField
                         readOnly
@@ -186,40 +174,40 @@ export default function Seance({props}) {
                         numeric
                         rules={{
                             required: 'Укажите длительность сеанса',
-                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'},
-                            min: {value: 1, message: 'Длительность должна быть больше 0'},
+                            pattern: { value: /^[0-9]+$/, message: 'Допустимы только цифры' },
+                            min: { value: 1, message: 'Длительность должна быть больше 0' },
                         }}
-                        sx={{flex: 1, marginRight: '10px'}}
+                        sx={{ flex: 1, marginRight: '10px' }}
                     />
                     <ControlledLazySelect
                         control={control}
                         name="copy_type"
                         label="Тип"
                         filial={filial}
-                        rules={{required: 'Укажите тип копии фильма'}}
+                        rules={{ required: 'Укажите тип копии фильма' }}
                         optionsStatic={[
-                            {uid: '2D', title: '2D'},
-                            {uid: '3D', title: '3D'},
+                            { uid: '2D', title: '2D' },
+                            { uid: '3D', title: '3D' },
                         ]}
-                        sx={{flex: 1}}
+                        sx={{ flex: 1 }}
                     />
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                    <Box sx={{flex: 1, marginRight: '10px'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                    <Box sx={{ flex: 1, marginRight: '10px' }}>
                         <ControlledDateTimePicker
                             control={control}
                             name="beginning"
                             label="Начало"
-                            sx={{width: '100%', marginRight: '10px'}}
-                            rules={{required: 'Когда начнется сеанс?'}}
+                            sx={{ width: '100%', marginRight: '10px' }}
+                            rules={{ required: 'Когда начнется сеанс?' }}
                         />
                     </Box>
-                    <Box sx={{flex: 1}}>
+                    <Box sx={{ flex: 1 }}>
                         <ControlledDateTimePicker
                             control={control}
                             name="ending"
                             label="Окончание"
-                            sx={{width: '100%'}}
+                            sx={{ width: '100%' }}
                             rules={{
                                 required: 'Когда сеанс закончится?',
                                 validate: (value) => {
@@ -240,7 +228,7 @@ export default function Seance({props}) {
                         />
                     </Box>
                 </Box>
-                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
                     <ControlledMoneyField
                         control={control}
                         readOnly
@@ -248,22 +236,16 @@ export default function Seance({props}) {
                         label="Стоимость"
                         error={!gotten_price}
                         helperText={!gotten_price ? 'Стоимость не рассчитана' : ''}
-                        sx={{flex: 1, marginRight: '10px'}}
+                        sx={{ flex: 1, marginRight: '10px' }}
                         rules={{
                             required: 'Укажите стоимость сеанса',
-                            pattern: {value: /^[0-9]+$/, message: 'Допустимы только цифры'},
-                            min: {value: 1, message: 'Стоимость должна быть больше 0'},
+                            pattern: { value: /^[0-9]+$/, message: 'Допустимы только цифры' },
+                            min: { value: 1, message: 'Стоимость должна быть больше 0' },
                         }}
                     />
-                    <ControlledSwitch
-                        control={control}
-                        name="its_card"
-                        label="Карта"
-                        color="secondary"
-                        sx={{flex: 1}}
-                    />
+                    <ControlledSwitch control={control} name="its_card" label="Карта" color="secondary" sx={{ flex: 1 }} />
                     <Button
-                        sx={{flex: 1}}
+                        sx={{ flex: 1 }}
                         variant="outlined"
                         color="secondary"
                         onClick={() => {
@@ -273,20 +255,15 @@ export default function Seance({props}) {
                         Рассчитать стоимость
                     </Button>
                 </Box>
-                <ControlledTextField
-                    control={control}
-                    name="comment"
-                    label="Комментарий к сеансу (не к заказу)"
-                    sx={{width: '100%'}}
-                />
+                <ControlledTextField control={control} name="comment" label="Комментарий к сеансу (не к заказу)" sx={{ width: '100%' }} />
             </Box>
-            <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
                 {gotten_price && sum > 0 && (
-                    <Button sx={{flex: 1}} variant="contained" color="secondary" type="submit">
+                    <Button sx={{ flex: 1 }} variant="contained" color="secondary" type="submit">
                         Сохранить
                     </Button>
                 )}
             </Box>
-    </Box>
+        </Box>
     )
 }

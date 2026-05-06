@@ -1,11 +1,11 @@
-import {Box, Button, TextField, Typography} from '@mui/material'
-import {closeModal} from '../../../redux/interfaceReducer.js'
-import {ruToEnLayout} from '../../../ui/hooks/common_functions.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {useState} from 'react'
-import {horeca_position_add_mark} from '../../../service/fetch_service.js'
+import { Box, Button, TextField, Typography } from '@mui/material'
+import { closeModal } from '../../../redux/interfaceReducer.js'
+import { ruToEnLayout } from '../../../ui/hooks/common_functions.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { horeca_position_add_mark } from '../../../service/fetch_service.js'
 
-const Egais = ({props}) => {
+const Egais = ({ props }) => {
     const filial = useSelector((state) => state.data.filial)
     const dispatch = useDispatch()
     const [mark, set_mark] = useState(null)
@@ -27,7 +27,7 @@ const Egais = ({props}) => {
             <TextField
                 autoFocus
                 label="Акцизная марка"
-                sx={{m: 1, minWidth: '400px'}}
+                sx={{ m: 1, minWidth: '400px' }}
                 variant="filled"
                 color="textSecondary"
                 value={mark}
@@ -37,12 +37,12 @@ const Egais = ({props}) => {
                     set_mark(fixed)
                 }}
             />
-            <Box sx={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
-                <Button variant="contained" color="secondary" type="submit" sx={{marginLeft: '4px'}}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                <Button variant="contained" color="secondary" type="submit" sx={{ marginLeft: '4px' }}>
                     Добавить в заказ
                 </Button>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

@@ -1,38 +1,29 @@
-import {Box} from '@mui/material'
-import {DataGridPro} from '@mui/x-data-grid-pro'
-import {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {cleanOperations, setOperations} from '../../../../../redux/documentsReducer.js'
-import {ruRU} from '@mui/x-data-grid/locales'
-import {common_documents_operations_get} from '../../../../../service/fetch_service.js'
+import { Box } from '@mui/material'
+import { DataGridPro } from '@mui/x-data-grid-pro'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { cleanOperations, setOperations } from '../../../../../redux/documentsReducer.js'
+import { ruRU } from '@mui/x-data-grid/locales'
+import { common_documents_operations_get } from '../../../../../service/fetch_service.js'
 import Loader from '../../../../../ui/Loader.jsx'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Operations = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const {city, filial} = useSelector((state) => state.data)
+    const { city, filial } = useSelector((state) => state.data)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
     const wp = useSelector((state) => state.interface.wp)
 
-    const {columns, rows, column_grouping_model} = useSelector(
-        (state) => state.documents.operations
-    )
-    const {operations_page, operations_details, operations_update} = useSelector(
-        (state) => state.documents
-    )
-    const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
+    const { columns, rows, column_grouping_model } = useSelector((state) => state.documents.operations)
+    const { operations_page, operations_details, operations_update } = useSelector((state) => state.documents)
+    const [fetching, set_fetching] = useState({ loading: false, error: null, data: null })
 
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(
-                common_documents_operations_get(
-                    filial,
-                    operations_page,
-                    operations_update,
-                    operations_details
-                )
+                common_documents_operations_get(filial, operations_page, operations_update, operations_details)
             )
             set_fetching(fetching_result)
             if (fetching_result.data !== null) {
@@ -49,7 +40,7 @@ const Operations = () => {
     if (filial === undefined) {
         return <Box className="empty-box">Выберите филиал...</Box>
     } else if (fetching.loading && fetching.error === null) {
-        return <Loader/>
+        return <Loader />
     } else if (!fetching.loading && fetching.error !== null) {
         return <Box className="empty-box">{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
@@ -62,7 +53,7 @@ const Operations = () => {
                 renderCell: (params) => {
                     const value = params.value
                     if (value === 0) return null
-                    const style = value < 0 ? {color: 'red'} : {}
+                    const style = value < 0 ? { color: 'red' } : {}
                     return <span style={style}>{value}</span>
                 },
             }))
@@ -78,7 +69,7 @@ const Operations = () => {
                     headerHeight={30}
                     loading={fetching.loading}
                     columnGroupingModel={column_grouping_model}
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     getRowClassName={(params) => (params.row.isTotalRow ? 'total-row' : '')}
                     pinnedColumns={{
                         left: ['date_shift'],
@@ -110,9 +101,7 @@ const Operations = () => {
                     }}
                     onRowDoubleClick={(params) => {
                         if (!params.row.is_total_row) {
-                            navigate(
-                                `/admin/operation/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`
-                            )
+                            navigate(`/admin/operation/${city.code}/${filial.eais}/${params.row.id}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }
                     }}
                 />

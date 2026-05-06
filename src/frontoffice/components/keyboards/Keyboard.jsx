@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import SimpleKeyboard from 'react-simple-keyboard'
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 
 const Keyboard = (props) => {
     const [layout, setLayout] = useState('default')
@@ -55,12 +55,12 @@ const Keyboard = (props) => {
             <SimpleKeyboard
                 onChange={props.setInput}
                 buttonTheme={[
-                    {class: 'mirageEnterKey', buttons: 'all'},
+                    { class: 'mirageEnterKey', buttons: 'all' },
                     {
                         class: 'mirageLangButton',
                         buttons: '{lang}',
                     },
-                    {class: 'mirageEnter', buttons: '{enter}'},
+                    { class: 'mirageEnter', buttons: '{enter}' },
                 ]}
                 layout={props.type === 'auth' ? layouts['auth'] : layouts[language]}
                 layoutName={layout}

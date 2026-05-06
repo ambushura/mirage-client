@@ -1,9 +1,9 @@
-import {FormControl, IconButton, InputLabel, ListItemText, MenuItem, Select} from '@mui/material'
+import { FormControl, IconButton, InputLabel, ListItemText, MenuItem, Select } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
 import Checkbox from '@mui/material/Checkbox'
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-const MultiSelect = ({label, items, items_selected, setValue, sx}) => {
+const MultiSelect = ({ label, items, items_selected, setValue, sx }) => {
     const dispatch = useDispatch()
     const allSelected = items.length === items_selected.length && items_selected.length > 0
     const handleChange = (e) => {
@@ -29,32 +29,28 @@ const MultiSelect = ({label, items, items_selected, setValue, sx}) => {
                 renderValue={(selected) => (selected.length ? `Выбрано: ${selected.length}` : 'Не выбрано')}
                 endAdornment={
                     items_selected.length > 0 && (
-                        <IconButton size="small" onClick={clearAll} sx={{mr: 1}}>
-                            <ClearIcon fontSize="small"/>
+                        <IconButton size="small" onClick={clearAll} sx={{ mr: 1 }}>
+                            <ClearIcon fontSize="small" />
                         </IconButton>
                     )
                 }
                 MenuProps={{
-                    PaperProps: {style: {maxHeight: 800}, className: 'center-scroll'},
+                    PaperProps: { style: { maxHeight: 800 }, className: 'center-scroll' },
                 }}
                 variant="outlined"
             >
                 <MenuItem value="__ALL__">
-                    <Checkbox
-                        color="secondary"
-                        indeterminate={items_selected.length > 0 && !allSelected}
-                        checked={allSelected}
-                    />
-                    <ListItemText primary="Все"/>
+                    <Checkbox color="secondary" indeterminate={items_selected.length > 0 && !allSelected} checked={allSelected} />
+                    <ListItemText primary="Все" />
                 </MenuItem>
                 {items.map((item) => (
                     <MenuItem key={item.uid} value={item.uid}>
-                        <Checkbox color="secondary" checked={items_selected.includes(item.uid)}/>
-                        <ListItemText primary={item.title}/>
+                        <Checkbox color="secondary" checked={items_selected.includes(item.uid)} />
+                        <ListItemText primary={item.title} />
                     </MenuItem>
                 ))}
             </Select>
-    </FormControl>
+        </FormControl>
     )
 }
 

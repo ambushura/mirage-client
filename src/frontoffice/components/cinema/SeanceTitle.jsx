@@ -1,4 +1,4 @@
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
@@ -13,12 +13,12 @@ const SeanceTitle = (props) => {
     return (
         <Box className={`component-seance-title${its_hall_map}`}>
             <Box className={`component-seance-title-time${its_hall_map}`}>
-                <Box style={{paddingLeft: 0}}>
+                <Box style={{ paddingLeft: 0 }}>
                     {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}
                     <span>
-            {' '}
+                        {' '}
                         - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}
-          </span>
+                    </span>
                 </Box>
             </Box>
             {props.day ? (
@@ -34,9 +34,7 @@ const SeanceTitle = (props) => {
                 <Box>{seance.copy_type}</Box>
             </Box>
             {seance.content_type !== 'mirage' && props.content_type ? (
-                <Box
-                    className={`component-seance-title-content-type-${seance.content_type}${its_hall_map}`}
-                >
+                <Box className={`component-seance-title-content-type-${seance.content_type}${its_hall_map}`}>
                     {seance.content_type === 'toKino' ? <Box>То Кино!</Box> : <></>}
                     {seance.content_type === 'pushkarta' ? <Box>Пушкарта</Box> : <></>}
                 </Box>
@@ -50,7 +48,7 @@ const SeanceTitle = (props) => {
             ) : (
                 <></>
             )}
-    </Box>
+        </Box>
     )
 }
 

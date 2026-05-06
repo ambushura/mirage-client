@@ -1,11 +1,11 @@
-import {Box, Button, TextField, Typography} from '@mui/material'
-import {useState} from 'react'
-import {closeModal} from '../../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {horeca_position_add_mark} from '../../../service/fetch_service.js'
-import {ruToEnLayout} from '../../../ui/hooks/common_functions.js'
+import { Box, Button, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
+import { closeModal } from '../../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { horeca_position_add_mark } from '../../../service/fetch_service.js'
+import { ruToEnLayout } from '../../../ui/hooks/common_functions.js'
 
-const Mark = ({props}) => {
+const Mark = ({ props }) => {
     const dispatch = useDispatch()
     const filial = useSelector((state) => state.data.filial)
     const horder = useSelector((state) => state.orders.horder)
@@ -83,20 +83,18 @@ const Mark = ({props}) => {
                         'rawMark chars:',
                         [...rawMark].map((c) => c.charCodeAt(0))
                     )
-                    dispatch(
-                        horeca_position_add_mark(props.filial, props.uid_order, props.uid_position, rawMark)
-                    )
+                    dispatch(horeca_position_add_mark(props.filial, props.uid_order, props.uid_position, rawMark))
                 }
                 dispatch(closeModal())
             }}
-    >
+        >
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Честный знак
             </Typography>
             <TextField
                 autoFocus
                 label="Марка"
-                sx={{m: 1, minWidth: '400px'}}
+                sx={{ m: 1, minWidth: '400px' }}
                 variant="filled"
                 color="textSecondary"
                 value={rawMark}
@@ -104,11 +102,11 @@ const Mark = ({props}) => {
                 onPaste={handlePaste}
                 inputProps={{
                     spellCheck: false,
-                    style: {fontFamily: 'monospace', whiteSpace: 'pre'}, // чтобы переносы и табы были видны
+                    style: { fontFamily: 'monospace', whiteSpace: 'pre' }, // чтобы переносы и табы были видны
                 }}
             />
-            <Box sx={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
-                <Button variant="contained" color="secondary" type="submit" sx={{marginLeft: '4px'}}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                <Button variant="contained" color="secondary" type="submit" sx={{ marginLeft: '4px' }}>
                     Добавить в заказ
                 </Button>
             </Box>

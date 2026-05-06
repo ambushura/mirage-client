@@ -45,25 +45,20 @@ import {
 } from '../../../redux/ordersReducer.js'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import {date_dayjs, from_dayjs_to_str, to_str_DAY} from '../../../ui/hooks/common_functions.js'
+import { date_dayjs, from_dayjs_to_str, to_str_DAY } from '../../../ui/hooks/common_functions.js'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import {openModal} from '../../../redux/interfaceReducer.js'
+import { openModal } from '../../../redux/interfaceReducer.js'
 import LaptopIcon from '@mui/icons-material/Laptop'
 import LanguageIcon from '@mui/icons-material/Language'
-import {useDispatch, useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from '../../../ui/Calendar.jsx'
-import {useEffect, useRef, useState} from 'react'
+import { useEffect, useRef, useState } from 'react'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import {setMode, setUidHall} from '../../../redux/hallsReducer.js'
-import {ClearIcon} from '@mui/x-date-pickers'
-import {
-    cinema_order_fetch,
-    common_list_get,
-    common_orders_filters_halls_get,
-    horeca_order_fetch,
-} from '../../../service/fetch_service.js'
+import { setMode, setUidHall } from '../../../redux/hallsReducer.js'
+import { ClearIcon } from '@mui/x-date-pickers'
+import { cinema_order_fetch, common_list_get, common_orders_filters_halls_get, horeca_order_fetch } from '../../../service/fetch_service.js'
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 import {
     setCurrentKKT,
@@ -87,7 +82,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SaveIcon from '@mui/icons-material/Save'
-import {setReportVariant, setUpdate} from '../../../redux/reportsReducer.js'
+import { setReportVariant, setUpdate } from '../../../redux/reportsReducer.js'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
 
 export function AdminHallsList() {
@@ -112,13 +107,13 @@ export function AdminHallsList() {
     }, [dispatch, filial])
 
     return (
-        <Box sx={{marginRight: '5px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <FormControl variant="filled" sx={{minWidth: '200px'}}>
+        <Box sx={{ marginRight: '5px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <FormControl variant="filled" sx={{ minWidth: '200px' }}>
                 <InputLabel id="halls-select-label" color="secondary">
                     Текущий зал
                 </InputLabel>
                 <Select
-                    sx={{marginRight: '5px'}}
+                    sx={{ marginRight: '5px' }}
                     onChange={(event) => {
                         dispatch(setUidHall(event.target.value))
                     }}
@@ -155,7 +150,7 @@ export function AdminHallsList() {
                     Режим редактирования
                 </Button>
             </ButtonGroup>
-    </Box>
+        </Box>
     )
 }
 
@@ -175,7 +170,7 @@ export function ShowFastSearch() {
         >
             <TextField
                 label="QR, номер заказа, телефон"
-                sx={{minWidth: '400px'}}
+                sx={{ minWidth: '400px' }}
                 variant="filled"
                 color="textSecondary"
                 value={order_search_value ?? ''}
@@ -191,12 +186,8 @@ export function ShowFastSearch() {
                         <>
                             {order_search_value && (
                                 <InputAdornment position="end">
-                                    <IconButton
-                                        onClick={() => dispatch(setOrderSearchValue(null))}
-                                        edge="end"
-                                        size="small"
-                                    >
-                                        <ClearIcon/>
+                                    <IconButton onClick={() => dispatch(setOrderSearchValue(null))} edge="end" size="small">
+                                        <ClearIcon />
                                     </IconButton>
                                 </InputAdornment>
                             )}
@@ -204,7 +195,7 @@ export function ShowFastSearch() {
                     ),
                 }}
             />
-    </Box>
+        </Box>
     )
 }
 
@@ -212,55 +203,29 @@ export function ShowFilters() {
     const dispatch = useDispatch()
     const current_page = useSelector((state) => state.interface.current_page)
 
-    const horeca_staff_selected = useSelector(
-        (state) => state.orders.orders_horeca_filters_staff_selected
-    )
-    const horeca_state_selected = useSelector(
-        (state) => state.orders.orders_horeca_filters_state_selected
-    )
-    const horeca_halls_selected = useSelector(
-        (state) => state.orders.orders_horeca_filters_halls_selected
-    )
-    const horeca_workplaces_selected = useSelector(
-        (state) => state.orders.orders_horeca_filters_workplaces_selected
-    )
-    const horeca_kitchen_points_selected = useSelector(
-        (state) => state.orders.orders_horeca_filters_kitchen_points_selected
-    )
-    const horeca_kitchen_state_selected = useSelector(
-        (state) => state.orders.orders_horeca_filters_kitchen_state_selected
-    )
+    const horeca_staff_selected = useSelector((state) => state.orders.orders_horeca_filters_staff_selected)
+    const horeca_state_selected = useSelector((state) => state.orders.orders_horeca_filters_state_selected)
+    const horeca_halls_selected = useSelector((state) => state.orders.orders_horeca_filters_halls_selected)
+    const horeca_workplaces_selected = useSelector((state) => state.orders.orders_horeca_filters_workplaces_selected)
+    const horeca_kitchen_points_selected = useSelector((state) => state.orders.orders_horeca_filters_kitchen_points_selected)
+    const horeca_kitchen_state_selected = useSelector((state) => state.orders.orders_horeca_filters_kitchen_state_selected)
 
-    const cinema_staff_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_staff_selected
-    )
-    const cinema_state_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_state_selected
-    )
-    const cinema_seances_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_seances_selected
-    )
-    const cinema_halls_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_halls_selected
-    )
-    const cinema_workplaces_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_workplaces_selected
-    )
-    const cinema_buyer_emails_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_buyer_emails_selected
-    )
-    const cinema_buyer_phone_numbers_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_buyer_phone_numbers_selected
-    )
+    const cinema_staff_selected = useSelector((state) => state.orders.orders_cinema_filters_staff_selected)
+    const cinema_state_selected = useSelector((state) => state.orders.orders_cinema_filters_state_selected)
+    const cinema_seances_selected = useSelector((state) => state.orders.orders_cinema_filters_seances_selected)
+    const cinema_halls_selected = useSelector((state) => state.orders.orders_cinema_filters_halls_selected)
+    const cinema_workplaces_selected = useSelector((state) => state.orders.orders_cinema_filters_workplaces_selected)
+    const cinema_buyer_emails_selected = useSelector((state) => state.orders.orders_cinema_filters_buyer_emails_selected)
+    const cinema_buyer_phone_numbers_selected = useSelector((state) => state.orders.orders_cinema_filters_buyer_phone_numbers_selected)
 
     if (current_page === 'admin/orders/horeca') {
         return (
-            <ButtonGroup sx={{marginRight: '5px'}}>
+            <ButtonGroup sx={{ marginRight: '5px' }}>
                 <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => dispatch(openModal({type: 'horeca_filters', props: {}}))}
-                    startIcon={<FilterAltIcon/>}
+                    onClick={() => dispatch(openModal({ type: 'horeca_filters', props: {} }))}
+                    startIcon={<FilterAltIcon />}
                 >
                     Фильтры
                 </Button>
@@ -282,19 +247,19 @@ export function ShowFilters() {
                             dispatch(setOrdersHorecaFiltersKitchenStateSelect([]))
                         }}
                     >
-                        <FilterAltOffIcon/>
+                        <FilterAltOffIcon />
                     </Button>
                 ) : null}
             </ButtonGroup>
         )
     } else if (current_page === 'admin/orders/cinema') {
         return (
-            <ButtonGroup sx={{marginRight: '5px'}}>
+            <ButtonGroup sx={{ marginRight: '5px' }}>
                 <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => dispatch(openModal({type: 'cinema_filters', props: {}}))}
-                    startIcon={<FilterAltIcon/>}
+                    onClick={() => dispatch(openModal({ type: 'cinema_filters', props: {} }))}
+                    startIcon={<FilterAltIcon />}
                 >
                     Фильтры
                 </Button>
@@ -318,7 +283,7 @@ export function ShowFilters() {
                             dispatch(setOrdersCinemaFiltersBuyerPhoneNumbersSelect(''))
                         }}
                     >
-                        <FilterAltOffIcon/>
+                        <FilterAltOffIcon />
                     </Button>
                 ) : null}
             </ButtonGroup>
@@ -330,49 +295,43 @@ export function ShowFilters() {
 
 export function EGAISMenu() {
     return (
-        <ButtonGroup variant="contained" color="secondary" sx={{marginRight: '5px'}}>
+        <ButtonGroup variant="contained" color="secondary" sx={{ marginRight: '5px' }}>
             <Button>Контрагенты</Button>
             <Button>Алкогольная продукция</Button>
             <Button>Входящие ТТН</Button>
             <Button>Акты списания</Button>
             <Button>Чеки</Button>
-    </ButtonGroup>
+        </ButtonGroup>
     )
 }
 
 export function CinemaType() {
     const dispatch = useDispatch()
-    const orders_cinema_filters_from_site_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_from_site_selected
-    )
-    const orders_cinema_filters_from_kiosk_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_from_kiosk_selected
-    )
-    const orders_cinema_filters_from_wp_selected = useSelector(
-        (state) => state.orders.orders_cinema_filters_from_wp_selected
-    )
+    const orders_cinema_filters_from_site_selected = useSelector((state) => state.orders.orders_cinema_filters_from_site_selected)
+    const orders_cinema_filters_from_kiosk_selected = useSelector((state) => state.orders.orders_cinema_filters_from_kiosk_selected)
+    const orders_cinema_filters_from_wp_selected = useSelector((state) => state.orders.orders_cinema_filters_from_wp_selected)
 
     return (
-        <ButtonGroup size="medium" variant="contained" color="secondary" sx={{marginRight: '5px'}}>
+        <ButtonGroup size="medium" variant="contained" color="secondary" sx={{ marginRight: '5px' }}>
             <Button
                 color={orders_cinema_filters_from_wp_selected ? 'primary' : 'secondary'}
                 onClick={() => dispatch(setOrdersCinemaFiltersFromWPSelect())}
             >
-                <LaptopIcon/>
+                <LaptopIcon />
             </Button>
             <Button
                 color={orders_cinema_filters_from_kiosk_selected ? 'primary' : 'secondary'}
                 onClick={() => dispatch(setOrdersCinemaFiltersFromKioskSelect())}
             >
-                <SmartphoneIcon/>
+                <SmartphoneIcon />
             </Button>
             <Button
                 color={orders_cinema_filters_from_site_selected ? 'primary' : 'secondary'}
                 onClick={() => dispatch(setOrdersCinemaFiltersFromSiteSelect())}
             >
-                <LanguageIcon/>
+                <LanguageIcon />
             </Button>
-    </ButtonGroup>
+        </ButtonGroup>
     )
 }
 
@@ -387,7 +346,7 @@ export function DateParamAdmin() {
     const film = useSelector((state) => state.schedule.film)
     const order_search_value = useSelector((state) => state.orders.order_search_value)
     const [admin_calendar_open, set_admin_calendar_open] = useState(null)
-    const {wp, kiosk} = useSelector((state) => state.interface)
+    const { wp, kiosk } = useSelector((state) => state.interface)
 
     if (order_search_value !== null) return null
 
@@ -415,21 +374,11 @@ export function DateParamAdmin() {
 
     return (
         <>
-            <ButtonGroup
-                size="medium"
-                variant="contained"
-                color="secondary"
-                className="admin-panel-period"
-                sx={{marginRight: '5px'}}
-            >
+            <ButtonGroup size="medium" variant="contained" color="secondary" className="admin-panel-period" sx={{ marginRight: '5px' }}>
                 <Button
                     onClick={async () => {
                         const now = new Date()
-                        const date = date_dayjs(
-                            now.getHours() >= 0 && now.getHours() < 7
-                                ? new Date(now.setDate(now.getDate() - 1))
-                                : now
-                        )
+                        const date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
                         const current_param_date = from_dayjs_to_str(date)
                         await navigate(
                             `${city !== undefined ? `/${current_page}/${city.code}/${filial === undefined ? 'all' : filial.eais}/${current_param_date}` : '/'}?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`
@@ -454,9 +403,9 @@ export function DateParamAdmin() {
                         dispatch(setOrdersCinemaPage(1))
                     }}
                 >
-                    <KeyboardArrowLeftIcon/>
+                    <KeyboardArrowLeftIcon />
                 </Button>
-                <Button onClick={handleClick} endIcon={<KeyboardArrowDownIcon/>}>
+                <Button onClick={handleClick} endIcon={<KeyboardArrowDownIcon />}>
                     {dayjs(param_date_admin).$D} {to_str_DAY(dayjs(param_date_admin).$d)}
                 </Button>
                 <Button
@@ -471,7 +420,7 @@ export function DateParamAdmin() {
                         dispatch(setOrdersCinemaPage(1))
                     }}
                 >
-                    <KeyboardArrowRightIcon/>
+                    <KeyboardArrowRightIcon />
                 </Button>
             </ButtonGroup>
             <Popover
@@ -492,9 +441,9 @@ export function DateParamAdmin() {
                     },
                 }}
             >
-                <Calendar value={dayjs(param_date_admin)} handleOnChahge={handleOnChange}/>
+                <Calendar value={dayjs(param_date_admin)} handleOnChahge={handleOnChange} />
             </Popover>
-    </>
+        </>
     )
 }
 
@@ -516,8 +465,8 @@ export function CreateDeleteButtons() {
         switch (current_page) {
             case 'admin/zbooks':
                 set_menu([
-                    {uid: 'documents_z_book', title: 'Книга'},
-                    {uid: 'documents_receipt', title: 'Чек'},
+                    { uid: 'documents_z_book', title: 'Книга' },
+                    { uid: 'documents_receipt', title: 'Чек' },
                 ])
                 break
             case 'admin/operations':
@@ -526,7 +475,7 @@ export function CreateDeleteButtons() {
                         uid: 'documents_operation_close_shift',
                         title: 'Заполнить по итогам смены',
                     },
-                    {uid: 'documents_operation', title: 'Операция'},
+                    { uid: 'documents_operation', title: 'Операция' },
                 ])
                 break
         }
@@ -534,7 +483,7 @@ export function CreateDeleteButtons() {
 
     return (
         <>
-            <ButtonGroup size="medium" variant="contained" color="secondary" sx={{marginRight: '5px'}}>
+            <ButtonGroup size="medium" variant="contained" color="secondary" sx={{ marginRight: '5px' }}>
                 <List
                     size="small"
                     open={menu_create_opened}
@@ -544,50 +493,42 @@ export function CreateDeleteButtons() {
                     setOpen={set_menu_create_opened}
                     button_text={'Создать'}
                     list={menu}
-                    startIcon={<AddCircleOutlineIcon/>}
-                    endIcon={<KeyboardArrowDownIcon/>}
+                    startIcon={<AddCircleOutlineIcon />}
+                    endIcon={<KeyboardArrowDownIcon />}
                     type="menu-create"
                     color={'secondary'}
                     handleClose={(uid) => {
                         switch (uid) {
                             case 'documents_z_book':
-                                navigate(
-                                    `/admin/zbook/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`
-                                )
+                                navigate(`/admin/zbook/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                                 break
                             case 'documents_receipt':
-                                navigate(
-                                    `/admin/receipt/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`
-                                )
+                                navigate(`/admin/receipt/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                                 break
                             case 'documents_operation':
-                                navigate(
-                                    `/admin/operation/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`
-                                )
+                                navigate(`/admin/operation/${city.code}/${filial.eais}/new/?${wp !== null ? 'wp=' + wp : ''}`)
                                 break
                             case 'documents_operation_close_shift':
-                                dispatch(
-                                    openModal({type: 'documents_operation_close_shift', props: {uid: 'new'}})
-                                )
+                                dispatch(openModal({ type: 'documents_operation_close_shift', props: { uid: 'new' } }))
                                 break
                         }
                     }}
                 />
-                <Button startIcon={<DeleteForeverIcon/>}>Удалить</Button>
+                <Button startIcon={<DeleteForeverIcon />}>Удалить</Button>
             </ButtonGroup>
-    </>
+        </>
     )
 }
 
 export function Equipment() {
     const [menu, set_menu] = useState([
-        {uid: 'workplace', title: 'Рабочее место'},
+        { uid: 'workplace', title: 'Рабочее место' },
         {
             uid: 'kkt',
             title: 'Касса',
         },
-        {uid: 'pinpad', title: 'Пинпад'},
-        {uid: 'printer', title: 'Чековый принтер'},
+        { uid: 'pinpad', title: 'Пинпад' },
+        { uid: 'printer', title: 'Чековый принтер' },
         {
             uid: 'billet_check',
             title: 'Билетный контролер',
@@ -608,8 +549,8 @@ export function Equipment() {
                 setOpen={set_menu_create_opened}
                 button_text={'Новое устройство'}
                 list={menu}
-                startIcon={<AddCircleOutlineIcon/>}
-                endIcon={<KeyboardArrowDownIcon/>}
+                startIcon={<AddCircleOutlineIcon />}
+                endIcon={<KeyboardArrowDownIcon />}
                 type="menu-create"
                 color={'secondary'}
                 handleClose={(uid) => {
@@ -627,17 +568,15 @@ export function Equipment() {
                     }
                 }}
             />
-    </Box>
+        </Box>
     )
 }
 
 export function Operations() {
     const dispatch = useDispatch()
-    const {operations_page, operations_pages} = useSelector((state) => state.documents)
-    const {operations_details} = useSelector((state) => state.documents)
-    const {columns, rows, date_shift_beginning, date_shift_ending} = useSelector(
-        (state) => state.documents.operations
-    )
+    const { operations_page, operations_pages } = useSelector((state) => state.documents)
+    const { operations_details } = useSelector((state) => state.documents)
+    const { columns, rows, date_shift_beginning, date_shift_ending } = useSelector((state) => state.documents.operations)
 
     return (
         <>
@@ -645,13 +584,13 @@ export function Operations() {
                 onChange={() => {
                     dispatch(setOperationsDetails(!operations_details))
                 }}
-                sx={{margin: '0 4px'}}
+                sx={{ margin: '0 4px' }}
                 checked={operations_details}
-                control={<Switch/>}
+                control={<Switch />}
                 label="Подробно"
             />
             <Pagination
-                sx={{flexWrap: 'no-wrap'}}
+                sx={{ flexWrap: 'no-wrap' }}
                 page={operations_page}
                 onChange={(event, value) => dispatch(setOperationsPage(value))}
                 size={'large'}
@@ -659,14 +598,14 @@ export function Operations() {
                 showFirstButton
                 showLastButton
             />
-    </>
+        </>
     )
 }
 
 export function CurrentKKT() {
     const dispatch = useDispatch()
     const current_page = useSelector((state) => state.interface.current_page)
-    const {kkt_list, uid_kkt_current} = useSelector((state) => state.documents)
+    const { kkt_list, uid_kkt_current } = useSelector((state) => state.documents)
     const filial = useSelector((state) => state.data.filial)
 
     const kkt_list_id = 'zbooks-kkt-menu'
@@ -679,8 +618,8 @@ export function CurrentKKT() {
     }, [dispatch, filial, current_page])
 
     return (
-        <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
-            <ButtonGroup sx={{marginLeft: '5px'}}>
+        <Box sx={{ marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center' }}>
+            <ButtonGroup sx={{ marginLeft: '5px' }}>
                 <List
                     type="zbooks-kkt"
                     size="small"
@@ -693,16 +632,16 @@ export function CurrentKKT() {
                         uid_kkt_current === ''
                             ? 'Выберите кассу'
                             : kkt_list.find((el) => el.uid === uid_kkt_current) !== undefined
-                                ? kkt_list.find((el) => el.uid === uid_kkt_current).name_organization +
+                              ? kkt_list.find((el) => el.uid === uid_kkt_current).name_organization +
                                 ' · ЗН ' +
                                 kkt_list.find((el) => el.uid === uid_kkt_current).title
-                                : 'Объект не найден'
+                              : 'Объект не найден'
                     }
                     list={kkt_list}
                     color="secondary"
                     variant="contained"
-                    startIcon={<SavingsIcon/>}
-                    endIcon={<KeyboardArrowDownIcon/>}
+                    startIcon={<SavingsIcon />}
+                    endIcon={<KeyboardArrowDownIcon />}
                     handleClose={(event) => {
                         dispatch(setCurrentKKT(event))
                     }}
@@ -715,28 +654,28 @@ export function CurrentKKT() {
                             dispatch(
                                 openModal({
                                     type: 'equipment_kkt',
-                                    props: {uid: uid_kkt_current},
+                                    props: { uid: uid_kkt_current },
                                 })
                             )
                         }
                     >
-                        <OpenInNewIcon/>
+                        <OpenInNewIcon />
                     </Button>
                 )}
                 {uid_kkt_current !== '' && (
                     <Button variant="outlined" color="secondary" onClick={() => dispatch(setCurrentKKT(''))}>
-                        <CloseIcon/>
+                        <CloseIcon />
                     </Button>
                 )}
             </ButtonGroup>
-    </Box>
+        </Box>
     )
 }
 
 export function CurrentPinpad() {
     const dispatch = useDispatch()
     const current_page = useSelector((state) => state.interface.current_page)
-    const {pinpad_list, uid_pinpad_current} = useSelector((state) => state.documents)
+    const { pinpad_list, uid_pinpad_current } = useSelector((state) => state.documents)
     const filial = useSelector((state) => state.data.filial)
 
     const pinpad_list_id = 'zpinpads-pinpad-menu'
@@ -749,8 +688,8 @@ export function CurrentPinpad() {
     }, [dispatch, filial, current_page])
 
     return (
-        <Box sx={{marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
-            <ButtonGroup color="secondary" variant="outlined" sx={{marginLeft: '5px'}}>
+        <Box sx={{ marginRight: '5px', display: 'flex', flexWrap: 'nowrap', alignItems: 'center' }}>
+            <ButtonGroup color="secondary" variant="outlined" sx={{ marginLeft: '5px' }}>
                 <List
                     type="zpinpads-pinpad"
                     size="small"
@@ -760,15 +699,13 @@ export function CurrentPinpad() {
                     id={pinpad_list_id}
                     setOpen={set_pinpad_open}
                     button_text={
-                        uid_pinpad_current === ''
-                            ? 'Выберите пинпад'
-                            : pinpad_list.find((el) => el.uid === uid_pinpad_current).title
+                        uid_pinpad_current === '' ? 'Выберите пинпад' : pinpad_list.find((el) => el.uid === uid_pinpad_current).title
                     }
                     list={pinpad_list}
                     color="secondary"
                     variant="contained"
-                    startIcon={<PaymentRoundedIcon/>}
-                    endIcon={<KeyboardArrowDownIcon/>}
+                    startIcon={<PaymentRoundedIcon />}
+                    endIcon={<KeyboardArrowDownIcon />}
                     handleClose={(event) => {
                         dispatch(setCurrentPinpad(event))
                     }}
@@ -780,25 +717,21 @@ export function CurrentPinpad() {
                             dispatch(
                                 openModal({
                                     type: 'equipment_pinpad',
-                                    props: {uid: uid_pinpad_current},
+                                    props: { uid: uid_pinpad_current },
                                 })
                             )
                         }
                     >
-                        <OpenInNewIcon/>
+                        <OpenInNewIcon />
                     </Button>
                 )}
                 {uid_pinpad_current !== '' && (
-                    <Button
-                        variant="outlined"
-                        color="secondary"
-                        onClick={() => dispatch(setCurrentPinpad(''))}
-                    >
-                        <CloseIcon/>
+                    <Button variant="outlined" color="secondary" onClick={() => dispatch(setCurrentPinpad(''))}>
+                        <CloseIcon />
                     </Button>
                 )}
             </ButtonGroup>
-    </Box>
+        </Box>
     )
 }
 
@@ -807,9 +740,7 @@ export function ShowKitchenPoints() {
     const filial = useSelector((state) => state.data.filial)
     const current_page = useSelector((state) => state.interface.current_page)
     const kitchen_points_list = useSelector((state) => state.orders.kitchen_points_list)
-    const uid_kitchen_points_selected = useSelector(
-        (state) => state.orders.uid_kitchen_points_selected
-    )
+    const uid_kitchen_points_selected = useSelector((state) => state.orders.uid_kitchen_points_selected)
 
     useEffect(() => {
         dispatch(common_list_get(filial, 'kitchen_points'))
@@ -819,7 +750,7 @@ export function ShowKitchenPoints() {
     const tags = (size, multiply, limit_tags, id, label, placeholder) => {
         return (
             <Autocomplete
-                sx={{backgroundColor: 'white', borderRadius: '4px 4px 0 0'}}
+                sx={{ backgroundColor: 'white', borderRadius: '4px 4px 0 0' }}
                 multiple={multiply}
                 size={size}
                 limitTags={limit_tags}
@@ -833,7 +764,7 @@ export function ShowKitchenPoints() {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        sx={{width: '100%'}}
+                        sx={{ width: '100%' }}
                         variant="filled"
                         color="secondary"
                         label={label}
@@ -845,45 +776,41 @@ export function ShowKitchenPoints() {
         )
     }
 
-    return (
-        <Box sx={{flex: 1, width: '100%', marginRight: '4px'}}>
-            {tags('large', true, 1, 'kitchen-points-tags', 'Цеха', 'Цех')}
-    </Box>
-    )
+    return <Box sx={{ flex: 1, width: '100%', marginRight: '4px' }}>{tags('large', true, 1, 'kitchen-points-tags', 'Цеха', 'Цех')}</Box>
 }
 
 export function ShowPagesHorecaOrders() {
     const dispatch = useDispatch()
-    const {total_count} = useSelector((state) => state.orders.orders_horeca)
+    const { total_count } = useSelector((state) => state.orders.orders_horeca)
     const page = useSelector((state) => state.orders.orders_horeca_page)
     const pages = Math.ceil(total_count / 20)
     if (pages > 1)
         return (
             <Pagination
-        page={page}
-        onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
-        size={'large'}
-        count={pages}
-        showFirstButton
-        showLastButton
+                page={page}
+                onChange={(event, value) => dispatch(setOrdersHorecaPage(value))}
+                size={'large'}
+                count={pages}
+                showFirstButton
+                showLastButton
             />
         )
 }
 
 export function ShowPagesCinemaOrders() {
     const dispatch = useDispatch()
-    const {total_count} = useSelector((state) => state.orders.orders_cinema)
+    const { total_count } = useSelector((state) => state.orders.orders_cinema)
     const page = useSelector((state) => state.orders.orders_cinema_page)
     const pages = Math.ceil(total_count / 20)
     if (pages > 1)
         return (
             <Pagination
-        page={page}
-        onChange={(event, value) => dispatch(setOrdersCinemaPage(value))}
-        size={'large'}
-        count={pages}
-        showFirstButton
-        showLastButton
+                page={page}
+                onChange={(event, value) => dispatch(setOrdersCinemaPage(value))}
+                size={'large'}
+                count={pages}
+                showFirstButton
+                showLastButton
             />
         )
 }
@@ -896,58 +823,54 @@ export function ZBookMenu() {
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
     const wp = useSelector((state) => state.interface.wp)
     const caption_zBook = useSelector((state) => state.documents.caption_zBook)
-    const {uid} = useSelector((state) => state.interface.params)
+    const { uid } = useSelector((state) => state.interface.params)
 
     return (
-        <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-            <ButtonGroup sx={{marginRight: '4px'}}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            <ButtonGroup sx={{ marginRight: '4px' }}>
                 <Button
                     variant="contained"
                     color="secondary"
-                    startIcon={<KeyboardArrowLeftIcon/>}
+                    startIcon={<KeyboardArrowLeftIcon />}
                     onClick={() => {
                         navigate(-1)
                     }}
                 >
                     Назад
                 </Button>
-                <Button variant="outlined" color="secondary" sx={{textWrap: 'nowrap'}}>
+                <Button variant="outlined" color="secondary" sx={{ textWrap: 'nowrap' }}>
                     {caption_zBook}
                 </Button>
             </ButtonGroup>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Button
                     variant="contained"
                     color="secondary"
-                    sx={{marginRight: 1}}
-                    startIcon={<SaveIcon/>}
+                    sx={{ marginRight: 1 }}
+                    startIcon={<SaveIcon />}
                     onClick={() => {
                         dispatch(setTriggerSubmitZBook(true))
-                        navigate(
-                            `/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                        )
+                        navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                     }}
                 >
                     Сохранить
                 </Button>
                 {uid !== 'new' && (
                     <Button
-                        startIcon={<DeleteForeverIcon/>}
+                        startIcon={<DeleteForeverIcon />}
                         variant="contained"
                         color="error"
                         onClick={() => {
                             dispatch(setTriggerDeleteZBook(true))
-                            navigate(
-                                `/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                            )
+                            navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
-                        sx={{marginRight: '2px'}}
+                        sx={{ marginRight: '2px' }}
                     >
                         Удалить
                     </Button>
                 )}
             </Box>
-    </Box>
+        </Box>
     )
 }
 
@@ -959,94 +882,90 @@ export function OperationMenu() {
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
     const wp = useSelector((state) => state.interface.wp)
     const caption_operation = useSelector((state) => state.documents.caption_operation)
-    const {uid} = useSelector((state) => state.interface.params)
+    const { uid } = useSelector((state) => state.interface.params)
 
     return (
-        <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-            <ButtonGroup sx={{marginRight: '4px'}}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            <ButtonGroup sx={{ marginRight: '4px' }}>
                 <Button
                     variant="contained"
                     color="secondary"
-                    startIcon={<KeyboardArrowLeftIcon/>}
+                    startIcon={<KeyboardArrowLeftIcon />}
                     onClick={() => {
                         navigate(-1)
                     }}
                 >
                     Назад
                 </Button>
-                <Button variant="outlined" color="secondary" sx={{textWrap: 'nowrap'}}>
+                <Button variant="outlined" color="secondary" sx={{ textWrap: 'nowrap' }}>
                     {caption_operation}
                 </Button>
             </ButtonGroup>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Button
                     variant="contained"
                     color="secondary"
-                    sx={{marginRight: 1}}
-                    startIcon={<SaveIcon/>}
+                    sx={{ marginRight: 1 }}
+                    startIcon={<SaveIcon />}
                     onClick={() => {
                         dispatch(setTriggerSubmitOperation(true))
-                        navigate(
-                            `/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                        )
+                        navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                     }}
                 >
                     Сохранить
                 </Button>
                 {uid !== 'new' && (
                     <Button
-                        startIcon={<DeleteForeverIcon/>}
+                        startIcon={<DeleteForeverIcon />}
                         variant="contained"
                         color="error"
                         onClick={() => {
                             dispatch(setTriggerDeleteOperation(true))
-                            navigate(
-                                `/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                            )
+                            navigate(`/admin/operations/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
-                        sx={{marginRight: '2px'}}
+                        sx={{ marginRight: '2px' }}
                     >
                         Удалить
                     </Button>
                 )}
             </Box>
-    </Box>
+        </Box>
     )
 }
 
 export function ReceiptMenu() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {city, filial} = useSelector((state) => state.data)
+    const { city, filial } = useSelector((state) => state.data)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
     const wp = useSelector((state) => state.interface.wp)
-    const {receipt_order, caption_receipt} = useSelector((state) => state.documents)
-    const {uid} = useSelector((state) => state.interface.params)
+    const { receipt_order, caption_receipt } = useSelector((state) => state.documents)
+    const { uid } = useSelector((state) => state.interface.params)
 
     return (
-        <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-            <ButtonGroup sx={{marginRight: '4px'}}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            <ButtonGroup sx={{ marginRight: '4px' }}>
                 <Button
                     variant="contained"
                     color="secondary"
-                    startIcon={<KeyboardArrowLeftIcon/>}
+                    startIcon={<KeyboardArrowLeftIcon />}
                     onClick={() => {
                         navigate(-1)
                     }}
                 >
                     Назад
                 </Button>
-                <Button variant="outlined" color="secondary" sx={{textWrap: 'nowrap'}}>
+                <Button variant="outlined" color="secondary" sx={{ textWrap: 'nowrap' }}>
                     {caption_receipt}
                 </Button>
             </ButtonGroup>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 {receipt_order !== null && (
                     <Button
-                        sx={{marginRight: '4px'}}
+                        sx={{ marginRight: '4px' }}
                         variant="outlined"
                         color="secondary"
-                        startIcon={<OpenInNewIcon/>}
+                        startIcon={<OpenInNewIcon />}
                         onClick={() => {
                             if (receipt_order.type === 'cinema') {
                                 dispatch(cinema_order_fetch(filial, receipt_order.uid))
@@ -1061,71 +980,67 @@ export function ReceiptMenu() {
                 <Button
                     variant="contained"
                     color="secondary"
-                    sx={{marginRight: 1}}
-                    startIcon={<SaveIcon/>}
+                    sx={{ marginRight: 1 }}
+                    startIcon={<SaveIcon />}
                     onClick={() => {
                         dispatch(setTriggerSubmitReceipt(true))
-                        navigate(
-                            `/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                        )
+                        navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                     }}
                 >
                     Сохранить
                 </Button>
                 {uid !== 'new' && (
                     <Button
-                        startIcon={<DeleteForeverIcon/>}
+                        startIcon={<DeleteForeverIcon />}
                         variant="contained"
                         color="error"
                         onClick={() => {
                             dispatch(setTriggerDeleteReceipt(true))
-                            navigate(
-                                `/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                            )
+                            navigate(`/admin/zbooks/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
-                        sx={{marginRight: '2px'}}
+                        sx={{ marginRight: '2px' }}
                     >
                         Удалить
                     </Button>
                 )}
             </Box>
-    </Box>
+        </Box>
     )
 }
 
 export function SlipMenu() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {city, filial} = useSelector((state) => state.data)
+    const { city, filial } = useSelector((state) => state.data)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
     const wp = useSelector((state) => state.interface.wp)
-    const {slip_order, caption_slip} = useSelector((state) => state.documents)
-    const {uid} = useSelector((state) => state.interface.params)
+    const { slip_order, caption_slip } = useSelector((state) => state.documents)
+    const { uid } = useSelector((state) => state.interface.params)
 
     return (
-        <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-            <ButtonGroup sx={{marginRight: '4px'}}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            <ButtonGroup sx={{ marginRight: '4px' }}>
                 <Button
                     variant="contained"
                     color="secondary"
-                    startIcon={<KeyboardArrowLeftIcon/>}
+                    startIcon={<KeyboardArrowLeftIcon />}
                     onClick={() => {
                         navigate(-1)
                     }}
                 >
                     Назад
                 </Button>
-                <Button variant="outlined" color="secondary" sx={{textWrap: 'nowrap'}}>
+                <Button variant="outlined" color="secondary" sx={{ textWrap: 'nowrap' }}>
                     {caption_slip}
                 </Button>
             </ButtonGroup>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 {slip_order !== null && (
                     <Button
-                        sx={{marginRight: '4px'}}
+                        sx={{ marginRight: '4px' }}
                         variant="outlined"
                         color="secondary"
-                        startIcon={<OpenInNewIcon/>}
+                        startIcon={<OpenInNewIcon />}
                         onClick={() => {
                             if (slip_order.type === 'cinema') {
                                 dispatch(cinema_order_fetch(filial, slip_order.uid))
@@ -1140,42 +1055,38 @@ export function SlipMenu() {
                 <Button
                     variant="contained"
                     color="secondary"
-                    sx={{marginRight: 1}}
-                    startIcon={<SaveIcon/>}
+                    sx={{ marginRight: 1 }}
+                    startIcon={<SaveIcon />}
                     onClick={() => {
                         dispatch(setTriggerSubmitSlip(true))
-                        navigate(
-                            `/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                        )
+                        navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                     }}
                 >
                     Сохранить
                 </Button>
                 {uid !== 'new' && (
                     <Button
-                        startIcon={<DeleteForeverIcon/>}
+                        startIcon={<DeleteForeverIcon />}
                         variant="contained"
                         color="error"
                         onClick={() => {
                             dispatch(setTriggerDeleteSlip(true))
-                            navigate(
-                                `/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`
-                            )
+                            navigate(`/admin/slip/${city.code}/${filial.eais}/${param_date_admin}/?${wp !== null ? 'wp=' + wp : ''}`)
                         }}
-                        sx={{marginRight: '2px'}}
+                        sx={{ marginRight: '2px' }}
                     >
                         Удалить
                     </Button>
                 )}
             </Box>
-    </Box>
+        </Box>
     )
 }
 
 export function ReportsMenu() {
     const dispatch = useDispatch()
 
-    const {report_variant} = useSelector((state) => state.reports)
+    const { report_variant } = useSelector((state) => state.reports)
 
     return (
         <ButtonGroup variant="contained" color="secondary">
@@ -1187,12 +1098,9 @@ export function ReportsMenu() {
                     dispatch(setUpdate())
                 }}
             >
-                <RestartAltIcon/>
+                <RestartAltIcon />
             </Button>
-            <Button
-                color={report_variant === 'schedule' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('schedule'))}
-            >
+            <Button color={report_variant === 'schedule' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('schedule'))}>
                 Расписание
             </Button>
             <Button
@@ -1201,25 +1109,16 @@ export function ReportsMenu() {
             >
                 Посещаемость
             </Button>
-            <Button
-                color={report_variant === 'shift' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('shift'))}
-            >
+            <Button color={report_variant === 'shift' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('shift'))}>
                 Суточный
             </Button>
-            <Button
-                color={report_variant === 'items' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('items'))}
-            >
+            <Button color={report_variant === 'items' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('items'))}>
                 Продажи
             </Button>
-            <Button
-                color={report_variant === 'sales' ? 'primary' : 'secondary'}
-                onClick={() => dispatch(setReportVariant('sales'))}
-            >
+            <Button color={report_variant === 'sales' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('sales'))}>
                 Выручка
             </Button>
-    </ButtonGroup>
+        </ButtonGroup>
     )
 }
 
@@ -1241,29 +1140,27 @@ export default function AdminMenu() {
                     'admin/zbooks',
                     'admin/acquiring',
                     'admin/reports',
-                ].includes(current_page) && <DateParamAdmin/>}
-                {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad/>}
-                {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons/>}
-                {current_page === 'admin/reports' && <ReportsMenu/>}
-                {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT/>}
-                {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu/>}
-                {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu/>}
-                {current_page === 'admin/slip' && filial !== undefined && <SlipMenu/>}
-                {current_page === 'admin/operation' && filial !== undefined && <OperationMenu/>}
-                {current_page === 'admin/operations' && <Operations/>}
-                {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType/>}
-                {(current_page === 'admin/orders/horeca' ||
-                    current_page === 'admin/orders/cinema' ||
-                    order_search_value !== null) && <ShowFilters/>}
-                {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && (
-                    <ShowFastSearch/>
+                ].includes(current_page) && <DateParamAdmin />}
+                {current_page === 'admin/acquiring' && filial !== undefined && <CurrentPinpad />}
+                {['admin/operations', 'admin/zbooks'].includes(current_page) && <CreateDeleteButtons />}
+                {current_page === 'admin/reports' && <ReportsMenu />}
+                {current_page === 'admin/zbooks' && filial !== undefined && <CurrentKKT />}
+                {current_page === 'admin/zbook' && filial !== undefined && <ZBookMenu />}
+                {current_page === 'admin/receipt' && filial !== undefined && <ReceiptMenu />}
+                {current_page === 'admin/slip' && filial !== undefined && <SlipMenu />}
+                {current_page === 'admin/operation' && filial !== undefined && <OperationMenu />}
+                {current_page === 'admin/operations' && <Operations />}
+                {current_page === 'admin/orders/cinema' && order_search_value === null && <CinemaType />}
+                {(current_page === 'admin/orders/horeca' || current_page === 'admin/orders/cinema' || order_search_value !== null) && (
+                    <ShowFilters />
                 )}
-                {current_page === 'admin/egais' && <EGAISMenu/>}
-                {current_page === 'admin/halls' && <AdminHallsList/>}
-                {current_page === 'admin/scheme' && <Equipment/>}
-                {current_page === 'kitchen' && filial !== undefined && <ShowKitchenPoints/>}
-                {current_page === 'admin/orders/horeca' && <ShowPagesHorecaOrders/>}
-                {current_page === 'admin/orders/cinema' && <ShowPagesCinemaOrders/>}
+                {['admin/orders/horeca', 'admin/orders/cinema'].includes(current_page) && <ShowFastSearch />}
+                {current_page === 'admin/egais' && <EGAISMenu />}
+                {current_page === 'admin/halls' && <AdminHallsList />}
+                {current_page === 'admin/scheme' && <Equipment />}
+                {current_page === 'kitchen' && filial !== undefined && <ShowKitchenPoints />}
+                {current_page === 'admin/orders/horeca' && <ShowPagesHorecaOrders />}
+                {current_page === 'admin/orders/cinema' && <ShowPagesCinemaOrders />}
             </Box>
         )
     }

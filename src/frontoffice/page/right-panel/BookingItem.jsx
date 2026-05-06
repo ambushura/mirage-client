@@ -1,8 +1,8 @@
-import {Box, Button} from '@mui/material'
+import { Box, Button } from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import {useDispatch, useSelector} from 'react-redux'
-import {openModal} from '../../../redux/interfaceReducer.js'
-import {selectUidCinema} from '../../../redux/ordersReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { openModal } from '../../../redux/interfaceReducer.js'
+import { selectUidCinema } from '../../../redux/ordersReducer.js'
 
 const BookingItem = (props) => {
     const dispatch = useDispatch()
@@ -35,12 +35,9 @@ const BookingItem = (props) => {
                     <span className="order-booking-item-labels">р</span>
                     <span className="order-booking-item-numbers">{props.place_number}</span>
                     <span className="order-booking-item-labels">м</span>
-                    <span
-                        className="order-booking-item-numbers"
-                        style={{color: props.uid_discount !== null ? '#1DB1BA' : 'black'}}
-                    >
-            {props.sum.toLocaleString('ru-RU')} р
-          </span>
+                    <span className="order-booking-item-numbers" style={{ color: props.uid_discount !== null ? '#1DB1BA' : 'black' }}>
+                        {props.sum.toLocaleString('ru-RU')} р
+                    </span>
                 </div>
                 <Button
                     color="secondary"
@@ -59,13 +56,13 @@ const BookingItem = (props) => {
                         )
                     }}
                 >
-                    <BorderColorIcon/>
+                    <BorderColorIcon />
                 </Button>
             </Box>
             {props.uid_discount !== null ? (
                 <Box className="order-booking-item-discount">
                     <div>{props.name_discount}</div>
-                    <div style={{marginLeft: '4px'}}>{props.sum_discount} р</div>
+                    <div style={{ marginLeft: '4px' }}>{props.sum_discount} р</div>
                 </Box>
             ) : null}
             {props.comment !== '' ? (
@@ -73,7 +70,7 @@ const BookingItem = (props) => {
                     <div>{props.comment}</div>
                 </Box>
             ) : null}
-    </Box>
+        </Box>
     )
 }
 

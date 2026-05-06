@@ -1,10 +1,10 @@
-import {IconButton, InputAdornment, TextField} from '@mui/material'
-import {IMaskInput} from 'react-imask'
-import {forwardRef} from 'react'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { IMaskInput } from 'react-imask'
+import { forwardRef } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 
 const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
-    const {onChange, ...other} = props
+    const { onChange, ...other } = props
     return (
         <IMaskInput
             {...other}
@@ -12,12 +12,12 @@ const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
             overwrite
             unmask={false}
             inputRef={ref}
-            onAccept={(value) => onChange({target: {name: props.name, value}})}
-    />
+            onAccept={(value) => onChange({ target: { name: props.name, value } })}
+        />
     )
 })
 
-export default function PhoneInput({value, set_value, clear_value}) {
+export default function PhoneInput({ value, set_value, clear_value }) {
     return (
         <TextField
             label="Телефон"
@@ -25,17 +25,17 @@ export default function PhoneInput({value, set_value, clear_value}) {
             fullWidth
             value={value}
             onChange={(event) => set_value(event.target.value)}
-            sx={{marginBottom: '4px'}}
+            sx={{ marginBottom: '4px' }}
             InputProps={{
                 inputComponent: TextMaskCustom,
                 endAdornment: value && (
                     <InputAdornment position="end">
                         <IconButton onClick={clear_value} edge="end">
-                            <CloseIcon/>
+                            <CloseIcon />
                         </IconButton>
                     </InputAdornment>
                 ),
             }}
-    />
+        />
     )
 }

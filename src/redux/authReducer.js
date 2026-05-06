@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const getStorageItem = (key, fallback = null) => {
     try {
@@ -47,7 +47,7 @@ const authReducer = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        loginSuccess: (state, {payload}) => {
+        loginSuccess: (state, { payload }) => {
             state.uid = payload[1].uid
             state.center = payload[1].center
             state.name = payload[1].name
@@ -86,5 +86,5 @@ const authReducer = createSlice({
     },
 })
 
-export const {loginSuccess, logout} = authReducer.actions
+export const { loginSuccess, logout } = authReducer.actions
 export default authReducer.reducer

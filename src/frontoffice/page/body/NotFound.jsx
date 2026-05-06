@@ -1,8 +1,5 @@
-import { Box } fr m '@mui/materia
+import { Box } from '@mui/material'
 
-
-
-const NotFound = () =>
+export default function NotFound() {
     return <Box className="empty-box">Упс... Такой страницы не найдено.</Box>
 }
-export default NotFound

@@ -1,10 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit'
-import {date_dayjs} from '../ui/hooks/common_functions.js'
+import { createSlice } from '@reduxjs/toolkit'
+import { date_dayjs } from '../ui/hooks/common_functions.js'
 
 const now = new Date()
-const current_date = date_dayjs(
-    now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now
-)
+const current_date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
 
 const initialState = {
     // Запрошено
@@ -67,6 +65,5 @@ export const secondScreenSlice = createSlice({
     },
 })
 
-export const {setSSSchedule, setSSState, setSSPreOrder, setSSSeance, setSSHorder, setSSBooking} =
-    secondScreenSlice.actions
+export const { setSSSchedule, setSSState, setSSPreOrder, setSSSeance, setSSHorder, setSSBooking } = secondScreenSlice.actions
 export default secondScreenSlice.reducer

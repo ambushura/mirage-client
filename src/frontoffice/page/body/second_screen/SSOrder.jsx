@@ -1,6 +1,6 @@
-import {Box} from '@mui/material'
-import {useSelector} from 'react-redux'
-import {useEffect, useState} from 'react'
+import { Box } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 
 const SsOrder = () => {
@@ -23,19 +23,19 @@ const SsOrder = () => {
     return (
         <Box
             sx={{
-        width: 'calc(100% - 100px)',
-        height: 'calc(100% - 100px)',
-        margin: '50px',
-        padding: '10px',
-        borderRadius: '40px',
+                width: 'calc(100% - 100px)',
+                height: 'calc(100% - 100px)',
+                margin: '50px',
+                padding: '10px',
+                borderRadius: '40px',
                 backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-        color: 'white',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+                color: 'white',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
             }}
         >
             <Box
@@ -48,23 +48,22 @@ const SsOrder = () => {
             >
                 Ваш заказ
             </Box>
-            <Box className="divider"/>
-            <Box sx={{maxHeight: '660px', overflow: 'hidden'}}>
+            <Box className="divider" />
+            <Box sx={{ maxHeight: '660px', overflow: 'hidden' }}>
                 {pre_order !== null ? (
                     <Box>
-                        <Box sx={{fontSize: 'clamp(14px, 2vw, 28px)'}}>Сеанс</Box>
+                        <Box sx={{ fontSize: 'clamp(14px, 2vw, 28px)' }}>Сеанс</Box>
                         <Box>
-                            Фильм {pre_order.film_name} · {pre_order.film_copy_type} · {pre_order.film_rate_age}
-                            +{' '}
+                            Фильм {pre_order.film_name} · {pre_order.film_copy_type} · {pre_order.film_rate_age}+{' '}
                         </Box>
-                        <Box style={{fontWeight: 'bold'}}>
+                        <Box style={{ fontWeight: 'bold' }}>
                             {String(dayjs.utc(pre_order.seance_beginning).format('D MMMM'))}{' '}
                             {String(dayjs.utc(pre_order.seance_beginning).$H).padStart(2, '0')}:
                             {String(dayjs.utc(pre_order.seance_beginning).$m).padStart(2, '0')}
                             <span></span>
                         </Box>
-                        <Box className="divider"/>
-                        <Box sx={{fontSize: 'clamp(14px, 2vw, 28px)'}}>Билеты</Box>
+                        <Box className="divider" />
+                        <Box sx={{ fontSize: 'clamp(14px, 2vw, 28px)' }}>Билеты</Box>
                         <Box>
                             {pre_order &&
                                 pre_order.items.map((item) => {
@@ -102,21 +101,19 @@ const SsOrder = () => {
                                                 >
                                                     1
                                                 </Box>
-                                                <Box sx={{width: '60px', marginRight: '10px', textAlign: 'right'}}>
-                                                    {item.sum} р
-                                                </Box>
+                                                <Box sx={{ width: '60px', marginRight: '10px', textAlign: 'right' }}>{item.sum} р</Box>
                                             </Box>
                                         </Box>
                                     )
                                 })}
                         </Box>
-                        <Box className="divider"/>
+                        <Box className="divider" />
                     </Box>
                 ) : null}
                 {horder !== null ? (
                     <Box>
-                        <Box sx={{fontSize: 'clamp(14px, 2vw, 28px)'}}>Еда, напитки</Box>
-                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                        <Box sx={{ fontSize: 'clamp(14px, 2vw, 28px)' }}>Еда, напитки</Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             {horder &&
                                 horder.items_grouped.map((item) => {
                                     return (
@@ -128,9 +125,7 @@ const SsOrder = () => {
                                                 justifyContent: 'space-between',
                                             }}
                                         >
-                                            <Box sx={{flex: 1, width: 'calc(100% - 100px)', overflow: 'hidden'}}>
-                                                {item.name}
-                                            </Box>
+                                            <Box sx={{ flex: 1, width: 'calc(100% - 100px)', overflow: 'hidden' }}>{item.name}</Box>
                                             <Box
                                                 sx={{
                                                     display: 'flex',
@@ -147,15 +142,13 @@ const SsOrder = () => {
                                                 >
                                                     {item.quantity}
                                                 </Box>
-                                                <Box sx={{width: '60px', marginRight: '10px', textAlign: 'right'}}>
-                                                    {item.sum} р
-                                                </Box>
+                                                <Box sx={{ width: '60px', marginRight: '10px', textAlign: 'right' }}>{item.sum} р</Box>
                                             </Box>
                                         </Box>
                                     )
                                 })}
                         </Box>
-                        <Box className="divider"/>
+                        <Box className="divider" />
                     </Box>
                 ) : null}
             </Box>
@@ -174,7 +167,7 @@ const SsOrder = () => {
                 <Box>ИТОГО</Box>
                 <Box>{total_sum} р</Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

@@ -1,9 +1,9 @@
 import Hall from '../../../../components/halls/Hall.jsx'
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect, useState} from 'react'
-import {setHall} from '../../../../../redux/hallsReducer.js'
-import {Box} from '@mui/material'
-import {cinema_hall_get} from '../../../../../service/fetch_service.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { setHall } from '../../../../../redux/hallsReducer.js'
+import { Box } from '@mui/material'
+import { cinema_hall_get } from '../../../../../service/fetch_service.js'
 import Loader from '../../../../../ui/Loader.jsx'
 
 const PageHalls = () => {
@@ -34,7 +34,7 @@ const PageHalls = () => {
     }, [dispatch, filial, uid_hall])
 
     if (fetching_result.loading && fetching_result.error === null) {
-        return <Loader/>
+        return <Loader />
     } else if (!fetching_result.loading && fetching_result.error !== null) {
         return <Box className="empty-box">{fetching_result.error}</Box>
     } else {
@@ -44,7 +44,7 @@ const PageHalls = () => {
             return <Box className="empty-box">Выберите зал...</Box>
         } else {
             return (
-                <Box sx={{width: '100%', height: 'var(--page-height)'}}>
+                <Box sx={{ width: '100%', height: 'var(--page-height)' }}>
                     <Hall
                         uid_hall={hall.uid}
                         city={city}

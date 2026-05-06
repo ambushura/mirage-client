@@ -1,6 +1,6 @@
-import {Box} from '@mui/material'
-import {cinema_order_fetch} from '../../../../../../service/fetch_service.js'
-import {useDispatch, useSelector} from 'react-redux'
+import { Box } from '@mui/material'
+import { cinema_order_fetch } from '../../../../../../service/fetch_service.js'
+import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import {
     ITEMS_TYPE_SERVICE,
@@ -10,7 +10,7 @@ import {
     RETURNING_STATE_WAITING,
 } from '../../../../../../redux/interfaceReducer.js'
 import DotsAnimation from '../../../../../../ui/DotsAnimation.jsx'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import FunctionsIcon from '@mui/icons-material/Functions'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled'
@@ -22,7 +22,7 @@ import LaptopWindowsIcon from '@mui/icons-material/LaptopWindows'
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 
-const OrderCinema = ({order}) => {
+const OrderCinema = ({ order }) => {
     const dispatch = useDispatch()
 
     const filial = useSelector((state) => state.data.filial)
@@ -35,15 +35,13 @@ const OrderCinema = ({order}) => {
         const items = []
         items_grouped
             .filter((el) =>
-                payment_group === 'for_payment'
-                    ? el.in_payment_group === payment_state
-                    : el.out_payment_group === payment_state
+                payment_group === 'for_payment' ? el.in_payment_group === payment_state : el.out_payment_group === payment_state
             )
             .forEach((el) => items.push(el))
-        return {items}
+        return { items }
     }
 
-    const RenderGroup = ({chapter1, label, group, ver}) => {
+    const RenderGroup = ({ chapter1, label, group, ver }) => {
         if (!group.items.length) return null
         const renderItems = (items, typeLabel) =>
             items.length > 0 && (
@@ -72,7 +70,7 @@ const OrderCinema = ({order}) => {
                                 padding: '2px 0 2px 0',
                             }}
                         >
-                            <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
                                 <Box
                                     sx={{
                                         width: '55px',
@@ -101,10 +99,10 @@ const OrderCinema = ({order}) => {
                                                     item.ticket_state === -1
                                                         ? '#E3000B'
                                                         : item.ticket_state === 1
-                                                            ? '#FF9800'
-                                                            : item.ticket_state === 2
-                                                                ? '#45B97C'
-                                                                : 'black',
+                                                          ? '#FF9800'
+                                                          : item.ticket_state === 2
+                                                            ? '#45B97C'
+                                                            : 'black',
                                             }}
                                         />
                                     ) : null}
@@ -125,11 +123,9 @@ const OrderCinema = ({order}) => {
                                     }}
                                 ></Box>
                             </Box>
-                            <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                                <Box sx={{width: '20px'}}/>
-                                <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>
-                                    Цена: {item.price} р
-                                </Box>
+                            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+                                <Box sx={{ width: '20px' }} />
+                                <Box sx={{ flex: 1, textAlign: 'left', color: '#ababab' }}>Цена: {item.price} р</Box>
                                 {item.uid_discount !== null ? (
                                     <Box
                                         sx={{
@@ -152,17 +148,17 @@ const OrderCinema = ({order}) => {
                                         marginRight: '4px',
                                     }}
                                 >
-                                    <FunctionsIcon sx={{width: '15px', height: '15px'}}/>
+                                    <FunctionsIcon sx={{ width: '15px', height: '15px' }} />
                                     {item.sum} р
                                 </Box>
                             </Box>
-                            <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
-                                <Box sx={{width: '20px'}}/>
-                                <Box sx={{flex: 1}}>{item.comment}</Box>
+                            <Box sx={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row' }}>
+                                <Box sx={{ width: '20px' }} />
+                                <Box sx={{ flex: 1 }}>{item.comment}</Box>
                             </Box>
                         </Box>
                     ))}
-        </>
+                </>
             )
         return (
             <>
@@ -174,20 +170,18 @@ const OrderCinema = ({order}) => {
                             chapter1 === 'returning_waiting'
                                 ? '#50db92'
                                 : chapter1 === 'returning_success'
-                                    ? '#414650'
-                                    : chapter1 === 'payment_slip_without_receipt' ||
-                                    chapter1 === 'returning_slip_without_receipt'
-                                        ? '#f74b53'
-                                        : '#e4e2e2',
+                                  ? '#414650'
+                                  : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt'
+                                    ? '#f74b53'
+                                    : '#e4e2e2',
                         color:
                             chapter1 === 'returning_waiting'
                                 ? 'black'
                                 : chapter1 === 'returning_success'
+                                  ? 'white'
+                                  : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt'
                                     ? 'white'
-                                    : chapter1 === 'payment_slip_without_receipt' ||
-                                    chapter1 === 'returning_slip_without_receipt'
-                                        ? 'white'
-                                        : 'black',
+                                    : 'black',
                         padding: '4px',
                         position: 'sticky',
                         top: 0,
@@ -195,12 +189,8 @@ const OrderCinema = ({order}) => {
                     }}
                 >
                     {label}
-                    {[
-                        'payment_waiting',
-                        'payment_slip_without_receipt',
-                        'returning_slip_without_receipt',
-                    ].includes(chapter1) ? (
-                        <DotsAnimation/>
+                    {['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ? (
+                        <DotsAnimation />
                     ) : null}
                 </Box>
                 {renderItems(group.items, ITEMS_TYPE_SERVICE)}
@@ -209,34 +199,26 @@ const OrderCinema = ({order}) => {
     }
 
     const [groups, setGroups] = useState({
-        for_payment_waiting: {items: []},
-        for_payment_slip_without_receipt: {items: []},
-        for_returning_waiting: {items: []},
-        for_returning_slip_without_receipt: {items: []},
-        for_returning_success: {items: []},
+        for_payment_waiting: { items: [] },
+        for_payment_slip_without_receipt: { items: [] },
+        for_returning_waiting: { items: [] },
+        for_returning_slip_without_receipt: { items: [] },
+        for_returning_success: { items: [] },
     })
 
     useEffect(() => {
         setGroups({
             for_payment_waiting: group_items(order.items, 'for_payment', 'waiting'),
-            for_payment_slip_without_receipt: group_items(
-                order.items,
-                'for_payment',
-                'slip_without_receipt'
-            ),
+            for_payment_slip_without_receipt: group_items(order.items, 'for_payment', 'slip_without_receipt'),
             for_returning_waiting: group_items(order.items, 'for_returning', 'waiting'),
-            for_returning_slip_without_receipt: group_items(
-                order.items,
-                'for_returning',
-                'slip_without_receipt'
-            ),
+            for_returning_slip_without_receipt: group_items(order.items, 'for_returning', 'slip_without_receipt'),
             for_returning_success: group_items(order.items, 'for_returning', 'success'),
         })
     }, [order])
 
     return (
         <Box key={order.uid} onClick={() => dispatch(cinema_order_fetch(filial, order.uid))}>
-            <Box className="admin-orders-cinema-order-content" sx={{fontSize: '80%'}}>
+            <Box className="admin-orders-cinema-order-content" sx={{ fontSize: '80%' }}>
                 <Box
                     className="admin-orders-cinema-order-header"
                     sx={{
@@ -245,7 +227,7 @@ const OrderCinema = ({order}) => {
                         backgroundColor: pre_order.uid === order.uid ? '#FFDA6B' : null,
                     }}
                 >
-                    <Box sx={{margin: '0 12px'}}>
+                    <Box sx={{ margin: '0 12px' }}>
                         {order.from_site ? (
                             <LanguageIcon
                                 sx={{
@@ -273,7 +255,7 @@ const OrderCinema = ({order}) => {
                         ) : null}
                     </Box>
 
-                    <Box sx={{flex: 1}}>
+                    <Box sx={{ flex: 1 }}>
                         <Box
                             sx={{
                                 fontWeight: 'bold',
@@ -308,10 +290,7 @@ const OrderCinema = ({order}) => {
                     >
                         <span>{dayjs.utc(order.date_create).format('DD.MM.YY')}</span>
                         <span>{dayjs.utc(order.date_create).format('HH:mm')}</span>
-                        <span style={{color: '#8B919B'}}>
-              {' '}
-                            {dayjs.utc(order.date_change).format('HH:mm')}
-            </span>
+                        <span style={{ color: '#8B919B' }}> {dayjs.utc(order.date_change).format('HH:mm')}</span>
                     </Box>
                 </Box>
 
@@ -333,8 +312,8 @@ const OrderCinema = ({order}) => {
                             marginRight: '10px',
                         }}
                     >
-                        {dayjs(order.seance_date_shift).format('DD.MM.YY')} · {order.film_name}{' '}
-                        {order.film_copy_type} {order.film_rate_age}+
+                        {dayjs(order.seance_date_shift).format('DD.MM.YY')} · {order.film_name} {order.film_copy_type} {order.film_rate_age}
+                        +
                     </Box>
                     <Box
                         sx={{
@@ -342,20 +321,20 @@ const OrderCinema = ({order}) => {
                             color: '#8B919B',
                         }}
                     >
-            <span style={{marginRight: '10px'}}>
-              <LocationOnIcon
-                  sx={{
-                      width: '15px',
-                      height: '15px',
-                  }}
-              />{' '}
-                Зал {order.hall_full_name}
-            </span>{' '}
+                        <span style={{ marginRight: '10px' }}>
+                            <LocationOnIcon
+                                sx={{
+                                    width: '15px',
+                                    height: '15px',
+                                }}
+                            />{' '}
+                            Зал {order.hall_full_name}
+                        </span>{' '}
                         {String(beginning.$H).padStart(2, '0')}:{String(beginning.$m).padStart(2, '0')}
                         <span>
-              {' '}
+                            {' '}
                             - {String(ending.$H).padStart(2, '0')}:{String(ending.$m).padStart(2, '0')}
-            </span>
+                        </span>
                     </Box>
                 </Box>
                 {order.comment !== null ? (
@@ -369,20 +348,20 @@ const OrderCinema = ({order}) => {
                             wordBreak: 'break-word',
                         }}
                     >
-                        <CommentIcon sx={{width: '15px', height: '15px', marginRight: '10px'}}/>
+                        <CommentIcon sx={{ width: '15px', height: '15px', marginRight: '10px' }} />
                         {order.comment}
                     </Box>
                 ) : null}
-                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     {order.buyer_email !== null ? (
                         <Box>
-                            <AlternateEmailIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>
+                            <AlternateEmailIcon sx={{ width: '15px', height: '15px', marginRight: '5px' }} />
                             {order.buyer_email}
                         </Box>
                     ) : null}
                     {order.buyer_phone_number !== null ? (
                         <Box>
-                            <PhoneEnabledIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>
+                            <PhoneEnabledIcon sx={{ width: '15px', height: '15px', marginRight: '5px' }} />
                             {order.buyer_phone_number}
                         </Box>
                     ) : null}
@@ -435,13 +414,13 @@ const OrderCinema = ({order}) => {
                         <Box>{order.quantity} услуг</Box>
                         <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
                         <Box>
-                            <FunctionsIcon sx={{width: '15px', height: '15px'}}/>
+                            <FunctionsIcon sx={{ width: '15px', height: '15px' }} />
                             {order.sum} р
                         </Box>
                     </Box>
                 </Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

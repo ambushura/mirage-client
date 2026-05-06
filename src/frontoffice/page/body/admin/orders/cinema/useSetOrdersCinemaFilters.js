@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import {
     common_orders_filters_halls_get,
     common_orders_filters_schedule_get,
@@ -37,13 +37,11 @@ export function useSetOrdersCinemaFilters() {
             }
         }
         const fetch_schedule = async () => {
-            const fetching_result = await dispatch(
-                common_orders_filters_schedule_get(filial, param_date_admin)
-            )
+            const fetching_result = await dispatch(common_orders_filters_schedule_get(filial, param_date_admin))
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.error === null && fetching_result.data !== null) {
-                const schedule = fetching_result.data.map(({seance}) => {
+                const schedule = fetching_result.data.map(({ seance }) => {
                     const beginning = dayjs.utc(seance.beginning)
                     const ending = dayjs.utc(seance.ending)
                     return {

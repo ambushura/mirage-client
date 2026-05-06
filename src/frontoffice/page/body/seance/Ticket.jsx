@@ -1,5 +1,5 @@
-import {Box} from '@mui/material'
-import {useSelector} from 'react-redux'
+import { Box } from '@mui/material'
+import { useSelector } from 'react-redux'
 import cover from '../../../images/cover.png'
 import SeanceTitle from '../../../components/cinema/SeanceTitle.jsx'
 

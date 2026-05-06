@@ -1,17 +1,9 @@
-import {
-    Box,
-    Button,
-    Dialog as MuiDialog,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    LinearProgress,
-} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {cinema_order_delete, common_order_pay} from '../../../service/fetch_service.js'
+import { Box, Button, Dialog as MuiDialog, DialogContent, DialogContentText, DialogTitle, LinearProgress } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { cinema_order_delete, common_order_pay } from '../../../service/fetch_service.js'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
-import {useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     NEW_EMPTY_ORDER,
     ORDER_TIME_OUT,
@@ -22,11 +14,11 @@ import {
     setPreOrderTimeRemaining,
 } from '../../../redux/ordersReducer.js'
 import SeanceTitle from '../../components/cinema/SeanceTitle.jsx'
-import {get_date_shift, ticket_count} from '../../../ui/hooks/common_functions.js'
+import { get_date_shift, ticket_count } from '../../../ui/hooks/common_functions.js'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import {setKioskCheckout} from '../../../redux/interfaceReducer.js'
+import { setKioskCheckout } from '../../../redux/interfaceReducer.js'
 import Loader from '../../../ui/Loader.jsx'
-import {useSetPaymentGroups} from '../../hooks/useSetPaymentGroups.js'
+import { useSetPaymentGroups } from '../../hooks/useSetPaymentGroups.js'
 import dayjs from 'dayjs'
 
 const CheckoutMenu = () => {
@@ -34,7 +26,7 @@ const CheckoutMenu = () => {
     const navigate = useNavigate()
 
     const wp = useSelector((state) => state.interface.wp)
-    const {city, filial} = useSelector((state) => state.data)
+    const { city, filial } = useSelector((state) => state.data)
     const uid_user = useSelector((state) => state.auth.uid)
     const pre_order = useSelector((state) => state.orders.pre_order)
     const pre_order_paying = useSelector((state) => state.orders.pre_order_paying)
@@ -93,9 +85,7 @@ const CheckoutMenu = () => {
         await dispatch(setKioskPaymentError(null))
         await dispatch(setPreOrderPaying(true))
         setPayStarted(true)
-        await dispatch(
-            common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group, false)
-        )
+        await dispatch(common_order_pay(filial, null, pre_order.uid, pre_order.ver, 'cinema', payment_group, false))
         await dispatch(setPreOrderPaying(false))
     }
 
@@ -115,14 +105,14 @@ const CheckoutMenu = () => {
                         }}
                         variant="contained"
                         color="secondary"
-                        startIcon={<KeyboardArrowLeftIcon/>}
+                        startIcon={<KeyboardArrowLeftIcon />}
                     >
                         Назад
                     </Button>
-                    <Box sx={{width: '100%', marginLeft: '10px'}}>
+                    <Box sx={{ width: '100%', marginLeft: '10px' }}>
                         <LinearProgress
                             className="order-progress glass-effect"
-                            sx={{height: '100%'}}
+                            sx={{ height: '100%' }}
                             value={pre_order_time_remaining}
                             variant="determinate"
                         />
@@ -133,16 +123,10 @@ const CheckoutMenu = () => {
                         <Box className="seance-title-film-name">{seance.name_film}</Box>
                         <Box className="seance-title-hall-name">Зал {hall.name_full}</Box>
                         <Box className="seance-title-panel">
-                            <SeanceTitle
-                                seance={seance}
-                                content_type={true}
-                                day={true}
-                                its_hall_map={true}
-                                age={false}
-                            />
+                            <SeanceTitle seance={seance} content_type={true} day={true} its_hall_map={true} age={false} />
                             {pre_order.items.length > 0 ? (
                                 <Button
-                                    sx={{height: '48px', marginLeft: '10px'}}
+                                    sx={{ height: '48px', marginLeft: '10px' }}
                                     variant="contained"
                                     className="seance-title-preorder"
                                     onClick={() => {
@@ -164,7 +148,7 @@ const CheckoutMenu = () => {
                                         >
                                             {ticket_count(pre_order.quantity)}
                                         </Box>
-                                        <Box style={{fontWeight: 'bold'}}>{pre_order.price} P</Box>
+                                        <Box style={{ fontWeight: 'bold' }}>{pre_order.price} P</Box>
                                     </Box>
                                     <Box
                                         style={{
@@ -175,7 +159,7 @@ const CheckoutMenu = () => {
                                         }}
                                     >
                                         <Box>К оплате</Box>
-                                        <KeyboardArrowRightIcon/>
+                                        <KeyboardArrowRightIcon />
                                     </Box>
                                 </Button>
                             ) : (
@@ -189,18 +173,13 @@ const CheckoutMenu = () => {
                         <Box id="checkout-total">
                             <Box id="checkout-total-box">
                                 <Box className="checkout-order-title-box">
-                                    <span style={{marginRight: '10px'}}>Сумма заказа</span>
+                                    <span style={{ marginRight: '10px' }}>Сумма заказа</span>
                                     <span>{pre_order.price} р</span>
                                 </Box>
                             </Box>
                             <Button
                                 onClick={async () => {
-                                    if (
-                                        dayjs(pre_order.seance_date_shift).isSame(
-                                            dayjs(get_date_shift(new Date())),
-                                            'day'
-                                        )
-                                    ) {
+                                    if (dayjs(pre_order.seance_date_shift).isSame(dayjs(get_date_shift(new Date())), 'day')) {
                                         await pay()
                                     } else {
                                         dispatch(setKioskCheckout(2))
@@ -220,14 +199,13 @@ const CheckoutMenu = () => {
                 )}
                 {kiosk_checkout === 2 && (
                     <Box id="seance-title">
-                        <Box sx={{fontSize: '200%'}}>Внимание!</Box>
-                        <Box sx={{fontSize: '200%'}}>
-                            Вы покупаете билеты на сеанс, который пройдет{' '}
-                            {dayjs(pre_order.seance_beginning).format('D MMMM, dddd')}.<br/>
+                        <Box sx={{ fontSize: '200%' }}>Внимание!</Box>
+                        <Box sx={{ fontSize: '200%' }}>
+                            Вы покупаете билеты на сеанс, который пройдет {dayjs(pre_order.seance_beginning).format('D MMMM, dddd')}.<br />
                             Денежные средства возвращаются в течение 30 банковских дней.
                         </Box>
                         <Button
-                            sx={{width: '250px'}}
+                            sx={{ width: '250px' }}
                             variant="contained"
                             color="primary"
                             onClick={async () => {
@@ -240,11 +218,10 @@ const CheckoutMenu = () => {
                 )}
                 <MuiDialog
                     open={pre_order_paying}
-                    onClose={() => {
-                    }}
+                    onClose={() => {}}
                     aria-labelledby="paying-process"
                     slotProps={{
-                        sx: {backgroundColor: '#EFEFEF', color: 'black', minWidth: '500px'},
+                        sx: { backgroundColor: '#EFEFEF', color: 'black', minWidth: '500px' },
                     }}
                 >
                     <Box
@@ -256,14 +233,12 @@ const CheckoutMenu = () => {
                         }}
                     >
                         <Box>
-                            <Loader size={1.8}/>
+                            <Loader size={1.8} />
                         </Box>
                         <Box>
-                            <DialogTitle sx={{fontSize: '200%', fontWeight: 900, paddingBottom: 0}}>
-                                Оплата заказа
-                            </DialogTitle>
+                            <DialogTitle sx={{ fontSize: '200%', fontWeight: 900, paddingBottom: 0 }}>Оплата заказа</DialogTitle>
                             <DialogContent>
-                                <DialogContentText sx={{fontSize: '100%', fontWeight: 900}}>
+                                <DialogContentText sx={{ fontSize: '100%', fontWeight: 900 }}>
                                     Следуйте инструкциям на пинпаде
                                 </DialogContentText>
                             </DialogContent>

@@ -1,20 +1,20 @@
-import {Box, Button} from '@mui/material'
+import { Box, Button } from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import {useEffect, useState} from 'react'
-import {common_printers_get, equipment_action} from '../../../service/fetch_service.js'
-import {useDispatch, useSelector} from 'react-redux'
+import { useEffect, useState } from 'react'
+import { common_printers_get, equipment_action } from '../../../service/fetch_service.js'
+import { useDispatch, useSelector } from 'react-redux'
 import BookingItem from './BookingItem.jsx'
 import {
     ROUTE_EQUIPMENT_KKT_BILL_PRINT,
     ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
     ROUTE_EQUIPMENT_PRINTER_BILL_PRINT,
 } from '../../../service/fetch_routes.js'
-import {selectUidCinema} from '../../../redux/ordersReducer.js'
+import { selectUidCinema } from '../../../redux/ordersReducer.js'
 
 const Printing = (props) => {
     const dispatch = useDispatch()
     const filial = useSelector((state) => state.data.filial)
-    const [printers, set_printers] = useState({kkt: [], kitchen_points: []})
+    const [printers, set_printers] = useState({ kkt: [], kitchen_points: [] })
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_printers_get(filial))
@@ -35,7 +35,7 @@ const Printing = (props) => {
 
     const sortedKKT = [...printers.kkt].sort((a, b) => {
         if (a.local !== b.local) return a.local ? -1 : 1
-        return a.kkt.number.localeCompare(b.kkt.number, 'ru', {numeric: true})
+        return a.kkt.number.localeCompare(b.kkt.number, 'ru', { numeric: true })
     })
 
     const sortedKP = [...printers.kitchen_points].sort((a, b) => {
@@ -44,14 +44,11 @@ const Printing = (props) => {
     })
 
     return (
-        <Box style={{backgroundColor: '#f8f8f8'}}>
+        <Box style={{ backgroundColor: '#f8f8f8' }}>
             <Box className="payment-total">
                 <Box className="payment-total-div">
-                    <Box
-                        sx={{display: 'flex', alignItems: 'none', cursor: 'pointer'}}
-                        onClick={() => props.set_printing(false)}
-                    >
-                        <ArrowBackIosNewIcon/>
+                    <Box sx={{ display: 'flex', alignItems: 'none', cursor: 'pointer' }} onClick={() => props.set_printing(false)}>
+                        <ArrowBackIosNewIcon />
                     </Box>
                 </Box>
             </Box>
@@ -100,9 +97,9 @@ const Printing = (props) => {
                         }}
                     >
                         <span>{printer.kkt.number}</span>
-                        <span style={{fontSize: '70%'}}>
-              <div>ККТ ...{printer.kkt.number.slice(-4)}</div>
-            </span>
+                        <span style={{ fontSize: '70%' }}>
+                            <div>ККТ ...{printer.kkt.number.slice(-4)}</div>
+                        </span>
                     </Button>
                 ))}
                 {sortedKP.map((printer) => (
@@ -129,17 +126,16 @@ const Printing = (props) => {
                         }}
                     >
                         <span>{printer.kitchen_point.name}</span>
-                        <span style={{fontSize: '70%'}}></span>
+                        <span style={{ fontSize: '70%' }}></span>
                     </Button>
                 ))}
             </Box>
             {props.type === 'cinema' && (
-                <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                     {props.order.items
                         .filter(
                             (el) =>
-                                (el.in_receipt_state > 0 && el.out_receipt_state === 0) ||
-                                (el.in_slip_state > 0 && el.out_slip_state === 0)
+                                (el.in_receipt_state > 0 && el.out_receipt_state === 0) || (el.in_slip_state > 0 && el.out_slip_state === 0)
                         )
                         .map((booking) => (
                             <BookingItem
@@ -151,17 +147,15 @@ const Printing = (props) => {
                             />
                         ))}
                     {props.order.items.filter(
-                        (el) =>
-                            (el.in_receipt_state > 0 && el.out_receipt_state === 0) ||
-                            (el.in_slip_state > 0 && el.out_slip_state === 0)
+                        (el) => (el.in_receipt_state > 0 && el.out_receipt_state === 0) || (el.in_slip_state > 0 && el.out_slip_state === 0)
                     ).length === 0 ? (
-                        <Box className="empty-box" sx={{fontSize: '300%'}}>
+                        <Box className="empty-box" sx={{ fontSize: '300%' }}>
                             Нет билетов для печати
                         </Box>
                     ) : null}
                 </Box>
             )}
-    </Box>
+        </Box>
     )
 }
 

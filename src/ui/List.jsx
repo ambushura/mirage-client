@@ -1,22 +1,13 @@
-import {Fragment, useEffect} from 'react'
-import {
-    Button,
-    ClickAwayListener,
-    Grow,
-    ListItemIcon,
-    ListItemText,
-    MenuList,
-    Paper,
-    Popper,
-} from '@mui/material'
+import { Fragment, useEffect } from 'react'
+import { Button, ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuList, Paper, Popper } from '@mui/material'
 import Filial from '../frontoffice/page/header/Filial.jsx'
 import City from '../frontoffice/page/header/City.jsx'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import EqualizerIcon from '@mui/icons-material/Equalizer'
 import ChairIcon from '@mui/icons-material/Chair'
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import LiquorIcon from '@mui/icons-material/Liquor'
-import {WhiteMenuItem} from './ThemeContext.jsx'
+import { WhiteMenuItem } from './ThemeContext.jsx'
 import GroupWorkIcon from '@mui/icons-material/GroupWork'
 import ConstructionIcon from '@mui/icons-material/Construction'
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
@@ -71,19 +62,10 @@ const List = (props) => {
             >
                 {props.button_text}
             </Button>
-            <Popper
-                open={props.open}
-                anchorEl={props.anchor.current}
-                placement="bottom-start"
-                transition
-                disablePortal
-            >
-                {({TransitionProps, placement}) => (
-                    <Grow
-                        {...TransitionProps}
-                        style={{transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom'}}
-                    >
-                        <Paper sx={{backgroundColor: '#1b1d20', maxHeight: 600, overflowY: 'auto'}}>
+            <Popper open={props.open} anchorEl={props.anchor.current} placement="bottom-start" transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                    <Grow {...TransitionProps} style={{ transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom' }}>
+                        <Paper sx={{ backgroundColor: '#1b1d20', maxHeight: 600, overflowY: 'auto' }}>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList autoFocusItem={props.open} id={props.id} onKeyDown={handleListKeyDown}>
                                     {props.list.map((el) => {
@@ -127,7 +109,7 @@ const List = (props) => {
                                                     </WhiteMenuItem>
                                                 )
                                             case 'cities':
-                                                return <City key={el.uid} handleClose={handleClose} city={el}/>
+                                                return <City key={el.uid} handleClose={handleClose} city={el} />
                                             case 'filials':
                                                 return (
                                                     <Filial
@@ -145,27 +127,27 @@ const List = (props) => {
                                                             navigate(el.path)
                                                         }}
                                                     >
-                                                        <ListItemIcon sx={{color: 'white'}}>
+                                                        <ListItemIcon sx={{ color: 'white' }}>
                                                             {el.id === 'admin/orders/cinema' ? (
-                                                                <GroupWorkIcon/>
+                                                                <GroupWorkIcon />
                                                             ) : el.id === 'admin/orders/horeca' ? (
-                                                                <FastfoodIcon/>
+                                                                <FastfoodIcon />
                                                             ) : el.id === 'admin/zbooks' ? (
-                                                                <EqualizerIcon/>
+                                                                <EqualizerIcon />
                                                             ) : el.id === 'admin/operations' ? (
-                                                                <WalletIcon/>
+                                                                <WalletIcon />
                                                             ) : el.id === 'admin/halls' ? (
-                                                                <ChairIcon/>
+                                                                <ChairIcon />
                                                             ) : el.id === 'admin/scheme' ? (
-                                                                <ConstructionIcon/>
+                                                                <ConstructionIcon />
                                                             ) : el.id === 'admin/egais' ? (
-                                                                <LiquorIcon/>
+                                                                <LiquorIcon />
                                                             ) : el.id === 'admin/acquiring' ? (
-                                                                <AccountBalanceIcon/>
+                                                                <AccountBalanceIcon />
                                                             ) : el.id === 'admin/staff' ? (
-                                                                <AssignmentIndIcon/>
+                                                                <AssignmentIndIcon />
                                                             ) : el.id === 'admin/reports' ? (
-                                                                <StackedLineChartIcon/>
+                                                                <StackedLineChartIcon />
                                                             ) : null}
                                                         </ListItemIcon>
                                                         <ListItemText>{el.name}</ListItemText>
@@ -179,7 +161,7 @@ const List = (props) => {
                     </Grow>
                 )}
             </Popper>
-    </Fragment>
+        </Fragment>
     )
 }
 

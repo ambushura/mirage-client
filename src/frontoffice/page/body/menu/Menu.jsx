@@ -1,10 +1,10 @@
-import {Box} from '@mui/material'
-import {useEffect, useState} from 'react'
+import { Box } from '@mui/material'
+import { useEffect, useState } from 'react'
 import Folder from './Folder.jsx'
 import Item from './Item.jsx'
-import {AnimatePresence, motion} from 'framer-motion'
-import {useDispatch, useSelector} from 'react-redux'
-import {horeca_menu_get} from '../../../../service/fetch_service.js'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useDispatch, useSelector } from 'react-redux'
+import { horeca_menu_get } from '../../../../service/fetch_service.js'
 import Loader from '../../../../ui/Loader.jsx'
 
 export default function Menu() {
@@ -15,7 +15,7 @@ export default function Menu() {
     const [uid_folder, set_uid_folder] = useState('Меню')
     const [menu, set_menu] = useState(null)
     const [breadcrumbs, set_breadcrumbs] = useState([])
-    const [fetching, set_fetching] = useState({loading: false, error: null, data: null})
+    const [fetching, set_fetching] = useState({ loading: false, error: null, data: null })
 
     useEffect(() => {
         const fetch = async () => {
@@ -38,7 +38,7 @@ export default function Menu() {
         for (let item = menu.breadcrumbs; item; item = item.folder) {
             breadcrumbs_new.unshift(
                 <motion.div key={item.uid} variants={itemVariants}>
-                    <Folder type="menu-breadcrumb" set_uid_folder={set_uid_folder} item={item}/>
+                    <Folder type="menu-breadcrumb" set_uid_folder={set_uid_folder} item={item} />
                 </motion.div>
             )
         }
@@ -48,7 +48,7 @@ export default function Menu() {
     if (filial === undefined) {
         return <Box className="empty-box">Выберите филиал...</Box>
     } else if (fetching.loading && fetching.error === null && fetching.data === null) {
-        return <Loader/>
+        return <Loader />
     } else if (!fetching.loading && fetching.error !== null && fetching.data === null) {
         return <Box className="empty-box">{fetching.error}</Box>
     } else if (!fetching.loading && fetching.error === null && fetching.data !== null) {
@@ -58,30 +58,19 @@ export default function Menu() {
                     <>
                         <AnimatePresence>
                             {breadcrumbs.length > 0 && (
-                                <motion.div
-                                    className="menu-breadcrumbs"
-                                    initial="hidden"
-                                    animate="visible"
-                                    variants={containerVariants}
-                                >
+                                <motion.div className="menu-breadcrumbs" initial="hidden" animate="visible" variants={containerVariants}>
                                     {breadcrumbs}
                                 </motion.div>
                             )}
                         </AnimatePresence>
                         <AnimatePresence>
                             {menu.items.length > 0 && (
-                                <motion.div
-                                    className="menu-folders"
-                                    initial="hidden"
-                                    animate="visible"
-                                    variants={containerVariants}
-                                >
+                                <motion.div className="menu-folders" initial="hidden" animate="visible" variants={containerVariants}>
                                     {menu.items.map((item) => {
                                         if (item.its_folder) {
                                             return (
                                                 <motion.div key={item.uid} variants={itemVariants}>
-                                                    <Folder type="menu-folder" set_uid_folder={set_uid_folder}
-                                                            item={item}/>
+                                                    <Folder type="menu-folder" set_uid_folder={set_uid_folder} item={item} />
                                                 </motion.div>
                                             )
                                         }
@@ -91,17 +80,12 @@ export default function Menu() {
                         </AnimatePresence>
                         <AnimatePresence>
                             {menu.items.length > 0 && (
-                                <motion.div
-                                    className="menu-items"
-                                    initial="hidden"
-                                    animate="visible"
-                                    variants={containerVariants}
-                                >
+                                <motion.div className="menu-items" initial="hidden" animate="visible" variants={containerVariants}>
                                     {menu.items.map((item) => {
                                         if (!item.its_folder) {
                                             return (
                                                 <motion.div key={item.uid} variants={itemVariants}>
-                                                    <Item item={item}/>
+                                                    <Item item={item} />
                                                 </motion.div>
                                             )
                                         }
@@ -129,7 +113,7 @@ const containerVariants = {
 }
 
 const itemVariants = {
-    hidden: {opacity: 0, x: -10},
+    hidden: { opacity: 0, x: -10 },
     visible: {
         opacity: 1,
         x: 0,

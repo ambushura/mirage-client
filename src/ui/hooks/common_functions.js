@@ -7,9 +7,9 @@ export function to_str_DAY(date) {
 }
 
 export const date_dayjs = (value) => {
-    const yyyy = value.toLocaleDateString('ru-RU', {year: 'numeric'})
-    const mm = value.toLocaleDateString('ru-RU', {month: '2-digit'})
-    const dd = value.toLocaleDateString('ru-RU', {day: '2-digit'})
+    const yyyy = value.toLocaleDateString('ru-RU', { year: 'numeric' })
+    const mm = value.toLocaleDateString('ru-RU', { month: '2-digit' })
+    const dd = value.toLocaleDateString('ru-RU', { day: '2-digit' })
     return dayjs(yyyy + '-' + mm + '-' + dd)
 }
 

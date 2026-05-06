@@ -1,12 +1,12 @@
-import {Box, Button, InputAdornment, TextField, Typography} from '@mui/material'
+import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material'
 import PhoneInput from '../../ui/PhoneInput.jsx'
-import {closeModal} from '../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {useEffect, useState} from 'react'
-import {common_contact_add, pl_estimate_discounts} from '../../service/fetch_service.js'
+import { closeModal } from '../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { common_contact_add, pl_estimate_discounts } from '../../service/fetch_service.js'
 import QrCodeIcon from '@mui/icons-material/QrCode'
 
-const Contact = ({props}) => {
+const Contact = ({ props }) => {
     const dispatch = useDispatch()
 
     const filial = useSelector((state) => state.data.filial)
@@ -52,19 +52,17 @@ const Contact = ({props}) => {
                         )
                         break
                     case 'pl':
-                        dispatch(
-                            pl_estimate_discounts(filial, props.order.uid, props.order_type, qr, props.order.ver)
-                        )
+                        dispatch(pl_estimate_discounts(filial, props.order.uid, props.order_type, qr, props.order.ver))
                         break
                 }
                 dispatch(closeModal())
             }}
-    >
+        >
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Информация о клиенте
             </Typography>
-            <Box sx={{'& .MuiTextField-root': {m: 1, width: '25ch'}}}>
-                <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
+            <Box sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                     <TextField
                         variant="filled"
                         label="Фамилия"
@@ -104,13 +102,13 @@ const Contact = ({props}) => {
                             set_buyer_email(event.target.value)
                         }}
                     />
-                    <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number}/>
+                    <PhoneInput value={buyer_phone_number} set_value={set_buyer_phone_number} />
                     <TextField
                         slotProps={{
                             input: {
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <QrCodeIcon/>
+                                        <QrCodeIcon />
                                     </InputAdornment>
                                 ),
                             },
@@ -125,21 +123,15 @@ const Contact = ({props}) => {
                     />
                 </Box>
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row-reverse'}}>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    type="submit"
-                    data-action="common"
-                    sx={{marginLeft: '10px'}}
-                >
+            <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                <Button variant="contained" color="secondary" type="submit" data-action="common" sx={{ marginLeft: '10px' }}>
                     Сохранить
                 </Button>
                 <Button variant="contained" color="secondary" type="submit" data-action="pl">
                     Заполнить по коду ПЛ
                 </Button>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

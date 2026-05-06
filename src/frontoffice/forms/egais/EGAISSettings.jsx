@@ -1,4 +1,4 @@
-import {Box, Typography} from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 const EgaisSettings = () => {
     return (
@@ -14,8 +14,8 @@ const EgaisSettings = () => {
                 УТМ ЕГАИС
             </Typography>
             <Box></Box>
-            <Box sx={{display: 'flex', justifyContent: 'center', width: '100%'}}>В разработке...</Box>
-    </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>В разработке...</Box>
+        </Box>
     )
 }
 

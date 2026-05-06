@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 export function useFullScreen() {
     const current_page = useSelector((state) => state.interface.current_page)

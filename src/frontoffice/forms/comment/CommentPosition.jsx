@@ -1,13 +1,10 @@
-import {Autocomplete, Box, Button, TextField, Typography} from '@mui/material'
-import {useEffect, useState} from 'react'
-import {
-    common_position_add_comment,
-    horeca_modifications_get,
-} from '../../../service/fetch_service.js'
-import {closeModal} from '../../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
+import { Autocomplete, Box, Button, TextField, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { common_position_add_comment, horeca_modifications_get } from '../../../service/fetch_service.js'
+import { closeModal } from '../../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
 
-const CommentPosition = ({props}) => {
+const CommentPosition = ({ props }) => {
     const dispatch = useDispatch()
     const filial = useSelector((state) => state.data.filial)
     const pre_order = useSelector((state) => state.orders.pre_order)
@@ -24,9 +21,7 @@ const CommentPosition = ({props}) => {
 
     useEffect(() => {
         const fetch = async () => {
-            const fetching_result = await dispatch(
-                horeca_modifications_get(filial, props.uid_menu, false)
-            )
+            const fetching_result = await dispatch(horeca_modifications_get(filial, props.uid_menu, false))
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.data !== null) {
@@ -88,7 +83,7 @@ const CommentPosition = ({props}) => {
             }}
             display="flex"
             flexDirection="column"
-            sx={{alignItems: 'flex-start'}}
+            sx={{ alignItems: 'flex-start' }}
             id="modal-comment"
         >
             <Typography variant="h6" color="textSecondary" margin={1}>
@@ -96,7 +91,7 @@ const CommentPosition = ({props}) => {
             </Typography>
             <TextField
                 label="Комментарий"
-                sx={{m: 1, minWidth: '500px'}}
+                sx={{ m: 1, minWidth: '500px' }}
                 variant="filled"
                 color="textSecondary"
                 multiline
@@ -106,7 +101,7 @@ const CommentPosition = ({props}) => {
                 }}
             />
             {props.order_type === 'horeca' && modifications !== null && modifications.length > 0 ? (
-                <Box sx={{minWidth: '500px', maxWidth: '500px', m: 1}}>
+                <Box sx={{ minWidth: '500px', maxWidth: '500px', m: 1 }}>
                     <Autocomplete
                         fullWidth
                         multiple
@@ -118,22 +113,17 @@ const CommentPosition = ({props}) => {
                             set_selected_modifications(newValue.map((m) => m.uid))
                         }}
                         renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                variant="outlined"
-                                label="Модификаторы"
-                                placeholder="добавить модификатор"
-                            />
+                            <TextField {...params} variant="outlined" label="Модификаторы" placeholder="добавить модификатор" />
                         )}
                     />
                 </Box>
             ) : null}
-            <Box sx={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
                 <Button variant="contained" color="secondary" type="submit">
                     Сохранить
                 </Button>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

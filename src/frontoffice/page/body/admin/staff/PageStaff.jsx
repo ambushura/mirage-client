@@ -1,7 +1,7 @@
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 
 const PageStaff = () => {
-    return <Box className="empty-box">В разработке...</Box>
+  return <Box className="empty-box">В разработке...</Box>
 }
 
 export default PageStaff

@@ -1,6 +1,6 @@
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 
 const Egais = () => {
-    return <Box className="empty-box">В разработке...</Box>
+  return <Box className="empty-box">В разработке...</Box>
 }
 export default Egais

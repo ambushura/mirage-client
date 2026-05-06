@@ -1,14 +1,14 @@
-import {useSelector} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT} from '../../../redux/interfaceReducer.js'
-import {WhiteMenuItem} from '../../../ui/ThemeContext.jsx'
+import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT } from '../../../redux/interfaceReducer.js'
+import { WhiteMenuItem } from '../../../ui/ThemeContext.jsx'
 
 const City = (props) => {
     const current_page = useSelector((state) => state.interface.current_page)
     const param_date = useSelector((state) => state.interface.params.param_date)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
     const film = useSelector((state) => state.schedule.film)
-    const {wp, kiosk} = useSelector((state) => state.interface)
+    const { wp, kiosk } = useSelector((state) => state.interface)
 
     return (
         <NavLink
@@ -21,7 +21,7 @@ const City = (props) => {
             >
                 {props.city.name}
             </WhiteMenuItem>
-    </NavLink>
+        </NavLink>
     )
 }
 

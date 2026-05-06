@@ -1,6 +1,6 @@
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 
-const RowLabel = ({data}) => {
+const RowLabel = ({ data }) => {
     return (
         <Box
             key={data.uid}
@@ -23,7 +23,7 @@ const RowLabel = ({data}) => {
             >
                 <Box className="row-label">{data.row}</Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

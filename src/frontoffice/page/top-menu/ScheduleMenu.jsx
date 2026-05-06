@@ -1,21 +1,16 @@
-import {useState} from 'react'
-import {Box, Button, ButtonGroup, Popover} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
+import { useState } from 'react'
+import { Box, Button, ButtonGroup, Popover } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import dayjs from 'dayjs'
-import {useNavigate} from 'react-router-dom'
-import {
-    date_dayjs,
-    from_dayjs_to_str,
-    get_date_shift,
-    to_str_DAY,
-} from '../../../ui/hooks/common_functions.js'
+import { useNavigate } from 'react-router-dom'
+import { date_dayjs, from_dayjs_to_str, get_date_shift, to_str_DAY } from '../../../ui/hooks/common_functions.js'
 import Calendar from '../../../ui/Calendar.jsx'
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import {openModal} from '../../../redux/interfaceReducer.js'
+import { openModal } from '../../../redux/interfaceReducer.js'
 import {
     setScheduleFiltersFilmAgeSelect,
     setScheduleFiltersFilmCopyTypes,
@@ -40,18 +35,14 @@ const ScheduleMenu = () => {
     const dispatch = useDispatch()
 
     // Данные из хранилища
-    const {city, filial} = useSelector((state) => state.data)
+    const { city, filial } = useSelector((state) => state.data)
     const film = useSelector((state) => state.schedule.film)
 
     const current_page = useSelector((state) => state.interface.current_page)
     const param_date = useSelector((state) => state.interface.params.param_date)
 
-    const schedule_filters_film_types = useSelector(
-        (state) => state.schedule.schedule_filters_film_types
-    )
-    const schedule_filters_film_types_selected = useSelector(
-        (state) => state.schedule.schedule_filters_film_types_selected
-    )
+    const schedule_filters_film_types = useSelector((state) => state.schedule.schedule_filters_film_types)
+    const schedule_filters_film_types_selected = useSelector((state) => state.schedule.schedule_filters_film_types_selected)
 
     const show_free_space = useSelector((state) => state.schedule.show_free_space)
 
@@ -80,20 +71,16 @@ const ScheduleMenu = () => {
     const seance_canceled = useSelector((state) => state.schedule.schedule_filters_seance_canceled)
     const seance_opened = useSelector((state) => state.schedule.schedule_filters_seance_opened)
     const films_selected = useSelector((state) => state.schedule.schedule_filters_films_selected)
-    const film_copy_types_selected = useSelector(
-        (state) => state.schedule.schedule_filters_film_copy_types_selected
-    )
+    const film_copy_types_selected = useSelector((state) => state.schedule.schedule_filters_film_copy_types_selected)
     const film_age = useSelector((state) => state.schedule.schedule_filters_film_age)
     const halls_selected = useSelector((state) => state.schedule.schedule_filters_halls_selected)
     const hall_type_vip = useSelector((state) => state.schedule.schedule_filters_hall_type_vip)
-    const hall_type_regular = useSelector(
-        (state) => state.schedule.schedule_filters_hall_type_regular
-    )
+    const hall_type_regular = useSelector((state) => state.schedule.schedule_filters_hall_type_regular)
     const seance_time = useSelector((state) => state.schedule.schedule_filters_time)
     const seance_price = useSelector((state) => state.schedule.schedule_filters_price)
 
     const uid_user = useSelector((state) => state.auth.uid)
-    const {wp, kiosk} = useSelector((state) => state.interface)
+    const { wp, kiosk } = useSelector((state) => state.interface)
 
     return (
         <Box id="top-menu">
@@ -108,22 +95,16 @@ const ScheduleMenu = () => {
                                 `/films/${city.code}/${filial === undefined ? 'all' : filial.eais}/${param_date}/?${wp !== null ? 'wp=' + wp : ''}${kiosk ? '&kiosk' : ''}`
                             )
                         }}
-                        sx={{marginRight: '4px'}}
-                        startIcon={<KeyboardArrowLeftIcon/>}
+                        sx={{ marginRight: '4px' }}
+                        startIcon={<KeyboardArrowLeftIcon />}
                     >
                         Назад
                     </Button>
                 ) : (
                     <></>
                 )}
-                <ButtonGroup
-                    size="medium"
-                    variant="contained"
-                    color="secondary"
-                    sx={{marginRight: '5px'}}
-                >
-                    {(!kiosk ||
-                        (kiosk && dayjs(param_date).add(-1, 'day') >= dayjs(get_date_shift(new Date())))) && (
+                <ButtonGroup size="medium" variant="contained" color="secondary" sx={{ marginRight: '5px' }}>
+                    {(!kiosk || (kiosk && dayjs(param_date).add(-1, 'day') >= dayjs(get_date_shift(new Date())))) && (
                         <Button
                             onClick={() => {
                                 const current_date = dayjs(param_date).add(-1, 'day')
@@ -133,10 +114,10 @@ const ScheduleMenu = () => {
                                 )
                             }}
                         >
-                            <KeyboardArrowLeftIcon/>
+                            <KeyboardArrowLeftIcon />
                         </Button>
                     )}
-                    <Button aria-describedby={id} onClick={handleClick} endIcon={<KeyboardArrowDownIcon/>}>
+                    <Button aria-describedby={id} onClick={handleClick} endIcon={<KeyboardArrowDownIcon />}>
                         {`${current_page === 'films' ? 'Фильмы' : 'Сеансы'} ${dayjs(param_date).$D} ${to_str_DAY(dayjs(param_date).$d)}`}
                     </Button>
                     <Button
@@ -148,16 +129,14 @@ const ScheduleMenu = () => {
                             )
                         }}
                     >
-                        <KeyboardArrowRightIcon/>
+                        <KeyboardArrowRightIcon />
                     </Button>
                     {dayjs(param_date).diff(dayjs(get_date_shift(new Date()))) !== 0 && (
                         <Button
                             onClick={() => {
                                 const now = new Date()
                                 const date = date_dayjs(
-                                    now.getHours() >= 0 && now.getHours() < 7
-                                        ? new Date(now.setDate(now.getDate() - 1))
-                                        : now
+                                    now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now
                                 )
                                 const current_param_date = from_dayjs_to_str(date)
                                 navigate(
@@ -187,21 +166,16 @@ const ScheduleMenu = () => {
                         },
                     }}
                 >
-                    <Calendar value={dayjs(param_date)} handleOnChahge={handleOnChahge}/>
+                    <Calendar value={dayjs(param_date)} handleOnChahge={handleOnChahge} />
                 </Popover>
                 {!kiosk && (
-                    <Box
-                        className="top-menu-content-types"
-                        size="small"
-                        sx={{display: 'flex', flexWrap: 'noWrap'}}
-                    >
+                    <Box className="top-menu-content-types" size="small" sx={{ display: 'flex', flexWrap: 'noWrap' }}>
                         {schedule_filters_film_types.map((type) => {
                             return (
                                 <Button
                                     variant="contained"
                                     color={
-                                        schedule_filters_film_types_selected.find((el) => el.uid === type.uid) !==
-                                        undefined
+                                        schedule_filters_film_types_selected.find((el) => el.uid === type.uid) !== undefined
                                             ? 'primary'
                                             : 'secondary'
                                     }
@@ -209,7 +183,7 @@ const ScheduleMenu = () => {
                                     onClick={() => {
                                         dispatch(setScheduleFiltersFilmTypesSelect(type))
                                     }}
-                                    sx={{marginRight: '4px'}}
+                                    sx={{ marginRight: '4px' }}
                                 >
                                     {type.title}
                                 </Button>
@@ -222,7 +196,7 @@ const ScheduleMenu = () => {
                         {filial !== undefined ? (
                             <Button
                                 variant="contained"
-                                startIcon={<FilterAltIcon/>}
+                                startIcon={<FilterAltIcon />}
                                 onClick={() =>
                                     dispatch(
                                         openModal({
@@ -267,15 +241,15 @@ const ScheduleMenu = () => {
                                     dispatch(setScheduleFiltersPrice([0, 10000]))
                                 }}
                             >
-                                <FilterAltOffIcon/>
+                                <FilterAltOffIcon />
                             </Button>
                         ) : null}
                         {current_page === 'schedule' && (
                             <Button
                                 variant="contained"
-                                sx={{color: 'white'}}
+                                sx={{ color: 'white' }}
                                 color={show_free_space ? 'primary' : 'secondary'}
-                                startIcon={<FormatLineSpacingIcon/>}
+                                startIcon={<FormatLineSpacingIcon />}
                                 onClick={() => {
                                     dispatch(setShowFreeSpace(!show_free_space))
                                 }}
@@ -301,13 +275,13 @@ const ScheduleMenu = () => {
                                     )
                                 }}
                             >
-                                <AddCircleOutlineIcon/>
+                                <AddCircleOutlineIcon />
                             </Button>
                         )}
                     </ButtonGroup>
                 ) : null}
             </Box>
-    </Box>
+        </Box>
     )
 }
 

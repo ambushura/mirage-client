@@ -1,9 +1,9 @@
-import {Box} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {horeca_order_fetch} from '../../../../../../service/fetch_service.js'
+import { Box } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { horeca_order_fetch } from '../../../../../../service/fetch_service.js'
 import CircleIcon from '@mui/icons-material/Circle'
 import dayjs from 'dayjs'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import {
     ITEMS_TYPE_ITEMS,
     ITEMS_TYPE_MARK_EGAIS,
@@ -25,125 +25,119 @@ const group_items = (items_grouped, payment_group, payment_state) => {
     const items = [],
         mark_egais = []
     items_grouped
-        .filter((el) =>
-            payment_group === 'for_payment'
-                ? el.in_payment_group === payment_state
-                : el.out_payment_group === payment_state
-        )
+        .filter((el) => (payment_group === 'for_payment' ? el.in_payment_group === payment_state : el.out_payment_group === payment_state))
         .forEach((el) => (el.egais_type_code || el.mark_type ? mark_egais.push(el) : items.push(el)))
-    return {items, mark_egais}
+    return { items, mark_egais }
 }
 
-const RenderGroup = ({chapter1, label, group, ver}) => {
+const RenderGroup = ({ chapter1, label, group, ver }) => {
     if (!group.items.length && !group.mark_egais.length) return null
     const render_items = (items, typeLabel) =>
         items.length > 0 && (
             <>
-        <Box
-            className="glass"
-            sx={{
-                height: '25px',
-                fontWeight: 'bold',
-                padding: '4px 4px 4px 8px',
-                position: 'sticky',
-                top: '25px',
-                zIndex: 1,
-            }}
-        >
-            {typeLabel}
-        </Box>
+                <Box
+                    className="glass"
+                    sx={{
+                        height: '25px',
+                        fontWeight: 'bold',
+                        padding: '4px 4px 4px 8px',
+                        position: 'sticky',
+                        top: '25px',
+                        zIndex: 1,
+                    }}
+                >
+                    {typeLabel}
+                </Box>
                 {items.map((item, i) => (
-                    <Box sx={{position: 'relative'}}>
-            <Box
-                className={item.canceled ? 'orders-item-canceled' : null}
-                key={i + ver}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backgroundColor: '#f4f4f4',
-                    borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
-                    padding: '2px 4px 2px 0',
-                }}
-            >
-                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                    <Box sx={{width: '20px'}}/>
-                    <Box sx={{flex: 1}}>{item.name}</Box>
-                    <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                        {item.quantity} {item.unit_name}
-                    </Box>
-                </Box>
-                <Box sx={{fontWeight: 'bold', display: 'flex', flexDirection: 'row'}}>
-                    <Box sx={{width: '20px'}}/>
-                    <Box sx={{flex: 1}}>{item.comment}</Box>
-                </Box>
-                <Box sx={{width: '100%', display: 'flex', flexDirection: 'row'}}>
-                    <Box sx={{width: '20px'}}/>
-                    <Box sx={{flex: 1, textAlign: 'left', color: '#ababab'}}>
-                        Цена: {item.price} р
-                    </Box>
-                    {item.uid_discount !== null ? (
+                    <Box sx={{ position: 'relative' }}>
                         <Box
+                            className={item.canceled ? 'orders-item-canceled' : null}
+                            key={i + ver}
                             sx={{
-                                flex: 1,
-                                textAlign: 'right',
-                                color: '#1DB1BA',
-                                fontSize: '70%',
-                                fontWeight: 'bold',
-                                overflow: 'hidden',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                backgroundColor: '#f4f4f4',
+                                borderBottom: i !== items.length - 1 ? '1px dashed #b6b5b5' : null,
+                                padding: '2px 4px 2px 0',
                             }}
                         >
-                            {item.name_discount}
+                            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+                                <Box sx={{ width: '20px' }} />
+                                <Box sx={{ flex: 1 }}>{item.name}</Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                                    {item.quantity} {item.unit_name}
+                                </Box>
+                            </Box>
+                            <Box sx={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row' }}>
+                                <Box sx={{ width: '20px' }} />
+                                <Box sx={{ flex: 1 }}>{item.comment}</Box>
+                            </Box>
+                            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+                                <Box sx={{ width: '20px' }} />
+                                <Box sx={{ flex: 1, textAlign: 'left', color: '#ababab' }}>Цена: {item.price} р</Box>
+                                {item.uid_discount !== null ? (
+                                    <Box
+                                        sx={{
+                                            flex: 1,
+                                            textAlign: 'right',
+                                            color: '#1DB1BA',
+                                            fontSize: '70%',
+                                            fontWeight: 'bold',
+                                            overflow: 'hidden',
+                                        }}
+                                    >
+                                        {item.name_discount}
+                                    </Box>
+                                ) : null}
+                                <Box sx={{ flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px' }}>
+                                    <FunctionsIcon sx={{ width: '15px', height: '15px' }} />
+                                    {item.sum} р
+                                </Box>
+                            </Box>
+                            {item.egais_type_code !== null ? (
+                                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                    <Box sx={{ width: '20px', color: '#50DB92' }}>
+                                        <CircleIcon sx={{ scale: 0.5 }} />
+                                    </Box>
+                                    <Box sx={{ width: '96px', fontWeight: 100 }}>Акцизная марка: </Box>
+                                    <Box
+                                        sx={{
+                                            fontWeight: 100,
+                                            flex: 1,
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            textOverflow: 'ellipsis',
+                                        }}
+                                    >
+                                        {item.egais_value}
+                                    </Box>
+                                </Box>
+                            ) : null}
+                            {item.mark_type !== null ? (
+                                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                    <Box
+                                        sx={{
+                                            width: '20px',
+                                            color: item.mark_payment_available ? '#50DB92' : '#e3000b',
+                                        }}
+                                    >
+                                        <CircleIcon sx={{ scale: 0.5 }} />
+                                    </Box>
+                                    <Box sx={{ fontWeight: 100, width: '45px' }}>ЧЗ КМ: </Box>
+                                    <Box
+                                        sx={{
+                                            fontWeight: 100,
+                                            flex: 1,
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            textOverflow: 'ellipsis',
+                                        }}
+                                    >
+                                        {item.mark_value}
+                                    </Box>
+                                </Box>
+                            ) : null}
                         </Box>
-                    ) : null}
-                    <Box sx={{flex: 1, textAlign: 'right', fontWeight: 'bold', marginRight: '4px'}}>
-                        <FunctionsIcon sx={{width: '15px', height: '15px'}}/>
-                        {item.sum} р
-                    </Box>
-                </Box>
-                {item.egais_type_code !== null ? (
-                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                        <Box sx={{width: '20px', color: '#50DB92'}}>
-                            <CircleIcon sx={{scale: 0.5}}/>
-                        </Box>
-                        <Box sx={{width: '96px', fontWeight: 100}}>Акцизная марка: </Box>
-                        <Box
-                            sx={{
-                                fontWeight: 100,
-                                flex: 1,
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis',
-                            }}
-                        >
-                            {item.egais_value}
-                        </Box>
-                    </Box>
-                ) : null}
-                {item.mark_type !== null ? (
-                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                        <Box
-                            sx={{
-                                width: '20px',
-                                color: item.mark_payment_available ? '#50DB92' : '#e3000b',
-                            }}
-                        >
-                            <CircleIcon sx={{scale: 0.5}}/>
-                        </Box>
-                        <Box sx={{fontWeight: 100, width: '45px'}}>ЧЗ КМ: </Box>
-                        <Box
-                            sx={{
-                                fontWeight: 100,
-                                flex: 1,
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis',
-                            }}
-                        >
-                            {item.mark_value}
-                        </Box>
-                    </Box>
-                ) : null}
-            </Box>
                     </Box>
                 ))}
             </>
@@ -159,20 +153,18 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                         chapter1 === 'returning_waiting'
                             ? '#50db92'
                             : chapter1 === 'returning_success'
-                                ? '#414650'
-                                : chapter1 === 'payment_slip_without_receipt' ||
-                                chapter1 === 'returning_slip_without_receipt'
-                                    ? '#f74b53'
-                                    : '#e4e2e2',
+                              ? '#414650'
+                              : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt'
+                                ? '#f74b53'
+                                : '#e4e2e2',
                     color:
                         chapter1 === 'returning_waiting'
                             ? 'black'
                             : chapter1 === 'returning_success'
+                              ? 'white'
+                              : chapter1 === 'payment_slip_without_receipt' || chapter1 === 'returning_slip_without_receipt'
                                 ? 'white'
-                                : chapter1 === 'payment_slip_without_receipt' ||
-                                chapter1 === 'returning_slip_without_receipt'
-                                    ? 'white'
-                                    : 'black',
+                                : 'black',
                     padding: '4px',
                     position: 'sticky',
                     top: 0,
@@ -180,47 +172,35 @@ const RenderGroup = ({chapter1, label, group, ver}) => {
                 }}
             >
                 {label}
-                {[
-                    'payment_waiting',
-                    'payment_slip_without_receipt',
-                    'returning_slip_without_receipt',
-                ].includes(chapter1) ? (
-                    <DotsAnimation/>
+                {['payment_waiting', 'payment_slip_without_receipt', 'returning_slip_without_receipt'].includes(chapter1) ? (
+                    <DotsAnimation />
                 ) : null}
             </Box>
             {render_items(group.mark_egais, ITEMS_TYPE_MARK_EGAIS)}
             {render_items(group.items, ITEMS_TYPE_ITEMS)}
-    </>
+        </>
     )
 }
 
-const OrderHoreca = ({order}) => {
+const OrderHoreca = ({ order }) => {
     const dispatch = useDispatch()
     const filial = useSelector((state) => state.data.filial)
     const horder = useSelector((state) => state.orders.horder)
 
     const [groups, setGroups] = useState({
-        for_payment_waiting: {items: [], mark_egais: []},
-        for_payment_slip_without_receipt: {items: [], mark_egais: []},
-        for_returning_waiting: {items: [], mark_egais: []},
-        for_returning_slip_without_receipt: {items: [], mark_egais: []},
-        for_returning_success: {items: [], mark_egais: []},
+        for_payment_waiting: { items: [], mark_egais: [] },
+        for_payment_slip_without_receipt: { items: [], mark_egais: [] },
+        for_returning_waiting: { items: [], mark_egais: [] },
+        for_returning_slip_without_receipt: { items: [], mark_egais: [] },
+        for_returning_success: { items: [], mark_egais: [] },
     })
 
     useEffect(() => {
         setGroups({
             for_payment_waiting: group_items(order.items_grouped, 'for_payment', 'waiting'),
-            for_payment_slip_without_receipt: group_items(
-                order.items_grouped,
-                'for_payment',
-                'slip_without_receipt'
-            ),
+            for_payment_slip_without_receipt: group_items(order.items_grouped, 'for_payment', 'slip_without_receipt'),
             for_returning_waiting: group_items(order.items_grouped, 'for_returning', 'waiting'),
-            for_returning_slip_without_receipt: group_items(
-                order.items_grouped,
-                'for_returning',
-                'slip_without_receipt'
-            ),
+            for_returning_slip_without_receipt: group_items(order.items_grouped, 'for_returning', 'slip_without_receipt'),
             for_returning_success: group_items(order.items_grouped, 'for_returning', 'success'),
         })
     }, [order])
@@ -228,7 +208,7 @@ const OrderHoreca = ({order}) => {
     return (
         <Box
             className={`admin-orders-horeca-order-content ${order.canceled && 'order-canceled'}`}
-            sx={{fontSize: '80%'}}
+            sx={{ fontSize: '80%' }}
             onClick={() => dispatch(horeca_order_fetch(filial, order.uid))}
         >
             <Box
@@ -239,7 +219,7 @@ const OrderHoreca = ({order}) => {
                     backgroundColor: horder.uid === order.uid ? '#FFDA6B' : null,
                 }}
             >
-                <Box sx={{flexGrow: 1}}>
+                <Box sx={{ flexGrow: 1 }}>
                     <Box
                         sx={{
                             width: '100%',
@@ -264,8 +244,8 @@ const OrderHoreca = ({order}) => {
                         {order.name_creator}
                     </Box>
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-                    <Box sx={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
                         <Box
                             sx={{
                                 fontWeight: 'bold',
@@ -275,16 +255,14 @@ const OrderHoreca = ({order}) => {
                                 width: '100px',
                             }}
                         >
-              <span style={{color: '#8B919B'}}>
-                {dayjs.utc(order.date_create).format('DD.MM')}
-              </span>
+                            <span style={{ color: '#8B919B' }}>{dayjs.utc(order.date_create).format('DD.MM')}</span>
                             <span>{dayjs.utc(order.date_create).format('HH:mm')}</span>
                         </Box>
-                        <Box style={{color: '#8B919B'}}>{dayjs.utc(order.date_change).format('HH:mm')}</Box>
+                        <Box style={{ color: '#8B919B' }}>{dayjs.utc(order.date_change).format('HH:mm')}</Box>
                     </Box>
                     {order.name_hall !== null && order.name_place !== null ? (
-                        <Box sx={{textAlign: 'right', flex: 1, fontWeight: 'bold', marginRight: '4px'}}>
-                            <LocationOnIcon sx={{height: '15px'}}/>
+                        <Box sx={{ textAlign: 'right', flex: 1, fontWeight: 'bold', marginRight: '4px' }}>
+                            <LocationOnIcon sx={{ height: '15px' }} />
                             {order.name_hall} {order.name_place}
                         </Box>
                     ) : null}
@@ -301,20 +279,20 @@ const OrderHoreca = ({order}) => {
                         wordBreak: 'break-word',
                     }}
                 >
-                    <CommentIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>
+                    <CommentIcon sx={{ width: '15px', height: '15px', marginRight: '5px' }} />
                     {order.comment}
                 </Box>
             ) : null}
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 {order.buyer_email !== null ? (
                     <Box>
-                        <AlternateEmailIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>
+                        <AlternateEmailIcon sx={{ width: '15px', height: '15px', marginRight: '5px' }} />
                         {order.buyer_email}
                     </Box>
                 ) : null}
                 {order.buyer_phone_number !== null ? (
                     <Box>
-                        <PhoneEnabledIcon sx={{width: '15px', height: '15px', marginRight: '5px'}}/>
+                        <PhoneEnabledIcon sx={{ width: '15px', height: '15px', marginRight: '5px' }} />
                         {order.buyer_phone_number}
                     </Box>
                 ) : null}
@@ -366,14 +344,14 @@ const OrderHoreca = ({order}) => {
                 >
                     <Box>{order.quantity} товаров</Box>
                     <Box>
-                        <LocalPrintshopIcon sx={{width: '15px', height: '15px', marginRight: '2px'}}/>
+                        <LocalPrintshopIcon sx={{ width: '15px', height: '15px', marginRight: '2px' }} />
                         {order.pre_receipt_state}
                     </Box>
                     <Box>{order.sum_discount !== 0 ? `Скидка ${order.sum_discount} р` : 'Без скидки'}</Box>
                     <Box>{order.sum} р</Box>
                 </Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

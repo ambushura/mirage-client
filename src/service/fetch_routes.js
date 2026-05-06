@@ -11,8 +11,7 @@ export const ROUTE_COMMON_ORDERS_GET_RECEIPTS = '/api/common/orders/get_receipts
 export const ROUTE_COMMON_PAYMENT_METHODS_GET = '/api/common/payment_methods/get'
 export const ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET = '/api/common/orders/filters/staff/get'
 export const ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET = '/api/common/orders/filters/halls/get'
-export const ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET =
-    '/api/common/orders/filters/workplaces/get'
+export const ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET = '/api/common/orders/filters/workplaces/get'
 export const ROUTE_COMMON_PAYMENT_MAP_GET = '/api/common/payment_map/get'
 export const ROUTE_COMMON_ORDER_FIND = '/api/common/order/find'
 export const ROUTE_COMMON_ORDER_PAYMENT = '/api/common/order/payment'
@@ -89,8 +88,7 @@ export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET = '/api/common/documents/oper
 export const ROUTE_COMMON_DOCUMENTS_OPERATION_GET = '/api/common/documents/operation/get'
 export const ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE = '/api/common/documents/operation/save'
 export const ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE = '/api/common/documents/operation/delete'
-export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT =
-    '/api/common/documents/operations/close_shift'
+export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT = '/api/common/documents/operations/close_shift'
 export const ROUTE_COMMON_LIST_GET = '/api/common/list/get'
 export const ROUTE_SECOND_SCREEN_SCHEDULE_GET = '/api/second_screen/schedule/get'
 export const ROUTE_SECOND_SCREEN_SEANCE_GET = '/api/second_screen/seance/get'

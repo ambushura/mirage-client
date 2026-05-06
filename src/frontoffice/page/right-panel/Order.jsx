@@ -1,14 +1,14 @@
-import {Box, Button, ButtonGroup} from '@mui/material'
+import { Box, Button, ButtonGroup } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import CloseIcon from '@mui/icons-material/Close'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SeanceTitle from '../../components/cinema/SeanceTitle.jsx'
 import BookingItem from './BookingItem.jsx'
 import HorecaItem from './HorecaItem.jsx'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Payment from './Payment.jsx'
 import {
     cinema_order_fetch,
@@ -17,44 +17,38 @@ import {
     horeca_order_fetch,
     horeca_table_delete,
 } from '../../../service/fetch_service.js'
-import {openModal} from '../../../redux/interfaceReducer.js'
-import {Fragment, useEffect, useState} from 'react'
+import { openModal } from '../../../redux/interfaceReducer.js'
+import { Fragment, useEffect, useState } from 'react'
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ContentCutIcon from '@mui/icons-material/ContentCut'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import Printing from './Printing.jsx'
-import {
-    selectUidCinema,
-    selectUidHoreca,
-    setHorderPreparing,
-    setPreOrderPreparing,
-} from '../../../redux/ordersReducer.js'
+import { selectUidCinema, selectUidHoreca, setHorderPreparing, setPreOrderPreparing } from '../../../redux/ordersReducer.js'
 
-function Details({order}) {
+function Details({ order }) {
     return (
-        <Box className="glass" sx={{fontWeight: 'bold', position: 'sticky', bottom: 0, zIndex: 2}}>
+        <Box className="glass" sx={{ fontWeight: 'bold', position: 'sticky', bottom: 0, zIndex: 2 }}>
             {order.buyer_s !== null ||
             order.buyer_n !== null ||
             order.buyer_o !== null ||
             order.buyer_email !== '' ||
             order.buyer_phone_number !== null ? (
                 <>
-                    <Box sx={{color: '#8B919B'}}>Контакты покупателя:</Box>
+                    <Box sx={{ color: '#8B919B' }}>Контакты покупателя:</Box>
                     <Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                             {order.buyer_email !== '' ? order.buyer_email : null}
                         </Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                             {order.buyer_phone_number !== null ? order.buyer_phone_number : null}
                         </Box>
-                        <Box sx={{display: 'flex', justifyContent: 'flex-start'}}>
-                            {order.buyer_s !== null ? `${order.buyer_s} ` : null}{' '}
-                            {order.buyer_n !== null ? `${order.buyer_n} ` : null}{' '}
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+                            {order.buyer_s !== null ? `${order.buyer_s} ` : null} {order.buyer_n !== null ? `${order.buyer_n} ` : null}{' '}
                             {order.buyer_o !== null ? order.buyer_o : null}
                         </Box>
                     </Box>
@@ -75,38 +69,30 @@ function Details({order}) {
                     <Box>{order.comment}</Box>
                 </>
             ) : null}
-    </Box>
+        </Box>
     )
 }
 
 const OrderBody = ({
-                       type,
-                       order,
-                       preparing,
-                       set_preparing,
-                       printing,
-                       set_printing,
-                       emptyOrder,
-                       fetchOrder,
-                       deleteOrder,
-                       navigateTo,
-                       addContact,
-                       dispatch,
-                       uid_selected,
-                       filial,
-                   }) => {
+    type,
+    order,
+    preparing,
+    set_preparing,
+    printing,
+    set_printing,
+    emptyOrder,
+    fetchOrder,
+    deleteOrder,
+    navigateTo,
+    addContact,
+    dispatch,
+    uid_selected,
+    filial,
+}) => {
     if (preparing && order.for_payment !== null && order.for_returning !== null) {
-        return <Payment type={type} order={order}/>
+        return <Payment type={type} order={order} />
     } else if (printing) {
-        return (
-            <Printing
-                type={type}
-                printing={printing}
-                set_printing={set_printing}
-                order={order}
-                uid_selected={uid_selected}
-            />
-        )
+        return <Printing type={type} printing={printing} set_printing={set_printing} order={order} uid_selected={uid_selected} />
     } else {
         return (
             <>
@@ -119,22 +105,22 @@ const OrderBody = ({
                                 set_preparing(true)
                             }}
                         >
-                            <ReceiptIcon/>
+                            <ReceiptIcon />
                         </Button>
                         <Button variant="contained" color="secondary" onClick={fetchOrder}>
-                            <CachedIcon/>
+                            <CachedIcon />
                         </Button>
                         <Button variant="contained" color="primary" onClick={deleteOrder}>
-                            <DeleteForeverIcon/>
+                            <DeleteForeverIcon />
                         </Button>
                         <Button variant="contained" color="secondary" onClick={emptyOrder}>
-                            <CloseIcon/>
+                            <CloseIcon />
                         </Button>
                         {uid_selected.length > 0 ? (
                             <Button
                                 variant="outlined"
                                 color="secondary"
-                                sx={{marginRight: '4px'}}
+                                sx={{ marginRight: '4px' }}
                                 onClick={() => {
                                     if (type === 'cinema') {
                                         dispatch(selectUidCinema([]))
@@ -142,7 +128,7 @@ const OrderBody = ({
                                         dispatch(selectUidHoreca([]))
                                     }
                                 }}
-                                endIcon={<RemoveDoneIcon/>}
+                                endIcon={<RemoveDoneIcon />}
                             >
                                 {uid_selected.length}
                             </Button>
@@ -151,28 +137,26 @@ const OrderBody = ({
                     <Box className="order-box-panel-1-sum-number">
                         <span className="order-box-panel-1-number">{`№${order.number}`}</span>
                         <span>{order.name_creator}</span>
-                        <span className="order-box-panel-1-sum">
-              {Math.round(order.sum).toLocaleString('ru-RU')} Р
-            </span>
+                        <span className="order-box-panel-1-sum">{Math.round(order.sum).toLocaleString('ru-RU')} Р</span>
                     </Box>
                 </Box>
                 {type === 'cinema' && (
                     <>
                         <Box className="order-box-panel-2">
                             <Button
-                                sx={{marginRight: '4px'}}
+                                sx={{ marginRight: '4px' }}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => {
                                     set_printing(true)
                                 }}
                             >
-                                <LocalPrintshopIcon/>
+                                <LocalPrintshopIcon />
                             </Button>
                             <Button variant="contained" color="secondary" onClick={addContact}>
-                                <ContactMailIcon/>
+                                <ContactMailIcon />
                             </Button>
-                            <ButtonGroup size="large" sx={{marginLeft: '4px'}}>
+                            <ButtonGroup size="large" sx={{ marginLeft: '4px' }}>
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -180,12 +164,12 @@ const OrderBody = ({
                                         dispatch(
                                             openModal({
                                                 type: 'comment_order',
-                                                props: {order_type: 'cinema', action_type: 'order', order: order},
+                                                props: { order_type: 'cinema', action_type: 'order', order: order },
                                             })
                                         )
                                     }}
                                 >
-                                    <BorderColorIcon/>
+                                    <BorderColorIcon />
                                 </Button>
                                 {order.comment !== null ? (
                                     <Button
@@ -195,7 +179,7 @@ const OrderBody = ({
                                             dispatch(common_order_delete_comment(filial, 'cinema', order.uid, order.ver))
                                         }}
                                     >
-                                        <DeleteIcon/>
+                                        <DeleteIcon />
                                     </Button>
                                 ) : null}
                             </ButtonGroup>
@@ -203,18 +187,16 @@ const OrderBody = ({
                                 <Button
                                     variant="contained"
                                     color="secondary"
-                                    sx={{marginLeft: '4px'}}
+                                    sx={{ marginLeft: '4px' }}
                                     onClick={() => {
-                                        dispatch(
-                                            openModal({type: 'discounts', props: {uid_positions: uid_selected}})
-                                        )
+                                        dispatch(openModal({ type: 'discounts', props: { uid_positions: uid_selected } }))
                                     }}
                                 >
                                     Скидки
                                 </Button>
                                 {order.sum_discount !== 0 ? (
                                     <Button variant="contained" color="secondary">
-                                        <DeleteIcon/>
+                                        <DeleteIcon />
                                     </Button>
                                 ) : null}
                             </ButtonGroup>
@@ -230,7 +212,7 @@ const OrderBody = ({
                                 }}
                             >
                                 <Box className="seance-title-hall-name">
-                                    <LocationOnIcon/>
+                                    <LocationOnIcon />
                                     <span>Зал {order.hall_full_name}</span>
                                 </Box>
                                 <SeanceTitle
@@ -253,37 +235,32 @@ const OrderBody = ({
                         <Box className="order-box-panel-4">
                             <Box className="order-booking">
                                 {order.items.map((booking) => (
-                                    <BookingItem
-                                        key={booking.uid}
-                                        {...booking}
-                                        uid_order={order.uid}
-                                        uid_selected={uid_selected}
-                                    />
+                                    <BookingItem key={booking.uid} {...booking} uid_order={order.uid} uid_selected={uid_selected} />
                                 ))}
                             </Box>
-                            <Box sx={{height: '150px'}}></Box>
+                            <Box sx={{ height: '150px' }}></Box>
                         </Box>
-                        <Details order={order}/>
+                        <Details order={order} />
                     </>
                 )}
                 {type === 'horeca' && (
                     <>
                         <Box className="order-box-panel-2">
                             <Button
-                                sx={{marginRight: '4px'}}
+                                sx={{ marginRight: '4px' }}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => {
                                     set_printing(true)
                                 }}
                             >
-                                <LocalPrintshopIcon/>
+                                <LocalPrintshopIcon />
                             </Button>
                             <Button variant="contained" color="secondary" onClick={addContact}>
-                                <ContactMailIcon/>
+                                <ContactMailIcon />
                             </Button>
-                            <ButtonGroup sx={{marginLeft: '4px', marginBottom: '4px'}} size="small">
-                                <ButtonGroup sx={{marginRight: '4px'}} size="large">
+                            <ButtonGroup sx={{ marginLeft: '4px', marginBottom: '4px' }} size="small">
+                                <ButtonGroup sx={{ marginRight: '4px' }} size="large">
                                     <Button
                                         variant="contained"
                                         color="secondary"
@@ -291,24 +268,22 @@ const OrderBody = ({
                                             dispatch(
                                                 openModal({
                                                     type: 'comment_order',
-                                                    props: {order_type: 'horeca', action_type: 'order', order: order},
+                                                    props: { order_type: 'horeca', action_type: 'order', order: order },
                                                 })
                                             )
                                         }}
                                     >
-                                        <BorderColorIcon/>
+                                        <BorderColorIcon />
                                     </Button>
                                     {order.comment !== null ? (
                                         <Button
                                             variant="contained"
                                             color="secondary"
                                             onClick={() => {
-                                                dispatch(
-                                                    common_order_delete_comment(filial, 'horeca', order.uid, order.ver)
-                                                )
+                                                dispatch(common_order_delete_comment(filial, 'horeca', order.uid, order.ver))
                                             }}
                                         >
-                                            <DeleteIcon/>
+                                            <DeleteIcon />
                                         </Button>
                                     ) : null}
                                 </ButtonGroup>
@@ -320,7 +295,7 @@ const OrderBody = ({
                                             dispatch(
                                                 openModal({
                                                     type: 'table_options',
-                                                    props: {uid_order: order.uid},
+                                                    props: { uid_order: order.uid },
                                                 })
                                             )
                                         }}
@@ -335,43 +310,35 @@ const OrderBody = ({
                                                 dispatch(horeca_table_delete(filial, order.uid, order.ver))
                                             }}
                                         >
-                                            <DeleteIcon/>
+                                            <DeleteIcon />
                                         </Button>
                                     ) : null}
                                 </ButtonGroup>
                             </ButtonGroup>
-                            <Button
-                                sx={{marginLeft: '4px'}}
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => {
-                                }}
-                            >
-                                <ContentCutIcon/>
+                            <Button sx={{ marginLeft: '4px' }} variant="contained" color="secondary" onClick={() => {}}>
+                                <ContentCutIcon />
                             </Button>
                             <Button
-                                sx={{marginLeft: '4px'}}
+                                sx={{ marginLeft: '4px' }}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() =>
                                     dispatch(
                                         openModal({
                                             type: 'creator_change',
-                                            props: {uid_order: order.uid, ver: order.ver},
+                                            props: { uid_order: order.uid, ver: order.ver },
                                         })
                                     )
                                 }
                             >
-                                <PeopleOutlineIcon/>
+                                <PeopleOutlineIcon />
                             </Button>
                         </Box>
                         <Box className="order-box-panel-adv"></Box>
                         <Box className="order-box-panel-3">
                             {order.items.filter((item) => item.kitchen === null).length > 0 && (
                                 <>
-                                    <Box className={`order-box-panel-3-title-others glass`}>
-                                        Счет {order.current_number} · Не готовить
-                                    </Box>
+                                    <Box className={`order-box-panel-3-title-others glass`}>Счет {order.current_number} · Не готовить</Box>
                                     <ul className={`order-box-panel-3-list-others`}>
                                         {order.items
                                             .filter((item) => item.kitchen === null)
@@ -388,15 +355,12 @@ const OrderBody = ({
                             )}
                             {[1, 2, 3].map(
                                 (state) =>
-                                    order.items
-                                        .filter((item) => item.kitchen !== null)
-                                        .some((item) => item.kitchen.state === state) && (
+                                    order.items.filter((item) => item.kitchen !== null).some((item) => item.kitchen.state === state) && (
                                         <Fragment key={`${state}`}>
                                             <Box
                                                 className={`glass order-box-panel-3-title-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}
                                             >
-                                                Счет {order.current_number} ·{' '}
-                                                {['', 'Сообщить повару', 'Готовится', 'Приготовлено'][state]}
+                                                Счет {order.current_number} · {['', 'Сообщить повару', 'Готовится', 'Приготовлено'][state]}
                                             </Box>
                                             <ul
                                                 className={`order-box-panel-3-list-${['', 'for-kitchen', 'kitchen', 'kitchen-ready'][state]}`}
@@ -416,9 +380,9 @@ const OrderBody = ({
                                         </Fragment>
                                     )
                             )}
-                            <Box sx={{height: '150px'}}></Box>
+                            <Box sx={{ height: '150px' }}></Box>
                         </Box>
-                        <Details order={order}/>
+                        <Details order={order} />
                     </>
                 )}
             </>
@@ -445,7 +409,7 @@ const Order = () => {
     const [printing_cinema, set_printing_cinema] = useState(false)
     const [printing_horeca, set_printing_horeca] = useState(false)
 
-    const {wp, kiosk} = useSelector((state) => state.interface)
+    const { wp, kiosk } = useSelector((state) => state.interface)
 
     const seance_link = () => {
         const city = cities.find((el) => el.uid === pre_order.uid_city)
@@ -472,12 +436,12 @@ const Order = () => {
             {pre_order.in_base ? (
                 <motion.div
                     className="order-box"
-                    style={{height: horder.in_base ? '50%' : '100%'}}
+                    style={{ height: horder.in_base ? '50%' : '100%' }}
                     key={`${pre_order.uid}`}
-                    initial={{opacity: 0, y: 20}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{delay: 0.1, duration: 0.2}}
-                    exit={{opacity: 0, y: 20}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.2 }}
+                    exit={{ opacity: 0, y: 20 }}
                 >
                     <OrderBody
                         key={pre_order.ver}
@@ -486,9 +450,7 @@ const Order = () => {
                         printing={printing_cinema}
                         preparing={pre_order_preparing}
                         set_printing={set_printing_cinema}
-                        set_preparing={() =>
-                            dispatch(common_orders_receipts_get(filial, 'cinema', pre_order.uid))
-                        }
+                        set_preparing={() => dispatch(common_orders_receipts_get(filial, 'cinema', pre_order.uid))}
                         fetchOrder={() => dispatch(cinema_order_fetch(filial, pre_order.uid))}
                         deleteOrder={() =>
                             dispatch(
@@ -524,7 +486,7 @@ const Order = () => {
                             dispatch(
                                 openModal({
                                     type: 'add_contact',
-                                    props: {order_type: 'cinema', order: pre_order},
+                                    props: { order_type: 'cinema', order: pre_order },
                                 })
                             )
                         }}
@@ -537,12 +499,12 @@ const Order = () => {
             {horder.in_base ? (
                 <motion.div
                     className="order-box"
-                    style={{height: pre_order.in_base ? '50%' : '100%'}}
+                    style={{ height: pre_order.in_base ? '50%' : '100%' }}
                     key={`${horder.uid}`}
-                    initial={{opacity: 0, y: 20}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{delay: 0.1, duration: 0.2}}
-                    exit={{opacity: 0, y: 20}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.2 }}
+                    exit={{ opacity: 0, y: 20 }}
                 >
                     <OrderBody
                         key={horder.ver}
@@ -588,7 +550,7 @@ const Order = () => {
                             dispatch(
                                 openModal({
                                     type: 'add_contact',
-                                    props: {order_type: 'horeca', order: horder},
+                                    props: { order_type: 'horeca', order: horder },
                                 })
                             )
                         }}
@@ -596,7 +558,7 @@ const Order = () => {
                     />
                 </motion.div>
             ) : null}
-    </Box>
+        </Box>
     )
 }
 

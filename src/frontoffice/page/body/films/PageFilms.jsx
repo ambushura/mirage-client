@@ -1,10 +1,10 @@
-import {Box} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
+import { Box } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 import FilmCard from './FilmCard.jsx'
-import {AnimatePresence, motion} from 'framer-motion'
-import {useEffect} from 'react'
-import {cinema_films_get} from '../../../../service/fetch_service.js'
-import {cleanFilms, setFilms} from '../../../../redux/scheduleReducer.js'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { cinema_films_get } from '../../../../service/fetch_service.js'
+import { cleanFilms, setFilms } from '../../../../redux/scheduleReducer.js'
 import Order from '../../right-panel/Order.jsx'
 
 const PageFilms = () => {
@@ -23,20 +23,14 @@ const PageFilms = () => {
     const seance_canceled = useSelector((state) => state.schedule.schedule_filters_seance_canceled)
     const seance_opened = useSelector((state) => state.schedule.schedule_filters_seance_opened)
     const films_selected = useSelector((state) => state.schedule.schedule_filters_films_selected)
-    const film_copy_types_selected = useSelector(
-        (state) => state.schedule.schedule_filters_film_copy_types_selected
-    )
+    const film_copy_types_selected = useSelector((state) => state.schedule.schedule_filters_film_copy_types_selected)
     const film_age = useSelector((state) => state.schedule.schedule_filters_film_age)
     const halls_selected = useSelector((state) => state.schedule.schedule_filters_halls_selected)
     const hall_type_vip = useSelector((state) => state.schedule.schedule_filters_hall_type_vip)
-    const hall_type_regular = useSelector(
-        (state) => state.schedule.schedule_filters_hall_type_regular
-    )
+    const hall_type_regular = useSelector((state) => state.schedule.schedule_filters_hall_type_regular)
     const seance_time = useSelector((state) => state.schedule.schedule_filters_time)
     const seance_price = useSelector((state) => state.schedule.schedule_filters_price)
-    const film_types_selected = useSelector(
-        (state) => state.schedule.schedule_filters_film_types_selected
-    )
+    const film_types_selected = useSelector((state) => state.schedule.schedule_filters_film_types_selected)
 
     useEffect(() => {
         const fetch = async (f) => {
@@ -58,7 +52,7 @@ const PageFilms = () => {
                     film_types_selected.map((f) => f.uid)
                 )
             )
-            dispatch(setFilms({...fetching_result, filial: f}))
+            dispatch(setFilms({ ...fetching_result, filial: f }))
         }
         dispatch(cleanFilms())
         if (filial !== undefined) {
@@ -94,28 +88,19 @@ const PageFilms = () => {
         <Box
             id="content-box"
             style={{
-        overflowY: 'auto',
-                width:
-                    uid_user !== null && (pre_order.in_base || horder.in_base)
-                        ? 'calc(100vw - var(--order-width))'
-                        : '100vw',
+                overflowY: 'auto',
+                width: uid_user !== null && (pre_order.in_base || horder.in_base) ? 'calc(100vw - var(--order-width))' : '100vw',
             }}
         >
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Box id="content-header"></Box>
-                <Box id="content" sx={{padding: '10px 0'}}>
+                <Box id="content" sx={{ padding: '10px 0' }}>
                     <AnimatePresence>
                         {films.length > 0 && (
-                            <motion.div
-                                id="schedule"
-                                initial="hidden"
-                                animate="visible"
-                                exit="hidden"
-                                variants={containerVariants}
-                            >
+                            <motion.div id="schedule" initial="hidden" animate="visible" exit="hidden" variants={containerVariants}>
                                 {films.map((film) => (
                                     <motion.div className="film" key={film.uid} variants={itemVariants}>
-                                        <FilmCard film={film}/>
+                                        <FilmCard film={film} />
                                     </motion.div>
                                 ))}
                             </motion.div>
@@ -124,11 +109,11 @@ const PageFilms = () => {
                     </AnimatePresence>
                 </Box>
                 <Box id="content-footer"></Box>
-                <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}>
-                    <Order/>
+                <Box sx={{ position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3 }}>
+                    <Order />
                 </Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 
@@ -145,7 +130,7 @@ const containerVariants = {
 }
 
 const itemVariants = {
-    hidden: {opacity: 0, y: 20},
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,

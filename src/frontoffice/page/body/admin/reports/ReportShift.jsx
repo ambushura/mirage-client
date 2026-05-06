@@ -1,14 +1,10 @@
-import {useEffect} from 'react'
-import {Box} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {
-    cleanShift,
-    set_shiftColumnVisibilityModel,
-    setShift,
-} from '../../../../../redux/reportsReducer.js'
-import {common_reports_shift_get} from '../../../../../service/fetch_service.js'
-import {DataGridPro} from '@mui/x-data-grid-pro'
-import {ruRU} from '@mui/x-data-grid/locales'
+import { useEffect } from 'react'
+import { Box } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { cleanShift, set_shiftColumnVisibilityModel, setShift } from '../../../../../redux/reportsReducer.js'
+import { common_reports_shift_get } from '../../../../../service/fetch_service.js'
+import { DataGridPro } from '@mui/x-data-grid-pro'
+import { ruRU } from '@mui/x-data-grid/locales'
 
 const ReportShift = () => {
     const dispatch = useDispatch()
@@ -16,34 +12,22 @@ const ReportShift = () => {
     const filial = useSelector((state) => state.data.filial)
     const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
 
-    const {report_variant, update} = useSelector((state) => state.reports)
+    const { report_variant, update } = useSelector((state) => state.reports)
 
     const shift_1_columns = useSelector((state) => state.reports.shift_1.columns)
     const shift_1_rows = useSelector((state) => state.reports.shift_1.rows)
-    const shift_1_columnGroupingModel = useSelector(
-        (state) => state.reports.shift_1.columnGroupingModel
-    )
-    const shift_1_columnVisibilityModel = useSelector(
-        (state) => state.reports.shift_1_columnVisibilityModel
-    )
+    const shift_1_columnGroupingModel = useSelector((state) => state.reports.shift_1.columnGroupingModel)
+    const shift_1_columnVisibilityModel = useSelector((state) => state.reports.shift_1_columnVisibilityModel)
 
     const shift_2_columns = useSelector((state) => state.reports.shift_2.columns)
     const shift_2_rows = useSelector((state) => state.reports.shift_2.rows)
-    const shift_2_columnGroupingModel = useSelector(
-        (state) => state.reports.shift_2.columnGroupingModel
-    )
-    const shift_2_columnVisibilityModel = useSelector(
-        (state) => state.reports.shift_2_columnVisibilityModel
-    )
+    const shift_2_columnGroupingModel = useSelector((state) => state.reports.shift_2.columnGroupingModel)
+    const shift_2_columnVisibilityModel = useSelector((state) => state.reports.shift_2_columnVisibilityModel)
 
     const shift_3_columns = useSelector((state) => state.reports.shift_3.columns)
     const shift_3_rows = useSelector((state) => state.reports.shift_3.rows)
-    const shift_3_columnGroupingModel = useSelector(
-        (state) => state.reports.shift_3.columnGroupingModel
-    )
-    const shift_3_columnVisibilityModel = useSelector(
-        (state) => state.reports.shift_3_columnVisibilityModel
-    )
+    const shift_3_columnGroupingModel = useSelector((state) => state.reports.shift_3.columnGroupingModel)
+    const shift_3_columnVisibilityModel = useSelector((state) => state.reports.shift_3_columnVisibilityModel)
 
     // Загрузка данных
     useEffect(() => {
@@ -69,7 +53,7 @@ const ReportShift = () => {
                 <DataGridPro
                     hideFooter
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    rows={shift_1_rows.map((r, i) => ({...r, id: i}))}
+                    rows={shift_1_rows.map((r, i) => ({ ...r, id: i }))}
                     columns={shift_1_columns}
                     columnGroupingModel={shift_1_columnGroupingModel}
                     density="compact"
@@ -77,12 +61,10 @@ const ReportShift = () => {
                     headerHeight={30}
                     disableSelectionOnClick
                     hideFooterSelectedRowCount
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     columnVisibilityModel={shift_1_columnVisibilityModel}
                     onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
-                    getRowClassName={(params) =>
-                        params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : ''
-                    }
+                    getRowClassName={(params) => (params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : '')}
                     sx={{
                         width: 'calc(100% - 8px)',
                         margin: '0 4px 4px 4px',
@@ -105,7 +87,7 @@ const ReportShift = () => {
                 <DataGridPro
                     hideFooter
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    rows={shift_2_rows.map((r, i) => ({...r, id: i}))}
+                    rows={shift_2_rows.map((r, i) => ({ ...r, id: i }))}
                     columns={shift_2_columns}
                     columnGroupingModel={shift_2_columnGroupingModel}
                     density="compact"
@@ -113,7 +95,7 @@ const ReportShift = () => {
                     headerHeight={30}
                     disableSelectionOnClick
                     hideFooterSelectedRowCount
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     columnVisibilityModel={shift_2_columnVisibilityModel}
                     onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
                     getRowClassName={(params) => {
@@ -154,7 +136,7 @@ const ReportShift = () => {
                 <DataGridPro
                     hideFooter
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    rows={shift_3_rows.map((r, i) => ({...r, id: i}))}
+                    rows={shift_3_rows.map((r, i) => ({ ...r, id: i }))}
                     columns={shift_3_columns}
                     columnGroupingModel={shift_3_columnGroupingModel}
                     density="compact"
@@ -162,7 +144,7 @@ const ReportShift = () => {
                     headerHeight={30}
                     disableSelectionOnClick
                     hideFooterSelectedRowCount
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     columnVisibilityModel={shift_3_columnVisibilityModel}
                     onColumnVisibilityModelChange={set_shiftColumnVisibilityModel}
                     pinnedColumns={{
@@ -172,7 +154,7 @@ const ReportShift = () => {
             ) : (
                 <Box className="report-title-text">Нет данных...</Box>
             )}
-    </Box>
+        </Box>
     )
 }
 

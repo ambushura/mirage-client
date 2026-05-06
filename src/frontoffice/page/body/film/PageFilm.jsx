@@ -1,13 +1,13 @@
-import {Box, Fade} from '@mui/material'
+import { Box, Fade } from '@mui/material'
 import cover from '../../../images/cover.png'
 import SeanceCard from './SeanceCard.jsx'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../../../ui/Loader.jsx'
-import {TIMEOUT} from '../../../../redux/interfaceReducer.js'
-import {AnimatePresence, motion} from 'framer-motion'
-import {useEffect} from 'react'
-import {cinema_film_seances_get} from '../../../../service/fetch_service.js'
-import {cleanFilm, setFilm} from '../../../../redux/scheduleReducer.js'
+import { TIMEOUT } from '../../../../redux/interfaceReducer.js'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { cinema_film_seances_get } from '../../../../service/fetch_service.js'
+import { cleanFilm, setFilm } from '../../../../redux/scheduleReducer.js'
 import Order from '../../right-panel/Order.jsx'
 
 export default function PageFilm() {
@@ -26,20 +26,14 @@ export default function PageFilm() {
     const seance_canceled = useSelector((state) => state.schedule.schedule_filters_seance_canceled)
     const seance_opened = useSelector((state) => state.schedule.schedule_filters_seance_opened)
     const films_selected = useSelector((state) => state.schedule.schedule_filters_films_selected)
-    const film_copy_types_selected = useSelector(
-        (state) => state.schedule.schedule_filters_film_copy_types_selected
-    )
+    const film_copy_types_selected = useSelector((state) => state.schedule.schedule_filters_film_copy_types_selected)
     const film_age = useSelector((state) => state.schedule.schedule_filters_film_age)
     const halls_selected = useSelector((state) => state.schedule.schedule_filters_halls_selected)
     const hall_type_vip = useSelector((state) => state.schedule.schedule_filters_hall_type_vip)
-    const hall_type_regular = useSelector(
-        (state) => state.schedule.schedule_filters_hall_type_regular
-    )
+    const hall_type_regular = useSelector((state) => state.schedule.schedule_filters_hall_type_regular)
     const seance_time = useSelector((state) => state.schedule.schedule_filters_time)
     const seance_price = useSelector((state) => state.schedule.schedule_filters_price)
-    const film_types_selected = useSelector(
-        (state) => state.schedule.schedule_filters_film_types_selected
-    )
+    const film_types_selected = useSelector((state) => state.schedule.schedule_filters_film_types_selected)
 
     const pre_order = useSelector((state) => state.orders.pre_order)
     const horder = useSelector((state) => state.orders.horder)
@@ -66,7 +60,7 @@ export default function PageFilm() {
                 )
             )
             if (active) {
-                dispatch(setFilm({...result, filial: f}))
+                dispatch(setFilm({ ...result, filial: f }))
             }
         }
         let active = true
@@ -104,8 +98,8 @@ export default function PageFilm() {
 
     if (film_seances.length > 0 && film !== null) {
         return (
-            <Box id="content-box" sx={{overflowY: 'auto'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box id="content-box" sx={{ overflowY: 'auto' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Box id="content-header"></Box>
                     <Box id="content">
                         <Box className="seances-body-poster">
@@ -115,8 +109,7 @@ export default function PageFilm() {
                                     src={
                                         film.cover_link === ''
                                             ? cover
-                                            : `http://${city.filials[0].media_ip}:${city.filials[0].media_port}` +
-                                            film.cover_link
+                                            : `http://${city.filials[0].media_ip}:${city.filials[0].media_port}` + film.cover_link
                                     }
                                     alt={film.name}
                                 />
@@ -130,39 +123,23 @@ export default function PageFilm() {
                                     <Box>{film.description}</Box>
                                 </Box>
                                 {film_seances.map((filial_data) => {
-                                    if (
-                                        !filial_data.loading &&
-                                        filial_data.error !== null &&
-                                        filial_data.data === null
-                                    ) {
+                                    if (!filial_data.loading && filial_data.error !== null && filial_data.data === null) {
                                         return (
                                             <Box className="seances-body-filial" key={filial_data.filial.uid}>
-                                                <Box
-                                                    className="seances-body-filial-name">{filial_data.filial.name}</Box>
+                                                <Box className="seances-body-filial-name">{filial_data.filial.name}</Box>
+                                                <Box className="seances-body-seances">Не могу загрузить фильмы для этого филиала...</Box>
+                                            </Box>
+                                        )
+                                    } else if (filial_data.loading && filial_data.error === null && filial_data.data === null) {
+                                        return (
+                                            <Box className="seances-body-filial" key={filial_data.filial.uid}>
+                                                <Box className="seances-body-filial-name">{filial_data.filial.name}</Box>
                                                 <Box className="seances-body-seances">
-                                                    Не могу загрузить фильмы для этого филиала...
+                                                    <Loader key={filial_data.filial.uid} />
                                                 </Box>
                                             </Box>
                                         )
-                                    } else if (
-                                        filial_data.loading &&
-                                        filial_data.error === null &&
-                                        filial_data.data === null
-                                    ) {
-                                        return (
-                                            <Box className="seances-body-filial" key={filial_data.filial.uid}>
-                                                <Box
-                                                    className="seances-body-filial-name">{filial_data.filial.name}</Box>
-                                                <Box className="seances-body-seances">
-                                                    <Loader key={filial_data.filial.uid}/>
-                                                </Box>
-                                            </Box>
-                                        )
-                                    } else if (
-                                        !filial_data.loading &&
-                                        filial_data.error === null &&
-                                        filial_data.data !== null
-                                    ) {
+                                    } else if (!filial_data.loading && filial_data.error === null && filial_data.data !== null) {
                                         return (
                                             <Fade
                                                 key={filial_data.filial.uid}
@@ -171,8 +148,7 @@ export default function PageFilm() {
                                                 unmountOnExit
                                             >
                                                 <Box className="seances-body-filial">
-                                                    <Box
-                                                        className="seances-body-filial-name">{filial_data.filial.name}</Box>
+                                                    <Box className="seances-body-filial-name">{filial_data.filial.name}</Box>
                                                     <AnimatePresence>
                                                         {filial_data.data.seances.length > 0 && (
                                                             <motion.div
@@ -216,8 +192,8 @@ export default function PageFilm() {
                         </Box>
                     </Box>
                     <Box id="content-footer"></Box>
-                    <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}>
-                        <Order/>
+                    <Box sx={{ position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3 }}>
+                        <Order />
                     </Box>
                 </Box>
             </Box>
@@ -236,7 +212,7 @@ const containerVariants = {
 }
 
 const itemVariants = {
-    hidden: {opacity: 0, y: 20},
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,

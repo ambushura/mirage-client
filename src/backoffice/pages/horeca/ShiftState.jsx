@@ -1,26 +1,18 @@
-import {useMemo} from 'react'
-import {Box} from '@mui/material'
-import {useSelector} from 'react-redux'
-import {DataGridPro, useGridApiRef} from '@mui/x-data-grid-pro'
-import {ruRU} from '@mui/x-data-grid/locales'
+import { useMemo } from 'react'
+import { Box } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro'
+import { ruRU } from '@mui/x-data-grid/locales'
 
 const ShiftState = () => {
     const apiRef = useGridApiRef()
 
-    const {shift_state_loading, shift_state, shift_state_expended} = useSelector(
-        (state) => state.center_horeca
-    )
+    const { shift_state_loading, shift_state, shift_state_expended } = useSelector((state) => state.center_horeca)
 
     const rows = useMemo(() => shift_state?.rows ?? [], [shift_state?.rows])
     const columns = useMemo(() => shift_state?.columns ?? [], [shift_state?.columns])
-    const column_grouping_model = useMemo(
-        () => shift_state?.column_grouping_model ?? [],
-        [shift_state?.column_grouping_model]
-    )
-    const column_visibility_model = useMemo(
-        () => shift_state?.column_visibility_model ?? {},
-        [shift_state?.column_visibility_model]
-    )
+    const column_grouping_model = useMemo(() => shift_state?.column_grouping_model ?? [], [shift_state?.column_grouping_model])
+    const column_visibility_model = useMemo(() => shift_state?.column_visibility_model ?? {}, [shift_state?.column_visibility_model])
 
     return (
         <Box
@@ -61,10 +53,9 @@ const ShiftState = () => {
                 onCellDoubleClick={() => {
                     alert('Привет')
                 }}
-                onRowSelectionModelChange={() => {
-                }}
+                onRowSelectionModelChange={() => {}}
             />
-    </Box>
+        </Box>
     )
 }
 

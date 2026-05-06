@@ -1,6 +1,6 @@
-import {useEffect} from 'react'
-import {setAppHeight, setAppWidth} from '../../redux/interfaceReducer.js'
-import {useDispatch} from 'react-redux'
+import { useEffect } from 'react'
+import { setAppHeight, setAppWidth } from '../../redux/interfaceReducer.js'
+import { useDispatch } from 'react-redux'
 
 export function useSetSizeWindow() {
     const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import {Box, Button, ButtonGroup, Skeleton} from '@mui/material'
+import { Box, Button, ButtonGroup, Skeleton } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SaveIcon from '@mui/icons-material/Save'
@@ -6,7 +6,7 @@ import ControlledDateTimePicker from '../ui/ControlledDateTimePicker.jsx'
 import ControlledTextField from '../ui/ControlledTextField.jsx'
 
 // Подвал документа
-export function Footer({control, creator, saveButton, copyButton, deleteButton}) {
+export function Footer({ control, creator, saveButton, copyButton, deleteButton }) {
     return (
         <Box
             sx={{
@@ -16,50 +16,33 @@ export function Footer({control, creator, saveButton, copyButton, deleteButton})
                 justifyContent: 'space-between',
             }}
         >
-            <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                 {[
-                    {f: 'date_create', n: 'Создан'},
-                    {f: 'date_change', n: 'Изменен'},
+                    { f: 'date_create', n: 'Создан' },
+                    { f: 'date_change', n: 'Изменен' },
                 ].map((el, i) => (
-                    <ControlledDateTimePicker
-                        key={i}
-                        readOnly={true}
-                        control={control}
-                        name={el.f}
-                        label={el.n}
-                        sx={{mr: '10px'}}
-                    />
+                    <ControlledDateTimePicker key={i} readOnly={true} control={control} name={el.f} label={el.n} sx={{ mr: '10px' }} />
                 ))}
-                {creator && (
-                    <ControlledTextField
-                        control={control}
-                        name={'name_creator'}
-                        label={'Автор'}
-                        multiline
-                        sx={{mr: '10px'}}
-                    />
-                )}
+                {creator && <ControlledTextField control={control} name={'name_creator'} label={'Автор'} multiline sx={{ mr: '10px' }} />}
             </Box>
-            <ButtonGroup
-                sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', flexWrap: 'wrap'}}
-            >
+            <ButtonGroup sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
                 {deleteButton && (
-                    <Button variant="delete" startIcon={<DeleteForeverIcon/>}>
+                    <Button variant="delete" startIcon={<DeleteForeverIcon />}>
                         Удалить
                     </Button>
                 )}
                 {copyButton && (
-                    <Button variant="copy" startIcon={<ContentCopyIcon/>}>
+                    <Button variant="copy" startIcon={<ContentCopyIcon />}>
                         Скопировать
                     </Button>
                 )}
                 {saveButton && (
-                    <Button variant="save" startIcon={<SaveIcon/>}>
+                    <Button variant="save" startIcon={<SaveIcon />}>
                         Сохранить
                     </Button>
                 )}
             </ButtonGroup>
-    </Box>
+        </Box>
     )
 }
 
@@ -76,17 +59,17 @@ export function LoaderOrder() {
                 p: 2,
             }}
         >
-            <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
-            <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
-            <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
-            <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
-            <Skeleton variant="rectangular" sx={{width: '100%', height: 'calc(100% / 5)', mb: 2}}/>
-    </Box>
+            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
+            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
+            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
+            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
+            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
+        </Box>
     )
 }
 
 // Табличные части
-export function TableToolbar({left = [], right = []}) {
+export function TableToolbar({ left = [], right = [] }) {
     return (
         <Box className="center-toolbar">
             <Box>
@@ -97,7 +80,7 @@ export function TableToolbar({left = [], right = []}) {
                         variant={btn.variant || 'tb_add'}
                         size="small"
                         startIcon={btn.icon}
-                        sx={{mr: 1}}
+                        sx={{ mr: 1 }}
                     >
                         {btn.label}
                     </Button>
@@ -111,13 +94,13 @@ export function TableToolbar({left = [], right = []}) {
                         variant={btn.variant || 'tb_delete'}
                         size="small"
                         startIcon={btn.icon}
-                        sx={{ml: 1}}
+                        sx={{ ml: 1 }}
                     >
                         {btn.label}
                     </Button>
                 ))}
             </Box>
-    </Box>
+        </Box>
     )
 }
 
@@ -135,20 +118,14 @@ export const FillNameMap = (tables) => {
             Object.entries(row).forEach(([key, value]) => {
                 const type = FIELD_TYPE_MAP[key]
                 if (!type || !value) return
-                map.set(`${type}-${value}`, {type, value})
+                map.set(`${type}-${value}`, { type, value })
             })
         })
     })
     return [...map.values()]
 }
 
-export const AutoCompleteCols = [
-    'uid_good',
-    'uid_payment_type',
-    'uid_discount',
-    'uid_store',
-    'kitchen_uid_store',
-]
+export const AutoCompleteCols = ['uid_good', 'uid_payment_type', 'uid_discount', 'uid_store', 'kitchen_uid_store']
 export const DateTimeCols = ['date_create', 'date_change', 'date_shift']
 export const MapTypes = {
     uid_good: 'goods',

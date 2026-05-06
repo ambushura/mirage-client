@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     booking: [],
@@ -14,16 +14,16 @@ const initialState = {
     schedule_filters_films: [],
     schedule_filters_halls: [],
     schedule_filters_film_types: [
-        {uid: 'mirage', title: 'Мираж Синема'},
+        { uid: 'mirage', title: 'Мираж Синема' },
         {
             uid: 'toKino',
             title: 'То Кино!',
         },
-        {uid: 'pushkarta', title: 'Пушкинская карта'},
+        { uid: 'pushkarta', title: 'Пушкинская карта' },
     ],
     schedule_filters_film_copy_types: [
-        {uid: '2D', title: '2D'},
-        {uid: '3D', title: '3D'},
+        { uid: '2D', title: '2D' },
+        { uid: '3D', title: '3D' },
     ],
 
     // Фильтры расписания (загруженные)
@@ -43,12 +43,12 @@ const initialState = {
 
     // Внешний отбор
     schedule_filters_film_types_selected: [
-        {uid: 'mirage', title: 'Мираж Синема'},
+        { uid: 'mirage', title: 'Мираж Синема' },
         {
             uid: 'toKino',
             title: 'То Кино!',
         },
-        {uid: 'pushkarta', title: 'Пушкинская карта'},
+        { uid: 'pushkarta', title: 'Пушкинская карта' },
     ],
 
     // Ползунки
@@ -76,15 +76,9 @@ export const scheduleSlice = createSlice({
             state.films = []
         },
         setFilms: (state, action) => {
-            if (
-                !action.payload.loading &&
-                action.payload.error === null &&
-                action.payload.data !== null
-            ) {
+            if (!action.payload.loading && action.payload.error === null && action.payload.data !== null) {
                 const merged = [...state.films, ...action.payload.data]
-                state.films = merged.filter(
-                    (film, index, self) => index === self.findIndex((f) => f.uid === film.uid)
-                )
+                state.films = merged.filter((film, index, self) => index === self.findIndex((f) => f.uid === film.uid))
             }
         },
         cleanFilm: (state) => {
@@ -93,11 +87,7 @@ export const scheduleSlice = createSlice({
         },
         setFilm: (state, action) => {
             state.film_seances = [...state.film_seances, action.payload]
-            if (
-                !action.payload.loading &&
-                action.payload.error === null &&
-                action.payload.data !== null
-            ) {
+            if (!action.payload.loading && action.payload.error === null && action.payload.data !== null) {
                 state.film = action.payload.data.film
             }
         },
@@ -130,9 +120,7 @@ export const scheduleSlice = createSlice({
             state.schedule_filters_films_selected = action.payload
         },
         setScheduleFiltersFilmTypesSelect: (state, action) => {
-            const exists = state.schedule_filters_film_types_selected.find(
-                (el) => el.uid === action.payload.uid
-            )
+            const exists = state.schedule_filters_film_types_selected.find((el) => el.uid === action.payload.uid)
             state.schedule_filters_film_types_selected = exists
                 ? state.schedule_filters_film_types_selected.filter((el) => el.uid !== action.payload.uid)
                 : [...state.schedule_filters_film_types_selected, action.payload]

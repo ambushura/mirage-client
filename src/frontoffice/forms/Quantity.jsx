@@ -1,16 +1,16 @@
-import {Box, Button, Typography} from '@mui/material'
-import {closeModal} from '../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {useState} from 'react'
-import {horeca_position_add_quantity} from '../../service/fetch_service.js'
-import {addNotification} from '../../redux/notifierReducer.js'
+import { Box, Button, Typography } from '@mui/material'
+import { closeModal } from '../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { horeca_position_add_quantity } from '../../service/fetch_service.js'
+import { addNotification } from '../../redux/notifierReducer.js'
 
 const Quantity = (props) => {
     const dispatch = useDispatch()
 
     const filial = useSelector((state) => state.data.filial)
 
-    const {uid_order, uid_position, fraction, unit_name, unit_code, v, quantity, ver} = props.props
+    const { uid_order, uid_position, fraction, unit_name, unit_code, v, quantity, ver } = props.props
 
     const [countStr, setCountStr] = useState('')
 
@@ -47,15 +47,8 @@ const Quantity = (props) => {
     }
 
     return (
-        <Box
-            id="modal-quantity"
-            component="form"
-            noValidate
-            autoComplete="off"
-            sx={{p: 1, width: 300}}
-            onSubmit={handleSubmit}
-        >
-            <Typography variant="h6" color="textSecondary" sx={{mb: 1}}>
+        <Box id="modal-quantity" component="form" noValidate autoComplete="off" sx={{ p: 1, width: 300 }} onSubmit={handleSubmit}>
+            <Typography variant="h6" color="textSecondary" sx={{ mb: 1 }}>
                 Текущее количество
             </Typography>
             <Box
@@ -71,7 +64,7 @@ const Quantity = (props) => {
             >
                 {quantity.toFixed(3)} {unit_name}
             </Box>
-            <Typography variant="h6" color="textSecondary" sx={{mb: 1}}>
+            <Typography variant="h6" color="textSecondary" sx={{ mb: 1 }}>
                 Новое количество
             </Typography>
             <Box
@@ -99,48 +92,32 @@ const Quantity = (props) => {
                         key={num}
                         variant="contained"
                         color="secondary"
-                        sx={{fontSize: '150%'}}
+                        sx={{ fontSize: '150%' }}
                         onClick={() => handleClick(num.toString())}
                     >
                         {num}
                     </Button>
                 ))}
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: '150%'}}
-                    onClick={() => handleClick('0')}
-                >
+                <Button variant="contained" color="secondary" sx={{ fontSize: '150%' }} onClick={() => handleClick('0')}>
                     0
                 </Button>
                 <Button
                     variant="contained"
                     color="secondary"
-                    sx={{fontSize: '150%'}}
+                    sx={{ fontSize: '150%' }}
                     onClick={() => handleClick('.')}
                     disabled={!fraction}
                 >
                     .
                 </Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: '150%'}}
-                    onClick={handleBackspace}
-                >
+                <Button variant="contained" color="secondary" sx={{ fontSize: '150%' }} onClick={handleBackspace}>
                     ←
                 </Button>
-                <Button
-                    type="submit"
-                    autoFocus
-                    variant="contained"
-                    color="secondary"
-                    sx={{fontSize: '120%', gridColumn: 'span 3'}}
-                >
+                <Button type="submit" autoFocus variant="contained" color="secondary" sx={{ fontSize: '120%', gridColumn: 'span 3' }}>
                     Сохранить
                 </Button>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

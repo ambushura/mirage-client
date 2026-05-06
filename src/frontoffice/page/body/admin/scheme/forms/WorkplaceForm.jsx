@@ -1,18 +1,18 @@
-import {Box, Button, Skeleton, Typography} from '@mui/material'
-import {useEffect, useState} from 'react'
+import { Box, Button, Skeleton, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 import {
     ROUTE_EQUIPMENT_WORKPLACE_RESET,
     ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
     ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
 } from '../../../../../../service/fetch_routes.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {resetWP, turnOffWP, turnOnWP} from '../../../../../../redux/interfaceReducer.js'
-import {useForm} from 'react-hook-form'
-import {common_catalog_get} from '../../../../../../service/fetch_service.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetWP, turnOffWP, turnOnWP } from '../../../../../../redux/interfaceReducer.js'
+import { useForm } from 'react-hook-form'
+import { common_catalog_get } from '../../../../../../service/fetch_service.js'
 import ControlledTextField from '../../../../../../ui/ControlledTextField.jsx'
 import ControlledSwitch from '../../../../../../ui/ControlledSwitch.jsx'
 
-export function WorkplaceForm({props}) {
+export function WorkplaceForm({ props }) {
     // Служебные функции
     const dispatch = useDispatch()
 
@@ -24,12 +24,10 @@ export function WorkplaceForm({props}) {
     const [loading, set_loading] = useState(true)
 
     // Триггеры сохранения/удаления документа
-    const {trigger_submit_workplace, trigger_delete_workplace} = useSelector(
-        (state) => state.equipment
-    )
+    const { trigger_submit_workplace, trigger_delete_workplace } = useSelector((state) => state.equipment)
 
     // Форма
-    const {handleSubmit, setValue, control, reset, watch} = useForm({
+    const { handleSubmit, setValue, control, reset, watch } = useForm({
         defaultValues: {
             name: '',
         },
@@ -43,9 +41,7 @@ export function WorkplaceForm({props}) {
                 if (props.uid === 'new') {
                     reset()
                 } else {
-                    const data = await dispatch(
-                        common_catalog_get(filial, 'workplace', props.uid, param_date)
-                    )
+                    const data = await dispatch(common_catalog_get(filial, 'workplace', props.uid, param_date))
                     if (data?.data) {
                         reset({
                             ...data.data,
@@ -83,7 +79,7 @@ export function WorkplaceForm({props}) {
             route: ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
             param: {},
         },
-        {id: 1, name: 'Перезагрузить', route: ROUTE_EQUIPMENT_WORKPLACE_RESET, param: {}},
+        { id: 1, name: 'Перезагрузить', route: ROUTE_EQUIPMENT_WORKPLACE_RESET, param: {} },
         {
             id: 2,
             name: 'Выключить',
@@ -93,11 +89,11 @@ export function WorkplaceForm({props}) {
     ])
 
     if (loading) {
-        return <Loader/>
+        return <Loader />
     } else {
         return (
             <Box
-                sx={{padding: '10px'}}
+                sx={{ padding: '10px' }}
                 id="modal-workplace"
                 component="form"
                 noValidate
@@ -107,17 +103,17 @@ export function WorkplaceForm({props}) {
                 <Typography variant="h6" color="textSecondary" margin={1}>
                     {props.kiosk ? 'Киоск самообслуживания' : 'Рабочее место'}
                 </Typography>
-                <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-                    <ControlledTextField sx={{flex: 1}} control={control} name="name" label="Имя"/>
-                    <ControlledSwitch control={control} name="kiosk" label="Это киоск" color="secondary"/>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <ControlledTextField sx={{ flex: 1 }} control={control} name="name" label="Имя" />
+                    <ControlledSwitch control={control} name="kiosk" label="Это киоск" color="secondary" />
                 </Box>
-                <Box sx={{flex: 1, marginLeft: '5px', display: 'flex', flexDirection: 'column'}}>
+                <Box sx={{ flex: 1, marginLeft: '5px', display: 'flex', flexDirection: 'column' }}>
                     {fast_commands.map((el) => {
                         return (
                             <Button
                                 variant="outlined"
                                 color="secondary"
-                                sx={{marginBottom: '5px'}}
+                                sx={{ marginBottom: '5px' }}
                                 fullWidth
                                 key={el.id}
                                 onClick={() => {
@@ -146,24 +142,24 @@ export function WorkplaceForm({props}) {
 
 function Loader() {
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column'}}>
-            <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '10px'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px'}}>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
-                    <Skeleton variant="text" width={'100%'} height={40}/>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: '10px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, marginRight: '5px' }}>
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
+                    <Skeleton variant="text" width={'100%'} height={40} />
                 </Box>
             </Box>
-            <Skeleton variant="rectangular" width={'615px'} height={50}/>
-    </Box>
+            <Skeleton variant="rectangular" width={'615px'} height={50} />
+        </Box>
     )
 }

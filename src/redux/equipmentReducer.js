@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     // ККТ
@@ -16,27 +16,15 @@ export const equipmentSlice = createSlice({
     name: 'equipment',
     initialState,
     reducers: {
-        setUidKKT: (state, {payload}) => {
-        },
-        setTriggerSubmitKKT: (state, {payload}) => {
-        },
-        setTriggerDeleteKKT: (state, {payload}) => {
-        },
-        setUidPinpad: (state, {payload}) => {
-        },
-        setTriggerSubmitPinpad: (state, {payload}) => {
-        },
-        setTriggerDeletePinpad: (state, {payload}) => {
-        },
+        setUidKKT: (state, { payload }) => {},
+        setTriggerSubmitKKT: (state, { payload }) => {},
+        setTriggerDeleteKKT: (state, { payload }) => {},
+        setUidPinpad: (state, { payload }) => {},
+        setTriggerSubmitPinpad: (state, { payload }) => {},
+        setTriggerDeletePinpad: (state, { payload }) => {},
     },
 })
 
-export const {
-    setUidKKT,
-    setTriggerSubmitKKT,
-    setTriggerDeleteKKT,
-    setUidPinpad,
-    setTriggerSubmitPinpad,
-    setTriggerDeletePinpad,
-} = equipmentSlice.actions
+export const { setUidKKT, setTriggerSubmitKKT, setTriggerDeleteKKT, setUidPinpad, setTriggerSubmitPinpad, setTriggerDeletePinpad } =
+    equipmentSlice.actions
 export default equipmentSlice.reducer

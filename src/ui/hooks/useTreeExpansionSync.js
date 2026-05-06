@@ -1,28 +1,19 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 
-export const useTreeExpansionSync = ({
-                                         apiRef,
-                                         rows,
-                                         expanded,
-                                         set_expanded,
-                                         defaultLevel = 2,
-                                     }) => {
+export const useTreeExpansionSync = ({ apiRef, rows, expanded, set_expanded, defaultLevel = 2 }) => {
     useEffect(() => {
         if (!apiRef?.current) return
-        const unsubscribe = apiRef.current.subscribeEvent(
-            'rowExpansionChange',
-            ({id, childrenExpanded}) => {
-                let next = [...expanded]
-                if (childrenExpanded) {
-                    if (!next.includes(id)) {
-                        next.push(id)
-                    }
-                } else {
-                    next = next.filter((x) => x !== id)
+        const unsubscribe = apiRef.current.subscribeEvent('rowExpansionChange', ({ id, childrenExpanded }) => {
+            let next = [...expanded]
+            if (childrenExpanded) {
+                if (!next.includes(id)) {
+                    next.push(id)
                 }
-                set_expanded(next)
+            } else {
+                next = next.filter((x) => x !== id)
             }
-        )
+            set_expanded(next)
+        })
         return () => unsubscribe?.()
     }, [apiRef, expanded])
 

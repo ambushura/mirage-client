@@ -1,13 +1,13 @@
 import cover from '../../../images/cover.png'
-import {useSelector} from 'react-redux'
-import {Box} from '@mui/material'
-import {NavLink} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Box } from '@mui/material'
+import { NavLink } from 'react-router-dom'
 
 const FilmCard = (props) => {
     const city = useSelector((state) => state.data.city)
     const filial = useSelector((state) => state.data.filial)
     const param_date = useSelector((state) => state.interface.params.param_date)
-    const {wp, kiosk} = useSelector((state) => state.interface)
+    const { wp, kiosk } = useSelector((state) => state.interface)
 
     return (
         <NavLink
@@ -31,7 +31,7 @@ const FilmCard = (props) => {
                 <Box className="film-description-name">{props.film.name}</Box>
                 <Box className="film-description-genre">{props.film.duration} мин.</Box>
             </Box>
-    </NavLink>
+        </NavLink>
     )
 }
 

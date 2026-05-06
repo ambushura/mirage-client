@@ -1,19 +1,10 @@
-import {
-    Box,
-    Button,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography,
-} from '@mui/material'
-import {closeModal} from '../../redux/interfaceReducer.js'
-import {useDispatch, useSelector} from 'react-redux'
-import {useState} from 'react'
-import {cinema_seance_close} from '../../service/fetch_service.js'
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { closeModal } from '../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { cinema_seance_close } from '../../service/fetch_service.js'
 
-export default function SeanceCancellation({props}) {
+export default function SeanceCancellation({ props }) {
     const dispatch = useDispatch()
 
     const filial = useSelector((state) => state.data.filial)
@@ -23,19 +14,19 @@ export default function SeanceCancellation({props}) {
             uid: 0,
             name: '1 - Нет проданных билетов',
         },
-        {uid: 1, name: '2 - Зрители не пришли'},
-        {uid: 2, name: '3 - Эвакуация'},
+        { uid: 1, name: '2 - Зрители не пришли' },
+        { uid: 2, name: '3 - Эвакуация' },
         {
             uid: 3,
             name: '4 - Поломка звука в зале',
         },
-        {uid: 4, name: '5 - Поломка проектора в зале'},
-        {uid: 5, name: '6 - Отключение электричества в зале'},
+        { uid: 4, name: '5 - Поломка проектора в зале' },
+        { uid: 5, name: '6 - Отключение электричества в зале' },
         {
             uid: 6,
             name: '8 - Потоп',
         },
-        {uid: 7, name: '9 - Прочее'},
+        { uid: 7, name: '9 - Прочее' },
     ])
     const [current_cancellation_reason, set_current_cancellation_reason] = useState(null)
     const [comment, set_comment] = useState(null)
@@ -47,15 +38,7 @@ export default function SeanceCancellation({props}) {
             noValidate
             onSubmit={async (e) => {
                 e.preventDefault()
-                await dispatch(
-                    cinema_seance_close(
-                        filial,
-                        props.uid_seance,
-                        current_cancellation_reason,
-                        comment,
-                        props.ver
-                    )
-                )
+                await dispatch(cinema_seance_close(filial, props.uid_seance, current_cancellation_reason, comment, props.ver))
                 await dispatch(closeModal())
             }}
             sx={{
@@ -65,11 +48,11 @@ export default function SeanceCancellation({props}) {
                 justifyContent: 'space-between',
                 minWidth: '400px',
             }}
-    >
+        >
             <Typography variant="h6" color="textSecondary" margin={1}>
                 Отмена сеанса
             </Typography>
-            <FormControl variant="filled" sx={{m: 1, minWidth: 'inherit'}}>
+            <FormControl variant="filled" sx={{ m: 1, minWidth: 'inherit' }}>
                 <InputLabel id="cancellations-reasons-select-label">Причина отмены сеанса</InputLabel>
                 <Select
                     onChange={(event) => {
@@ -82,11 +65,7 @@ export default function SeanceCancellation({props}) {
                     variant="filled"
                 >
                     {cancellation_reasons.map((cancellation_reason) => (
-                        <MenuItem
-                            sx={{color: 'black'}}
-                            key={cancellation_reason.uid}
-                            value={cancellation_reason.uid}
-                        >
+                        <MenuItem sx={{ color: 'black' }} key={cancellation_reason.uid} value={cancellation_reason.uid}>
                             {cancellation_reason.name}
                         </MenuItem>
                     ))}
@@ -94,7 +73,7 @@ export default function SeanceCancellation({props}) {
             </FormControl>
             <TextField
                 label="Комментарий"
-                sx={{m: 1, minWidth: 'inherit'}}
+                sx={{ m: 1, minWidth: 'inherit' }}
                 variant="filled"
                 color="textSecondary"
                 multiline
@@ -103,9 +82,9 @@ export default function SeanceCancellation({props}) {
                     set_comment(event.target.value)
                 }}
             />
-            <Button sx={{m: 1, minWidth: 'inherit'}} variant="contained" color="primary" type="submit">
+            <Button sx={{ m: 1, minWidth: 'inherit' }} variant="contained" color="primary" type="submit">
                 Отменить сеанс
             </Button>
-    </Box>
+        </Box>
     )
 }

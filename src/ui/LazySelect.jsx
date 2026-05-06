@@ -1,22 +1,22 @@
-import {useEffect, useMemo, useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {Autocomplete, CircularProgress, TextField} from '@mui/material'
-import {common_lazy_list_get} from '../service/fetch_service.js'
+import { useEffect, useMemo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Autocomplete, CircularProgress, TextField } from '@mui/material'
+import { common_lazy_list_get } from '../service/fetch_service.js'
 
 export default function LazySelect({
-                                       label,
-                                       value,
-                                       type,
-                                       filial,
-                                       onChange,
-                                       getLabel = (item) => item.title,
-                                       getValue = (item) => item.uid,
-                                       extraFields = [],
-                                       optionsStatic = null,
-                                       disabled = false,
-                                       sx,
-                                       readOnly = false,
-                                   }) {
+    label,
+    value,
+    type,
+    filial,
+    onChange,
+    getLabel = (item) => item.title,
+    getValue = (item) => item.uid,
+    extraFields = [],
+    optionsStatic = null,
+    disabled = false,
+    sx,
+    readOnly = false,
+}) {
     const dispatch = useDispatch()
     const [options, setOptions] = useState([])
     const [loading, setLoading] = useState(false)
@@ -45,7 +45,7 @@ export default function LazySelect({
         const base = optionsStatic || options
         if (!value) return base
         const exists = base.some((o) => getValue(o) === value)
-        return exists ? base : [{uid: value, title: 'Объект не найден…'}, ...base]
+        return exists ? base : [{ uid: value, title: 'Объект не найден…' }, ...base]
     }, [options, optionsStatic, value])
 
     const currentItem = allOptions.find((o) => getValue(o) === value) || null
@@ -79,7 +79,7 @@ export default function LazySelect({
                 <li
                     {...props}
                     key={getValue(option)}
-                    style={option.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}
+                    style={option.title === 'Объект не найден…' ? { opacity: 0.6, fontStyle: 'italic' } : {}}
                 >
                     {option.title}
                 </li>
@@ -93,7 +93,7 @@ export default function LazySelect({
                         ...params.InputProps,
                         endAdornment: (
                             <>
-                                {loading ? <CircularProgress color="inherit" size={20}/> : null}
+                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
                                 {params.InputProps.endAdornment}
                             </>
                         ),

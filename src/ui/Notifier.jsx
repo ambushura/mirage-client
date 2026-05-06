@@ -1,13 +1,13 @@
-import {useDispatch, useSelector} from 'react-redux'
-import {Alert, Snackbar} from '@mui/material'
-import {removeNotification} from '../redux/notifierReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { Alert, Snackbar } from '@mui/material'
+import { removeNotification } from '../redux/notifierReducer.js'
 
 const Notifier = () => {
     const notifications = useSelector((state) => state.notifier.notifications)
     const dispatch = useDispatch()
     return (
         <>
-            {notifications.map(({id, message, severity, autoHide}, index) => (
+            {notifications.map(({ id, message, severity, autoHide }, index) => (
                 <Snackbar
                     key={id}
                     open={true}
@@ -17,19 +17,15 @@ const Notifier = () => {
                             dispatch(removeNotification(id))
                         }
                     }}
-                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                    sx={{marginBottom: `${index * 60 + 16}px`}}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    sx={{ marginBottom: `${index * 60 + 16}px` }}
                 >
-                    <Alert
-                        onClose={() => dispatch(removeNotification(id))}
-                        severity={severity}
-                        variant="filled"
-                    >
+                    <Alert onClose={() => dispatch(removeNotification(id))} severity={severity} variant="filled">
                         {message}
                     </Alert>
                 </Snackbar>
             ))}
-    </>
+        </>
     )
 }
 

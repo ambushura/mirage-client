@@ -1,7 +1,7 @@
-import {useSelector} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT} from '../../../redux/interfaceReducer.js'
-import {WhiteMenuItem} from '../../../ui/ThemeContext.jsx'
+import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT } from '../../../redux/interfaceReducer.js'
+import { WhiteMenuItem } from '../../../ui/ThemeContext.jsx'
 
 const Filial = (props) => {
     const current_page = useSelector((state) => state.interface.current_page)
@@ -22,7 +22,7 @@ const Filial = (props) => {
             >
                 {props.filial.uid === undefined ? 'Все кинотеатры' : props.filial.name}
             </WhiteMenuItem>
-    </NavLink>
+        </NavLink>
     )
 }
 

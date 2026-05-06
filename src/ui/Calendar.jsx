@@ -1,9 +1,9 @@
-import {DateCalendar} from '@mui/x-date-pickers'
-import {useState} from 'react'
+import { DateCalendar } from '@mui/x-date-pickers'
+import { useState } from 'react'
 import dayjs from 'dayjs'
-import {get_date_shift} from './hooks/common_functions.js'
+import { get_date_shift } from './hooks/common_functions.js'
 
-const Calendar = ({value, handleOnChahge}) => {
+const Calendar = ({ value, handleOnChahge }) => {
     const [viewMonth, setViewMonth] = useState(value)
     return (
         <DateCalendar
@@ -26,13 +26,13 @@ const Calendar = ({value, handleOnChahge}) => {
                 },
             }}
             slotProps={{
-                desktopPaper: {sx: {backgroundColor: '#393a3b'}},
-                mobilePaper: {sx: {backgroundColor: '#393a3b'}},
-                layout: {sx: {backgroundColor: '#393a3b', borderRadius: '10px'}},
+                desktopPaper: { sx: { backgroundColor: '#393a3b' } },
+                mobilePaper: { sx: { backgroundColor: '#393a3b' } },
+                layout: { sx: { backgroundColor: '#393a3b', borderRadius: '10px' } },
                 day: {
                     sx: {
                         backgroundColor: '#1C1F23',
-                        '&:hover': {backgroundColor: '#282a2e'},
+                        '&:hover': { backgroundColor: '#282a2e' },
                         borderRadius: '12px',
                         fontWeight: 'bold',
                         color: 'white',
@@ -44,14 +44,14 @@ const Calendar = ({value, handleOnChahge}) => {
                         textTransform: 'capitalize',
                     },
                 },
-                monthButton: {sx: {backgroundColor: 'white'}},
-                yearButton: {sx: {backgroundColor: '#1C1F23', color: 'white'}},
-                openPickerIcon: {sx: {padding: '10px', marginRight: '20px'}},
+                monthButton: { sx: { backgroundColor: 'white' } },
+                yearButton: { sx: { backgroundColor: '#1C1F23', color: 'white' } },
+                openPickerIcon: { sx: { padding: '10px', marginRight: '20px' } },
                 previousIconButton: {
                     sx: {
                         borderRadius: '16px',
                         backgroundColor: '#2e3239',
-                        '&:hover': {backgroundColor: '#1f2226'},
+                        '&:hover': { backgroundColor: '#1f2226' },
                     },
                 },
                 nextIconButton: {
@@ -59,13 +59,13 @@ const Calendar = ({value, handleOnChahge}) => {
                         borderRadius: '16px',
                         marginLeft: 0,
                         backgroundColor: '#2e3239',
-                        '&:hover': {backgroundColor: '#1f2226'},
+                        '&:hover': { backgroundColor: '#1f2226' },
                     },
                 },
             }}
             format="DD dd"
             views={['day']}
-    />
+        />
     )
 }
 

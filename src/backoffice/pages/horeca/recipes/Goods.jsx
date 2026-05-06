@@ -1,14 +1,11 @@
-import {useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {Box} from '@mui/material'
-import {SimpleTreeView, TreeItem} from '@mui/x-tree-view'
-import {useDispatch, useSelector} from 'react-redux'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Box } from '@mui/material'
+import { SimpleTreeView, TreeItem } from '@mui/x-tree-view'
+import { useDispatch, useSelector } from 'react-redux'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import {
-    center_horeca_goods_get,
-    center_horeca_goods_recipes_get,
-} from '../../../../service/fetch_service.js'
+import { center_horeca_goods_get, center_horeca_goods_recipes_get } from '../../../../service/fetch_service.js'
 import {
     setExpandedRecipesTree,
     setExpandedTree,
@@ -17,9 +14,9 @@ import {
     setUidCurrentGood,
 } from '../../../../redux/center/centerHorecaReducer.js'
 
-const treeSlots = {collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon}
+const treeSlots = { collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon }
 
-const TreeLabel = ({title, children}) => (
+const TreeLabel = ({ title, children }) => (
     <Box
         sx={{
             userSelect: 'text',
@@ -35,33 +32,26 @@ const TreeLabel = ({title, children}) => (
     </Box>
 )
 
-const getAllIds = (nodes) =>
-    nodes.flatMap(({id, children}) => [id, ...(children?.length ? getAllIds(children) : [])])
+const getAllIds = (nodes) => nodes.flatMap(({ id, children }) => [id, ...(children?.length ? getAllIds(children) : [])])
 
 const Goods = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {root_filial} = useSelector((state) => state.center)
-    const {
-        tree,
-        expanded_tree,
-        uid_current_folder,
-        goods,
-        goods_recipes,
-        goods_recipes_expanded,
-        uid_current_good,
-    } = useSelector((state) => state.center_horeca)
+    const { root_filial } = useSelector((state) => state.center)
+    const { tree, expanded_tree, uid_current_folder, goods, goods_recipes, goods_recipes_expanded, uid_current_good } = useSelector(
+        (state) => state.center_horeca
+    )
 
     const renderTree = (nodes) =>
-        nodes.map(({uid, name, children}) => (
+        nodes.map(({ uid, name, children }) => (
             <TreeItem key={uid} itemId={uid} label={<TreeLabel title={name}>{name}</TreeLabel>}>
                 {children?.length > 0 && renderTree(children)}
             </TreeItem>
         ))
 
     const renderGoods = (nodes) =>
-        nodes.map(({uid, name, unit_name}) => (
+        nodes.map(({ uid, name, unit_name }) => (
             <TreeItem
                 key={uid}
                 itemId={uid}
@@ -69,15 +59,15 @@ const Goods = () => {
                     <TreeLabel title={name}>
                         {unit_name && (
                             <span
-                style={{
-                    fontSize: '90%',
-                    backgroundColor: '#c1c1c1',
-                    padding: ' 0 4px',
-                    marginRight: '4px',
-                }}
+                                style={{
+                                    fontSize: '90%',
+                                    backgroundColor: '#c1c1c1',
+                                    padding: ' 0 4px',
+                                    marginRight: '4px',
+                                }}
                             >
-                {unit_name}
-              </span>
+                                {unit_name}
+                            </span>
                         )}
                         {name}
                     </TreeLabel>
@@ -86,7 +76,7 @@ const Goods = () => {
         ))
 
     const renderRecipes = (nodes) =>
-        nodes.map(({id, name, period, children}) => (
+        nodes.map(({ id, name, period, children }) => (
             <TreeItem
                 key={id}
                 itemId={id}
@@ -96,15 +86,15 @@ const Goods = () => {
                             name
                         ) : (
                             <>
-                <span
-                    style={{
-                        backgroundColor: '#c1c1c1',
-                        padding: ' 0 4px',
-                        marginRight: '4px',
-                    }}
-                >
-                  {period}
-                </span>
+                                <span
+                                    style={{
+                                        backgroundColor: '#c1c1c1',
+                                        padding: ' 0 4px',
+                                        marginRight: '4px',
+                                    }}
+                                >
+                                    {period}
+                                </span>
                                 <span>{name}</span>
                             </>
                         )}
@@ -132,16 +122,10 @@ const Goods = () => {
     }, [dispatch, goods_recipes])
 
     const findNode = (nodes, id) =>
-        nodes.reduce(
-            (found, node) => found || (node.id === id ? node : findNode(node.children || [], id)),
-            null
-        )
+        nodes.reduce((found, node) => found || (node.id === id ? node : findNode(node.children || [], id)), null)
 
     return (
-        <Box
-            className="center-horeca-page"
-            sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}
-        >
+        <Box className="center-horeca-page" sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
             {[
                 {
                     title: 'Папки',
@@ -176,17 +160,17 @@ const Goods = () => {
                     },
                     render: renderRecipes(goods_recipes),
                 },
-            ].map(({title, render, ...treeProps}) => (
+            ].map(({ title, render, ...treeProps }) => (
                 <Box key={title} className="center-horeca-page-part">
                     <Box className="center-horeca-page-part-title">{title}</Box>
-                    <Box sx={{height: 'calc(100% - 30px)', overflowY: 'auto'}} className="center-scroll">
+                    <Box sx={{ height: 'calc(100% - 30px)', overflowY: 'auto' }} className="center-scroll">
                         <SimpleTreeView slots={treeSlots} defaultExpandedItems={[]} {...treeProps}>
                             {render}
                         </SimpleTreeView>
                     </Box>
                 </Box>
             ))}
-    </Box>
+        </Box>
     )
 }
 

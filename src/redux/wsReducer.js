@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     messages: [],
@@ -12,5 +12,5 @@ const wsSlice = createSlice({
         },
     },
 })
-export const {addMessage} = wsSlice.actions
+export const { addMessage } = wsSlice.actions
 export default wsSlice.reducer

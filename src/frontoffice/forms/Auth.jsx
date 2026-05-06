@@ -1,15 +1,15 @@
-import {useEffect, useState} from 'react'
-import {Box, Button, TextField} from '@mui/material'
+import { useEffect, useState } from 'react'
+import { Box, Button, TextField } from '@mui/material'
 import 'react-simple-keyboard/build/css/index.css'
-import {useDispatch, useSelector} from 'react-redux'
-import {setAuthOpened} from '../../redux/interfaceReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAuthOpened } from '../../redux/interfaceReducer.js'
 import DialpadIcon from '@mui/icons-material/Dialpad'
 import KeyboardIcon from '@mui/icons-material/Keyboard'
-import {addNotification} from '../../redux/notifierReducer.js'
-import {login} from '../../service/fetch_service.js'
-import {useNavigate} from 'react-router-dom'
+import { addNotification } from '../../redux/notifierReducer.js'
+import { login } from '../../service/fetch_service.js'
+import { useNavigate } from 'react-router-dom'
 
-const Auth = ({auth_opened}) => {
+const Auth = ({ auth_opened }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -78,7 +78,7 @@ const Auth = ({auth_opened}) => {
                 }}
             >
                 <Button
-                    sx={{marginRight: '5px'}}
+                    sx={{ marginRight: '5px' }}
                     variant="contained"
                     color="primary"
                     onClick={() => {
@@ -86,7 +86,7 @@ const Auth = ({auth_opened}) => {
                         set_login_auth(false)
                     }}
                 >
-                    <DialpadIcon/>
+                    <DialpadIcon />
                 </Button>
                 <Button
                     variant="contained"
@@ -96,10 +96,10 @@ const Auth = ({auth_opened}) => {
                         set_login_auth(true)
                     }}
                 >
-                    <KeyboardIcon/>
+                    <KeyboardIcon />
                 </Button>
             </Box>
-            <Box sx={{width: '100%'}}>
+            <Box sx={{ width: '100%' }}>
                 <Box
                     sx={{
                         width: '100%',
@@ -109,7 +109,7 @@ const Auth = ({auth_opened}) => {
                     }}
                 >
                     <Box maxWidth={200} mx="auto">
-                        <Box sx={{gap: '2px'}} display="grid" gridTemplateColumns="repeat(3, 1fr)">
+                        <Box sx={{ gap: '2px' }} display="grid" gridTemplateColumns="repeat(3, 1fr)">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                                 <Button
                                     color="secondary"
@@ -123,24 +123,20 @@ const Auth = ({auth_opened}) => {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                sx={{fontSize: '70%'}}
+                                sx={{ fontSize: '70%' }}
                                 onClick={() => {
                                     set_password('')
                                 }}
                             >
                                 DEL
                             </Button>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => set_password((prev) => prev + '0')}
-                            >
+                            <Button variant="contained" color="secondary" onClick={() => set_password((prev) => prev + '0')}>
                                 0
                             </Button>
                             <Button
                                 variant="contained"
                                 color="primary"
-                                sx={{fontSize: '90%'}}
+                                sx={{ fontSize: '90%' }}
                                 onClick={() => {
                                     apply()
                                 }}
@@ -157,12 +153,9 @@ const Auth = ({auth_opened}) => {
                         justifyContent: 'space-around',
                     }}
                 >
-                    <Box
-                        component="form"
-                        sx={{backgroundColor: 'white', padding: '10px', borderRadius: '5px'}}
-                    >
+                    <Box component="form" sx={{ backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
                         <TextField
-                            sx={{marginBottom: '10px'}}
+                            sx={{ marginBottom: '10px' }}
                             autoComplete="username"
                             color="secondary"
                             label="Логин"
@@ -186,7 +179,7 @@ const Auth = ({auth_opened}) => {
                     <Button
                         variant="contained"
                         color="primary"
-                        sx={{width: '100%', marginTop: '10px'}}
+                        sx={{ width: '100%', marginTop: '10px' }}
                         onClick={() => {
                             apply()
                         }}
@@ -195,7 +188,7 @@ const Auth = ({auth_opened}) => {
                     </Button>
                 </Box>
             </Box>
-    </Box>
+        </Box>
     )
 }
 

@@ -1,33 +1,22 @@
-import {useCallback, useMemo} from 'react'
-import {Box} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {DataGridPro, useGridApiRef} from '@mui/x-data-grid-pro'
-import {ruRU} from '@mui/x-data-grid/locales'
-import {useTreeExpansionSync} from '../../../ui/hooks/useTreeExpansionSync.js'
-import {
-    setStoreStateExpended,
-    setUidCurrentStore,
-} from '../../../redux/center/centerHorecaReducer.js'
-import {openModal} from '../../../redux/interfaceReducer.js'
+import { useCallback, useMemo } from 'react'
+import { Box } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro'
+import { ruRU } from '@mui/x-data-grid/locales'
+import { useTreeExpansionSync } from '../../../ui/hooks/useTreeExpansionSync.js'
+import { setStoreStateExpended, setUidCurrentStore } from '../../../redux/center/centerHorecaReducer.js'
+import { openModal } from '../../../redux/interfaceReducer.js'
 
 const StoreState = () => {
     const apiRef = useGridApiRef()
 
     const dispatch = useDispatch()
-    const {store_state_loading, store_state, store_state_expended} = useSelector(
-        (state) => state.center_horeca
-    )
+    const { store_state_loading, store_state, store_state_expended } = useSelector((state) => state.center_horeca)
 
     const rows = useMemo(() => store_state?.rows ?? [], [store_state?.rows])
     const columns = useMemo(() => store_state?.columns ?? [], [store_state?.columns])
-    const column_grouping_model = useMemo(
-        () => store_state?.column_grouping_model ?? [],
-        [store_state?.column_grouping_model]
-    )
-    const column_visibility_model = useMemo(
-        () => store_state?.column_visibility_model ?? {},
-        [store_state?.column_visibility_model]
-    )
+    const column_grouping_model = useMemo(() => store_state?.column_grouping_model ?? [], [store_state?.column_grouping_model])
+    const column_visibility_model = useMemo(() => store_state?.column_visibility_model ?? {}, [store_state?.column_visibility_model])
 
     useTreeExpansionSync({
         apiRef,
@@ -53,7 +42,7 @@ const StoreState = () => {
                 dispatch(
                     openModal({
                         type: 'center_items_movement',
-                        props: {id: e.row.id},
+                        props: { id: e.row.id },
                     })
                 )
             }
@@ -100,7 +89,7 @@ const StoreState = () => {
                 onCellDoubleClick={handleCellDoubleClick}
                 onRowSelectionModelChange={handleSelectionChange}
             />
-    </Box>
+        </Box>
     )
 }
 

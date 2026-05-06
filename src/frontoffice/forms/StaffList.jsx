@@ -1,12 +1,12 @@
-import {Box, Button, Typography} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {useState} from 'react'
-import {horeca_order_change_creator} from '../../service/fetch_service.js'
-import {closeModal} from '../../redux/interfaceReducer.js'
-import {addNotification} from '../../redux/notifierReducer.js'
+import { Box, Button, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { horeca_order_change_creator } from '../../service/fetch_service.js'
+import { closeModal } from '../../redux/interfaceReducer.js'
+import { addNotification } from '../../redux/notifierReducer.js'
 import LazySelect from '../../ui/LazySelect.jsx'
 
-const StaffList = ({props}) => {
+const StaffList = ({ props }) => {
     const dispatch = useDispatch()
     const filial = useSelector((state) => state.data.filial)
     const [current_uid_staff, set_current_uid_staff] = useState('')
@@ -16,7 +16,7 @@ const StaffList = ({props}) => {
             component="form"
             noValidate
             autoComplete="off"
-            sx={{display: 'flex', flexDirection: 'column'}}
+            sx={{ display: 'flex', flexDirection: 'column' }}
             onSubmit={(e) => {
                 e.preventDefault()
                 if (!props?.uid_order || !current_uid_staff) {
@@ -38,7 +38,7 @@ const StaffList = ({props}) => {
             </Typography>
             <LazySelect
                 variant="filled"
-                sx={{marginBottom: '10px', maxWidth: '210px'}}
+                sx={{ marginBottom: '10px', maxWidth: '210px' }}
                 label="Сотрудник"
                 value={current_uid_staff || ''}
                 type="staff"
@@ -48,10 +48,10 @@ const StaffList = ({props}) => {
                 }}
                 getLabel={(item) => `${item.title}`}
             />
-            <Button sx={{marginTop: '4px'}} variant="contained" color="secondary" type="submit">
+            <Button sx={{ marginTop: '4px' }} variant="contained" color="secondary" type="submit">
                 Сохранить
             </Button>
-    </Box>
+        </Box>
     )
 }
 

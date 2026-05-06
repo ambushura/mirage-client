@@ -1,11 +1,11 @@
-import {useEffect, useMemo, useState} from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export function useCatalogMaps(rows, type) {
     const [catalogMap, setCatalogMap] = useState(() => new Map())
-    const {wp, kiosk, version} = useSelector((state) => state.interface)
-    const {root_filial, center} = useSelector((state) => state.center)
+    const { wp, kiosk, version } = useSelector((state) => state.interface)
+    const { root_filial, center } = useSelector((state) => state.center)
     const token = localStorage.getItem('token')
     const headers = useMemo(
         () => ({
@@ -28,16 +28,13 @@ export function useCatalogMaps(rows, type) {
 
         const load = async () => {
             try {
-                const res = await axios.get(
-                    `http://${root_filial.ip}:${root_filial.port}/api/catalog/load`,
-                    {
-                        params: {
-                            type: type,
-                            value: missingIds,
-                        },
-                        headers,
-                    }
-                )
+                const res = await axios.get(`http://${root_filial.ip}:${root_filial.port}/api/catalog/load`, {
+                    params: {
+                        type: type,
+                        value: missingIds,
+                    },
+                    headers,
+                })
 
                 const data = res.data
 

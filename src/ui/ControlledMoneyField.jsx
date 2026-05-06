@@ -1,6 +1,6 @@
-import {TextField, Tooltip} from '@mui/material'
-import {Controller} from 'react-hook-form'
-import {tooltip_error} from './ThemeContext.jsx'
+import { TextField, Tooltip } from '@mui/material'
+import { Controller } from 'react-hook-form'
+import { tooltip_error } from './ThemeContext.jsx'
 
 const formatMoney = (value) => {
     const num = parseFloat(value)
@@ -8,15 +8,7 @@ const formatMoney = (value) => {
     return parseFloat(num.toFixed(2))
 }
 
-const ControlledMoneyField = ({
-                                  control,
-                                  name,
-                                  label,
-                                  rules,
-                                  sx,
-                                  readOnly = false,
-                                  defaultValue = 0,
-                              }) => {
+const ControlledMoneyField = ({ control, name, label, rules, sx, readOnly = false, defaultValue = 0 }) => {
     const handleChange = (field) => (e) => {
         let val = e.target.value.replace(',', '.')
         if (!/^\d*\.?\d{0,2}$/.test(val)) return
@@ -36,27 +28,27 @@ const ControlledMoneyField = ({
             control={control}
             rules={rules}
             defaultValue={defaultValue}
-            render={({field, fieldState}) => (
+            render={({ field, fieldState }) => (
                 <Tooltip
                     title={fieldState.error ? fieldState.error.message : ''}
                     open={!!fieldState.error}
                     placement="right-start"
                     arrow
-                    slotProps={{tooltip: tooltip_error}}
-        >
+                    slotProps={{ tooltip: tooltip_error }}
+                >
                     <TextField
                         {...field}
                         value={field.value === null || field.value === undefined ? '' : field.value}
                         label={label}
                         variant="filled"
                         fullWidth
-                        sx={{marginBottom: '10px', ...sx}}
+                        sx={{ marginBottom: '10px', ...sx }}
                         slotProps={{
-                            input: {inputMode: 'decimal', style: {textAlign: 'right'}},
+                            input: { inputMode: 'decimal', style: { textAlign: 'right' } },
                         }}
                         inputProps={{
                             inputMode: 'decimal',
-                            style: {textAlign: 'right'},
+                            style: { textAlign: 'right' },
                             readOnly,
                         }}
                         error={!!fieldState.error}

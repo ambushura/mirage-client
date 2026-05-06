@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react'
-import {Box} from '@mui/material'
-import {useDispatch, useSelector} from 'react-redux'
-import {common_reports_shift_get} from '../../../service/fetch_service.js'
-import {DataGridPro} from '@mui/x-data-grid-pro'
-import {ruRU} from '@mui/x-data-grid/locales'
+import { useEffect, useState } from 'react'
+import { Box } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { common_reports_shift_get } from '../../../service/fetch_service.js'
+import { DataGridPro } from '@mui/x-data-grid-pro'
+import { ruRU } from '@mui/x-data-grid/locales'
 import LocationPinIcon from '@mui/icons-material/LocationPin'
 
 const Results = () => {
@@ -11,7 +11,7 @@ const Results = () => {
     const filials_selected = useSelector((state) => state.center.filials_selected)
 
     return (
-        <Box className="center-scroll" sx={{width: '100%', height: '100%', overflow: 'auto'}}>
+        <Box className="center-scroll" sx={{ width: '100%', height: '100%', overflow: 'auto' }}>
             {cities.map((city) => {
                 return (
                     <>
@@ -19,7 +19,7 @@ const Results = () => {
                             if (filials_selected.includes(filial.uid)) {
                                 return (
                                     <Box key={filial.uid}>
-                                        <FilialResults filial={filial}/>
+                                        <FilialResults filial={filial} />
                                     </Box>
                                 )
                             }
@@ -27,30 +27,30 @@ const Results = () => {
                     </>
                 )
             })}
-    </Box>
+        </Box>
     )
 }
 
 export default Results
 
-export const FilialResults = ({filial}) => {
+export const FilialResults = ({ filial }) => {
     const dispatch = useDispatch()
 
     const date_shift = useSelector((state) => state.center.date_shift)
 
-    const [shift_1, set_shift_1] = useState({columns: [], rows: [], columnGroupingModel: []})
+    const [shift_1, set_shift_1] = useState({ columns: [], rows: [], columnGroupingModel: [] })
     const [shift_1_columnVisibilityModel, set_shift_1_columnVisibilityModel] = useState({
         type: false,
         level: false,
     })
 
-    const [shift_2, set_shift_2] = useState({columns: [], rows: [], columnGroupingModel: []})
+    const [shift_2, set_shift_2] = useState({ columns: [], rows: [], columnGroupingModel: [] })
     const [shift_2_columnVisibilityModel, set_shift_2_columnVisibilityModel] = useState({
         type: false,
         level: false,
     })
 
-    const [shift_3, set_shift_3] = useState({columns: [], rows: [], columnGroupingModel: []})
+    const [shift_3, set_shift_3] = useState({ columns: [], rows: [], columnGroupingModel: [] })
     const [shift_3_columnVisibilityModel, set_shift_3_columnVisibilityModel] = useState({
         type: false,
         level: false,
@@ -59,11 +59,7 @@ export const FilialResults = ({filial}) => {
     useEffect(() => {
         const fetch = async () => {
             const fetching_result = await dispatch(common_reports_shift_get(filial, date_shift, 0))
-            if (
-                !fetching_result.loading &&
-                fetching_result.data !== null &&
-                fetching_result.error === null
-            ) {
+            if (!fetching_result.loading && fetching_result.data !== null && fetching_result.error === null) {
                 const data = fetching_result.data
                 set_shift_1(data.chapter1)
                 set_shift_2(data.chapter2)
@@ -74,10 +70,10 @@ export const FilialResults = ({filial}) => {
     }, [dispatch, filial, date_shift])
 
     return (
-        <Box sx={{minHeight: '100%', display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
             <Box className="center-title-filial">
-                <Box sx={{marginRight: '5px'}}>
-                    <LocationPinIcon/>
+                <Box sx={{ marginRight: '5px' }}>
+                    <LocationPinIcon />
                 </Box>
                 {filial.name}
             </Box>
@@ -87,7 +83,7 @@ export const FilialResults = ({filial}) => {
                     <DataGridPro
                         hideFooter
                         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                        rows={shift_1.rows.map((r, i) => ({...r, id: i}))}
+                        rows={shift_1.rows.map((r, i) => ({ ...r, id: i }))}
                         columns={shift_1.columns}
                         columnGroupingModel={shift_1.columnGroupingModel}
                         density="compact"
@@ -95,12 +91,10 @@ export const FilialResults = ({filial}) => {
                         headerHeight={30}
                         disableSelectionOnClick
                         hideFooterSelectedRowCount
-                        experimentalFeatures={{columnGrouping: true}}
+                        experimentalFeatures={{ columnGrouping: true }}
                         columnVisibilityModel={shift_1_columnVisibilityModel}
                         onColumnVisibilityModelChange={set_shift_1_columnVisibilityModel}
-                        getRowClassName={(params) =>
-                            params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : ''
-                        }
+                        getRowClassName={(params) => (params.row.diff_nal !== 0 || params.row.diff_bn !== 0 ? 'row-diff-red' : '')}
                         sx={{
                             width: '100%',
                             margin: '0 4px 4px 4px',
@@ -120,7 +114,7 @@ export const FilialResults = ({filial}) => {
                     />
                 </>
             ) : (
-                <Box className="center-title-filial" sx={{paddingLeft: '15px', fontWeight: 300}}>
+                <Box className="center-title-filial" sx={{ paddingLeft: '15px', fontWeight: 300 }}>
                     Нет данных...
                 </Box>
             )}
@@ -129,7 +123,7 @@ export const FilialResults = ({filial}) => {
                 <DataGridPro
                     hideFooter
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    rows={shift_2.rows.map((r, i) => ({...r, id: i}))}
+                    rows={shift_2.rows.map((r, i) => ({ ...r, id: i }))}
                     columns={shift_2.columns}
                     columnGroupingModel={shift_2.columnGroupingModel}
                     density="compact"
@@ -137,7 +131,7 @@ export const FilialResults = ({filial}) => {
                     headerHeight={30}
                     disableSelectionOnClick
                     hideFooterSelectedRowCount
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     columnVisibilityModel={shift_2_columnVisibilityModel}
                     onColumnVisibilityModelChange={set_shift_2_columnVisibilityModel}
                     getRowClassName={(params) => {
@@ -174,7 +168,7 @@ export const FilialResults = ({filial}) => {
                     }}
                 />
             ) : (
-                <Box className="center-title-filial" sx={{paddingLeft: '15px', fontWeight: 300}}>
+                <Box className="center-title-filial" sx={{ paddingLeft: '15px', fontWeight: 300 }}>
                     Нет данных...
                 </Box>
             )}
@@ -183,7 +177,7 @@ export const FilialResults = ({filial}) => {
                 <DataGridPro
                     hideFooter
                     localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                    rows={shift_3.rows.map((r, i) => ({...r, id: i}))}
+                    rows={shift_3.rows.map((r, i) => ({ ...r, id: i }))}
                     columns={shift_3.columns}
                     columnGroupingModel={shift_3.columnVisibilityModel}
                     density="compact"
@@ -191,7 +185,7 @@ export const FilialResults = ({filial}) => {
                     headerHeight={30}
                     disableSelectionOnClick
                     hideFooterSelectedRowCount
-                    experimentalFeatures={{columnGrouping: true}}
+                    experimentalFeatures={{ columnGrouping: true }}
                     columnVisibilityModel={shift_3_columnVisibilityModel}
                     onColumnVisibilityModelChange={set_shift_3_columnVisibilityModel}
                     pinnedColumns={{
@@ -199,10 +193,10 @@ export const FilialResults = ({filial}) => {
                     }}
                 />
             ) : (
-                <Box className="center-title-filial" sx={{paddingLeft: '15px', fontWeight: 300}}>
+                <Box className="center-title-filial" sx={{ paddingLeft: '15px', fontWeight: 300 }}>
                     Нет данных...
                 </Box>
             )}
-    </Box>
+        </Box>
     )
 }

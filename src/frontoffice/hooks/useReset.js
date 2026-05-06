@@ -1,21 +1,16 @@
-import {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {
-    NEW_EMPTY_HORDER,
-    NEW_EMPTY_ORDER,
-    setCurrentHorder,
-    setCurrentPreOrder,
-} from '../../redux/ordersReducer.js'
-import {setShowFreeSpace} from '../../redux/scheduleReducer.js'
-import {setUidHall} from '../../redux/hallsReducer.js'
-import {logout} from '../../redux/authReducer.js'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../redux/ordersReducer.js'
+import { setShowFreeSpace } from '../../redux/scheduleReducer.js'
+import { setUidHall } from '../../redux/hallsReducer.js'
+import { logout } from '../../redux/authReducer.js'
 
 export function useReset() {
     const dispatch = useDispatch()
 
     const filial = useSelector((state) => state.data.filial)
     const uid_user = useSelector((state) => state.auth.uid)
-    const {kiosk, wp} = useSelector((state) => state.interface)
+    const { kiosk, wp } = useSelector((state) => state.interface)
 
     const [clear, set_clear] = useState(0)
 

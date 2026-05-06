@@ -1,12 +1,7 @@
-import {Box} from '@mui/material'
-import {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {
-    NEW_EMPTY_HORDER,
-    NEW_EMPTY_ORDER,
-    setCurrentHorder,
-    setCurrentPreOrder,
-} from '../../../../redux/ordersReducer.js'
+import { Box } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../../../redux/ordersReducer.js'
 import OrdersCinema from './orders/cinema/OrdersCinema.jsx'
 import OrdersHoreca from './orders/horeca/OrdersHoreca.jsx'
 import Zbooks from './documents/Zbooks.jsx'
@@ -30,7 +25,7 @@ const PageAdmin = () => {
     const [update_cinema, set_update_cinema] = useState(true)
     const [update_horeca, set_update_horeca] = useState(true)
 
-    const {horder, pre_order} = useSelector((state) => state.orders)
+    const { horder, pre_order } = useSelector((state) => state.orders)
 
     useEffect(() => {
         dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
@@ -41,53 +36,47 @@ const PageAdmin = () => {
         <Box
             id="content-box"
             style={{
-        overflowY: 'auto',
+                overflowY: 'auto',
                 width:
-                    ['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(
-                        current_page
-                    ) &&
+                    ['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(current_page) &&
                     (pre_order.in_base || horder.in_base)
                         ? 'calc(100vw - var(--order-width))'
                         : '100vw',
             }}
         >
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Box id="content-header"></Box>
                 <Box
                     id="content"
                     style={
-                        ['admin/operations', 'admin/zbooks', 'admin/acquiring', 'admin/reports'].includes(
-                            current_page
-                        )
-                            ? {height: 'var(--page-height)'}
+                        ['admin/operations', 'admin/zbooks', 'admin/acquiring', 'admin/reports'].includes(current_page)
+                            ? { height: 'var(--page-height)' }
                             : null
                     }
                 >
-                    {current_page === 'admin/orders/cinema' && <OrdersCinema update_cinema={update_cinema}/>}
-                    {current_page === 'admin/orders/horeca' && <OrdersHoreca update_horeca={update_horeca}/>}
-                    {current_page === 'admin/zbooks' && <Zbooks/>}
-                    {current_page === 'admin/zbook' && <ZBook/>}
-                    {current_page === 'admin/receipt' && <Receipt/>}
-                    {current_page === 'admin/slip' && <Slip/>}
-                    {current_page === 'admin/operations' && <Operations/>}
-                    {current_page === 'admin/operation' && <Operation/>}
-                    {current_page === 'admin/egais' && <Egais/>}
-                    {current_page === 'admin/staff' && <PageStaff/>}
-                    {current_page === 'admin/halls' && <PageHalls/>}
-                    {current_page === 'admin/scheme' && <PageScheme/>}
-                    {current_page === 'admin/acquiring' && <ZPinpads/>}
-                    {current_page === 'admin/reports' && <Reports/>}
+                    {current_page === 'admin/orders/cinema' && <OrdersCinema update_cinema={update_cinema} />}
+                    {current_page === 'admin/orders/horeca' && <OrdersHoreca update_horeca={update_horeca} />}
+                    {current_page === 'admin/zbooks' && <Zbooks />}
+                    {current_page === 'admin/zbook' && <ZBook />}
+                    {current_page === 'admin/receipt' && <Receipt />}
+                    {current_page === 'admin/slip' && <Slip />}
+                    {current_page === 'admin/operations' && <Operations />}
+                    {current_page === 'admin/operation' && <Operation />}
+                    {current_page === 'admin/egais' && <Egais />}
+                    {current_page === 'admin/staff' && <PageStaff />}
+                    {current_page === 'admin/halls' && <PageHalls />}
+                    {current_page === 'admin/scheme' && <PageScheme />}
+                    {current_page === 'admin/acquiring' && <ZPinpads />}
+                    {current_page === 'admin/reports' && <Reports />}
                 </Box>
                 <Box id="content-footer"></Box>
-                {['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(
-                    current_page
-                ) && (
-                    <Box sx={{position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3}}>
-                        <Order/>
+                {['admin/orders/cinema', 'admin/orders/horeca', 'admin/receipt', 'admin/slip'].includes(current_page) && (
+                    <Box sx={{ position: 'fixed', right: 0, top: 'var(--header-height)', zIndex: 3 }}>
+                        <Order />
                     </Box>
                 )}
             </Box>
-    </Box>
+        </Box>
     )
 }
 
