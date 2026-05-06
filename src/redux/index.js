@@ -1,20 +1,20 @@
-import {configureStore} from "@reduxjs/toolkit"
-import scheduleSlice from "./scheduleReducer.js"
-import ordersSlice from "./ordersReducer.js"
-import dataSlice from "./dataReducer.js"
-import hallsSlice from "./hallsReducer.js"
-import interfaceSlice from "./interfaceReducer.js"
-import authSlice from "./authReducer.js"
-import notifierReducer from "./notifierReducer.js"
-import wsReducer from "./wsReducer.js"
-import markirovkaReducer from "./markirovkaReducer.js"
-import documentsReducer from "./documentsReducer.js"
-import secondScreen from "./secondScreenReducer.js"
-import equipmentReducer from "./equipmentReducer.js"
-import reportsReducer from "./reportsReducer.js"
-import centerReducer from "./center/centerReducer.js"
-import centerCinemaReducer from "./center/centerCinemaReducer.js"
-import centerHorecaReducer from "./center/centerHorecaReducer.js"
+import {configureStore} from '@reduxjs/toolkit'
+import scheduleSlice from './scheduleReducer.js'
+import ordersSlice from './ordersReducer.js'
+import dataSlice from './dataReducer.js'
+import hallsSlice from './hallsReducer.js'
+import interfaceSlice from './interfaceReducer.js'
+import authSlice from './authReducer.js'
+import notifierReducer from './notifierReducer.js'
+import wsReducer from './wsReducer.js'
+import markirovkaReducer from './markirovkaReducer.js'
+import documentsReducer from './documentsReducer.js'
+import secondScreen from './secondScreenReducer.js'
+import equipmentReducer from './equipmentReducer.js'
+import reportsReducer from './reportsReducer.js'
+import centerReducer from './center/centerReducer.js'
+import centerCinemaReducer from './center/centerCinemaReducer.js'
+import centerHorecaReducer from './center/centerHorecaReducer.js'
 
 export const store = configureStore({
     reducer: {

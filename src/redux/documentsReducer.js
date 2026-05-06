@@ -1,7 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-
     // Кассовые книги
     kkt_list: [],
     uid_kkt_current: '',
@@ -39,91 +38,136 @@ const initialState = {
     operations_page: 1,
     operations_update: 0,
     operations_details: false,
-    operations: {wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined},
+    operations: {
+        wallets: [],
+        columns: [],
+        rows: [],
+        date_shift_beginning: undefined,
+        date_shift_ending: undefined,
+    },
 
     // Операция по кассе
     trigger_submit_operation: false,
     trigger_delete_operation: false,
     caption_operation: null,
-
 }
 
 export const dataSlice = createSlice({
-    name: "documents", initialState, reducers: {
+    name: 'documents',
+    initialState,
+    reducers: {
         cleanZBooks(state) {
             state.zbooks = {date_shift: '', rows: []}
-        }, setZBooks: (state, {payload}) => {
+        },
+        setZBooks: (state, {payload}) => {
             state.zbooks = payload
-        }, setCurrentKKT: (state, {payload}) => {
+        },
+        setCurrentKKT: (state, {payload}) => {
             state.uid_kkt_current = payload
-        }, setKKTList: (state, {payload}) => {
+        },
+        setKKTList: (state, {payload}) => {
             state.kkt_list = payload
-        }, setZBooksUpdate(state) {
+        },
+        setZBooksUpdate(state) {
             state.zbooks_update += 1
-        }, setTriggerSubmitZBook(state, {payload}) {
+        },
+        setTriggerSubmitZBook(state, {payload}) {
             state.trigger_submit_zBook = payload
-        }, setTriggerDeleteZBook(state, {payload}) {
+        },
+        setTriggerDeleteZBook(state, {payload}) {
             state.trigger_delete_zBook = payload
-        }, setTriggerSubmitReceipt(state, {payload}) {
+        },
+        setTriggerSubmitReceipt(state, {payload}) {
             state.trigger_submit_receipt = payload
-        }, setTriggerDeleteReceipt(state, {payload}) {
+        },
+        setTriggerDeleteReceipt(state, {payload}) {
             state.trigger_delete_receipt = payload
-        }, setCaptionZBook(state, {payload}) {
+        },
+        setCaptionZBook(state, {payload}) {
             state.caption_zBook = payload
-        }, setCaptionReceipt(state, {payload}) {
+        },
+        setCaptionReceipt(state, {payload}) {
             state.caption_receipt = payload
-        }, setReceiptOrder(state, {payload}) {
+        },
+        setReceiptOrder(state, {payload}) {
             state.receipt_order = payload
-        }, setCurrentPinpad: (state, {payload}) => {
+        },
+        setCurrentPinpad: (state, {payload}) => {
             state.uid_pinpad_current = payload
-        }, setPinpadList: (state, {payload}) => {
+        },
+        setPinpadList: (state, {payload}) => {
             state.pinpad_list = payload
-        }, setZPinpadsUpdate(state) {
+        },
+        setZPinpadsUpdate(state) {
             state.zpinpads_update += 1
-        }, cleanOperations(state) {
+        },
+        cleanOperations(state) {
             state.operations = {
-                wallets: [], columns: [], rows: [], date_shift_beginning: undefined, date_shift_ending: undefined
+                wallets: [],
+                columns: [],
+                rows: [],
+                date_shift_beginning: undefined,
+                date_shift_ending: undefined,
             }
-        }, setOperations: (state, {payload}) => {
+        },
+        setOperations: (state, {payload}) => {
             state.operations = {...state.operations, ...payload}
             state.operations_pages = payload.pages
-        }, setOperationsPage: (state, {payload}) => {
+        },
+        setOperationsPage: (state, {payload}) => {
             state.operations_page = payload
-        }, setOperationsDetails: (state, {payload}) => {
+        },
+        setOperationsDetails: (state, {payload}) => {
             state.operations_details = payload
-        }, setOperationsUpdate: (state) => {
+        },
+        setOperationsUpdate: (state) => {
             state.operations_update += 1
-        }, setZPinpads(state, {payload}) {
+        },
+        setZPinpads(state, {payload}) {
             state.zpinpads = payload
-        }, cleanZPinpads(state) {
+        },
+        cleanZPinpads(state) {
             state.zpinpads = {date_shift: '', zpinpads: []}
-        }, setReceipts: (state, {payload}) => {
+        },
+        setReceipts: (state, {payload}) => {
             state.receipts = payload
-        }, cleanReceipts: (state) => {
+        },
+        cleanReceipts: (state) => {
             state.receipts = {date_shift: '', uid_kkt: '', receipts: []}
-        }, setReceiptsUpdated: (state) => {
+        },
+        setReceiptsUpdated: (state) => {
             state.receipts_update += 1
-        }, setSlips: (state, {payload}) => {
+        },
+        setSlips: (state, {payload}) => {
             state.slips = payload
-        }, cleanSlips: (state) => {
+        },
+        cleanSlips: (state) => {
             state.slips = {date_shift: '', uid_pinpad: '', slips: []}
-        }, setCaptionZAcquiring(state, {payload}) {
+        },
+        setCaptionZAcquiring(state, {payload}) {
             state.caption_z_acquiring = payload
-        }, setTriggerSubmitSlip(state, {payload}) {
+        },
+        setTriggerSubmitSlip(state, {payload}) {
             state.trigger_submit_slip = payload
-        }, setTriggerDeleteSlip(state, {payload}) {
+        },
+        setTriggerDeleteSlip(state, {payload}) {
             state.trigger_delete_slip = payload
-        }, setCaptionSlip(state, {payload}) {
+        },
+        setCaptionSlip(state, {payload}) {
             state.caption_slip = payload
-        }, setSlipOrder(state, {payload}) {
+        },
+        setSlipOrder(state, {payload}) {
             state.slip_order = payload
-        }, setTriggerSubmitOperation(state, {payload}) {
+        },
+        setTriggerSubmitOperation(state, {payload}) {
             state.trigger_submit_operation = payload
-        }, setTriggerDeleteOperation(state, {payload}) {
+        },
+        setTriggerDeleteOperation(state, {payload}) {
             state.trigger_delete_operation = payload
-        }, setCaptionOperation(state, {payload}) {
+        },
+        setCaptionOperation(state, {payload}) {
             state.caption_operation = payload
-        }
+        },
     },
 })
 

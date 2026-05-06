@@ -5,22 +5,21 @@ import {
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle
+    DialogTitle,
 } from '@mui/material'
 import {
     cinema_order_delete,
     common_documents_operation_delete,
     common_documents_receipt_delete,
     common_documents_z_book_delete,
-    horeca_order_delete
-} from "../../service/fetch_service.js"
-import {closeModal} from "../../redux/interfaceReducer.js"
-import {useDispatch} from "react-redux"
-import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder} from "../../redux/ordersReducer.js"
-import {setOperationsUpdate, setReceiptsUpdated, setZBooksUpdate} from "../../redux/documentsReducer.js"
+    horeca_order_delete,
+} from '../../service/fetch_service.js'
+import {closeModal} from '../../redux/interfaceReducer.js'
+import {useDispatch} from 'react-redux'
+import {NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder,} from '../../redux/ordersReducer.js'
+import {setOperationsUpdate, setReceiptsUpdated, setZBooksUpdate,} from '../../redux/documentsReducer.js'
 
 const Dialog = ({props}) => {
-
     const dispatch = useDispatch()
 
     const handleYes = () => {
@@ -65,41 +64,42 @@ const Dialog = ({props}) => {
 
     switch (props.type) {
         case 'YesNo':
-            return <MuiDialog
-                open={true}
-                onClose={handleNo}
-                aria-labelledby="confirm-dialog-title"
-                maxWidth="xk"
-            >
-                <DialogTitle id="confirm-dialog-title">Подтвердите</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {props.question}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions sx={{px: 3, pb: 2}}>
-                    <Button
-                        sx={{minWidth: '70px'}}
-                        onClick={handleYes}
-                        variant="contained"
-                        color="secondary">
-                        Да
-                    </Button>
-                    <Button
-                        sx={{minWidth: '70px'}}
-                        onClick={handleNo}
-                        variant="contained"
-                        color="secondary">
-                        Нет
-                    </Button>
-                </DialogActions>
-            </MuiDialog>
+            return (
+                <MuiDialog
+                    open={true}
+                    onClose={handleNo}
+                    aria-labelledby="confirm-dialog-title"
+                    maxWidth="xk"
+                >
+                    <DialogTitle id="confirm-dialog-title">Подтвердите</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>{props.question}</DialogContentText>
+                    </DialogContent>
+                    <DialogActions sx={{px: 3, pb: 2}}>
+                        <Button
+                            sx={{minWidth: '70px'}}
+                            onClick={handleYes}
+                            variant="contained"
+                            color="secondary"
+                        >
+                            Да
+                        </Button>
+                        <Button
+                            sx={{minWidth: '70px'}}
+                            onClick={handleNo}
+                            variant="contained"
+                            color="secondary"
+                        >
+                            Нет
+                        </Button>
+                    </DialogActions>
+                </MuiDialog>
+            )
         case 'No':
             return <Box/>
         default:
             return null
     }
-
 }
 
 export default Dialog

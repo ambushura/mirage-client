@@ -1,22 +1,21 @@
-import {useDispatch, useSelector} from "react-redux"
-import {useEffect} from "react"
+import {useDispatch, useSelector} from 'react-redux'
+import {useEffect} from 'react'
 import {
     common_orders_filters_halls_get,
     common_orders_filters_staff_get,
     common_orders_filters_workplace_get,
-    horeca_orders_filters_kitchen_points_get
-} from "../../../../../../service/fetch_service.js"
+    horeca_orders_filters_kitchen_points_get,
+} from '../../../../../../service/fetch_service.js'
 import {
     setOrdersHorecaFiltersHalls,
     setOrdersHorecaFiltersKitchenPoints,
     setOrdersHorecaFiltersStaff,
-    setOrdersHorecaFiltersWorkPlaces
-} from "../../../../../../redux/ordersReducer.js"
+    setOrdersHorecaFiltersWorkPlaces,
+} from '../../../../../../redux/ordersReducer.js'
 
 export function useSetOrdersHorecaFilters() {
-
     const dispatch = useDispatch()
-    const filial = useSelector(state => state.data.filial)
+    const filial = useSelector((state) => state.data.filial)
 
     useEffect(() => {
         const fetch_staff = async () => {
@@ -58,5 +57,4 @@ export function useSetOrdersHorecaFilters() {
             fetch_kitchen_points()
         }
     }, [dispatch, filial])
-
 }

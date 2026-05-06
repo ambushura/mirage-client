@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {Autocomplete, CircularProgress, TextField} from '@mui/material'
-import {common_lazy_list_get} from "../service/fetch_service.js"
+import {common_lazy_list_get} from '../service/fetch_service.js'
 
 export default function LazySelect({
                                        label,
@@ -9,13 +9,13 @@ export default function LazySelect({
                                        type,
                                        filial,
                                        onChange,
-                                       getLabel = item => item.title,
-                                       getValue = item => item.uid,
+                                       getLabel = (item) => item.title,
+                                       getValue = (item) => item.uid,
                                        extraFields = [],
                                        optionsStatic = null,
                                        disabled = false,
                                        sx,
-                                       readOnly = false
+                                       readOnly = false,
                                    }) {
     const dispatch = useDispatch()
     const [options, setOptions] = useState([])
@@ -44,11 +44,11 @@ export default function LazySelect({
     const allOptions = useMemo(() => {
         const base = optionsStatic || options
         if (!value) return base
-        const exists = base.some(o => getValue(o) === value)
+        const exists = base.some((o) => getValue(o) === value)
         return exists ? base : [{uid: value, title: 'Объект не найден…'}, ...base]
     }, [options, optionsStatic, value])
 
-    const currentItem = allOptions.find(o => getValue(o) === value) || null
+    const currentItem = allOptions.find((o) => getValue(o) === value) || null
 
     const handleChange = (_, newItem) => {
         if (!newItem || newItem.title === 'Объект не найден…') {
@@ -62,34 +62,44 @@ export default function LazySelect({
         onChange(getValue(newItem), extra)
     }
 
-    return <Autocomplete
-        readOnly={readOnly}
-        value={currentItem}
-        onChange={handleChange}
-        onOpen={fetch_options}
-        options={allOptions}
-        getOptionLabel={getLabel}
-        loading={loading}
-        disabled={disabled}
-        sx={sx}
-        noOptionsText="Нет данных"
-        loadingText="Загрузка..."
-        renderOption={(props, option) => <li
-            {...props}
-            key={getValue(option)}
-            style={option.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}>
-            {option.title}
-        </li>}
-        renderInput={(params) => <TextField
-            {...params}
-            label={label}
-            variant="filled"
-            slotProps={{
-                ...params.InputProps, endAdornment: <>
-                    {loading ? <CircularProgress color="inherit" size={20}/> : null}
-                    {params.InputProps.endAdornment}
-                </>,
-            }}
-        />}
-    />
+    return (
+        <Autocomplete
+            readOnly={readOnly}
+            value={currentItem}
+            onChange={handleChange}
+            onOpen={fetch_options}
+            options={allOptions}
+            getOptionLabel={getLabel}
+            loading={loading}
+            disabled={disabled}
+            sx={sx}
+            noOptionsText="Нет данных"
+            loadingText="Загрузка..."
+            renderOption={(props, option) => (
+                <li
+                    {...props}
+                    key={getValue(option)}
+                    style={option.title === 'Объект не найден…' ? {opacity: 0.6, fontStyle: 'italic'} : {}}
+                >
+                    {option.title}
+                </li>
+            )}
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    label={label}
+                    variant="filled"
+                    slotProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                            <>
+                                {loading ? <CircularProgress color="inherit" size={20}/> : null}
+                                {params.InputProps.endAdornment}
+                            </>
+                        ),
+                    }}
+                />
+            )}
+        />
+    )
 }

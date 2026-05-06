@@ -63,7 +63,6 @@
 #center-submenu {
     width: calc(100vw - var(--center-header-height));
     height: calc(var(--center-header-height) - 1px);
-
 }
 
 .center-title-filial {
@@ -99,7 +98,8 @@
     background-color: transparent !important;
 }
 
-.center-scroll::-webkit-scrollbar-thumb, .MuiDataGrid-scrollbar::-webkit-scrollbar-thumb {
+.center-scroll::-webkit-scrollbar-thumb,
+.MuiDataGrid-scrollbar::-webkit-scrollbar-thumb {
     background-color: var(--cetner-bgr-scroll) !important;
     border-radius: 0 !important;
 }

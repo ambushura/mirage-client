@@ -4,7 +4,7 @@ const DotsAnimation = () => {
     const [dots, setDots] = useState('')
     useEffect(() => {
         const interval = setInterval(() => {
-            setDots(prev => {
+            setDots((prev) => {
                 if (prev.length >= 3) return ''
                 return prev + '.'
             })

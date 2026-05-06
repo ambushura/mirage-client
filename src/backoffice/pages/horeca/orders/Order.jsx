@@ -1,28 +1,35 @@
-import {useEffect, useState} from "react"
-import {useDispatch, useSelector} from "react-redux"
-import {Box, Tab} from "@mui/material"
-import {TabContext, TabList, TabPanel} from "@mui/lab"
-import {DataGridPro} from "@mui/x-data-grid-pro"
-import {ruRU} from "@mui/x-data-grid/locales"
-import CachedIcon from "@mui/icons-material/Cached"
-import {useForm} from "react-hook-form"
-import {FillNameMap, LoaderOrder, TableToolbar} from "../../../Common.jsx"
-import ControlledTextField from "../../../../ui/ControlledTextField.jsx"
-import ControlledFieldSwitch from "../../../../ui/ControlledFieldSwitch.jsx"
-import ControlledMoneyField from "../../../../ui/ControlledMoneyField.jsx"
-import {center_catalog_load, center_horeca_order_get} from "../../../../service/fetch_service.js"
-import {useTableColumns} from "../../../hooks/useTableColumns.js"
+import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Box, Tab} from '@mui/material'
+import {TabContext, TabList, TabPanel} from '@mui/lab'
+import {DataGridPro} from '@mui/x-data-grid-pro'
+import {ruRU} from '@mui/x-data-grid/locales'
+import CachedIcon from '@mui/icons-material/Cached'
+import {useForm} from 'react-hook-form'
+import {FillNameMap, LoaderOrder, TableToolbar} from '../../../Common.jsx'
+import ControlledTextField from '../../../../ui/ControlledTextField.jsx'
+import ControlledFieldSwitch from '../../../../ui/ControlledFieldSwitch.jsx'
+import ControlledMoneyField from '../../../../ui/ControlledMoneyField.jsx'
+import {center_catalog_load, center_horeca_order_get} from '../../../../service/fetch_service.js'
+import {useTableColumns} from '../../../hooks/useTableColumns.js'
 
 ////////////////////////////////////////////////////////////
 // КОНФИГ
 ////////////////////////////////////////////////////////////
 
-const BUYER_FIELDS = [["buyer_email", "Email"], ["buyer_phone_number", "Номер телефона"], ["buyer_card_number", "Номер карты"], ["buyer_s", "Фамилия"], ["buyer_n", "Имя"], ["buyer_o", "Отчество"]]
+const BUYER_FIELDS = [
+  ['buyer_email', 'Email'],
+  ['buyer_phone_number', 'Номер телефона'],
+  ['buyer_card_number', 'Номер карты'],
+  ['buyer_s', 'Фамилия'],
+  ['buyer_n', 'Имя'],
+  ['buyer_o', 'Отчество'],
+]
 
 const TOOLBAR_CONFIG = {
-    store: {left: [{label: "Пересобрать", icon: <CachedIcon/>, onClick: IngredientsRebuild}],},
-    payments: {left: [{label: "Подобрать", icon: <CachedIcon/>, onClick: PaymentsRebuild}],},
-    returns: {left: [{label: "Подобрать", icon: <CachedIcon/>, onClick: ReturnsRebuild}],}
+  store: {left: [{label: 'Пересобрать', icon: <CachedIcon/>, onClick: IngredientsRebuild}]},
+  payments: {left: [{label: 'Подобрать', icon: <CachedIcon/>, onClick: PaymentsRebuild}]},
+  returns: {left: [{label: 'Подобрать', icon: <CachedIcon/>, onClick: ReturnsRebuild}]},
 }
 
 const EMPTY_TOOLBAR = {left: [], right: []}
@@ -32,54 +39,54 @@ const EMPTY_TOOLBAR = {left: [], right: []}
 ////////////////////////////////////////////////////////////
 
 export default function Order() {
+  const dispatch = useDispatch()
+  const form = useForm()
 
-    const dispatch = useDispatch()
-    const form = useForm()
+  const {filial} = useSelector((state) => state.center)
+  const {order_horeca_loading, order_horeca} = useSelector((state) => state.center_horeca)
+  const {uid_order} = useSelector((state) => state.center.params)
 
-    const {filial} = useSelector(state => state.center)
-    const {order_horeca_loading, order_horeca} = useSelector(state => state.center_horeca)
-    const {uid_order} = useSelector(state => state.center.params)
+  const [catalog_map, set_catalog_map] = useState([])
+  const [current_table, set_current_table] = useState('sales')
 
-    const [catalog_map, set_catalog_map] = useState([])
-    const [current_table, set_current_table] = useState("sales")
+  // загрузка заказа на клиент
+  useEffect(() => {
+    if (filial === null || uid_order === undefined) return
+    dispatch(center_horeca_order_get(filial, uid_order, 0))
+  }, [dispatch, filial, uid_order])
 
-    // загрузка заказа на клиент
-    useEffect(() => {
-        if (filial === null || uid_order === undefined) return
-        dispatch(center_horeca_order_get(filial, uid_order, 0))
-    }, [dispatch, filial, uid_order])
+  // загрузка заказа в форму
+  useEffect(() => {
+    form.reset(structuredClone(order_horeca))
+  }, [form, order_horeca])
 
-    // загрузка заказа в форму
-    useEffect(() => {
-        form.reset(structuredClone(order_horeca))
-    }, [form, order_horeca])
+  // загрузка справочников
+  useEffect(() => {
+    const ids = FillNameMap(order_horeca.tables)
+    if (!ids.length) return
+    dispatch(center_catalog_load(filial, ids)).then((res) => {
+      set_catalog_map((prev) => {
+        const map = new Map(prev.map((i) => [i.uid, i]))
+        res.data.forEach((i) => map.set(i.uid, i))
+        return Array.from(map.values())
+      })
+    })
+  }, [dispatch, filial, order_horeca])
 
-    // загрузка справочников
-    useEffect(() => {
-        const ids = FillNameMap(order_horeca.tables)
-        if (!ids.length) return
-        dispatch(center_catalog_load(filial, ids))
-            .then(res => {
-                set_catalog_map(prev => {
-                    const map = new Map(prev.map(i => [i.uid, i]))
-                    res.data.forEach(i => map.set(i.uid, i))
-                    return Array.from(map.values())
-                })
-            })
-    }, [dispatch, filial, order_horeca])
+  if (order_horeca_loading.loading) return <LoaderOrder/>
 
-    if (order_horeca_loading.loading) return <LoaderOrder/>
-
-    return <DocView
-        form={form}
-        order={order_horeca}
-        filial={filial}
-        catalog_map={catalog_map}
-        set_catalog_map={set_catalog_map}
-        current_table={current_table}
-        set_current_table={set_current_table}
-        loading={order_horeca_loading.loading}
+  return (
+      <DocView
+          form={form}
+          order={order_horeca}
+          filial={filial}
+          catalog_map={catalog_map}
+          set_catalog_map={set_catalog_map}
+          current_table={current_table}
+          set_current_table={set_current_table}
+          loading={order_horeca_loading.loading}
     />
+  )
 }
 
 ////////////////////////////////////////////////////////////
@@ -87,53 +94,66 @@ export default function Order() {
 ////////////////////////////////////////////////////////////
 
 function DocView(props) {
-    const {form} = props
-    return <Box component="form" className="center-page">
-        <TabsSection {...props}/>
+  const {form} = props
+  return (
+      <Box component="form" className="center-page">
+        <TabsSection {...props} />
         <Summary control={form.control}/>
     </Box>
+  )
 }
 
 ////////////////////////////////////////////////////////////
 // ТАБЫ
 ////////////////////////////////////////////////////////////
 
-function TabsSection({order, form, filial, catalog_map, set_catalog_map, current_table, set_current_table, loading}) {
-
-    return <Box>
+function TabsSection({
+                       order,
+                       form,
+                       filial,
+                       catalog_map,
+                       set_catalog_map,
+                       current_table,
+                       set_current_table,
+                       loading,
+                     }) {
+  return (
+      <Box>
         <TabContext value={current_table}>
+          <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+            <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
+              <Tab value="common" label="Общие"/>
 
-            <Box sx={{borderBottom: 1, borderColor: "divider"}}>
-                <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
+              {order.tables.map((t) => (
+                  <Tab key={t.id} value={t.id} label={t.title}/>
+              ))}
 
-                    <Tab value="common" label="Общие"/>
+              <Tab value="buyer" label="Покупатель"/>
+            </TabList>
+          </Box>
 
-                    {order.tables.map(t => <Tab key={t.id} value={t.id} label={t.title}/>)}
+          <TabPanel value="common">
+            <CommonTab control={form.control}/>
+          </TabPanel>
 
-                    <Tab value="buyer" label="Покупатель"/>
-
-                </TabList>
-            </Box>
-
-            <TabPanel value="common">
-                <CommonTab control={form.control}/>
-            </TabPanel>
-
-            {order.tables.map(table => <TabPanel key={table.id} value={table.id}>
+          {order.tables.map((table) => (
+              <TabPanel key={table.id} value={table.id}>
                 <TableTab
                     table={table}
                     filial={filial}
                     loading={loading}
                     catalog_map={catalog_map}
-                    set_catalog_map={set_catalog_map}/>
-            </TabPanel>)}
+                    set_catalog_map={set_catalog_map}
+                />
+              </TabPanel>
+          ))}
 
-            <TabPanel value="buyer">
-                <BuyerTab control={form.control}/>
-            </TabPanel>
-
+          <TabPanel value="buyer">
+            <BuyerTab control={form.control}/>
+          </TabPanel>
         </TabContext>
     </Box>
+  )
 }
 
 ////////////////////////////////////////////////////////////
@@ -141,13 +161,13 @@ function TabsSection({order, form, filial, catalog_map, set_catalog_map, current
 ////////////////////////////////////////////////////////////
 
 function TableTab({table, filial, loading, catalog_map, set_catalog_map}) {
+  const columns = useTableColumns(table, filial, catalog_map, set_catalog_map)
+  const toolbarProps = TOOLBAR_CONFIG[table.id] ?? EMPTY_TOOLBAR
 
-    const columns = useTableColumns(table, filial, catalog_map, set_catalog_map)
-    const toolbarProps = TOOLBAR_CONFIG[table.id] ?? EMPTY_TOOLBAR
-
-    return <Box sx={{overflowY: "auto"}}>
+  return (
+      <Box sx={{overflowY: 'auto'}}>
         <DataGridPro
-            treeData={table.id === "store"}
+            treeData={table.id === 'store'}
             loading={loading}
             showToolbar
             autoHeight
@@ -162,13 +182,14 @@ function TableTab({table, filial, loading, catalog_map, set_catalog_map}) {
             columnGroupingModel={table.column_grouping_model}
             columnVisibilityModel={table.column_visibility_model}
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-            getRowClassName={p => p.row.is_leaf === false ? 'center-horeca-order-ref' : ''}
-            getTreeDataPath={row => row.path?.split(".") ?? [row.path]}
+            getRowClassName={(p) => (p.row.is_leaf === false ? 'center-horeca-order-ref' : '')}
+            getTreeDataPath={(row) => row.path?.split('.') ?? [row.path]}
             slots={{toolbar: TableToolbar}}
             slotProps={{toolbar: toolbarProps}}
-            groupingColDef={{width: 100, minWidth: 100, headerName: "№"}}
+            groupingColDef={{width: 100, minWidth: 100, headerName: '№'}}
         />
     </Box>
+  )
 }
 
 ////////////////////////////////////////////////////////////
@@ -176,17 +197,24 @@ function TableTab({table, filial, loading, catalog_map, set_catalog_map}) {
 ////////////////////////////////////////////////////////////
 
 function CommonTab({control}) {
-    return <Box sx={{display: "flex", gap: 1}}>
+  return (
+      <Box sx={{display: 'flex', gap: 1}}>
         <ControlledTextField control={control} name="number" label="Номер заказа" numeric/>
         <ControlledTextField control={control} name="current_number" label="Номер счета"/>
     </Box>
+  )
 }
 
 function BuyerTab({control}) {
-    return <Box sx={{display: "flex", flexDirection: "column", gap: 1, maxHeight: 400, overflowY: "auto"}}>
+  return (
+      <Box
+          sx={{display: 'flex', flexDirection: 'column', gap: 1, maxHeight: 400, overflowY: 'auto'}}
+      >
         {BUYER_FIELDS.map(([name, label]) => (
-            <ControlledTextField key={name} control={control} name={name} label={label}/>))}
+            <ControlledTextField key={name} control={control} name={name} label={label}/>
+        ))}
     </Box>
+  )
 }
 
 ////////////////////////////////////////////////////////////
@@ -194,14 +222,43 @@ function BuyerTab({control}) {
 ////////////////////////////////////////////////////////////
 
 function Summary({control}) {
-    return <Box sx={{display: "flex", gap: 1}}>
-        <ControlledFieldSwitch control={control} name="deleted" label="Заказ удален" sx={{flex: 1}}/>
-        <ControlledFieldSwitch control={control} name="canceled" label="Заказ отменен" sx={{flex: 1}}/>
-        <ControlledTextField control={control} name="quantity" label="Количество" numeric sx={{flex: 1}}/>
+  return (
+      <Box sx={{display: 'flex', gap: 1}}>
+        <ControlledFieldSwitch
+            control={control}
+            name="deleted"
+            label="Заказ удален"
+            sx={{flex: 1}}
+        />
+        <ControlledFieldSwitch
+            control={control}
+            name="canceled"
+            label="Заказ отменен"
+            sx={{flex: 1}}
+        />
+        <ControlledTextField
+            control={control}
+            name="quantity"
+            label="Количество"
+            numeric
+            sx={{flex: 1}}
+        />
         <ControlledMoneyField control={control} name="price" label="Цена" sx={{flex: 1}}/>
-        <ControlledMoneyField control={control} name="sum_discount" label="Сумма скидки" sx={{flex: 1}}/>
-        <ControlledMoneyField control={control} name="sum" label="Сумма со скидкой" readOnly sx={{flex: 1}}/>
+        <ControlledMoneyField
+            control={control}
+            name="sum_discount"
+            label="Сумма скидки"
+            sx={{flex: 1}}
+        />
+        <ControlledMoneyField
+            control={control}
+            name="sum"
+            label="Сумма со скидкой"
+            readOnly
+            sx={{flex: 1}}
+        />
     </Box>
+  )
 }
 
 ////////////////////////////////////////////////////////////

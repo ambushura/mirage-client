@@ -47,7 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #2E3239;
+    color: #2e3239;
 }
 
 .film-description {
@@ -73,7 +73,7 @@
 }
 
 .film-description-genre {
-    color: #8B919B;
+    color: #8b919b;
     font-size: 12px;
     margin-left: 12px;
 }

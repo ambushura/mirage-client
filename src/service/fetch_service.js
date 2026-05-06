@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from 'axios'
 import {
     NEW_EMPTY_HORDER,
     NEW_EMPTY_ORDER,
@@ -10,11 +10,11 @@ import {
     setKitchenPointsList,
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
-    setPreOrderPreparing
-} from "../redux/ordersReducer.js"
-import {setBooking, setSeance} from "../redux/scheduleReducer.js"
-import {addNotification} from "../redux/notifierReducer.js"
-import {loginSuccess, logout} from "../redux/authReducer.js"
+    setPreOrderPreparing,
+} from '../redux/ordersReducer.js'
+import {setBooking, setSeance} from '../redux/scheduleReducer.js'
+import {addNotification} from '../redux/notifierReducer.js'
+import {loginSuccess, logout} from '../redux/authReducer.js'
 import {
     COMMON_PRINTERS_GET,
     ROUTE_CENTER_CATALOG_LOAD,
@@ -129,15 +129,15 @@ import {
     ROUTE_SECOND_SCREEN_HORDER_GET,
     ROUTE_SECOND_SCREEN_PRE_ORDER_GET,
     ROUTE_SECOND_SCREEN_SCHEDULE_GET,
-    ROUTE_SECOND_SCREEN_SEANCE_GET
-} from "./fetch_routes.js"
-import {fillHosts} from "../redux/markirovkaReducer.js"
-import {setHall} from "../redux/hallsReducer.js"
-import {setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate} from "../redux/documentsReducer.js"
-import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance} from "../redux/secondScreenReducer.js"
-import {setNeedUpdate} from "../redux/interfaceReducer.js"
-import {setCandy} from "../redux/dataReducer.js"
-import {jwtDecode} from "jwt-decode"
+    ROUTE_SECOND_SCREEN_SEANCE_GET,
+} from './fetch_routes.js'
+import {fillHosts} from '../redux/markirovkaReducer.js'
+import {setHall} from '../redux/hallsReducer.js'
+import {setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate,} from '../redux/documentsReducer.js'
+import {setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance,} from '../redux/secondScreenReducer.js'
+import {setNeedUpdate} from '../redux/interfaceReducer.js'
+import {setCandy} from '../redux/dataReducer.js'
+import {jwtDecode} from 'jwt-decode'
 import {
     setGoods,
     setGoodsLoading,
@@ -156,21 +156,21 @@ import {
     setStoreState,
     setStoreStateLoadingState,
     setTree,
-    setTreeLoading
-} from "../redux/center/centerHorecaReducer.js"
-
+    setTreeLoading,
+} from '../redux/center/centerHorecaReducer.js'
 
 export const TIMEOUT = 30000
 
 export const makeRequest = async (dispatch, config, onSuccess) => {
-
     const state = {
-        loading: true, error: null, data: null,
+        loading: true,
+        error: null,
+        data: null,
     }
 
     try {
         const {wp, filial, kiosk, version, center} = config
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem('token')
         const headers = {
             ...config.headers,
             Authorization: token,
@@ -182,7 +182,9 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
         }
 
         const res = await axios({
-            ...config, headers, timeout: config.timeout || TIMEOUT,
+            ...config,
+            headers,
+            timeout: config.timeout || TIMEOUT,
         })
 
         const data = onSuccess ? onSuccess(res.data) : res.data
@@ -190,9 +192,7 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
         state.loading = false
         state.error = null
         state.data = data
-
     } catch (e) {
-
         let message
         let show_message = true
         if (e.status === 401) {
@@ -212,9 +212,13 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
         }
 
         if (!config.kiosk && show_message && !config.center) {
-            dispatch(addNotification({
-                message, severity: 'error', autoHide: true
-            }))
+            dispatch(
+                addNotification({
+                    message,
+                    severity: 'error',
+                    autoHide: true,
+                })
+            )
         }
 
         state.loading = false
@@ -228,48 +232,60 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
 export const cinema_order_fetch = (filial, uid_order) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_GET}`,
-        params: {uid_order},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        dispatch(setCurrentPreOrder(data))
-    })
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_GET}`,
+            params: {uid_order},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(setCurrentPreOrder(data))
+        }
+    )
 }
 
 export const horeca_order_fetch = (filial, uid_order) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_GET}`,
-        params: {uid_order},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => dispatch(setCurrentHorder(data)))
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_GET}`,
+            params: {uid_order},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => dispatch(setCurrentHorder(data))
+    )
 }
 
-export const common_orders_receipts_get = (filial, type, uid_order) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_orders_receipts_get =
+    (filial, type, uid_order) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_GET_RECEIPTS}`,
-        params: {uid_order: uid_order, type},
+                params: {uid_order: uid_order, type},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         if (type === 'cinema') {
             dispatch(setCurrentPreOrder(data))
             dispatch(setPreOrderPreparing(true))
@@ -277,478 +293,642 @@ export const common_orders_receipts_get = (filial, type, uid_order) => async (di
             dispatch(setCurrentHorder(data))
             dispatch(setHorderPreparing(true))
         }
-    })
-}
+            }
+        )
+    }
 
 export const cinema_order_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_DELETE}`,
-        params: {uid_order, ver},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, () => {
-        dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
-        dispatch(setOrdersCinemaUpdate())
-    })
-}
-
-export const horeca_order_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE}`,
-        params: {uid_order, ver},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, (data) => {
-        if (data.canceled) {
-            dispatch(setCurrentHorder(data))
-        } else {
-            dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
-        }
-        dispatch(setOrdersHorecaUpdate())
-    })
-}
-
-export const cinema_position_add = (city, filial, uid_seance, uid_order, uid_place, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_POSITION_ADD}`,
-        params: {uid_city: city.uid, uid_seance, uid_order, uid_place, ver},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, async (data) => {
-        dispatch(setCurrentPreOrder(data || NEW_EMPTY_ORDER()))
-        await makeRequest(dispatch, {
+    await makeRequest(
+        dispatch,
+        {
             method: 'get',
-            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`,
-            params: {uid_seance, uid_order},
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDER_DELETE}`,
+            params: {uid_order, ver},
             wp,
             filial,
             kiosk,
             version,
             center,
-        }, (booking) => dispatch(setBooking(booking)))
-    })
+        },
+        () => {
+            dispatch(setCurrentPreOrder(NEW_EMPTY_ORDER()))
+            dispatch(setOrdersCinemaUpdate())
+        }
+    )
 }
 
-export const horeca_position_add = (filial, uid_order, ver, uid_menu) => async (dispatch, getState) => {
+export const horeca_order_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE}`,
+            params: {uid_order, ver},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            if (data.canceled) {
+                dispatch(setCurrentHorder(data))
+            } else {
+                dispatch(setCurrentHorder(NEW_EMPTY_HORDER()))
+            }
+            dispatch(setOrdersHorecaUpdate())
+        }
+    )
+}
+
+export const cinema_position_add =
+    (city, filial, uid_seance, uid_order, uid_place, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
+        method: 'get',
+        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_POSITION_ADD}`,
+                params: {uid_city: city.uid, uid_seance, uid_order, uid_place, ver},
+        wp,
+        filial,
+        kiosk,
+        version,
+        center,
+            },
+            async (data) => {
+        dispatch(setCurrentPreOrder(data || NEW_EMPTY_ORDER()))
+                await makeRequest(
+                    dispatch,
+                    {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`,
+                        params: {uid_seance, uid_order},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+                    },
+                    (booking) => dispatch(setBooking(booking))
+                )
+            }
+        )
+    }
+
+export const horeca_position_add =
+    (filial, uid_order, ver, uid_menu) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD}`,
-        params: {uid_order, ver, uid_menu},
+                params: {uid_order, ver, uid_menu},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => dispatch(setCurrentHorder(data)))
-}
+            },
+            (data) => dispatch(setCurrentHorder(data))
+        )
+    }
 
-export const cinema_discount_apply = (filial, uid_order, uid_discount, uid_group_discount, comment, uid_positions, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const cinema_discount_apply =
+    (filial, uid_order, uid_discount, uid_group_discount, comment, uid_positions, ver) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            await makeRequest(
+                dispatch,
+                {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_APPLY}`,
-        params: {uid_order, uid_discount, uid_group_discount, uid_positions, comment, ver},
+                    params: {uid_order, uid_discount, uid_group_discount, uid_positions, comment, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+                },
+                (data) => {
         dispatch(setCurrentPreOrder(data))
         dispatch(setOrdersCinemaUpdate())
-    })
-}
+                }
+            )
+        }
 
-export const common_contact_add = (filial, order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_contact_add =
+    (
+        filial,
+        order_type,
+        uid_order,
+        buyer_s,
+        buyer_n,
+        buyer_o,
+        buyer_phone_number,
+        buyer_email,
+        ver
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            await makeRequest(
+                dispatch,
+                {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_ADD_CONTACT}`,
-        params: {order_type, uid_order, buyer_s, buyer_n, buyer_o, buyer_phone_number, buyer_email, ver},
+                    params: {
+                        order_type,
+                        uid_order,
+                        buyer_s,
+                        buyer_n,
+                        buyer_o,
+                        buyer_phone_number,
+                        buyer_email,
+                        ver,
+                    },
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+                },
+                (data) => {
         dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-    })
-}
+                }
+            )
+        }
 
-export const common_order_add_comment = (filial, order_type, uid_order, comment, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_order_add_comment =
+    (filial, order_type, uid_order, comment, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_ORDER_ADD_COMMENT : ROUTE_HORECA_ORDER_ADD_COMMENT}`,
-        params: {uid_order, comment, ver},
+                params: {uid_order, comment, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const common_order_delete_comment = (filial, order_type, uid_order, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_order_delete_comment =
+    (filial, order_type, uid_order, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_ORDER_DELETE_COMMENT : ROUTE_HORECA_ORDER_DELETE_COMMENT}`,
-        params: {uid_order, ver},
+                params: {uid_order, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const common_position_add_comment = (filial, order_type, uid_order, uid_position, comment, modifications, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_position_add_comment =
+    (filial, order_type, uid_order, uid_position, comment, modifications, ver) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            await makeRequest(
+                dispatch,
+                {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_ADD_COMMENT : ROUTE_HORECA_POSITION_ADD_COMMENT}`,
-        params: {uid_order, uid_position, comment, modifications: order_type === 'horeca' ? modifications : [], ver},
+                    params: {
+                        uid_order,
+                        uid_position,
+                        comment,
+                        modifications: order_type === 'horeca' ? modifications : [],
+                        ver,
+                    },
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+                },
+                (data) => {
         dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-    })
-}
+                }
+            )
+        }
 
-export const common_position_delete_comment = (filial, order_type, uid_order, uid_position, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_position_delete_comment =
+    (filial, order_type, uid_order, uid_position, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${order_type === 'cinema' ? ROUTE_CINEMA_POSITION_DELETE_COMMENT : ROUTE_HORECA_POSITION_DELETE_COMMENT}`,
-        params: {uid_order, uid_position, ver},
+                params: {uid_order, uid_position, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(order_type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(order_type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const horeca_position_add_quantity = (filial, uid_order, uid_position, quantity, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const horeca_position_add_quantity =
+    (filial, uid_order, uid_position, quantity, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_QUANTITY}`,
-        params: {uid_order, uid_position, quantity, ver},
+                params: {uid_order, uid_position, quantity, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const horeca_position_change_state = (filial, uid_order, uid_position, action, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
+export const horeca_position_change_state =
+    (filial, uid_order, uid_position, action, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
     const routes = {
-        away: ROUTE_HORECA_POSITION_AWAY, course: ROUTE_HORECA_POSITION_COURSE, cook: ROUTE_HORECA_POSITION_COOK
+        away: ROUTE_HORECA_POSITION_AWAY,
+        course: ROUTE_HORECA_POSITION_COURSE,
+        cook: ROUTE_HORECA_POSITION_COOK,
     }
     const route = routes[action]
     if (!route) return
-    await makeRequest(dispatch, {
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${route}`,
-        params: {uid_order, uid_position, ver},
+                params: {uid_order, uid_position, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const horeca_position_add_mark = (filial, uid_order, uid_position, mark) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const horeca_position_add_mark =
+    (filial, uid_order, uid_position, mark) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_MARK}`,
-        params: {uid_order, uid_position, mark},
+                params: {uid_order, uid_position, mark},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const horeca_position_add_egais_mark = (filial, uid_order, uid_position, mark) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const horeca_position_add_egais_mark =
+    (filial, uid_order, uid_position, mark) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_EGAIS}`,
-        params: {uid_order, uid_position, mark},
+                params: {uid_order, uid_position, mark},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const horeca_position_add_barcode = (filial, uid_order, mark) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const horeca_position_add_barcode =
+    (filial, uid_order, mark) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_ADD_BARCODE}`,
-        params: {uid_order, mark},
+                params: {uid_order, mark},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
 export const markirovka_cdn_info_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO_GET}`,
-        params: {},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => dispatch(fillHosts(data)))
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO_GET}`,
+            params: {},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => dispatch(fillHosts(data))
+    )
 }
 
 export const markirovka_cdn_info_update = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO_UPDATE}`,
-        params: {},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => dispatch(fillHosts(data)))
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_MARKIROVKA_CDN_INFO_UPDATE}`,
+            params: {},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => dispatch(fillHosts(data))
+    )
 }
 
-export const horeca_position_delete = (filial, uid_order, uid_position, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const horeca_position_delete =
+    (filial, uid_order, uid_position, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_POSITION_DELETE}`,
-        params: {uid_order, uid_position, ver},
+                params: {uid_order, uid_position, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const horeca_table_add = (filial, uid_order, uid_hall, uid_table, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const horeca_table_add =
+    (filial, uid_order, uid_hall, uid_table, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_ADD_TABLE}`,
-        params: {uid_order, uid_hall, uid_table, ver},
+                params: {uid_order, uid_hall, uid_table, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
 export const horeca_table_delete = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE_TABLE}`,
-        params: {uid_order, ver},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        dispatch(setCurrentHorder(data))
-        dispatch(setOrdersHorecaUpdate())
-    })
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_DELETE_TABLE}`,
+            params: {uid_order, ver},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(setCurrentHorder(data))
+            dispatch(setOrdersHorecaUpdate())
+        }
+    )
 }
 
-export const horeca_kitchen_push = (filial, uid_order, uid_position, uid_kitchen_points_selected, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`, params: {
-            uid_order, uid_position, uid_kitchen_points_selected, ver
-        }, wp, filial, kiosk, version, center,
-    }, data => {
+export const horeca_kitchen_push =
+    (filial, uid_order, uid_position, uid_kitchen_points_selected, ver) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            await makeRequest(
+                dispatch,
+                {
+                    method: 'get',
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_PUSH}`,
+                    params: {
+                        uid_order,
+                        uid_position,
+                        uid_kitchen_points_selected,
+                        ver,
+                    },
+                    wp,
+                    filial,
+                    kiosk,
+                    version,
+                    center,
+                },
+                (data) => {
         dispatch(pushKitchenPositions(data))
-    })
-}
+                }
+            )
+        }
 
 export const cinema_place_block = (filial, hall, uid_place) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_PLACE_BLOCK}`,
-        params: {uid_hall: hall.uid, uid_place},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        const hallN = JSON.parse(JSON.stringify(hall))
-        hallN.nodes = hallN.nodes.map(node => {
-            if (node.id === data.id) {
-                return {
-                    ...data,
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_PLACE_BLOCK}`,
+            params: {uid_hall: hall.uid, uid_place},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            const hallN = JSON.parse(JSON.stringify(hall))
+            hallN.nodes = hallN.nodes.map((node) => {
+                if (node.id === data.id) {
+                    return {
+                        ...data,
+                    }
                 }
-            }
-            return node
-        })
-        dispatch(setHall(hallN))
-    })
+                return node
+            })
+            dispatch(setHall(hallN))
+        }
+    )
 }
 
-export const pl_estimate_discounts = (filial, uid_order, type, card, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const pl_estimate_discounts =
+    (filial, uid_order, type, card, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_PL_ESTIMATE_DISCOUNTS}`,
-        params: {uid_order, type, card, ver},
+                params: {uid_order, type, card, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
         dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
-export const cinema_seance_close = (filial, uid_seance, reason, comment, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const cinema_seance_close =
+    (filial, uid_seance, reason, comment, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_CLOSE}`,
-        params: {uid_seance, reason, comment, ver},
+                params: {uid_seance, reason, comment, ver},
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setSeance(data))
-    })
-}
+            }
+        )
+    }
 
 export const common_list_get = (filial, type) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
-        params: {type},
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        switch (type) {
-            case 'kkt':
-                dispatch(setKKTList(data))
-                dispatch(setZBooksUpdate())
-                break
-            case 'pinpad':
-                dispatch(setPinpadList(data))
-                dispatch(setZPinpadsUpdate())
-                break
-            case 'kitchen_points':
-                dispatch(setKitchenPointsList(data))
-                break
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
+            params: {type},
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            switch (type) {
+                case 'kkt':
+                    dispatch(setKKTList(data))
+                    dispatch(setZBooksUpdate())
+                    break
+                case 'pinpad':
+                    dispatch(setPinpadList(data))
+                    dispatch(setZPinpadsUpdate())
+                    break
+                case 'kitchen_points':
+                    dispatch(setKitchenPointsList(data))
+                    break
+            }
         }
-    })
+    )
 }
 
 export const common_lazy_list_get = (filial, type) => async (dispatch, getState) => {
@@ -767,44 +947,63 @@ export const common_lazy_list_get = (filial, type) => async (dispatch, getState)
     return res?.data || []
 }
 
-export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group, return_before, uid_return_reason, comment_return_reason) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    await makeRequest(dispatch, {
+export const common_order_pay =
+    (
+        filial,
+        pm,
+        uid_order,
+        ver,
+        type,
+        payment_group,
+        return_before,
+        uid_return_reason,
+        comment_return_reason
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            await makeRequest(
+                dispatch,
+                {
         method: 'post',
-        url: kiosk ? `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}` : `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT}`,
-        data: kiosk ? {
-            uid_filial: filial.uid,
-            uid_order,
-            type,
-            ver,
-            payment_group,
-            uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
-            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
-            return_before,
-        } : {
-            uid_filial: filial.uid,
-            uid_payment_type: pm.uid_payment_type,
-            uid_kkt: pm.uid_kkt,
-            uid_pinpad: pm.uid_pinpad,
-            uid_work_place: pm.uid_work_place,
-            uid_printer: pm.uid_printer,
-            uid_printer_kkt: pm.uid_printer_kkt,
-            uid_order,
-            type,
-            ver,
-            payment_group,
-            uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
-            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
-            return_before,
-        },
+                    url: kiosk
+                        ? `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT_KIOSK}`
+                        : `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_COMMON_ORDER_PAYMENT}`,
+                    data: kiosk
+                        ? {
+                            uid_filial: filial.uid,
+                            uid_order,
+                            type,
+                            ver,
+                            payment_group,
+                            uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
+                            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
+                            return_before,
+                        }
+                        : {
+                            uid_filial: filial.uid,
+                            uid_payment_type: pm.uid_payment_type,
+                            uid_kkt: pm.uid_kkt,
+                            uid_pinpad: pm.uid_pinpad,
+                            uid_work_place: pm.uid_work_place,
+                            uid_printer: pm.uid_printer,
+                            uid_printer_kkt: pm.uid_printer_kkt,
+                            uid_order,
+                            type,
+                            ver,
+                            payment_group,
+                            uid_return_reason: uid_return_reason === '' ? null : uid_return_reason,
+                            comment_return_reason: comment_return_reason === '' ? null : comment_return_reason,
+                            return_before,
+                        },
         timeout: TIMEOUT * 6 * 2,
         wp,
         filial,
         kiosk,
         version,
         center,
-    }, data => {
+                },
+                (data) => {
         // Киоск
         if (kiosk) {
             if (type === 'cinema') {
@@ -815,478 +1014,604 @@ export const common_order_pay = (filial, pm, uid_order, ver, type, payment_group
                         dispatch(setCurrentPreOrder(data.order))
                     }
                 }
-                data.errors.forEach(error => {
+                data.errors.forEach((error) => {
                     dispatch(setKioskPaymentError(error))
                 })
             }
         } else {
             // Рабочее место
             if (data.errors.length === 0) {
-                dispatch(type === 'cinema' ? setCurrentPreOrder(NEW_EMPTY_ORDER()) : setCurrentHorder(NEW_EMPTY_HORDER()))
+                dispatch(
+                    type === 'cinema'
+                        ? setCurrentPreOrder(NEW_EMPTY_ORDER())
+                        : setCurrentHorder(NEW_EMPTY_HORDER())
+                )
                 dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
             } else {
                 if (data.order !== null) {
-                    dispatch(type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order))
+                    dispatch(
+                        type === 'cinema' ? setCurrentPreOrder(data.order) : setCurrentHorder(data.order)
+                    )
                     dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
                 }
-                data.errors.forEach(error => {
-                    dispatch(addNotification({
-                        message: error, severity: 'error', autoHide: true
-                    }))
+                data.errors.forEach((error) => {
+                    dispatch(
+                        addNotification({
+                            message: error,
+                            severity: 'error',
+                            autoHide: true,
+                        })
+                    )
                 })
             }
         }
-    })
-}
+                }
+            )
+        }
 
 export const equipment_action = (filial, route, params) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${route}`,
-        params: params,
-        timeout: TIMEOUT * 6 * 2,
-        wp,
-        filial,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        switch (route) {
-            case ROUTE_EQUIPMENT_KKT_Z:
-                dispatch(setZBooksUpdate())
-                break
-            case ROUTE_EQUIPMENT_PINPAD_X:
-                dispatch(setZPinpadsUpdate())
-                break
-            case ROUTE_EQUIPMENT_PINPAD_Z:
-                dispatch(setZPinpadsUpdate())
-                break
-            case ROUTE_EQUIPMENT_KKT_BILL_PRINT:
-                dispatch(setCurrentHorder(data))
-                dispatch(setOrdersHorecaUpdate())
-                break
-            case ROUTE_EQUIPMENT_PRINTER_BILL_PRINT:
-                dispatch(setCurrentHorder(data))
-                dispatch(setOrdersHorecaUpdate())
-                break
-            case ROUTE_EQUIPMENT_KKT_TICKETS_PRINT:
-                dispatch(setCurrentPreOrder(data))
-                dispatch(setOrdersCinemaUpdate())
-                break
-            case ROUTE_EQUIPMENT_WORKPLACE_TURN_ON:
-                break
-            case ROUTE_EQUIPMENT_WORKPLACE_RESET:
-                break
-            case ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF:
-                break
-            case ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT:
-                break
+    await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${route}`,
+            params: params,
+            timeout: TIMEOUT * 6 * 2,
+            wp,
+            filial,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            switch (route) {
+                case ROUTE_EQUIPMENT_KKT_Z:
+                    dispatch(setZBooksUpdate())
+                    break
+                case ROUTE_EQUIPMENT_PINPAD_X:
+                    dispatch(setZPinpadsUpdate())
+                    break
+                case ROUTE_EQUIPMENT_PINPAD_Z:
+                    dispatch(setZPinpadsUpdate())
+                    break
+                case ROUTE_EQUIPMENT_KKT_BILL_PRINT:
+                    dispatch(setCurrentHorder(data))
+                    dispatch(setOrdersHorecaUpdate())
+                    break
+                case ROUTE_EQUIPMENT_PRINTER_BILL_PRINT:
+                    dispatch(setCurrentHorder(data))
+                    dispatch(setOrdersHorecaUpdate())
+                    break
+                case ROUTE_EQUIPMENT_KKT_TICKETS_PRINT:
+                    dispatch(setCurrentPreOrder(data))
+                    dispatch(setOrdersCinemaUpdate())
+                    break
+                case ROUTE_EQUIPMENT_WORKPLACE_TURN_ON:
+                    break
+                case ROUTE_EQUIPMENT_WORKPLACE_RESET:
+                    break
+                case ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF:
+                    break
+                case ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT:
+                    break
+            }
         }
-    })
+    )
 }
 
 export const common_cities_filials_get = () => async (dispatch, getState) => {
     const origin = window.location.origin
     const {wp, kiosk, version, dev} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: dev ? `http://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.port}${ROUTE_COMMON_CITIES_GET}` : `${origin}${ROUTE_COMMON_CITIES_GET}`,
-        params: {},
-        filial: {},
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
-}
-
-export const login = (filial, login_auth, pincode_auth, username, password) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return new Promise((resolve, reject) => {
-        makeRequest(dispatch, {
-            method: 'post',
-            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LOGIN}`,
-            data: {login_auth, pincode_auth, username, password},
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: dev
+                ? `http://${ROUTE_MAIN_HOST.ip}:${ROUTE_MAIN_HOST.port}${ROUTE_COMMON_CITIES_GET}`
+                : `${origin}${ROUTE_COMMON_CITIES_GET}`,
+            params: {},
+            filial: {},
             wp,
-            filial,
             kiosk,
             version,
             center,
-        }, data => {
-            try {
-                const decode = jwtDecode(data)
-                dispatch(loginSuccess([data, decode]))
-                resolve(decode)
-            } catch (err) {
-                reject(err)
-            }
-        })
-    })
+        },
+        (data) => data
+    )
 }
+
+export const login =
+    (filial, login_auth, pincode_auth, username, password) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+    return new Promise((resolve, reject) => {
+        makeRequest(
+            dispatch,
+            {
+                method: 'post',
+                url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LOGIN}`,
+                data: {login_auth, pincode_auth, username, password},
+                wp,
+                filial,
+                kiosk,
+                version,
+                center,
+            },
+            (data) => {
+                try {
+                    const decode = jwtDecode(data)
+                    dispatch(loginSuccess([data, decode]))
+                    resolve(decode)
+                } catch (err) {
+                    reject(err)
+                }
+            }
+        )
+    })
+    }
 
 export const cinema_schedule_filters_get = (filial, date_shift) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILTERS_FILMS_GET}`,
-        params: {date_shift},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILTERS_FILMS_GET}`,
+            params: {date_shift},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const cinema_halls_filters_get = (filial, date_shift) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET}`,
-        params: {date_shift},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET}`,
+            params: {date_shift},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const cinema_seance_booking_get = (filial, uid_seance, uid_order, full) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const cinema_seance_booking_get =
+    (filial, uid_seance, uid_order, full) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET_BOOKING}`,
-        params: {uid_seance, uid_order, full},
+                params: {uid_seance, uid_order, full},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const cinema_seance_discounts_get = (filial, uid_seance) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_GET}`,
-        params: {uid_seance},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_GET}`,
+            params: {uid_seance},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const cinema_seance_discounts_groups_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_GROUPS_GET}`,
-        params: {},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_DISCOUNTS_GROUPS_GET}`,
+            params: {},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const cinema_seance_get = (filial, uid_seance) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET}`,
-        params: {uid_seance},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_GET}`,
+            params: {uid_seance},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const cinema_hall_get = (filial, uid_hall, type) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_HALL_GET}`,
-        params: {uid_hall, type},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_HALL_GET}`,
+            params: {uid_hall, type},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const horeca_menu_get = (filial, uid_folder, date_shift) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MENU_GET}`,
-        params: {uid_folder, date_shift},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MENU_GET}`,
+            params: {uid_folder, date_shift},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_orders_filters_staff_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET}`,
-        params: {},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET}`,
+            params: {},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_orders_filters_schedule_get = (filial, date_shift) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_orders_filters_schedule_get =
+    (filial, date_shift) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_FILTERS_SCHEDULE_GET}`,
-        params: {date_shift},
+                params: {date_shift},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const common_orders_filters_halls_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET}`,
-        params: {},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET}`,
+            params: {},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_orders_filters_workplace_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET}`,
-        params: {},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET}`,
+            params: {},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const horeca_orders_filters_kitchen_points_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
-        params: {type: 'kitchen_points'},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_LIST_GET}`,
+            params: {type: 'kitchen_points'},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const second_screen_schedule_get = (filial, date_shift) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_SCHEDULE_GET}`,
-        params: {date_shift},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        dispatch(setSSSchedule(data))
-    })
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_SCHEDULE_GET}`,
+            params: {date_shift},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(setSSSchedule(data))
+        }
+    )
 }
 
 export const second_screen_seance_get = (filial, uid_seance) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_SEANCE_GET}`,
-        params: {uid_seance},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        dispatch(setSSSeance(data))
-    })
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_SEANCE_GET}`,
+            params: {uid_seance},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(setSSSeance(data))
+        }
+    )
 }
 
-export const second_screen_pre_order_get = (filial, uid_order, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const second_screen_pre_order_get =
+    (filial, uid_order, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_PRE_ORDER_GET}`,
-        params: {uid_order, ver},
+                params: {uid_order, ver},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setSSPreOrder(data))
-    })
-}
+            }
+        )
+    }
 
 export const second_screen_horder_get = (filial, uid_order, ver) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_HORDER_GET}`,
-        params: {uid_order, ver},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        dispatch(setSSHorder(data))
-    })
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_HORDER_GET}`,
+            params: {uid_order, ver},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(setSSHorder(data))
+        }
+    )
 }
 
-export const second_screen_booking_get = (filial, uid_seance, uid_order, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const second_screen_booking_get =
+    (filial, uid_seance, uid_order, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_SECOND_SCREEN_BOOKING_GET}`,
-        params: {uid_seance, uid_order, ver},
+                params: {uid_seance, uid_order, ver},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setSSBooking(data))
-    })
-}
+            }
+        )
+    }
 
 export const common_catalog_get = (filial, type, uid, date_shift) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CATALOG_GET}`,
-        params: {type, uid, date_shift},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_CATALOG_GET}`,
+            params: {type, uid, date_shift},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_payment_map_get = (filial, date_shift) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_MAP_GET}`,
-        params: {date_shift},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_MAP_GET}`,
+            params: {date_shift},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_documents_operations_get = (filial, page, update, details) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_operations_get =
+    (filial, page, update, details) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET}`,
-        params: {page, update, details},
+                params: {page, update, details},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const common_documents_operation_get = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_GET}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_GET}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_documents_operation_delete = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_documents_operation_save = (filial, operation) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_operation_save =
+    (filial, operation) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'post',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE}`,
         data: operation,
@@ -1295,502 +1620,767 @@ export const common_documents_operation_save = (filial, operation) => async (dis
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const common_documents_operations_close_shift = (filial, date_shift) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_operations_close_shift =
+    (filial, date_shift) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT}`,
-        params: {date_shift},
+                params: {date_shift},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const common_documents_zbooks_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_zbooks_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET}`,
-        params: {date_shift, update},
+                params: {date_shift, update},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const common_documents_z_book_get = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_GET}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_GET}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_documents_z_book_delete = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_documents_z_book_save = (filial, z_book) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'post',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_SAVE}`,
-        data: z_book,
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'post',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZBOOK_SAVE}`,
+            data: z_book,
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_documents_pinpads_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_pinpads_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_ZPINPADS_GET}`,
-        params: {date_shift, update},
+                params: {date_shift, update},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const horeca_modifications_get = (filial, uid_menu) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MODIFICATIONS_GET}`,
-        params: {uid_menu},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_MODIFICATIONS_GET}`,
+            params: {uid_menu},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_payment_methods_get = (filial, uid_order, type, remote) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_payment_methods_get =
+    (filial, uid_order, type, remote) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_PAYMENT_METHODS_GET}`,
-        params: {uid_order, type, remote},
+                params: {uid_order, type, remote},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const cinema_orders_get = (filial, update, page, date_shift, staff, state, seances, halls, workplaces, buyer_emails, buyer_phone_number, from_site, from_kiosk, from_wp) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`, params: {
-            update,
-            page,
-            date_shift,
-            staff,
-            state,
-            halls,
-            seances,
-            workplaces,
-            buyer_phone_number,
-            buyer_emails,
-            from_site,
-            from_kiosk,
-            from_wp
-        }, filial, wp, kiosk, version, center,
-    }, data => data)
-}
+export const cinema_orders_get =
+    (
+        filial,
+        update,
+        page,
+        date_shift,
+        staff,
+        state,
+        seances,
+        halls,
+        workplaces,
+        buyer_emails,
+        buyer_phone_number,
+        from_site,
+        from_kiosk,
+        from_wp
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            return await makeRequest(
+                dispatch,
+                {
+                    method: 'get',
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_ORDERS_GET}`,
+                    params: {
+                        update,
+                        page,
+                        date_shift,
+                        staff,
+                        state,
+                        halls,
+                        seances,
+                        workplaces,
+                        buyer_phone_number,
+                        buyer_emails,
+                        from_site,
+                        from_kiosk,
+                        from_wp,
+                    },
+                    filial,
+                    wp,
+                    kiosk,
+                    version,
+                    center,
+                },
+                (data) => data
+            )
+        }
 
-export const horeca_orders_get = (filial, update, page, date_shift, staff, state, halls, workplaces, kitchen_points, kitchen_state) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}`, params: {
-            update, page, date_shift, staff, state, halls, workplaces, kitchen_points, kitchen_state
-        }, filial, wp, kiosk, version, center,
-    }, data => data)
-}
+export const horeca_orders_get =
+    (
+        filial,
+        update,
+        page,
+        date_shift,
+        staff,
+        state,
+        halls,
+        workplaces,
+        kitchen_points,
+        kitchen_state
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            return await makeRequest(
+                dispatch,
+                {
+                    method: 'get',
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDERS_GET}`,
+                    params: {
+                        update,
+                        page,
+                        date_shift,
+                        staff,
+                        state,
+                        halls,
+                        workplaces,
+                        kitchen_points,
+                        kitchen_state,
+                    },
+                    filial,
+                    wp,
+                    kiosk,
+                    version,
+                    center,
+                },
+                (data) => data
+            )
+        }
 
 export const common_order_find = (filial, type, value) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_FIND}`,
-        params: {type, value},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_FIND}`,
+            params: {type, value},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const horeca_kitchen_get = (filial, date_shift, uid_kitchen_points_selected) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const horeca_kitchen_get =
+    (filial, date_shift, uid_kitchen_points_selected) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_GET}`,
-        params: {date_shift, uid_kitchen_points_selected},
+                params: {date_shift, uid_kitchen_points_selected},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const horeca_kitchen_order_get = (filial, date_shift, uid_order, uid_kitchen_points_selected) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const horeca_kitchen_order_get =
+    (filial, date_shift, uid_order, uid_kitchen_points_selected) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_KITCHEN_ORDER_GET}`,
-        params: {date_shift, uid_order, uid_kitchen_points_selected},
+                params: {date_shift, uid_order, uid_kitchen_points_selected},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
-export const cinema_schedule_halls_get = (filial, date_shift, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`, params: {
-            date_shift,
-            closed,
-            canceled,
-            opened,
-            films,
-            copy_types,
-            age,
-            halls,
-            hall_type_vip,
-            hall_type_regular,
-            time,
-            price,
-            film_types
-        }, filial, wp, kiosk, version, center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
+export const cinema_schedule_halls_get =
+    (
+        filial,
+        date_shift,
+        closed,
+        canceled,
+        opened,
+        films,
+        copy_types,
+        age,
+        halls,
+        hall_type_vip,
+        hall_type_regular,
+        time,
+        price,
+        film_types
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            return await makeRequest(
+                dispatch,
+                {
+                    method: 'get',
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SCHEDULE_GET_HALLS}`,
+                    params: {
+                        date_shift,
+                        closed,
+                        canceled,
+                        opened,
+                        films,
+                        copy_types,
+                        age,
+                        halls,
+                        hall_type_vip,
+                        hall_type_regular,
+                        time,
+                        price,
+                        film_types,
+                    },
+                    filial,
+                    wp,
+                    kiosk,
+                    version,
+                    center,
+                },
+                (data) => data
+            )
+        }
 
-export const cinema_films_get = (filial, date_shift, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}`, params: {
-            date_shift,
-            closed,
-            canceled,
-            opened,
-            films,
-            copy_types,
-            age,
-            halls,
-            hall_type_vip,
-            hall_type_regular,
-            time,
-            price,
-            film_types
-        }, filial, wp, kiosk, version, center,
-    }, data => data)
-}
+export const cinema_films_get =
+    (
+        filial,
+        date_shift,
+        closed,
+        canceled,
+        opened,
+        films,
+        copy_types,
+        age,
+        halls,
+        hall_type_vip,
+        hall_type_regular,
+        time,
+        price,
+        film_types
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            return await makeRequest(
+                dispatch,
+                {
+                    method: 'get',
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILMS_GET}`,
+                    params: {
+                        date_shift,
+                        closed,
+                        canceled,
+                        opened,
+                        films,
+                        copy_types,
+                        age,
+                        halls,
+                        hall_type_vip,
+                        hall_type_regular,
+                        time,
+                        price,
+                        film_types,
+                    },
+                    filial,
+                    wp,
+                    kiosk,
+                    version,
+                    center,
+                },
+                (data) => data
+            )
+        }
 
-export const cinema_film_seances_get = (filial, date_shift, uid_film, closed, canceled, opened, films, copy_types, age, halls, hall_type_vip, hall_type_regular, time, price, film_types) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get', url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILM_GET_SEANCES}`, params: {
-            date_shift,
-            uid_film,
-            closed,
-            canceled,
-            opened,
-            films,
-            copy_types,
-            age,
-            halls,
-            hall_type_vip,
-            hall_type_regular,
-            time,
-            price,
-            film_types
-        }, filial, wp, kiosk, version, center,
-    }, data => data)
-}
+export const cinema_film_seances_get =
+    (
+        filial,
+        date_shift,
+        uid_film,
+        closed,
+        canceled,
+        opened,
+        films,
+        copy_types,
+        age,
+        halls,
+        hall_type_vip,
+        hall_type_regular,
+        time,
+        price,
+        film_types
+    ) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            return await makeRequest(
+                dispatch,
+                {
+                    method: 'get',
+                    url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_FILM_GET_SEANCES}`,
+                    params: {
+                        date_shift,
+                        uid_film,
+                        closed,
+                        canceled,
+                        opened,
+                        films,
+                        copy_types,
+                        age,
+                        halls,
+                        hall_type_vip,
+                        hall_type_regular,
+                        time,
+                        price,
+                        film_types,
+                    },
+                    filial,
+                    wp,
+                    kiosk,
+                    version,
+                    center,
+                },
+                (data) => data
+            )
+        }
 
-export const horeca_order_change_creator = (filial, uid_order, uid_creator, ver) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const horeca_order_change_creator =
+    (filial, uid_order, uid_creator, ver) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_HORECA_ORDER_CHANGE_CREATOR}`,
-        params: {uid_order, uid_creator, ver},
+                params: {uid_order, uid_creator, ver},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => {
+            },
+            (data) => {
         dispatch(setCurrentHorder(data))
         dispatch(setOrdersHorecaUpdate())
-    })
-}
+            }
+        )
+    }
 
 export const common_printers_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${COMMON_PRINTERS_GET}`,
-        params: {},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${COMMON_PRINTERS_GET}`,
+            params: {},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_documents_receipts_get = (filial, date_shift, uid_kkt) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_receipts_get =
+    (filial, date_shift, uid_kkt) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET}`,
-        params: {date_shift, uid_kkt},
+                params: {date_shift, uid_kkt},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const common_documents_receipt_get = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_GET}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_GET}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_documents_receipt_save = (filial, receipt) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'post',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE}`,
-        data: receipt,
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'post',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE}`,
+            data: receipt,
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const common_documents_receipt_delete = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
-export const common_documents_slips_get = (filial, date_shift, uid_pinpad) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_documents_slips_get =
+    (filial, date_shift, uid_pinpad) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SLIPS_GET}`,
-        params: {date_shift, uid_pinpad},
+                params: {date_shift, uid_pinpad},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 export const common_documents_slip_get = (filial, uid) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SLIP_GET}`,
-        params: {uid},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_DOCUMENTS_SLIP_GET}`,
+            params: {uid},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const equipment_candy_state_get = (filial) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_EQUIPMENT_CANDY_STATE_GET}`,
-        params: {},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => {
-        dispatch(setCandy(data))
-    })
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${ROUTE_MAIN_HOST.payment_port}${ROUTE_EQUIPMENT_CANDY_STATE_GET}`,
+            params: {},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(setCandy(data))
+        }
+    )
 }
 
 // 7 зал
 export const cinema_seance_create7 = (filial, seance) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'post',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_CREATE7}`,
-        data: seance,
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'post',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CINEMA_SEANCE_CREATE7}`,
+            data: seance,
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const get_hall_rent_sum = (filial, film_uid, start, end, its_card, premiere) => async () => {
     const params = {
-        film_uid, start, end, its_card, premiere
+        film_uid,
+        start,
+        end,
+        its_card,
+        premiere,
     }
     try {
         const response = await axios.get(`http://10.101.2.21${ROUTE_HALL_RENT}`, {
-            params, timeout: 10000
+            params,
+            timeout: 10000,
         })
         return response.data
     } catch (error) {
-        return {error: error.message || "Ошибка запроса стоимости сеанса"}
+        return {error: error.message || 'Ошибка запроса стоимости сеанса'}
     }
 }
 
 // Отчеты
-export const common_reports_sales_get = (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_reports_sales_get =
+    (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SALES_GET}`,
-        params: {date_shift_beginning, date_shift_ending, update},
+                params: {date_shift_beginning, date_shift_ending, update},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const common_reports_shift_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_reports_shift_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SHIFT_GET}`,
-        params: {date_shift, update},
+                params: {date_shift, update},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const common_reports_schedule_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_reports_schedule_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_SCHEDULE_GET}`,
-        params: {date_shift, update},
+                params: {date_shift, update},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
-export const common_reports_attendance_get = (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const common_reports_attendance_get =
+    (filial, date_shift_beginning, date_shift_ending, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_REPORTS_ATTENDANCE_GET}`,
-        params: {date_shift_beginning, date_shift_ending, update},
+                params: {date_shift_beginning, date_shift_ending, update},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 // Центр
 export const center_horeca_goods_tree_get = (filial, update) => async (dispatch, getState) => {
@@ -1807,18 +2397,22 @@ export const center_horeca_goods_tree_get = (filial, update) => async (dispatch,
         version,
         center,
     })
-    dispatch(setTreeLoading({
-        loading: false, error: res.error
-    }))
+    dispatch(
+        setTreeLoading({
+            loading: false,
+            error: res.error,
+        })
+    )
     if (!res.error) {
         dispatch(setTree(res.data))
     }
 }
 
-export const center_horeca_goods_get = (filial, uid_folder, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setGoodsLoading({loading: true, error: null}))
+export const center_horeca_goods_get =
+    (filial, uid_folder, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setGoodsLoading({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_GET}`,
@@ -1829,18 +2423,22 @@ export const center_horeca_goods_get = (filial, uid_folder, update) => async (di
         version,
         center,
     })
-    dispatch(setGoodsLoading({
-        loading: false, error: res.error
-    }))
+        dispatch(
+            setGoodsLoading({
+                loading: false,
+                error: res.error,
+            })
+        )
     if (!res.error) {
         dispatch(setGoods(res.data))
     }
-}
+    }
 
-export const center_horeca_goods_recipes_get = (filial, uid_good, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setGoodsRecipesLoading({loading: true, error: null}))
+export const center_horeca_goods_recipes_get =
+    (filial, uid_good, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setGoodsRecipesLoading({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_RECIPES_GET}`,
@@ -1851,18 +2449,22 @@ export const center_horeca_goods_recipes_get = (filial, uid_good, update) => asy
         version,
         center,
     })
-    dispatch(setGoodsRecipesLoading({
-        loading: false, error: res.error
-    }))
+        dispatch(
+            setGoodsRecipesLoading({
+                loading: false,
+                error: res.error,
+            })
+        )
     if (!res.error) {
         dispatch(setGoodsRecipes(res.data))
     }
-}
+    }
 
-export const center_horeca_goods_recipe_get = (filial, ref, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setGoodsRecipeLoading({loading: true, error: null}))
+export const center_horeca_goods_recipe_get =
+    (filial, ref, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setGoodsRecipeLoading({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_GOODS_RECIPE_GET}`,
@@ -1873,16 +2475,18 @@ export const center_horeca_goods_recipe_get = (filial, ref, update) => async (di
         version,
         center,
     })
-    dispatch(setGoodsRecipeLoading({loading: false, error: res.error}))
+        dispatch(setGoodsRecipeLoading({loading: false, error: res.error}))
     if (!res.error) {
         dispatch(setGoodsRecipe(res.data))
     }
-}
+    }
 
-export const center_horeca_orders_get = (filial, date_shift, update, orders_horeca_page, orders_horeca_page_size) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setOrdersHorecaLoadingState({loading: true, error: null}))
+export const center_horeca_orders_get =
+    (filial, date_shift, update, orders_horeca_page, orders_horeca_page_size) =>
+        async (dispatch, getState) => {
+            const {wp, kiosk, version} = getState().interface
+            const {center} = getState().auth
+            dispatch(setOrdersHorecaLoadingState({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDERS_GET}`,
@@ -1893,16 +2497,17 @@ export const center_horeca_orders_get = (filial, date_shift, update, orders_hore
         version,
         center,
     })
-    dispatch(setOrdersHorecaLoadingState({loading: false, error: res.error}))
+            dispatch(setOrdersHorecaLoadingState({loading: false, error: res.error}))
     if (!res.error) {
         dispatch(setOrdersHorecaCenter(res.data))
     }
-}
+        }
 
-export const center_horeca_order_get = (filial, uid_order, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setOrderHorecaLoadingState({loading: true, error: null}))
+export const center_horeca_order_get =
+    (filial, uid_order, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setOrderHorecaLoadingState({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDER_GET}`,
@@ -1913,18 +2518,22 @@ export const center_horeca_order_get = (filial, uid_order, update) => async (dis
         version,
         center,
     })
-    dispatch(setOrderHorecaLoadingState({
-        loading: false, error: res.error
-    }))
+        dispatch(
+            setOrderHorecaLoadingState({
+                loading: false,
+                error: res.error,
+            })
+        )
     if (!res.error) {
         dispatch(setOrderHorecaCenter(res.data))
     }
-}
+    }
 
-export const center_horeca_store_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setStoreStateLoadingState({loading: true, error: null}))
+export const center_horeca_store_state_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setStoreStateLoadingState({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_STORE_STATE_GET}`,
@@ -1935,34 +2544,43 @@ export const center_horeca_store_state_get = (filial, date_shift, update) => asy
         version,
         center,
     })
-    dispatch(setStoreStateLoadingState({
-        loading: false, error: res.error
-    }))
+        dispatch(
+            setStoreStateLoadingState({
+                loading: false,
+                error: res.error,
+            })
+        )
     if (!res.error) {
         dispatch(setStoreState(res.data))
     }
-}
+    }
 
-export const center_horeca_store_rest_get = (filial, date_shift, uid_store, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    return await makeRequest(dispatch, {
+export const center_horeca_store_rest_get =
+    (filial, date_shift, uid_store, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        return await makeRequest(
+            dispatch,
+            {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_STORE_REST_GET}`,
-        params: {update, date_shift, uid_store},
+                params: {update, date_shift, uid_store},
         filial,
         wp,
         kiosk,
         version,
         center,
-    }, data => data)
-}
+            },
+            (data) => data
+        )
+    }
 
 // Производство
-export const center_horeca_production_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setProductionStateLoadingState({loading: true, error: null}))
+export const center_horeca_production_state_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setProductionStateLoadingState({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_PRODUCTION_STATE_GET}`,
@@ -1973,19 +2591,23 @@ export const center_horeca_production_state_get = (filial, date_shift, update) =
         version,
         center,
     })
-    dispatch(setProductionStateLoadingState({
-        loading: false, error: res.error
-    }))
+        dispatch(
+            setProductionStateLoadingState({
+                loading: false,
+                error: res.error,
+            })
+        )
     if (!res.error) {
         dispatch(setProductionState(res.data))
     }
-}
+    }
 
 // Отчет о розничных продажах
-export const center_horeca_shift_state_get = (filial, date_shift, update) => async (dispatch, getState) => {
-    const {wp, kiosk, version} = getState().interface
-    const {center} = getState().auth
-    dispatch(setShiftStateLoadingState({loading: true, error: null}))
+export const center_horeca_shift_state_get =
+    (filial, date_shift, update) => async (dispatch, getState) => {
+        const {wp, kiosk, version} = getState().interface
+        const {center} = getState().auth
+        dispatch(setShiftStateLoadingState({loading: true, error: null}))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_SHIFT_STATE_GET}`,
@@ -1996,41 +2618,52 @@ export const center_horeca_shift_state_get = (filial, date_shift, update) => asy
         version,
         center,
     })
-    dispatch(setShiftStateLoadingState({
-        loading: false, error: res.error
-    }))
+        dispatch(
+            setShiftStateLoadingState({
+                loading: false,
+                error: res.error,
+            })
+        )
     if (!res.error) {
         dispatch(setShiftState(res.data))
     }
-}
+    }
 
 // Общие
 export const center_catalog_load = (filial, ids) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'post',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_LOAD}`,
-        data: ids,
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'post',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_LOAD}`,
+            data: ids,
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }
 
 export const center_catalog_search = (filial, type, value, limit) => async (dispatch, getState) => {
     const {wp, kiosk, version} = getState().interface
     const {center} = getState().auth
-    return await makeRequest(dispatch, {
-        method: 'get',
-        url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_SEARCH}`,
-        params: {type, value, limit},
-        filial,
-        wp,
-        kiosk,
-        version,
-        center,
-    }, data => data)
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_CATALOG_SEARCH}`,
+            params: {type, value, limit},
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => data
+    )
 }

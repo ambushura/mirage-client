@@ -1,10 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     messages: [],
 }
 const wsSlice = createSlice({
-    name: "ws", initialState, reducers: {
+    name: 'ws',
+    initialState,
+    reducers: {
         addMessage: (state, action) => {
             state.messages.push(action.payload)
         },

@@ -1,9 +1,7 @@
-import {Box} from "@mui/material"
+import {Box} from '@mui/material'
 
 const StoreDiff = () => {
-    return <Box>
-
-    </Box>
+    return <Box></Box>
 }
 
 export default StoreDiff

@@ -24,11 +24,11 @@
 }
 
 .seance-canceled::after {
-    content: "Сеанс отменен";
+    content: 'Сеанс отменен';
 }
 
 .seance-closed::after {
-    content: "Сеанс закрыт";
+    content: 'Сеанс закрыт';
 }
 
 #seance-title {
@@ -60,7 +60,7 @@
 
 .seance-title-hall-name {
     font-size: 18px;
-    color: #8B919B;
+    color: #8b919b;
     font-weight: bold;
     display: flex;
     justify-content: flex-end;
@@ -90,6 +90,6 @@
 }
 
 .seance-title-timeslot-day {
-    color: #8B919B;
+    color: #8b919b;
     margin-left: 5px;
 }

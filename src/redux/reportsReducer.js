@@ -1,7 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-
     report_variant: 'schedule',
     update: 0,
 
@@ -23,23 +22,27 @@ const initialState = {
 
     // Посещаемость
     attendance: {columns: [], rows: [], column_grouping_model: [], column_visibility_model: []},
-
 }
 
 export const dataSlice = createSlice({
-    name: "documents", initialState, reducers: {
+    name: 'documents',
+    initialState,
+    reducers: {
         setReportVariant(state, {payload}) {
             state.report_variant = payload
-        }, setUpdate(state, {payload}) {
+        },
+        setUpdate(state, {payload}) {
             state.update += 1
         },
 
         // Выручка
         setSales: (state, {payload}) => {
             state.sales = payload
-        }, cleanSales: (state) => {
+        },
+        cleanSales: (state) => {
             state.sales = {columns: [], rows: [], columnGroupingModel: []}
-        }, set_salesColumnVisibilityModel: (state, {payload}) => {
+        },
+        set_salesColumnVisibilityModel: (state, {payload}) => {
             state.sales_columnVisibilityModel = payload
         },
 
@@ -48,11 +51,13 @@ export const dataSlice = createSlice({
             state.shift_1 = payload.chapter1
             state.shift_2 = payload.chapter2
             state.shift_3 = payload.chapter3
-        }, cleanShift: (state) => {
+        },
+        cleanShift: (state) => {
             state.shift_1 = {columns: [], rows: [], columnGroupingModel: []}
             state.shift_2 = {columns: [], rows: [], columnGroupingModel: []}
             state.shift_3 = {columns: [], rows: [], columnGroupingModel: []}
-        }, set_shiftColumnVisibilityModel: (state, {payload}) => {
+        },
+        set_shiftColumnVisibilityModel: (state, {payload}) => {
             state.shift_1_columnVisibilityModel = payload
             state.shift_2_columnVisibilityModel = payload
             state.shift_3_columnVisibilityModel = payload
@@ -61,35 +66,45 @@ export const dataSlice = createSlice({
         // Расписание
         setSchedule: (state, {payload}) => {
             state.schedule = payload
-        }, cleanSchedule: (state) => {
+        },
+        cleanSchedule: (state) => {
             state.schedule = {columns: [], rows: [], columnGroupingModel: []}
-        }, set_scheduleColumnVisibilityModel: (state, {payload}) => {
+        },
+        set_scheduleColumnVisibilityModel: (state, {payload}) => {
             state.schedule_columnVisibilityModel = payload
         },
 
         // Посещаемость
         setAttendance: (state, {payload}) => {
             state.attendance = payload
-        }, cleanAttendance: (state) => {
+        },
+        cleanAttendance: (state) => {
             state.attendance = {columns: [], rows: [], columnGroupingModel: []}
-        }
+        },
     },
 })
 
 export const {
-    setReportVariant, setUpdate,
+    setReportVariant,
+    setUpdate,
 
     // Выручка
-    setSales, cleanSales, set_salesColumnVisibilityModel,
+    setSales,
+    cleanSales,
+    set_salesColumnVisibilityModel,
 
     // Суточный
-    setShift, cleanShift, set_shiftColumnVisibilityModel,
+    setShift,
+    cleanShift,
+    set_shiftColumnVisibilityModel,
 
     // Расписание
-    setSchedule, cleanSchedule, set_scheduleColumnVisibilityModel,
+    setSchedule,
+    cleanSchedule,
+    set_scheduleColumnVisibilityModel,
 
     // Посещаемость
-    setAttendance, cleanAttendance
-
+    setAttendance,
+    cleanAttendance,
 } = dataSlice.actions
 export default dataSlice.reducer

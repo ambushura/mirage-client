@@ -1,7 +1,7 @@
-import {Controller} from "react-hook-form"
-import {Box, Tooltip} from "@mui/material"
-import LazySelect from "../ui/LazySelect.jsx"
-import {tooltip_error} from "../ui/ThemeContext.jsx"
+import {Controller} from 'react-hook-form'
+import {Box, Tooltip} from '@mui/material'
+import LazySelect from '../ui/LazySelect.jsx'
+import {tooltip_error} from '../ui/ThemeContext.jsx'
 
 const ControlledLazySelect = ({
                                   control,
@@ -15,42 +15,54 @@ const ControlledLazySelect = ({
                                   extraFields,
                                   getLabel,
                                   sx = {},
-                                  readOnly
-                              }) => <Controller
+                                  readOnly,
+                              }) => (
+    <Controller
     name={name}
     control={control}
     rules={rules}
-    render={({field, fieldState}) => <Tooltip
+    render={({field, fieldState}) => (
+        <Tooltip
         title={fieldState.error ? fieldState.error.message : ''}
         open={!!fieldState.error}
         placement="right-start"
         arrow
         slotProps={{tooltip: tooltip_error}}
-    >
-        <Box sx={{
-            position: 'relative', marginBottom: '10px', "& .MuiFilledInput-root": fieldState.error ? {
-                borderBottom: "2px solid #d32f2f", borderRadius: "4px 4px 0 0"
-            } : {}, ...sx,
-        }}>
-            <LazySelect
-                {...field}
-                label={label}
-                variant="filled"
-                value={field.value || ''}
-                type={type}
-                filial={filial}
-                getLabel={getLabel || ((item) => item.title)}
-                onChange={(uid, extra) => {
-                    field.onChange(uid)
-                    if (onChange) onChange(uid, extra)
+        >
+            <Box
+                sx={{
+                    position: 'relative',
+                    marginBottom: '10px',
+                    '& .MuiFilledInput-root': fieldState.error
+                        ? {
+                            borderBottom: '2px solid #d32f2f',
+                            borderRadius: '4px 4px 0 0',
+                        }
+                        : {},
+                    ...sx,
                 }}
-                optionsStatic={optionsStatic}
-                extraFields={extraFields}
-                error={!!fieldState.error}
-                readOnly={readOnly}
-            />
+            >
+                <LazySelect
+                    {...field}
+                    label={label}
+                    variant="filled"
+                    value={field.value || ''}
+                    type={type}
+                    filial={filial}
+                    getLabel={getLabel || ((item) => item.title)}
+                    onChange={(uid, extra) => {
+                        field.onChange(uid)
+                        if (onChange) onChange(uid, extra)
+                    }}
+                    optionsStatic={optionsStatic}
+                    extraFields={extraFields}
+                    error={!!fieldState.error}
+                    readOnly={readOnly}
+                />
         </Box>
-    </Tooltip>}
-/>
+        </Tooltip>
+    )}
+    />
+)
 
 export default ControlledLazySelect

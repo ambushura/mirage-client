@@ -1,11 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit"
-import {date_dayjs} from "../ui/hooks/common_functions.js"
+import {createSlice} from '@reduxjs/toolkit'
+import {date_dayjs} from '../ui/hooks/common_functions.js'
 
 const now = new Date()
-const current_date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
+const current_date = date_dayjs(
+    now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now
+)
 
 const initialState = {
-
     // Запрошено
     current_page: 'films',
     date_shift: `${current_date.year()}-${current_date.month() + 1}-${current_date.date()}`,
@@ -27,10 +28,13 @@ const initialState = {
 }
 
 export const secondScreenSlice = createSlice({
-    name: "second_screen", initialState, reducers: {
+    name: 'second_screen',
+    initialState,
+    reducers: {
         setSSSchedule: (state, action) => {
             state.schedule = action.payload
-        }, setSSState: (state, action) => {
+        },
+        setSSState: (state, action) => {
             state.current_page = action.payload.current_page
             state.date_shift = action.payload.date_shift
             state.uid_pre_order = action.payload.uid_pre_order
@@ -46,20 +50,23 @@ export const secondScreenSlice = createSlice({
             if (!action.payload.show_horder) {
                 state.horder = null
             }
-        }, setSSSeance: (state, action) => {
+        },
+        setSSSeance: (state, action) => {
             state.seance = action.payload.seance
             state.hall = action.payload.hall
-        }, setSSPreOrder: (state, action) => {
+        },
+        setSSPreOrder: (state, action) => {
             state.pre_order = action.payload
-        }, setSSHorder: (state, action) => {
+        },
+        setSSHorder: (state, action) => {
             state.horder = action.payload
-        }, setSSBooking: (state, action) => {
+        },
+        setSSBooking: (state, action) => {
             state.booking = action.payload
-        }
+        },
     },
 })
 
-export const {
-    setSSSchedule, setSSState, setSSPreOrder, setSSSeance, setSSHorder, setSSBooking
-} = secondScreenSlice.actions
+export const {setSSSchedule, setSSState, setSSPreOrder, setSSSeance, setSSHorder, setSSBooking} =
+    secondScreenSlice.actions
 export default secondScreenSlice.reducer

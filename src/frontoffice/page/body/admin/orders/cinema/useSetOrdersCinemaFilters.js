@@ -1,24 +1,23 @@
-import {useDispatch, useSelector} from "react-redux"
-import {useEffect} from "react"
+import {useDispatch, useSelector} from 'react-redux'
+import {useEffect} from 'react'
 import {
     common_orders_filters_halls_get,
     common_orders_filters_schedule_get,
     common_orders_filters_staff_get,
-    common_orders_filters_workplace_get
-} from "../../../../../../service/fetch_service.js"
+    common_orders_filters_workplace_get,
+} from '../../../../../../service/fetch_service.js'
 import {
     setOrdersCinemaFiltersHalls,
     setOrdersCinemaFiltersSeances,
     setOrdersCinemaFiltersStaff,
-    setOrdersHorecaFiltersWorkPlaces
-} from "../../../../../../redux/ordersReducer.js"
-import dayjs from "dayjs"
+    setOrdersHorecaFiltersWorkPlaces,
+} from '../../../../../../redux/ordersReducer.js'
+import dayjs from 'dayjs'
 
 export function useSetOrdersCinemaFilters() {
-
     const dispatch = useDispatch()
-    const filial = useSelector(state => state.data.filial)
-    const param_date_admin = useSelector(state => state.interface.params.param_date_admin)
+    const filial = useSelector((state) => state.data.filial)
+    const param_date_admin = useSelector((state) => state.interface.params.param_date_admin)
 
     useEffect(() => {
         const fetch_staff = async () => {
@@ -38,7 +37,9 @@ export function useSetOrdersCinemaFilters() {
             }
         }
         const fetch_schedule = async () => {
-            const fetching_result = await dispatch(common_orders_filters_schedule_get(filial, param_date_admin))
+            const fetching_result = await dispatch(
+                common_orders_filters_schedule_get(filial, param_date_admin)
+            )
             if (fetching_result.loading) {
                 // TODO Крутилка
             } else if (fetching_result.error === null && fetching_result.data !== null) {
@@ -47,7 +48,7 @@ export function useSetOrdersCinemaFilters() {
                     const ending = dayjs.utc(seance.ending)
                     return {
                         uid: seance.uid,
-                        title: `${beginning.format("HH:mm")} - ${ending.format("HH:mm")} • ${seance.copy_type} • ${seance.rate_age}+ • Зал ${seance.name_hall} • ${seance.name_film}${seance.content_type === "toKino!" ? " ТоКино!" : ""}`
+                        title: `${beginning.format('HH:mm')} - ${ending.format('HH:mm')} • ${seance.copy_type} • ${seance.rate_age}+ • Зал ${seance.name_hall} • ${seance.name_film}${seance.content_type === 'toKino!' ? ' ТоКино!' : ''}`,
                     }
                 })
                 dispatch(setOrdersCinemaFiltersSeances(schedule))
@@ -70,5 +71,4 @@ export function useSetOrdersCinemaFilters() {
             }
         }
     }, [dispatch, filial, param_date_admin])
-
 }

@@ -1,15 +1,17 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    hosts: []
+    hosts: [],
 }
 
 const markirovkaSlice = createSlice({
-    name: "markirovka", initialState, reducers: {
+    name: 'markirovka',
+    initialState,
+    reducers: {
         fillHosts: (state, {payload}) => {
             state.hosts = payload
         },
-    }
+    },
 })
 
 export const {fillHosts} = markirovkaSlice.actions

@@ -1,4 +1,4 @@
-import dayjs from "dayjs"
+import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 
 export function to_str_DAY(date) {
@@ -14,16 +14,16 @@ export const date_dayjs = (value) => {
 }
 
 export const from_dayjs_to_str = (value) => {
-    return value.year() + '-' + (value.month() + 1) + '-' + (value.date())
+    return value.year() + '-' + (value.month() + 1) + '-' + value.date()
 }
 
 export const ticket_count = (count) => {
     if (count === 1) {
-        return (`${count} билет`)
+        return `${count} билет`
     } else if (count === 2 || count === 3 || count === 4) {
-        return (`${count} билета`)
+        return `${count} билета`
     } else {
-        return (`${count} билетов`)
+        return `${count} билетов`
     }
 }
 
@@ -51,53 +51,56 @@ function pluralize(n, one, few, many) {
 
 export const ruToEnLayout = (text) => {
     const layoutMap = {
-        'й': 'q',
-        'ц': 'w',
-        'у': 'e',
-        'к': 'r',
-        'е': 't',
-        'н': 'y',
-        'г': 'u',
-        'ш': 'i',
-        'щ': 'o',
-        'з': 'p',
-        'х': '[',
-        'ъ': ']',
-        'ф': 'a',
-        'ы': 's',
-        'в': 'd',
-        'а': 'f',
-        'п': 'g',
-        'р': 'h',
-        'о': 'j',
-        'л': 'k',
-        'д': 'l',
-        'ж': ';',
-        'э': '\'',
-        'я': 'z',
-        'ч': 'x',
-        'с': 'c',
-        'м': 'v',
-        'и': 'b',
-        'т': 'n',
-        'ь': 'm',
-        'б': ',',
-        'ю': '.',
-        'Ё': '~',
-        'ё': '`',
+        й: 'q',
+        ц: 'w',
+        у: 'e',
+        к: 'r',
+        е: 't',
+        н: 'y',
+        г: 'u',
+        ш: 'i',
+        щ: 'o',
+        з: 'p',
+        х: '[',
+        ъ: ']',
+        ф: 'a',
+        ы: 's',
+        в: 'd',
+        а: 'f',
+        п: 'g',
+        р: 'h',
+        о: 'j',
+        л: 'k',
+        д: 'l',
+        ж: ';',
+        э: "'",
+        я: 'z',
+        ч: 'x',
+        с: 'c',
+        м: 'v',
+        и: 'b',
+        т: 'n',
+        ь: 'm',
+        б: ',',
+        ю: '.',
+        Ё: '~',
+        ё: '`',
         '"': '@',
         '№': '#',
         ';': '$',
         '%': '^',
         ':': '&',
-        '?': '?'
+        '?': '?',
     }
-    return text.split('').map(char => {
-        const lower = char.toLowerCase()
-        const isUpper = char !== lower
-        const replaced = layoutMap[lower] || char
-        return isUpper ? replaced.toUpperCase() : replaced
-    }).join('')
+    return text
+        .split('')
+        .map((char) => {
+            const lower = char.toLowerCase()
+            const isUpper = char !== lower
+            const replaced = layoutMap[lower] || char
+            return isUpper ? replaced.toUpperCase() : replaced
+        })
+        .join('')
 }
 
 export function parceZone(local_date) {
@@ -116,7 +119,6 @@ export function get_date_shift(now) {
 
 export function buttonColor(inn) {
     switch (inn) {
-
         // Общепит
         case '816337562':
         case '7805682119':
@@ -154,7 +156,6 @@ export function buttonColor(inn) {
         default:
             return 'ref'
     }
-
 }
 
 dayjs.extend(duration)

@@ -1,9 +1,7 @@
-import {Box} from "@mui/material"
+import {Box} from '@mui/material'
 
 const Orders = () => {
-    return <Box>
-
-    </Box>
+    return <Box></Box>
 }
 
 export default Orders

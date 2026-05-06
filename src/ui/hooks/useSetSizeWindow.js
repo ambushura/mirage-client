@@ -1,6 +1,6 @@
-import {useEffect} from "react"
-import {setAppHeight, setAppWidth} from "../../redux/interfaceReducer.js"
-import {useDispatch} from "react-redux"
+import {useEffect} from 'react'
+import {setAppHeight, setAppWidth} from '../../redux/interfaceReducer.js'
+import {useDispatch} from 'react-redux'
 
 export function useSetSizeWindow() {
     const dispatch = useDispatch()
@@ -10,7 +10,7 @@ export function useSetSizeWindow() {
             dispatch(setAppHeight(window.innerHeight))
         }
         updateDimensions()
-        window.addEventListener("resize", updateDimensions)
-        return () => window.removeEventListener("resize", updateDimensions)
+        window.addEventListener('resize', updateDimensions)
+        return () => window.removeEventListener('resize', updateDimensions)
     }, [dispatch])
 }
