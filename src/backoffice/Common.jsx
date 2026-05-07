@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Skeleton } from '@mui/material'
+import { Box, Button, ButtonGroup } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SaveIcon from '@mui/icons-material/Save'
@@ -42,28 +42,6 @@ export function Footer({ control, creator, saveButton, copyButton, deleteButton 
                     </Button>
                 )}
             </ButtonGroup>
-        </Box>
-    )
-}
-
-// Загрузчик
-export function LoaderOrder() {
-    return (
-        <Box
-            sx={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexDirection: 'column',
-                p: 2,
-            }}
-        >
-            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
-            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
-            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
-            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
-            <Skeleton variant="rectangular" sx={{ width: '100%', height: 'calc(100% / 5)', mb: 2 }} />
         </Box>
     )
 }

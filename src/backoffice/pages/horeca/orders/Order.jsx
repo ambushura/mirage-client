@@ -6,12 +6,13 @@ import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
 import CachedIcon from '@mui/icons-material/Cached'
 import { useForm } from 'react-hook-form'
-import { FillNameMap, LoaderOrder, TableToolbar } from '../../../Common.jsx'
+import { FillNameMap, TableToolbar } from '../../../Common.jsx'
 import ControlledTextField from '../../../../ui/ControlledTextField.jsx'
 import ControlledFieldSwitch from '../../../../ui/ControlledFieldSwitch.jsx'
 import ControlledMoneyField from '../../../../ui/ControlledMoneyField.jsx'
 import { center_catalog_load, center_horeca_order_get } from '../../../../service/fetch_service.js'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
+import Loader from '../../../../ui/Loader.jsx'
 
 ////////////////////////////////////////////////////////////
 // КОНФИГ
@@ -73,7 +74,7 @@ export default function Order() {
         })
     }, [dispatch, filial, order_horeca])
 
-    if (order_horeca_loading.loading) return <LoaderOrder />
+    if (order_horeca_loading.loading) return <Loader />
 
     return (
         <DocView
@@ -109,26 +110,24 @@ function DocView(props) {
 
 function TabsSection({ order, form, filial, catalog_map, set_catalog_map, current_table, set_current_table, loading }) {
     return (
-        <Box>
+        <Box sx={{ height: '100%' }}>
             <TabContext value={current_table}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1, position: 'sticky', top: 0, zIndex: 1 }}>
                     <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
                         <Tab value="common" label="Общие" />
-
                         {order.tables.map((t) => (
                             <Tab key={t.id} value={t.id} label={t.title} />
                         ))}
-
                         <Tab value="buyer" label="Покупатель" />
                     </TabList>
                 </Box>
 
-                <TabPanel value="common">
+                <TabPanel value="common" className="center-page-tab">
                     <CommonTab control={form.control} />
                 </TabPanel>
 
                 {order.tables.map((table) => (
-                    <TabPanel key={table.id} value={table.id}>
+                    <TabPanel key={table.id} value={table.id} className="center-page-tab">
                         <TableTab
                             table={table}
                             filial={filial}
@@ -139,7 +138,7 @@ function TabsSection({ order, form, filial, catalog_map, set_catalog_map, curren
                     </TabPanel>
                 ))}
 
-                <TabPanel value="buyer">
+                <TabPanel value="buyer" className="center-page-tab">
                     <BuyerTab control={form.control} />
                 </TabPanel>
             </TabContext>
@@ -156,30 +155,32 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
     const toolbarProps = TOOLBAR_CONFIG[table.id] ?? EMPTY_TOOLBAR
 
     return (
-        <Box sx={{ overflowY: 'auto' }}>
-            <DataGridPro
-                treeData={table.id === 'store'}
-                loading={loading}
-                showToolbar
-                autoHeight
-                editMode="cell"
-                checkboxSelection
-                disableColumnSorting
-                disableRowSelectionOnClick
-                sortingMode="server"
-                density="compact"
-                rows={table.rows}
-                columns={columns}
-                columnGroupingModel={table.column_grouping_model}
-                columnVisibilityModel={table.column_visibility_model}
-                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                getRowClassName={(p) => (p.row.is_leaf === false ? 'center-horeca-order-ref' : '')}
-                getTreeDataPath={(row) => row.path?.split('.') ?? [row.path]}
-                slots={{ toolbar: TableToolbar }}
-                slotProps={{ toolbar: toolbarProps }}
-                groupingColDef={{ width: 100, minWidth: 100, headerName: '№' }}
-            />
-        </Box>
+        <DataGridPro
+            treeData={table.id === 'store'}
+            loading={loading}
+            rows={table.rows}
+            columns={columns}
+            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+            columnGroupingModel={table.column_grouping_model}
+            columnVisibilityModel={table.column_visibility_model}
+            slots={{ toolbar: TableToolbar }}
+            slotProps={{ toolbar: toolbarProps }}
+            groupingColDef={{
+                width: 100,
+                minWidth: 100,
+                headerName: '№',
+            }}
+            density="compact"
+            autoHeight
+            showToolbar
+            checkboxSelection
+            editMode="cell"
+            sortingMode="server"
+            disableColumnSorting
+            disableRowSelectionOnClick
+            getRowClassName={({ row }) => (row.is_leaf === false ? 'center-horeca-order-ref' : '')}
+            getTreeDataPath={(row) => row.path?.split('.') ?? [row.path]}
+        />
     )
 }
 

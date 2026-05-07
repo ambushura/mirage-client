@@ -5,14 +5,16 @@ import { center_catalog_load, center_horeca_goods_recipe_get } from '../../../..
 import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
 import ControlledTextField from '../../../../ui/ControlledTextField.jsx'
-import { FillNameMap, LoaderOrder, TableToolbar } from '../../../Common.jsx'
+import { FillNameMap, TableToolbar } from '../../../Common.jsx'
 import CachedIcon from '@mui/icons-material/Cached'
 import { IngredientsRebuild, PaymentsRebuild, ReturnsRebuild } from '../orders/Order.jsx'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import AsyncAutocomplete from '../../../../ui/AsyncAutocomplete.jsx'
 import ControlledDateTimePicker from '../../../../ui/ControlledDateTimePicker.jsx'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
+import ControlledFieldSwitch from '../../../../ui/ControlledFieldSwitch.jsx'
+import Loader from '../../../../ui/Loader.jsx'
 
 ////////////////////////////////////////////////////////////
 // КОНФИГ
@@ -66,10 +68,10 @@ export default function Recipe() {
     }, [dispatch, filial, goods_recipe])
 
     // Наблюдаемые переменные
-    //const {fields: filials} = useFieldArray({control, name: "filials"})
-    //const {fields: organizations} = useFieldArray({control, name: "organizations"})
+    const { fields: filials } = useFieldArray({ control: form.control, name: 'filials' })
+    const { fields: organizations } = useFieldArray({ control: form.control, name: 'organizations' })
 
-    if (goods_recipe_loading.loading) return <LoaderOrder />
+    if (goods_recipe_loading.loading) return <Loader />
 
     return (
         <DocView
@@ -81,6 +83,8 @@ export default function Recipe() {
             current_table={current_table}
             set_current_table={set_current_table}
             loading={goods_recipe_loading.loading}
+            filials={filials}
+            organizations={organizations}
         />
     )
 }
@@ -88,6 +92,7 @@ export default function Recipe() {
 ////////////////////////////////////////////////////////////
 // ВИД ДОКУМЕНТА
 ////////////////////////////////////////////////////////////
+
 function DocView(props) {
     return (
         <Box component="form" className="center-page">
@@ -99,9 +104,21 @@ function DocView(props) {
 ////////////////////////////////////////////////////////////
 // ТАБЫ
 ////////////////////////////////////////////////////////////
-function TabsSection({ obj, form, filial, catalog_map, set_catalog_map, current_table, set_current_table, loading }) {
+
+function TabsSection({
+    obj,
+    form,
+    filial,
+    catalog_map,
+    set_catalog_map,
+    current_table,
+    set_current_table,
+    loading,
+    filials,
+    organizations,
+}) {
     return (
-        <Box>
+        <Box sx={{ height: '100%' }}>
             <TabContext value={current_table}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}>
                     <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
@@ -110,16 +127,19 @@ function TabsSection({ obj, form, filial, catalog_map, set_catalog_map, current_
                         {obj?.tables.map((t) => (
                             <Tab key={t.id} value={t.id} label={t.title} />
                         ))}
+                        <Tab value="filials" label="Филиалы" />
+                        <Tab value="organizations" label="Организации" />
                     </TabList>
                 </Box>
 
-                <TabPanel value="common">
+                <TabPanel value="common" className="center-page-tab">
                     <CommonTab control={form.control} filial={filial} />
                 </TabPanel>
 
                 {obj?.tables.map((table) => (
                     <TabPanel key={table.id} value={table.id}>
                         <TableTab
+                            className="center-page-tab"
                             table={table}
                             filial={filial}
                             loading={loading}
@@ -128,6 +148,14 @@ function TabsSection({ obj, form, filial, catalog_map, set_catalog_map, current_
                         />
                     </TabPanel>
                 ))}
+
+                <TabPanel value="filials" className="center-page-tab">
+                    <FilialsTab filials={filials} control={form.control} />
+                </TabPanel>
+
+                <TabPanel value="organizations" className="center-page-tab">
+                    <OrganizationsTab organizations={organizations} control={form.control} />
+                </TabPanel>
             </TabContext>
         </Box>
     )
@@ -135,7 +163,7 @@ function TabsSection({ obj, form, filial, catalog_map, set_catalog_map, current_
 
 function CommonTab({ control, filial }) {
     return (
-        <Box sx={{ display: 'flex', gap: 1, p: '10px 0' }}>
+        <Box sx={{ display: 'flex', gap: 1 }}>
             <ControlledTextField control={control} name="code" label="Код 1С" numeric />
             <Controller
                 name="uid_good"
@@ -148,11 +176,11 @@ function CommonTab({ control, filial }) {
                         type="goods"
                         label="Блюдо"
                         variant="filled"
-                        sx={{ flex: 3, mr: '10px' }}
+                        sx={{ flex: 3 }}
                     />
                 )}
             />
-            <ControlledTextField control={control} name="out_good" label="Выход блюда" sx={{ flex: 1, mr: '10px' }} />
+            <ControlledTextField control={control} name="out_good" label="Выход блюда" sx={{ flex: 1 }} />
             <ControlledDateTimePicker
                 control={control}
                 name="period"
@@ -167,6 +195,7 @@ function CommonTab({ control, filial }) {
 ////////////////////////////////////////////////////////////
 // ТАБЛИЧНЫЕ ЧАСТИ
 ////////////////////////////////////////////////////////////
+
 function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
     const columns = useTableColumns(table, filial, catalog_map, set_catalog_map)
     const toolbarProps = TOOLBAR_CONFIG[table.id] ?? EMPTY_TOOLBAR
@@ -175,24 +204,28 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
         <Box sx={{ overflowY: 'auto' }}>
             <DataGridPro
                 loading={loading}
-                showToolbar
-                autoHeight
-                editMode="cell"
-                checkboxSelection
-                disableColumnSorting
-                disableRowSelectionOnClick
-                sortingMode="server"
-                density="compact"
                 rows={table.rows}
                 columns={columns}
+                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 columnGroupingModel={table.column_grouping_model}
                 columnVisibilityModel={table.column_visibility_model}
-                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-                getRowClassName={(params) => (params.row.is_leaf === false ? 'center-horeca-recipe-ref' : '')}
-                getTreeDataPath={(row) => (row.path ? row.path.split('.') : [row.path])}
                 slots={{ toolbar: TableToolbar }}
                 slotProps={{ toolbar: toolbarProps }}
-                groupingColDef={{ width: 100, minWidth: 100, headerName: '№' }}
+                groupingColDef={{
+                    width: 100,
+                    minWidth: 100,
+                    headerName: '№',
+                }}
+                density="compact"
+                autoHeight
+                showToolbar
+                checkboxSelection
+                editMode="cell"
+                sortingMode="server"
+                disableColumnSorting
+                disableRowSelectionOnClick
+                getRowClassName={({ row }) => (row.is_leaf === false ? 'center-horeca-recipe-ref' : '')}
+                getTreeDataPath={(row) => (row.path ? row.path.split('.') : [row.path])}
             />
         </Box>
     )
@@ -201,6 +234,45 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
 ////////////////////////////////////////////////////////////
 // СТРАНИЦЫ
 ////////////////////////////////////////////////////////////
+
+function FilialsTab({ control, filials }) {
+    return (
+        <Box
+            sx={{
+                height: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                flexWrap: 'wrap',
+            }}
+        >
+            {filials.map((filial, index) => (
+                <ControlledFieldSwitch key={index} control={control} name={`filials.${index}.value`} label={filial.name_filial} />
+            ))}
+        </Box>
+    )
+}
+
+function OrganizationsTab({ control, organizations }) {
+    return (
+        <Box
+            sx={{
+                height: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                flexWrap: 'wrap',
+            }}
+        >
+            {organizations.map((organization, index) => (
+                <ControlledFieldSwitch
+                    key={index}
+                    control={control}
+                    name={`organizations.${index}.value`}
+                    label={organization.name_organization}
+                />
+            ))}
+        </Box>
+    )
+}
 
 ////////////////////////////////////////////////////////////
 // ФУНКЦИОНАЛ

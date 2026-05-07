@@ -9,6 +9,38 @@ import { center_catalog_load } from '../../../../service/fetch_service.js'
 import { FillNameMap } from '../../../Common.jsx'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
 
+////////////////////////////////////////////////////////////
+// КОНФИГ
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// СТРУКТУРА
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// ВИД ДОКУМЕНТА
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// ТАБЫ
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// ТАБЛИЧНЫЕ ЧАСТИ
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// СТРАНИЦЫ
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// СУММЫ
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// ФУНКЦИОНАЛ
+////////////////////////////////////////////////////////////
+
 const Orders = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -54,46 +86,24 @@ const Orders = () => {
                 rows={orders_horeca.rows}
                 columns={columns}
                 columnGroupingModel={orders_horeca.column_grouping_model}
-                density="compact"
-                hideFooterSelectedRowCount
                 columnVisibilityModel={orders_horeca.column_visibility_model}
-                onColumnVisibilityModelChange={() => {}}
-                disableColumnSorting
+                rowCount={orders_horeca.total || 0}
+                density="compact"
                 editMode="cell"
-                paginationMode="server"
                 pagination
-                pageSize={orders_horeca_page_size || 20}
-                rowsPerPageOptions={[10, 20, 50, 100]}
-                onPaginationModelChange={(model) => {
-                    dispatch(setOrdersHorecaPage(model.page + 1))
-                    dispatch(setOrdersHorecaPageSize(model.pageSize))
-                }}
+                paginationMode="server"
+                pageSizeOptions={[10, 20, 50, 100]}
                 paginationModel={{
                     page: (orders_horeca_page || 1) - 1,
                     pageSize: orders_horeca_page_size || 20,
                 }}
-                pageSizeOptions={[10, 20, 50, 100]}
-                rowCount={orders_horeca.total || 0}
-                sx={{
-                    minHeight: 'inherit',
-                    flex: 1,
-                    border: 0,
-                    borderRadius: '0',
-                    '& .MuiDataGrid-cellContent': {
-                        pointerEvents: 'auto',
-                    },
-                    '& .MuiDataGrid-columnHeaders': {
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        backgroundColor: '#f0f0f0',
-                    },
-                    '& .MuiDataGrid-columnHeaderTitle': {
-                        whiteSpace: 'normal',
-                        lineHeight: 1.2,
-                    },
+                hideFooterSelectedRowCount
+                onPaginationModelChange={({ page, pageSize }) => {
+                    dispatch(setOrdersHorecaPage(page + 1))
+                    dispatch(setOrdersHorecaPageSize(pageSize))
                 }}
-                onRowClick={(params) => {
-                    navigate(`/center/horeca/orders/${params.row.id}`)
+                onRowClick={({ row }) => {
+                    navigate(`/center/horeca/orders/${row.id}`)
                 }}
             />
         </Box>

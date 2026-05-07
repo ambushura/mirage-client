@@ -174,3 +174,7 @@
     justify-content: space-between;
     padding: 10px;
 }
+
+.center-page-tab {
+    height: 100%;
+}
