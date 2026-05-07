@@ -74,11 +74,23 @@ const main_menu = [
     {
         id: 'results',
         title: 'Регламенты',
-        icon: 6,
+        icon: 9,
         submenu: [
             {
                 id: 'cashbox',
                 title: '1. Касса',
+                icon: 4,
+            },
+        ],
+    },
+    {
+        id: 'halls',
+        title: 'Схемы залов',
+        icon: 8,
+        submenu: [
+            {
+                id: 'maps',
+                title: '1. Залы',
                 icon: 4,
             },
         ],
@@ -93,10 +105,10 @@ const initialState = {
     },
 
     // Отладка
-    //root_filial: { ip: '10.101.3.88', port: '60000' },
+    root_filial: { ip: '10.101.3.88', port: '60000' },
 
     // Центральный филиал
-    root_filial: { ip: '10.101.2.21', port: '60000' },
+    //root_filial: { ip: '10.101.2.21', port: '60000' },
 
     // Меню
     main_menu: main_menu,

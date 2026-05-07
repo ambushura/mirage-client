@@ -49,6 +49,7 @@ import CenterHeaderTop from './backoffice/CenterHeaderTop.jsx'
 import CenterHeaderLeft from './backoffice/CenterHeaderLeft.jsx'
 import CenterHoreca from './backoffice/pages/horeca/Center.jsx'
 import CenterShift from './backoffice/pages/shift/Center.jsx'
+import CenterMaps from './backoffice/pages/halls/Center.jsx'
 import { ScrollStyles } from './ui/ThemeContext.jsx'
 import Order from './backoffice/pages/horeca/orders/Order.jsx'
 import CenterCinema from './backoffice/pages/cinema/Center.jsx'
@@ -117,6 +118,8 @@ function App() {
                         <Route path="/center/cinema/orders" element={<CenterCinema current_page={['cinema', 'orders']} />} />
 
                         <Route path="/center/results/cashbox" element={<CenterResults current_page={['results', 'cashbox']} />} />
+
+                        <Route path="/center/halls/maps" element={<CenterMaps current_page={['halls', 'maps']} />} />
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>

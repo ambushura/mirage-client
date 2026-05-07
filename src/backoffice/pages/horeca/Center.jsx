@@ -44,7 +44,7 @@ const Center = ({ current_page }) => {
         case 'recipe':
             return (
                 <>
-                    <SubMenu type={['update', 'back']} />
+                    <SubMenu type={['update', 'back', 'actions']} />
                     <Recipe />
                 </>
             )
