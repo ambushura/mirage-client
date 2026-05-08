@@ -22,6 +22,7 @@ const CenterHeaderLeft = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     color: '#c3000A',
+                    fontStyle: 'italic',
                 }}
             >
                 МИРАЖ
