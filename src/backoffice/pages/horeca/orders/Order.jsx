@@ -15,7 +15,7 @@ import { useTableColumns } from '../../../hooks/useTableColumns.js'
 import Loader from '../../../../ui/Loader.jsx'
 
 ////////////////////////////////////////////////////////////
-// КОНФИГ
+// ДОПОЛНИТЕЛЬНО
 ////////////////////////////////////////////////////////////
 
 const BUYER_FIELDS = [
@@ -36,7 +36,7 @@ const TOOLBAR_CONFIG = {
 const EMPTY_TOOLBAR = { left: [], right: [] }
 
 ////////////////////////////////////////////////////////////
-// СТРУКТУРА
+// СТРУКТУРА ДОКУМЕНТА
 ////////////////////////////////////////////////////////////
 
 export default function Order() {
@@ -97,7 +97,7 @@ function DocView(props) {
 }
 
 ////////////////////////////////////////////////////////////
-// ТАБЫ
+// СТРУКТУРА СТРАНИЦ
 ////////////////////////////////////////////////////////////
 
 function TabsSection({ order, form, filial, catalog_map, set_catalog_map, current_table, set_current_table, loading }) {
@@ -139,7 +139,7 @@ function TabsSection({ order, form, filial, catalog_map, set_catalog_map, curren
 }
 
 ////////////////////////////////////////////////////////////
-// ТАБЛИЧНЫЕ ЧАСТИ
+// СТРАНИЦЫ СОДЕРЖИМОЕ
 ////////////////////////////////////////////////////////////
 
 function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
@@ -176,10 +176,6 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// СТРАНИЦЫ
-////////////////////////////////////////////////////////////
-
 function CommonTab({ control }) {
     return (
         <Box sx={{ display: 'flex', gap: 1 }}>
@@ -200,7 +196,7 @@ function BuyerTab({ control }) {
 }
 
 ////////////////////////////////////////////////////////////
-// СУММЫ
+// ПРОЧИЕ
 ////////////////////////////////////////////////////////////
 
 function Summary({ control }) {
