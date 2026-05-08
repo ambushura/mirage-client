@@ -6,7 +6,7 @@ import { ruRU } from '@mui/x-data-grid/locales'
 import { setOrdersHorecaPage, setOrdersHorecaPageSize } from '../../../../redux/center/centerHorecaReducer.js'
 import { useEffect, useState } from 'react'
 import { center_catalog_load } from '../../../../service/fetch_service.js'
-import { FillNameMap } from '../../../Common.jsx'
+import { fill_name_map } from '../../../Common.jsx'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
 
 ////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ const Orders = () => {
     // Заполнение карты наименований
     useEffect(() => {
         const loadMap = async () => {
-            const ids = FillNameMap([orders_horeca])
+            const ids = fill_name_map([orders_horeca])
             if (ids.length === 0) return
             const res = await dispatch(center_catalog_load(filial, ids))
             set_catalog_map((prev_state) => [...prev_state, ...res.data])

@@ -1,11 +1,11 @@
 import { Box, Tab } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { center_catalog_load, center_horeca_goods_recipe_get } from '../../../../service/fetch_service.js'
+import { center_horeca_goods_recipe_get } from '../../../../service/fetch_service.js'
 import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
 import ControlledTextField from '../../../../ui/ControlledTextField.jsx'
-import { FillNameMap, TableToolbar } from '../../../Common.jsx'
+import { TableToolbar } from '../../../Common.jsx'
 import CachedIcon from '@mui/icons-material/Cached'
 import { IngredientsRebuild, PaymentsRebuild, ReturnsRebuild } from '../orders/Order.jsx'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
@@ -45,27 +45,19 @@ export default function Recipe() {
 
     // Загрузка заказа на клиент
     useEffect(() => {
-        if (filial === null || ref === undefined) return
-        dispatch(center_horeca_goods_recipe_get(filial, ref, 0))
+        const load = async () => {
+            const res = await dispatch(center_horeca_goods_recipe_get(filial, ref, 0))
+            set_catalog_map(res.data)
+        }
+        if (filial !== null && ref !== undefined) {
+            load()
+        }
     }, [dispatch, filial, ref])
 
     // Загрузка заказа в форму
     useEffect(() => {
         form.reset(structuredClone(goods_recipe))
     }, [form, goods_recipe])
-
-    // Загрузка справочников
-    useEffect(() => {
-        const ids = FillNameMap(goods_recipe.tables)
-        if (!ids.length) return
-        dispatch(center_catalog_load(filial, ids)).then((res) => {
-            set_catalog_map((prev) => {
-                const map = new Map(prev.map((i) => [i.uid, i]))
-                res.data.forEach((i) => map.set(i.uid, i))
-                return Array.from(map.values())
-            })
-        })
-    }, [dispatch, filial, goods_recipe])
 
     // Наблюдаемые переменные
     const { fields: filials } = useFieldArray({ control: form.control, name: 'filials' })

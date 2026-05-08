@@ -158,6 +158,7 @@ import {
     setTree,
     setTreeLoading,
 } from '../redux/center/centerHorecaReducer.js'
+import { fill_name_map } from '../backoffice/Common.jsx'
 
 export const TIMEOUT = 30000
 
@@ -2396,7 +2397,11 @@ export const center_horeca_goods_recipe_get = (filial, ref, update) => async (di
     })
     dispatch(setGoodsRecipeLoading({ loading: false, error: res.error }))
     if (!res.error) {
-        dispatch(setGoodsRecipe(res.data))
+        await dispatch(setGoodsRecipe(res.data))
+        const ids = await fill_name_map(res.data.tables)
+        if (ids.length !== 0) {
+            return await dispatch(center_catalog_load(filial, ids))
+        }
     }
 }
 
@@ -2424,7 +2429,7 @@ export const center_horeca_orders_get =
 export const center_horeca_order_get = (filial, uid_order, update) => async (dispatch, getState) => {
     const { wp, kiosk, version } = getState().interface
     const { center } = getState().auth
-    dispatch(setOrderHorecaLoadingState({ loading: true, error: null }))
+    await dispatch(setOrderHorecaLoadingState({ loading: true, error: null }))
     const res = await makeRequest(dispatch, {
         method: 'get',
         url: `http://${filial.ip}:${filial.port}${ROUTE_CENTER_HORECA_ORDER_GET}`,
@@ -2435,14 +2440,18 @@ export const center_horeca_order_get = (filial, uid_order, update) => async (dis
         version,
         center,
     })
-    dispatch(
+    await dispatch(
         setOrderHorecaLoadingState({
             loading: false,
             error: res.error,
         })
     )
     if (!res.error) {
-        dispatch(setOrderHorecaCenter(res.data))
+        await dispatch(setOrderHorecaCenter(res.data))
+        const ids = await fill_name_map(res.data.tables)
+        if (ids.length !== 0) {
+            return await dispatch(center_catalog_load(filial, ids))
+        }
     }
 }
 

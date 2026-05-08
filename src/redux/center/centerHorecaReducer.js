@@ -92,8 +92,8 @@ const initialState = {
 
         tables: [
             {
-                id: 'store',
-                title: 'Производство',
+                id: 'sales',
+                title: 'Продажи',
                 columns: [],
                 rows: [],
                 column_grouping_model: [],
@@ -101,8 +101,8 @@ const initialState = {
             },
 
             {
-                id: 'sales',
-                title: 'Продажи',
+                id: 'store',
+                title: 'Производство',
                 columns: [],
                 rows: [],
                 column_grouping_model: [],

@@ -6,11 +6,11 @@ import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
 import CachedIcon from '@mui/icons-material/Cached'
 import { useForm } from 'react-hook-form'
-import { FillNameMap, TableToolbar } from '../../../Common.jsx'
+import { TableToolbar } from '../../../Common.jsx'
 import ControlledTextField from '../../../../ui/ControlledTextField.jsx'
 import ControlledFieldSwitch from '../../../../ui/ControlledFieldSwitch.jsx'
 import ControlledMoneyField from '../../../../ui/ControlledMoneyField.jsx'
-import { center_catalog_load, center_horeca_order_get } from '../../../../service/fetch_service.js'
+import { center_horeca_order_get } from '../../../../service/fetch_service.js'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
 import Loader from '../../../../ui/Loader.jsx'
 
@@ -52,27 +52,19 @@ export default function Order() {
 
     // Загрузка заказа на клиент
     useEffect(() => {
-        if (filial === null || uid_order === undefined) return
-        dispatch(center_horeca_order_get(filial, uid_order, 0))
+        const load = async () => {
+            const res = await dispatch(center_horeca_order_get(filial, uid_order, 0))
+            set_catalog_map(res.data)
+        }
+        if (filial !== null && uid_order !== undefined) {
+            load()
+        }
     }, [dispatch, filial, uid_order])
 
     // Загрузка заказа в форму
     useEffect(() => {
         form.reset(structuredClone(order_horeca))
     }, [form, order_horeca])
-
-    // Загрузка справочников
-    useEffect(() => {
-        const ids = FillNameMap(order_horeca.tables)
-        if (!ids.length) return
-        dispatch(center_catalog_load(filial, ids)).then((res) => {
-            set_catalog_map((prev) => {
-                const map = new Map(prev.map((i) => [i.uid, i]))
-                res.data.forEach((i) => map.set(i.uid, i))
-                return Array.from(map.values())
-            })
-        })
-    }, [dispatch, filial, order_horeca])
 
     if (order_horeca_loading.loading) return <Loader />
 
