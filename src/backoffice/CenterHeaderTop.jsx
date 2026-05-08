@@ -43,7 +43,7 @@ const CenterHeaderTop = () => {
                     }}
                 >
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <Logout sx={{ color: 'red' }} fontSize="small" />
                     </ListItemIcon>
                     Выход
                 </MenuItem>

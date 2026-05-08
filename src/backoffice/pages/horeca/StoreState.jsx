@@ -81,8 +81,6 @@ const StoreState = () => {
                 editMode="cell"
                 checkboxSelection
                 disableRowSelectionOnClick
-                rowHeight={40}
-                headerHeight={40}
                 density="compact"
                 localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
                 getRowClassName={getRowClassName}

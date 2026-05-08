@@ -185,7 +185,7 @@ function CommonTab({ control }) {
 
 function BuyerTab({ control }) {
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, maxHeight: 400, overflowY: 'auto' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, overflowY: 'auto' }}>
             {BUYER_FIELDS.map(([name, label]) => (
                 <ControlledTextField key={name} control={control} name={name} label={label} />
             ))}
