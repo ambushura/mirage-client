@@ -82,6 +82,7 @@ export function TableToolbar({ left = [], right = [] }) {
     )
 }
 
+// Автозаполнение табличных частей
 export const FIELD_TYPE_MAP = {
     uid_good: 'goods',
     uid_payment_type: 'payment_types',
