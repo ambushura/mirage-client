@@ -88,10 +88,12 @@ export const FIELD_TYPE_MAP = {
     uid_payment_type: 'payment_types',
     uid_discount: 'discounts',
     uid_store: 'stores',
-    kitchen_uid_store: 'stores',
     uid_good_group: 'goods_groups',
     uid_unit: 'units',
     uid_menu: 'menu',
+    kitchen_uid_point: 'kitchen_points',
+    kitchen_uid_delivery_path: 'kitchen_delivery_path',
+    kitchen_uid_store: 'stores',
 }
 
 export const fill_name_map = (tables) => {
@@ -116,5 +118,8 @@ export const AutoCompleteCols = [
     'uid_good_group',
     'uid_unit',
     'uid_menu',
+    'kitchen_uid_point',
+    'kitchen_uid_delivery_path',
+    'kitchen_uid_store',
 ]
 export const DateTimeCols = ['date_create', 'date_change', 'date_shift']
