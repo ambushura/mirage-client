@@ -14,6 +14,18 @@ const CenterHeaderLeft = () => {
 
     return (
         <Box id="center-side-panel">
+            <Box
+                sx={{
+                    height: 'var(--center-header-height)',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: '#c3000A',
+                }}
+            >
+                МИРАЖ
+            </Box>
             <Paper id="center-side-panel-menu">
                 <MenuList>
                     {main_menu.map((item) => {

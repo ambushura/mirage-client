@@ -38,9 +38,9 @@
     position: absolute;
     left: 0;
     z-index: 999;
-    padding-top: var(--center-header-height);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
