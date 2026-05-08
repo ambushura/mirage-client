@@ -14,9 +14,7 @@ import { center_horeca_order_get } from '../../../../service/fetch_service.js'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
 import Loader from '../../../../ui/Loader.jsx'
 
-////////////////////////////////////////////////////////////
-// ДОПОЛНИТЕЛЬНО
-////////////////////////////////////////////////////////////
+// region ДОПОЛНИТЕЛЬНО
 
 const BUYER_FIELDS = [
     ['buyer_email', 'Email'],
@@ -35,9 +33,9 @@ const TOOLBAR_CONFIG = {
 
 const EMPTY_TOOLBAR = { left: [], right: [] }
 
-////////////////////////////////////////////////////////////
-// СТРУКТУРА ДОКУМЕНТА
-////////////////////////////////////////////////////////////
+// endregion
+
+// region СТРУКТУРА ДОКУМЕНТА
 
 export default function Order() {
     const dispatch = useDispatch()
@@ -82,9 +80,9 @@ export default function Order() {
     )
 }
 
-////////////////////////////////////////////////////////////
-// ВИД ДОКУМЕНТА
-////////////////////////////////////////////////////////////
+// endregion
+
+// region ВИД ДОКУМЕНТА
 
 function DocView(props) {
     const { form } = props
@@ -96,9 +94,9 @@ function DocView(props) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// СТРУКТУРА СТРАНИЦ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region СТРУКТУРА СТРАНИЦ
 
 function TabsSection({ order, form, filial, catalog_map, set_catalog_map, current_table, set_current_table, loading }) {
     return (
@@ -138,9 +136,9 @@ function TabsSection({ order, form, filial, catalog_map, set_catalog_map, curren
     )
 }
 
-////////////////////////////////////////////////////////////
-// СТРАНИЦЫ СОДЕРЖИМОЕ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region СТРАНИЦЫ СОДЕРЖИМОЕ
 
 function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
     const columns = useTableColumns(table, filial, catalog_map, set_catalog_map)
@@ -195,9 +193,9 @@ function BuyerTab({ control }) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// ПРОЧИЕ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region ПРОЧИЕ
 
 function Summary({ control }) {
     return (
@@ -212,12 +210,14 @@ function Summary({ control }) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// ФУНКЦИОНАЛ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region ФУНКЦИОНАЛ
 
 export function PaymentsRebuild() {}
 
 export function ReturnsRebuild() {}
 
 export function IngredientsRebuild() {}
+
+// endregion
