@@ -27,6 +27,12 @@ export default function AsyncAutocomplete({
     const selected = useMemo(() => options.find((option) => option.uid === value) ?? null, [options, value])
 
     useEffect(() => {
+        if (selected) {
+            setInputValue(selected.name)
+        }
+    }, [selected, setInputValue])
+
+    useEffect(() => {
         const timer = setTimeout(() => {
             inputRef.current?.focus()
             inputRef.current?.select()
@@ -75,7 +81,11 @@ export default function AsyncAutocomplete({
             inputValue={inputValue}
             getOptionLabel={getOptionLabel}
             isOptionEqualToValue={(a, b) => a?.uid === b?.uid}
-            onInputChange={(_, val) => setInputValue(val)}
+            onInputChange={(_, val, reason) => {
+                if (reason === 'input') {
+                    setInputValue(val)
+                }
+            }}
             onChange={handleChange}
             sx={[
                 sx,
