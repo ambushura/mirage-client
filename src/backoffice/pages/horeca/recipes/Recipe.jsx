@@ -16,9 +16,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab'
 import ControlledFieldSwitch from '../../../../ui/ControlledFieldSwitch.jsx'
 import Loader from '../../../../ui/Loader.jsx'
 
-////////////////////////////////////////////////////////////
-// ДОПОЛНИТЕЛЬНО
-////////////////////////////////////////////////////////////
+// region ДОПОЛНИТЕЛЬНО
 
 const TOOLBAR_CONFIG = {
     store: { left: [{ label: 'Пересобрать', icon: <CachedIcon />, onClick: IngredientsRebuild }] },
@@ -28,9 +26,9 @@ const TOOLBAR_CONFIG = {
 
 const EMPTY_TOOLBAR = { left: [], right: [] }
 
-////////////////////////////////////////////////////////////
-// СТРУКТУРА ДОКУМЕНТА
-////////////////////////////////////////////////////////////
+// endregion
+
+// region СТРУКТУРА ДОКУМЕНТА
 
 export default function Recipe() {
     const dispatch = useDispatch()
@@ -81,9 +79,9 @@ export default function Recipe() {
     )
 }
 
-////////////////////////////////////////////////////////////
-// ВИД ДОКУМЕНТА
-////////////////////////////////////////////////////////////
+// endregion
+
+// region ВИД ДОКУМЕНТА
 
 function DocView(props) {
     return (
@@ -93,9 +91,9 @@ function DocView(props) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// СТРУКТУРА СТРАНИЦ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region СТРУКТУРА СТРАНИЦ
 
 function TabsSection({
     obj,
@@ -184,9 +182,9 @@ function CommonTab({ control, filial }) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// СТРАНИЦЫ СОДЕРЖИМОЕ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region СТРАНИЦЫ СОДЕРЖИМОЕ
 
 function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
     const columns = useTableColumns(table, filial, catalog_map, set_catalog_map)
@@ -223,9 +221,9 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// ПРОЧИЕ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region ПРОЧИЕ
 
 function FilialsTab({ control, filials }) {
     return (
@@ -266,6 +264,8 @@ function OrganizationsTab({ control, organizations }) {
     )
 }
 
-////////////////////////////////////////////////////////////
-// ФУНКЦИОНАЛ
-////////////////////////////////////////////////////////////
+// endregion
+
+// region ФУНКЦИОНАЛ
+
+//endregion
