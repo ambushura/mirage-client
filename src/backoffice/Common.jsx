@@ -94,6 +94,7 @@ export const FIELD_TYPE_MAP = {
     kitchen_uid_point: 'kitchen_points',
     kitchen_uid_delivery_path: 'kitchen_delivery_path',
     kitchen_uid_store: 'stores',
+    uid_creator: 'users',
 }
 
 export const fill_name_map = (tables) => {
@@ -121,5 +122,6 @@ export const AutoCompleteCols = [
     'kitchen_uid_point',
     'kitchen_uid_delivery_path',
     'kitchen_uid_store',
+    'uid_creator',
 ]
 export const DateTimeCols = ['date_create', 'date_change', 'date_shift']
