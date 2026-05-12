@@ -1,8 +1,8 @@
 import { Box, Button } from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import { useDispatch, useSelector } from 'react-redux'
-import { openModal } from '../../../redux/interfaceReducer.js'
-import { selectUidCinema } from '../../../redux/ordersReducer.js'
+import { openModal } from '../../../redux/frontoffice/interfaceReducer.js'
+import { selectUidCinema } from '../../../redux/frontoffice/ordersReducer.js'
 
 const BookingItem = (props) => {
     const dispatch = useDispatch()

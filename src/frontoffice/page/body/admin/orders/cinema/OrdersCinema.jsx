@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { setOrdersCinema, updateOrdersCinema } from '../../../../../../redux/ordersReducer.js'
+import { setOrdersCinema, updateOrdersCinema } from '../../../../../../redux/frontoffice/ordersReducer.js'
 import OrderCinema from './OrderCinema.jsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'

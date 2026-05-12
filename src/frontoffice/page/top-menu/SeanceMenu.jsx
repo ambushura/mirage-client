@@ -4,9 +4,9 @@ import SeanceTitle from '../../components/cinema/SeanceTitle.jsx'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import { useNavigate } from 'react-router-dom'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import { openModal } from '../../../redux/interfaceReducer.js'
+import { openModal } from '../../../redux/frontoffice/interfaceReducer.js'
 import { cinema_seance_booking_get } from '../../../service/fetch_service.js'
-import { setBooking } from '../../../redux/scheduleReducer.js'
+import { setBooking } from '../../../redux/frontoffice/scheduleReducer.js'
 
 const SeanceMenu = () => {
     const navigate = useNavigate()

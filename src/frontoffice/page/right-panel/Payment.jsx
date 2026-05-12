@@ -8,7 +8,7 @@ import {
     setPreOrderPaying,
     setPreOrderPreparing,
     setTotal,
-} from '../../../redux/ordersReducer.js'
+} from '../../../redux/frontoffice/ordersReducer.js'
 import {
     ITEMS_TYPE_ITEMS,
     ITEMS_TYPE_MARK_EGAIS,
@@ -19,7 +19,7 @@ import {
     RETURNING_STATE_SLIP_WITHOUT_RECEIPT,
     RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING,
-} from '../../../redux/interfaceReducer.js'
+} from '../../../redux/frontoffice/interfaceReducer.js'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import DotsAnimation from '../../../ui/DotsAnimation.jsx'
 import Loader from '../../../ui/Loader.jsx'

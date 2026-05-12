@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { Box } from '@mui/material'
 
-import { setCurrentPage, setParams, setSearchParams } from './redux/interfaceReducer.js'
+import { setCurrentPage, setParams, setSearchParams } from './redux/frontoffice/interfaceReducer.js'
 
 import PageFilms from './frontoffice/page/body/films/PageFilms.jsx'
 import PageFilm from './frontoffice/page/body/film/PageFilm.jsx'

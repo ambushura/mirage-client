@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT } from '../../../redux/interfaceReducer.js'
+import { PARAM_DATA_ADMIN_SHIFT, PARAM_DATE_SHIFT } from '../../../redux/frontoffice/interfaceReducer.js'
 import { WhiteMenuItem } from '../../../ui/ThemeContext.jsx'
 
 const City = (props) => {

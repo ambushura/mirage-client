@@ -2,7 +2,7 @@ import { Box, Button, FormGroup, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { equipment_candy_state_get } from '../../../../../../service/fetch_service.js'
-import { setCandy } from '../../../../../../redux/dataReducer.js'
+import { setCandy } from '../../../../../../redux/frontoffice/dataReducer.js'
 import dayjs from 'dayjs'
 
 export function FilialForm({ props }) {

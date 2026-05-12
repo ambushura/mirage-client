@@ -1,7 +1,7 @@
 import Hall from '../../../../components/halls/Hall.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { setHall } from '../../../../../redux/hallsReducer.js'
+import { setHall } from '../../../../../redux/frontoffice/hallsReducer.js'
 import { Box } from '@mui/material'
 import { cinema_hall_get } from '../../../../../service/fetch_service.js'
 import Loader from '../../../../../ui/Loader.jsx'

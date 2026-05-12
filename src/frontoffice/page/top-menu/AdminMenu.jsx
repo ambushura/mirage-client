@@ -42,12 +42,12 @@ import {
     setOrdersHorecaFiltersWorkPlacesSelect,
     setOrdersHorecaPage,
     setUidKitchenPointsSelected,
-} from '../../../redux/ordersReducer.js'
+} from '../../../redux/frontoffice/ordersReducer.js'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { date_dayjs, from_dayjs_to_str, to_str_DAY } from '../../../ui/hooks/common_functions.js'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import { openModal } from '../../../redux/interfaceReducer.js'
+import { openModal } from '../../../redux/frontoffice/interfaceReducer.js'
 import LaptopIcon from '@mui/icons-material/Laptop'
 import LanguageIcon from '@mui/icons-material/Language'
 import { useDispatch, useSelector } from 'react-redux'
@@ -56,7 +56,7 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import Calendar from '../../../ui/Calendar.jsx'
 import { useEffect, useRef, useState } from 'react'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import { setMode, setUidHall } from '../../../redux/hallsReducer.js'
+import { setMode, setUidHall } from '../../../redux/frontoffice/hallsReducer.js'
 import { ClearIcon } from '@mui/x-date-pickers'
 import { cinema_order_fetch, common_list_get, common_orders_filters_halls_get, horeca_order_fetch } from '../../../service/fetch_service.js'
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
@@ -73,7 +73,7 @@ import {
     setTriggerSubmitReceipt,
     setTriggerSubmitSlip,
     setTriggerSubmitZBook,
-} from '../../../redux/documentsReducer.js'
+} from '../../../redux/frontoffice/documentsReducer.js'
 import List from '../../../ui/List.jsx'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PaymentRoundedIcon from '@mui/icons-material/PaymentRounded'
@@ -82,7 +82,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import SavingsIcon from '@mui/icons-material/Savings'
 import SaveIcon from '@mui/icons-material/Save'
-import { setReportVariant, setUpdate } from '../../../redux/reportsReducer.js'
+import { setReportVariant, setUpdate } from '../../../redux/frontoffice/reportsReducer.js'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
 
 export function AdminHallsList() {
@@ -1111,9 +1111,6 @@ export function ReportsMenu() {
             </Button>
             <Button color={report_variant === 'shift' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('shift'))}>
                 Суточный
-            </Button>
-            <Button color={report_variant === 'items' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('items'))}>
-                Продажи
             </Button>
             <Button color={report_variant === 'sales' ? 'primary' : 'secondary'} onClick={() => dispatch(setReportVariant('sales'))}>
                 Выручка

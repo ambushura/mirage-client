@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { openModal } from '../../../redux/interfaceReducer.js'
+import { openModal } from '../../../redux/frontoffice/interfaceReducer.js'
 
 export function CZIcon(props) {
     return (

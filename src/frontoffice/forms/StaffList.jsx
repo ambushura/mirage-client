@@ -2,8 +2,8 @@ import { Box, Button, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { horeca_order_change_creator } from '../../service/fetch_service.js'
-import { closeModal } from '../../redux/interfaceReducer.js'
-import { addNotification } from '../../redux/notifierReducer.js'
+import { closeModal } from '../../redux/frontoffice/interfaceReducer.js'
+import { addNotification } from '../../redux/frontoffice/notifierReducer.js'
 import LazySelect from '../../ui/LazySelect.jsx'
 
 const StaffList = ({ props }) => {

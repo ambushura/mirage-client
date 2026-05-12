@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import Ticket from './Ticket.jsx'
 import { common_orders_receipts_get } from '../../../../service/fetch_service.js'
 import { useEffect } from 'react'
-import { setKioskPaymentError } from '../../../../redux/ordersReducer.js'
+import { setKioskPaymentError } from '../../../../redux/frontoffice/ordersReducer.js'
 
 const CheckOut = () => {
     const dispatch = useDispatch()

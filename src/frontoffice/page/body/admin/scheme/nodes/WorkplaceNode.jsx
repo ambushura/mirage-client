@@ -1,7 +1,7 @@
 import { Handle, Position } from '@xyflow/react'
 import { Box } from '@mui/material'
 import { WorkplaceSVG } from '../svg/WorkplaceSVG.jsx'
-import { openModal } from '../../../../../../redux/interfaceReducer.js'
+import { openModal } from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch } from 'react-redux'
 import { KioskSVG } from '../svg/KioskSVG.jsx'
 

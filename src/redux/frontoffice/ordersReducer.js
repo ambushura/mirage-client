@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { date_dayjs } from '../ui/hooks/common_functions.js'
+import { date_dayjs } from '../../ui/hooks/common_functions.js'
 import { v4 } from 'uuid'
 import {
     PAYMENT_STATE_CANCELED,

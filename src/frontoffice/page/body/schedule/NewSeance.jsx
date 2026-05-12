@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import { openModal } from '../../../../redux/interfaceReducer.js'
+import { openModal } from '../../../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch } from 'react-redux'
 import { duration_title } from '../../../../ui/hooks/common_functions.js'
 

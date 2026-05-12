@@ -14,7 +14,7 @@ import Order from './orders/Order.jsx'
 import SelectFilial from '../SelectFilial.jsx'
 import Recipe from './recipes/Recipe.jsx'
 
-import { setCurrentPage, setParams, setSearchParams } from '../../../redux/center/centerReducer.js'
+import { setCurrentPage, setParams, setSearchParams } from '../../../redux/backoffice/centerReducer.js'
 
 const pageAnimation = {
     initial: {

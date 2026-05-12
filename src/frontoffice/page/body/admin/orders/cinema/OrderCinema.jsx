@@ -8,7 +8,7 @@ import {
     PAYMENT_STATE_WAITING,
     RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING,
-} from '../../../../../../redux/interfaceReducer.js'
+} from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import DotsAnimation from '../../../../../../ui/DotsAnimation.jsx'
 import { useEffect, useState } from 'react'
 import FunctionsIcon from '@mui/icons-material/Functions'

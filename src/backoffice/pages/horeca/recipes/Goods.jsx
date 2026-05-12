@@ -12,7 +12,7 @@ import {
     setGoodsRecipes,
     setUidCurrentFolder,
     setUidCurrentGood,
-} from '../../../../redux/center/centerHorecaReducer.js'
+} from '../../../../redux/backoffice/centerHorecaReducer.js'
 
 const treeSlots = { collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon }
 

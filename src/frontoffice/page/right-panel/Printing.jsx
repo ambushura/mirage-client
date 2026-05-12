@@ -9,7 +9,7 @@ import {
     ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
     ROUTE_EQUIPMENT_PRINTER_BILL_PRINT,
 } from '../../../service/fetch_routes.js'
-import { selectUidCinema } from '../../../redux/ordersReducer.js'
+import { selectUidCinema } from '../../../redux/frontoffice/ordersReducer.js'
 
 const Printing = (props) => {
     const dispatch = useDispatch()

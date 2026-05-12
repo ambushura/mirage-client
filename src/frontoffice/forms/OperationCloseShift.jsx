@@ -5,8 +5,8 @@ import { get_date_shift } from '../../ui/hooks/common_functions.js'
 import dayjs from 'dayjs'
 import { common_documents_operations_close_shift } from '../../service/fetch_service.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeModal } from '../../redux/interfaceReducer.js'
-import { setOperationsUpdate } from '../../redux/documentsReducer.js'
+import { closeModal } from '../../redux/frontoffice/interfaceReducer.js'
+import { setOperationsUpdate } from '../../redux/frontoffice/documentsReducer.js'
 
 const OperationCloseShift = () => {
     const dispatch = useDispatch()

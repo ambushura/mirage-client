@@ -1,6 +1,6 @@
 import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material'
 import PhoneInput from '../../ui/PhoneInput.jsx'
-import { closeModal } from '../../redux/interfaceReducer.js'
+import { closeModal } from '../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { common_contact_add, pl_estimate_discounts } from '../../service/fetch_service.js'

@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { closeModal } from '../../../redux/interfaceReducer.js'
+import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
 import { ruToEnLayout } from '../../../ui/hooks/common_functions.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'

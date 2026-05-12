@@ -6,7 +6,7 @@ import {
     ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
 } from '../../../../../../service/fetch_routes.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetWP, turnOffWP, turnOnWP } from '../../../../../../redux/interfaceReducer.js'
+import { resetWP, turnOffWP, turnOnWP } from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import { useForm } from 'react-hook-form'
 import { common_catalog_get } from '../../../../../../service/fetch_service.js'
 import ControlledTextField from '../../../../../../ui/ControlledTextField.jsx'

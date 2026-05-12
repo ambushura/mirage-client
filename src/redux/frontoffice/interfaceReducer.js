@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { date_dayjs } from '../ui/hooks/common_functions.js'
+import { date_dayjs } from '../../ui/hooks/common_functions.js'
 
 const now = new Date()
 const current_date = date_dayjs(now.getHours() >= 0 && now.getHours() < 7 ? new Date(now.setDate(now.getDate() - 1)) : now)
@@ -88,7 +88,7 @@ const initialState = {
     wp: null,
     version: '1.001',
     need_update: false,
-    dev: false,
+    dev: true,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,

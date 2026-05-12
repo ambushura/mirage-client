@@ -11,8 +11,8 @@ import ControlledTextField from '../../../ui/ControlledTextField.jsx'
 import ControlledSwitch from '../../../ui/ControlledSwitch.jsx'
 import { cinema_seance_create7, get_hall_rent_sum } from '../../../service/fetch_service.js'
 import { useEffect, useState } from 'react'
-import { closeModal } from '../../../redux/interfaceReducer.js'
-import { setScheduleUpdate } from '../../../redux/scheduleReducer.js'
+import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
+import { setScheduleUpdate } from '../../../redux/frontoffice/scheduleReducer.js'
 
 dayjs.locale('ru')
 

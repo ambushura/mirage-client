@@ -1,6 +1,6 @@
 import { Handle, Position } from '@xyflow/react'
 import { Box } from '@mui/material'
-import { openModal } from '../../../../../../redux/interfaceReducer.js'
+import { openModal } from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch } from 'react-redux'
 import { KKTSVG } from '../svg/KKTSVG.jsx'
 

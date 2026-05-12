@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { useSelector } from 'react-redux'
 import Hall from '../../../components/halls/Hall.jsx'
-import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../../../../redux/interfaceReducer.js'
+import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../../../../redux/frontoffice/interfaceReducer.js'
 
 const SsSeance = ({ width, height }) => {
     const city = useSelector((state) => state.data.city)

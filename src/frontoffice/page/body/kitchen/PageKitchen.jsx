@@ -4,10 +4,10 @@ import dayjs from 'dayjs'
 import { horeca_kitchen_get, horeca_kitchen_push } from '../../../../service/fetch_service.js'
 import { memo, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { setKitchenOrders } from '../../../../redux/ordersReducer.js'
+import { setKitchenOrders } from '../../../../redux/frontoffice/ordersReducer.js'
 import Loader from '../../../../ui/Loader.jsx'
 import SkipNextIcon from '@mui/icons-material/SkipNext'
-import { openModal } from '../../../../redux/interfaceReducer.js'
+import { openModal } from '../../../../redux/frontoffice/interfaceReducer.js'
 import duration from 'dayjs/plugin/duration'
 
 dayjs.extend(duration)

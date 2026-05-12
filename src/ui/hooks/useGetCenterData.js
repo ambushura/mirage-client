@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { setFilials, setOrganizations, setParams, setSearchParams } from '../../redux/center/centerReducer.js'
+import { setFilials, setOrganizations, setParams, setSearchParams } from '../../redux/backoffice/centerReducer.js'
 import {
     center_horeca_goods_tree_get,
     center_horeca_orders_get,

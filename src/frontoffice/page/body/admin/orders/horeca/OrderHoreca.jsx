@@ -12,7 +12,7 @@ import {
     RETURNING_STATE_SLIP_WITHOUT_RECEIPT,
     RETURNING_STATE_SUCCESS,
     RETURNING_STATE_WAITING,
-} from '../../../../../../redux/interfaceReducer.js'
+} from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import DotsAnimation from '../../../../../../ui/DotsAnimation.jsx'
 import FunctionsIcon from '@mui/icons-material/Functions'
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled'

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../redux/ordersReducer.js'
-import { setShowFreeSpace } from '../../redux/scheduleReducer.js'
-import { setUidHall } from '../../redux/hallsReducer.js'
-import { logout } from '../../redux/authReducer.js'
+import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../redux/frontoffice/ordersReducer.js'
+import { setShowFreeSpace } from '../../redux/frontoffice/scheduleReducer.js'
+import { setUidHall } from '../../redux/frontoffice/hallsReducer.js'
+import { logout } from '../../redux/frontoffice/authReducer.js'
 
 export function useReset() {
     const dispatch = useDispatch()

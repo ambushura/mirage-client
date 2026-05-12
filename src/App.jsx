@@ -23,7 +23,7 @@ import {
 import { useSetSizeWindow } from './ui/hooks/useSetSizeWindow.js'
 import { useSetTopMenu } from './ui/hooks/useSetTopMenu.js'
 import { useReset } from './frontoffice/hooks/useReset.js'
-import { closeModal } from './redux/interfaceReducer.js'
+import { closeModal } from './redux/frontoffice/interfaceReducer.js'
 import MarkInfo from './frontoffice/forms/markirovka/MarkInfo.jsx'
 import HorecaFilters from './frontoffice/page/body/admin/orders/horeca/HorecaFilters.jsx'
 import CinemaFilters from './frontoffice/page/body/admin/orders/cinema/CinemaFilters.jsx'

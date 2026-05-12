@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { openModal } from '../../../../../../redux/interfaceReducer.js'
+import { openModal } from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import { Handle, Position } from '@xyflow/react'
 import { useDispatch } from 'react-redux'
 import { BilletCheckSVG } from '../svg/BilletCheckSVG.jsx'

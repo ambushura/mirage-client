@@ -6,10 +6,10 @@ import {
     common_documents_z_book_delete,
     horeca_order_delete,
 } from '../../service/fetch_service.js'
-import { closeModal } from '../../redux/interfaceReducer.js'
+import { closeModal } from '../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch } from 'react-redux'
-import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../redux/ordersReducer.js'
-import { setOperationsUpdate, setReceiptsUpdated, setZBooksUpdate } from '../../redux/documentsReducer.js'
+import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../redux/frontoffice/ordersReducer.js'
+import { setOperationsUpdate, setReceiptsUpdated, setZBooksUpdate } from '../../redux/frontoffice/documentsReducer.js'
 
 const Dialog = ({ props }) => {
     const dispatch = useDispatch()

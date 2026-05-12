@@ -17,7 +17,7 @@ import {
     horeca_order_fetch,
     horeca_table_delete,
 } from '../../../service/fetch_service.js'
-import { openModal } from '../../../redux/interfaceReducer.js'
+import { openModal } from '../../../redux/frontoffice/interfaceReducer.js'
 import { Fragment, useEffect, useState } from 'react'
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
@@ -28,7 +28,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import Printing from './Printing.jsx'
-import { selectUidCinema, selectUidHoreca, setHorderPreparing, setPreOrderPreparing } from '../../../redux/ordersReducer.js'
+import { selectUidCinema, selectUidHoreca, setHorderPreparing, setPreOrderPreparing } from '../../../redux/frontoffice/ordersReducer.js'
 
 function Details({ order }) {
     return (

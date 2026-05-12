@@ -1,7 +1,7 @@
 import { Autocomplete, Box, Button, TextField, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { common_position_add_comment, horeca_modifications_get } from '../../../service/fetch_service.js'
-import { closeModal } from '../../../redux/interfaceReducer.js'
+import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 const CommentPosition = ({ props }) => {

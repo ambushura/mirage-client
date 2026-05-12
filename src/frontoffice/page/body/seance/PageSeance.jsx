@@ -5,10 +5,10 @@ import { cinema_hall_get, cinema_seance_booking_get, cinema_seance_get } from '.
 import Hall from '../../../components/halls/Hall.jsx'
 import CheckOut from './CheckOut.jsx'
 import Loader from '../../../../ui/Loader.jsx'
-import { setKioskCheckout } from '../../../../redux/interfaceReducer.js'
-import { setBooking, setSeance } from '../../../../redux/scheduleReducer.js'
-import { setHall } from '../../../../redux/hallsReducer.js'
-import { ORDER_TIME_REMAINING, setPreOrderTimeRemaining } from '../../../../redux/ordersReducer.js'
+import { setKioskCheckout } from '../../../../redux/frontoffice/interfaceReducer.js'
+import { setBooking, setSeance } from '../../../../redux/frontoffice/scheduleReducer.js'
+import { setHall } from '../../../../redux/frontoffice/hallsReducer.js'
+import { ORDER_TIME_REMAINING, setPreOrderTimeRemaining } from '../../../../redux/frontoffice/ordersReducer.js'
 import Order from '../../right-panel/Order.jsx'
 
 const PageSeance = () => {

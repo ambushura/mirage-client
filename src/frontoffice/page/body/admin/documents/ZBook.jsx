@@ -1,5 +1,5 @@
 import { Box, Skeleton } from '@mui/material'
-import { openModal } from '../../../../../redux/interfaceReducer.js'
+import { openModal } from '../../../../../redux/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { common_documents_z_book_get, common_documents_z_book_save } from '../../../../../service/fetch_service.js'
@@ -9,10 +9,15 @@ import ControlledLazySelect from '../../../../../ui/ControlledLazySelect.jsx'
 import ControlledTextField from '../../../../../ui/ControlledTextField.jsx'
 import ControlledMoneyField from '../../../../../ui/ControlledMoneyField.jsx'
 import dayjs from 'dayjs'
-import { setCaptionZBook, setTriggerDeleteZBook, setTriggerSubmitZBook, setZBooksUpdate } from '../../../../../redux/documentsReducer.js'
+import {
+    setCaptionZBook,
+    setTriggerDeleteZBook,
+    setTriggerSubmitZBook,
+    setZBooksUpdate,
+} from '../../../../../redux/frontoffice/documentsReducer.js'
 import { parceZone } from '../../../../../ui/hooks/common_functions.js'
 import { v4 } from 'uuid'
-import { addNotification } from '../../../../../redux/notifierReducer.js'
+import { addNotification } from '../../../../../redux/frontoffice/notifierReducer.js'
 
 const ZBook = () => {
     // Служебные функции
