@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { common_printers_get, equipment_action } from '../../service/fetch_service.js'
+import { common_printers_get, equipment_action, ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT } from '../../service/fetch_service.js'
 import { Box, Button } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT } from '../../service/fetch_routes.js'
 
 const KitchenPrint = ({ props }) => {
     const dispatch = useDispatch()

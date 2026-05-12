@@ -14,14 +14,15 @@ import {
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+    common_catalog_get,
+    equipment_action,
     ROUTE_EQUIPMENT_KKT_CANCEL_LAST_DOCUMENT,
     ROUTE_EQUIPMENT_KKT_CLOCK_RESET,
     ROUTE_EQUIPMENT_KKT_OPEN_BOX,
     ROUTE_EQUIPMENT_KKT_REBOOT,
     ROUTE_EQUIPMENT_KKT_X,
     ROUTE_EQUIPMENT_KKT_Z,
-} from '../../../../../../service/fetch_routes.js'
-import { common_catalog_get, equipment_action } from '../../../../../../service/fetch_service.js'
+} from '../../../../../../service/fetch_service.js'
 import { useForm } from 'react-hook-form'
 import { v4 } from 'uuid'
 import dayjs from 'dayjs'

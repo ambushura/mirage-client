@@ -1,14 +1,14 @@
 import { Box, Button, Skeleton, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
-import {
-    ROUTE_EQUIPMENT_WORKPLACE_RESET,
-    ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
-    ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
-} from '../../../../../../service/fetch_routes.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetWP, turnOffWP, turnOnWP } from '../../../../../../redux/frontoffice/interfaceReducer.js'
 import { useForm } from 'react-hook-form'
-import { common_catalog_get } from '../../../../../../service/fetch_service.js'
+import {
+    common_catalog_get,
+    ROUTE_EQUIPMENT_WORKPLACE_RESET,
+    ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
+    ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
+} from '../../../../../../service/fetch_service.js'
 import ControlledTextField from '../../../../../../ui/ControlledTextField.jsx'
 import ControlledSwitch from '../../../../../../ui/ControlledSwitch.jsx'
 

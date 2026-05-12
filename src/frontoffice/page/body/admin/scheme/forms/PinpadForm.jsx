@@ -1,13 +1,12 @@
 import { Box, Button, FormGroup, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
-import { common_catalog_get, equipment_action } from '../../../../../../service/fetch_service.js'
+import { common_catalog_get, equipment_action, ROUTE_EQUIPMENT_PINPAD_Z } from '../../../../../../service/fetch_service.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 } from 'uuid'
 import ControlledLazySelect from '../../../../../../ui/ControlledLazySelect.jsx'
 import ControlledTextField from '../../../../../../ui/ControlledTextField.jsx'
 import dayjs from 'dayjs'
-import { ROUTE_EQUIPMENT_PINPAD_Z } from '../../../../../../service/fetch_routes.js'
 
 export default function PinpadForm({ props }) {
     // Служебные функции

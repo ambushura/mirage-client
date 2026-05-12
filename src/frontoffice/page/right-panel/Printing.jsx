@@ -1,14 +1,15 @@
 import { Box, Button } from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import { useEffect, useState } from 'react'
-import { common_printers_get, equipment_action } from '../../../service/fetch_service.js'
-import { useDispatch, useSelector } from 'react-redux'
-import BookingItem from './BookingItem.jsx'
 import {
+    common_printers_get,
+    equipment_action,
     ROUTE_EQUIPMENT_KKT_BILL_PRINT,
     ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
     ROUTE_EQUIPMENT_PRINTER_BILL_PRINT,
-} from '../../../service/fetch_routes.js'
+} from '../../../service/fetch_service.js'
+import { useDispatch, useSelector } from 'react-redux'
+import BookingItem from './BookingItem.jsx'
 import { selectUidCinema } from '../../../redux/frontoffice/ordersReducer.js'
 
 const Printing = (props) => {

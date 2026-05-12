@@ -15,122 +15,6 @@ import {
 import { setBooking, setSeance } from '../redux/frontoffice/scheduleReducer.js'
 import { addNotification } from '../redux/frontoffice/notifierReducer.js'
 import { loginSuccess, logout } from '../redux/frontoffice/authReducer.js'
-import {
-    COMMON_PRINTERS_GET,
-    ROUTE_CENTER_CATALOG_LOAD,
-    ROUTE_CENTER_CATALOG_SEARCH,
-    ROUTE_CENTER_HORECA_GOODS_GET,
-    ROUTE_CENTER_HORECA_GOODS_RECIPE_GET,
-    ROUTE_CENTER_HORECA_GOODS_RECIPES_GET,
-    ROUTE_CENTER_HORECA_GOODS_TREE_GET,
-    ROUTE_CENTER_HORECA_ORDER_GET,
-    ROUTE_CENTER_HORECA_ORDERS_GET,
-    ROUTE_CENTER_HORECA_PRODUCTION_STATE_GET,
-    ROUTE_CENTER_HORECA_SHIFT_STATE_GET,
-    ROUTE_CENTER_HORECA_STORE_REST_GET,
-    ROUTE_CENTER_HORECA_STORE_STATE_GET,
-    ROUTE_CINEMA_DISCOUNTS_APPLY,
-    ROUTE_CINEMA_DISCOUNTS_GET,
-    ROUTE_CINEMA_DISCOUNTS_GROUPS_GET,
-    ROUTE_CINEMA_FILM_GET_SEANCES,
-    ROUTE_CINEMA_FILMS_GET,
-    ROUTE_CINEMA_FILTERS_FILMS_GET,
-    ROUTE_CINEMA_HALL_GET,
-    ROUTE_CINEMA_ORDER_ADD_COMMENT,
-    ROUTE_CINEMA_ORDER_DELETE,
-    ROUTE_CINEMA_ORDER_DELETE_COMMENT,
-    ROUTE_CINEMA_ORDER_GET,
-    ROUTE_CINEMA_ORDERS_FILTERS_SCHEDULE_GET,
-    ROUTE_CINEMA_ORDERS_GET,
-    ROUTE_CINEMA_PLACE_BLOCK,
-    ROUTE_CINEMA_POSITION_ADD,
-    ROUTE_CINEMA_POSITION_ADD_COMMENT,
-    ROUTE_CINEMA_POSITION_DELETE_COMMENT,
-    ROUTE_CINEMA_SCHEDULE_GET_HALLS,
-    ROUTE_CINEMA_SEANCE_CLOSE,
-    ROUTE_CINEMA_SEANCE_CREATE7,
-    ROUTE_CINEMA_SEANCE_GET,
-    ROUTE_CINEMA_SEANCE_GET_BOOKING,
-    ROUTE_COMMON_CATALOG_GET,
-    ROUTE_COMMON_CITIES_GET,
-    ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE,
-    ROUTE_COMMON_DOCUMENTS_OPERATION_GET,
-    ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE,
-    ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT,
-    ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET,
-    ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE,
-    ROUTE_COMMON_DOCUMENTS_RECEIPT_GET,
-    ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE,
-    ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET,
-    ROUTE_COMMON_DOCUMENTS_SLIP_GET,
-    ROUTE_COMMON_DOCUMENTS_SLIPS_GET,
-    ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE,
-    ROUTE_COMMON_DOCUMENTS_ZBOOK_GET,
-    ROUTE_COMMON_DOCUMENTS_ZBOOK_SAVE,
-    ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET,
-    ROUTE_COMMON_DOCUMENTS_ZPINPADS_GET,
-    ROUTE_COMMON_LIST_GET,
-    ROUTE_COMMON_LOGIN,
-    ROUTE_COMMON_ORDER_ADD_CONTACT,
-    ROUTE_COMMON_ORDER_FIND,
-    ROUTE_COMMON_ORDER_PAYMENT,
-    ROUTE_COMMON_ORDER_PAYMENT_KIOSK,
-    ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET,
-    ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET,
-    ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET,
-    ROUTE_COMMON_ORDERS_GET_RECEIPTS,
-    ROUTE_COMMON_PAYMENT_MAP_GET,
-    ROUTE_COMMON_PAYMENT_METHODS_GET,
-    ROUTE_COMMON_REPORTS_ATTENDANCE_GET,
-    ROUTE_COMMON_REPORTS_SALES_GET,
-    ROUTE_COMMON_REPORTS_SCHEDULE_GET,
-    ROUTE_COMMON_REPORTS_SHIFT_GET,
-    ROUTE_EQUIPMENT_CANDY_STATE_GET,
-    ROUTE_EQUIPMENT_KKT_BILL_PRINT,
-    ROUTE_EQUIPMENT_KKT_TICKETS_PRINT,
-    ROUTE_EQUIPMENT_KKT_Z,
-    ROUTE_EQUIPMENT_PINPAD_X,
-    ROUTE_EQUIPMENT_PINPAD_Z,
-    ROUTE_EQUIPMENT_PRINTER_BILL_PRINT,
-    ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT,
-    ROUTE_EQUIPMENT_WORKPLACE_RESET,
-    ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF,
-    ROUTE_EQUIPMENT_WORKPLACE_TURN_ON,
-    ROUTE_HALL_RENT,
-    ROUTE_HORECA_KITCHEN_GET,
-    ROUTE_HORECA_KITCHEN_ORDER_GET,
-    ROUTE_HORECA_KITCHEN_PUSH,
-    ROUTE_HORECA_MENU_GET,
-    ROUTE_HORECA_MODIFICATIONS_GET,
-    ROUTE_HORECA_ORDER_ADD_COMMENT,
-    ROUTE_HORECA_ORDER_ADD_TABLE,
-    ROUTE_HORECA_ORDER_CHANGE_CREATOR,
-    ROUTE_HORECA_ORDER_DELETE,
-    ROUTE_HORECA_ORDER_DELETE_COMMENT,
-    ROUTE_HORECA_ORDER_DELETE_TABLE,
-    ROUTE_HORECA_ORDER_GET,
-    ROUTE_HORECA_ORDERS_GET,
-    ROUTE_HORECA_POSITION_ADD,
-    ROUTE_HORECA_POSITION_ADD_BARCODE,
-    ROUTE_HORECA_POSITION_ADD_COMMENT,
-    ROUTE_HORECA_POSITION_ADD_EGAIS,
-    ROUTE_HORECA_POSITION_ADD_MARK,
-    ROUTE_HORECA_POSITION_ADD_QUANTITY,
-    ROUTE_HORECA_POSITION_AWAY,
-    ROUTE_HORECA_POSITION_COOK,
-    ROUTE_HORECA_POSITION_COURSE,
-    ROUTE_HORECA_POSITION_DELETE,
-    ROUTE_HORECA_POSITION_DELETE_COMMENT,
-    ROUTE_MAIN_HOST,
-    ROUTE_MARKIROVKA_CDN_INFO_GET,
-    ROUTE_MARKIROVKA_CDN_INFO_UPDATE,
-    ROUTE_PL_ESTIMATE_DISCOUNTS,
-    ROUTE_SECOND_SCREEN_BOOKING_GET,
-    ROUTE_SECOND_SCREEN_HORDER_GET,
-    ROUTE_SECOND_SCREEN_PRE_ORDER_GET,
-    ROUTE_SECOND_SCREEN_SCHEDULE_GET,
-    ROUTE_SECOND_SCREEN_SEANCE_GET,
-} from './fetch_routes.js'
 import { fillHosts } from '../redux/frontoffice/markirovkaReducer.js'
 import { setHall } from '../redux/frontoffice/hallsReducer.js'
 import { setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate } from '../redux/frontoffice/documentsReducer.js'
@@ -160,7 +44,144 @@ import {
 } from '../redux/backoffice/centerHorecaReducer.js'
 import { fill_name_map } from '../backoffice/Common.jsx'
 
-// region ЯДРО
+export const ROUTE_MAIN_HOST = {
+    ip: '10.101.3.88',
+    port: 60000,
+    payment_port: 60001,
+    ws_port: 60002,
+}
+
+// region FRONT / КОНСТАНТЫ
+
+export const ROUTE_COMMON_LOGIN = '/api/common/login'
+export const ROUTE_COMMON_CITIES_GET = '/api/common/cities/get'
+export const ROUTE_COMMON_ORDER_ADD_CONTACT = '/api/common/order/add/contact'
+export const ROUTE_COMMON_ORDERS_GET_RECEIPTS = '/api/common/orders/get_receipts'
+export const ROUTE_COMMON_PAYMENT_METHODS_GET = '/api/common/payment_methods/get'
+export const ROUTE_COMMON_ORDERS_FILTERS_STAFF_GET = '/api/common/orders/filters/staff/get'
+export const ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET = '/api/common/orders/filters/halls/get'
+export const ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET = '/api/common/orders/filters/workplaces/get'
+export const ROUTE_COMMON_PAYMENT_MAP_GET = '/api/common/payment_map/get'
+export const ROUTE_COMMON_ORDER_FIND = '/api/common/order/find'
+export const ROUTE_COMMON_ORDER_PAYMENT = '/api/common/order/payment'
+export const ROUTE_COMMON_ORDER_PAYMENT_KIOSK = '/api/common/order/payment_kiosk'
+export const ROUTE_EQUIPMENT_KKT_OPEN_BOX = '/api/equipment/kkt/open_box'
+export const ROUTE_EQUIPMENT_KKT_X = '/api/equipment/kkt/x'
+export const ROUTE_EQUIPMENT_KKT_Z = '/api/equipment/kkt/z'
+export const ROUTE_EQUIPMENT_KKT_CLOCK_RESET = '/api/equipment/kkt/clock_reset'
+export const ROUTE_EQUIPMENT_KKT_BILL_PRINT = '/api/equipment/kkt/bill/print'
+export const ROUTE_EQUIPMENT_KKT_TICKETS_PRINT = '/api/equipment/kkt/tickets/print'
+export const ROUTE_EQUIPMENT_PINPAD_X = '/api/equipment/pinpad/x'
+export const ROUTE_EQUIPMENT_PINPAD_Z = '/api/equipment/pinpad/z'
+export const ROUTE_EQUIPMENT_WORKPLACE_RESET = '/api/equipment/workplace/reset'
+export const ROUTE_EQUIPMENT_WORKPLACE_TURN_OFF = '/api/equipment/workplace/turn_off'
+export const ROUTE_EQUIPMENT_WORKPLACE_TURN_ON = '/api/equipment/workplace/turn_on'
+export const ROUTE_EQUIPMENT_KKT_REBOOT = '/api/equipment/kkt/reboot'
+export const ROUTE_EQUIPMENT_KKT_CANCEL_LAST_DOCUMENT = '/api/equipment/kkt/cancel_last_document'
+export const ROUTE_MARKIROVKA_CDN_INFO_GET = '/api/markirovka/cdn/info/get'
+export const ROUTE_MARKIROVKA_CDN_INFO_UPDATE = '/api/markirovka/cdn/info/update'
+export const ROUTE_CINEMA_DISCOUNTS_GET = '/api/cinema/discounts/get'
+export const ROUTE_CINEMA_DISCOUNTS_GROUPS_GET = '/api/cinema/discounts/groups/get'
+export const ROUTE_CINEMA_DISCOUNTS_APPLY = '/api/cinema/discounts/apply'
+export const ROUTE_CINEMA_ORDERS_GET = '/api/cinema/orders/get'
+export const ROUTE_CINEMA_ORDER_GET = '/api/cinema/order/get'
+export const ROUTE_CINEMA_ORDER_DELETE = '/api/cinema/order/delete'
+export const ROUTE_CINEMA_ORDER_ADD_COMMENT = '/api/cinema/order/add/comment'
+export const ROUTE_CINEMA_ORDER_DELETE_COMMENT = '/api/cinema/order/delete/comment'
+export const ROUTE_CINEMA_ORDERS_FILTERS_SCHEDULE_GET = '/api/cinema/orders/filters/schedule/get'
+export const ROUTE_CINEMA_SEANCE_CREATE7 = '/api/cinema/seance/create7'
+export const ROUTE_CINEMA_SEANCE_CLOSE = '/api/cinema/seance/close'
+export const ROUTE_CINEMA_SEANCE_GET = '/api/cinema/seance/get'
+export const ROUTE_CINEMA_SEANCE_GET_BOOKING = '/api/cinema/seance/get_booking'
+export const ROUTE_CINEMA_PLACE_BLOCK = '/api/cinema/place/block'
+export const ROUTE_CINEMA_POSITION_ADD = '/api/cinema/position/add'
+export const ROUTE_CINEMA_POSITION_ADD_COMMENT = '/api/cinema/position/add/comment'
+export const ROUTE_CINEMA_POSITION_DELETE_COMMENT = '/api/cinema/position/delete/comment'
+export const ROUTE_CINEMA_FILMS_GET = '/api/cinema/films/get'
+export const ROUTE_CINEMA_FILM_GET_SEANCES = '/api/cinema/film/get_seances'
+export const ROUTE_CINEMA_SCHEDULE_GET_HALLS = '/api/cinema/schedule/get_halls'
+export const ROUTE_CINEMA_HALL_GET = '/api/cinema/hall/get'
+export const ROUTE_CINEMA_FILTERS_FILMS_GET = '/api/cinema/filters/films/get'
+export const ROUTE_HORECA_ORDER_GET = '/api/horeca/order/get'
+export const ROUTE_HORECA_ORDERS_GET = '/api/horeca/orders/get'
+export const ROUTE_HORECA_ORDER_ADD_TABLE = '/api/horeca/order/add_table'
+export const ROUTE_HORECA_ORDER_DELETE = '/api/horeca/order/delete'
+export const ROUTE_HORECA_ORDER_DELETE_TABLE = '/api/horeca/order/delete_table'
+export const ROUTE_HORECA_ORDER_SEPARATE = '/api/horeca/order/separate'
+export const ROUTE_HORECA_ORDER_ADD_COMMENT = '/api/horeca/order/add/comment'
+export const ROUTE_HORECA_ORDER_DELETE_COMMENT = '/api/horeca/order/delete/comment'
+export const ROUTE_HORECA_ORDER_CHANGE_CREATOR = '/api/horeca/order/change_creator'
+export const ROUTE_HORECA_MENU_GET = '/api/horeca/menu/get'
+export const ROUTE_HORECA_MODIFICATIONS_GET = '/api/horeca/modifications/get'
+export const ROUTE_HORECA_POSITION_ADD = '/api/horeca/position/add'
+export const ROUTE_HORECA_POSITION_ADD_QUANTITY = '/api/horeca/position/add/quantity'
+export const ROUTE_HORECA_POSITION_ADD_EGAIS = '/api/horeca/position/add/egais'
+export const ROUTE_HORECA_POSITION_ADD_MARK = '/api/horeca/position/add/mark'
+export const ROUTE_HORECA_POSITION_DELETE = '/api/horeca/position/delete'
+export const ROUTE_HORECA_POSITION_ADD_COMMENT = '/api/horeca/position/add/comment'
+export const ROUTE_HORECA_POSITION_DELETE_COMMENT = '/api/horeca/position/delete/comment'
+export const ROUTE_HORECA_KITCHEN_GET = '/api/horeca/kitchen/get'
+export const ROUTE_HORECA_KITCHEN_ORDER_GET = '/api/horeca/kitchen/order/get'
+export const ROUTE_HORECA_KITCHEN_PUSH = '/api/horeca/kitchen/push'
+export const ROUTE_HORECA_POSITION_AWAY = '/api/horeca/position/away'
+export const ROUTE_HORECA_POSITION_COOK = '/api/horeca/position/cook'
+export const ROUTE_HORECA_POSITION_COURSE = '/api/horeca/position/course'
+export const ROUTE_COMMON_CATALOG_GET = '/api/common/catalog/get'
+export const ROUTE_PL_ESTIMATE_DISCOUNTS = '/api/pl/estimate_discounts'
+export const ROUTE_COMMON_DOCUMENTS_ZBOOKS_GET = '/api/common/documents/zbooks/get'
+export const ROUTE_COMMON_DOCUMENTS_ZBOOK_GET = '/api/common/documents/zbook/get'
+export const ROUTE_COMMON_DOCUMENTS_ZBOOK_SAVE = '/api/common/documents/zbook/save'
+export const ROUTE_COMMON_DOCUMENTS_ZBOOK_DELETE = '/api/common/documents/zbook/delete'
+export const ROUTE_COMMON_DOCUMENTS_ZPINPADS_GET = '/api/common/documents/zpinpads/get'
+export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_GET = '/api/common/documents/operations/get'
+export const ROUTE_COMMON_DOCUMENTS_OPERATION_GET = '/api/common/documents/operation/get'
+export const ROUTE_COMMON_DOCUMENTS_OPERATION_SAVE = '/api/common/documents/operation/save'
+export const ROUTE_COMMON_DOCUMENTS_OPERATION_DELETE = '/api/common/documents/operation/delete'
+export const ROUTE_COMMON_DOCUMENTS_OPERATIONS_CLOSE_SHIFT = '/api/common/documents/operations/close_shift'
+export const ROUTE_COMMON_LIST_GET = '/api/common/list/get'
+export const ROUTE_SECOND_SCREEN_SCHEDULE_GET = '/api/second_screen/schedule/get'
+export const ROUTE_SECOND_SCREEN_SEANCE_GET = '/api/second_screen/seance/get'
+export const ROUTE_SECOND_SCREEN_PRE_ORDER_GET = '/api/second_screen/pre_order/get'
+export const ROUTE_SECOND_SCREEN_HORDER_GET = '/api/second_screen/horder/get'
+export const ROUTE_SECOND_SCREEN_BOOKING_GET = '/api/second_screen/booking/get'
+export const COMMON_PRINTERS_GET = '/api/common/printers/get'
+export const ROUTE_HORECA_POSITION_ADD_BARCODE = '/api/horeca/position/add/barcode'
+export const ROUTE_COMMON_DOCUMENTS_RECEIPTS_GET = '/api/common/documents/receipts/get'
+export const ROUTE_COMMON_DOCUMENTS_RECEIPT_GET = '/api/common/documents/receipt/get'
+export const ROUTE_COMMON_DOCUMENTS_RECEIPT_SAVE = '/api/common/documents/receipt/save'
+export const ROUTE_COMMON_DOCUMENTS_RECEIPT_DELETE = '/api/common/documents/receipt/delete'
+export const ROUTE_COMMON_DOCUMENTS_SLIPS_GET = '/api/common/documents/slips/get'
+export const ROUTE_COMMON_DOCUMENTS_SLIP_GET = '/api/common/documents/slip/get'
+export const ROUTE_EQUIPMENT_CANDY_STATE_GET = '/api/equipment/candy/state/get'
+export const ROUTE_EQUIPMENT_PRINTER_BILL_PRINT = '/api/equipment/printer/bill/print'
+export const ROUTE_HALL_RENT = '/pl/hs/pl/RentSum'
+export const ROUTE_COMMON_REPORTS_SALES_GET = '/api/common/reports/sales/get'
+export const ROUTE_COMMON_REPORTS_SHIFT_GET = '/api/common/reports/shift/get'
+export const ROUTE_COMMON_REPORTS_SCHEDULE_GET = '/api/common/reports/schedule/get'
+export const ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT = '/api/equipment/printer/kitchen_print'
+export const ROUTE_COMMON_REPORTS_ATTENDANCE_GET = '/api/common/reports/attendance/get'
+
+// endregion
+
+// region BACK / КОНСТАНТЫ
+
+export const ROUTE_CENTER_HORECA_GOODS_TREE_GET = '/api/center/horeca/goods/tree/get'
+export const ROUTE_CENTER_HORECA_GOODS_GET = '/api/center/horeca/goods/get'
+export const ROUTE_CENTER_HORECA_GOODS_RECIPES_GET = '/api/center/horeca/goods/recipes/get'
+export const ROUTE_CENTER_HORECA_GOODS_RECIPE_GET = '/api/center/horeca/goods/recipe/get'
+export const ROUTE_CENTER_HORECA_ORDERS_GET = '/api/center/horeca/orders/get'
+export const ROUTE_CENTER_HORECA_ORDER_GET = '/api/center/horeca/order/get'
+export const ROUTE_CENTER_HORECA_STORE_STATE_GET = '/api/center/horeca/store_state/get'
+export const ROUTE_CENTER_HORECA_PRODUCTION_STATE_GET = '/api/center/horeca/production_state/get'
+export const ROUTE_CENTER_HORECA_SHIFT_STATE_GET = '/api/center/horeca/shift_state/get'
+export const ROUTE_CENTER_HORECA_STORE_REST_GET = '/api/center/horeca/store_rest/get'
+
+export const ROUTE_CENTER_CATALOG_LOAD = '/api/catalog/load'
+export const ROUTE_CENTER_CATALOG_SEARCH = '/api/catalog/search'
+
+// endregion
+
+// region ЯДРО ЗАПРОСА
 
 export const TIMEOUT = 30000
 
@@ -234,7 +255,7 @@ export const makeRequest = async (dispatch, config, onSuccess) => {
 
 // endregion
 
-// region АВТОРИЗАЦИЯ
+// region BACK / FRONT / АВТОРИЗАЦИЯ
 export const common_cities_filials_get = () => async (dispatch, getState) => {
     const origin = window.location.origin
     const { wp, kiosk, version, dev } = getState().interface
