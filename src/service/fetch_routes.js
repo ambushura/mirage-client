@@ -4,6 +4,8 @@ export const ROUTE_MAIN_HOST = {
     payment_port: 60001,
     ws_port: 60002,
 }
+
+// FRONT
 export const ROUTE_COMMON_LOGIN = '/api/common/login'
 export const ROUTE_COMMON_CITIES_GET = '/api/common/cities/get'
 export const ROUTE_COMMON_ORDER_ADD_CONTACT = '/api/common/order/add/contact'
@@ -112,7 +114,7 @@ export const ROUTE_COMMON_REPORTS_SCHEDULE_GET = '/api/common/reports/schedule/g
 export const ROUTE_EQUIPMENT_PRINTER_KITCHEN_PRINT = '/api/equipment/printer/kitchen_print'
 export const ROUTE_COMMON_REPORTS_ATTENDANCE_GET = '/api/common/reports/attendance/get'
 
-// Центр
+// BACK
 export const ROUTE_CENTER_HORECA_GOODS_TREE_GET = '/api/center/horeca/goods/tree/get'
 export const ROUTE_CENTER_HORECA_GOODS_GET = '/api/center/horeca/goods/get'
 export const ROUTE_CENTER_HORECA_GOODS_RECIPES_GET = '/api/center/horeca/goods/recipes/get'
