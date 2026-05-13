@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { v4 } from 'uuid'
 
 const initialState = {
+    // region КАЛЬКУЛЯЦИИ
+
     // Папки
     tree_loading: { loading: false, error: null },
     tree: [],
@@ -47,7 +49,11 @@ const initialState = {
         ],
     },
 
-    // Хорека заказы
+    // endregion
+
+    // region ЗАКАЗЫ
+
+    // Заказы
     orders_horeca_loading: { loading: false, error: null },
     orders_horeca_page: 1,
     orders_horeca_page_size: 20,
@@ -59,7 +65,7 @@ const initialState = {
         column_visibility_model: {},
     },
 
-    // Хорека заказ
+    // Заказ
     order_horeca_loading: { loading: false, error: null },
     order_horeca: {
         buyer_uid: null,
@@ -156,13 +162,19 @@ const initialState = {
         ],
     },
 
-    // Хорека Наличие на складах
+    // endregion
+
+    // region НАЛИЧИЕ НА СКЛАДАХ
+
     store_state_loading: { loading: false, error: null },
     store_state: { columns: [], rows: [], column_grouping_model: [], column_visibility_model: {} },
     store_state_expended: [],
     uid_current_store: [],
 
-    // Хорека Производство
+    // endregion
+
+    // region ПРОИЗВОДСТВО
+
     production_state_loading: { loading: false, error: null },
     production_state: {
         columns: [],
@@ -172,7 +184,10 @@ const initialState = {
     },
     production_state_expended: [],
 
-    // Хорека Отчеты о розничных продажах
+    // endregion
+
+    // region ОРП
+
     shift_state_loading: { loading: false, error: null },
     shift_state: {
         columns: [],
@@ -181,12 +196,16 @@ const initialState = {
         column_visibility_model: {},
     },
     shift_state_expended: [],
+
+    // endregion
 }
 
 export const centerSlice = createSlice({
     name: 'center_horeca',
     initialState,
     reducers: {
+        // region КАЛЬКУЛЯЦИИ
+
         // Папки
         setTreeLoading(state, payload) {
             state.tree_loading = payload
@@ -231,7 +250,11 @@ export const centerSlice = createSlice({
             state.goods_recipe = action.payload
         },
 
-        // Хорека заказы
+        // endregion
+
+        // region ЗАКАЗЫ
+
+        // Заказы
         setOrdersHorecaLoadingState(state, action) {
             state.orders_horeca_loading = action.payload
         },
@@ -253,7 +276,7 @@ export const centerSlice = createSlice({
             state.orders_horeca = action.payload
         },
 
-        // Хорека заказ
+        // Заказ
         setOrderHorecaLoadingState(state, action) {
             state.order_horeca_loading = action.payload
         },
@@ -261,7 +284,10 @@ export const centerSlice = createSlice({
             state.order_horeca = action.payload
         },
 
-        // Хорека Наличие на складах
+        // endregion
+
+        // region НАЛИЧИЕ НА СКЛАДАХ
+
         setStoreStateLoadingState(state, action) {
             state.store_state_loading = action.payload
         },
@@ -283,7 +309,10 @@ export const centerSlice = createSlice({
             state.uid_current_store = action.payload
         },
 
-        // Хорека Производство
+        // endregion
+
+        // region ПРОИЗВОДСТВО
+
         setProductionStateLoadingState(state, action) {
             state.production_state_loading = action.payload
         },
@@ -302,7 +331,10 @@ export const centerSlice = createSlice({
             state.store_state_expended = action.payload
         },
 
-        // Хорека Отчеты о розничных продажах
+        // endregion
+
+        // region ОРП
+
         setShiftStateLoadingState(state, action) {
             state.shift_state_loading = action.payload
         },
@@ -320,10 +352,14 @@ export const centerSlice = createSlice({
         setShiftStateExpended(state, action) {
             state.shift_state_expended = action.payload
         },
+
+        // endregion
     },
 })
 
 export const {
+    // region КАЛЬКУЛЯЦИИ
+
     // Папки
     setTreeLoading,
     setTree,
@@ -344,35 +380,50 @@ export const {
     setGoodsRecipeLoading,
     setGoodsRecipe,
 
-    // Хорека заказы
+    // endregion
+
+    // region ЗАКАЗЫ
+
+    // Заказы
     setOrdersHorecaLoadingState,
     cleanOrdersHoreca,
     setOrdersHorecaCenter,
     setOrdersHorecaPage,
     setOrdersHorecaPageSize,
 
-    // Хорека заказ
+    // Заказ
     setOrderHorecaLoadingState,
     setOrderHorecaCenter,
     setOrderHorecaCenterTables,
 
-    // Хорека Наличие на складах
+    // endregion
+
+    // region НАЛИЧИЕ НА СКЛАДАХ
+
     setStoreStateLoadingState,
     setStoreState,
     cleanStoreState,
     setStoreStateExpended,
     setUidCurrentStore,
 
-    // Хорека Производство
+    // endregion
+
+    // region ПРОИЗВОДСТВО
+
     setProductionStateLoadingState,
     setProductionState,
     cleanProductionState,
     setProductionStateExpended,
 
-    // Хорека Отчеты о розничных продажах
+    // endregion
+
+    // region ОРП
+
     setShiftStateLoadingState,
     setShiftState,
     cleanShiftState,
     setShiftStateExpended,
+
+    // endregion
 } = centerSlice.actions
 export default centerSlice.reducer
