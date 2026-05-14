@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { useSelector } from 'react-redux'
-import { center_menu_icons } from '../ui/ThemeContext.jsx'
+import { center_menu_icons } from '../../ui/ThemeContext.jsx'
 import { useNavigate } from 'react-router-dom'
 import Paper from '@mui/material/Paper'
 import MenuList from '@mui/material/MenuList'

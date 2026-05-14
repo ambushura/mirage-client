@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, Stack } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
-import MultiSelect from '../ui/MultiSelect.jsx'
+import MultiSelect from '../../ui/MultiSelect.jsx'
 import {
     clearPeriod,
     dateShiftAccepted,
@@ -11,7 +11,7 @@ import {
     setFilialsSelected,
     setOrganizationsSelected,
     setPeriod,
-} from '../redux/backoffice/centerReducer.js'
+} from '../../redux/backoffice/centerReducer.js'
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker'
 import { DatePicker } from '@mui/x-date-pickers'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
@@ -24,7 +24,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import PolylineIcon from '@mui/icons-material/Polyline'
 import CachedIcon from '@mui/icons-material/Cached'
 import EditIcon from '@mui/icons-material/Edit'
-import { center_horeca_store_rest_get } from '../service/fetch_service.js'
+import { center_horeca_store_rest_get } from '../../service/fetch_service.js'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 

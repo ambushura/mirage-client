@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import SubMenu from '../../SubMenu.jsx'
+import SubMenu from '../../page/SubMenu.jsx'
 import Orders from './Orders.jsx'
 import { setCurrentPage } from '../../../redux/backoffice/centerReducer.js'
 import { useDispatch } from 'react-redux'

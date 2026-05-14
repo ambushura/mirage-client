@@ -2,8 +2,8 @@ import { Box, Button, ButtonGroup } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SaveIcon from '@mui/icons-material/Save'
-import ControlledDateTimePicker from '../ui/ControlledDateTimePicker.jsx'
-import ControlledTextField from '../ui/ControlledTextField.jsx'
+import ControlledDateTimePicker from '../../ui/ControlledDateTimePicker.jsx'
+import ControlledTextField from '../../ui/ControlledTextField.jsx'
 
 // Подвал документа
 export function Footer({ control, creator, saveButton, copyButton, deleteButton }) {

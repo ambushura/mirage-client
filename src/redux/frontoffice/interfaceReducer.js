@@ -13,7 +13,7 @@ export const RETURNING_STATE_SUCCESS = 'Успешно оформлен возв
 export const ITEMS_TYPE_ITEMS = 'Товары'
 export const ITEMS_TYPE_SERVICE = 'Услуги'
 export const ITEMS_TYPE_MARK_EGAIS = 'Товары ЧЗ, ЕГАИС'
-export const MOBILE_WIDTH = 1024
+export const MOBILE_WIDTH = 720
 export const HEADER_HEIGHT = [200, 70]
 export const FOOTER_HEIGHT = [50, 50]
 export const PARAM_DATE_SHIFT = ['films', 'film', 'schedule', 'second_screen']
@@ -84,6 +84,7 @@ export const TOP_MENU = [
 ]
 
 const initialState = {
+    its_mobile: false,
     its_second_screen: false,
     wp: null,
     version: '1.001',
@@ -123,8 +124,8 @@ const interfaceSlice = createSlice({
     name: 'interface',
     initialState,
     reducers: {
-        setDev: (state, action) => {
-            state.dev = action.payload
+        setMobile: (state, action) => {
+            state.its_mobile = action.payload
         },
         setKiosk: (state, action) => {
             state.kiosk = action.payload
@@ -201,6 +202,7 @@ const interfaceSlice = createSlice({
 })
 
 export const {
+    setMobile,
     setKiosk,
     setWP,
     setSecondScreen,
@@ -213,7 +215,6 @@ export const {
     setSearchParams,
     openModal,
     closeModal,
-    setDev,
     setNeedUpdate,
     setKioskCheckout,
     resetWP,

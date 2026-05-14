@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 
-import SubMenu from '../../SubMenu.jsx'
+import SubMenu from '../../page/SubMenu.jsx'
 import Goods from './recipes/Goods.jsx'
 import Orders from './orders/Orders.jsx'
 import StoreState from './StoreState.jsx'

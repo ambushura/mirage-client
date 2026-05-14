@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createTheme, MenuItem, styled } from '@mui/material'
 import { useFullScreen } from './hooks/useFullScreen.js'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
@@ -14,16 +14,17 @@ import CircleIcon from '@mui/icons-material/Circle'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import WeekendIcon from '@mui/icons-material/Weekend'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
+import { MOBILE_WIDTH, setMobile } from '../redux/frontoffice/interfaceReducer.js'
 
 const ThemeContext = createContext()
 
 export const ThemeBlackWhite = ({ children }) => {
+    const dispatch = useDispatch()
+
     const uid_user = useSelector((state) => state.auth.uid)
     const is_full_screen = useFullScreen()
-    const pre_oder = useSelector((state) => state.orders.pre_order)
-    const horder = useSelector((state) => state.orders.horder)
-    const current_page = useSelector((state) => state.interface.current_page)
-    const kiosk = useSelector((state) => state.interface.kiosk)
+    const { pre_order, horder } = useSelector((state) => state.orders)
+    const { current_page, kiosk } = useSelector((state) => state.interface)
 
     const [ui_state, set_ui_state] = useState({
         authorized: false,
@@ -59,21 +60,22 @@ export const ThemeBlackWhite = ({ children }) => {
 
     useEffect(() => {
         const handleResize = () => {
+            dispatch(setMobile(window.innerWidth <= MOBILE_WIDTH))
             set_ui_state((preValue) => ({
                 ...preValue,
-                is_mobile: window.innerWidth <= 768,
+                is_mobile: window.innerWidth <= MOBILE_WIDTH,
             }))
         }
         window.addEventListener('resize', handleResize)
         handleResize()
         return () => window.removeEventListener('resize', handleResize)
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         set_ui_state((preValue) => ({
             ...preValue,
             show_order:
-                (pre_oder.in_base || horder.in_base) &&
+                (pre_order.in_base || horder.in_base) &&
                 uid_user !== null &&
                 ![
                     'kitchen',
@@ -86,7 +88,7 @@ export const ThemeBlackWhite = ({ children }) => {
                     'admin/acquiring',
                 ].includes(current_page),
         }))
-    }, [pre_oder, horder, uid_user, current_page])
+    }, [pre_order, horder, uid_user, current_page])
 
     useEffect(() => {
         set_ui_state((preValue) => ({

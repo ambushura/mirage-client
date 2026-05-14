@@ -28,15 +28,15 @@ import SosIcon from '@mui/icons-material/Sos'
 const Header = () => {
     const dispatch = useDispatch()
 
-    const kiosk = useSelector((state) => state.interface.kiosk)
-
-    const top_menu = useSelector((state) => state.interface.top_menu)
-    const cities = useSelector((state) => state.data.cities)
-    const city = useSelector((state) => state.data.city)
-    const filial = useSelector((state) => state.data.filial)
+    const { top_menu, its_mobile, kiosk, current_page, auth_opened, app_width, kiosk_checkout, wp, its_second_screen } = useSelector(
+        (state) => state.interface
+    )
+    const { cities, city, filial } = useSelector((state) => state.data)
+    const name_user = useSelector((state) => state.auth.name)
+    const uid_user = useSelector((state) => state.auth.uid)
     const param_date = useSelector((state) => state.interface.params.param_date)
+    const date_shift = useSelector((state) => state.second_screen.date_shift)
 
-    const current_page = useSelector((state) => state.interface.current_page)
     const cities_list_id = 'cities-menu'
     const filials_list_id = 'filials-menu'
     const admin_list_id = 'admin-menu'
@@ -49,17 +49,6 @@ const Header = () => {
     const prev_cities_open = useRef(Boolean(cities_open))
     const prev_filials_open = useRef(Boolean(filials_open))
     const prev_admin_open = useRef(Boolean(admin_open))
-
-    const auth_opened = useSelector((state) => state.interface.auth_opened)
-    const app_width = useSelector((state) => state.interface.app_width)
-
-    const name_user = useSelector((state) => state.auth.name)
-    const uid_user = useSelector((state) => state.auth.uid)
-
-    const date_shift = useSelector((state) => state.second_screen.date_shift)
-
-    const kiosk_checkout = useSelector((state) => state.interface.kiosk_checkout)
-    const wp = useSelector((state) => state.interface.wp)
 
     const user_panel = () => {
         const up = []
@@ -138,7 +127,7 @@ const Header = () => {
     }
 
     const main_button = (el) => {
-        if (app_width > MOBILE_WIDTH || uid_user === null) {
+        if (!its_mobile || uid_user === null) {
             return <Button>{el.name}</Button>
         } else {
             switch (el.id) {
@@ -195,8 +184,6 @@ const Header = () => {
     useEffect(() => {
         set_show_slider(kiosk && !kiosk_checkout && current_page !== 'seance')
     }, [kiosk, kiosk_checkout, current_page])
-
-    const its_second_screen = useSelector((state) => state.interface.its_second_screen)
 
     if (its_second_screen) {
         return (

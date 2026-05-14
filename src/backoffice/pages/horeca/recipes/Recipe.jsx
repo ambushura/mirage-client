@@ -5,7 +5,7 @@ import { center_horeca_goods_recipe_get } from '../../../../service/fetch_servic
 import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
 import ControlledTextField from '../../../../ui/ControlledTextField.jsx'
-import { TableToolbar } from '../../../Common.jsx'
+import { TableToolbar } from '../../../page/Common.jsx'
 import CachedIcon from '@mui/icons-material/Cached'
 import { IngredientsRebuild, PaymentsRebuild, ReturnsRebuild } from '../orders/Order.jsx'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'

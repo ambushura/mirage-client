@@ -10,7 +10,7 @@ export function useReset() {
 
     const filial = useSelector((state) => state.data.filial)
     const uid_user = useSelector((state) => state.auth.uid)
-    const { kiosk, wp } = useSelector((state) => state.interface)
+    const { kiosk } = useSelector((state) => state.interface)
 
     const [clear, set_clear] = useState(0)
 

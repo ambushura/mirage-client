@@ -1,4 +1,4 @@
-import { FIELD_TYPE_MAP } from '../backoffice/Common.jsx'
+import { FIELD_TYPE_MAP } from '../backoffice/page/Common.jsx'
 import AsyncAutocomplete from './AsyncAutocomplete.jsx'
 
 const AutocompleteColumn = (filial, col, catalog_map, set_catalog_map) => {

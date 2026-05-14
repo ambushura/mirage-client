@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom'
 import Revenue from './Revenue.jsx'
 import Results from './Results.jsx'
 import Operations from './Operations.jsx'
-import SubMenu from '../../SubMenu.jsx'
+import SubMenu from '../../page/SubMenu.jsx'
 
 import { setCurrentPage } from '../../../redux/backoffice/centerReducer.js'
 

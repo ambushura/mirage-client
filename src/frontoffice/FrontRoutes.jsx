@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { Box } from '@mui/material'
 
-import { setCurrentPage, setParams, setSearchParams } from './redux/frontoffice/interfaceReducer.js'
+import { setCurrentPage, setParams, setSearchParams } from '../redux/frontoffice/interfaceReducer.js'
 
-import PageFilms from './frontoffice/page/body/films/PageFilms.jsx'
-import PageFilm from './frontoffice/page/body/film/PageFilm.jsx'
-import PageSeance from './frontoffice/page/body/seance/PageSeance.jsx'
-import PageAdmin from './frontoffice/page/body/admin/PageAdmin.jsx'
-import PageSchedule from './frontoffice/page/body/schedule/PageSchedule.jsx'
-import PageHoreca from './frontoffice/page/body/menu/PageHoreca.jsx'
-import PageKitchen from './frontoffice/page/body/kitchen/PageKitchen.jsx'
-import SecondScreen from './frontoffice/page/body/second_screen/SecondScreen.jsx'
-import { useSetWS } from './frontoffice/hooks/useSetWS.js'
+import PageFilms from './page/body/films/PageFilms.jsx'
+import PageFilm from './page/body/film/PageFilm.jsx'
+import PageSeance from './page/body/seance/PageSeance.jsx'
+import PageAdmin from './page/body/admin/PageAdmin.jsx'
+import PageSchedule from './page/body/schedule/PageSchedule.jsx'
+import PageHoreca from './page/body/menu/PageHoreca.jsx'
+import PageKitchen from './page/body/kitchen/PageKitchen.jsx'
+import SecondScreen from './page/body/second_screen/SecondScreen.jsx'
+import { useSetWS } from './hooks/useSetWS.js'
 
-const AppRoutes = ({ current_page }) => {
+const FrontRoutes = ({ current_page }) => {
     const dispatch = useDispatch()
 
     const params = useParams()
@@ -65,4 +65,4 @@ const AppRoutes = ({ current_page }) => {
     return <Box id="page">{pages[current_page] || null}</Box>
 }
 
-export default AppRoutes
+export default FrontRoutes

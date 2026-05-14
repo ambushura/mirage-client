@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import SubMenu from '../../SubMenu.jsx'
+import SubMenu from '../../page/SubMenu.jsx'
 import { useDispatch } from 'react-redux'
 import { setCurrentPage, setParams, setSearchParams } from '../../../redux/backoffice/centerReducer.js'
 import { useParams, useSearchParams } from 'react-router-dom'
