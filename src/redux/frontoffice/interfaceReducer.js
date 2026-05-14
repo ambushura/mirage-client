@@ -88,7 +88,7 @@ const initialState = {
     wp: null,
     version: '1.001',
     need_update: false,
-    dev: false,
+    dev: true,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,

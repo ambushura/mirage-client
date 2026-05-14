@@ -14,27 +14,6 @@ import { center_horeca_order_get } from '../../../../service/fetch_service.js'
 import { useTableColumns } from '../../../hooks/useTableColumns.js'
 import Loader from '../../../../ui/Loader.jsx'
 
-// region ДОПОЛНИТЕЛЬНО
-
-const BUYER_FIELDS = [
-    ['buyer_email', 'Email'],
-    ['buyer_phone_number', 'Номер телефона'],
-    ['buyer_card_number', 'Номер карты'],
-    ['buyer_s', 'Фамилия'],
-    ['buyer_n', 'Имя'],
-    ['buyer_o', 'Отчество'],
-]
-
-const TOOLBAR_CONFIG = {
-    store: { left: [{ label: 'Пересобрать', icon: <CachedIcon />, onClick: IngredientsRebuild }] },
-    payments: { left: [{ label: 'Подобрать', icon: <CachedIcon />, onClick: PaymentsRebuild }] },
-    returns: { left: [{ label: 'Подобрать', icon: <CachedIcon />, onClick: ReturnsRebuild }] },
-}
-
-const EMPTY_TOOLBAR = { left: [], right: [] }
-
-// endregion
-
 // region СТРУКТУРА ДОКУМЕНТА
 
 export default function Order() {
@@ -218,5 +197,26 @@ export function PaymentsRebuild() {}
 export function ReturnsRebuild() {}
 
 export function IngredientsRebuild() {}
+
+// endregion
+
+// region ДОПОЛНИТЕЛЬНО
+
+const BUYER_FIELDS = [
+    ['buyer_email', 'Email'],
+    ['buyer_phone_number', 'Номер телефона'],
+    ['buyer_card_number', 'Номер карты'],
+    ['buyer_s', 'Фамилия'],
+    ['buyer_n', 'Имя'],
+    ['buyer_o', 'Отчество'],
+]
+
+const TOOLBAR_CONFIG = {
+    store: { left: [{ label: 'Пересобрать', icon: <CachedIcon />, onClick: IngredientsRebuild }] },
+    payments: { left: [{ label: 'Подобрать', icon: <CachedIcon />, onClick: PaymentsRebuild }] },
+    returns: { left: [{ label: 'Подобрать', icon: <CachedIcon />, onClick: ReturnsRebuild }] },
+}
+
+const EMPTY_TOOLBAR = { left: [], right: [] }
 
 // endregion
