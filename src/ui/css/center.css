@@ -1,6 +1,6 @@
 :root {
     --center-header-height: 40px;
-    --side-panel-width: 170px;
+    --side-panel-width: 180px;
     --cetner-bgr-scroll: #c1c1c1;
     --center-submenu-height: 80px;
 }
@@ -176,5 +176,5 @@
 }
 
 .center-page-tab {
-    height: calc(100% - 20px);
+    height: calc(100% - 60px);
 }

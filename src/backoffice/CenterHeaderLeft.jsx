@@ -29,7 +29,7 @@ const CenterHeaderLeft = () => {
             </Box>
             <Paper id="center-side-panel-menu">
                 <MenuList>
-                    {main_menu.map((item) => {
+                    {main_menu.map((item, idx) => {
                         return (
                             <MenuItem
                                 key={item.id}
@@ -39,7 +39,7 @@ const CenterHeaderLeft = () => {
                                 }}
                             >
                                 <ListItemIcon sx={{ color: '#c5c5c5' }}>{center_menu_icons[item.icon]}</ListItemIcon>
-                                <ListItemText>{item.title}</ListItemText>
+                                <ListItemText>{`${idx + 1}. ${item.title}`}</ListItemText>
                             </MenuItem>
                         )
                     })}

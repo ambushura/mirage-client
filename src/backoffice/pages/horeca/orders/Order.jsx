@@ -65,10 +65,16 @@ export default function Order() {
 
 function DocView(props) {
     const { form } = props
+    const top_panel_height = 70
+
     return (
-        <Box component="form" className="center-page">
-            <TabsSection {...props} />
-            <Summary control={form.control} />
+        <Box component="form" className="center-page" sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ height: `calc(100% - ${top_panel_height}px)` }}>
+                <TabsSection {...props} />
+            </Box>
+            <Box sx={{ height: `${top_panel_height}px)` }}>
+                <Summary control={form.control} />
+            </Box>
         </Box>
     )
 }
@@ -79,39 +85,31 @@ function DocView(props) {
 
 function TabsSection({ order, form, filial, catalog_map, set_catalog_map, current_table, set_current_table, loading }) {
     return (
-        <Box sx={{ height: '100%' }}>
-            <TabContext value={current_table}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1, position: 'sticky', top: 0, zIndex: 1 }}>
-                    <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
-                        <Tab value="common" label="Общие" />
-                        {order.tables.map((t) => (
-                            <Tab key={t.id} value={t.id} label={t.title} />
-                        ))}
-                        <Tab value="buyer" label="Покупатель" />
-                    </TabList>
-                </Box>
+        <TabContext value={current_table}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}>
+                <TabList onChange={(_, v) => set_current_table(v)} variant="scrollable">
+                    <Tab value="common" label="Общие" />
+                    {order.tables.map((t) => (
+                        <Tab key={t.id} value={t.id} label={t.title} />
+                    ))}
+                    <Tab value="buyer" label="Покупатель" />
+                </TabList>
+            </Box>
 
-                <TabPanel value="common" className="center-page-tab">
-                    <CommonTab control={form.control} />
+            <TabPanel value="common" className="center-page-tab">
+                <CommonTab control={form.control} />
+            </TabPanel>
+
+            {order.tables.map((table) => (
+                <TabPanel key={table.id} value={table.id} className="center-page-tab">
+                    <TableTab table={table} filial={filial} loading={loading} catalog_map={catalog_map} set_catalog_map={set_catalog_map} />
                 </TabPanel>
+            ))}
 
-                {order.tables.map((table) => (
-                    <TabPanel key={table.id} value={table.id} className="center-page-tab">
-                        <TableTab
-                            table={table}
-                            filial={filial}
-                            loading={loading}
-                            catalog_map={catalog_map}
-                            set_catalog_map={set_catalog_map}
-                        />
-                    </TabPanel>
-                ))}
-
-                <TabPanel value="buyer" className="center-page-tab">
-                    <BuyerTab control={form.control} />
-                </TabPanel>
-            </TabContext>
-        </Box>
+            <TabPanel value="buyer" className="center-page-tab">
+                <BuyerTab control={form.control} />
+            </TabPanel>
+        </TabContext>
     )
 }
 
@@ -140,7 +138,6 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
                 headerName: '№',
             }}
             density="compact"
-            autoHeight
             showToolbar
             checkboxSelection
             editMode="cell"
@@ -183,7 +180,13 @@ function Summary({ control }) {
             <ControlledTextField control={control} name="quantity" label="Количество" numeric sx={{ flex: 1 }} />
             <ControlledMoneyField control={control} name="price" label="Цена" sx={{ flex: 1 }} />
             <ControlledMoneyField control={control} name="sum_discount" label="Сумма скидки" sx={{ flex: 1 }} />
-            <ControlledMoneyField control={control} name="sum" label="Сумма со скидкой" readOnly sx={{ flex: 1 }} />
+            <ControlledMoneyField
+                control={control}
+                name="sum"
+                label="Сумма со скидкой"
+                readOnly
+                sx={{ flex: 1, backgroundColor: '#caffd9' }}
+            />
         </Box>
     )
 }

@@ -11,13 +11,13 @@ const main_menu = [
         submenu: [
             {
                 id: 'revenue',
-                title: '1. Выручка',
+                title: 'Выручка',
                 icon: 3,
             },
-            { id: 'results', title: '2. Отчет управляющего', icon: 3 },
+            { id: 'results', title: 'Отчет управляющего', icon: 3 },
             {
                 id: 'operations',
-                title: '3. Операции по кассе',
+                title: 'Операции по кассе',
                 icon: 3,
             },
         ],
@@ -29,32 +29,32 @@ const main_menu = [
         submenu: [
             {
                 id: 'goods',
-                title: '1. Калькуляции',
+                title: 'Калькуляции',
                 icon: 4,
             },
             {
                 id: 'orders',
-                title: '2. Заказы',
+                title: 'Заказы',
                 icon: 4,
             },
             {
                 id: 'store_state',
-                title: '3. Обеспечение производства',
+                title: 'Обеспечение производства',
                 icon: 5,
             },
             {
                 id: 'store_production',
-                title: '4. Производство',
+                title: 'Производство',
                 icon: 5,
             },
             {
                 id: 'shift_state',
-                title: '5. Отчеты о розничных продажах',
+                title: 'Отчеты о розничных продажах',
                 icon: 5,
             },
             {
                 id: 'store_diff',
-                title: '6. Отклонения',
+                title: 'Отклонения',
                 icon: 5,
             },
         ],
@@ -66,7 +66,7 @@ const main_menu = [
         submenu: [
             {
                 id: 'orders',
-                title: '1. Заказы',
+                title: 'Заказы',
                 icon: 4,
             },
         ],
@@ -78,7 +78,7 @@ const main_menu = [
         submenu: [
             {
                 id: 'cashbox',
-                title: '1. Касса',
+                title: 'Касса',
                 icon: 4,
             },
         ],
@@ -90,7 +90,7 @@ const main_menu = [
         submenu: [
             {
                 id: 'maps',
-                title: '1. Залы',
+                title: 'Залы',
                 icon: 4,
             },
         ],

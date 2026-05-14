@@ -25,14 +25,14 @@ const CenterHeaderTop = () => {
             <MenuList id="center-header-menu">
                 {main_menu
                     .find((el) => el.id === current_page[0])
-                    ?.submenu.map((item) => (
+                    ?.submenu.map((item, idx) => (
                         <MenuItem
                             key={item.id}
                             selected={current_page[1] === item.id}
                             onClick={() => navigate(`center/${current_page[0]}/${item.id}`)}
                         >
                             <ListItemIcon sx={{ minWidth: 32, color: '#c5c5c5' }}>{center_menu_icons[item.icon]}</ListItemIcon>
-                            <ListItemText>{item.title}</ListItemText>
+                            <ListItemText>{`${main_menu.findIndex((el) => el.id === current_page[0]) + 1}. ${idx + 1}. ${item.title}`}</ListItemText>
                         </MenuItem>
                     ))}
                 <MenuItem
