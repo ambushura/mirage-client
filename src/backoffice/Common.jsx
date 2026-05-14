@@ -110,6 +110,7 @@ export const fill_name_map = (tables) => {
     })
     return [...map.values()]
 }
+
 export const AutoCompleteCols = [
     'uid_good',
     'uid_payment_type',
@@ -124,4 +125,5 @@ export const AutoCompleteCols = [
     'kitchen_uid_store',
     'uid_creator',
 ]
+
 export const DateTimeCols = ['date_create', 'date_change', 'date_shift']

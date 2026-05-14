@@ -1,72 +1,36 @@
 import { Box } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
-import { setOrdersHorecaPage, setOrdersHorecaPageSize } from '../../../../redux/backoffice/centerHorecaReducer.js'
-import { useEffect, useState } from 'react'
-import { center_catalog_load } from '../../../../service/fetch_service.js'
-import { fill_name_map } from '../../../Common.jsx'
-import { useTableColumns } from '../../../hooks/useTableColumns.js'
-
-////////////////////////////////////////////////////////////
-// КОНФИГ
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// СТРУКТУРА
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// ВИД ДОКУМЕНТА
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// ТАБЫ
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// ТАБЛИЧНЫЕ ЧАСТИ
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// СТРАНИЦЫ
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// СУММЫ
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-// ФУНКЦИОНАЛ
-////////////////////////////////////////////////////////////
+import { setOrdersHorecaFilter, setOrdersHorecaPagination } from '../../../../redux/backoffice/centerHorecaReducer.js'
+import { NormalizeFilterModel, useTableColumns } from '../../../hooks/useTableColumns.js'
+import { center_horeca_orders_get } from '../../../../service/fetch_service.js'
 
 const Orders = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const { orders_horeca, orders_horeca_loading, orders_horeca_page, orders_horeca_page_size } = useSelector(
-        (state) => state.center_horeca
-    )
+    // Данные из хранилища
+    const { filial, date_shift } = useSelector((state) => state.center)
+    const { orders_horeca, orders_horeca_settings, orders_horeca_loading } = useSelector((state) => state.center_horeca)
 
-    // Филиал
-    const { filial } = useSelector((state) => state.center)
+    // Пагинация
+    const { page, pageSize } = useSelector((state) => state.center_horeca.orders_horeca_settings.pagination)
+
+    const sort = orders_horeca_settings.sort
+    const filter = orders_horeca_settings.filter
+
+    // Загрузка данных в хранилище
+    useEffect(() => {
+        if (!filial) return
+        dispatch(center_horeca_orders_get(filial, date_shift, orders_horeca_settings, 0))
+    }, [filial, date_shift, dispatch, orders_horeca_settings])
 
     // Словарь для значений
     const [catalog_map, set_catalog_map] = useState([])
-
     const columns = useTableColumns(orders_horeca, filial, catalog_map, set_catalog_map)
-
-    // Заполнение карты наименований
-    useEffect(() => {
-        const loadMap = async () => {
-            const ids = fill_name_map([orders_horeca])
-            if (ids.length === 0) return
-            const res = await dispatch(center_catalog_load(filial, ids))
-            set_catalog_map((prev_state) => [...prev_state, ...res.data])
-        }
-        loadMap()
-    }, [dispatch, filial, orders_horeca])
 
     return (
         <Box
@@ -81,30 +45,48 @@ const Orders = () => {
             }}
         >
             <DataGridPro
-                loading={orders_horeca_loading.loading}
-                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+                // Данные
                 rows={orders_horeca.rows}
+                rowCount={orders_horeca.total_rows}
                 columns={columns}
                 columnGroupingModel={orders_horeca.column_grouping_model}
                 columnVisibilityModel={orders_horeca.column_visibility_model}
-                rowCount={orders_horeca.total || 0}
-                density="compact"
-                editMode="cell"
+                // Пагинация
                 pagination
                 paginationMode="server"
+                paginationModel={{ page, pageSize }}
+                onPaginationModelChange={(model) => {
+                    if (model.page === page && model.pageSize === pageSize) return
+                    dispatch(setOrdersHorecaPagination(model))
+                }}
                 pageSizeOptions={[10, 20, 50, 100]}
-                paginationModel={{
-                    page: (orders_horeca_page || 1) - 1,
-                    pageSize: orders_horeca_page_size || 20,
+                // Сортировка
+                sortingMode="server"
+                sortModel={orders_horeca_settings.sort}
+                onSortModelChange={() => {}}
+                // Фильтры
+                filterMode="server"
+                filterModel={orders_horeca_settings.filter}
+                onFilterModelChange={(model) => {
+                    if (JSON.stringify(model) === JSON.stringify(filter)) return
+                    dispatch(
+                        setOrdersHorecaPagination({
+                            page: 0,
+                            pageSize,
+                        })
+                    )
+                    dispatch(setOrdersHorecaFilter(NormalizeFilterModel(model)))
                 }}
-                hideFooterSelectedRowCount
-                onPaginationModelChange={({ page, pageSize }) => {
-                    dispatch(setOrdersHorecaPage(page + 1))
-                    dispatch(setOrdersHorecaPageSize(pageSize))
-                }}
+                // События
+                loading={orders_horeca_loading.loading}
                 onRowClick={({ row }) => {
                     navigate(`/center/horeca/orders/${row.id}`)
                 }}
+                // Дополнительно
+                density="compact"
+                editMode="cell"
+                hideFooterSelectedRowCount
+                localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
             />
         </Box>
     )

@@ -165,7 +165,6 @@ function TableTab({ table, filial, loading, catalog_map, set_catalog_map }) {
             showToolbar
             checkboxSelection
             editMode="cell"
-            sortingMode="server"
             disableColumnSorting
             disableRowSelectionOnClick
             getRowClassName={({ row }) => (row.is_leaf === false ? 'center-horeca-order-ref' : '')}

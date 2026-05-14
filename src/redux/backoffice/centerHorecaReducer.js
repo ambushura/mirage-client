@@ -55,14 +55,17 @@ const initialState = {
 
     // Заказы
     orders_horeca_loading: { loading: false, error: null },
-    orders_horeca_page: 1,
-    orders_horeca_page_size: 20,
+    orders_horeca_settings: {
+        pagination: { page: 0, pageSize: 20 },
+        filter: { items: [] },
+        sort: [],
+    },
     orders_horeca: {
-        total: 0,
         columns: [],
-        rows: [],
         column_grouping_model: [],
         column_visibility_model: {},
+        rows: [],
+        total_rows: 0,
     },
 
     // Заказ
@@ -255,25 +258,20 @@ export const centerSlice = createSlice({
         // region ЗАКАЗЫ
 
         // Заказы
+        setOrdersHorecaCenter(state, action) {
+            state.orders_horeca = action.payload
+        },
         setOrdersHorecaLoadingState(state, action) {
             state.orders_horeca_loading = action.payload
         },
-        setOrdersHorecaPage(state, action) {
-            state.orders_horeca_page = action.payload
+        setOrdersHorecaPagination(state, action) {
+            state.orders_horeca_settings.pagination = action.payload
         },
-        setOrdersHorecaPageSize(state, action) {
-            state.orders_horeca_page_size = action.payload
+        setOrdersHorecaSort(state, action) {
+            state.orders_horeca_settings.sort = action.payload
         },
-        cleanOrdersHoreca(state) {
-            state.orders_horeca = {
-                columns: [],
-                rows: [],
-                column_grouping_model: [],
-                column_visibility_model: {},
-            }
-        },
-        setOrdersHorecaCenter(state, action) {
-            state.orders_horeca = action.payload
+        setOrdersHorecaFilter(state, action) {
+            state.orders_horeca_settings.filter = action.payload
         },
 
         // Заказ
@@ -386,15 +384,14 @@ export const {
 
     // Заказы
     setOrdersHorecaLoadingState,
-    cleanOrdersHoreca,
     setOrdersHorecaCenter,
-    setOrdersHorecaPage,
-    setOrdersHorecaPageSize,
+    setOrdersHorecaPagination,
+    setOrdersHorecaSort,
+    setOrdersHorecaFilter,
 
     // Заказ
     setOrderHorecaLoadingState,
     setOrderHorecaCenter,
-    setOrderHorecaCenterTables,
 
     // endregion
 

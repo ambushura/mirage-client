@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { setFilials, setOrganizations, setParams, setSearchParams } from '../../redux/backoffice/centerReducer.js'
 import {
     center_horeca_goods_tree_get,
-    center_horeca_orders_get,
     center_horeca_production_state_get,
     center_horeca_shift_state_get,
     center_horeca_store_state_get,
@@ -21,7 +20,6 @@ export function useGetCenterData() {
     const cities = useSelector((state) => state.data.cities)
 
     const { root_filial, filial, current_page, date_shift } = useSelector((state) => state.center)
-    const { orders_horeca_page, orders_horeca_page_size } = useSelector((state) => state.center_horeca)
 
     // Параметры строки
     useEffect(() => {
@@ -71,14 +69,6 @@ export function useGetCenterData() {
 
         dispatch(center_horeca_goods_tree_get(root_filial, 0))
     }, [center, root_filial, dispatch])
-
-    // Хорека / заказы
-    useEffect(() => {
-        if (!center) return
-        if (!filial) return
-
-        dispatch(center_horeca_orders_get(filial, date_shift, 0, orders_horeca_page, orders_horeca_page_size))
-    }, [center, filial, date_shift, orders_horeca_page, orders_horeca_page_size, dispatch])
 
     // Хорека / наличие на складах
     useEffect(() => {
