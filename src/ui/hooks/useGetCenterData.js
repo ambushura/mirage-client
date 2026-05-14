@@ -16,10 +16,9 @@ export function useGetCenterData() {
     const params = useParams()
     const [search_params] = useSearchParams()
 
-    const center = useSelector((state) => state.auth.center)
     const cities = useSelector((state) => state.data.cities)
 
-    const { root_filial, filial, current_page, date_shift } = useSelector((state) => state.center)
+    const { root_filial, filial, date_shift } = useSelector((state) => state.center)
 
     // Параметры строки
     useEffect(() => {
@@ -34,7 +33,6 @@ export function useGetCenterData() {
 
     // Филиалы
     useEffect(() => {
-        if (!center) return
         if (!cities) return
 
         const filials_list = []
@@ -47,50 +45,43 @@ export function useGetCenterData() {
             })
         })
         dispatch(setFilials(filials_list))
-    }, [center, cities, dispatch])
+    }, [cities, dispatch])
 
     // Организации
     useEffect(() => {
-        if (!center) return
-        if (!cities) return
-
         const fetch = async () => {
             const data = await dispatch(common_lazy_list_get(root_filial, 'organizations'))
             if (Array.isArray(data)) dispatch(setOrganizations(data))
         }
 
         fetch()
-    }, [center, cities, dispatch, filial, root_filial])
+    }, [cities, dispatch, filial, root_filial])
 
     // Хорека / папки
     useEffect(() => {
-        if (!center) return
         if (!root_filial) return
 
         dispatch(center_horeca_goods_tree_get(root_filial, 0))
-    }, [center, root_filial, dispatch])
+    }, [root_filial, dispatch])
 
     // Хорека / наличие на складах
     useEffect(() => {
-        if (!center) return
         if (!filial) return
 
         dispatch(center_horeca_store_state_get(filial, date_shift, 0))
-    }, [center, filial, date_shift, dispatch])
+    }, [filial, date_shift, dispatch])
 
     // Хорека / производство
     useEffect(() => {
-        if (!center) return
         if (!filial) return
 
         dispatch(center_horeca_production_state_get(filial, date_shift, 0))
-    }, [center, filial, date_shift, dispatch])
+    }, [filial, date_shift, dispatch])
 
     // Хорека / ОРП
     useEffect(() => {
-        if (!center) return
         if (!filial) return
 
         dispatch(center_horeca_shift_state_get(filial, date_shift, 0))
-    }, [center, filial, date_shift, dispatch])
+    }, [filial, date_shift, dispatch])
 }

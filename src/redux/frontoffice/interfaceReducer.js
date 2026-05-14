@@ -84,12 +84,12 @@ export const TOP_MENU = [
 ]
 
 const initialState = {
-    its_mobile: false,
+    its_mobile: true,
     its_second_screen: false,
     wp: null,
     version: '1.001',
     need_update: false,
-    dev: true,
+    dev: false,
     app_width: undefined,
     app_height: undefined,
     auth_opened: false,

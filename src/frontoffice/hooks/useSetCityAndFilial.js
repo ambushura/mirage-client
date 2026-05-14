@@ -5,10 +5,12 @@ import { useEffect } from 'react'
 
 export function useSetCityAndFilial() {
     const dispatch = useDispatch()
+    const its_mobile = useSelector((state) => state.interface.its_mobile)
     const param_city = useSelector((state) => state.interface.params.param_city)
     const param_filial = useSelector((state) => state.interface.params.param_filial)
 
     useEffect(() => {
+        if (its_mobile) return
         const fetch = async () => {
             const fetching_result = await dispatch(common_cities_filials_get())
             if (fetching_result.loading) {
@@ -29,5 +31,5 @@ export function useSetCityAndFilial() {
             }
         }
         fetch()
-    }, [dispatch, param_city, param_filial])
+    }, [dispatch, its_mobile, param_city, param_filial])
 }

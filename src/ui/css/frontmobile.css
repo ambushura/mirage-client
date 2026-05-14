@@ -1,0 +1,166 @@
+:root {
+    --bgr-mobile-scroll: #696969;
+}
+
+.front-mobile-auth {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.front-mobile-auth-list {
+    min-height: 0;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    background: linear-gradient(180deg, rgb(22, 22, 22) 0%, rgb(35, 35, 35) 100%);
+}
+
+.front-mobile-auth-title-h1 {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.front-mobile-auth-title-h2 {
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 6px;
+    font-size: 15px;
+}
+
+.front-mobile-auth-list-input .MuiOutlinedInput-root {
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.front-mobile-auth-list-input .MuiOutlinedInput-root fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.front-mobile-auth-list-input .MuiOutlinedInput-root:hover fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.front-mobile-auth-list-input .MuiOutlinedInput-root.Mui-focused fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.front-mobile-auth-list-input input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+}
+
+.front-mobile-auth-list-input .MuiSvgIcon-root {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.front-mobile-auth-list-options-box {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.front-mobile-auth-list-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+}
+
+.front-mobile-auth-list-options-item {
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.front-mobile-auth-list-options-item-button {
+    min-height: 72px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    border-radius: 20px !important;
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(10px) !important;
+    transition: 0.2s !important;
+}
+
+.front-mobile-auth-list-options-item-button:active {
+    transform: scale(0.98) !important;
+}
+
+.front-mobile-auth-list-options-item-button:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.front-mobile-auth-list-options-item-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff5252 0%, #ff1744 100%);
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.front-mobile-auth-list-options-item-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.front-mobile-auth-list-options-item-point {
+    color: white;
+    margin-left: 16px;
+}
+
+.front-mobile-auth-city-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+.front-mobile-auth-city-name {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.front-mobile-auth-city-back {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.front-mobile-auth-city-back:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================== */
+/*              СКРОЛЛ            */
+/* ============================== */
+.mobile-scroll::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+    background-color: transparent !important;
+}
+
+.mobile-scroll::-webkit-scrollbar-thumb,
+.MuiDataGrid-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--bgr-mobile-scroll) !important;
+    border-radius: 10px !important;
+}
+
+.mobile-scroll::-webkit-scrollbar-track,
+.mobile-scroll::-webkit-scrollbar-corner {
+    background: transparent !important;
+}

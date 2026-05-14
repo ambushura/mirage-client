@@ -11,6 +11,7 @@ import Recipe from '../backoffice/pages/horeca/recipes/Recipe.jsx'
 import ItemsMovement from '../backoffice/pages/horeca/ItemsMovement.jsx'
 import { useMemo } from 'react'
 import { useSetTopMenu } from '../ui/hooks/useSetTopMenu.js'
+import { useSetCityAndFilial } from './hooks/useSetCityAndFilial.js'
 
 const ModalComponents = {
     center_order_horeca: Order,
@@ -22,6 +23,7 @@ const FrontOffice = () => {
     const dispatch = useDispatch()
 
     useSetTopMenu()
+    useSetCityAndFilial()
 
     const { modal_opened, modal_type, modal_props } = useSelector((state) => state.interface)
     const ModalContent = useMemo(() => {
