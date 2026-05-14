@@ -24,8 +24,13 @@ const Orders = () => {
 
     // Загрузка данных в хранилище
     useEffect(() => {
-        if (!filial) return
-        dispatch(center_horeca_orders_get(filial, date_shift, orders_horeca_settings, 0))
+        const load = async () => {
+            const res = await dispatch(center_horeca_orders_get(filial, date_shift, orders_horeca_settings, 0))
+            set_catalog_map(res.data)
+        }
+        if (filial !== null && date_shift !== undefined) {
+            load()
+        }
     }, [filial, date_shift, dispatch, orders_horeca_settings])
 
     // Словарь для значений

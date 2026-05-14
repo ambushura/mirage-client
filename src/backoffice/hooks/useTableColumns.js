@@ -36,7 +36,7 @@ export function NormalizeFilterModel(model) {
         items: model.items.map((item) => {
             if (!item) return item
 
-            if (item.field === 'date_create' && item.value) {
+            if (AutoCompleteCols.includes[item.field] && item.value) {
                 const d = new Date(item.value)
                 const yyyy = d.getFullYear()
                 const mm = String(d.getMonth() + 1).padStart(2, '0')

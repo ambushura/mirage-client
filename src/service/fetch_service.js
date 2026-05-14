@@ -2510,10 +2510,10 @@ export const center_horeca_orders_get = (filial, date_shift, orders_horeca_setti
     dispatch(setOrdersHorecaLoadingState({ loading: false, error: res.error }))
     if (!res.error) {
         dispatch(setOrdersHorecaCenter(res.data))
-        //const ids = await fill_name_map(res.data)
-        //if (ids.length !== 0) {
-        //    return await dispatch(center_catalog_load(filial, ids))
-        //}
+        const ids = await fill_name_map([res.data])
+        if (ids.length !== 0) {
+            return await dispatch(center_catalog_load(filial, ids))
+        }
     }
 }
 
