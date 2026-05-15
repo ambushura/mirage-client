@@ -1,6 +1,6 @@
 import { Autocomplete, Box, Button, IconButton, InputAdornment, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeModal } from '../../../../../../../redux/frontoffice/interfaceReducer.js'
+import { closeModal } from '../../../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import {
     setOrdersCinemaFiltersBuyerEmailsSelect,
     setOrdersCinemaFiltersBuyerPhoneNumbersSelect,
@@ -9,7 +9,7 @@ import {
     setOrdersCinemaFiltersStaffSelect,
     setOrdersCinemaFiltersStateSelect,
     setOrdersCinemaFiltersWorkplacesSelect,
-} from '../../../../../../../redux/frontoffice/ordersReducer.js'
+} from '../../../../../../../redux/desktop/frontoffice/ordersReducer.js'
 import PhoneInput from '../../../../../../../ui/PhoneInput.jsx'
 import CloseIcon from '@mui/icons-material/Close'
 import { useSetOrdersCinemaFilters } from './useSetOrdersCinemaFilters.js'

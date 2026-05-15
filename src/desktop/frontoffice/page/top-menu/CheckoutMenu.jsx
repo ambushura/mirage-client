@@ -12,11 +12,11 @@ import {
     setKioskPaymentError,
     setPreOrderPaying,
     setPreOrderTimeRemaining,
-} from '../../../../redux/frontoffice/ordersReducer.js'
+} from '../../../../redux/desktop/frontoffice/ordersReducer.js'
 import SeanceTitle from '../../components/cinema/SeanceTitle.jsx'
 import { get_date_shift, ticket_count } from '../../../../ui/hooks/common_functions.js'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import { setKioskCheckout } from '../../../../redux/frontoffice/interfaceReducer.js'
+import { setKioskCheckout } from '../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import Loader from '../../../../ui/Loader.jsx'
 import { useSetPaymentGroups } from '../../hooks/useSetPaymentGroups.js'
 import dayjs from 'dayjs'

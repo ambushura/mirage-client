@@ -11,7 +11,7 @@ import {
     setFilialsSelected,
     setOrganizationsSelected,
     setPeriod,
-} from '../../../redux/backoffice/centerReducer.js'
+} from '../../../redux/desktop/backoffice/centerReducer.js'
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker'
 import { DatePicker } from '@mui/x-date-pickers'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'

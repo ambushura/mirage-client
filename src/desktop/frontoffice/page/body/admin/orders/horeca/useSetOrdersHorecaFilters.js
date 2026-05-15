@@ -11,7 +11,7 @@ import {
     setOrdersHorecaFiltersKitchenPoints,
     setOrdersHorecaFiltersStaff,
     setOrdersHorecaFiltersWorkPlaces,
-} from '../../../../../../../redux/frontoffice/ordersReducer.js'
+} from '../../../../../../../redux/desktop/frontoffice/ordersReducer.js'
 
 export function useSetOrdersHorecaFilters() {
     const dispatch = useDispatch()

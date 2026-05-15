@@ -11,16 +11,16 @@ import {
     setOrdersCinemaUpdate,
     setOrdersHorecaUpdate,
     setPreOrderPreparing,
-} from '../redux/frontoffice/ordersReducer.js'
-import { setBooking, setSeance } from '../redux/frontoffice/scheduleReducer.js'
-import { addNotification } from '../redux/frontoffice/notifierReducer.js'
-import { loginSuccess, logout } from '../redux/frontoffice/authReducer.js'
-import { fillHosts } from '../redux/frontoffice/markirovkaReducer.js'
-import { setHall } from '../redux/frontoffice/hallsReducer.js'
-import { setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate } from '../redux/frontoffice/documentsReducer.js'
-import { setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance } from '../redux/frontoffice/secondScreenReducer.js'
-import { setNeedUpdate } from '../redux/frontoffice/interfaceReducer.js'
-import { setCandy } from '../redux/frontoffice/dataReducer.js'
+} from '../redux/desktop/frontoffice/ordersReducer.js'
+import { setBooking, setSeance } from '../redux/desktop/frontoffice/scheduleReducer.js'
+import { addNotification } from '../redux/desktop/frontoffice/notifierReducer.js'
+import { loginSuccess, logout } from '../redux/desktop/frontoffice/authReducer.js'
+import { fillHosts } from '../redux/desktop/frontoffice/markirovkaReducer.js'
+import { setHall } from '../redux/desktop/frontoffice/hallsReducer.js'
+import { setKKTList, setPinpadList, setZBooksUpdate, setZPinpadsUpdate } from '../redux/desktop/frontoffice/documentsReducer.js'
+import { setSSBooking, setSSHorder, setSSPreOrder, setSSSchedule, setSSSeance } from '../redux/desktop/frontoffice/secondScreenReducer.js'
+import { setNeedUpdate } from '../redux/desktop/frontoffice/interfaceReducer.js'
+import { setCandy } from '../redux/desktop/frontoffice/dataReducer.js'
 import { jwtDecode } from 'jwt-decode'
 import {
     setGoods,
@@ -41,7 +41,7 @@ import {
     setStoreStateLoadingState,
     setTree,
     setTreeLoading,
-} from '../redux/backoffice/centerHorecaReducer.js'
+} from '../redux/desktop/backoffice/centerHorecaReducer.js'
 import { fill_name_map } from '../desktop/backoffice/page/Common.jsx'
 
 export const ROUTE_MAIN_HOST = {

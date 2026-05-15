@@ -13,7 +13,7 @@ import {
     setScheduleFiltersSeanceClosed,
     setScheduleFiltersSeanceOpened,
     setScheduleFiltersTime,
-} from '../../../../redux/frontoffice/scheduleReducer.js'
+} from '../../../../redux/desktop/frontoffice/scheduleReducer.js'
 import { useSetScheduleFilters } from './useSetScheduleFilters.js'
 import { useEffect, useState } from 'react'
 

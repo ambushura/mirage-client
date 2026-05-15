@@ -13,7 +13,7 @@ export default function MobileAuth({ onBack }) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
-    const { city, filial } = useSelector((state) => state.front_mobile)
+    const { city, filial } = useSelector((state) => state.mobile)
 
     const handleTabChange = (_, v) => setTab(v)
 

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import OrderHoreca from './OrderHoreca.jsx'
-import { setOrdersHoreca, updateOrdersHoreca } from '../../../../../../../redux/frontoffice/ordersReducer.js'
+import { setOrdersHoreca, updateOrdersHoreca } from '../../../../../../../redux/desktop/frontoffice/ordersReducer.js'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { common_order_find, horeca_orders_get } from '../../../../../../../service/fetch_service.js'

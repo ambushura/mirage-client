@@ -1,7 +1,7 @@
 import { Box, Button, Skeleton, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetWP, turnOffWP, turnOnWP } from '../../../../../../../redux/frontoffice/interfaceReducer.js'
+import { resetWP, turnOffWP, turnOnWP } from '../../../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useForm } from 'react-hook-form'
 import {
     common_catalog_get,

@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select,
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { cinema_discount_apply, cinema_seance_discounts_get, cinema_seance_discounts_groups_get } from '../../../service/fetch_service.js'
-import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
+import { closeModal } from '../../../redux/desktop/frontoffice/interfaceReducer.js'
 
 const Discounts = (props) => {
     const dispatch = useDispatch()

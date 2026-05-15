@@ -1,5 +1,5 @@
 import { Box, Skeleton } from '@mui/material'
-import { openModal } from '../../../../../../redux/frontoffice/interfaceReducer.js'
+import { openModal } from '../../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { common_documents_z_book_get, common_documents_z_book_save } from '../../../../../../service/fetch_service.js'
@@ -14,10 +14,10 @@ import {
     setTriggerDeleteZBook,
     setTriggerSubmitZBook,
     setZBooksUpdate,
-} from '../../../../../../redux/frontoffice/documentsReducer.js'
+} from '../../../../../../redux/desktop/frontoffice/documentsReducer.js'
 import { parceZone } from '../../../../../../ui/hooks/common_functions.js'
 import { v4 } from 'uuid'
-import { addNotification } from '../../../../../../redux/frontoffice/notifierReducer.js'
+import { addNotification } from '../../../../../../redux/desktop/frontoffice/notifierReducer.js'
 
 const ZBook = () => {
     // Служебные функции

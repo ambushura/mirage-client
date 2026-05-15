@@ -1,7 +1,7 @@
 import SSSchedule from './SSSchedule.jsx'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FOOTER_HEIGHT, HEADER_HEIGHT, setSecondScreen } from '../../../../../redux/frontoffice/interfaceReducer.js'
+import { FOOTER_HEIGHT, HEADER_HEIGHT, setSecondScreen } from '../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useSetSecondScreen } from './useSetSecondScreen.js'
 import SSSeance from './SSSeance.jsx'
 import { Box } from '@mui/material'

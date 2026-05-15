@@ -8,7 +8,7 @@ import Results from './Results.jsx'
 import Operations from './Operations.jsx'
 import SubMenu from '../../page/SubMenu.jsx'
 
-import { setCurrentPage } from '../../../../redux/backoffice/centerReducer.js'
+import { setCurrentPage } from '../../../../redux/desktop/backoffice/centerReducer.js'
 
 const pageAnimation = {
     initial: {

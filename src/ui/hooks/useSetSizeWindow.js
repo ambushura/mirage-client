@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { setAppHeight, setAppWidth } from '../../redux/frontoffice/interfaceReducer.js'
+import { setAppHeight, setAppWidth } from '../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useDispatch } from 'react-redux'
 
 export function useSetSizeWindow() {

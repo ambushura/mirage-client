@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { ruRU } from '@mui/x-data-grid/locales'
 import { DataGridPro } from '@mui/x-data-grid-pro'
-import { cleanAttendance, setAttendance } from '../../../../../../redux/frontoffice/reportsReducer.js'
+import { cleanAttendance, setAttendance } from '../../../../../../redux/desktop/frontoffice/reportsReducer.js'
 import { common_reports_attendance_get } from '../../../../../../service/fetch_service.js'
 
 const ReportAttendance = () => {

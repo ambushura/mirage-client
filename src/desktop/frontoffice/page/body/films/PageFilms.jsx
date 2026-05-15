@@ -4,7 +4,7 @@ import FilmCard from './FilmCard.jsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { cinema_films_get } from '../../../../../service/fetch_service.js'
-import { cleanFilms, setFilms } from '../../../../../redux/frontoffice/scheduleReducer.js'
+import { cleanFilms, setFilms } from '../../../../../redux/desktop/frontoffice/scheduleReducer.js'
 import Order from '../../right-panel/Order.jsx'
 
 const PageFilms = () => {

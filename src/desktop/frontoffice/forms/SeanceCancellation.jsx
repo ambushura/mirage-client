@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
-import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
+import { closeModal } from '../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { cinema_seance_close } from '../../../service/fetch_service.js'

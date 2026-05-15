@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import useWebSocket from 'react-use-websocket'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSSState } from '../../../redux/frontoffice/secondScreenReducer.js'
+import { setSSState } from '../../../redux/desktop/frontoffice/secondScreenReducer.js'
 import {
     cinema_seance_booking_get,
     horeca_kitchen_order_get,
@@ -13,11 +13,11 @@ import {
     ROUTE_MAIN_HOST,
     sign_in,
 } from '../../../service/fetch_service.js'
-import { addNotification } from '../../../redux/frontoffice/notifierReducer.js'
-import { setOrderSearchValue, setOrdersHorecaUpdate, updateKitchenOrder } from '../../../redux/frontoffice/ordersReducer.js'
-import { setBooking } from '../../../redux/frontoffice/scheduleReducer.js'
+import { addNotification } from '../../../redux/desktop/frontoffice/notifierReducer.js'
+import { setOrderSearchValue, setOrdersHorecaUpdate, updateKitchenOrder } from '../../../redux/desktop/frontoffice/ordersReducer.js'
+import { setBooking } from '../../../redux/desktop/frontoffice/scheduleReducer.js'
 import dayjs from 'dayjs'
-import { resetWP, turnOffWP, turnOnWP } from '../../../redux/frontoffice/interfaceReducer.js'
+import { resetWP, turnOffWP, turnOnWP } from '../../../redux/desktop/frontoffice/interfaceReducer.js'
 
 export function useSetWS() {
     const dispatch = useDispatch()

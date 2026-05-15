@@ -1,7 +1,12 @@
 import { Box } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NEW_EMPTY_HORDER, NEW_EMPTY_ORDER, setCurrentHorder, setCurrentPreOrder } from '../../../../../redux/frontoffice/ordersReducer.js'
+import {
+    NEW_EMPTY_HORDER,
+    NEW_EMPTY_ORDER,
+    setCurrentHorder,
+    setCurrentPreOrder,
+} from '../../../../../redux/desktop/frontoffice/ordersReducer.js'
 import OrdersCinema from './orders/cinema/OrdersCinema.jsx'
 import OrdersHoreca from './orders/horeca/OrdersHoreca.jsx'
 import Zbooks from './documents/Zbooks.jsx'

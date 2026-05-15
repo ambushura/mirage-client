@@ -1,4 +1,4 @@
-import { setCurrentPage } from '../../../../redux/backoffice/centerReducer.js'
+import { setCurrentPage } from '../../../../redux/desktop/backoffice/centerReducer.js'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import Cashbox from './Cashbox.jsx'

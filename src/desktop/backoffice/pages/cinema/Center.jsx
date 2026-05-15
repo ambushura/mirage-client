@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import SubMenu from '../../page/SubMenu.jsx'
 import Orders from './Orders.jsx'
-import { setCurrentPage } from '../../../../redux/backoffice/centerReducer.js'
+import { setCurrentPage } from '../../../../redux/desktop/backoffice/centerReducer.js'
 import { useDispatch } from 'react-redux'
 
 const Center = ({ current_page }) => {

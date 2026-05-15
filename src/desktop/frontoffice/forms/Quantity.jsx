@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from '@mui/material'
-import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
+import { closeModal } from '../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { horeca_position_add_quantity } from '../../../service/fetch_service.js'
-import { addNotification } from '../../../redux/frontoffice/notifierReducer.js'
+import { addNotification } from '../../../redux/desktop/frontoffice/notifierReducer.js'
 
 const Quantity = (props) => {
     const dispatch = useDispatch()

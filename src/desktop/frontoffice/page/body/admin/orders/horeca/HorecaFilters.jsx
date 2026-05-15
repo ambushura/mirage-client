@@ -7,8 +7,8 @@ import {
     setOrdersHorecaFiltersStaffSelect,
     setOrdersHorecaFiltersStateSelect,
     setOrdersHorecaFiltersWorkPlacesSelect,
-} from '../../../../../../../redux/frontoffice/ordersReducer.js'
-import { closeModal } from '../../../../../../../redux/frontoffice/interfaceReducer.js'
+} from '../../../../../../../redux/desktop/frontoffice/ordersReducer.js'
+import { closeModal } from '../../../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useSetOrdersHorecaFilters } from './useSetOrdersHorecaFilters.js'
 
 const HorecaFilters = () => {

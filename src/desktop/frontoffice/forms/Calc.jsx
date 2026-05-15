@@ -1,8 +1,8 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCash, setTotal } from '../../../redux/frontoffice/ordersReducer.js'
+import { setCash, setTotal } from '../../../redux/desktop/frontoffice/ordersReducer.js'
 import { useEffect, useState } from 'react'
-import { closeModal } from '../../../redux/frontoffice/interfaceReducer.js'
+import { closeModal } from '../../../redux/desktop/frontoffice/interfaceReducer.js'
 
 const Calc = () => {
     const dispatch = useDispatch()

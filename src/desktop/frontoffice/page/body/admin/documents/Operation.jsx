@@ -10,13 +10,13 @@ import {
     setOperationsUpdate,
     setTriggerDeleteOperation,
     setTriggerSubmitOperation,
-} from '../../../../../../redux/frontoffice/documentsReducer.js'
+} from '../../../../../../redux/desktop/frontoffice/documentsReducer.js'
 import { useEffect, useState } from 'react'
-import { addNotification } from '../../../../../../redux/frontoffice/notifierReducer.js'
+import { addNotification } from '../../../../../../redux/desktop/frontoffice/notifierReducer.js'
 import dayjs from 'dayjs'
 import { v4 } from 'uuid'
 import ControlledDatePicker from '../../../../../../ui/ControlledDatePicker.jsx'
-import { openModal } from '../../../../../../redux/frontoffice/interfaceReducer.js'
+import { openModal } from '../../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 
 const Operation = () => {
     // Служебные функции

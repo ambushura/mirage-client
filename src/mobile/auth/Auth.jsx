@@ -5,7 +5,7 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
-import { setCities, setCity, setFilial } from '../../redux/frontmobile/frontMobileReducer.js'
+import { setCities, setCity, setFilial } from '../../redux/mobile/frontoffice/mobileReducer.js'
 import { common_cities_filials_get } from '../../service/fetch_service.js'
 import '../../ui/css/mobile/auth.css'
 import '../../ui/css/mobile/common.css'
@@ -15,7 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 const Auth = () => {
     const dispatch = useDispatch()
 
-    const { cities, city, filial } = useSelector((state) => state.front_mobile)
+    const { cities, city, filial } = useSelector((state) => state.mobile)
 
     const [searchCity, setSearchCity] = useState('')
     const filteredCities = useMemo(() => {

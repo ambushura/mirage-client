@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setCities, setCity, setFilial } from '../../../redux/frontoffice/dataReducer.js'
+import { setCities, setCity, setFilial } from '../../../redux/desktop/frontoffice/dataReducer.js'
 import { common_cities_filials_get } from '../../../service/fetch_service.js'
 import { useEffect } from 'react'
 

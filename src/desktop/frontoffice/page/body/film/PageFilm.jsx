@@ -3,11 +3,11 @@ import cover from '../../../images/cover.png'
 import SeanceCard from './SeanceCard.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../../../../ui/Loader.jsx'
-import { TIMEOUT } from '../../../../../redux/frontoffice/interfaceReducer.js'
+import { TIMEOUT } from '../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { cinema_film_seances_get } from '../../../../../service/fetch_service.js'
-import { cleanFilm, setFilm } from '../../../../../redux/frontoffice/scheduleReducer.js'
+import { cleanFilm, setFilm } from '../../../../../redux/desktop/frontoffice/scheduleReducer.js'
 import Order from '../../right-panel/Order.jsx'
 
 export default function PageFilm() {

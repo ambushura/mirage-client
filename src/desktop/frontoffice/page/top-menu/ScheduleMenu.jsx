@@ -10,7 +10,7 @@ import { date_dayjs, from_dayjs_to_str, get_date_shift, to_str_DAY } from '../..
 import Calendar from '../../../../ui/Calendar.jsx'
 import FormatLineSpacingIcon from '@mui/icons-material/FormatLineSpacing'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
-import { openModal } from '../../../../redux/frontoffice/interfaceReducer.js'
+import { openModal } from '../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import {
     setScheduleFiltersFilmAgeSelect,
     setScheduleFiltersFilmCopyTypes,
@@ -25,7 +25,7 @@ import {
     setScheduleFiltersSeanceOpened,
     setScheduleFiltersTime,
     setShowFreeSpace,
-} from '../../../../redux/frontoffice/scheduleReducer.js'
+} from '../../../../redux/desktop/frontoffice/scheduleReducer.js'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 

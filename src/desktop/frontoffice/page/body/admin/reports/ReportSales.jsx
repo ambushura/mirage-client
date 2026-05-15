@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Box } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { cleanSales, set_salesColumnVisibilityModel, setSales } from '../../../../../../redux/frontoffice/reportsReducer.js'
+import { cleanSales, set_salesColumnVisibilityModel, setSales } from '../../../../../../redux/desktop/frontoffice/reportsReducer.js'
 import { common_reports_sales_get } from '../../../../../../service/fetch_service.js'
 import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'

@@ -1,7 +1,7 @@
 import { Handle, Position } from '@xyflow/react'
 import { Box } from '@mui/material'
 import { FilialSVG } from '../svg/FilialSVG.jsx'
-import { openModal } from '../../../../../../../redux/frontoffice/interfaceReducer.js'
+import { openModal } from '../../../../../../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useDispatch } from 'react-redux'
 
 export const FilialNode = ({ data }) => {

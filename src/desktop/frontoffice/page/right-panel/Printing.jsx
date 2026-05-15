@@ -10,7 +10,7 @@ import {
 } from '../../../../service/fetch_service.js'
 import { useDispatch, useSelector } from 'react-redux'
 import BookingItem from './BookingItem.jsx'
-import { selectUidCinema } from '../../../../redux/frontoffice/ordersReducer.js'
+import { selectUidCinema } from '../../../../redux/desktop/frontoffice/ordersReducer.js'
 
 const Printing = (props) => {
     const dispatch = useDispatch()

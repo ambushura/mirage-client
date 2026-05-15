@@ -14,7 +14,7 @@ import CircleIcon from '@mui/icons-material/Circle'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import WeekendIcon from '@mui/icons-material/Weekend'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
-import { MOBILE_WIDTH, setMobile } from '../redux/frontoffice/interfaceReducer.js'
+import { MOBILE_WIDTH, setMobile } from '../redux/desktop/frontoffice/interfaceReducer.js'
 
 const ThemeContext = createContext()
 

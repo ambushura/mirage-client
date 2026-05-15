@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { DataGridPro } from '@mui/x-data-grid-pro'
 import { ruRU } from '@mui/x-data-grid/locales'
-import { setOrdersHorecaFilter, setOrdersHorecaPagination } from '../../../../../redux/backoffice/centerHorecaReducer.js'
+import { setOrdersHorecaFilter, setOrdersHorecaPagination } from '../../../../../redux/desktop/backoffice/centerHorecaReducer.js'
 import { NormalizeFilterModel, useTableColumns } from '../../../hooks/useTableColumns.js'
 import { center_horeca_orders_get } from '../../../../../service/fetch_service.js'
 

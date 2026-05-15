@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { markirovka_cdn_info_get, markirovka_cdn_info_update } from '../../../../service/fetch_service.js'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import { fillHosts } from '../../../../redux/frontoffice/markirovkaReducer.js'
+import { fillHosts } from '../../../../redux/desktop/frontoffice/markirovkaReducer.js'
 import { ruRU } from '@mui/x-data-grid/locales'
 import { DataGridPro } from '@mui/x-data-grid-pro'
 

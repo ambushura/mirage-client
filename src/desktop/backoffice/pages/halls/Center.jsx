@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import SubMenu from '../../page/SubMenu.jsx'
 import { useDispatch } from 'react-redux'
-import { setCurrentPage, setParams, setSearchParams } from '../../../../redux/backoffice/centerReducer.js'
+import { setCurrentPage, setParams, setSearchParams } from '../../../../redux/desktop/backoffice/centerReducer.js'
 import { useParams, useSearchParams } from 'react-router-dom'
 import Maps from './maps/Maps.jsx'
 

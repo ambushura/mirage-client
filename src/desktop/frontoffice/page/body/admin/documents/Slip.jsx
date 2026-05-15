@@ -9,7 +9,7 @@ import ControlledMoneyField from '../../../../../../ui/ControlledMoneyField.jsx'
 import ControlledTextField from '../../../../../../ui/ControlledTextField.jsx'
 import { v4 } from 'uuid'
 import ControlledSwitch from '../../../../../../ui/ControlledSwitch.jsx'
-import { setCaptionSlip, setReceiptOrder, setSlipOrder } from '../../../../../../redux/frontoffice/documentsReducer.js'
+import { setCaptionSlip, setReceiptOrder, setSlipOrder } from '../../../../../../redux/desktop/frontoffice/documentsReducer.js'
 import dayjs from 'dayjs'
 import ControlledDateTimePicker from '../../../../../../ui/ControlledDateTimePicker.jsx'
 

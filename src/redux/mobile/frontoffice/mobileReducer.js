@@ -6,8 +6,8 @@ const initialState = {
     filial: null,
 }
 
-export const frontMobileSlice = createSlice({
-    name: 'front_mobile',
+export const mobileSlice = createSlice({
+    name: 'mobile',
     initialState,
     reducers: {
         setCities: (state, action) => {
@@ -21,5 +21,5 @@ export const frontMobileSlice = createSlice({
         },
     },
 })
-export const { setCities, setCity, setFilial } = frontMobileSlice.actions
-export default frontMobileSlice.reducer
+export const { setCities, setCity, setFilial } = mobileSlice.actions
+export default mobileSlice.reducer

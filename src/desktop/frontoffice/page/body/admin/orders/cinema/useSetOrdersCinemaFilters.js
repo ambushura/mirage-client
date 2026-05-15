@@ -11,7 +11,7 @@ import {
     setOrdersCinemaFiltersSeances,
     setOrdersCinemaFiltersStaff,
     setOrdersHorecaFiltersWorkPlaces,
-} from '../../../../../../../redux/frontoffice/ordersReducer.js'
+} from '../../../../../../../redux/desktop/frontoffice/ordersReducer.js'
 import dayjs from 'dayjs'
 
 export function useSetOrdersCinemaFilters() {

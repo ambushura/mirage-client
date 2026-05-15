@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { PARAM_DATE_SHIFT, setTopMenu } from '../../redux/frontoffice/interfaceReducer.js'
+import { PARAM_DATE_SHIFT, setTopMenu } from '../../redux/desktop/frontoffice/interfaceReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 export function useSetTopMenu() {
