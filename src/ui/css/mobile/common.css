@@ -1,0 +1,19 @@
+/* ============================== */
+/*              СКРОЛЛ            */
+/* ============================== */
+.mobile-scroll::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+    background-color: transparent !important;
+}
+
+.mobile-scroll::-webkit-scrollbar-thumb,
+.MuiDataGrid-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--bgr-mobile-scroll) !important;
+    border-radius: 10px !important;
+}
+
+.mobile-scroll::-webkit-scrollbar-track,
+.mobile-scroll::-webkit-scrollbar-corner {
+    background: transparent !important;
+}

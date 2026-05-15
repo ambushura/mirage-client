@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { Autocomplete, CircularProgress, TextField } from '@mui/material'
 
-import { useAsyncSelect } from '../backoffice/hooks/useAsyncSelect.jsx'
+import { useAsyncSelect } from '../desktop/backoffice/hooks/useAsyncSelect.jsx'
 
 export default function AsyncAutocomplete({
     setCatalogMap,

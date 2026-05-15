@@ -1,0 +1,348 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { Box, Button, ButtonGroup, Modal } from '@mui/material'
+import PlaceIcon from '@mui/icons-material/Place'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import TopSlider from './TopSlider.jsx'
+import Auth from '../../forms/Auth.jsx'
+import { useEffect, useRef, useState } from 'react'
+import { MOBILE_WIDTH, setAuthOpened, TOP_MENU } from '../../../../redux/frontoffice/interfaceReducer.js'
+import { NavLink } from 'react-router-dom'
+import List from '../../../../ui/List.jsx'
+import { logout } from '../../../../redux/frontoffice/authReducer.js'
+import dayjs from 'dayjs'
+import { addNotification } from '../../../../redux/frontoffice/notifierReducer.js'
+import AppsIcon from '@mui/icons-material/Apps'
+import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth'
+import GroupWorkIcon from '@mui/icons-material/GroupWork'
+import FastfoodIcon from '@mui/icons-material/Fastfood'
+import MicrowaveIcon from '@mui/icons-material/Microwave'
+import ScheduleMenu from '../top-menu/ScheduleMenu.jsx'
+import HorecaMenu from '../top-menu/HorecaMenu.jsx'
+import AdminMenu from '../top-menu/AdminMenu.jsx'
+import SeanceMenu from '../top-menu/SeanceMenu.jsx'
+import CheckoutMenu from '../top-menu/CheckoutMenu.jsx'
+import SosIcon from '@mui/icons-material/Sos'
+
+const Header = () => {
+    const dispatch = useDispatch()
+
+    const { top_menu, its_mobile, kiosk, current_page, auth_opened, app_width, kiosk_checkout, wp, its_second_screen } = useSelector(
+        (state) => state.interface
+    )
+    const { cities, city, filial } = useSelector((state) => state.data)
+    const name_user = useSelector((state) => state.auth.name)
+    const uid_user = useSelector((state) => state.auth.uid)
+    const param_date = useSelector((state) => state.interface.params.param_date)
+    const date_shift = useSelector((state) => state.second_screen.date_shift)
+
+    const cities_list_id = 'cities-menu'
+    const filials_list_id = 'filials-menu'
+    const admin_list_id = 'admin-menu'
+    const cities_ref = useRef(null)
+    const filials_ref = useRef(null)
+    const admin_ref = useRef(null)
+    const [cities_open, set_cities_open] = useState(false)
+    const [filials_open, set_filials_open] = useState(false)
+    const [admin_open, set_admin_open] = useState(false)
+    const prev_cities_open = useRef(Boolean(cities_open))
+    const prev_filials_open = useRef(Boolean(filials_open))
+    const prev_admin_open = useRef(Boolean(admin_open))
+
+    const user_panel = () => {
+        const up = []
+        if (uid_user !== null) {
+            up.push(
+                <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    onClick={() => {
+                        document.location.reload()
+                    }}
+                >
+                    <SosIcon />
+                </Button>
+            )
+            up.push(
+                <Button variant="contained">
+                    <Clock key="3" />
+                </Button>
+            )
+            up.push(
+                <Button key="2" variant="contained">
+                    {name_user}
+                </Button>
+            )
+            if (cities.length > 0) {
+                up.push(
+                    <NavLink
+                        key="1"
+                        to={`/films/${city !== undefined ? city.code : cities[0].code}/${filial !== undefined ? filial.eais : 'all'}/${param_date}/?${wp !== null ? 'wp=' + wp : ''}`}
+                    >
+                        <Button variant="contained" startIcon={<ExitToAppIcon />} onClick={() => dispatch(logout())}>
+                            Выход
+                        </Button>
+                    </NavLink>
+                )
+            }
+        } else {
+            up.push(
+                <Button
+                    variant="contained"
+                    size="medium"
+                    onClick={() => {
+                        document.location.reload()
+                    }}
+                >
+                    <SosIcon />
+                </Button>
+            )
+            up.push(
+                <Button
+                    variant="contained"
+                    size="large"
+                    key="4"
+                    onClick={() => {
+                        if (filial !== undefined) {
+                            dispatch(setAuthOpened(true))
+                        } else {
+                            dispatch(
+                                addNotification({
+                                    message: 'Выберите филиал для авторизации',
+                                    severity: 'error',
+                                    autoHide: true,
+                                })
+                            )
+                        }
+                    }}
+                    startIcon={<AccountCircleIcon />}
+                >
+                    Вход
+                </Button>
+            )
+        }
+        return up
+    }
+
+    const main_button = (el) => {
+        if (!its_mobile || uid_user === null) {
+            return <Button>{el.name}</Button>
+        } else {
+            switch (el.id) {
+                case 'films':
+                    return (
+                        <Button>
+                            <GroupWorkIcon />
+                        </Button>
+                    )
+                case 'schedule':
+                    return (
+                        <Button>
+                            <CalendarViewMonthIcon />
+                        </Button>
+                    )
+                case 'menu':
+                    return (
+                        <Button>
+                            <FastfoodIcon />
+                        </Button>
+                    )
+                case 'kitchen':
+                    return (
+                        <Button>
+                            <MicrowaveIcon />
+                        </Button>
+                    )
+                default:
+                    el.name
+            }
+        }
+    }
+
+    const [adv_page_name, set_adv_page_name] = useState('Кинокомплекс')
+    useEffect(() => {
+        const top_menu_admin = TOP_MENU[1].find((el) => el.id === 'admin')
+        const page = top_menu_admin.path.find((el) => el.id === current_page)
+        if (page !== undefined) {
+            set_adv_page_name(page.name)
+        } else {
+            if (current_page === 'admin/zbook') {
+                set_adv_page_name('Кассовая книга')
+            } else if (current_page === 'admin/receipt') {
+                set_adv_page_name('Чек')
+            } else if (current_page === 'admin/slip') {
+                set_adv_page_name('Слип')
+            } else {
+                set_adv_page_name('Кинокомплекс')
+            }
+        }
+    }, [current_page])
+
+    const [show_slider, set_show_slider] = useState(false)
+    useEffect(() => {
+        set_show_slider(kiosk && !kiosk_checkout && current_page !== 'seance')
+    }, [kiosk, kiosk_checkout, current_page])
+
+    if (its_second_screen) {
+        return (
+            <header id="header" className="glass-effect" style={{ height: 'var(--header-height)' }}>
+                <Box id="header-desktop">
+                    <Box id="main-menu">
+                        <Box
+                            sx={{
+                                fontSize: 'clamp(14px, 2vw, 28px)',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                padding: '0 10px',
+                            }}
+                        >
+                            Расписание на {dayjs(date_shift).format('DD.MM')} · {dayjs(date_shift).format('dddd')}
+                        </Box>
+                        <Box
+                            sx={{
+                                overflowX: 'hidden',
+                                fontSize: 'clamp(14px, 2vw, 28px)',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                padding: '0 10px',
+                            }}
+                        >
+                            Сегодня <Clock />
+                        </Box>
+                    </Box>
+                </Box>
+            </header>
+        )
+    } else {
+        return (
+            <header id="header" className="glass-effect">
+                {show_slider && <TopSlider />}
+                {(!kiosk || (kiosk && !['seance'].includes(current_page))) && (
+                    <Box id="main-menu" style={{ justifyContent: kiosk ? 'center' : 'space-between' }}>
+                        <ButtonGroup
+                            id="header-menu-list"
+                            variant="contained"
+                            color={!kiosk ? 'secondary' : 'primary'}
+                            size={!kiosk ? 'small' : 'large'}
+                        >
+                            {uid_user === null
+                                ? top_menu[0].map((el) => (
+                                      <NavLink key={el.id} className="link" to={el.path}>
+                                          {main_button(el)}
+                                      </NavLink>
+                                  ))
+                                : top_menu[1].map((el) => {
+                                      if (el.id !== 'admin') {
+                                          return (
+                                              <NavLink key={el.id} className="link" to={el.path}>
+                                                  {main_button(el)}
+                                              </NavLink>
+                                          )
+                                      } else {
+                                          return (
+                                              <List
+                                                  key={el.id}
+                                                  size="small"
+                                                  open={admin_open}
+                                                  anchor={admin_ref}
+                                                  prev_open={prev_admin_open}
+                                                  id={admin_list_id}
+                                                  setOpen={set_admin_open}
+                                                  button_text={app_width >= MOBILE_WIDTH ? adv_page_name : null}
+                                                  list={el.path}
+                                                  startIcon={<AppsIcon />}
+                                                  endIcon={<KeyboardArrowDownIcon />}
+                                                  type="admin"
+                                                  color="secondary"
+                                              />
+                                          )
+                                      }
+                                  })}
+                        </ButtonGroup>
+                        {!kiosk && (
+                            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                                <ButtonGroup id="top-menu-left" variant="contained" size="small" sx={{ marginLeft: '5px' }}>
+                                    <List
+                                        size="small"
+                                        open={cities_open}
+                                        anchor={cities_ref}
+                                        prev_open={prev_cities_open}
+                                        id={cities_list_id}
+                                        setOpen={set_cities_open}
+                                        button_text={city !== undefined ? city.name : 'Все города'}
+                                        list={cities}
+                                        startIcon={<PlaceIcon />}
+                                        endIcon={<KeyboardArrowDownIcon />}
+                                        type="cities"
+                                    />
+                                    <List
+                                        size="small"
+                                        open={filials_open}
+                                        anchor={filials_ref}
+                                        prev_open={prev_filials_open}
+                                        id={filials_list_id}
+                                        setOpen={set_filials_open}
+                                        button_text={filial !== undefined ? filial.name : 'Кинотеатр'}
+                                        list={city !== undefined ? [{ uid: undefined }, ...Array.from(city.filials)] : []}
+                                        endIcon={<KeyboardArrowDownIcon />}
+                                        type="filials"
+                                    />
+                                </ButtonGroup>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '5px' }}>
+                                    <ButtonGroup size="small" color="secondary" id="header-time-username">
+                                        {user_panel()}
+                                    </ButtonGroup>
+                                    <Modal
+                                        open={auth_opened}
+                                        keepMounted
+                                        onClose={() => dispatch(setAuthOpened(false))}
+                                        aria-labelledby="Страница авторизации"
+                                        aria-describedby="Введите пароль"
+                                    >
+                                        <Box id="modal">
+                                            <Auth auth_opened={auth_opened} />
+                                        </Box>
+                                    </Modal>
+                                </Box>
+                            </Box>
+                        )}
+                    </Box>
+                )}
+                {['films', 'film', 'schedule'].includes(current_page) && <ScheduleMenu />}
+                {['seance'].includes(current_page) && !kiosk && <SeanceMenu />}
+                {['seance'].includes(current_page) && kiosk && <CheckoutMenu />}
+                {['menu'].includes(current_page) && <HorecaMenu />}
+                {[
+                    'kitchen',
+                    'admin/orders/cinema',
+                    'admin/orders/horeca',
+                    'admin/zbooks',
+                    'admin/zbook',
+                    'admin/receipt',
+                    'admin/operations',
+                    'admin/halls',
+                    'admin/egais',
+                    'admin/scheme',
+                    'admin/staff',
+                    'admin/acquiring',
+                    'admin/reports',
+                    'admin/slip',
+                    'admin/operation',
+                ].includes(current_page) && <AdminMenu />}
+            </header>
+        )
+    }
+}
+
+export default Header
+
+export function Clock() {
+    const [time, setTime] = useState(dayjs())
+    useEffect(() => {
+        const timer = setInterval(() => setTime(dayjs()), 1000)
+        return () => clearInterval(timer)
+    }, [])
+    return time.format('HH:mm')
+}

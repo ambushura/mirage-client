@@ -42,7 +42,7 @@ import {
     setTree,
     setTreeLoading,
 } from '../redux/backoffice/centerHorecaReducer.js'
-import { fill_name_map } from '../backoffice/page/Common.jsx'
+import { fill_name_map } from '../desktop/backoffice/page/Common.jsx'
 
 export const ROUTE_MAIN_HOST = {
     ip: '10.101.3.88',
