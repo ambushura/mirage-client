@@ -4,12 +4,11 @@ import { useReset } from './desktop/frontoffice/hooks/useReset.js'
 import { useSetCityAndFilial } from './desktop/frontoffice/hooks/useSetCityAndFilial.js'
 import { LicenseInfo } from '@mui/x-license'
 import { useInactivityAction } from './ui/hooks/useInactivityAction.js'
-import BackRoutes from './desktop/backoffice/BackRoutes.jsx'
-import FrontRoutes from './desktop/frontoffice/FrontRoutes.jsx'
-import BackMobile from './mobile/backoffice/BackMobile.jsx'
-import Auth from './mobile/auth/Auth.jsx'
-import AuthInterfaceSwitch from './mobile/auth/AuthInterfaceSwitch.jsx'
-import { Box } from '@mui/material'
+import DesktopBackRoutes from './desktop/backoffice/BackRoutes.jsx'
+import DesktopFrontRoutes from './desktop/frontoffice/FrontRoutes.jsx'
+import MobileBackRoutes from './mobile/backoffice/BackRoutes.jsx'
+import MobileFrontRoutes from './mobile/frontoffice/FrontRoutes.jsx'
+import AuthRoutes from './mobile/auth/AuthRoutes.jsx'
 
 LicenseInfo.setLicenseKey(
     '9f3cf429ff65365e1e59d830a6e7c994Tz0xMTgyODQsRT0xNzg3OTYxNTk5MDAwLFM9cHJvLExNPXN1YnNjcmlwdGlvbixQVj1RMy0yMDI0LEtWPTI='
@@ -27,31 +26,19 @@ function App() {
 
     if (its_mobile) {
         if (uid_user === null) {
-            return (
-                <Box className="mobile">
-                    <Auth />
-                </Box>
-            )
+            return <AuthRoutes />
         } else {
             if (center) {
-                return (
-                    <Box className="mobile">
-                        <BackMobile />
-                    </Box>
-                )
+                return <MobileBackRoutes />
             } else {
-                return (
-                    <Box className="mobile">
-                        <AuthInterfaceSwitch />
-                    </Box>
-                )
+                return <MobileFrontRoutes />
             }
         }
     } else {
         if (center) {
-            return <BackRoutes />
+            return <DesktopBackRoutes />
         } else {
-            return <FrontRoutes />
+            return <DesktopFrontRoutes />
         }
     }
 }

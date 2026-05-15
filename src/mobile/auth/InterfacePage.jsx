@@ -1,9 +1,14 @@
-import { Box, Card, CardActionArea, Stack, Typography } from '@mui/material'
-
+import { Box, Button, Card, CardActionArea, Stack, Typography } from '@mui/material'
 import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded'
 import QrCodeScannerRoundedIcon from '@mui/icons-material/QrCodeScannerRounded'
 import DesktopWindowsRoundedIcon from '@mui/icons-material/DesktopWindowsRounded'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
+import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { setFilial } from '../../redux/mobile/frontoffice/mobileReducer.js'
 
 const interfaces = [
     {
@@ -27,12 +32,30 @@ const interfaces = [
         icon: <DesktopWindowsRoundedIcon sx={{ fontSize: 42 }} />,
         gradient: 'linear-gradient(135deg, #FF8A00 0%, #E65100 100%)',
     },
+    {
+        id: 'back',
+        title: 'Главный филиал',
+        description: 'Центральный офис и управление системой',
+        icon: <ApartmentRoundedIcon sx={{ fontSize: 42 }} />,
+        gradient: 'linear-gradient(135deg, #FF4D6D 0%, #C9184A 100%)',
+    },
 ]
 
-export default function AuthInterfaceSwitch() {
-    const handleSelect = (id) => {
-        console.log(id)
-    }
+export default function InterfacePage() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const params = useParams()
+    const { city, filial } = useSelector((state) => state.mobile)
+
+    useEffect(() => {
+        if (city === null) return
+        city.filials.forEach((filial) => {
+            if (filial.eais === params.param_filial) {
+                dispatch(setFilial(filial))
+            }
+        })
+    }, [city, dispatch, params.param_filial])
 
     return (
         <Box
@@ -50,19 +73,44 @@ export default function AuthInterfaceSwitch() {
                     maxWidth: 480,
                 }}
             >
-                <Stack spacing={1} mb={4}>
-                    <Typography variant="h4" fontWeight={800} color="white">
-                        Выберите интерфейс
-                    </Typography>
-
-                    <Typography
-                        variant="body1"
+                <Stack direction="row" alignItems="center" spacing={1.5} mb={4}>
+                    <Button
+                        onClick={() => navigate(`/mobile/${city.code}/`)}
                         sx={{
-                            color: 'rgba(255,255,255,.65)',
+                            minWidth: 0,
+                            width: 42,
+                            height: 42,
+                            borderRadius: '16px',
+                            color: '#fff',
+                            background: 'rgba(255,255,255,.06)',
+                            border: '1px solid rgba(255,255,255,.08)',
+
+                            '&:hover': {
+                                background: 'rgba(255,255,255,.1)',
+                            },
+
+                            '&:active': {
+                                transform: 'scale(.96)',
+                            },
                         }}
                     >
-                        Выберите режим работы системы
-                    </Typography>
+                        <ArrowBackRoundedIcon />
+                    </Button>
+
+                    <Box>
+                        <Typography variant="h4" fontWeight={800} color="white">
+                            Выберите интерфейс
+                        </Typography>
+
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                color: 'rgba(255,255,255,.65)',
+                            }}
+                        >
+                            Выберите режим работы системы
+                        </Typography>
+                    </Box>
                 </Stack>
 
                 <Stack spacing={2}>
@@ -77,6 +125,7 @@ export default function AuthInterfaceSwitch() {
                                 backdropFilter: 'blur(12px)',
                                 border: '1px solid rgba(255,255,255,.08)',
                                 transition: '.25s',
+
                                 '&:hover': {
                                     transform: 'translateY(-4px)',
                                     borderColor: 'rgba(255,255,255,.18)',
@@ -84,7 +133,9 @@ export default function AuthInterfaceSwitch() {
                             }}
                         >
                             <CardActionArea
-                                onClick={() => handleSelect(item.id)}
+                                onClick={() => {
+                                    navigate(`/mobile/${city.code}/${filial.eais}/${item.id}/`)
+                                }}
                                 sx={{
                                     p: 2.2,
                                 }}
