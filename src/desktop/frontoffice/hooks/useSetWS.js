@@ -9,9 +9,9 @@ import {
     horeca_position_add_barcode,
     horeca_position_add_egais_mark,
     horeca_position_add_mark,
-    login,
     pl_estimate_discounts,
     ROUTE_MAIN_HOST,
+    sign_in,
 } from '../../../service/fetch_service.js'
 import { addNotification } from '../../../redux/frontoffice/notifierReducer.js'
 import { setOrderSearchValue, setOrdersHorecaUpdate, updateKitchenOrder } from '../../../redux/frontoffice/ordersReducer.js'
@@ -75,7 +75,7 @@ export function useSetWS() {
                     switch (data.code_type) {
                         case 0:
                             if (uid_user === null && !kiosk) {
-                                dispatch(login(filial, false, true, '', data.value))
+                                dispatch(sign_in(filial, false, true, '', data.value))
                             } else {
                                 if (['admin/orders/cinema', 'admin/orders/horeca'].includes(current_page)) {
                                     dispatch(setOrderSearchValue(data.value))

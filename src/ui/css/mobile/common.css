@@ -1,3 +1,9 @@
+.mobile {
+    height: 100dvh;
+    width: 100dvw;
+    background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
+}
+
 /* ============================== */
 /*              СКРОЛЛ            */
 /* ============================== */

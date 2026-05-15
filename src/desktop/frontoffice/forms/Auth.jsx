@@ -6,7 +6,7 @@ import { setAuthOpened } from '../../../redux/frontoffice/interfaceReducer.js'
 import DialpadIcon from '@mui/icons-material/Dialpad'
 import KeyboardIcon from '@mui/icons-material/Keyboard'
 import { addNotification } from '../../../redux/frontoffice/notifierReducer.js'
-import { login } from '../../../service/fetch_service.js'
+import { sign_in } from '../../../service/fetch_service.js'
 import { useNavigate } from 'react-router-dom'
 
 const Auth = ({ auth_opened }) => {
@@ -47,9 +47,9 @@ const Auth = ({ auth_opened }) => {
                 })
             )
         } else {
-            const decode = await dispatch(login(filial, login_auth, pincode_auth, username, password))
+            const decode = await dispatch(sign_in(filial, login_auth, pincode_auth, username, password))
             if (decode.center) {
-                navigate('/center/shift/revenue')
+                navigate('/backoffice/shift/revenue')
             }
             dispatch(setAuthOpened(false))
         }

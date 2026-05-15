@@ -278,7 +278,7 @@ export const common_cities_filials_get = () => async (dispatch, getState) => {
     )
 }
 
-export const login = (filial, login_auth, pincode_auth, username, password) => async (dispatch, getState) => {
+export const sign_in = (filial, login_auth, pincode_auth, username, password) => async (dispatch, getState) => {
     const { wp, kiosk, version } = getState().interface
     const { center } = getState().auth
     return new Promise((resolve, reject) => {

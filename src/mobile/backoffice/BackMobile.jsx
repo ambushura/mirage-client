@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 
 const BackMobile = () => {
-    return <Box>Бэк-оффис мобильный</Box>
+    return <Box sx={{ color: 'white', fontSize: '500%' }}>Бэк-оффис мобильный</Box>
 }
 
 export default BackMobile
