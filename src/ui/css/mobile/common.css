@@ -2,14 +2,14 @@
     --mobile-card-bg: rgba(255, 255, 255, .06);
     --mobile-card-border: rgba(255, 255, 255, .08);
     --mobile-card-hover: rgba(255, 255, 255, .1);
-
     --mobile-text-primary: #fff;
     --mobile-text-secondary: rgba(255, 255, 255, .6);
-
     --mobile-radius: 20px;
     --mobile-blur: blur(10px);
-
     --bgr-mobile-scroll: #696969;
+    --bgr-button-active: linear-gradient(
+        135deg, #ff5f8f 0%, #ff1744 100%
+    );
 }
 
 .mobile {

@@ -125,7 +125,7 @@
     justify-content: center;
     flex-shrink: 0;
     color: white;
-    background: linear-gradient(135deg, #ff5f8f 0%, #ff1744 100%);
+    background: var(--bgr-button-active);
 }
 
 .mobile-card-arrow {
