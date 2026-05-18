@@ -63,7 +63,7 @@ const AuthRoutes = () => {
 
 export default AuthRoutes
 
-const PageWrapper = ({ children }) => {
+export const PageWrapper = ({ children }) => {
     return (
         <motion.div
             initial={{

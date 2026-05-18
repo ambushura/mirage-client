@@ -8,7 +8,7 @@ export default function useSetCityAndFilial() {
     const dispatch = useDispatch()
     const params = useParams()
 
-    const { cities, city } = useSelector((state) => state.front_mobile)
+    const { cities } = useSelector((state) => state.front_mobile)
 
     const param_city = params?.param_city
     const param_filial = params?.param_filial
@@ -16,24 +16,29 @@ export default function useSetCityAndFilial() {
     useEffect(() => {
         const fetchCities = async () => {
             const res = await dispatch(common_cities_filials_get())
-            if (res.error === null && !res.loading) {
+            if (res?.error === null) {
                 dispatch(setCities(res.data))
             }
         }
 
-        if (cities.length === 0) {
+        if (!cities.length) {
             fetchCities()
             return
         }
 
-        if (param_city) {
-            const foundCity = cities.find((c) => c.code === param_city)
-            if (foundCity) dispatch(setCity(foundCity))
-        }
+        if (!param_city) return
 
-        if (param_filial && city) {
-            const foundFilial = city.filials.find((f) => f.eais === param_filial)
-            if (foundFilial) dispatch(setFilial(foundFilial))
+        const foundCity = cities.find((c) => c.code === param_city)
+        if (foundCity) {
+            dispatch(setCity(foundCity))
+
+            if (param_filial) {
+                const foundFilial = foundCity.filials.find((f) => f.eais === param_filial)
+
+                if (foundFilial) {
+                    dispatch(setFilial(foundFilial))
+                }
+            }
         }
-    }, [dispatch, cities, city, param_city, param_filial])
+    }, [dispatch, cities, param_city, param_filial])
 }
