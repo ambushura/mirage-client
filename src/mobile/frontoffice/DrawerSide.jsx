@@ -4,26 +4,29 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import ViewListIcon from '@mui/icons-material/ViewList'
 import ViewStreamIcon from '@mui/icons-material/ViewStream'
 import FrontHandIcon from '@mui/icons-material/FrontHand'
+import { logout } from '../../redux/desktop/frontoffice/authReducer.js'
+import { useDispatch } from 'react-redux'
 
 const menuSections = [
     {
         title: 'Основное',
         items: [
-            { text: 'Все заказы', icon: <ViewListIcon />, accent: true },
-            { text: 'Мои заказы', icon: <ViewStreamIcon />, accent: true },
-            { text: 'Стоп-листы', icon: <FrontHandIcon />, accent: true },
+            { id: 'all_orders', text: 'Все заказы', icon: <ViewListIcon />, accent: true },
+            { id: 'my_orders', text: 'Мои заказы', icon: <ViewStreamIcon />, accent: true },
+            { id: 'stop_lists', text: 'Стоп-листы', icon: <FrontHandIcon />, accent: true },
         ],
     },
     {
         title: 'Система',
         items: [
-            { text: 'Настройки', icon: <SettingsIcon />, accent: false },
-            { text: 'Выход', icon: <LogoutIcon />, accent: false },
+            { id: 'settings', text: 'Настройки', icon: <SettingsIcon />, accent: false },
+            { id: 'logout', text: 'Выход', icon: <LogoutIcon />, accent: false },
         ],
     },
 ]
 
 const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
+    const dispatch = useDispatch()
     return (
         <Drawer
             open={drawerOpened}
@@ -61,7 +64,12 @@ const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
                         {section.items.map((item) => (
                             <Box
                                 key={item.text}
-                                onClick={() => setDrawerOpened(false)}
+                                onClick={() => {
+                                    setDrawerOpened(false)
+                                    if (item.id === 'logout') {
+                                        dispatch(logout())
+                                    }
+                                }}
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
