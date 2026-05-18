@@ -1,12 +1,26 @@
+:root {
+    --mobile-card-bg: rgba(255, 255, 255, .06);
+    --mobile-card-border: rgba(255, 255, 255, .08);
+    --mobile-card-hover: rgba(255, 255, 255, .1);
+
+    --mobile-text-primary: #fff;
+    --mobile-text-secondary: rgba(255, 255, 255, .6);
+
+    --mobile-radius: 20px;
+    --mobile-blur: blur(10px);
+
+    --bgr-mobile-scroll: #696969;
+}
+
 .mobile {
     height: 100dvh;
     width: 100dvw;
     background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
+    position: relative;
+    overflow: hidden;
 }
 
-/* ============================== */
-/*              СКРОЛЛ            */
-/* ============================== */
+/* region СКРОЛЛ */
 .mobile-scroll::-webkit-scrollbar {
     width: 12px !important;
     height: 12px !important;
@@ -23,3 +37,47 @@
 .mobile-scroll::-webkit-scrollbar-corner {
     background: transparent !important;
 }
+
+/* endregion */
+
+/* region СТРАНИЦА */
+
+.mobile-page {
+    height: 100dvh;
+    width: 100dvw;
+    display: flex;
+    justify-content: center;
+    background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
+}
+
+.mobile-page-content {
+    width: 100%;
+    max-width: 520px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.mobile-page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mobile-title {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.mobile-subtitle {
+    color: rgba(255, 255, 255, .6);
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+/* endregion */

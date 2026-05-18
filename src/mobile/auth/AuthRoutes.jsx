@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Box, Button, InputAdornment, List, ListItem, ListItemButton, ListItemText, TextField } from '@mui/material'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -6,39 +5,21 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import { useDispatch } from 'react-redux'
-import { common_cities_filials_get } from '../../service/fetch_service.js'
-import { setCities } from '../../redux/mobile/frontoffice/mobileReducer.js'
 import CityPage from './CityPage.jsx'
 import FilialPage from './FilialPage.jsx'
 import LoginPage from './LoginPage.jsx'
 import '../../ui/css/mobile/auth.css'
 import '../../ui/css/mobile/common.css'
 import InterfacePage from './InterfacePage.jsx'
+import useSetCityAndFilial from '../hooks/useSetCityAndFilial.js'
 
 const AuthRoutes = () => {
-    const dispatch = useDispatch()
     const location = useLocation()
 
-    useEffect(() => {
-        const fetch = async () => {
-            const res = await dispatch(common_cities_filials_get())
-            if (res.error === null && !res.loading) {
-                dispatch(setCities(res.data))
-            }
-        }
-        fetch()
-    }, [dispatch])
+    useSetCityAndFilial()
 
     return (
-        <Box
-            sx={{
-                width: '100%',
-                height: '100dvh',
-                position: 'relative',
-                overflow: 'hidden',
-            }}
-        >
+        <Box className="mobile">
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Navigate replace to="/mobile" />} />
@@ -115,93 +96,71 @@ const PageWrapper = ({ children }) => {
 
 export function AuthList({ list, search, setSearch, title, placeholder, cityName, onBack, onClick }) {
     return (
-        <Box className="front-mobile-auth-list">
-            <Box>
-                <Box className="front-mobile-auth-title-h1">{title}</Box>
-
-                <Box className="front-mobile-auth-title-h2">Для продолжения авторизации</Box>
-            </Box>
-            {cityName && (
-                <Box className="front-mobile-auth-city-bar">
-                    <Button
-                        onClick={onBack}
-                        sx={{
-                            minWidth: 0,
-                            width: 42,
-                            height: 42,
-                            borderRadius: '16px',
-                            color: '#fff',
-                            background: 'rgba(255,255,255,.06)',
-                            border: '1px solid rgba(255,255,255,.08)',
-                            '&:hover': {
-                                background: 'rgba(255,255,255,0.1)',
-                            },
-
-                            '&:active': {
-                                transform: 'scale(0.96)',
-                            },
-                        }}
-                    >
-                        <ArrowBackIcon />
-                    </Button>
-
-                    <Box className="front-mobile-auth-city-name">{cityName}</Box>
+        <Box className="mobile-page">
+            <Box className="mobile-page-content">
+                <Box className="mobile-page-header">
+                    <Box className="mobile-title">{title}</Box>
+                    <Box className="mobile-subtitle">Для продолжения авторизации</Box>
                 </Box>
-            )}
-            <TextField
-                fullWidth
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={placeholder}
-                className="front-mobile-auth-list-input"
-                variant="outlined"
-                slotProps={{
-                    input: {
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchRoundedIcon />
-                            </InputAdornment>
-                        ),
-                    },
-                }}
-            />
-            <Box className="front-mobile-auth-list-options-box mobile-scroll">
-                <List className="front-mobile-auth-list-options">
-                    {list.map((el) => (
-                        <ListItem key={el.uid} disablePadding className="front-mobile-auth-list-options-item">
-                            <ListItemButton
-                                className="front-mobile-auth-list-options-item-button"
-                                onClick={() => onClick(el)}
-                                sx={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.08)' }}
-                            >
-                                <Box className="front-mobile-auth-list-options-item-icon">
-                                    <LocationOnRoundedIcon />
-                                </Box>
-                                <ListItemText
-                                    primary={el.name}
-                                    secondary="Нажмите для выбора"
-                                    slotProps={{
-                                        primary: {
-                                            sx: {
-                                                color: '#fff',
-                                                fontWeight: 600,
-                                                fontSize: 17,
+                {cityName && (
+                    <Box className="mobile-page-topbar">
+                        <Button onClick={onBack} className="mobile-back-button">
+                            <ArrowBackIcon />
+                        </Button>
+                        <Box className="mobile-page-topbar-title">{cityName}</Box>
+                    </Box>
+                )}
+                <TextField
+                    fullWidth
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder={placeholder}
+                    className="mobile-input"
+                    variant="outlined"
+                    slotProps={{
+                        input: {
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchRoundedIcon />
+                                </InputAdornment>
+                            ),
+                        },
+                    }}
+                />
+                <Box className="mobile-scroll mobile-list-wrapper">
+                    <List className="mobile-list">
+                        {list.map((el) => (
+                            <ListItem key={el.uid} disablePadding className="mobile-list-item">
+                                <ListItemButton className="mobile-card-button" onClick={() => onClick(el)}>
+                                    <Box className="mobile-card-icon">
+                                        <LocationOnRoundedIcon />
+                                    </Box>
+                                    <ListItemText
+                                        primary={el.name}
+                                        secondary="Нажмите для выбора"
+                                        slotProps={{
+                                            primary: {
+                                                sx: {
+                                                    color: '#fff',
+                                                    fontWeight: 600,
+                                                    fontSize: 16,
+                                                },
                                             },
-                                        },
-
-                                        secondary: {
-                                            sx: {
-                                                color: 'rgba(255,255,255,0.45)',
-                                                mt: '2px',
+                                            secondary: {
+                                                sx: {
+                                                    color: 'rgba(255,255,255,.45)',
+                                                    mt: '2px',
+                                                    fontSize: 13,
+                                                },
                                             },
-                                        },
-                                    }}
-                                />
-                                <ChevronRightRoundedIcon className="front-mobile-auth-list-options-item-point" />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+                                        }}
+                                    />
+                                    <ChevronRightRoundedIcon className="mobile-card-arrow" />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
             </Box>
         </Box>
     )

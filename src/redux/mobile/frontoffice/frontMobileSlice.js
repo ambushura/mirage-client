@@ -7,8 +7,8 @@ const initialState = {
     current_interface: null,
 }
 
-export const mobileSlice = createSlice({
-    name: 'mobile',
+export const frontMobileSlice = createSlice({
+    name: 'front_mobile',
     initialState,
     reducers: {
         setCities: (state, action) => {
@@ -25,5 +25,5 @@ export const mobileSlice = createSlice({
         },
     },
 })
-export const { setCities, setCity, setFilial, setCurrentInterface } = mobileSlice.actions
-export default mobileSlice.reducer
+export const { setCities, setCity, setFilial, setCurrentInterface } = frontMobileSlice.actions
+export default frontMobileSlice.reducer

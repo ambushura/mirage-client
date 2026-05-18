@@ -1,261 +1,155 @@
 import { useState } from 'react'
-import { Box, Button, Fade, Paper, Tab, Tabs, TextField, Typography } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { Box, Button, Fade, InputAdornment, Tab, Tabs, TextField } from '@mui/material'
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
+import LockRoundedIcon from '@mui/icons-material/LockRounded'
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
 import { useDispatch, useSelector } from 'react-redux'
 import { sign_in } from '../../service/fetch_service.js'
 
+const pinDots = Array.from({ length: 6 })
+
 export default function MobileAuth({ onBack }) {
     const dispatch = useDispatch()
+    const { city, filial } = useSelector((state) => state.front_mobile)
 
     const [tab, setTab] = useState(0)
-
     const [pin, setPin] = useState('')
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
-    const { city, filial } = useSelector((state) => state.mobile)
-
-    const handleTabChange = (_, v) => setTab(v)
-
+    const removeDigit = () => setPin((p) => p.slice(0, -1))
+    const clearPin = () => setPin('')
     const addDigit = (d) => {
         if (pin.length >= 6) return
         setPin((p) => p + d)
     }
 
-    const removeDigit = () => {
-        setPin((p) => p.slice(0, -1))
-    }
-
-    const clearPin = () => setPin('')
-
-    const pinDots = Array.from({ length: 5 })
-
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                p: 2,
-            }}
-        >
-            <Paper
-                elevation={0}
-                sx={{
-                    width: '100%',
-                    maxWidth: 420,
-                    borderRadius: 5,
-                    p: 2.5,
-                    backdropFilter: 'blur(12px)',
-                    background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    color: '#fff',
-                }}
-            >
-                {/* HEADER */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2, mb: 2 }}>
-                    <Button
-                        onClick={onBack}
-                        sx={{
-                            borderRadius: 2,
-                            color: '#fff',
-                            background: 'rgba(255,255,255,0.06)',
-                        }}
-                    >
-                        <ArrowBackIcon />
-                    </Button>
-
-                    <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.3 }}>
-                        <Typography sx={{ color: '#fff', fontSize: 13, opacity: 0.9 }}>{city?.name || 'Город не выбран'}</Typography>
-
-                        <Typography sx={{ color: '#fff', fontSize: 13, opacity: 0.6 }}>{filial?.name || 'Филиал не выбран'}</Typography>
+        <Box className="mobile-page">
+            <Box className="mobile-page-content">
+                <Box className="mobile-page-header">
+                    <Box className="mobile-page-topbar">
+                        <Button onClick={onBack} className="mobile-back-button">
+                            <ArrowBackRoundedIcon />
+                        </Button>
+                        <Box className="mobile-page-topbar-title">
+                            {city?.name || 'Город'} • {filial?.name || 'Филиал'}
+                        </Box>
                     </Box>
+                    <Box className="mobile-title">Вход в систему</Box>
+                    <Box className="mobile-subtitle">Выберите способ авторизации</Box>
                 </Box>
-
-                <Typography variant="h6" sx={{ textAlign: 'center', mb: 1, fontWeight: 600 }}>
-                    Вход в систему
-                </Typography>
-
-                <Tabs
-                    value={tab}
-                    onChange={handleTabChange}
-                    centered
-                    textColor="inherit"
-                    indicatorColor="primary"
+                <Box
                     sx={{
-                        mb: 2,
-                        '& .MuiTab-root': {
-                            color: 'rgba(255,255,255,0.5)',
-                            textTransform: 'none',
-                            fontWeight: 500,
-                        },
-                        '& .MuiTab-root.Mui-selected': {
-                            color: '#fff',
-                        },
+                        display: 'flex',
+                        justifyContent: 'center',
                     }}
                 >
-                    <Tab label="PIN" />
-                    <Tab label="Логин" />
-                </Tabs>
-
-                {/* PIN */}
+                    <Tabs
+                        value={tab}
+                        onChange={(_, v) => setTab(v)}
+                        sx={{
+                            '& .MuiTab-root': {
+                                color: 'rgba(255,255,255,.5)',
+                                textTransform: 'none',
+                                fontWeight: 600,
+                                fontSize: 14,
+                            },
+                            '& .Mui-selected': {
+                                color: '#fff !important',
+                            },
+                            '& .MuiTabs-indicator': {
+                                background: 'linear-gradient(135deg, #ff5252 0%, #ff1744 100%)',
+                                height: 3,
+                                borderRadius: 2,
+                            },
+                        }}
+                    >
+                        <Tab label="PIN" />
+                        <Tab label="Логин" />
+                    </Tabs>
+                </Box>
                 {tab === 0 && (
                     <Fade in>
-                        <Box>
-                            <Typography
-                                sx={{
-                                    textAlign: 'center',
-                                    opacity: 0.6,
-                                    mb: 2,
-                                }}
-                            >
+                        <Box className="mobile-auth-section">
+                            <Box className="mobile-subtitle" sx={{ textAlign: 'center' }}>
                                 Введите код доступа
-                            </Typography>
-
-                            {/* DOTS */}
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    gap: 1,
-                                    mb: 3,
-                                }}
-                            >
+                            </Box>
+                            <Box className="mobile-pin-dots">
                                 {pinDots.map((_, i) => (
                                     <Box
                                         key={i}
+                                        className="mobile-pin-dot"
                                         sx={{
-                                            width: 10,
-                                            height: 10,
-                                            borderRadius: '50%',
-                                            border: '1px solid #ff1744',
-                                            background: i < pin.length ? '#ff5252' : 'transparent',
-                                            transition: '0.2s',
+                                            background:
+                                                i < pin.length ? 'linear-gradient(135deg, #ff5252 0%, #ff1744 100%)' : 'transparent',
                                         }}
                                     />
                                 ))}
                             </Box>
-
-                            {/* KEYPAD */}
-                            <Box
-                                sx={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(3, 1fr)',
-                                    gap: 1.2,
-                                }}
-                            >
+                            <Box className="mobile-keypad">
                                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
-                                    <Button
-                                        key={n}
-                                        onClick={() => addDigit(String(n))}
-                                        sx={{
-                                            py: 2,
-                                            borderRadius: 3,
-                                            color: '#fff',
-                                            background: 'rgba(255,255,255,0.05)',
-                                            border: '1px solid rgba(255,255,255,0.08)',
-                                            fontSize: 18,
-                                            '&:active': { transform: 'scale(0.96)' },
-                                        }}
-                                    >
+                                    <Button key={n} onClick={() => addDigit(String(n))} className="mobile-key">
                                         {n}
                                     </Button>
                                 ))}
-
-                                <Button
-                                    onClick={clearPin}
-                                    sx={{
-                                        py: 2,
-                                        borderRadius: 3,
-                                        color: '#ff6b6b',
-                                        background: 'rgba(255,255,255,0.04)',
-                                    }}
-                                >
+                                <Button onClick={clearPin} className="mobile-key danger">
                                     DEL
                                 </Button>
-
-                                <Button
-                                    onClick={() => addDigit('0')}
-                                    sx={{
-                                        py: 2,
-                                        borderRadius: 3,
-                                        color: '#fff',
-                                        background: 'rgba(255,255,255,0.05)',
-                                        fontSize: 18,
-                                    }}
-                                >
+                                <Button onClick={() => addDigit('0')} className="mobile-key">
                                     0
                                 </Button>
-
-                                <Button
-                                    onClick={removeDigit}
-                                    sx={{
-                                        py: 2,
-                                        borderRadius: 3,
-                                        color: '#fff',
-                                        background: 'rgba(255,255,255,0.04)',
-                                    }}
-                                >
-                                    ⌫
+                                <Button onClick={removeDigit} className="mobile-key">
+                                    <KeyboardBackspaceRoundedIcon />
                                 </Button>
                             </Box>
-
                             <Button
                                 fullWidth
-                                sx={{
-                                    mt: 2,
-                                    py: 1.5,
-                                    borderRadius: 3,
-                                    fontWeight: 600,
-                                    background: 'linear-gradient(135deg, #ff5252 0%, #ff1744 100%)',
-                                    color: '#fff',
-                                    textTransform: 'none',
-                                }}
+                                className="mobile-primary-button"
                                 disabled={pin.length < 4}
-                                onClick={() => console.log('PIN login', { pin, city, filial })}
+                                onClick={() => console.log('PIN', pin)}
                             >
                                 Войти
                             </Button>
                         </Box>
                     </Fade>
                 )}
-
-                {/* LOGIN */}
                 {tab === 1 && (
                     <Fade in>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        <Box className="mobile-auth-section">
                             <TextField
-                                variant="filled"
-                                label="Логин"
+                                fullWidth
                                 value={login}
                                 onChange={(e) => setLogin(e.target.value)}
-                                fullWidth
-                                InputLabelProps={{ style: { color: '#aaa' } }}
-                                InputProps={{ style: { color: '#fff' } }}
+                                placeholder="Логин"
+                                className="mobile-input"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <PersonRoundedIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
-
                             <TextField
-                                variant="filled"
-                                label="Пароль"
+                                fullWidth
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                fullWidth
-                                InputLabelProps={{ style: { color: '#aaa' } }}
-                                InputProps={{ style: { color: '#fff' } }}
+                                placeholder="Пароль"
+                                className="mobile-input"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LockRoundedIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
-
                             <Button
                                 fullWidth
-                                sx={{
-                                    py: 1.5,
-                                    borderRadius: 3,
-                                    background: 'linear-gradient(135deg, #ff5252 0%, #ff1744 100%)',
-                                    color: '#fff',
-                                    fontWeight: 600,
-                                    textTransform: 'none',
-                                }}
+                                className="mobile-primary-button"
                                 onClick={() => {
                                     dispatch(sign_in(filial, true, false, login, password))
                                 }}
@@ -265,7 +159,7 @@ export default function MobileAuth({ onBack }) {
                         </Box>
                     </Fade>
                 )}
-            </Paper>
+            </Box>
         </Box>
     )
 }

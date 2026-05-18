@@ -15,7 +15,7 @@ import reportsReducer from './desktop/frontoffice/reportsReducer.js'
 import centerReducer from './desktop/backoffice/centerReducer.js'
 import centerCinemaReducer from './desktop/backoffice/centerCinemaReducer.js'
 import centerHorecaReducer from './desktop/backoffice/centerHorecaReducer.js'
-import mobileSlice from './mobile/frontoffice/mobileReducer.js'
+import frontMobileSlice from './mobile/frontoffice/frontMobileSlice.js'
 
 export const store = configureStore({
     reducer: {
@@ -35,7 +35,7 @@ export const store = configureStore({
         center: centerReducer,
         center_cinema: centerCinemaReducer,
         center_horeca: centerHorecaReducer,
-        mobile: mobileSlice,
+        front_mobile: frontMobileSlice,
     },
 })
 

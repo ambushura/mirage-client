@@ -1,146 +1,200 @@
-:root {
-    --bgr-mobile-scroll: #696969;
-}
+/* region ВЕРХНИЙ БАР */
 
-.front-mobile-auth {
-    height: inherit;
-    width: inherit;
+.mobile-page-topbar {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    gap: 12px;
 }
 
-.front-mobile-auth-list {
-    min-height: 0;
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-}
-
-.front-mobile-auth-title-h1 {
+.mobile-page-topbar-title {
     color: white;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.1;
-}
-
-.front-mobile-auth-title-h2 {
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 6px;
     font-size: 15px;
+    font-weight: 600;
 }
 
-.front-mobile-auth-list-input .MuiOutlinedInput-root {
+/* endregion */
+
+/* region ВЕРХНИЙ БАР КНОПКА НАЗАД */
+
+.mobile-back-button {
+    min-width: 0 !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 16px !important;
+    color: white !important;
+    background: rgba(255, 255, 255, .06) !important;
+    border: 1px solid rgba(255, 255, 255, .08) !important;
+    transition: .2s !important;
+}
+
+.mobile-back-button:hover {
+    background: rgba(255, 255, 255, .1) !important;
+}
+
+.mobile-back-button:active {
+    transform: scale(.96) !important;
+}
+
+/* endregion */
+
+/* region INPUT */
+
+.mobile-input .MuiOutlinedInput-root {
     border-radius: 18px;
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, .08);
     color: white;
 }
 
-.front-mobile-auth-list-input .MuiOutlinedInput-root fieldset {
-    border: 1px solid rgba(255, 255, 255, 0.08);
+.mobile-input input {
+    padding-left: 8px;
 }
 
-.front-mobile-auth-list-input .MuiOutlinedInput-root:hover fieldset {
-    border: 1px solid rgba(255, 255, 255, 0.15);
+.mobile-input .MuiOutlinedInput-root fieldset {
+    border: 1px solid rgba(255, 255, 255, .08);
 }
 
-.front-mobile-auth-list-input .MuiOutlinedInput-root.Mui-focused fieldset {
-    border: 1px solid rgba(255, 255, 255, 0.25);
+.mobile-input .MuiOutlinedInput-root:hover fieldset {
+    border: 1px solid rgba(255, 255, 255, .15);
 }
 
-.front-mobile-auth-list-input input::placeholder {
-    color: rgba(255, 255, 255, 0.45);
+.mobile-input .MuiOutlinedInput-root.Mui-focused fieldset {
+    border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.mobile-input input::placeholder {
+    color: rgba(255, 255, 255, .45);
     opacity: 1;
 }
 
-.front-mobile-auth-list-input .MuiSvgIcon-root {
-    color: rgba(255, 255, 255, 0.45);
+.mobile-input .MuiSvgIcon-root {
+    color: rgba(255, 255, 255, .45);
 }
 
-.front-mobile-auth-list-options-box {
+/* endregion */
+
+/*region СПИСОК ПУНКТОВ */
+
+.mobile-list-wrapper {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
 }
 
-.front-mobile-auth-list-options {
+.mobile-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 0;
+    padding: 0 !important;
 }
 
-.front-mobile-auth-list-options-item {
+.mobile-list-item {
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: var(--mobile-radius);
 }
 
-.front-mobile-auth-list-options-item-button {
-    min-height: 72px !important;
+/* endregion */
+
+/* region КАРТОЧКА */
+
+.mobile-card-button {
+    min-height: 78px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
-    border-radius: 20px !important;
-    background-color: rgba(255, 255, 255, 0.06) !important;
-    backdrop-filter: blur(10px) !important;
-    transition: 0.2s !important;
+    gap: 16px;
+    border-radius: var(--mobile-radius) !important;
+    background: var(--mobile-card-bg) !important;
+    border: 1px solid var(--mobile-card-border) !important;
+    backdrop-filter: var(--mobile-blur) !important;
+    transition: .2s !important;
 }
 
-.front-mobile-auth-list-options-item-button:active {
-    transform: scale(0.98) !important;
+.mobile-card-button:hover {
+    background: var(--mobile-card-hover) !important;
 }
 
-.front-mobile-auth-list-options-item-button:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+.mobile-card-button:active {
+    transform: scale(.98) !important;
 }
 
-.front-mobile-auth-list-options-item-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
+.mobile-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #ff5252 0%, #ff1744 100%);
-    margin-right: 16px;
     flex-shrink: 0;
-}
-
-.front-mobile-auth-list-options-item-icon svg {
-    width: 24px;
-    height: 24px;
     color: white;
+    background: linear-gradient(135deg, #ff5f8f 0%, #ff1744 100%);
 }
 
-.front-mobile-auth-list-options-item-point {
-    color: white;
-    margin-left: 16px;
+.mobile-card-arrow {
+    color: rgba(255, 255, 255, .4);
+    font-size: 28px !important;
 }
 
-.front-mobile-auth-city-bar {
+/* endregion */
+
+/* region ПИНПАД АВТОРИЗАЦИИ */
+
+.mobile-auth-section {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 8px;
-    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 10px;
 }
 
-.front-mobile-auth-city-name {
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    opacity: 0.9;
+.mobile-pin-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0 16px;
 }
 
-.front-mobile-auth-city-back {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 13px;
-    cursor: pointer;
-    transition: 0.2s;
+.mobile-pin-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .2);
+    transition: .2s;
 }
 
-.front-mobile-auth-city-back:hover {
-    color: rgba(255, 255, 255, 0.9);
+.mobile-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
+
+.mobile-key {
+    min-height: 64px !important;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, .06) !important;
+    border: 1px solid rgba(255, 255, 255, .08) !important;
+    color: white !important;
+    font-size: 18px !important;
+    transition: .2s !important;
+}
+
+.mobile-key svg {
+    color: rgba(255, 255, 255, .9);
+}
+
+.mobile-key:active {
+    transform: scale(.97) !important;
+}
+
+.mobile-key.danger {
+    color: #ff6b6b !important;
+}
+
+.mobile-primary-button {
+    margin-top: 6px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #ff5252 0%, #ff1744 100%) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    padding: 12px 0 !important;
+}
+
+/* endregion */

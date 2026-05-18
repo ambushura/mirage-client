@@ -1,28 +1,18 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { setCity } from '../../redux/mobile/frontoffice/mobileReducer.js'
+import { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { AuthList } from './AuthRoutes.jsx'
+import useSetCityAndFilial from '../hooks/useSetCityAndFilial.js'
 
 export default function FilialPage() {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const params = useParams()
-
-    const { cities, city } = useSelector((state) => state.mobile)
+    const { city } = useSelector((state) => state.front_mobile)
     const [search, setSearch] = useState('')
 
-    useEffect(() => {
-        cities.forEach((city) => {
-            if (city.code === params.param_city) {
-                dispatch(setCity(city))
-            }
-        })
-    }, [cities, dispatch, params.param_city])
+    useSetCityAndFilial()
 
     const filteredFilials = useMemo(() => {
         if (!city) return []
-
         return city.filials.filter((filial) => filial.name.toLowerCase().includes(search.toLowerCase()))
     }, [city, search])
 

@@ -5,9 +5,7 @@ import { AuthList } from './AuthRoutes.jsx'
 
 export default function CityPage() {
     const navigate = useNavigate()
-
-    const { cities } = useSelector((state) => state.mobile)
-
+    const { cities } = useSelector((state) => state.front_mobile)
     const [search, setSearch] = useState('')
 
     const filteredCities = useMemo(() => {

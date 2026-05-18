@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import { common_cities_filials_get } from '../../service/fetch_service.js'
-import { setCities } from '../../redux/mobile/frontoffice/mobileReducer.js'
+import { setCities } from '../../redux/mobile/frontoffice/frontMobileSlice.js'
 import { useDispatch } from 'react-redux'
 
 const BackRoutes = () => {

@@ -1,32 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { setCity, setFilial } from '../../redux/mobile/frontoffice/mobileReducer.js'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import MobileAuth from './AuthKeyboard.jsx'
-import { useEffect } from 'react'
+import useSetCityAndFilial from '../hooks/useSetCityAndFilial.js'
 
 export default function LoginPage() {
-    const dispatch = useDispatch()
     const navigate = useNavigate()
-    const params = useParams()
 
-    const { cities, city, filial } = useSelector((state) => state.mobile)
+    const { city, filial } = useSelector((state) => state.front_mobile)
 
-    useEffect(() => {
-        cities.forEach((city) => {
-            if (city.code === params.param_city) {
-                dispatch(setCity(city))
-            }
-        })
-    }, [cities, dispatch, params.param_city])
-
-    useEffect(() => {
-        if (city === null) return
-        city.filials.forEach((filial) => {
-            if (filial.eais === params.param_filial) {
-                dispatch(setFilial(filial))
-            }
-        })
-    }, [city, dispatch, params.param_filial])
+    useSetCityAndFilial()
 
     return (
         <MobileAuth
