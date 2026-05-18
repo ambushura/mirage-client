@@ -3,6 +3,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import SettingsIcon from '@mui/icons-material/Settings'
 import ViewListIcon from '@mui/icons-material/ViewList'
 import ViewStreamIcon from '@mui/icons-material/ViewStream'
+import FrontHandIcon from '@mui/icons-material/FrontHand'
 
 const menuSections = [
     {
@@ -10,6 +11,7 @@ const menuSections = [
         items: [
             { text: 'Все заказы', icon: <ViewListIcon />, accent: true },
             { text: 'Мои заказы', icon: <ViewStreamIcon />, accent: true },
+            { text: 'Стоп-листы', icon: <FrontHandIcon />, accent: true },
         ],
     },
     {
@@ -28,7 +30,7 @@ const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
             onClose={() => setDrawerOpened(false)}
             PaperProps={{
                 sx: {
-                    width: 280,
+                    width: 290,
                     background: 'rgba(18, 20, 26, 0.65)',
                     backdropFilter: 'blur(18px)',
                     WebkitBackdropFilter: 'blur(18px)',
@@ -67,7 +69,8 @@ const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
                                     px: 1.5,
                                     py: 1.2,
                                     mb: 1,
-                                    borderRadius: 3,
+                                    borderRadius: 4,
+                                    border: '1px solid var(--mobile-card-border) !important',
                                     cursor: 'pointer',
                                     transition: '0.2s',
                                     background: 'rgba(255,255,255,0.04)',
