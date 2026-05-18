@@ -1,62 +1,125 @@
-import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import ViewModuleIcon from '@mui/icons-material/ViewModule'
-import StopIcon from '@mui/icons-material/Stop'
+import { Box, Drawer } from '@mui/material'
 import LogoutIcon from '@mui/icons-material/Logout'
 import SettingsIcon from '@mui/icons-material/Settings'
+import ViewListIcon from '@mui/icons-material/ViewList'
+import ViewStreamIcon from '@mui/icons-material/ViewStream'
+
+const menuSections = [
+    {
+        title: 'Основное',
+        items: [
+            { text: 'Все заказы', icon: <ViewListIcon />, accent: true },
+            { text: 'Мои заказы', icon: <ViewStreamIcon />, accent: true },
+        ],
+    },
+    {
+        title: 'Система',
+        items: [
+            { text: 'Настройки', icon: <SettingsIcon />, accent: false },
+            { text: 'Выход', icon: <LogoutIcon />, accent: false },
+        ],
+    },
+]
 
 const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
-    const DrawerList = (
-        <Box
-            sx={{ width: 250 }}
-            role="presentation"
-            onClick={() => {
-                setDrawerOpened(false)
-            }}
-        >
-            <List>
-                {['Все заказы', 'Мои заказы'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>{index % 2 === 0 ? <ViewModuleIcon /> : <StopIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['Настройки', 'Выход'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>{index % 2 === 0 ? <SettingsIcon /> : <LogoutIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    )
-
     return (
         <Drawer
             open={drawerOpened}
-            onClick={() => {
-                setDrawerOpened(false)
-            }}
+            onClose={() => setDrawerOpened(false)}
             PaperProps={{
                 sx: {
                     width: 280,
-                    background: 'rgba(255, 255, 255, 0.55)',
-                    backdropFilter: 'blur(16px)',
-                    WebkitBackdropFilter: 'blur(16px)',
-                    borderRight: '1px solid rgba(255, 255, 255, 0.4)',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
-                    color: '#1a1a1a',
-                    borderRadius: '0 20px 20px 0',
+                    background: 'rgba(18, 20, 26, 0.65)',
+                    backdropFilter: 'blur(18px)',
+                    WebkitBackdropFilter: 'blur(18px)',
+                    borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.65)',
+                    color: '#eaeaea',
+                    borderRadius: '0 18px 18px 0',
                 },
             }}
         >
-            {DrawerList}
+            <Box sx={{ width: 280, p: 1.5 }}>
+                {menuSections.map((section, sIndex) => (
+                    <Box key={sIndex} sx={{ mb: 3 }}>
+                        {section.title && (
+                            <Box
+                                sx={{
+                                    fontSize: 11,
+                                    opacity: 0.5,
+                                    px: 1,
+                                    mb: 1,
+                                    letterSpacing: 1.4,
+                                    color: '#9aa4b2',
+                                }}
+                            >
+                                {section.title}
+                            </Box>
+                        )}
+                        {section.items.map((item) => (
+                            <Box
+                                key={item.text}
+                                onClick={() => setDrawerOpened(false)}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 1.5,
+                                    px: 1.5,
+                                    py: 1.2,
+                                    mb: 1,
+                                    borderRadius: 3,
+                                    cursor: 'pointer',
+                                    transition: '0.2s',
+                                    background: 'rgba(255,255,255,0.04)',
+                                    '&:hover': {
+                                        background: 'rgba(120, 140, 255, 0.14)',
+                                        transform: 'translateX(5px)',
+                                        boxShadow: '0 8px 25px rgba(0,0,0,0.35)',
+                                    },
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        width: 36,
+                                        height: 36,
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        position: 'relative',
+                                        background: item.accent ? 'rgba(255, 23, 68, 0.12)' : 'rgba(255,255,255,0.04)',
+                                        color: item.accent ? '#ff5f8f' : '#9aa4b2',
+                                        transition: '0.2s',
+                                        '& svg': {
+                                            fontSize: 20,
+                                        },
+                                        '&:hover': item.accent
+                                            ? {
+                                                  background: 'rgba(255, 23, 68, 0.18)',
+                                                  color: '#ff1744',
+                                              }
+                                            : {
+                                                  background: 'rgba(255,255,255,0.08)',
+                                                  color: '#eaeaea',
+                                              },
+                                    }}
+                                >
+                                    {item.icon}
+                                </Box>
+                                <Box
+                                    sx={{
+                                        fontSize: 14,
+                                        fontWeight: 500,
+                                        color: '#eaeaea',
+                                    }}
+                                >
+                                    {item.text}
+                                </Box>
+                            </Box>
+                        ))}
+                    </Box>
+                ))}
+            </Box>
         </Drawer>
     )
 }
