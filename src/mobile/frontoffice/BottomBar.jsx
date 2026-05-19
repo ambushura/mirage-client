@@ -2,13 +2,19 @@ import { Box, Button } from '@mui/material'
 import { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import AddIcon from '@mui/icons-material/Add'
+import MergeRoundedIcon from '@mui/icons-material/MergeRounded'
+import CallSplitRoundedIcon from '@mui/icons-material/CallSplitRounded'
 import '../../ui/css/mobile/bottom-bar.css'
 
 export default function BottomBar({ setDrawerOpened }) {
     const [active, setActive] = useState('')
     const activeButtonList = ['']
 
-    const items = [{ id: 'new', label: 'Новый', icon: <AddIcon /> }]
+    const items = [
+        { id: 'new', label: 'Новый', icon: <AddIcon /> },
+        { id: 'merge', label: 'Объединить', icon: <MergeRoundedIcon /> },
+        { id: 'split', label: 'Разделить', icon: <CallSplitRoundedIcon /> },
+    ]
 
     return (
         <Box className="mobile-bottom-wrapper">

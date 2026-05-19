@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setCurrentInterface } from '../../../redux/mobile/frontoffice/frontMobileSlice.js'
 import DrawerSide from '../DrawerSide.jsx'
+import Order from './Order.jsx'
+import TopBar from '../TopBar.jsx'
 
 const Waiter = () => {
     const dispatch = useDispatch()
@@ -17,6 +19,21 @@ const Waiter = () => {
 
     return (
         <Box className="mobile">
+            <TopBar />
+            <Box className="mobile-orders">
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+                <Order />
+            </Box>
             <BottomBar setDrawerOpened={setDrawerOpened} />
             <DrawerSide drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened} />
         </Box>

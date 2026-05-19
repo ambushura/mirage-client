@@ -134,6 +134,10 @@ export const Theme = createTheme({
                     textTransform: 'none',
                     height: '60px',
                 },
+                defaultProps: {
+                    disableRipple: true,
+                    disableTouchRipple: true,
+                },
             },
             variants: [
                 {

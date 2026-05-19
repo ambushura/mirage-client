@@ -1,0 +1,24 @@
+.mobile-top-bar-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 14px 12px 10px;
+    z-index: 100;
+}
+
+.mobile-top-bar {
+    flex-shrink: 0;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.004);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
+}
+

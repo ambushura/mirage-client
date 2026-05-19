@@ -12,12 +12,24 @@
     );
 }
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
 .mobile {
     height: 100dvh;
     width: 100dvw;
-    background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
-    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
 }
 
 /* region СКРОЛЛ */
@@ -81,3 +93,21 @@
 }
 
 /* endregion */
+
+.mobile-orders {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
+    scroll-behavior: smooth;
+}
