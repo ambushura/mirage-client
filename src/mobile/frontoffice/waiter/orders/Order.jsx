@@ -1,5 +1,6 @@
 import { Box, Divider, Paper, Stack, Typography } from '@mui/material'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import './orders.css'
 
 export default function Order() {
     const order = {
@@ -25,7 +26,7 @@ export default function Order() {
                 borderRadius: 3,
                 padding: 1.5,
                 width: '100%',
-                maxWidth: 170,
+                maxWidth: 150,
                 display: 'flex',
                 flexDirection: 'column',
                 border: '1px solid rgba(255,255,255,0.06)',
@@ -86,11 +87,11 @@ export default function Order() {
                             py: 0.6,
                         }}
                     >
-                        <Typography fontSize={13} sx={{ opacity: 0.95 }}>
+                        <Typography fontSize={12} sx={{ opacity: 0.95 }}>
                             {index + 1}. {item.name}
                         </Typography>
 
-                        <Typography fontSize={13} color="rgba(255,255,255,0.6)">
+                        <Typography fontSize={12} color="rgba(255,255,255,0.6)">
                             {item.qty} {item.unit}
                         </Typography>
                     </Box>

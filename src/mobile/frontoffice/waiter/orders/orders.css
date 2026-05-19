@@ -1,0 +1,17 @@
+.mobile-orders {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
+    scroll-behavior: smooth;
+}

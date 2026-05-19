@@ -15,6 +15,11 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 import WeekendIcon from '@mui/icons-material/Weekend'
 import DataSaverOffIcon from '@mui/icons-material/DataSaverOff'
 import { MOBILE_WIDTH, setMobile } from '../redux/desktop/frontoffice/interfaceReducer.js'
+import LogoutIcon from '@mui/icons-material/Logout'
+import SettingsIcon from '@mui/icons-material/Settings'
+import ViewListIcon from '@mui/icons-material/ViewList'
+import ViewStreamIcon from '@mui/icons-material/ViewStream'
+import FrontHandIcon from '@mui/icons-material/FrontHand'
 
 const ThemeContext = createContext()
 
@@ -414,14 +419,22 @@ export const tooltip_error = {
 }
 
 export const center_menu_icons = [
-    <MenuIcon key="1" />,
-    <MovieIcon key="2" />,
-    <FastfoodIcon key="3" />,
-    <AssessmentIcon key="4" />,
-    <FolderIcon key="5" />,
-    <ArticleIcon key="6" />,
-    <CircleIcon key="7" />,
-    <DashboardIcon key="8" />,
-    <WeekendIcon key="9" />,
-    <DataSaverOffIcon key="10" />,
+    <MenuIcon key="0" />,
+    <MovieIcon key="1" />,
+    <FastfoodIcon key="2" />,
+    <AssessmentIcon key="3" />,
+    <FolderIcon key="4" />,
+    <ArticleIcon key="5" />,
+    <CircleIcon key="6" />,
+    <DashboardIcon key="7" />,
+    <WeekendIcon key="8" />,
+    <DataSaverOffIcon key="9" />,
+]
+
+export const DRAWER_MENU_ICONS = [
+    <ViewStreamIcon key="0" />,
+    <ViewListIcon key="1" />,
+    <FrontHandIcon key="2" />,
+    <SettingsIcon key="3" />,
+    <LogoutIcon key="4" />,
 ]

@@ -1,43 +1,41 @@
 import { Box } from '@mui/material'
-import '../../../ui/css/mobile/common.css'
-import BottomBar from '../BottomBar.jsx'
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setCurrentInterface } from '../../../redux/mobile/frontoffice/frontMobileSlice.js'
-import DrawerSide from '../DrawerSide.jsx'
-import Order from './Order.jsx'
-import TopBar from '../TopBar.jsx'
+import '../../mobile.css'
+import BottomBar from '../bottom_bar/BottomBar.jsx'
+import { useState } from 'react'
+import DrawerSide from '../drawer/DrawerSide.jsx'
+import TopBar from '../top_bar/TopBar.jsx'
+import { useParams } from 'react-router-dom'
+import Orders from '../../../desktop/backoffice/pages/cinema/Orders.jsx'
+import Order from './order/Order.jsx'
 
 const Waiter = () => {
-    const dispatch = useDispatch()
-
+    const params = useParams()
     const [drawerOpened, setDrawerOpened] = useState(false)
-
-    useEffect(() => {
-        dispatch(setCurrentInterface('waiter'))
-    }, [dispatch])
 
     return (
         <Box className="mobile">
-            <TopBar />
+            <TopBar title={getTopBarTitle(params.current_page)} />
             <Box className="mobile-orders">
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
-                <Order />
+                {['my-orders', 'all-orders'].includes(params.current_page) && <Orders current_page={params.current_page} />}
+                {params.current_page === 'order' && <Order />}
             </Box>
-            <BottomBar setDrawerOpened={setDrawerOpened} />
-            <DrawerSide drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened} />
+            <BottomBar setDrawerOpened={setDrawerOpened} current_page={params.current_page} />
+            <DrawerSide drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened} surface="waiter" />
         </Box>
     )
 }
 
 export default Waiter
+
+function getTopBarTitle(current_page) {
+    switch (current_page) {
+        case 'all-orders':
+            return 'Все заказы'
+        case 'my-orders':
+            return 'Мои заказы'
+        case 'order':
+            return 'Новый заказ'
+        default:
+            return 'Неизвестная страница'
+    }
+}

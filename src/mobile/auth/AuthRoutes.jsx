@@ -8,15 +8,26 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import CityPage from './CityPage.jsx'
 import FilialPage from './FilialPage.jsx'
 import LoginPage from './LoginPage.jsx'
-import '../../ui/css/mobile/auth.css'
-import '../../ui/css/mobile/common.css'
+import './auth.css'
+import '../mobile.css'
 import InterfacePage from './InterfacePage.jsx'
 import useSetCityAndFilial from '../hooks/useSetCityAndFilial.js'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { logout } from '../../redux/desktop/frontoffice/authReducer.js'
 
 const AuthRoutes = () => {
     const location = useLocation()
 
     useSetCityAndFilial()
+
+    const LogoutRedirect = () => {
+        const dispatch = useDispatch()
+        useEffect(() => {
+            dispatch(logout())
+        }, [dispatch])
+        return <Navigate to="/mobile" replace />
+    }
 
     return (
         <Box className="mobile">
@@ -48,13 +59,14 @@ const AuthRoutes = () => {
                         }
                     />
                     <Route
-                        path="/mobile/:param_city/:param_filial/:interface_param"
+                        path="/mobile/:param_city/:param_filial/:current_page"
                         element={
                             <PageWrapper>
                                 <LoginPage />
                             </PageWrapper>
                         }
                     />
+                    <Route path="/mobile/:param_city/:param_filial/:current_page/*" element={<LogoutRedirect />} />
                 </Routes>
             </AnimatePresence>
         </Box>

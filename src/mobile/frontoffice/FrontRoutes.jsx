@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { PageWrapper } from '../auth/AuthRoutes.jsx'
 import { logout } from '../../redux/desktop/frontoffice/authReducer.js'
 
-const FrontRoutes = () => {
+export default function FrontRoutes() {
     useSetCityAndFilial()
 
     const LogoutRedirect = () => {
@@ -23,14 +23,8 @@ const FrontRoutes = () => {
     return (
         <Box>
             <Routes>
-                <Route
-                    path="/mobile/:param_city/:param_filial/waiter"
-                    element={
-                        <PageWrapper>
-                            <Waiter />
-                        </PageWrapper>
-                    }
-                />
+                {WaiterRoutes()}
+                <Route path="/" element={<Navigate to="/mobile" replace />} />
                 <Route
                     path="/mobile/:param_city/:param_filial/urm"
                     element={
@@ -55,10 +49,25 @@ const FrontRoutes = () => {
                         </PageWrapper>
                     }
                 />
+
                 <Route path="/mobile/*" element={<LogoutRedirect />} />
             </Routes>
         </Box>
     )
 }
 
-export default FrontRoutes
+export function WaiterRoutes() {
+    return (
+        <>
+            <Route path="/mobile/:param_city/:param_filial/waiter" element={<Navigate to="my-orders" replace />} />
+            <Route
+                path="/mobile/:param_city/:param_filial/waiter/:current_page"
+                element={
+                    <PageWrapper>
+                        <Waiter />
+                    </PageWrapper>
+                }
+            />
+        </>
+    )
+}

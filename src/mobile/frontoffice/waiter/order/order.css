@@ -1,0 +1,91 @@
+.order-layout {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+/* TOP */
+.order-top {
+    flex: 0.55;
+    overflow: auto;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+}
+
+.order-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+}
+
+.order-total {
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+/* BOTTOM */
+.order-bottom {
+    flex: 0.45;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+}
+
+/* навигация */
+.menu-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-title {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* папки */
+.folder-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.folder-card {
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+/* блюда */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.item-card {
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+}

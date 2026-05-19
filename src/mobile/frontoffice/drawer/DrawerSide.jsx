@@ -1,32 +1,17 @@
 import { Box, Drawer } from '@mui/material'
-import LogoutIcon from '@mui/icons-material/Logout'
-import SettingsIcon from '@mui/icons-material/Settings'
-import ViewListIcon from '@mui/icons-material/ViewList'
-import ViewStreamIcon from '@mui/icons-material/ViewStream'
-import FrontHandIcon from '@mui/icons-material/FrontHand'
-import { logout } from '../../redux/desktop/frontoffice/authReducer.js'
-import { useDispatch } from 'react-redux'
+import { logout } from '../../../redux/desktop/frontoffice/authReducer.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { DRAWER_MENU } from '../../../redux/mobile/frontoffice/frontMobileSlice.js'
+import { DRAWER_MENU_ICONS } from '../../../ui/ThemeContext.jsx'
 
-const menuSections = [
-    {
-        title: 'Основное',
-        items: [
-            { id: 'all_orders', text: 'Все заказы', icon: <ViewListIcon />, accent: true },
-            { id: 'my_orders', text: 'Мои заказы', icon: <ViewStreamIcon />, accent: true },
-            { id: 'stop_lists', text: 'Стоп-листы', icon: <FrontHandIcon />, accent: true },
-        ],
-    },
-    {
-        title: 'Система',
-        items: [
-            { id: 'settings', text: 'Настройки', icon: <SettingsIcon />, accent: false },
-            { id: 'logout', text: 'Выход', icon: <LogoutIcon />, accent: false },
-        ],
-    },
-]
-
-const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
+const DrawerSide = ({ drawerOpened, setDrawerOpened, surface }) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { city, filial } = useSelector((state) => state.front_mobile)
+
+    const menu = DRAWER_MENU.find((el) => el.surface === surface)?.menu || []
+
     return (
         <Drawer
             open={drawerOpened}
@@ -45,7 +30,7 @@ const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
             }}
         >
             <Box sx={{ width: 280, p: 1.5 }}>
-                {menuSections.map((section, sIndex) => (
+                {menu.map((section, sIndex) => (
                     <Box key={sIndex} sx={{ mb: 3 }}>
                         {section.title && (
                             <Box
@@ -66,8 +51,22 @@ const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
                                 key={item.text}
                                 onClick={() => {
                                     setDrawerOpened(false)
-                                    if (item.id === 'logout') {
-                                        dispatch(logout())
+                                    switch (item.id) {
+                                        case 'logout':
+                                            dispatch(logout())
+                                            return
+                                        case 'my-orders':
+                                            if (city !== null && filial !== null)
+                                                navigate(`/mobile/${city.code}/${filial.eais}/waiter/my-orders`)
+                                            return
+                                        case 'all-orders':
+                                            if (city !== null && filial !== null)
+                                                navigate(`/mobile/${city.code}/${filial.eais}/waiter/all-orders`)
+                                            return
+                                        case 'stop_lists':
+                                            return
+                                        default:
+                                            return
                                     }
                                 }}
                                 sx={{
@@ -115,7 +114,7 @@ const DrawerSide = ({ drawerOpened, setDrawerOpened }) => {
                                               },
                                     }}
                                 >
-                                    {item.icon}
+                                    {DRAWER_MENU_ICONS[item.icon]}
                                 </Box>
                                 <Box
                                     sx={{

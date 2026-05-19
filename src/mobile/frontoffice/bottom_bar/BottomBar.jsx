@@ -2,19 +2,13 @@ import { Box, Button } from '@mui/material'
 import { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import AddIcon from '@mui/icons-material/Add'
-import MergeRoundedIcon from '@mui/icons-material/MergeRounded'
-import CallSplitRoundedIcon from '@mui/icons-material/CallSplitRounded'
-import '../../ui/css/mobile/bottom-bar.css'
+import './bottom-bar.css'
 
-export default function BottomBar({ setDrawerOpened }) {
-    const [active, setActive] = useState('')
-    const activeButtonList = ['']
+export default function BottomBar({ setDrawerOpened, current_page }) {
+    const [active, setActive] = useState([])
+    const activeButtonList = ['waiting', 'done', 'canceled']
 
-    const items = [
-        { id: 'new', label: 'Новый', icon: <AddIcon /> },
-        { id: 'merge', label: 'Объединить', icon: <MergeRoundedIcon /> },
-        { id: 'split', label: 'Разделить', icon: <CallSplitRoundedIcon /> },
-    ]
+    const items = [{ id: 'new', label: 'Новый', icon: <AddIcon /> }]
 
     return (
         <Box className="mobile-bottom-wrapper">
@@ -25,11 +19,15 @@ export default function BottomBar({ setDrawerOpened }) {
                             <Button
                                 key={item.id}
                                 onClick={() => {
-                                    if (activeButtonList.includes(item.id)) {
-                                        setActive(item.id)
-                                    }
+                                    if (!activeButtonList.includes(item.id)) return
+                                    setActive((prev) => {
+                                        if (prev.includes(item.id)) {
+                                            return prev.filter((id) => id !== item.id)
+                                        }
+                                        return [...prev, item.id]
+                                    })
                                 }}
-                                className={`mobile-bottom-item ${active === item.id && activeButtonList.includes(item.id) ? 'active' : ''}`}
+                                className={`mobile-bottom-item ${active.includes(item.id) ? 'active' : ''}`}
                             >
                                 <Box className="mobile-bottom-icon">{item.icon}</Box>
                                 <Box className="mobile-bottom-text">{item.label}</Box>
@@ -44,7 +42,7 @@ export default function BottomBar({ setDrawerOpened }) {
                     }}
                 >
                     <MenuIcon />
-                    <Box className="mobile-bottom-text">Главная</Box>
+                    <Box className="mobile-bottom-text"></Box>
                 </Button>
             </Box>
         </Box>
