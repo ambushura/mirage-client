@@ -7,10 +7,13 @@ import TopBar from '../top_bar/TopBar.jsx'
 import { useParams } from 'react-router-dom'
 import Orders from '../../../desktop/backoffice/pages/cinema/Orders.jsx'
 import Order from './order/Order.jsx'
+import useSetCityAndFilial from '../../hooks/useSetCityAndFilial.js'
 
 const Waiter = () => {
     const params = useParams()
     const [drawerOpened, setDrawerOpened] = useState(false)
+
+    useSetCityAndFilial()
 
     return (
         <Box className="mobile">
@@ -19,8 +22,8 @@ const Waiter = () => {
                 {['my-orders', 'all-orders'].includes(params.current_page) && <Orders current_page={params.current_page} />}
                 {params.current_page === 'order' && <Order />}
             </Box>
-            <BottomBar setDrawerOpened={setDrawerOpened} current_page={params.current_page} />
-            <DrawerSide drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened} surface="waiter" />
+            <BottomBar setDrawerOpened={setDrawerOpened} surface="waiter" current_page={params.current_page} />
+            <DrawerSide drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened} surface="waiter" current_page={params.current_page} />
         </Box>
     )
 }
@@ -35,6 +38,8 @@ function getTopBarTitle(current_page) {
             return 'Мои заказы'
         case 'order':
             return 'Новый заказ'
+        case 'stop-list':
+            return 'Стоп-лист'
         default:
             return 'Неизвестная страница'
     }

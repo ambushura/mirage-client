@@ -49,7 +49,6 @@ export default function FrontRoutes() {
                         </PageWrapper>
                     }
                 />
-
                 <Route path="/mobile/*" element={<LogoutRedirect />} />
             </Routes>
         </Box>

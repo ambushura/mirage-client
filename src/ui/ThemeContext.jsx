@@ -20,6 +20,9 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import ViewListIcon from '@mui/icons-material/ViewList'
 import ViewStreamIcon from '@mui/icons-material/ViewStream'
 import FrontHandIcon from '@mui/icons-material/FrontHand'
+import AddIcon from '@mui/icons-material/Add'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const ThemeContext = createContext()
 
@@ -431,6 +434,8 @@ export const center_menu_icons = [
     <DataSaverOffIcon key="9" />,
 ]
 
+// region МОБИЛЬНАЯ ВЕРСИЯ
+
 export const DRAWER_MENU_ICONS = [
     <ViewStreamIcon key="0" />,
     <ViewListIcon key="1" />,
@@ -438,3 +443,7 @@ export const DRAWER_MENU_ICONS = [
     <SettingsIcon key="3" />,
     <LogoutIcon key="4" />,
 ]
+
+export const BOTTOM_MENU_ICONS = [<AddIcon key="0" />, <ArrowBackIcon key="1" />, <ExpandMoreIcon key="2" />]
+
+// endregion

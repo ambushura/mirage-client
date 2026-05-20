@@ -184,13 +184,13 @@
 }
 
 .mobile-key.danger {
-    color: #ff6b6b !important;
+    color: #ff3b47 !important;
 }
 
 .mobile-primary-button {
     margin-top: 6px !important;
     border-radius: 18px !important;
-    background: linear-gradient(135deg, #ff5252 0%, #ff1744 100%) !important;
+    background: var(--bgr-button-active) !important;
     color: white !important;
     font-weight: 700 !important;
     text-transform: none !important;

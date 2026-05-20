@@ -8,7 +8,9 @@
     --mobile-blur: blur(10px);
     --bgr-mobile-scroll: #696969;
     --bgr-button-active: linear-gradient(
-        135deg, #ff5f8f 0%, #ff1744 100%
+        135deg,
+        #ff3b47 0%,
+        #7a0005 100%
     );
 }
 
