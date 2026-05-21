@@ -147,7 +147,7 @@ const FoodMenu = () => {
                         {Array.from({
                             length: Math.max(0, 3 - pagedItems.slice(rowIndex * 3, rowIndex * 3 + 3).length),
                         }).map((_, i) => (
-                            <Box key={`empty-${rowIndex}-${i}`} className="mobile-menu-cell" />
+                            <Box key={`empty-${rowIndex}-${i}`} className="mobile-menu-cell empty" />
                         ))}
                     </Box>
                 ))}
