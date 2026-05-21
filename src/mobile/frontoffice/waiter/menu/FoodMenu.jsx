@@ -139,7 +139,13 @@ const FoodMenu = () => {
                                     className={`mobile-menu-tile ${el.type}`}
                                     onClick={() => (el.type === 'folder' ? openFolder(el) : console.log(el))}
                                 >
-                                    <Box className="tile-text">{el.name}</Box>
+                                    <Box className="tile-content">
+                                        <Box className="tile-name">{el.name}</Box>
+
+                                        {el.type !== 'folder' ? (
+                                            <Box className="tile-price">{Number(el.price || 0).toLocaleString('ru-RU')}</Box>
+                                        ) : null}
+                                    </Box>
                                 </Button>
                             </Box>
                         ))}
