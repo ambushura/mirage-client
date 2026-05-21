@@ -94,17 +94,18 @@ const FoodMenu = () => {
             <Box className="mobile-menu-header">
                 <Box className="mobile-menu-title">{currentFolder.title}</Box>
                 <Box className="page-controls">
-                    <Button onClick={prevPage}>
+                    <Button onClick={prevPage} className="mobile-food-menu-panel-button">
                         <ChevronLeftIcon />
                     </Button>
                     <Box>
                         {page + 1} / {pagesCount || 1}
                     </Box>
-                    <Button onClick={nextPage}>
+                    <Button onClick={nextPage} className="mobile-food-menu-panel-button">
                         <ChevronRightIcon />
                     </Button>
                 </Box>
                 <Button
+                    className="mobile-food-menu-panel-button"
                     onClick={() => {
                         setStack([{ uid: 'Меню', title: 'Меню' }])
                         setPage(0)
@@ -113,7 +114,7 @@ const FoodMenu = () => {
                 >
                     <HomeIcon />
                 </Button>
-                <Button onClick={goBack} disabled={stack.length === 1}>
+                <Button onClick={goBack} disabled={stack.length === 1} className="mobile-food-menu-panel-button">
                     <KeyboardArrowUpIcon />
                 </Button>
             </Box>
