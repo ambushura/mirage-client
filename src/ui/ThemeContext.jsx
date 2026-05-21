@@ -25,6 +25,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import PrintIcon from '@mui/icons-material/Print'
 import ReceiptIcon from '@mui/icons-material/Receipt'
+import BlockIcon from '@mui/icons-material/Block'
 
 const ThemeContext = createContext()
 
@@ -452,6 +453,7 @@ export const BOTTOM_MENU_ICONS = [
     <ExpandMoreIcon key="2" />,
     <PrintIcon key="3" />,
     <ReceiptIcon key="4" />,
+    <BlockIcon key="5" />,
 ]
 
 // endregion

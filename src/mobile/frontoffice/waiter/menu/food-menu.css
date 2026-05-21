@@ -71,7 +71,6 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 24px;
-    background: #161616;
 }
 
 .mobile-menu-row {
@@ -84,7 +83,7 @@
     flex: 1 1 0%;
     min-width: 0;
     min-height: 0;
-    background: #161616;
+
 }
 
 .mobile-menu-cell button {
@@ -101,7 +100,7 @@
 }
 
 .mobile-menu-cell.empty {
-    background: #161616;
+
 }
 
 .mobile-menu-tile:active {

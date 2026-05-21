@@ -52,6 +52,19 @@ export default function BottomBar({ setDrawerOpened, surface, current_page }) {
                             ))}
                         </Box>
                     </Box>
+                    {['order'].includes(current_page) && (
+                        <Button
+                            className="mobile-bottom-item"
+                            onClick={() => {
+                                navigate(-1)
+                            }}
+                        >
+                            <Box className="mobile-bottom-icon">
+                                <ArrowBackIcon />
+                            </Box>
+                            <Box className="mobile-bottom-text">Назад</Box>
+                        </Button>
+                    )}
                     {surface === 'waiter' && current_page === 'order' && (
                         <Button className="mobile-bottom-item" onClick={() => setExpandedMenu((v) => !v)}>
                             {expandedMenu ? (
@@ -64,19 +77,6 @@ export default function BottomBar({ setDrawerOpened, surface, current_page }) {
                                 <ExpandLessIcon />
                             )}
                             <Box className="mobile-bottom-text">Меню</Box>
-                        </Button>
-                    )}
-                    {['order'].includes(current_page) && (
-                        <Button
-                            className="mobile-bottom-item"
-                            onClick={() => {
-                                navigate(-1)
-                            }}
-                        >
-                            <Box className="mobile-bottom-icon">
-                                <ArrowBackIcon />
-                            </Box>
-                            <Box className="mobile-bottom-text">Назад</Box>
                         </Button>
                     )}
                     <Button className="mobile-bottom-home" onClick={() => setDrawerOpened(true)}>
