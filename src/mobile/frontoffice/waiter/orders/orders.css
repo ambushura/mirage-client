@@ -1,33 +1,25 @@
 .mobile-orders {
     width: 100%;
-
+    background: #111315;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 12px;
-
     align-content: start;
-
     padding-bottom: 12px;
     box-sizing: border-box;
 }
 
 .mobile-order-card {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.3) !important;
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 22px !important;
-
     padding: 14px;
-
     color: #ffffff;
-
     display: flex;
     flex-direction: column;
-
     min-height: 240px;
-
     transition: 0.2s ease;
 }
 
@@ -39,9 +31,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-
     gap: 8px;
-
     margin-bottom: 10px;
 }
 
@@ -67,12 +57,9 @@
 
 .mobile-order-card-items {
     flex: 1;
-
     overflow-y: auto;
-
     margin-top: 10px;
     margin-bottom: 10px;
-
     padding-right: 4px;
 }
 
@@ -89,9 +76,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 10px;
-
     padding: 6px 0;
 }
 
@@ -103,7 +88,6 @@
 .mobile-order-card-item-qty {
     font-size: 12px !important;
     color: rgba(255, 255, 255, 0.55);
-
     white-space: nowrap;
 }
 
@@ -111,7 +95,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     margin-top: 10px;
 }
 
