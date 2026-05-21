@@ -1,91 +1,66 @@
-.order-layout {
-    width: 100vw;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.mobile-order-layout {
+    width: 100%;
+    min-height: 100%;
+}
+
+.mobile-order-panel {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+
+    padding: 16px;
+
     color: white;
 }
 
-/* TOP */
-.order-top {
-    flex: 0.55;
-    overflow: auto;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
+.mobile-order-title {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+
+    margin-bottom: 14px !important;
 }
 
-.order-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
+.mobile-order-search {
+    margin-bottom: 16px;
 }
 
-.order-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.order-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 10px;
-}
-
-.order-total {
-    margin-top: 10px;
-    font-weight: 700;
-}
-
-/* BOTTOM */
-.order-bottom {
-    flex: 0.45;
+.mobile-order-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 16px;
+
+    margin-bottom: 16px;
 }
 
-/* навигация */
-.menu-nav {
+.mobile-order-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
+    justify-content: space-between;
 
-.menu-title {
-    font-size: 14px;
-    opacity: 0.8;
-}
+    gap: 12px;
 
-/* папки */
-.folder-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.folder-card {
     padding: 14px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.05);
-    text-align: center;
+
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+
+    font-size: 14px;
 }
 
-/* блюда */
-.items-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+.mobile-order-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 16px;
+
+    font-size: 18px;
+    font-weight: 700;
 }
 
-.item-card {
-    padding: 12px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.06);
+.mobile-order-total span {
+    color: #ffffff;
 }

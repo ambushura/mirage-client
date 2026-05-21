@@ -37,6 +37,13 @@ import OperationCloseShift from './forms/OperationCloseShift.jsx'
 import Dialog from './forms/Dialog.jsx'
 import KitchenPrint from './forms/KitchenPrint.jsx'
 
+import '../../ui/css/main.css'
+import '../../ui/css/new-main.css'
+import '../../ui/css/checkout.css'
+import '../../ui/css/films.css'
+import '../../ui/css/seance.css'
+import '../../ui/css/center.css'
+
 const ModalComponents = {
     table_options: TableOptions,
     quantity: Quantity,

@@ -9,7 +9,6 @@ const Order = () => {
             name: 'Горячее',
             items: [
                 { id: 1, name: 'Стейк', price: 1200 },
-
                 { id: 2, name: 'Паста', price: 600 },
             ],
         },
@@ -36,23 +35,27 @@ const Order = () => {
     }, [folder])
 
     return (
-        <Box className="order-layout">
-            {/* TOP — заказ */}
-            <Box className="order-top">
-                <Typography className="order-title">Новый заказ</Typography>
+        <Box className="mobile-order-layout">
+            <Box className="mobile-order-panel">
+                <Typography className="mobile-order-title">Новый заказ</Typography>
 
-                <Box className="order-list">
+                <SearchBar value={query} onChange={setQuery} />
+
+                <Box className="mobile-order-list">
                     {order.map((item, idx) => (
-                        <Box key={idx} className="order-item">
+                        <Box key={idx} className="mobile-order-item">
                             <span>{item.name}</span>
                             <span>{item.price} RUB</span>
                         </Box>
                     ))}
                 </Box>
 
-                <Divider sx={{ opacity: 0.1 }} />
+                <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
 
-                <Box className="order-total">Итого: {order.reduce((s, i) => s + i.price, 0)} RUB</Box>
+                <Box className="mobile-order-total">
+                    Итого:
+                    <span>{order.reduce((s, i) => s + i.price, 0)} RUB</span>
+                </Box>
             </Box>
         </Box>
     )
@@ -60,9 +63,9 @@ const Order = () => {
 
 export default Order
 
-export function SearchBar({ value, onChange, onSelect }) {
+export function SearchBar({ value, onChange }) {
     return (
-        <Box className="search-bar">
+        <Box className="mobile-order-search">
             <TextField
                 fullWidth
                 size="small"
@@ -70,11 +73,29 @@ export function SearchBar({ value, onChange, onSelect }) {
                 onChange={(e) => onChange(e.target.value)}
                 placeholder="Поиск блюда..."
                 sx={{
-                    input: { color: 'white' },
+                    '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255,255,255,0.04)',
+                        borderRadius: '16px',
+                        color: '#fff',
+
+                        '& fieldset': {
+                            borderColor: 'rgba(255,255,255,0.06)',
+                        },
+
+                        '&:hover fieldset': {
+                            borderColor: 'rgba(255,255,255,0.12)',
+                        },
+
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#E3000B',
+                        },
+                    },
+
+                    input: {
+                        color: '#fff',
+                    },
                 }}
             />
-
-            {/* сюда потом подключишь свой Autocomplete dropdown */}
         </Box>
     )
 }

@@ -5,10 +5,9 @@ import DrawerSide from '../drawer/DrawerSide.jsx'
 import '../../mobile.css'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Orders from '../../../desktop/backoffice/pages/cinema/Orders.jsx'
+import Orders from './orders/Orders.jsx'
 import Order from './order/Order.jsx'
 import useSetCityAndFilial from '../../hooks/useSetCityAndFilial.js'
-import MobileLayout from '../../MobileLayout.jsx'
 
 const Waiter = () => {
     const params = useParams()
@@ -17,19 +16,15 @@ const Waiter = () => {
     useSetCityAndFilial()
 
     return (
-        <MobileLayout
-            header={<TopBar title={getTopBarTitle(params.current_page)} />}
-            footer={<BottomBar setDrawerOpened={setDrawerOpened} surface="waiter" current_page={params.current_page} />}
-        >
-            {/* Содержимое страницы будет скроллиться в центре */}
-            <Box>
+        <>
+            <TopBar title={getTopBarTitle(params.current_page)} />
+            <Box sx={{ height: '100%' }}>
                 {['my-orders', 'all-orders'].includes(params.current_page) && <Orders current_page={params.current_page} />}
                 {params.current_page === 'order' && <Order />}
             </Box>
-
-            {/* Боковое меню - отдельно от макета */}
+            <BottomBar setDrawerOpened={setDrawerOpened} surface="waiter" current_page={params.current_page} />
             <DrawerSide drawerOpened={drawerOpened} setDrawerOpened={setDrawerOpened} surface="waiter" current_page={params.current_page} />
-        </MobileLayout>
+        </>
     )
 }
 

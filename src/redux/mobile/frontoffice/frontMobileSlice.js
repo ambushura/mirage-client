@@ -55,7 +55,6 @@ const WAITER_MENU = [{ id: 'order', text: 'Новый', icon: 0 }]
 const ORDER_MENU = [
     { id: 'bill', text: 'Счет', icon: 3 },
     { id: 'pay', text: 'Оплатить', icon: 4 },
-    { id: 'back', text: 'Назад', icon: 1 },
 ]
 
 // Нижнее меню

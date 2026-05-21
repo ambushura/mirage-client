@@ -1,4 +1,49 @@
-.mobile-menu {
-    min-width: 500px;
-    min-height: 500px;
+/* =========================
+   CHIP (папки)
+========================= */
+
+.mobile-bottom-chip {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 12px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.mobile-bottom-chip.active {
+    background: linear-gradient(135deg, #ff5f8f 0%, #e3000b 100%) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* =========================
+   БЛЮДА (компактные карточки)
+========================= */
+
+.mobile-bottom-food-chip {
+    flex: 0 0 calc(50% - 4px) !important;
+    max-height: 80px !important;
+    border-radius: 14px !important;
+    padding: 20px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-transform: none !important;
+}
+
+.mobile-bottom-food-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

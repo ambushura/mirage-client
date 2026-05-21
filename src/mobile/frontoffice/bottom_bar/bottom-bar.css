@@ -2,12 +2,16 @@
    ОБЕРТКА
 ========================= */
 
+.mobile-order-layout {
+    background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
+}
+
 .mobile-bottom-wrapper {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 10px 12px 14px;
+    padding: 10px;
     z-index: 100;
 }
 
@@ -18,13 +22,7 @@
 .mobile-bottom-bar {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     padding: 6px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
 }
 
 .mobile-bottom-top-row,
@@ -52,9 +50,7 @@
         #ff5f8f 0%,
         #E3000B 100%
     ) !important;
-
     color: white !important;
-
     border: none !important;
 }
 
@@ -158,7 +154,7 @@
 ========================= */
 
 .mobile-bottom-text {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.75);
 }
@@ -169,22 +165,28 @@
 ========================= */
 
 .mobile-bottom-menu-panel {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 90px;
+    transform: translateY(120%);
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 0.25s ease,
+    height 0.25s ease,
+    padding 0.25s ease;
+    pointer-events: none;
+}
+
+.mobile-bottom-menu-panel.open {
+    transform: translateY(0);
+    opacity: 1;
     height: 50vh;
     max-height: 520px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     padding: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 22px;
     overflow: hidden;
+    pointer-events: auto;
+    border-radius: 22px;
+    margin-bottom: 10px;
 }
 
 /* =========================
@@ -223,52 +225,47 @@
     display: none;
 }
 
-/* =========================
-   CHIP (папки)
-========================= */
-
-.mobile-bottom-chip {
-    height: 34px !important;
-    min-height: 34px !important;
-    padding: 0 12px !important;
-    border-radius: 999px !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    text-transform: none !important;
-    color: rgba(255, 255, 255, 0.75) !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.mobile-bottom-chip.active {
-    background: linear-gradient(135deg, #ff5f8f 0%, #e3000b 100%) !important;
-    color: #fff !important;
-    border: none !important;
-}
-
-/* =========================
-   БЛЮДА (компактные карточки)
-========================= */
-
-.mobile-bottom-food-chip {
-    flex: 0 0 calc(50% - 4px) !important;
-    max-height: 80px !important;
-    border-radius: 14px !important;
-    padding: 20px !important;
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-transform: none !important;
-}
-
-.mobile-bottom-food-name {
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
-    text-align: center;
-    line-height: 1.1;
+.liquid-glass {
+    position: relative;
     overflow: hidden;
-    text-overflow: ellipsis;
+    border-radius: 24px;
+    background: rgba(20, 20, 20, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    transform: translateZ(0);
+}
+
+.liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 20% 15%,
+        rgba(255, 255, 255, 0.25),
+        transparent 40%
+    ),
+    radial-gradient(
+        circle at 80% 80%,
+        rgba(255, 255, 255, 0.12),
+        transparent 45%
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.liquid-glass:hover {
+    backdrop-filter: blur(34px) saturate(240%);
+    -webkit-backdrop-filter: blur(34px) saturate(240%);
+    transition: all 0.25s ease;
 }

@@ -4,94 +4,30 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import './bottom-bar.css'
 import { BOTTOM_MENU } from '../../../redux/mobile/frontoffice/frontMobileSlice.js'
 import { BOTTOM_MENU_ICONS } from '../../../ui/ThemeContext.jsx'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { horeca_menu_get } from '../../../service/fetch_service.js'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import FoodMenu from '../waiter/menu/FoodMenu.jsx'
 
 export default function BottomBar({ setDrawerOpened, surface, current_page }) {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
+    const page = BOTTOM_MENU.find((el) => el.name === surface)?.pages.find((el) => el.name.includes(current_page))
     const { city, filial } = useSelector((state) => state.front_mobile)
-
     const [expandedMenu, setExpandedMenu] = useState(false)
-    const [activeFolder, setActiveFolder] = useState('burger')
-
-    const [uidFolder, setUidFolder] = useState('Меню')
-    const [foodMenu, setFoodMenu] = useState()
+    const menu = page?.menu || []
 
     useEffect(() => {
         setExpandedMenu(surface === 'waiter' && current_page === 'order')
     }, [surface, current_page])
 
-    useEffect(() => {
-        const fetch = async () => {
-            const res = await dispatch(horeca_menu_get(filial, uidFolder))
-            if (res.loading) {
-            } else if (res.error === null && res.data !== null) {
-                setFoodMenu(res.data)
-            }
-        }
-        if (filial !== null) {
-            fetch()
-        }
-    }, [dispatch, filial, uidFolder])
-
-    const page = BOTTOM_MENU.find((el) => el.name === surface)?.pages.find((el) => el.name.includes(current_page))
-
-    const menu = page?.menu || []
-
     return (
         <Box className="mobile-bottom-wrapper">
-            <Box className="mobile-bottom-bar">
-                {expandedMenu && (
-                    <Box className="mobile-bottom-menu-panel">
-                        {/* FOLDERS */}
-                        <Box className="mobile-bottom-menu-section">
-                            <Box className="mobile-bottom-menu-title">Разделы</Box>
-
-                            <Box className="mobile-bottom-menu-scroll">
-                                {foodMenu?.items
-                                    ?.filter((el) => el.its_folder)
-                                    .map((folder) => (
-                                        <Button
-                                            key={folder.uid}
-                                            onClick={() => {
-                                                setUidFolder(folder.uid)
-                                                setActiveFolder(folder.uid)
-                                            }}
-                                            className={`mobile-bottom-chip ${activeFolder === folder.uid ? 'active' : ''}`}
-                                        >
-                                            {folder.name}
-                                        </Button>
-                                    ))}
-                            </Box>
-                        </Box>
-
-                        {/* FOODS */}
-                        <Box className="mobile-bottom-menu-section">
-                            <Box className="mobile-bottom-menu-title">Блюда</Box>
-
-                            <Box className="mobile-bottom-menu-scroll">
-                                {foodMenu?.items
-                                    ?.filter((el) => !el.its_folder)
-                                    .map((item) => (
-                                        <Button
-                                            key={item.uid}
-                                            className="mobile-bottom-food-chip"
-                                            onClick={() => {
-                                                // тут можешь добавить действие добавления в заказ
-                                                console.log(item)
-                                            }}
-                                        >
-                                            <Box className="mobile-bottom-food-name">{item.name}</Box>
-                                        </Button>
-                                    ))}
-                            </Box>
-                        </Box>
-                    </Box>
-                )}
+            <Box className="mobile-bottom-bar liquid-glass">
+                <Box className={`mobile-bottom-menu-panel ${expandedMenu ? 'open' : ''}`}>
+                    <FoodMenu />
+                </Box>
                 <Box className="mobile-bottom-bottom-row">
                     <Box className="mobile-bottom-scroll-clip">
                         <Box className="mobile-bottom-scroll">
@@ -117,7 +53,7 @@ export default function BottomBar({ setDrawerOpened, surface, current_page }) {
                         </Box>
                     </Box>
                     {surface === 'waiter' && current_page === 'order' && (
-                        <Button className="mobile-bottom-home" onClick={() => setExpandedMenu((v) => !v)}>
+                        <Button className="mobile-bottom-item" onClick={() => setExpandedMenu((v) => !v)}>
                             {expandedMenu ? (
                                 <ExpandLessIcon
                                     style={{
@@ -127,7 +63,20 @@ export default function BottomBar({ setDrawerOpened, surface, current_page }) {
                             ) : (
                                 <ExpandLessIcon />
                             )}
-                            <Box className="mobile-bottom-text">{expandedMenu ? 'Скрыть меню' : 'Показать меню'}</Box>
+                            <Box className="mobile-bottom-text">Меню</Box>
+                        </Button>
+                    )}
+                    {['order'].includes(current_page) && (
+                        <Button
+                            className="mobile-bottom-item"
+                            onClick={() => {
+                                navigate(-1)
+                            }}
+                        >
+                            <Box className="mobile-bottom-icon">
+                                <ArrowBackIcon />
+                            </Box>
+                            <Box className="mobile-bottom-text">Назад</Box>
                         </Button>
                     )}
                     <Button className="mobile-bottom-home" onClick={() => setDrawerOpened(true)}>
@@ -155,11 +104,7 @@ export const bottomBarActions = {
                 navigate(`/mobile/${city.code}/${filial.eais}/${surface}/order`)
             },
         },
-        order: {
-            back: ({ navigate }) => {
-                navigate(-1)
-            },
-        },
+        order: {},
     },
 }
 

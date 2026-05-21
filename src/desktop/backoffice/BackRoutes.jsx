@@ -16,6 +16,13 @@ import Order from './pages/horeca/orders/Order.jsx'
 import Recipe from './pages/horeca/recipes/Recipe.jsx'
 import ItemsMovement from './pages/horeca/ItemsMovement.jsx'
 
+import '../../ui/css/main.css'
+import '../../ui/css/new-main.css'
+import '../../ui/css/checkout.css'
+import '../../ui/css/films.css'
+import '../../ui/css/seance.css'
+import '../../ui/css/center.css'
+
 const ModalComponents = {
     center_order_horeca: Order,
     center_recipe: Recipe,

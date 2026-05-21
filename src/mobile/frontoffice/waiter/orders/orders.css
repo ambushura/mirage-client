@@ -1,17 +1,132 @@
 .mobile-orders {
-    flex: 1;
-    overflow-y: auto;
-    padding: 12px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 12px;
+
+    align-content: start;
+
+    padding-bottom: 12px;
     box-sizing: border-box;
+}
+
+.mobile-order-card {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 22px !important;
+
+    padding: 14px;
+
+    color: #ffffff;
 
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+
+    min-height: 240px;
+
+    transition: 0.2s ease;
+}
+
+.mobile-order-card:active {
+    transform: scale(0.985);
+}
+
+.mobile-order-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+.mobile-order-card-number {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.2;
+}
+
+.mobile-order-card-waiter {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.58);
+}
+
+.mobile-order-card-time {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.mobile-order-divider {
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.mobile-order-card-items {
+    flex: 1;
+
+    overflow-y: auto;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    padding-right: 4px;
+}
+
+.mobile-order-card-items::-webkit-scrollbar {
+    width: 4px;
+}
+
+.mobile-order-card-items::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+}
+
+.mobile-order-card-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     gap: 10px;
 
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    overscroll-behavior-y: contain;
-    scroll-behavior: smooth;
+    padding: 6px 0;
+}
+
+.mobile-order-card-item-name {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.mobile-order-card-item-qty {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.55);
+
+    white-space: nowrap;
+}
+
+.mobile-order-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 10px;
+}
+
+.mobile-order-card-persons {
+    font-size: 13px !important;
+    color: #e4e4e4;
+}
+
+.mobile-order-card-total {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.mobile-order-card-total span {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+    font-weight: 500;
 }

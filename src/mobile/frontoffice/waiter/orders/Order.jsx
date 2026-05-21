@@ -18,104 +18,52 @@ export default function Order() {
     }
 
     return (
-        <Paper
-            elevation={0}
-            sx={{
-                background: '#1B1B1B',
-                color: '#fff',
-                borderRadius: 3,
-                padding: 1.5,
-                width: '100%',
-                maxWidth: 150,
-                display: 'flex',
-                flexDirection: 'column',
-                border: '1px solid rgba(255,255,255,0.06)',
-                margin: '0 5px 5px 0',
-            }}
-        >
-            {/* HEADER */}
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    mb: 1,
-                }}
-            >
+        <Paper elevation={0} className="mobile-order-card">
+            <Box className="mobile-order-card-header">
                 <Box>
-                    <Typography fontSize={14} fontWeight={700}>
-                        №{order.number}
-                    </Typography>
+                    <Typography className="mobile-order-card-number">#{order.number}</Typography>
 
-                    <Typography fontSize={12} color="rgba(255,255,255,0.6)">
-                        {order.waiter}
-                    </Typography>
+                    <Typography className="mobile-order-card-waiter">{order.waiter}</Typography>
                 </Box>
 
-                <Typography fontSize={12} color="rgba(255,255,255,0.5)">
-                    {order.createdAt}
-                </Typography>
+                <Typography className="mobile-order-card-time">{order.createdAt}</Typography>
             </Box>
 
-            <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+            <Divider className="mobile-order-divider" />
 
-            {/* BODY */}
-            <Box
-                sx={{
-                    mt: 1,
-                    mb: 1,
-                    maxHeight: 140,
-                    overflowY: 'auto',
-                    paddingRight: 0.5,
-
-                    '&::-webkit-scrollbar': {
-                        width: 4,
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                        background: 'rgba(255,255,255,0.15)',
-                        borderRadius: 4,
-                    },
-                }}
-            >
+            <Box className="mobile-order-card-items">
                 {order.items.map((item, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            py: 0.6,
-                        }}
-                    >
-                        <Typography fontSize={12} sx={{ opacity: 0.95 }}>
+                    <Box key={index} className="mobile-order-card-item">
+                        <Typography className="mobile-order-card-item-name">
                             {index + 1}. {item.name}
                         </Typography>
 
-                        <Typography fontSize={12} color="rgba(255,255,255,0.6)">
+                        <Typography className="mobile-order-card-item-qty">
                             {item.qty} {item.unit}
                         </Typography>
                     </Box>
                 ))}
             </Box>
 
-            <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+            <Divider className="mobile-order-divider" />
 
-            {/* FOOTER */}
-            <Box
-                sx={{
-                    mt: 1,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
+            <Box className="mobile-order-card-footer">
                 <Stack direction="row" spacing={0.5} alignItems="center">
-                    <PersonRoundedIcon sx={{ fontSize: 18, opacity: 0.7 }} />
-                    <Typography fontSize={13}>{order.persons}</Typography>
+                    <PersonRoundedIcon
+                        sx={{
+                            fontSize: 18,
+                            opacity: 0.7,
+                            color: '#bdbdbd',
+                        }}
+                    />
+
+                    <Typography className="mobile-order-card-persons">{order.persons}</Typography>
                 </Stack>
 
-                <Typography fontSize={14} fontWeight={700}>
-                    {order.total.toLocaleString('ru-RU')} <span style={{ color: '#7c7c7c' }}>RUB</span>
+                <Typography className="mobile-order-card-total">
+                    {order.total.toLocaleString('ru-RU')}
+
+                    <span> RUB</span>
                 </Typography>
             </Box>
         </Paper>
