@@ -5,8 +5,10 @@ import { horeca_menu_get } from '../../../../service/fetch_service.js'
 import { useDispatch, useSelector } from 'react-redux'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import HomeIcon from '@mui/icons-material/Home'
 
-const PAGE_SIZE = 16
+const PAGE_SIZE = 12
 
 const FoodMenu = () => {
     const dispatch = useDispatch()
@@ -89,14 +91,8 @@ const FoodMenu = () => {
 
     return (
         <Box className="mobile-menu-wrapper">
-            {/* HEADER */}
             <Box className="mobile-menu-header">
-                <Button onClick={goBack} disabled={stack.length === 1}>
-                    ← Назад
-                </Button>
-
                 <Box className="mobile-menu-title">{currentFolder.title}</Box>
-
                 <Box className="page-controls">
                     <Button onClick={prevPage}>
                         <ChevronLeftIcon />
@@ -108,9 +104,20 @@ const FoodMenu = () => {
                         <ChevronRightIcon />
                     </Button>
                 </Box>
+                <Button
+                    onClick={() => {
+                        setStack([{ uid: 'Меню', title: 'Меню' }])
+                        setPage(0)
+                        setSearch('')
+                    }}
+                >
+                    <HomeIcon />
+                </Button>
+                <Button onClick={goBack} disabled={stack.length === 1}>
+                    <KeyboardArrowUpIcon />
+                </Button>
             </Box>
 
-            {/* SEARCH */}
             <TextField
                 size="small"
                 fullWidth
@@ -122,7 +129,6 @@ const FoodMenu = () => {
                 }}
             />
 
-            {/* GRID */}
             <Box className="mobile-menu-grid">
                 {Array.from({ length: 4 }).map((_, rowIndex) => (
                     <Box key={rowIndex} className="mobile-menu-row">
@@ -137,7 +143,6 @@ const FoodMenu = () => {
                             </Box>
                         ))}
 
-                        {/* добивка пустых ячеек */}
                         {Array.from({
                             length: Math.max(0, 3 - pagedItems.slice(rowIndex * 3, rowIndex * 3 + 3).length),
                         }).map((_, i) => (
