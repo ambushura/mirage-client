@@ -1,0 +1,202 @@
+/* =====================================================
+   MOBIILAYOUT - ПОЛНОЭКРАННЫЙ МАКЕТ ДЛЯ ВСЕХ ТЕЛЕФОНОВ
+   ===================================================== */
+
+/**
+ * Структура:
+ * MobileLayout (100dvh, flex column)
+ * ├── Header (фиксированная высота, flex-shrink: 0)
+ * ├── Content (гибкая высота, overflow-y: auto)
+ * └── Footer (фиксированная высота, flex-shrink: 0)
+ */
+
+.mobile-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+    background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
+
+    /* Safe area поддержка для iPhone с вырезами */
+    padding-top: max(0, env(safe-area-inset-top));
+    padding-bottom: max(0, env(safe-area-inset-bottom));
+    padding-left: max(0, env(safe-area-inset-left));
+    padding-right: max(0, env(safe-area-inset-right));
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.mobile-layout-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+
+    /* Поддержка safe-area для header */
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-bottom: 8px;
+
+    /* Glassmorphism эффект */
+    background: rgba(255, 255, 255, 0.004);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 0 0 18px 18px;
+}
+
+/* =====================================================
+   CONTENT - СКРОЛЛИРУЕМАЯ ОБЛАСТЬ
+   ===================================================== */
+
+.mobile-layout-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* Плавный скролл */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+
+    /* Padding для контента */
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    box-sizing: border-box;
+}
+
+/* Скроллбар для браузеров на основе Webkit */
+.mobile-layout-content::-webkit-scrollbar {
+    width: 12px;
+    background-color: transparent;
+}
+
+.mobile-layout-content::-webkit-scrollbar-thumb {
+    background-color: #696969;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.mobile-layout-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Firefox скроллбар */
+.mobile-layout-content {
+    scrollbar-color: #696969 transparent;
+    scrollbar-width: thin;
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.mobile-layout-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+
+    /* Поддержка safe-area для footer */
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-top: 10px;
+
+    /* Glassmorphism эффект */
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 18px 18px 0 0;
+}
+
+/* =====================================================
+   MEDIA QUERIES ДЛЯ РАЗНЫХ РАЗМЕРОВ ЭКРАНОВ
+   ===================================================== */
+
+/* Очень маленькие телефоны (высота < 600px) */
+@media (max-height: 600px) {
+    .mobile-layout-header {
+        padding-top: max(6px, env(safe-area-inset-top));
+        padding-bottom: 6px;
+    }
+
+    .mobile-layout-footer {
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
+        padding-top: 8px;
+    }
+
+    .mobile-layout-content {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}
+
+/* Планшеты в портретной ориентации */
+@media (min-width: 768px) {
+    .mobile-layout {
+        max-width: 520px;
+        margin: 0 auto;
+    }
+}
+
+/* =====================================================
+   LANDSCAPE ОРИЕНТАЦИЯ (Горизонтальная)
+   ===================================================== */
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .mobile-layout-header,
+    .mobile-layout-footer {
+        min-height: 50px;
+        height: 50px;
+    }
+
+    .mobile-layout-content {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}
+
+/* =====================================================
+   ПОДДЕРЖКА VIRTUAL KEYBOARD (когда на экране клавиатура)
+   ===================================================== */
+
+/* Для iOS Safari */
+@supports (padding: max(0px)) {
+    @media (max-height: 600px) {
+        .mobile-layout-footer {
+            margin-bottom: env(keyboard-inset-height, 0);
+        }
+    }
+}
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+
+/* Высокий контраст режим */
+@media (prefers-contrast: more) {
+    .mobile-layout-header,
+    .mobile-layout-footer {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Сниженное движение */
+@media (prefers-reduced-motion: reduce) {
+    .mobile-layout-content {
+        scroll-behavior: auto;
+    }
+}

@@ -53,7 +53,8 @@ const WAITER_MENU = [{ id: 'order', text: 'Новый', icon: 0 }]
 
 // Заказ - нижнее  меню
 const ORDER_MENU = [
-    { id: 'close-menu', text: '', icon: 2 },
+    { id: 'bill', text: 'Счет', icon: 3 },
+    { id: 'pay', text: 'Оплатить', icon: 4 },
     { id: 'back', text: 'Назад', icon: 1 },
 ]
 

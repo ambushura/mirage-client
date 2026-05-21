@@ -17,7 +17,7 @@
 
 .mobile-bottom-bar {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
     padding: 6px;
     background: rgba(255, 255, 255, 0.02);
@@ -25,6 +25,47 @@
     -webkit-backdrop-filter: blur(24px);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
+}
+
+.mobile-bottom-top-row,
+.mobile-bottom-bottom-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-bottom-top-scroll {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.mobile-bottom-top-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.mobile-bottom-folder.active {
+    background: linear-gradient(
+        135deg,
+        #ff5f8f 0%,
+        #E3000B 100%
+    ) !important;
+
+    color: white !important;
+
+    border: none !important;
+}
+
+.mobile-bottom-collapse {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: white !important;
 }
 
 /* =========================
@@ -120,4 +161,114 @@
     font-size: 11px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* =========================
+   ВЫЕЗЖАЮЩАЯ ПАНЕЛЬ МЕНЮ
+========================= */
+
+.mobile-bottom-menu-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 90px;
+    height: 50vh;
+    max-height: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+/* =========================
+   СЕКЦИИ
+========================= */
+
+.mobile-bottom-menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+}
+
+.mobile-bottom-menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    padding-left: 4px;
+}
+
+/* =========================
+   СКРОЛЛ
+========================= */
+
+.mobile-bottom-menu-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: none;
+}
+
+.mobile-bottom-menu-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================
+   CHIP (папки)
+========================= */
+
+.mobile-bottom-chip {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 12px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.mobile-bottom-chip.active {
+    background: linear-gradient(135deg, #ff5f8f 0%, #e3000b 100%) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* =========================
+   БЛЮДА (компактные карточки)
+========================= */
+
+.mobile-bottom-food-chip {
+    flex: 0 0 calc(50% - 4px) !important;
+    max-height: 80px !important;
+    border-radius: 14px !important;
+    padding: 20px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-transform: none !important;
+}
+
+.mobile-bottom-food-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

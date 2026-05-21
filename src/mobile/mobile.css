@@ -20,18 +20,27 @@
 
 html, body {
     height: 100%;
-    overflow: hidden;
-    position: fixed;
+    margin: 0;
+    padding: 0;
     width: 100%;
 }
 
 .mobile {
     height: 100dvh;
-    width: 100dvw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+    box-sizing: border-box;
+}
+
+.mobile-orders {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* region СКРОЛЛ */
@@ -57,8 +66,8 @@ html, body {
 /* region СТРАНИЦА */
 
 .mobile-page {
-    height: 100dvh;
-    width: 100dvw;
+    min-height: 100dvh;
+    width: 100%;
     display: flex;
     justify-content: center;
     background: radial-gradient(circle at top, #1b1f2a, #0a0c10 60%);
@@ -67,7 +76,6 @@ html, body {
 .mobile-page-content {
     width: 100%;
     max-width: 520px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 16px;

@@ -23,6 +23,8 @@ import FrontHandIcon from '@mui/icons-material/FrontHand'
 import AddIcon from '@mui/icons-material/Add'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import PrintIcon from '@mui/icons-material/Print'
+import ReceiptIcon from '@mui/icons-material/Receipt'
 
 const ThemeContext = createContext()
 
@@ -444,6 +446,12 @@ export const DRAWER_MENU_ICONS = [
     <LogoutIcon key="4" />,
 ]
 
-export const BOTTOM_MENU_ICONS = [<AddIcon key="0" />, <ArrowBackIcon key="1" />, <ExpandMoreIcon key="2" />]
+export const BOTTOM_MENU_ICONS = [
+    <AddIcon key="0" />,
+    <ArrowBackIcon key="1" />,
+    <ExpandMoreIcon key="2" />,
+    <PrintIcon key="3" />,
+    <ReceiptIcon key="4" />,
+]
 
 // endregion

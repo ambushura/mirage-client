@@ -1,6 +1,5 @@
-import { Box, Divider, IconButton, TextField, Typography } from '@mui/material'
+import { Box, Divider, TextField, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import './order.css'
 
 const Order = () => {
@@ -54,49 +53,6 @@ const Order = () => {
                 <Divider sx={{ opacity: 0.1 }} />
 
                 <Box className="order-total">Итого: {order.reduce((s, i) => s + i.price, 0)} RUB</Box>
-            </Box>
-
-            {/* BOTTOM — меню */}
-            <Box className="order-bottom">
-                {/* поиск */}
-                <SearchBar value={query} onChange={setQuery} onSelect={addItem} />
-
-                {/* навигация */}
-                <Box className="menu-nav">
-                    {folder && (
-                        <IconButton onClick={() => setFolder(null)}>
-                            <ArrowBackIcon />
-                        </IconButton>
-                    )}
-
-                    <Typography className="menu-title">{folder ? currentFolder?.name : 'Категории'}</Typography>
-                </Box>
-
-                {/* контент */}
-                <Box className="menu-content">
-                    {/* папки */}
-                    {!folder && (
-                        <Box className="folder-grid">
-                            {mockMenu.map((f) => (
-                                <Box key={f.id} className="folder-card" onClick={() => setFolder(f.id)}>
-                                    {f.name}
-                                </Box>
-                            ))}
-                        </Box>
-                    )}
-
-                    {/* элементы папки */}
-                    {folder && (
-                        <Box className="items-grid">
-                            {currentFolder?.items.map((item) => (
-                                <Box key={item.id} className="item-card" onClick={() => addItem(item)}>
-                                    <div>{item.name}</div>
-                                    <div>{item.price} RUB</div>
-                                </Box>
-                            ))}
-                        </Box>
-                    )}
-                </Box>
             </Box>
         </Box>
     )
