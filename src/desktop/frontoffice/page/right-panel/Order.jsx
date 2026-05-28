@@ -13,6 +13,7 @@ import Payment from './Payment.jsx'
 import {
     cinema_order_fetch,
     common_order_delete_comment,
+    common_order_fix,
     common_orders_receipts_get,
     horeca_order_fetch,
     horeca_table_delete,
@@ -34,6 +35,7 @@ import {
     setHorderPreparing,
     setPreOrderPreparing,
 } from '../../../../redux/desktop/frontoffice/ordersReducer.js'
+import HealingIcon from '@mui/icons-material/Healing'
 
 function Details({ order }) {
     return (
@@ -88,6 +90,7 @@ const OrderBody = ({
     emptyOrder,
     fetchOrder,
     deleteOrder,
+    fixOrder,
     navigateTo,
     addContact,
     dispatch,
@@ -114,6 +117,9 @@ const OrderBody = ({
                         </Button>
                         <Button variant="contained" color="secondary" onClick={fetchOrder}>
                             <CachedIcon />
+                        </Button>
+                        <Button variant="contained" color="success" onClick={fixOrder}>
+                            <HealingIcon />
                         </Button>
                         <Button variant="contained" color="primary" onClick={deleteOrder}>
                             <DeleteForeverIcon />
@@ -486,6 +492,9 @@ const Order = () => {
                                 })
                             )
                         }
+                        fixOrder={() => {
+                            dispatch(common_order_fix(filial, 'cinema', pre_order.uid))
+                        }}
                         navigateTo={() => navigate(seance_link())}
                         addContact={() => {
                             dispatch(
@@ -558,6 +567,9 @@ const Order = () => {
                                     props: { order_type: 'horeca', order: horder },
                                 })
                             )
+                        }}
+                        fixOrder={() => {
+                            dispatch(common_order_fix(filial, 'horeca', horder.uid))
                         }}
                         filial={filial}
                     />

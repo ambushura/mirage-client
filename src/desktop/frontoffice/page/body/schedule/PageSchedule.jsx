@@ -24,6 +24,8 @@ const PageSchedule = () => {
     const elementsRef = useRef(new Map())
     const [content_width, set_content_width] = useState(200)
 
+    const kiosk = useSelector((state) => state.interface.kiosk)
+
     useEffect(() => {
         const widths = Array.from(elementsRef.current.values()).map((el) => el?.getBoundingClientRect().width || 0)
         set_content_width(Math.max(...widths))
@@ -173,6 +175,9 @@ const PageSchedule = () => {
                                                 return A.localeCompare(B, 'ru', { numeric: true, sensitivity: 'base' })
                                             })
                                             .map((hall) => {
+                                                if (hall.hall?.rent && kiosk) {
+                                                    return
+                                                }
                                                 const sortedSeances = hall.seances
                                                     .slice()
                                                     .sort((a, b) => dayjs(a.beginning).valueOf() - dayjs(b.beginning).valueOf())

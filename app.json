@@ -1,0 +1,9 @@
+{
+    "plugins": ["react-native-edge-to-edge"],
+    "android": {
+        "package": "com.ambushura.client"
+    },
+    "ios": {
+        "bundleIdentifier": "com.ambushura.client"
+    }
+}

@@ -147,39 +147,38 @@ const Auth = ({ auth_opened }) => {
                     </Box>
                 </Box>
                 <Box
+                    component="form"
                     sx={{
                         display: login_auth ? 'flex' : 'none',
                         flexDirection: 'column',
-                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        gap: '10px',
                     }}
                 >
-                    <Box component="form" sx={{ backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
-                        <TextField
-                            sx={{ marginBottom: '10px' }}
-                            autoComplete="username"
-                            color="secondary"
-                            label="Логин"
-                            variant="outlined"
-                            type="text"
-                            fullWidth
-                            value={username}
-                            onChange={(e) => set_username(e.target.value)}
-                        />
-                        <TextField
-                            color="secondary"
-                            autoComplete="current-password"
-                            label="Пароль"
-                            variant="outlined"
-                            type="password"
-                            fullWidth
-                            value={password}
-                            onChange={(e) => set_password(e.target.value)}
-                        />
-                    </Box>
+                    <TextField
+                        autoComplete="username"
+                        color="secondary"
+                        label="Логин"
+                        variant="outlined"
+                        type="text"
+                        sx={{ width: '300px' }}
+                        value={username}
+                        onChange={(e) => set_username(e.target.value)}
+                    />
+                    <TextField
+                        color="secondary"
+                        autoComplete="current-password"
+                        label="Пароль"
+                        variant="outlined"
+                        type="password"
+                        sx={{ width: '300px' }}
+                        value={password}
+                        onChange={(e) => set_password(e.target.value)}
+                    />
                     <Button
                         variant="contained"
                         color="primary"
-                        sx={{ width: '100%', marginTop: '10px' }}
+                        sx={{ width: '300px' }}
                         onClick={() => {
                             apply()
                         }}

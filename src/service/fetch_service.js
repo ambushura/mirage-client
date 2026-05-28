@@ -63,6 +63,7 @@ export const ROUTE_COMMON_ORDERS_FILTERS_HALLS_GET = '/api/common/orders/filters
 export const ROUTE_COMMON_ORDERS_FILTERS_WORKPLACES_GET = '/api/common/orders/filters/workplaces/get'
 export const ROUTE_COMMON_PAYMENT_MAP_GET = '/api/common/payment_map/get'
 export const ROUTE_COMMON_ORDER_FIND = '/api/common/order/find'
+export const ROUTE_COMMON_ORDER_FIX = '/api/common/order/fix'
 export const ROUTE_COMMON_ORDER_PAYMENT = '/api/common/order/payment'
 export const ROUTE_COMMON_ORDER_PAYMENT_KIOSK = '/api/common/order/payment_kiosk'
 export const ROUTE_EQUIPMENT_KKT_OPEN_BOX = '/api/equipment/kkt/open_box'
@@ -395,6 +396,28 @@ export const common_order_find = (filial, type, value) => async (dispatch, getSt
             center,
         },
         (data) => data
+    )
+}
+
+export const common_order_fix = (filial, type, uid) => async (dispatch, getState) => {
+    const { wp, kiosk, version } = getState().interface
+    const { center } = getState().auth
+    return await makeRequest(
+        dispatch,
+        {
+            method: 'get',
+            url: `http://${filial.ip}:${filial.port}${ROUTE_COMMON_ORDER_FIX}`,
+            params: { type, uid },
+            filial,
+            wp,
+            kiosk,
+            version,
+            center,
+        },
+        (data) => {
+            dispatch(type === 'cinema' ? setCurrentPreOrder(data) : setCurrentHorder(data))
+            dispatch(type === 'cinema' ? setOrdersCinemaUpdate() : setOrdersHorecaUpdate())
+        }
     )
 }
 
